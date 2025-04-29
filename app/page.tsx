@@ -111,7 +111,7 @@ export default function Home() {
     'Printing Model maker',
     'Image Converter',
     'HTML Viewer Converter',
-    'Denture Booleaner',
+    'STL Classifier',
     'Crown Cad',
     'Denture Cad',
   ];
