@@ -10,12 +10,14 @@
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.2",
     "@tailwindcss/postcss": "^4.0.14",
+    "axios": "^1.9.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "next": "latest",
     "openai": "^4.96.0",
     "react": "latest",
     "react-dom": "latest",
+    "react-quill": "^2.0.0",
     "tailwind-merge": "^3.0.2",
     "tailwindcss-animate": "^1.0.7"
   },
