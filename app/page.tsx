@@ -474,7 +474,7 @@ export default function Home() {
           </div>
           <div className="flex gap-4">
             <a
-              href="https://www.youtube.com/@dlas"
+              href="https://www.youtube.com/@DTILAY"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-red-500"
@@ -482,7 +482,7 @@ export default function Home() {
               YouTube
             </a>
             <a
-              href="https://www.instagram.com/dlas_official"
+              href="https://www.instagram.com/dlas_official_"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-pink-400"
