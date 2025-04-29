@@ -1,41 +1,49 @@
 'use client';
+
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { useLang } from "@/components/LanguageWrapper";
+import LanguageSelector from "@/components/LanguageSelector";
 
-export default function Home() {
-  // --- 추가된 부분: 상태 관리 & 함수들 ---
+
+export default function Page() {
+  const { t } = useLang();
+
+  // --- 회원가입 로직 관련 상태 ---
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
 
-  // 이용약관 동의 체크박스
+  // 약관 동의 상태
   const [termsAgree, setTermsAgree] = useState(false);       // 필수 동의
   const [marketingAgree, setMarketingAgree] = useState(false); // 선택 동의
 
+  // "Coming Soon" 모달 상태 (Family)
+  const [showComingSoonModal, setShowComingSoonModal] = useState(false);
+
+  // 회원가입 폼 제출 처리
   const handleSignupSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // 비밀번호 일치 확인
+    // 비밀번호 확인
     if (password !== confirmPassword) {
-      setPasswordError("Passwords do not match.");
+      setPasswordError(t("signup.error.notMatch"));
       return;
     }
-
     // 필수 약관 미동의 시 막기
     if (!termsAgree) {
-      setPasswordError("You must agree to the required terms.");
+      setPasswordError(t("signup.error.mustAgree"));
       return;
     }
 
-    // 모두 통과 시
     setPasswordError("");
-    // 회원가입 폼 전송 로직 추가 (백엔드 연동 등)
-    alert(`Sign Up Successful!
-- Marketing Agreement: ${marketingAgree ? "Yes" : "No"}`);
+    alert(`
+${t("signup.success")}
+- ${t("signup.marketingLabel")}: ${marketingAgree ? t("common.yes") : t("common.no")}
+`);
   };
 
-  // 국가 목록
+  // 국가 목록 (생략 없이 전부 기재)
   const countries = [
     "Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda",
     "Argentina","Armenia","Australia","Austria","Azerbaijan","Bahamas","Bahrain",
@@ -139,7 +147,6 @@ export default function Home() {
             priority
           />
           <div className="absolute bottom-2 right-8 flex items-center space-x-8">
-            {/* 기존 탭들 */}
             {["home", "download", "buy", "contact"].map((tab) => (
               <button
                 key={tab}
@@ -148,22 +155,49 @@ export default function Home() {
                            border-b-2 border-transparent hover:border-black 
                            text-gray-700 hover:text-black"
               >
-                {tab.charAt(0).toUpperCase() + tab.slice(1)}
+                {t(`nav.${tab}`)}
               </button>
             ))}
 
-            {/* Family: 다른 화면으로 이동 + 색감 차분하게 (teal) */}
-            <Link
-              href="/family"
+            {/* Terms & Privacy 버튼 */}
+            <button
+              onClick={() => scrollToSection("terms-privacy")}
+              className="relative pb-2 transition-colors duration-200 cursor-pointer
+                         border-b-2 border-transparent hover:border-black
+                         text-gray-700 hover:text-black"
+            >
+              {t("nav.terms")}
+            </button>
+
+            {/* Family 탭: "Coming Soon" 모달 오픈 */}
+            <button
+              onClick={() => setShowComingSoonModal(true)}
               className="relative pb-2 transition-colors duration-200
                          border-b-2 border-teal-500 text-teal-600 font-semibold
                          hover:bg-teal-50 px-4 py-1 rounded"
             >
-              Family
-            </Link>
+              {t("nav.family")}
+            </button>
           </div>
         </div>
       </nav>
+
+      {/* Coming Soon 모달 (Family) */}
+      {showComingSoonModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+          <div className="bg-white p-10 rounded-2xl shadow-xl text-center relative w-80">
+            <h2 className="text-3xl font-bold mb-6">{t("family.title")}</h2>
+            <p className="text-gray-600 mb-8">{t("family.desc")}</p>
+            <button
+              onClick={() => setShowComingSoonModal(false)}
+              className="bg-black text-white px-6 py-2 rounded hover:bg-gray-800 transition"
+            >
+              {t("common.ok")}
+            </button>
+          </div>
+        </div>
+      )}  
+      
 
       {/* 우측 상단 로그인/회원가입 */}
       <div className="fixed top-6 right-6 flex gap-2 z-50">
@@ -171,13 +205,13 @@ export default function Home() {
           onClick={() => document.getElementById('login-modal')!.classList.remove('hidden')}
           className="text-sm font-medium border border-gray-300 px-4 py-2 rounded hover:bg-gray-100 transition"
         >
-          Login
+          {t("nav.login")}
         </button>
         <button
           onClick={() => document.getElementById('signup-modal')!.classList.remove('hidden')}
           className="text-sm font-medium border border-gray-300 px-4 py-2 rounded hover:bg-gray-100 transition"
         >
-          Sign Up
+          {t("nav.signup")}
         </button>
       </div>
 
@@ -186,53 +220,61 @@ export default function Home() {
         <section id="home" className="scroll-mt-[180px] text-center py-20">
           <p className="text-xl text-gray-300 mb-2">
             <span className="text-5xl font-bold block">
-              Maximize Productivity with Just One Click
+              {t("home.subtitle")}
             </span>
           </p>
-          <h1 className="text-6xl font-bold mb-8">From Hours to Seconds</h1>
+          <h1 className="text-6xl font-bold mb-8">{t("home.title")}</h1>
           <button
             onClick={() => scrollToSection("buy")}
             className="text-2xl font-bold cursor-pointer mt-6 bg-black text-white px-10 py-6 rounded hover:bg-gray-800 transition"
           >
-            Join the DLAS Family – only <span className="text-[2.2rem] font-bold">$390</span>
+            {t("home.cta")}{" "}
+            <span className="text-[2.2rem] font-bold">{t("home.price")}</span>
           </button>
           <div className="mt-16 px-6 max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-semibold mb-4 text-gray-900">Game Changer in Digital Dentistry</h2>
+            <h2 className="text-3xl font-semibold mb-4 text-gray-900">
+              {t("home.gameChangerTitle")}
+            </h2>
             <p className="text-lg text-gray-600 leading-relaxed mb-4">
-              DLAS is more than just software. It is a revolution in dental CAD automation,
-              designed to empower dental professionals with cutting-edge tools that simplify
-              complex workflows, reduce manual labor, and maximize productivity.
+              {t("home.gameChangerDesc")}
             </p>
             <p className="italic text-2xl text-gray-800 font-medium">
-              "The future of dental automation is here"
+              {t("home.gameChangerQuote")}
             </p>
           </div>
         </section>
 
         {/* 다운로드 섹션 */}
-        <section id="download" className="scroll-mt-[180px] text-center py-20 bg-gray-100">
-          <h2 className="text-4xl font-bold mb-4">Download Software</h2>
+        <section
+          id="download"
+          className="scroll-mt-[180px] text-center py-20 bg-gray-100"
+        >
+          <h2 className="text-4xl font-bold mb-4">{t("download.title")}</h2>
           <p className="text-lg text-gray-500 max-w-3xl mx-auto mt-2">
-            Click below to download the latest version of DLAS CAD Software.
+            {t("download.desc")}
           </p>
           <a
             href="/downloads/DLAS_Setup_v1.0.exe"
             download
             className="inline-block mt-6 bg-black text-white px-8 py-4 rounded hover:bg-gray-800 transition"
           >
-            Download Now
+            {t("download.button")}
           </a>
         </section>
 
         {/* 구매 섹션 */}
         <section id="buy" className="scroll-mt-[180px] py-20 px-10 bg-white">
-          <h1 className="text-4xl font-bold mb-6 text-center">Buy License</h1>
+          <h1 className="text-4xl font-bold mb-6 text-center">
+            {t("buy.title")}
+          </h1>
 
           <div className="mb-12 w-[28rem] h-[36rem] border p-10 rounded-lg shadow hover:shadow-lg transition flex flex-col items-center mx-auto">
             <div className="w-[28rem] h-[28rem] bg-gray-100 mb-6 px-8 flex items-center justify-center">
-              <span className="text-gray-400">Family License GIF Placeholder</span>
+              <span className="text-gray-400">{t("buy.familyGifPlaceholder")}</span>
             </div>
-            <div className="text-lg font-semibold text-center text-gray-800">Family License</div>
+            <div className="text-lg font-semibold text-center text-gray-800">
+              {t("buy.familyLicense")}
+            </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-items-center">
@@ -242,50 +284,55 @@ export default function Home() {
                 className="w-[28rem] h-[36rem] border p-10 rounded-lg shadow hover:shadow-lg transition flex flex-col items-center"
               >
                 <div className="w-[28rem] h-[28rem] bg-gray-200 mb-6 px-8 flex items-center justify-center">
-                  <span className="text-gray-400">GIF Placeholder</span>
+                  <span className="text-gray-400">{t("buy.moduleGif")}</span>
                 </div>
-                <div className="text-xl font-semibold text-center text-gray-800">{mod}</div>
+                <div className="text-xl font-semibold text-center text-gray-800">
+                  {mod}
+                </div>
               </div>
             ))}
           </div>
         </section>
 
         {/* 연락처 섹션 */}
-        <section id="contact" className="scroll-mt-[180px] py-20 text-center bg-gray-100">
-          <h2 className="text-4xl font-bold">Contact Us</h2>
+        <section
+          id="contact"
+          className="scroll-mt-[180px] py-20 text-center bg-gray-100"
+        >
+          <h2 className="text-4xl font-bold">{t("contact.title")}</h2>
           <p className="text-lg text-gray-500 max-w-3xl mx-auto mt-4">
-            support@dlas.io
+            {t("contact.info1")}
             <br />
-            63, Dunsan-ro, Seo-gu, Daejeon, Republic of Korea 403-817 (DLAS)
+            {t("contact.info2")}
           </p>
           <form className="mt-6 max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md">
             <div className="grid grid-cols-2 gap-4">
               <input
                 type="text"
-                placeholder="First name"
+                placeholder={t("contact.form.firstName")}
                 required
                 className="p-3 bg-gray-100 text-black border border-gray-300 rounded-lg"
               />
               <input
                 type="text"
-                placeholder="Last name"
+                placeholder={t("contact.form.lastName")}
                 required
                 className="p-3 bg-gray-100 text-black border border-gray-300 rounded-lg"
               />
               <input
                 type="email"
-                placeholder="Email address"
+                placeholder={t("contact.form.email")}
                 required
                 className="p-3 bg-gray-100 text-black border border-gray-300 rounded-lg col-span-2"
               />
               <input
                 type="text"
-                placeholder="Phone number"
+                placeholder={t("contact.form.phone")}
                 required
                 className="p-3 bg-gray-100 text-black border border-gray-300 rounded-lg col-span-2"
               />
               <textarea
-                placeholder="Message"
+                placeholder={t("contact.form.message")}
                 rows={4}
                 required
                 className="p-3 bg-gray-100 text-black border border-gray-300 rounded-lg col-span-2"
@@ -295,9 +342,123 @@ export default function Home() {
               type="submit"
               className="mt-6 bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800 w-full"
             >
-              Inquire Now
+              {t("contact.form.submit")}
             </button>
           </form>
+        </section>
+
+        {/* --- Terms & Privacy 섹션 --- */}
+        <section
+          id="terms-privacy"
+          className="scroll-mt-[180px] py-20 px-6 bg-white"
+        >
+          <div className="max-w-4xl mx-auto text-left leading-7 text-gray-700">
+            <h2 className="text-4xl font-bold mb-8 text-center">{t("terms.title")}</h2>
+
+            <h3 className="text-2xl font-bold mb-4">{t("terms.headingTerms")}</h3>
+
+            {/* Article 1 ~ 8 */}
+            <h4 className="font-semibold mb-1">{t("terms.article1.title")}</h4>
+            <p
+              className="mb-4"
+              dangerouslySetInnerHTML={{ __html: t("terms.article1.desc") }}
+            />
+
+            <h4 className="font-semibold mb-1">{t("terms.article2.title")}</h4>
+            <p
+              className="mb-4"
+              dangerouslySetInnerHTML={{ __html: t("terms.article2.desc") }}
+            />
+
+            <h4 className="font-semibold mb-1">{t("terms.article3.title")}</h4>
+            <p
+              className="mb-4"
+              dangerouslySetInnerHTML={{ __html: t("terms.article3.desc") }}
+            />
+
+            <h4 className="font-semibold mb-1">{t("terms.article4.title")}</h4>
+            <p
+              className="mb-4"
+              dangerouslySetInnerHTML={{ __html: t("terms.article4.desc") }}
+            />
+
+            <h4 className="font-semibold mb-1">{t("terms.article5.title")}</h4>
+            <p
+              className="mb-4"
+              dangerouslySetInnerHTML={{ __html: t("terms.article5.desc") }}
+            />
+
+            <h4 className="font-semibold mb-1">{t("terms.article6.title")}</h4>
+            <p
+              className="mb-4"
+              dangerouslySetInnerHTML={{ __html: t("terms.article6.desc") }}
+            />
+
+            <h4 className="font-semibold mb-1">{t("terms.article7.title")}</h4>
+            <p
+              className="mb-4"
+              dangerouslySetInnerHTML={{ __html: t("terms.article7.desc") }}
+            />
+
+            <h4 className="font-semibold mb-1">{t("terms.article8.title")}</h4>
+            <p
+              className="mb-4"
+              dangerouslySetInnerHTML={{ __html: t("terms.article8.desc") }}
+            />
+
+            <p className="mb-12">
+              <strong>{t("terms.effectiveDate")}</strong>
+            </p>
+
+            <h3 className="text-2xl font-bold mb-4">{t("privacy.headingPrivacy")}</h3>
+            <p className="mb-4">{t("privacy.intro")}</p>
+
+            <h4 className="font-semibold mb-1">{t("privacy.article1.title")}</h4>
+            <p
+              className="mb-4"
+              dangerouslySetInnerHTML={{ __html: t("privacy.article1.desc") }}
+            />
+
+            <h4 className="font-semibold mb-1">{t("privacy.article2.title")}</h4>
+            <p
+              className="mb-4"
+              dangerouslySetInnerHTML={{ __html: t("privacy.article2.desc") }}
+            />
+
+            <h4 className="font-semibold mb-1">{t("privacy.article3.title")}</h4>
+            <p
+              className="mb-4"
+              dangerouslySetInnerHTML={{ __html: t("privacy.article3.desc") }}
+            />
+
+            <h4 className="font-semibold mb-1">{t("privacy.article4.title")}</h4>
+            <p
+              className="mb-4"
+              dangerouslySetInnerHTML={{ __html: t("privacy.article4.desc") }}
+            />
+
+            <h4 className="font-semibold mb-1">{t("privacy.article5.title")}</h4>
+            <p
+              className="mb-4"
+              dangerouslySetInnerHTML={{ __html: t("privacy.article5.desc") }}
+            />
+
+            <h4 className="font-semibold mb-1">{t("privacy.article6.title")}</h4>
+            <p
+              className="mb-4"
+              dangerouslySetInnerHTML={{ __html: t("privacy.article6.desc") }}
+            />
+
+            <h4 className="font-semibold mb-1">{t("privacy.article7.title")}</h4>
+            <p
+              className="mb-4"
+              dangerouslySetInnerHTML={{ __html: t("privacy.article7.desc") }}
+            />
+
+            <p className="mb-4">
+              <strong>{t("privacy.effectiveDate")}</strong>
+            </p>
+          </div>
         </section>
       </main>
 
@@ -315,17 +476,17 @@ export default function Home() {
           >
             ×
           </button>
-          <h2 className="text-2xl font-bold mb-4 text-center">Login to DLAS</h2>
+          <h2 className="text-2xl font-bold mb-4 text-center">{t("login.title")}</h2>
           <form className="space-y-4">
             <input
               type="email"
-              placeholder="Email"
+              placeholder={t("login.form.email")}
               className="w-full p-3 border border-gray-300 rounded"
               required
             />
             <input
               type="password"
-              placeholder="Password"
+              placeholder={t("login.form.password")}
               className="w-full p-3 border border-gray-300 rounded"
               required
             />
@@ -333,11 +494,11 @@ export default function Home() {
               type="submit"
               className="w-full bg-black text-white py-3 rounded hover:bg-gray-800"
             >
-              Login
+              {t("login.form.submit")}
             </button>
           </form>
           <p className="mt-4 text-center text-sm text-gray-500">
-            Don’t have an account?{" "}
+            {t("login.form.noAccount")}{" "}
             <a
               href="#"
               className="text-blue-600 hover:underline"
@@ -349,7 +510,7 @@ export default function Home() {
                   .classList.remove('hidden');
               }}
             >
-              Sign up
+              {t("login.form.signupNow")}
             </a>
           </p>
         </div>
@@ -369,23 +530,23 @@ export default function Home() {
           >
             ×
           </button>
-          <h2 className="text-2xl font-bold mb-4 text-center">Sign Up for DLAS</h2>
+          <h2 className="text-2xl font-bold mb-4 text-center">{t("signup.title")}</h2>
           <form className="space-y-4" onSubmit={handleSignupSubmit}>
             <input
               type="text"
-              placeholder="Name"
+              placeholder={t("signup.form.name")}
               className="w-full p-3 border border-gray-300 rounded"
               required
             />
             <input
               type="email"
-              placeholder="Email"
+              placeholder={t("signup.form.email")}
               className="w-full p-3 border border-gray-300 rounded"
               required
             />
             <input
               type="password"
-              placeholder="Password"
+              placeholder={t("signup.form.password")}
               className="w-full p-3 border border-gray-300 rounded"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -393,7 +554,7 @@ export default function Home() {
             />
             <input
               type="password"
-              placeholder="Confirm Password"
+              placeholder={t("signup.form.confirmPassword")}
               className="w-full p-3 border border-gray-300 rounded"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
@@ -407,7 +568,7 @@ export default function Home() {
               className="w-full p-3 border border-gray-300 rounded"
               required
             >
-              <option value="">Select Country</option>
+              <option value="">{t("signup.form.countryPlaceholder")}</option>
               {countries.map((country, index) => (
                 <option key={index} value={country}>
                   {country}
@@ -417,20 +578,19 @@ export default function Home() {
 
             <input
               type="text"
-              placeholder="Workplace Name (Dental Lab / Clinic)"
+              placeholder={t("signup.form.workplaceName")}
               className="w-full p-3 border border-gray-300 rounded"
               required
             />
             <input
               type="text"
-              placeholder="Workplace Address"
+              placeholder={t("signup.form.workplaceAddress")}
               className="w-full p-3 border border-gray-300 rounded"
               required
             />
 
             {/* 약관 동의 체크박스 구간 */}
             <div className="text-sm text-gray-600 mt-4 space-y-2">
-              {/* 필수 약관 */}
               <label className="flex items-center">
                 <input
                   type="checkbox"
@@ -439,10 +599,9 @@ export default function Home() {
                   className="form-checkbox h-5 w-5 text-black"
                 />
                 <span className="ml-2">
-                  I agree to the <strong>Terms and Conditions</strong> (required)
+                  {t("signup.form.agreeRequired")}
                 </span>
               </label>
-              {/* 선택 약관 (마케팅 동의) */}
               <label className="flex items-center">
                 <input
                   type="checkbox"
@@ -451,7 +610,7 @@ export default function Home() {
                   className="form-checkbox h-5 w-5 text-black"
                 />
                 <span className="ml-2">
-                  I agree to receive marketing emails (optional)
+                  {t("signup.form.agreeMarketing")}
                 </span>
               </label>
             </div>
@@ -460,7 +619,7 @@ export default function Home() {
               type="submit"
               className="w-full bg-black text-white py-3 rounded hover:bg-gray-800"
             >
-              Create Account
+              {t("signup.form.submit")}
             </button>
           </form>
         </div>
@@ -470,16 +629,16 @@ export default function Home() {
       <footer className="bg-black text-white py-10 px-6 text-center mt-20">
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="text-sm">
-            © {new Date().getFullYear()} DLAS. All rights reserved.
+            © {new Date().getFullYear()} DLAS. {t("footer.rights")}
           </div>
           <div className="flex gap-4">
             <a
-              href="https://www.youtube.com/@DTILAY"
+              href="https://www.youtube.com/@Dlas-official-e6k"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-red-500"
             >
-              YouTube
+              {t("footer.youtube")}
             </a>
             <a
               href="https://www.instagram.com/dlas_official_"
@@ -487,7 +646,7 @@ export default function Home() {
               rel="noopener noreferrer"
               className="hover:text-pink-400"
             >
-              Instagram
+              {t("footer.instagram")}
             </a>
           </div>
         </div>

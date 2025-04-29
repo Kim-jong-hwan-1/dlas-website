@@ -1,14 +1,17 @@
+// app/layout.tsx
 import './globals.css';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
-import ClientHeader from '../components/ClientHeader';
-import LanguageWrapper from '../components/LanguageWrapper';
+
+// layout.tsx는 기본적으로 서버 컴포넌트
+// -> "use client"를 붙이지 마세요
+
+import ClientLayout from '@/components/ClientLayout';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin'],
 });
-
 const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
   subsets: ['latin'],
@@ -19,13 +22,22 @@ export const metadata: Metadata = {
   description: 'Dental Lab Automation Solution',
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <ClientHeader />
-        <LanguageWrapper />
-        <main>{children}</main>
+        {/* 
+          서버 컴포넌트인 layout에서
+          클라이언트 컴포넌트(ClientLayout)를 감싸면,
+          그 내부에서 LanguageWrapper를 적용할 수 있음
+        */}
+        <ClientLayout>
+          {children}
+        </ClientLayout>
       </body>
     </html>
   );
