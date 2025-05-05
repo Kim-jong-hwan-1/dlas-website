@@ -3,26 +3,71 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useLang } from "@/components/LanguageWrapper";
-import LanguageSelector from "@/components/LanguageSelector";
-
 
 export default function Page() {
   const { t } = useLang();
 
+  // --- 로그인 상태 관리 ---
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  // (1) 페이지 로드(새로고침) 시 Local Storage 확인하여 로그인 상태 복원
+  useEffect(() => {
+    const storedIsLoggedIn = localStorage.getItem("isLoggedIn");
+    const storedExpireTime = localStorage.getItem("loginExpireTime");
+
+    if (storedIsLoggedIn === "true" && storedExpireTime) {
+      const expireTime = parseInt(storedExpireTime, 10);
+      // 현재 시간이 만료 시간 전이라면, 로그인 상태 유지
+      if (Date.now() < expireTime) {
+        setIsLoggedIn(true);
+      } else {
+        // 만료되었으면 Local Storage 정리
+        localStorage.removeItem("isLoggedIn");
+        localStorage.removeItem("loginExpireTime");
+      }
+    }
+  }, []);
+
+  // (2) 로그아웃 함수
+  const handleLogout = () => {
+    // 로그인 관련 로컬스토리지 값들을 제거
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("loginExpireTime");
+    setIsLoggedIn(false);
+  };
+
+  // (3) 결제 버튼 클릭 핸들러
+const handlePaymentClick = () => {
+  if (!isLoggedIn) {
+    // 로그인 안 되어 있으면 로그인 모달 띄우기
+    document.getElementById("login-modal")?.classList.remove("hidden");
+    return;
+  }
+
+  // 로그인되어 있으면 결제 처리 시작 (추후 연동 예정)
+  alert("Proceeding to payment gateway...");
+};
+
   // --- 회원가입 로직 관련 상태 ---
+  const [idForSignup, setIdForSignup] = useState(""); // (원래 email이었지만, ID로 사용)
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
-
+  const [name, setName] = useState("");
+  const [country, setCountry] = useState("");
+  const [workplaceName, setWorkplaceName] = useState("");
+  const [workplaceAddress, setWorkplaceAddress] = useState("");
+  const [marketingAgree, setMarketingAgree] = useState(false);
   // 약관 동의 상태
-  const [termsAgree, setTermsAgree] = useState(false);       // 필수 동의
-  const [marketingAgree, setMarketingAgree] = useState(false); // 선택 동의
+  const [termsAgree, setTermsAgree] = useState(false);
 
   // "Coming Soon" 모달 상태 (Family)
   const [showComingSoonModal, setShowComingSoonModal] = useState(false);
+  const [showFamilyModal, setShowFamilyModal] = useState(false); // 추가된 부분
+
 
   // 회원가입 폼 제출 처리
-  const handleSignupSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSignupSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // 비밀번호 확인
@@ -37,10 +82,104 @@ export default function Page() {
     }
 
     setPasswordError("");
-    alert(`
-${t("signup.success")}
-- ${t("signup.marketingLabel")}: ${marketingAgree ? t("common.yes") : t("common.no")}
-`);
+
+    // 회원가입 요청할 데이터 생성
+    const requestData = {
+      email: idForSignup,
+      password,
+      name,
+      country,
+      workplace_name: workplaceName,
+      workplace_address: workplaceAddress,
+      marketing_agree: marketingAgree,
+    };
+
+    try {
+      const res = await fetch("http://localhost:8000/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestData),
+      });
+
+      const text = await res.text();
+      try {
+        const data = JSON.parse(text);
+        if (!res.ok) {
+          const message =
+            typeof data.detail === "object"
+              ? JSON.stringify(data.detail)
+              : data.detail || "알 수 없는 오류";
+          alert(`회원가입 실패: ${message}`);
+          return;
+        }
+
+        alert(`회원가입 완료: ${data.message}`);
+        // 회원가입 완료 후 모달 닫기
+        document.getElementById("signup-modal")?.classList.add("hidden");
+      } catch (e) {
+        console.error("JSON 파싱 실패", text);
+        alert("서버에서 잘못된 응답을 받았습니다.");
+      }
+    } catch (err) {
+      console.error("회원가입 중 오류", err);
+      alert("네트워크 오류");
+    }
+  };
+
+  // 로그인 로직 (토큰 발급 없음)
+  const [idForLogin, setIdForLogin] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
+
+  const handleLoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    // 로그인 요청할 데이터
+    const requestData = {
+      email: idForLogin,
+      password: loginPassword,
+    };
+
+    try {
+      const response = await fetch("http://localhost:8000/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        const message =
+          typeof errorData.detail === "object"
+            ? JSON.stringify(errorData.detail)
+            : errorData.detail || errorData.message || "Unknown Error";
+
+        alert(`Login Error: ${message}`);
+        return;
+      }
+
+      // 로그인 성공 처리
+      alert("로그인 성공!");
+      setIsLoggedIn(true);
+
+      // (3) 로그인 시 한 시간 뒤 만료 시간을 Local Storage에 저장
+      const oneHourLater = Date.now() + 60 * 60 * 1000; // 1시간 (밀리초)
+      localStorage.setItem("isLoggedIn", "true");
+      localStorage.setItem("loginExpireTime", oneHourLater.toString());
+
+      // 모달 닫기
+      document.getElementById("login-modal")!.classList.add("hidden");
+    } catch (error) {
+      console.error("Login error:", error);
+      if (error instanceof Error) {
+        alert(`로그인 중 오류: ${error.message}`);
+      } else {
+        alert("로그인 중 알 수 없는 오류가 발생했습니다.");
+      }
+    }
   };
 
   // 국가 목록 (생략 없이 전부 기재)
@@ -169,15 +308,7 @@ ${t("signup.success")}
               {t("nav.terms")}
             </button>
 
-            {/* Family 탭: "Coming Soon" 모달 오픈 */}
-            <button
-              onClick={() => setShowComingSoonModal(true)}
-              className="relative pb-2 transition-colors duration-200
-                         border-b-2 border-teal-500 text-teal-600 font-semibold
-                         hover:bg-teal-50 px-4 py-1 rounded"
-            >
-              {t("nav.family")}
-            </button>
+            
           </div>
         </div>
       </nav>
@@ -196,23 +327,47 @@ ${t("signup.success")}
             </button>
           </div>
         </div>
-      )}  
-      
+      )}
 
-      {/* 우측 상단 로그인/회원가입 */}
+      {/* 우측 상단 버튼들 */}
       <div className="fixed top-6 right-6 flex gap-2 z-50">
-        <button
-          onClick={() => document.getElementById('login-modal')!.classList.remove('hidden')}
-          className="text-sm font-medium border border-gray-300 px-4 py-2 rounded hover:bg-gray-100 transition"
-        >
-          {t("nav.login")}
-        </button>
-        <button
-          onClick={() => document.getElementById('signup-modal')!.classList.remove('hidden')}
-          className="text-sm font-medium border border-gray-300 px-4 py-2 rounded hover:bg-gray-100 transition"
-        >
-          {t("nav.signup")}
-        </button>
+        {!isLoggedIn ? (
+          <>
+            {/* 로그인 & 회원가입 버튼 */}
+            <button
+              onClick={() =>
+                document.getElementById("login-modal")!.classList.remove("hidden")
+              }
+              className="text-sm font-medium border border-gray-300 px-4 py-2 rounded hover:bg-gray-100 transition"
+            >
+              {t("nav.login")}
+            </button>
+            <button
+              onClick={() =>
+                document.getElementById("signup-modal")!.classList.remove("hidden")
+              }
+              className="text-sm font-medium border border-gray-300 px-4 py-2 rounded hover:bg-gray-100 transition"
+            >
+              {t("nav.signup")}
+            </button>
+          </>
+        ) : (
+          <>
+            {/* MY & Logout 버튼 */}
+            <button
+              onClick={() => alert("MY 페이지로 이동(예시)")}
+              className="text-sm font-medium border border-gray-300 px-4 py-2 rounded hover:bg-gray-100 transition"
+            >
+              MY
+            </button>
+            <button
+              onClick={handleLogout}
+              className="text-sm font-medium border border-gray-300 px-4 py-2 rounded hover:bg-gray-100 transition"
+            >
+              Logout
+            </button>
+          </>
+        )}
       </div>
 
       <main className="pt-[180px]">
@@ -268,7 +423,10 @@ ${t("signup.success")}
             {t("buy.title")}
           </h1>
 
-          <div className="mb-12 w-[28rem] h-[36rem] border p-10 rounded-lg shadow hover:shadow-lg transition flex flex-col items-center mx-auto">
+          <div
+               className="mb-12 w-[28rem] h-[36rem] border p-10 rounded-lg shadow hover:shadow-lg transition flex flex-col items-center mx-auto cursor-pointer"
+                  onClick={() => setShowFamilyModal(true)}
+>
             <div className="w-[28rem] h-[28rem] bg-gray-100 mb-6 px-8 flex items-center justify-center">
               <span className="text-gray-400">{t("buy.familyGifPlaceholder")}</span>
             </div>
@@ -278,19 +436,30 @@ ${t("signup.success")}
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-items-center">
-            {modules.map((mod, i) => (
-              <div
-                key={i}
-                className="w-[28rem] h-[36rem] border p-10 rounded-lg shadow hover:shadow-lg transition flex flex-col items-center"
-              >
-                <div className="w-[28rem] h-[28rem] bg-gray-200 mb-6 px-8 flex items-center justify-center">
-                  <span className="text-gray-400">{t("buy.moduleGif")}</span>
-                </div>
-                <div className="text-xl font-semibold text-center text-gray-800">
-                  {mod}
-                </div>
-              </div>
-            ))}
+          {modules.map((mod, i) => (
+  <div
+    key={i}
+    className="w-[28rem] h-[36rem] border p-10 rounded-lg shadow hover:shadow-lg transition flex flex-col items-center"
+  >
+    <div className="w-[28rem] h-[28rem] bg-gray-200 mb-6 px-8 flex items-center justify-center">
+      {mod === "Transfer Jig Maker" ? (
+        <Image
+          src="/gifs/transfer_jig.gif"
+          alt={`${mod} gif`}
+          width={200}
+          height={200}
+          className="object-contain"
+        />
+      ) : (
+        <span className="text-gray-400 text-2xl font-bold">Coming Soon</span>
+      )}
+    </div>
+    <div className="text-xl font-semibold text-center text-gray-800">
+      {mod}
+    </div>
+  </div>
+))}
+
           </div>
         </section>
 
@@ -305,46 +474,7 @@ ${t("signup.success")}
             <br />
             {t("contact.info2")}
           </p>
-          <form className="mt-6 max-w-2xl mx-auto bg-white p-6 rounded-lg shadow-md">
-            <div className="grid grid-cols-2 gap-4">
-              <input
-                type="text"
-                placeholder={t("contact.form.firstName")}
-                required
-                className="p-3 bg-gray-100 text-black border border-gray-300 rounded-lg"
-              />
-              <input
-                type="text"
-                placeholder={t("contact.form.lastName")}
-                required
-                className="p-3 bg-gray-100 text-black border border-gray-300 rounded-lg"
-              />
-              <input
-                type="email"
-                placeholder={t("contact.form.email")}
-                required
-                className="p-3 bg-gray-100 text-black border border-gray-300 rounded-lg col-span-2"
-              />
-              <input
-                type="text"
-                placeholder={t("contact.form.phone")}
-                required
-                className="p-3 bg-gray-100 text-black border border-gray-300 rounded-lg col-span-2"
-              />
-              <textarea
-                placeholder={t("contact.form.message")}
-                rows={4}
-                required
-                className="p-3 bg-gray-100 text-black border border-gray-300 rounded-lg col-span-2"
-              ></textarea>
-            </div>
-            <button
-              type="submit"
-              className="mt-6 bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800 w-full"
-            >
-              {t("contact.form.submit")}
-            </button>
-          </form>
+          
         </section>
 
         {/* --- Terms & Privacy 섹션 --- */}
@@ -460,9 +590,94 @@ ${t("signup.success")}
             </p>
           </div>
         </section>
+        {showFamilyModal && (
+  <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center px-6 py-10 overflow-y-auto">
+    <div className="bg-white p-8 rounded-xl shadow-xl w-full max-w-[1100px] h-fit relative">
+      <button
+        onClick={() => setShowFamilyModal(false)}
+        className="absolute top-4 right-4 text-gray-400 hover:text-black text-2xl"
+      >
+        ×
+      </button>
+      <h2 className="text-3xl font-bold mb-4 text-center">Family License Information</h2>
+
+      {/* Description */}
+      <div className="text-gray-700 text-sm leading-relaxed space-y-2 mb-6">
+        <p>We are looking for partners to grow with DLAS. Only those leading digital innovation in dental labs should join.</p>
+        <p>If you don’t understand what innovation is, or you're a beginner or inexperienced, please do not sign up.</p>
+        <p>Our automation programs may have bugs depending on your computer environment. Report them, and we’ll improve.</p>
+        <p>We recommend using the free license first before purchasing.</p>
+        <p>After v2.0.0, the family license will likely increase in value. One user can own multiple licenses, and reselling is allowed.</p>
+      </div>
+
+      {/* Pricing Table */}
+      <div className="overflow-x-auto">
+        <table className="w-full text-sm border border-gray-300 mb-4 whitespace-nowrap">
+          <thead>
+            <tr className="bg-gray-100">
+              <th className="p-2 border text-left">Module</th>
+              <th className="p-2 border text-center">
+                General User<br />
+                <span className="text-xs text-gray-600">After v2.0.0 Release</span>
+              </th>
+              <th className="p-2 border text-center">
+                Family<br />
+                <span className="text-xs text-orange-600 font-bold">ONLY before v2.0.0</span>
+              </th>
+              <th className="p-2 border text-left">Description</th>
+            </tr>
+          </thead>
+          <tbody className="text-xs">
+            {[
+              ["Bite Finder", true, "$1,090", "Free for life", "Revolutionary bite locator for model-less workflows"],
+              ["Transfer Jig Maker", false, "$790", "Free for life", "Automated jig generation software"],
+              ["Fast & Easy Modifier", true, "$590", "Free for life", "Quick modifier (hook, hole, attachment)"],
+              ["Printing Model Maker", true, "$590", "Free for life", "Lightweight model creator"],
+              ["Image Converter", true, "$390", "Free for life", "Convert STL to image quickly"],
+              ["HTML Viewer Converter", true, "$390", "Free for life", "Convert STL to HTML viewer"],
+              ["STL Classifier", true, "$590", "Free for life", "Classify STL by color and height"],
+              ["Crown CAD", true, "$790", "Free for life", ""],
+              ["Denture CAD", true, "$790", "Free for life", ""],
+              ["...new module 1", true, "$790", "Free for life", ""],
+              ["...new module 2", true, "$790", "Free for life", ""],
+              ["...new module 3", true, "$790", "Free for life", ""],
+              ["AI DLAS CAD", true, "$59/month", "$5.9/month", ""],
+            ].map(([title, isComingSoon, price1, price2, desc], idx) => (
+              <tr key={idx}>
+                <td className="p-2 border">
+                  {title}{" "}
+                  {isComingSoon && (
+                    <span className="text-red-500 text-xs">(Coming Soon)</span>
+                  )}
+                </td>
+                <td className="p-2 border text-center">{price1}</td>
+                <td className="p-2 border text-center">{price2}</td>
+                <td className="p-2 border">{desc}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+     
+      {/* Payment Button */}
+      <div className="text-center mt-6">
+        <button
+    className="bg-black text-white px-8 py-3 rounded hover:bg-gray-800 transition"
+    onClick={() => alert("Payment integration coming soon.")}
+  >
+    Proceed to Payment (Coming Soon)
+        </button>
+      </div>
+
+    </div>
+  </div>
+)}
+
+
       </main>
 
-      {/* 로그인 모달 */}
+      {/* 로그인 모달 (토큰 발급 없이 단순 로그인) */}
       <div
         id="login-modal"
         className="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-center justify-center"
@@ -471,22 +686,28 @@ ${t("signup.success")}
           <button
             className="absolute top-2 right-3 text-gray-500 hover:text-black"
             onClick={() =>
-              document.getElementById('login-modal')!.classList.add('hidden')
+              document.getElementById("login-modal")!.classList.add("hidden")
             }
           >
             ×
           </button>
-          <h2 className="text-2xl font-bold mb-4 text-center">{t("login.title")}</h2>
-          <form className="space-y-4">
+          <h2 className="text-2xl font-bold mb-4 text-center">
+            {t("login.title")}
+          </h2>
+          <form className="space-y-4" onSubmit={handleLoginSubmit}>
             <input
-              type="email"
-              placeholder={t("login.form.email")}
+              type="text"
+              placeholder="ID"
+              value={idForLogin}
+              onChange={(e) => setIdForLogin(e.target.value)}
               className="w-full p-3 border border-gray-300 rounded"
               required
             />
             <input
               type="password"
               placeholder={t("login.form.password")}
+              value={loginPassword}
+              onChange={(e) => setLoginPassword(e.target.value)}
               className="w-full p-3 border border-gray-300 rounded"
               required
             />
@@ -504,10 +725,10 @@ ${t("signup.success")}
               className="text-blue-600 hover:underline"
               onClick={(e) => {
                 e.preventDefault();
-                document.getElementById('login-modal')!.classList.add('hidden');
+                document.getElementById("login-modal")!.classList.add("hidden");
                 document
-                  .getElementById('signup-modal')!
-                  .classList.remove('hidden');
+                  .getElementById("signup-modal")!
+                  .classList.remove("hidden");
               }}
             >
               {t("login.form.signupNow")}
@@ -525,23 +746,30 @@ ${t("signup.success")}
           <button
             className="absolute top-2 right-3 text-gray-500 hover:text-black"
             onClick={() =>
-              document.getElementById('signup-modal')!.classList.add('hidden')
+              document.getElementById("signup-modal")!.classList.add("hidden")
             }
           >
             ×
           </button>
-          <h2 className="text-2xl font-bold mb-4 text-center">{t("signup.title")}</h2>
+          <h2 className="text-2xl font-bold mb-4 text-center">
+            {t("signup.title")}
+          </h2>
           <form className="space-y-4" onSubmit={handleSignupSubmit}>
             <input
               type="text"
               placeholder={t("signup.form.name")}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               className="w-full p-3 border border-gray-300 rounded"
               required
             />
+            {/* ID 필드 */}
             <input
-              type="email"
-              placeholder={t("signup.form.email")}
+              type="text"
+              placeholder="ID"
               className="w-full p-3 border border-gray-300 rounded"
+              value={idForSignup}
+              onChange={(e) => setIdForSignup(e.target.value)}
               required
             />
             <input
@@ -565,6 +793,8 @@ ${t("signup.success")}
             )}
 
             <select
+              value={country}
+              onChange={(e) => setCountry(e.target.value)}
               className="w-full p-3 border border-gray-300 rounded"
               required
             >
@@ -579,12 +809,16 @@ ${t("signup.success")}
             <input
               type="text"
               placeholder={t("signup.form.workplaceName")}
+              value={workplaceName}
+              onChange={(e) => setWorkplaceName(e.target.value)}
               className="w-full p-3 border border-gray-300 rounded"
               required
             />
             <input
               type="text"
               placeholder={t("signup.form.workplaceAddress")}
+              value={workplaceAddress}
+              onChange={(e) => setWorkplaceAddress(e.target.value)}
               className="w-full p-3 border border-gray-300 rounded"
               required
             />
