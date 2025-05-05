@@ -409,7 +409,7 @@ const handlePaymentClick = () => {
             {t("download.desc")}
           </p>
           <a
-            href="/downloads/DLAS_Setup_v1.0.exe"
+            href="/downloads/DLAS_Setup.exe"
             download
             className="inline-block mt-6 bg-black text-white px-8 py-4 rounded hover:bg-gray-800 transition"
           >
