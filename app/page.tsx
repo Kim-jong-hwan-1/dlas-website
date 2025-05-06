@@ -628,35 +628,33 @@ const handlePaymentClick = () => {
             </tr>
           </thead>
           <tbody className="text-xs">
-            {[
-              ["Bite Finder", true, "$1,090", "Free for life", "Revolutionary bite locator for model-less workflows"],
-              ["Transfer Jig Maker", false, "$790", "Free for life", "Automated jig generation software"],
-              ["Fast & Easy Modifier", true, "$590", "Free for life", "Quick modifier (hook, hole, attachment)"],
-              ["Printing Model Maker", true, "$590", "Free for life", "Lightweight model creator"],
-              ["Image Converter", true, "$390", "Free for life", "Convert STL to image quickly"],
-              ["HTML Viewer Converter", true, "$390", "Free for life", "Convert STL to HTML viewer"],
-              ["STL Classifier", true, "$590", "Free for life", "Classify STL by color and height"],
-              ["Crown CAD", true, "$790", "Free for life", ""],
-              ["Denture CAD", true, "$790", "Free for life", ""],
-              ["...new module 1", true, "$790", "Free for life", ""],
-              ["...new module 2", true, "$790", "Free for life", ""],
-              ["...new module 3", true, "$790", "Free for life", ""],
-              ["AI DLAS CAD", true, "$59/month", "$5.9/month", ""],
-            ].map(([title, isComingSoon, price1, price2, desc], idx) => (
-              <tr key={idx}>
-                <td className="p-2 border">
-                  {title}{" "}
-                  {isComingSoon && (
-                    <span className="text-red-500 text-xs">(Coming Soon)</span>
-                  )}
-                </td>
-                <td className="p-2 border text-center">{price1}</td>
-                <td className="p-2 border text-center">{price2}</td>
-                <td className="p-2 border">{desc}</td>
-              </tr>
-            ))}
-          </tbody>
+  {[
+    ["Transfer Jig Maker", "$790", "Free for life", "Automated jig generation software"],
+    ["STL Classifier (Expected May 2025)", "$590", "Free for life", "Classify STL by color and height"],
+    ["HTML Viewer Converter (Expected May 2025)", "$390", "Free for life", "Convert STL to HTML viewer"],
+    ["Image Converter (Expected May 2025)", "$390", "Free for life", "Convert STL to image quickly"],
+    ["Printing Model Maker (Expected June 2025)", "$590", "Free for life", "Lightweight model creator"],
+    ["Bite Finder (Expected June 2025)", "$1,090", "Free for life", "Revolutionary bite locator for model-less workflows"],
+    ["Fast & Easy Modifier (Expected June 2025)", "$590", "Free for life", "Quick modifier (hook, hole, attachment)"],
+    ["Denture CAD (Expected 2025)", "$790", "Free for life", "Arrangement library, labial facing, custom tray"],
+    ["Crown CAD (Expected 2025)", "$790", "Free for life", "Integrated crown CAD with the best features"],
+    ["...new module 1 (Coming Soon)", "$790", "Free for life", ""],
+    ["...new module 2 (Coming Soon)", "$790", "Free for life", ""],
+    ["...new module 3 (Coming Soon)", "$790", "Free for life", ""],
+    ["AI DLAS CAD (Expected 2026)", "$59/month", "$5.9/month", ""],
+  ].map(([title, price1, price2, desc], idx) => (
+    <tr key={idx}>
+      <td className="p-2 border">{title}</td>
+      <td className="p-2 border text-center">{price1}</td>
+      <td className="p-2 border text-center">{price2}</td>
+      <td className="p-2 border">{desc}</td>
+    </tr>
+  ))}
+</tbody>
+
         </table>
+        <p className="text-xs text-gray-500 text-right mt-2">※ Plans may be subject to change.</p>
+
       </div>
 
      
