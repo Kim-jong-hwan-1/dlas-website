@@ -95,7 +95,7 @@ const handlePaymentClick = () => {
     };
 
     try {
-      const res = await fetch("http://localhost:8000/auth/register", {
+      const res = await fetch("https://www.dlas.io/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -142,7 +142,7 @@ const handlePaymentClick = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:8000/auth/login", {
+      const response = await fetch("https://www.dlas.io/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
