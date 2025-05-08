@@ -806,7 +806,7 @@ const handlePaymentClick = () => {
 
             <input
               type="text"
-              placeholder={t("signup.form.workplaceName")}
+              placeholder={`${t("signup.form.phoneNumber")} (Used for password recovery)`}
               value={workplaceName}
               onChange={(e) => setWorkplaceName(e.target.value)}
               className="w-full p-3 border border-gray-300 rounded"
@@ -814,7 +814,7 @@ const handlePaymentClick = () => {
             />
             <input
               type="text"
-              placeholder={t("signup.form.workplaceAddress")}
+              placeholder={`${t("signup.form.email")} (Used for password recovery)`}
               value={workplaceAddress}
               onChange={(e) => setWorkplaceAddress(e.target.value)}
               className="w-full p-3 border border-gray-300 rounded"
