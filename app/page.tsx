@@ -95,7 +95,7 @@ const handlePaymentClick = () => {
     };
 
     try {
-      const res = await fetch("https://www.dlas.io/auth/register", {
+      const res = await fetch("https://license-server-697p.onrender.com/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -142,7 +142,7 @@ const handlePaymentClick = () => {
     };
 
     try {
-      const response = await fetch("https://www.dlas.io/auth/login", {
+      const response = await fetch("https://license-server-697p.onrender.com/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
