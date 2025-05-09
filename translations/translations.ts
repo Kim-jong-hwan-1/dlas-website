@@ -1,5 +1,3 @@
-// translations/translations.ts
-
 export const translations = {
   /////////////////////////////////////////////////////////////////////
   // 1. 영어 (en)
@@ -193,9 +191,25 @@ of your personal data at any time.`,
       youtube: "YouTube",
       instagram: "Instagram",
     },
+
+    /////////////////////////////////////////////////////////////////////////
+    // Family 모달 번역
+    /////////////////////////////////////////////////////////////////////////
     family: {
-      title: "Coming Soon!",
-      desc: "The Family community page is under preparation.",
+      modalTitle: "Family License Information",
+      desc1:
+        "We are looking for partners to grow with DLAS. Only those leading digital innovation in dental labs should join.",
+      desc2:
+        "If you don’t understand what innovation is, or you're a beginner or inexperienced, please do not sign up.",
+      desc3:
+        "Our automation programs may have bugs depending on your computer environment. Report them, and we’ll improve.",
+      desc4:
+        "We recommend using the free license first before purchasing.",
+      desc5:
+        "After v2.0.0, the family license will likely increase in value. One user can own multiple licenses, and reselling is allowed.",
+      tableNote: "※ Plans may be subject to change.",
+      paymentBtn: "Proceed to Payment (Coming Soon)",
+      paymentMsg: "Payment integration coming soon.",
     },
   },
 
@@ -382,9 +396,25 @@ of your personal data at any time.`,
       youtube: "유튜브",
       instagram: "인스타그램",
     },
+
+    /////////////////////////////////////////////////////////////////////////
+    // Family 모달 번역
+    /////////////////////////////////////////////////////////////////////////
     family: {
-      title: "준비 중!",
-      desc: "패밀리 커뮤니티 페이지가 준비되고 있습니다.",
+      modalTitle: "패밀리 라이선스 안내",
+      desc1:
+        "DLAS와 함께 성장할 파트너를 찾고 있습니다. 디지털 혁신을 주도하는 치과 랩만 참여하세요.",
+      desc2:
+        "혁신이 무엇인지 이해하지 못하거나, 초보 혹은 경험이 없는 경우에는 가입을 자제해 주세요.",
+      desc3:
+        "자동화 프로그램은 컴퓨터 환경에 따라 버그가 있을 수 있습니다. 보고해주시면 개선하겠습니다.",
+      desc4:
+        "구매 전에 무료 라이선스를 먼저 사용하는 것을 권장합니다.",
+      desc5:
+        "v2.0.0 이후에는 패밀리 라이선스 가치가 높아질 수 있습니다. 한 사람이 여러 개를 구매할 수 있으며, 재판매도 허용합니다.",
+      tableNote: "※ 계획은 사전 통지 없이 변경될 수 있습니다.",
+      paymentBtn: "결제 진행 (준비 중)",
+      paymentMsg: "결제 기능이 곧 추가될 예정입니다.",
     },
   },
 };

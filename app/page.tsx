@@ -51,7 +51,7 @@ export default function Page() {
 
   // "Coming Soon" 모달 상태 (Family)
   const [showComingSoonModal, setShowComingSoonModal] = useState(false);
-  const [showFamilyModal, setShowFamilyModal] = useState(false); // 추가된 부분
+  const [showFamilyModal, setShowFamilyModal] = useState(false);
 
   // 회원가입 폼 제출 처리
   const handleSignupSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -304,8 +304,8 @@ export default function Page() {
       <div
         className="
           fixed 
-          top-6 left-6       /* 모바일 기본: 위쪽 왼쪽 */
-          sm:top-6 sm:right-6 sm:left-auto /* PC 이상에서는 오른쪽 위로 이동 */
+          top-6 left-6
+          sm:top-6 sm:right-6 sm:left-auto
           flex gap-2 z-50
         "
       >
@@ -357,15 +357,11 @@ export default function Page() {
             </span>
           </p>
           <h1 className="text-6xl font-bold mb-8">{t("home.title")}</h1>
-          {/* 
-            기존 handlePaymentClick -> Family Modal 열기
-            텍스트도 "Join the DLAS Family – only $390" 로 수정
-          */}
           <button
             onClick={() => setShowFamilyModal(true)}
             className="text-2xl font-bold cursor-pointer mt-6 bg-black text-white px-10 py-6 rounded hover:bg-gray-800 transition"
           >
-            Join the DLAS Family – only $390
+            {t("home.cta")} {t("home.price")}
           </button>
           <div className="mt-16 px-6 max-w-4xl mx-auto text-center">
             <h2 className="text-3xl font-semibold mb-4 text-gray-900">
@@ -569,6 +565,7 @@ export default function Page() {
           </div>
         </section>
 
+        {/* 패밀리 라이선스 모달 */}
         {showFamilyModal && (
           <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center px-6 py-10 overflow-y-auto">
             <div className="bg-white p-8 rounded-xl shadow-xl w-full max-w-[1100px] h-fit relative">
@@ -578,15 +575,17 @@ export default function Page() {
               >
                 ×
               </button>
-              <h2 className="text-3xl font-bold mb-4 text-center">Family License Information</h2>
+              <h2 className="text-3xl font-bold mb-4 text-center">
+                {t("family.modalTitle")}
+              </h2>
 
               {/* Description */}
               <div className="text-gray-700 text-sm leading-relaxed space-y-2 mb-6">
-                <p>We are looking for partners to grow with DLAS. Only those leading digital innovation in dental labs should join.</p>
-                <p>If you don’t understand what innovation is, or you're a beginner or inexperienced, please do not sign up.</p>
-                <p>Our automation programs may have bugs depending on your computer environment. Report them, and we’ll improve.</p>
-                <p>We recommend using the free license first before purchasing.</p>
-                <p>After v2.0.0, the family license will likely increase in value. One user can own multiple licenses, and reselling is allowed.</p>
+                <p>{t("family.desc1")}</p>
+                <p>{t("family.desc2")}</p>
+                <p>{t("family.desc3")}</p>
+                <p>{t("family.desc4")}</p>
+                <p>{t("family.desc5")}</p>
               </div>
 
               {/* Pricing Table */}
@@ -631,16 +630,18 @@ export default function Page() {
                     ))}
                   </tbody>
                 </table>
-                <p className="text-xs text-gray-500 text-right mt-2">※ Plans may be subject to change.</p>
+                <p className="text-xs text-gray-500 text-right mt-2">
+                  {t("family.tableNote")}
+                </p>
               </div>
 
               {/* Payment Button */}
               <div className="text-center mt-6">
                 <button
                   className="bg-black text-white px-8 py-3 rounded hover:bg-gray-800 transition"
-                  onClick={() => alert("Payment integration coming soon.")}
+                  onClick={() => alert(t("family.paymentMsg"))}
                 >
-                  Proceed to Payment (Coming Soon)
+                  {t("family.paymentBtn")}
                 </button>
               </div>
             </div>
@@ -648,7 +649,7 @@ export default function Page() {
         )}
       </main>
 
-      {/* 로그인 모달 (토큰 발급 없이 단순 로그인) */}
+      {/* 로그인 모달 */}
       <div
         id="login-modal"
         className="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-center justify-center"
@@ -803,9 +804,7 @@ export default function Page() {
                   onChange={(e) => setTermsAgree(e.target.checked)}
                   className="form-checkbox h-5 w-5 text-black"
                 />
-                <span className="ml-2">
-                  {t("signup.form.agreeRequired")}
-                </span>
+                <span className="ml-2">{t("signup.form.agreeRequired")}</span>
               </label>
               <label className="flex items-center">
                 <input
@@ -814,9 +813,7 @@ export default function Page() {
                   onChange={(e) => setMarketingAgree(e.target.checked)}
                   className="form-checkbox h-5 w-5 text-black"
                 />
-                <span className="ml-2">
-                  {t("signup.form.agreeMarketing")}
-                </span>
+                <span className="ml-2">{t("signup.form.agreeMarketing")}</span>
               </label>
             </div>
 
