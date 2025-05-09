@@ -283,7 +283,7 @@ const handlePaymentClick = () => {
   alt="DLAS Logo"
   width={600}
   height={400}
-  className="object-contain max-w-full sm:max-w-[600px]"
+  className="object-contain max-w-full sm:max-w-[600px] mx-auto"
             priority
           />
           <div className="absolute bottom-2 right-4 sm:right-8 flex flex-wrap items-center gap-x-4 gap-y-2">
