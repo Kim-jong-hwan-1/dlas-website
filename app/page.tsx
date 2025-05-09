@@ -267,15 +267,16 @@ const handlePaymentClick = () => {
     <div className="min-h-screen bg-white text-black relative">
       {/* 왼쪽 상단 로고 */}
       <Image
-        src="/left-up.png"
-        alt="Top Left Logo"
-        width={120}
-        height={120}
-        className="fixed top-4 left-4 z-50"
-      />
+  src="/left-up.png"
+  alt="Top Left Logo"
+  width={120}
+  height={120}
+  className="fixed top-4 left-4 z-50 hidden sm:block"
+/>
+
 
       {/* 상단 네비게이션 */}
-      <nav className="fixed top-0 left-0 w-full bg-white py-4 px-8 shadow-lg z-40">
+      <nav className="hidden sm:block fixed top-0 left-0 w-full bg-white py-4 px-8 shadow-lg z-40">
         <div className="flex justify-center items-center relative">
         <Image
   src="/logo.png"

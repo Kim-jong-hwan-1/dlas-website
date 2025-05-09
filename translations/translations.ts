@@ -22,7 +22,7 @@ export const translations = {
       price: "$390",
       gameChangerTitle: "Game Changer in Digital Dentistry",
       gameChangerDesc:
-        "DLAS is more than just software. It is a revolution in dental CAD automation, designed to empower dental professionals with cutting-edge tools that simplify complex workflows, reduce manual labor, and maximize productivity.",
+        "DLAS is more than just a software. It is a revolution in dental CAD automation, designed to empower dental professionals with cutting-edge tools that simplify complex workflows, reduce manual labor, and maximize productivity.",
       gameChangerQuote: `"The future of dental automation is here"`,
     },
     download: {
@@ -146,7 +146,7 @@ of your personal data at any time.`,
       },
       article7: {
         title: "Article 7 (Data Protection Officer)",
-        desc: `- Officer: Kyunghee Seo<br/>
+        desc: `- Officer: JongHwan Kim<br/>
 - Email: support@dlas.io`,
       },
       effectiveDate: "Effective Date: April 29, 2025",
@@ -336,7 +336,7 @@ of your personal data at any time.`,
       },
       article7: {
         title: "제7조 (개인정보 보호책임자)",
-        desc: `- 책임자: 서경희<br/>
+        desc: `- 책임자: 김종환<br/>
 - 이메일: support@dlas.io`,
       },
       effectiveDate: "시행일자: 2025년 4월 29일",
