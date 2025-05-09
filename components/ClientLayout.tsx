@@ -19,9 +19,10 @@ export default function ClientLayout({
       */}
 
       {/* 우측 상단 언어 선택 드롭다운 */}
-      <div style={{ position: 'fixed', top: 20, right: 220, zIndex: 9999 }}>
-        <LanguageSelector />
-      </div>
+      <div className="fixed top-4 right-4 sm:right-[220px] z-50">
+  <LanguageSelector />
+</div>
+
 
       {/* 실제 페이지 내용 */}
       {children}

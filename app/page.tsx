@@ -277,15 +277,16 @@ const handlePaymentClick = () => {
       {/* 상단 네비게이션 */}
       <nav className="fixed top-0 left-0 w-full bg-white py-4 px-8 shadow-lg z-40">
         <div className="flex justify-center items-center relative">
-          <Image
-            src="/logo.png"
-            alt="DLAS Logo"
-            width={600}
-            height={400}
-            className="object-contain"
+        <Image
+  src="/logo.png"
+  alt="DLAS Logo"
+  width={600}
+  height={400}
+  className="object-contain max-w-full sm:max-w-[600px]"
             priority
           />
-          <div className="absolute bottom-2 right-8 flex items-center space-x-8">
+          <div className="absolute bottom-2 right-4 sm:right-8 flex flex-wrap items-center gap-x-4 gap-y-2">
+
             {["home", "download", "buy", "contact"].map((tab) => (
               <button
                 key={tab}
