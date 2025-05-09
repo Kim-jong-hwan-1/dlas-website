@@ -1,3 +1,4 @@
+// components/LanguageSelector.tsx
 'use client';
 
 import { useState } from 'react';
@@ -14,34 +15,68 @@ export default function LanguageSelector() {
 
   const handleSelect = (code: string) => {
     setLang(code as 'en' | 'ko');
-    localStorage.setItem('selectedLanguage', code);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('selectedLanguage', code);
+    }
     setOpen(false);
   };
 
   return (
-    <div className="relative w-fit sm:absolute sm:top-5 sm:right-[220px]">
-      <button
-        onClick={() => setOpen(!open)}
-        className="px-3 py-2 border border-gray-300 rounded bg-white text-sm"
-      >
-        {languages.find((l) => l.code === lang)?.label}
-      </button>
+    <>
+      {/* 미디어 쿼리를 위한 스타일 삽입 */}
+      <style>
+        {`
+          @media (max-width: 768px) {
+            .language-dropdown {
+              top: 60px !important;
+              left: 0 !important;
+            }
+          }
+        `}
+      </style>
 
-      {open && (
-        <div className="absolute top-12 left-0 bg-white border border-gray-300 rounded shadow">
-          {languages.map((l) => (
-            <div
-              key={l.code}
-              onClick={() => handleSelect(l.code)}
-              className={`px-4 py-2 cursor-pointer hover:bg-gray-100 ${
-                l.code === lang ? 'bg-gray-100' : ''
-              }`}
-            >
-              {l.label}
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
+      <div style={{ position: 'relative' }}>
+        <button
+          onClick={() => setOpen(!open)}
+          style={{
+            padding: '8px 12px',
+            border: '1px solid #ccc',
+            borderRadius: 4,
+            background: '#fff',
+            cursor: 'pointer',
+          }}
+        >
+          {languages.find((l) => l.code === lang)?.label}
+        </button>
+
+        {open && (
+          <div
+            className="language-dropdown"
+            style={{
+              position: 'absolute',
+              top: '40px', // 기본(데스크톱) 위치
+              left: 0,
+              background: '#fff',
+              border: '1px solid #ddd',
+              borderRadius: 4,
+            }}
+          >
+            {languages.map((l) => (
+              <div
+                key={l.code}
+                style={{
+                  padding: '8px 12px',
+                  cursor: 'pointer',
+                  background: l.code === lang ? '#f5f5f5' : '#fff',
+                }}
+                onClick={() => handleSelect(l.code)}
+              >
+                {l.label}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </>
   );
 }

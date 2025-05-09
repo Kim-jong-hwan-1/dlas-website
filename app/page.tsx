@@ -276,12 +276,13 @@ export default function Page() {
       {/* 상단 네비게이션 */}
       <nav className="fixed top-0 left-0 w-full bg-white py-4 px-8 shadow-lg z-40">
         <div className="flex justify-center items-center relative">
+          {/* 로고 아래 여백 모바일에서만 40픽셀 (sm 이상에서는 0) */}
           <Image
             src="/logo.png"
             alt="DLAS Logo"
             width={600}
             height={400}
-            className="object-contain max-w-full sm:max-w-[600px] mx-auto mb-[20px] sm:mb-0"
+            className="object-contain max-w-full sm:max-w-[600px] mx-auto mb-[40px] sm:mb-0"
             priority
           />
           {/* 네비게이션 메뉴 - 모바일에서는 hidden, sm이상에서는 flex */}
@@ -311,8 +312,8 @@ export default function Page() {
         </div>
       </nav>
 
-      {/* 우측 상단 버튼들 (모바일에서만 20px 내려서 배치) */}
-      <div className="fixed top-[44px] sm:top-6 right-6 flex gap-2 z-50">
+      {/* 우측 상단 버튼들 (모바일 화면에서만 기존보다 4배 더 아래로) */}
+      <div className="fixed top-[176px] sm:top-6 right-6 flex gap-2 z-50">
         {!isLoggedIn ? (
           <>
             {/* 로그인 & 회원가입 버튼 */}
