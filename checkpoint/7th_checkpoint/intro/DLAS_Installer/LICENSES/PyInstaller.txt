@@ -1,0 +1,8 @@
+PyInstaller License (GPL + Exception)
+
+PyInstaller is distributed under the GPL license with an exception:
+You may use PyInstaller to package your own software, including proprietary applications.
+
+You are NOT required to release your code under GPL if you use PyInstaller.
+
+https://github.com/pyinstaller/pyinstaller/blob/develop/COPYING.txt

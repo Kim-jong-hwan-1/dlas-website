@@ -1,0 +1,5 @@
+SciPy License (BSD 3-Clause)
+
+This software is licensed under the BSD license, which permits nearly unrestricted use, modification, and distribution.
+
+https://github.com/scipy/scipy/blob/main/LICENSE.txt

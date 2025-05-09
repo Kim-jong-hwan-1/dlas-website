@@ -1,0 +1,7 @@
+openpyxl License (MIT)
+
+Copyright (c) 2010-2024
+
+Permission is hereby granted to use, copy, modify, and distribute this software.
+
+https://github.com/pyexcel/openpyxl/blob/main/LICENSE

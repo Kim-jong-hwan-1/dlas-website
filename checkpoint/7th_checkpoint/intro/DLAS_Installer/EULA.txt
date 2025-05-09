@@ -1,0 +1,11 @@
+DLAS - Dental Lab Automation Solution
+
+End-User License Agreement (EULA)
+
+1. This software is licensed, not sold. DLAS grants you a non-exclusive, non-transferable license to use the software.
+2. You may not reverse engineer, decompile, or modify the software.
+3. Unauthorized distribution or sharing of the software is prohibited.
+4. This software uses open-source components with their respective licenses included in the LICENSES folder.
+5. This software requires license verification and server communication to operate.
+
+By installing this software, you agree to the terms of this EULA.

@@ -1,0 +1,10 @@
+PySide6 License (LGPL v3)
+
+This software uses the PySide6 library, which is licensed under the GNU Lesser General Public License (LGPL) version 3.
+
+You may use this library in your software provided that:
+1. You dynamically link to the PySide6 libraries.
+2. You provide access to the source code of PySide6 and clearly state any modifications.
+
+For more information, see:
+https://www.gnu.org/licenses/lgpl-3.0.html

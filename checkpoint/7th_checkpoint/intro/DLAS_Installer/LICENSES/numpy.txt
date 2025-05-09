@@ -1,0 +1,9 @@
+NumPy License (BSD 3-Clause)
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+1. Redistributions must retain the copyright.
+2. Neither the name of the NumPy Developers nor the names of its contributors may be used to endorse products.
+
+https://numpy.org/license.html
