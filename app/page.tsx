@@ -281,7 +281,7 @@ export default function Page() {
             alt="DLAS Logo"
             width={600}
             height={400}
-            className="object-contain max-w-full sm:max-w-[600px] mx-auto"
+            className="object-contain max-w-full sm:max-w-[600px] mx-auto mb-[20px] sm:mb-0"
             priority
           />
           {/* 네비게이션 메뉴 - 모바일에서는 hidden, sm이상에서는 flex */}
@@ -311,24 +311,8 @@ export default function Page() {
         </div>
       </nav>
 
-      {/* Coming Soon 모달 (Family) */}
-      {showComingSoonModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
-          <div className="bg-white p-10 rounded-2xl shadow-xl text-center relative w-80">
-            <h2 className="text-3xl font-bold mb-6">{t("family.title")}</h2>
-            <p className="text-gray-600 mb-8">{t("family.desc")}</p>
-            <button
-              onClick={() => setShowComingSoonModal(false)}
-              className="bg-black text-white px-6 py-2 rounded hover:bg-gray-800 transition"
-            >
-              {t("common.ok")}
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* 우측 상단 버튼들 */}
-      <div className="fixed top-6 right-6 flex gap-2 z-50">
+      {/* 우측 상단 버튼들 (모바일에서만 20px 내려서 배치) */}
+      <div className="fixed top-[44px] sm:top-6 right-6 flex gap-2 z-50">
         {!isLoggedIn ? (
           <>
             {/* 로그인 & 회원가입 버튼 */}

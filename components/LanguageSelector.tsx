@@ -1,4 +1,3 @@
-// components/LanguageSelector.tsx
 'use client';
 
 import { useState } from 'react';
@@ -20,40 +19,23 @@ export default function LanguageSelector() {
   };
 
   return (
-    <div style={{ position: 'relative' }}>
+    <div className="relative w-fit sm:absolute sm:top-5 sm:right-[220px]">
       <button
         onClick={() => setOpen(!open)}
-        style={{
-          padding: '8px 12px',
-          border: '1px solid #ccc',
-          borderRadius: 4,
-          background: '#fff',
-          cursor: 'pointer',
-        }}
+        className="px-3 py-2 border border-gray-300 rounded bg-white text-sm"
       >
         {languages.find((l) => l.code === lang)?.label}
       </button>
 
       {open && (
-        <div
-          style={{
-            position: 'absolute',
-            top: '40px',
-            left: 0,
-            background: '#fff',
-            border: '1px solid #ddd',
-            borderRadius: 4,
-          }}
-        >
+        <div className="absolute top-12 left-0 bg-white border border-gray-300 rounded shadow">
           {languages.map((l) => (
             <div
               key={l.code}
-              style={{
-                padding: '8px 12px',
-                cursor: 'pointer',
-                background: l.code === lang ? '#f5f5f5' : '#fff',
-              }}
               onClick={() => handleSelect(l.code)}
+              className={`px-4 py-2 cursor-pointer hover:bg-gray-100 ${
+                l.code === lang ? 'bg-gray-100' : ''
+              }`}
             >
               {l.label}
             </div>
