@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
@@ -224,7 +224,7 @@ export default function Page() {
       if (target) {
         setTimeout(() => {
           window.scrollTo({
-            top: tab === 'home' ? 0 : target.offsetTop - 160,
+            top: tab === "home" ? 0 : target.offsetTop - 160,
             behavior: "smooth",
           });
         }, 100);
@@ -233,9 +233,9 @@ export default function Page() {
   }, []);
 
   const scrollToSection = (id: string) => {
-    if (id === 'home') {
+    if (id === "home") {
       window.scrollTo({ top: 0, behavior: "smooth" });
-      window.history.replaceState(null, '', `/?tab=${id}`);
+      window.history.replaceState(null, "", `/?tab=${id}`);
       return;
     }
 
@@ -245,21 +245,21 @@ export default function Page() {
         top: el.offsetTop - 160,
         behavior: "smooth",
       });
-      window.history.replaceState(null, '', `/?tab=${id}`);
+      window.history.replaceState(null, "", `/?tab=${id}`);
     }
   };
 
   // 모듈 목록
   const modules = [
-    'Bite Finder',
-    'Transfer Jig Maker',
-    'Fast & Easy Modifier',
-    'Printing Model maker',
-    'Image Converter',
-    'HTML Viewer Converter',
-    'STL Classifier',
-    'Crown Cad',
-    'Denture Cad',
+    "Bite Finder",
+    "Transfer Jig Maker",
+    "Fast & Easy Modifier",
+    "Printing Model maker",
+    "Image Converter",
+    "HTML Viewer Converter",
+    "STL Classifier",
+    "Crown Cad",
+    "Denture Cad",
   ];
 
   return (
@@ -312,8 +312,8 @@ export default function Page() {
         </div>
       </nav>
 
-      {/* 우측 상단 버튼들 (모바일 화면에서만 기존보다 4배 더 아래로) */}
-      <div className="fixed top-[176px] sm:top-6 right-6 flex gap-2 z-50">
+      {/* 우측 상단 버튼들 (모바일 화면에서 top값을 136px로 조정) */}
+      <div className="fixed top-[136px] sm:top-6 right-6 flex gap-2 z-50">
         {!isLoggedIn ? (
           <>
             {/* 로그인 & 회원가입 버튼 */}

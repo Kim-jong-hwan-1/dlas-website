@@ -28,8 +28,8 @@ export default function LanguageSelector() {
         {`
           @media (max-width: 768px) {
             .language-dropdown {
-              top: 60px !important;
-              left: 0 !important;
+              top: 60px !important;   /* 모바일에서 높이 */
+              left: 0 !important;    /* 모바일에서 화면 맨 왼쪽 붙이기 */
             }
           }
         `}
@@ -54,7 +54,8 @@ export default function LanguageSelector() {
             className="language-dropdown"
             style={{
               position: 'absolute',
-              top: '40px', // 기본(데스크톱) 위치
+              // 데스크탑에서 현 상태에서 1.5픽셀 아래 (기존 40px → 41.5px)
+              top: '41.5px',
               left: 0,
               background: '#fff',
               border: '1px solid #ddd',
