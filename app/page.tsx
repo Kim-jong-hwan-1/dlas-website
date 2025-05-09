@@ -37,16 +37,16 @@ export default function Page() {
   };
 
   // (3) 결제 버튼 클릭 핸들러
-const handlePaymentClick = () => {
-  if (!isLoggedIn) {
-    // 로그인 안 되어 있으면 로그인 모달 띄우기
-    document.getElementById("login-modal")?.classList.remove("hidden");
-    return;
-  }
+  const handlePaymentClick = () => {
+    if (!isLoggedIn) {
+      // 로그인 안 되어 있으면 로그인 모달 띄우기
+      document.getElementById("login-modal")?.classList.remove("hidden");
+      return;
+    }
 
-  // 로그인되어 있으면 결제 처리 시작 (추후 연동 예정)
-  alert("Proceeding to payment gateway...");
-};
+    // 로그인되어 있으면 결제 처리 시작 (추후 연동 예정)
+    alert("Proceeding to payment gateway...");
+  };
 
   // --- 회원가입 로직 관련 상태 ---
   const [idForSignup, setIdForSignup] = useState(""); // (원래 email이었지만, ID로 사용)
@@ -64,7 +64,6 @@ const handlePaymentClick = () => {
   // "Coming Soon" 모달 상태 (Family)
   const [showComingSoonModal, setShowComingSoonModal] = useState(false);
   const [showFamilyModal, setShowFamilyModal] = useState(false); // 추가된 부분
-
 
   // 회원가입 폼 제출 처리
   const handleSignupSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -267,27 +266,26 @@ const handlePaymentClick = () => {
     <div className="min-h-screen bg-white text-black relative">
       {/* 왼쪽 상단 로고 */}
       <Image
-  src="/left-up.png"
-  alt="Top Left Logo"
-  width={120}
-  height={120}
-  className="fixed top-4 left-4 z-50 hidden sm:block"
-/>
-
+        src="/left-up.png"
+        alt="Top Left Logo"
+        width={120}
+        height={120}
+        className="fixed top-4 left-4 z-50 hidden sm:block"
+      />
 
       {/* 상단 네비게이션 */}
-      <nav className="hidden sm:block fixed top-0 left-0 w-full bg-white py-4 px-8 shadow-lg z-40">
+      <nav className="fixed top-0 left-0 w-full bg-white py-4 px-8 shadow-lg z-40">
         <div className="flex justify-center items-center relative">
-        <Image
-  src="/logo.png"
-  alt="DLAS Logo"
-  width={600}
-  height={400}
-  className="object-contain max-w-full sm:max-w-[600px] mx-auto"
+          <Image
+            src="/logo.png"
+            alt="DLAS Logo"
+            width={600}
+            height={400}
+            className="object-contain max-w-full sm:max-w-[600px] mx-auto"
             priority
           />
-          <div className="absolute bottom-2 right-4 sm:right-8 flex flex-wrap items-center gap-x-4 gap-y-2">
-
+          {/* 네비게이션 메뉴 - 모바일에서는 hidden, sm이상에서는 flex */}
+          <div className="absolute bottom-2 right-4 sm:right-8 hidden sm:flex flex-wrap items-center gap-x-4 gap-y-2">
             {["home", "download", "buy", "contact"].map((tab) => (
               <button
                 key={tab}
@@ -309,8 +307,6 @@ const handlePaymentClick = () => {
             >
               {t("nav.terms")}
             </button>
-
-            
           </div>
         </div>
       </nav>
@@ -426,9 +422,9 @@ const handlePaymentClick = () => {
           </h1>
 
           <div
-               className="mb-12 w-[28rem] h-[36rem] border p-10 rounded-lg shadow hover:shadow-lg transition flex flex-col items-center mx-auto cursor-pointer"
-                  onClick={() => setShowFamilyModal(true)}
->
+            className="mb-12 w-[28rem] h-[36rem] border p-10 rounded-lg shadow hover:shadow-lg transition flex flex-col items-center mx-auto cursor-pointer"
+            onClick={() => setShowFamilyModal(true)}
+          >
             <div className="w-[28rem] h-[28rem] bg-gray-100 mb-6 px-8 flex items-center justify-center">
               <span className="text-gray-400">{t("buy.familyGifPlaceholder")}</span>
             </div>
@@ -438,30 +434,29 @@ const handlePaymentClick = () => {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-items-center">
-          {modules.map((mod, i) => (
-  <div
-    key={i}
-    className="w-[28rem] h-[36rem] border p-10 rounded-lg shadow hover:shadow-lg transition flex flex-col items-center"
-  >
-    <div className="w-[28rem] h-[28rem] bg-gray-200 mb-6 px-8 flex items-center justify-center">
-      {mod === "Transfer Jig Maker" ? (
-        <Image
-          src="/gifs/transfer_jig.gif"
-          alt={`${mod} gif`}
-          width={200}
-          height={200}
-          className="object-contain"
-        />
-      ) : (
-        <span className="text-gray-400 text-2xl font-bold">Coming Soon</span>
-      )}
-    </div>
-    <div className="text-xl font-semibold text-center text-gray-800">
-      {mod}
-    </div>
-  </div>
-))}
-
+            {modules.map((mod, i) => (
+              <div
+                key={i}
+                className="w-[28rem] h-[36rem] border p-10 rounded-lg shadow hover:shadow-lg transition flex flex-col items-center"
+              >
+                <div className="w-[28rem] h-[28rem] bg-gray-200 mb-6 px-8 flex items-center justify-center">
+                  {mod === "Transfer Jig Maker" ? (
+                    <Image
+                      src="/gifs/transfer_jig.gif"
+                      alt={`${mod} gif`}
+                      width={200}
+                      height={200}
+                      className="object-contain"
+                    />
+                  ) : (
+                    <span className="text-gray-400 text-2xl font-bold">Coming Soon</span>
+                  )}
+                </div>
+                <div className="text-xl font-semibold text-center text-gray-800">
+                  {mod}
+                </div>
+              </div>
+            ))}
           </div>
         </section>
 
@@ -476,7 +471,6 @@ const handlePaymentClick = () => {
             <br />
             {t("contact.info2")}
           </p>
-          
         </section>
 
         {/* --- Terms & Privacy 섹션 --- */}
@@ -592,89 +586,84 @@ const handlePaymentClick = () => {
             </p>
           </div>
         </section>
+
         {showFamilyModal && (
-  <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center px-6 py-10 overflow-y-auto">
-    <div className="bg-white p-8 rounded-xl shadow-xl w-full max-w-[1100px] h-fit relative">
-      <button
-        onClick={() => setShowFamilyModal(false)}
-        className="absolute top-4 right-4 text-gray-400 hover:text-black text-2xl"
-      >
-        ×
-      </button>
-      <h2 className="text-3xl font-bold mb-4 text-center">Family License Information</h2>
+          <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center px-6 py-10 overflow-y-auto">
+            <div className="bg-white p-8 rounded-xl shadow-xl w-full max-w-[1100px] h-fit relative">
+              <button
+                onClick={() => setShowFamilyModal(false)}
+                className="absolute top-4 right-4 text-gray-400 hover:text-black text-2xl"
+              >
+                ×
+              </button>
+              <h2 className="text-3xl font-bold mb-4 text-center">Family License Information</h2>
 
-      {/* Description */}
-      <div className="text-gray-700 text-sm leading-relaxed space-y-2 mb-6">
-        <p>We are looking for partners to grow with DLAS. Only those leading digital innovation in dental labs should join.</p>
-        <p>If you don’t understand what innovation is, or you're a beginner or inexperienced, please do not sign up.</p>
-        <p>Our automation programs may have bugs depending on your computer environment. Report them, and we’ll improve.</p>
-        <p>We recommend using the free license first before purchasing.</p>
-        <p>After v2.0.0, the family license will likely increase in value. One user can own multiple licenses, and reselling is allowed.</p>
-      </div>
+              {/* Description */}
+              <div className="text-gray-700 text-sm leading-relaxed space-y-2 mb-6">
+                <p>We are looking for partners to grow with DLAS. Only those leading digital innovation in dental labs should join.</p>
+                <p>If you don’t understand what innovation is, or you're a beginner or inexperienced, please do not sign up.</p>
+                <p>Our automation programs may have bugs depending on your computer environment. Report them, and we’ll improve.</p>
+                <p>We recommend using the free license first before purchasing.</p>
+                <p>After v2.0.0, the family license will likely increase in value. One user can own multiple licenses, and reselling is allowed.</p>
+              </div>
 
-      {/* Pricing Table */}
-      <div className="overflow-x-auto">
-        <table className="w-full text-sm border border-gray-300 mb-4 whitespace-nowrap">
-          <thead>
-            <tr className="bg-gray-100">
-              <th className="p-2 border text-left">Module</th>
-              <th className="p-2 border text-center">
-                General User<br />
-                <span className="text-xs text-gray-600">After v2.0.0 Release</span>
-              </th>
-              <th className="p-2 border text-center">
-                Family<br />
-                <span className="text-xs text-orange-600 font-bold">ONLY before v2.0.0</span>
-              </th>
-              <th className="p-2 border text-left">Description</th>
-            </tr>
-          </thead>
-          <tbody className="text-xs">
-  {[
-    ["Transfer Jig Maker", "$790", "Free for life", "Automated jig generation software"],
-    ["STL Classifier (Expected May 2025)", "$590", "Free for life", "Classify STL by color and height"],
-    ["HTML Viewer Converter (Expected May 2025)", "$390", "Free for life", "Convert STL to HTML viewer"],
-    ["Image Converter (Expected May 2025)", "$390", "Free for life", "Convert STL to image quickly"],
-    ["Printing Model Maker (Expected June 2025)", "$590", "Free for life", "Lightweight model creator"],
-    ["Bite Finder (Expected June 2025)", "$1,090", "Free for life", "Revolutionary bite locator for model-less workflows"],
-    ["Fast & Easy Modifier (Expected June 2025)", "$590", "Free for life", "Quick modifier (hook, hole, attachment)"],
-    ["Denture CAD (Expected 2025)", "$790", "Free for life", "Arrangement library, labial facing, custom tray"],
-    ["Crown CAD (Expected 2025)", "$790", "Free for life", "Integrated crown CAD with the best features"],
-    ["...new module 1 (Coming Soon)", "$790", "Free for life", ""],
-    ["...new module 2 (Coming Soon)", "$790", "Free for life", ""],
-    ["...new module 3 (Coming Soon)", "$790", "Free for life", ""],
-    ["AI DLAS CAD (Expected 2026)", "$59/month", "$5.9/month", ""],
-  ].map(([title, price1, price2, desc], idx) => (
-    <tr key={idx}>
-      <td className="p-2 border">{title}</td>
-      <td className="p-2 border text-center">{price1}</td>
-      <td className="p-2 border text-center">{price2}</td>
-      <td className="p-2 border">{desc}</td>
-    </tr>
-  ))}
-</tbody>
+              {/* Pricing Table */}
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm border border-gray-300 mb-4 whitespace-nowrap">
+                  <thead>
+                    <tr className="bg-gray-100">
+                      <th className="p-2 border text-left">Module</th>
+                      <th className="p-2 border text-center">
+                        General User<br />
+                        <span className="text-xs text-gray-600">After v2.0.0 Release</span>
+                      </th>
+                      <th className="p-2 border text-center">
+                        Family<br />
+                        <span className="text-xs text-orange-600 font-bold">ONLY before v2.0.0</span>
+                      </th>
+                      <th className="p-2 border text-left">Description</th>
+                    </tr>
+                  </thead>
+                  <tbody className="text-xs">
+                    {[
+                      ["Transfer Jig Maker", "$790", "Free for life", "Automated jig generation software"],
+                      ["STL Classifier (Expected May 2025)", "$590", "Free for life", "Classify STL by color and height"],
+                      ["HTML Viewer Converter (Expected May 2025)", "$390", "Free for life", "Convert STL to HTML viewer"],
+                      ["Image Converter (Expected May 2025)", "$390", "Free for life", "Convert STL to image quickly"],
+                      ["Printing Model Maker (Expected June 2025)", "$590", "Free for life", "Lightweight model creator"],
+                      ["Bite Finder (Expected June 2025)", "$1,090", "Free for life", "Revolutionary bite locator for model-less workflows"],
+                      ["Fast & Easy Modifier (Expected June 2025)", "$590", "Free for life", "Quick modifier (hook, hole, attachment)"],
+                      ["Denture CAD (Expected 2025)", "$790", "Free for life", "Arrangement library, labial facing, custom tray"],
+                      ["Crown CAD (Expected 2025)", "$790", "Free for life", "Integrated crown CAD with the best features"],
+                      ["...new module 1 (Coming Soon)", "$790", "Free for life", ""],
+                      ["...new module 2 (Coming Soon)", "$790", "Free for life", ""],
+                      ["...new module 3 (Coming Soon)", "$790", "Free for life", ""],
+                      ["AI DLAS CAD (Expected 2026)", "$59/month", "$5.9/month", ""],
+                    ].map(([title, price1, price2, desc], idx) => (
+                      <tr key={idx}>
+                        <td className="p-2 border">{title}</td>
+                        <td className="p-2 border text-center">{price1}</td>
+                        <td className="p-2 border text-center">{price2}</td>
+                        <td className="p-2 border">{desc}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                <p className="text-xs text-gray-500 text-right mt-2">※ Plans may be subject to change.</p>
+              </div>
 
-        </table>
-        <p className="text-xs text-gray-500 text-right mt-2">※ Plans may be subject to change.</p>
-
-      </div>
-
-     
-      {/* Payment Button */}
-      <div className="text-center mt-6">
-        <button
-    className="bg-black text-white px-8 py-3 rounded hover:bg-gray-800 transition"
-    onClick={() => alert("Payment integration coming soon.")}
-  >
-    Proceed to Payment (Coming Soon)
-        </button>
-      </div>
-
-    </div>
-  </div>
-)}
-
-
+              {/* Payment Button */}
+              <div className="text-center mt-6">
+                <button
+                  className="bg-black text-white px-8 py-3 rounded hover:bg-gray-800 transition"
+                  onClick={() => alert("Payment integration coming soon.")}
+                >
+                  Proceed to Payment (Coming Soon)
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </main>
 
       {/* 로그인 모달 (토큰 발급 없이 단순 로그인) */}
