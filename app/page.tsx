@@ -36,18 +36,6 @@ export default function Page() {
     setIsLoggedIn(false);
   };
 
-  // (3) 결제 버튼 클릭 핸들러
-  const handlePaymentClick = () => {
-    if (!isLoggedIn) {
-      // 로그인 안 되어 있으면 로그인 모달 띄우기
-      document.getElementById("login-modal")?.classList.remove("hidden");
-      return;
-    }
-
-    // 로그인되어 있으면 결제 처리 시작 (추후 연동 예정)
-    alert("Proceeding to payment gateway...");
-  };
-
   // --- 회원가입 로직 관련 상태 ---
   const [idForSignup, setIdForSignup] = useState(""); // (원래 email이었지만, ID로 사용)
   const [password, setPassword] = useState("");
@@ -181,7 +169,7 @@ export default function Page() {
     }
   };
 
-  // 국가 목록 (생략 없이 전부 기재)
+  // 국가 목록
   const countries = [
     "Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda",
     "Argentina","Armenia","Australia","Austria","Azerbaijan","Bahamas","Bahrain",
@@ -369,12 +357,15 @@ export default function Page() {
             </span>
           </p>
           <h1 className="text-6xl font-bold mb-8">{t("home.title")}</h1>
+          {/* 
+            기존 handlePaymentClick -> Family Modal 열기
+            텍스트도 "Join the DLAS Family – only $390" 로 수정
+          */}
           <button
-            onClick={() => scrollToSection("buy")}
+            onClick={() => setShowFamilyModal(true)}
             className="text-2xl font-bold cursor-pointer mt-6 bg-black text-white px-10 py-6 rounded hover:bg-gray-800 transition"
           >
-            {t("home.cta")}{" "}
-            <span className="text-[2.2rem] font-bold">{t("home.price")}</span>
+            Join the DLAS Family – only $390
           </button>
           <div className="mt-16 px-6 max-w-4xl mx-auto text-center">
             <h2 className="text-3xl font-semibold mb-4 text-gray-900">
@@ -475,7 +466,6 @@ export default function Page() {
 
             <h3 className="text-2xl font-bold mb-4">{t("terms.headingTerms")}</h3>
 
-            {/* Article 1 ~ 8 */}
             <h4 className="font-semibold mb-1">{t("terms.article1.title")}</h4>
             <p
               className="mb-4"
