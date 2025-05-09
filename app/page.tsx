@@ -264,7 +264,7 @@ export default function Page() {
 
   return (
     <div className="min-h-screen bg-white text-black relative">
-      {/* 왼쪽 상단 로고 */}
+      {/* 왼쪽 상단 로고 (PC에서만) */}
       <Image
         src="/left-up.png"
         alt="Top Left Logo"
@@ -276,13 +276,13 @@ export default function Page() {
       {/* 상단 네비게이션 */}
       <nav className="fixed top-0 left-0 w-full bg-white py-4 px-8 shadow-lg z-40">
         <div className="flex justify-center items-center relative">
-          {/* 로고 아래 여백 모바일에서만 40픽셀 (sm 이상에서는 0) */}
+          {/* 로고: 모바일에서 상단 여백, PC에서 0 */}
           <Image
             src="/logo.png"
             alt="DLAS Logo"
             width={600}
             height={400}
-            className="object-contain max-w-full sm:max-w-[600px] mx-auto mb-[40px] sm:mb-0"
+            className="object-contain max-w-full sm:max-w-[600px] mx-auto mt-[40px] sm:mt-0 mb-0 sm:mb-0"
             priority
           />
           {/* 네비게이션 메뉴 - 모바일에서는 hidden, sm이상에서는 flex */}
@@ -312,8 +312,15 @@ export default function Page() {
         </div>
       </nav>
 
-      {/* 우측 상단 버튼들 (모바일 화면에서 top값을 136px로 조정) */}
-      <div className="fixed top-[136px] sm:top-6 right-6 flex gap-2 z-50">
+      {/* 로그인 & 사인업 버튼: 모바일에서는 왼쪽 맨위, PC에서는 우측 상단 */}
+      <div
+        className="
+          fixed 
+          top-6 left-6       /* 모바일 기본: 위쪽 왼쪽 */
+          sm:top-6 sm:right-6 sm:left-auto /* PC 이상에서는 오른쪽 위로 이동 */
+          flex gap-2 z-50
+        "
+      >
         {!isLoggedIn ? (
           <>
             {/* 로그인 & 회원가입 버튼 */}

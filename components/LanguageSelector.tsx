@@ -55,7 +55,7 @@ export default function LanguageSelector() {
             style={{
               position: 'absolute',
               // 데스크탑에서 현 상태에서 1.5픽셀 아래 (기존 40px → 41.5px)
-              top: '41.5px',
+              top: '25px',
               left: 0,
               background: '#fff',
               border: '1px solid #ddd',
