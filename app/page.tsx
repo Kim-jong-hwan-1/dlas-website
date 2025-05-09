@@ -276,13 +276,13 @@ export default function Page() {
       {/* 상단 네비게이션 */}
       <nav className="fixed top-0 left-0 w-full bg-white py-4 px-8 shadow-lg z-40">
         <div className="flex justify-center items-center relative">
-          {/* 로고: 모바일에서 상단 여백, PC에서 0 */}
+          {/* 로고: 모바일에서 상단 여백을 80px로 조정, PC에서는 0 */}
           <Image
             src="/logo.png"
             alt="DLAS Logo"
             width={600}
             height={400}
-            className="object-contain max-w-full sm:max-w-[600px] mx-auto mt-[40px] sm:mt-0 mb-0 sm:mb-0"
+            className="object-contain max-w-full sm:max-w-[600px] mx-auto mt-[80px] sm:mt-0 mb-0 sm:mb-0"
             priority
           />
           {/* 네비게이션 메뉴 - 모바일에서는 hidden, sm이상에서는 flex */}
