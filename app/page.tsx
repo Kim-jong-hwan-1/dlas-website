@@ -449,6 +449,13 @@ export default function Page() {
             {t("contact.info1")}
             <br />
             {t("contact.info2")}
+            <br />
+            {/* 아래가 추가된 연락처 정보(영어) */}
+            Phone (Korea): +82-10-9756-1992
+            <br />
+            Kakao: messo
+            <br />
+            WhatsApp: <a href="https://wa.me/821097561992" target="_blank" rel="noopener noreferrer">wa.me/821097561992</a>
           </p>
         </section>
 
@@ -595,11 +602,13 @@ export default function Page() {
                     <tr className="bg-gray-100">
                       <th className="p-2 border text-left">Module</th>
                       <th className="p-2 border text-center">
-                        General User<br />
+                        General User
+                        <br />
                         <span className="text-xs text-gray-600">After v2.0.0 Release</span>
                       </th>
                       <th className="p-2 border text-center">
-                        Family<br />
+                        Family
+                        <br />
                         <span className="text-xs text-orange-600 font-bold">ONLY before v2.0.0</span>
                       </th>
                       <th className="p-2 border text-left">Description</th>
