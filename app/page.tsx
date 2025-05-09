@@ -453,7 +453,7 @@ export default function Page() {
             {/* 아래가 추가된 연락처 정보(영어) */}
             Phone (Korea): +82-10-9756-1992
             <br />
-            Kakao: messo
+            Kakao: messso
             <br />
             WhatsApp: <a href="https://wa.me/821097561992" target="_blank" rel="noopener noreferrer">wa.me/821097561992</a>
           </p>
