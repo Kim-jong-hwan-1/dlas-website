@@ -38,37 +38,58 @@ export default function Page() {
     setIsLoggedIn(false);
   };
 
-  // ▼▼▼ 새로 추가된 부분: MY 모달 관련 상태들 ▼▼▼
+  // ▼▼▼ MY 모달 관련 상태들 ▼▼▼
   const [showMyModal, setShowMyModal] = useState(false);
   const [userID, setUserID] = useState("");
-  const [licenseStatus, setLicenseStatus] = useState<string | null>(null);
+  const [userInfo, setUserInfo] = useState<{
+    name?: string;
+    id?: string;
+    country?: string;
+    phone?: string;
+    email?: string;
+    licenseStatus?: string;
+  }>({});
 
-  // MY 모달에서 라이센스 상태 불러오기
-  const fetchLicenseStatus = async () => {
+  // MY 모달에서 사용자 정보 및 라이선스 상태 불러오기
+  const fetchUserInfo = async () => {
     try {
-      // 예시: /auth/license?email=사용자ID 로 라이센스 상태 불러온다고 가정
-      // 실제 API에 맞춰서 수정하세요.
+      // 실제로는 해당 API에 맞춰서 수정하세요.
+      // 예시: /auth/userinfo?email=사용자ID 로 유저정보와 라이센스 상태를 같이 불러온다고 가정
       const res = await fetch(
-        `https://license-server-697p.onrender.com/auth/license?email=${userID}`
+        `https://license-server-697p.onrender.com/auth/userinfo?email=${userID}`
       );
       if (!res.ok) {
-        throw new Error("Failed to fetch license status");
+        throw new Error("Failed to fetch user info");
       }
       const data = await res.json();
-      setLicenseStatus(data.status);
+      setUserInfo({
+        name: data.name,
+        id: data.id,
+        country: data.country,
+        phone: data.phone,
+        email: data.email,
+        licenseStatus: data.licenseStatus,
+      });
     } catch (error) {
       console.error(error);
-      setLicenseStatus("Error fetching license");
+      setUserInfo({
+        name: "-",
+        id: userID,
+        country: "-",
+        phone: "-",
+        email: "-",
+        licenseStatus: "Error fetching license",
+      });
     }
   };
 
-  // MY 모달 열릴 때 라이센스 상태를 가져온다.
+  // MY 모달 열릴 때 유저 정보 가져오기
   useEffect(() => {
     if (showMyModal && userID) {
-      fetchLicenseStatus();
+      fetchUserInfo();
     }
   }, [showMyModal, userID]);
-  // ▲▲▲ 새로 추가된 부분 끝 ▲▲▲
+  // ▲▲▲ MY 모달 끝 ▲▲▲
 
   // --- 회원가입 로직 관련 상태 ---
   const [idForSignup, setIdForSignup] = useState(""); // (원래 email이었지만, ID로 사용)
@@ -116,13 +137,16 @@ export default function Page() {
     };
 
     try {
-      const res = await fetch("https://license-server-697p.onrender.com/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestData),
-      });
+      const res = await fetch(
+        "https://license-server-697p.onrender.com/auth/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestData),
+        }
+      );
 
       const text = await res.text();
       try {
@@ -163,20 +187,25 @@ export default function Page() {
     };
 
     try {
-      const response = await fetch("https://license-server-697p.onrender.com/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestData),
-      });
+      const response = await fetch(
+        "https://license-server-697p.onrender.com/auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestData),
+        }
+      );
 
       if (!response.ok) {
         const errorData = await response.json();
         const message =
           typeof errorData.detail === "object"
             ? JSON.stringify(errorData.detail)
-            : errorData.detail || errorData.message || "Unknown error";
+            : errorData.detail ||
+              errorData.message ||
+              "Unknown error";
 
         alert(`Login error: ${message}`);
         return;
@@ -191,7 +220,7 @@ export default function Page() {
       localStorage.setItem("isLoggedIn", "true");
       localStorage.setItem("loginExpireTime", oneHourLater.toString());
 
-      // ▼▼▼ 새로 추가된 부분: 로그인 시 userID 로컬스토리지 저장 ▼▼▼
+      // ▼▼▼ 로그인 시 userID 로컬스토리지 저장 ▼▼▼
       localStorage.setItem("userID", idForLogin);
       setUserID(idForLogin);
       // ▲▲▲
@@ -265,7 +294,6 @@ export default function Page() {
       window.history.replaceState(null, "", `/?tab=${id}`);
       return;
     }
-
     const el = document.getElementById(id);
     if (el) {
       window.scrollTo({
@@ -287,6 +315,88 @@ export default function Page() {
     "STL Classifier",
     "Crown Cad",
     "Denture Cad",
+  ];
+
+  // 패밀리 라이선스 테이블용 데이터
+  const familyTableData = [
+    [
+      "Transfer Jig Maker",
+      "$790",
+      "Free for life",
+      "Automated jig generation software",
+    ],
+    [
+      "STL Classifier (Expected May 2025)",
+      "$590",
+      "Free for life",
+      "Classify STL by color and height",
+    ],
+    [
+      "HTML Viewer Converter (Expected May 2025)",
+      "$390",
+      "Free for life",
+      "Convert STL to HTML viewer",
+    ],
+    [
+      "Image Converter (Expected May 2025)",
+      "$390",
+      "Free for life",
+      "Convert STL to image quickly",
+    ],
+    [
+      "Printing Model Maker (Expected June 2025)",
+      "$590",
+      "Free for life",
+      "Lightweight model creator",
+    ],
+    [
+      "Bite Finder (Expected June 2025)",
+      "$1,090",
+      "Free for life",
+      "Revolutionary bite locator for model-less workflows",
+    ],
+    [
+      "Fast & Easy Modifier (Expected June 2025)",
+      "$590",
+      "Free for life",
+      "Quick modifier (hook, hole, attachment)",
+    ],
+    [
+      "Denture CAD (Expected 2025)",
+      "$790",
+      "Free for life",
+      "Arrangement library, labial facing, custom tray",
+    ],
+    [
+      "Crown CAD (Expected 2025)",
+      "$790",
+      "Free for life",
+      "Integrated crown CAD with the best features",
+    ],
+    [
+      "...new module 1 (Coming Soon)",
+      "$790",
+      "Free for life",
+      "",
+    ],
+    [
+      "...new module 2 (Coming Soon)",
+      "$790",
+      "Free for life",
+      "",
+    ],
+    [
+      "...new module 3 (Coming Soon)",
+      "$790",
+      "Free for life",
+      "",
+    ],
+    [
+      "AI DLAS CAD (Expected 2026)",
+      "$59/month",
+      "$5.9/month",
+      "",
+    ],
   ];
 
   return (
@@ -512,9 +622,13 @@ export default function Page() {
           className="scroll-mt-[180px] py-20 px-6 bg-white"
         >
           <div className="max-w-4xl mx-auto text-left leading-7 text-gray-700">
-            <h2 className="text-4xl font-bold mb-8 text-center">{t("terms.title")}</h2>
+            <h2 className="text-4xl font-bold mb-8 text-center">
+              {t("terms.title")}
+            </h2>
 
-            <h3 className="text-2xl font-bold mb-4">{t("terms.headingTerms")}</h3>
+            <h3 className="text-2xl font-bold mb-4">
+              {t("terms.headingTerms")}
+            </h3>
 
             <h4 className="font-semibold mb-1">{t("terms.article1.title")}</h4>
             <p
@@ -568,7 +682,9 @@ export default function Page() {
               <strong>{t("terms.effectiveDate")}</strong>
             </p>
 
-            <h3 className="text-2xl font-bold mb-4">{t("privacy.headingPrivacy")}</h3>
+            <h3 className="text-2xl font-bold mb-4">
+              {t("privacy.headingPrivacy")}
+            </h3>
             <p className="mb-4">{t("privacy.intro")}</p>
 
             <h4 className="font-semibold mb-1">{t("privacy.article1.title")}</h4>
@@ -642,8 +758,9 @@ export default function Page() {
                 <p>{t("family.desc5")}</p>
               </div>
 
-              {/* Pricing Table */}
-              <div className="overflow-x-auto">
+              {/* -- 반응형 테이블 -- */}
+              {/* 데스크톱/태블릿용 (md 이상) */}
+              <div className="hidden md:block overflow-x-auto">
                 <table className="w-full text-sm border border-gray-300 mb-4 whitespace-nowrap">
                   <thead>
                     <tr className="bg-gray-100">
@@ -666,86 +783,7 @@ export default function Page() {
                     </tr>
                   </thead>
                   <tbody className="text-xs">
-                    {[
-                      [
-                        "Transfer Jig Maker",
-                        "$790",
-                        "Free for life",
-                        "Automated jig generation software",
-                      ],
-                      [
-                        "STL Classifier (Expected May 2025)",
-                        "$590",
-                        "Free for life",
-                        "Classify STL by color and height",
-                      ],
-                      [
-                        "HTML Viewer Converter (Expected May 2025)",
-                        "$390",
-                        "Free for life",
-                        "Convert STL to HTML viewer",
-                      ],
-                      [
-                        "Image Converter (Expected May 2025)",
-                        "$390",
-                        "Free for life",
-                        "Convert STL to image quickly",
-                      ],
-                      [
-                        "Printing Model Maker (Expected June 2025)",
-                        "$590",
-                        "Free for life",
-                        "Lightweight model creator",
-                      ],
-                      [
-                        "Bite Finder (Expected June 2025)",
-                        "$1,090",
-                        "Free for life",
-                        "Revolutionary bite locator for model-less workflows",
-                      ],
-                      [
-                        "Fast & Easy Modifier (Expected June 2025)",
-                        "$590",
-                        "Free for life",
-                        "Quick modifier (hook, hole, attachment)",
-                      ],
-                      [
-                        "Denture CAD (Expected 2025)",
-                        "$790",
-                        "Free for life",
-                        "Arrangement library, labial facing, custom tray",
-                      ],
-                      [
-                        "Crown CAD (Expected 2025)",
-                        "$790",
-                        "Free for life",
-                        "Integrated crown CAD with the best features",
-                      ],
-                      [
-                        "...new module 1 (Coming Soon)",
-                        "$790",
-                        "Free for life",
-                        "",
-                      ],
-                      [
-                        "...new module 2 (Coming Soon)",
-                        "$790",
-                        "Free for life",
-                        "",
-                      ],
-                      [
-                        "...new module 3 (Coming Soon)",
-                        "$790",
-                        "Free for life",
-                        "",
-                      ],
-                      [
-                        "AI DLAS CAD (Expected 2026)",
-                        "$59/month",
-                        "$5.9/month",
-                        "",
-                      ],
-                    ].map(([title, price1, price2, desc], idx) => (
+                    {familyTableData.map(([title, price1, price2, desc], idx) => (
                       <tr key={idx}>
                         <td className="p-2 border">{title}</td>
                         <td className="p-2 border text-center">{price1}</td>
@@ -756,6 +794,44 @@ export default function Page() {
                   </tbody>
                 </table>
                 <p className="text-xs text-gray-500 text-right mt-2">
+                  {t("family.tableNote")}
+                </p>
+              </div>
+
+              {/* 모바일용 (md 미만) */}
+              <div className="block md:hidden space-y-4">
+                {familyTableData.map(([title, price1, price2, desc], idx) => (
+                  <div
+                    key={idx}
+                    className="border border-gray-300 rounded p-4 text-xs"
+                  >
+                    <div className="mb-2">
+                      <span className="font-bold">Module: </span>
+                      {title}
+                    </div>
+                    <div className="mb-2">
+                      <span className="font-bold">General User: </span>
+                      {price1}{" "}
+                      <span className="text-gray-600 text-[10px]">
+                        (After v2.0.0 Release)
+                      </span>
+                    </div>
+                    <div className="mb-2">
+                      <span className="font-bold">Family: </span>
+                      {price2}{" "}
+                      <span className="text-orange-600 text-[10px] font-bold">
+                        (ONLY before v2.0.0)
+                      </span>
+                    </div>
+                    {desc && (
+                      <div>
+                        <span className="font-bold">Description: </span>
+                        {desc}
+                      </div>
+                    )}
+                  </div>
+                ))}
+                <p className="text-[10px] text-gray-500 text-right mt-2">
                   {t("family.tableNote")}
                 </p>
               </div>
@@ -852,67 +928,67 @@ export default function Page() {
             {t("signup.title")}
           </h2>
           <form className="space-y-4" onSubmit={handleSignupSubmit}>
-  <input
-    type="text"
-    placeholder={t("signup.form.name")}
-    value={name}
-    onChange={(e) => setName(e.target.value)}
-    className="w-full p-3 border border-gray-300 rounded"
-    required
-  />
-  <input
-    type="text"
-    placeholder={t("signup.form.id")}
-    className="w-full p-3 border border-gray-300 rounded"
-    value={idForSignup}
-    onChange={(e) => setIdForSignup(e.target.value)}
-    required
-  />
-  <input
-    type="password"
-    placeholder={t("signup.form.password")}
-    className="w-full p-3 border border-gray-300 rounded"
-    value={password}
-    onChange={(e) => setPassword(e.target.value)}
-    required
-  />
-  <input
-    type="password"
-    placeholder={t("signup.form.confirmPassword")}
-    className="w-full p-3 border border-gray-300 rounded"
-    value={confirmPassword}
-    onChange={(e) => setConfirmPassword(e.target.value)}
-    required
-  />
-  <select
-    value={country}
-    onChange={(e) => setCountry(e.target.value)}
-    className="w-full p-3 border border-gray-300 rounded"
-    required
-  >
-    <option value="">{t("signup.form.countryPlaceholder")}</option>
-    {countries.map((country, index) => (
-      <option key={index} value={country}>
-        {country}
-      </option>
-    ))}
-  </select>
-  <input
-    type="text"
-    placeholder={t("signup.form.workplaceName")}
-    value={workplaceName}
-    onChange={(e) => setWorkplaceName(e.target.value)}
-    className="w-full p-3 border border-gray-300 rounded"
-    required
-  />
-  <input
-    type="text"
-    placeholder={t("signup.form.workplaceAddress")}
-    value={workplaceAddress}
-    onChange={(e) => setWorkplaceAddress(e.target.value)}
-    className="w-full p-3 border border-gray-300 rounded"
-    required
-  />
+            <input
+              type="text"
+              placeholder={t("signup.form.name")}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="w-full p-3 border border-gray-300 rounded"
+              required
+            />
+            <input
+              type="text"
+              placeholder={t("signup.form.id")}
+              className="w-full p-3 border border-gray-300 rounded"
+              value={idForSignup}
+              onChange={(e) => setIdForSignup(e.target.value)}
+              required
+            />
+            <input
+              type="password"
+              placeholder={t("signup.form.password")}
+              className="w-full p-3 border border-gray-300 rounded"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <input
+              type="password"
+              placeholder={t("signup.form.confirmPassword")}
+              className="w-full p-3 border border-gray-300 rounded"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+            />
+            <select
+              value={country}
+              onChange={(e) => setCountry(e.target.value)}
+              className="w-full p-3 border border-gray-300 rounded"
+              required
+            >
+              <option value="">{t("signup.form.countryPlaceholder")}</option>
+              {countries.map((country, index) => (
+                <option key={index} value={country}>
+                  {country}
+                </option>
+              ))}
+            </select>
+            <input
+              type="text"
+              placeholder={t("signup.form.workplaceName")}
+              value={workplaceName}
+              onChange={(e) => setWorkplaceName(e.target.value)}
+              className="w-full p-3 border border-gray-300 rounded"
+              required
+            />
+            <input
+              type="text"
+              placeholder={t("signup.form.workplaceAddress")}
+              value={workplaceAddress}
+              onChange={(e) => setWorkplaceAddress(e.target.value)}
+              className="w-full p-3 border border-gray-300 rounded"
+              required
+            />
 
             {/* 약관 동의 체크박스 구간 */}
             <div className="text-sm text-gray-600 mt-4 space-y-2">
@@ -940,6 +1016,10 @@ export default function Page() {
               </label>
             </div>
 
+            {passwordError && (
+              <p className="text-red-500 text-sm">{passwordError}</p>
+            )}
+
             <button
               type="submit"
               className="w-full bg-black text-white py-3 rounded hover:bg-gray-800"
@@ -950,7 +1030,7 @@ export default function Page() {
         </div>
       </div>
 
-      {/* ▼▼▼ 새로 추가된 부분: MY 모달 ▼▼▼ */}
+      {/* MY 모달 */}
       {showMyModal && (
         <div
           className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center"
@@ -963,15 +1043,30 @@ export default function Page() {
               ×
             </button>
             <h2 className="text-2xl font-bold mb-4 text-center">My Info</h2>
-            <div className="space-y-2 text-center">
-              <p>ID: {userID}</p>
-              <p>License status: {licenseStatus ?? "Loading..."}</p>
-              <p>Points: ???</p>
+            <div className="space-y-2 text-center text-sm">
+              <p>
+                <strong>이름:</strong> {userInfo.name ?? "-"}
+              </p>
+              <p>
+                <strong>아이디:</strong> {userInfo.id ?? "-"}
+              </p>
+              <p>
+                <strong>국가:</strong> {userInfo.country ?? "-"}
+              </p>
+              <p>
+                <strong>전화번호:</strong> {userInfo.phone ?? "-"}
+              </p>
+              <p>
+                <strong>이메일:</strong> {userInfo.email ?? "-"}
+              </p>
+              <p>
+                <strong>라이선스 상태:</strong>{" "}
+                {userInfo.licenseStatus ?? "Loading..."}
+              </p>
             </div>
           </div>
         </div>
       )}
-      {/* ▲▲▲ */}
 
       {/* Footer */}
       <footer className="bg-black text-white py-10 px-6 text-center mt-20">
