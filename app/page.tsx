@@ -93,12 +93,12 @@ export default function Page() {
 
     // 비밀번호 확인
     if (password !== confirmPassword) {
-      setPasswordError(t("signup.error.notMatch"));
+      setPasswordError("Passwords do not match.");
       return;
     }
     // 필수 약관 미동의 시 막기
     if (!termsAgree) {
-      setPasswordError(t("signup.error.mustAgree"));
+      setPasswordError("You must agree to the required terms.");
       return;
     }
 
@@ -131,21 +131,21 @@ export default function Page() {
           const message =
             typeof data.detail === "object"
               ? JSON.stringify(data.detail)
-              : data.detail || "알 수 없는 오류";
-          alert(`회원가입 실패: ${message}`);
+              : data.detail || "Unknown error";
+          alert(`Sign up failed: ${message}`);
           return;
         }
 
-        alert(`회원가입 완료: ${data.message}`);
+        alert(`Sign up completed: ${data.message}`);
         // 회원가입 완료 후 모달 닫기
         document.getElementById("signup-modal")?.classList.add("hidden");
       } catch (e) {
-        console.error("JSON 파싱 실패", text);
-        alert("서버에서 잘못된 응답을 받았습니다.");
+        console.error("JSON parse failed", text);
+        alert("Received an invalid response from the server.");
       }
     } catch (err) {
-      console.error("회원가입 중 오류", err);
-      alert("네트워크 오류");
+      console.error("Error while signing up", err);
+      alert("Network error.");
     }
   };
 
@@ -176,14 +176,14 @@ export default function Page() {
         const message =
           typeof errorData.detail === "object"
             ? JSON.stringify(errorData.detail)
-            : errorData.detail || errorData.message || "Unknown Error";
+            : errorData.detail || errorData.message || "Unknown error";
 
-        alert(`Login Error: ${message}`);
+        alert(`Login error: ${message}`);
         return;
       }
 
       // (로그인 성공)
-      alert("로그인 성공!");
+      alert("Login success!");
       setIsLoggedIn(true);
 
       // (3) 로그인 시 한 시간 뒤 만료 시간을 Local Storage에 저장
@@ -199,11 +199,11 @@ export default function Page() {
       // 모달 닫기
       document.getElementById("login-modal")!.classList.add("hidden");
     } catch (error) {
-      console.error("Login error:", error);
+      console.error("Error during login:", error);
       if (error instanceof Error) {
-        alert(`로그인 중 오류: ${error.message}`);
+        alert(`Error during login: ${error.message}`);
       } else {
-        alert("로그인 중 알 수 없는 오류가 발생했습니다.");
+        alert("An unknown error occurred while logging in.");
       }
     }
   };
@@ -371,14 +371,12 @@ export default function Page() {
         ) : (
           <>
             {/* MY & Logout 버튼 */}
-            {/* ▼▼▼ 새로 수정된 부분: MY 버튼에서 모달 열기 ▼▼▼ */}
             <button
               onClick={() => setShowMyModal(true)}
               className="text-sm font-medium border border-gray-300 px-4 py-2 rounded hover:bg-gray-100 transition"
             >
               MY
             </button>
-            {/* ▲▲▲ */}
             <button
               onClick={handleLogout}
               className="text-sm font-medium border border-gray-300 px-4 py-2 rounded hover:bg-gray-100 transition"
@@ -469,7 +467,9 @@ export default function Page() {
                       className="object-contain"
                     />
                   ) : (
-                    <span className="text-gray-400 text-2xl font-bold">Coming Soon</span>
+                    <span className="text-gray-400 text-2xl font-bold">
+                      Coming Soon
+                    </span>
                   )}
                 </div>
                 <div className="text-xl font-semibold text-center text-gray-800">
@@ -491,7 +491,6 @@ export default function Page() {
             <br />
             {t("contact.info2")}
             <br />
-            {/* 아래가 추가된 연락처 정보(영어) */}
             Phone (Korea): +82-10-9756-1992
             <br />
             Kakao: messso
@@ -652,31 +651,100 @@ export default function Page() {
                       <th className="p-2 border text-center">
                         General User
                         <br />
-                        <span className="text-xs text-gray-600">After v2.0.0 Release</span>
+                        <span className="text-xs text-gray-600">
+                          After v2.0.0 Release
+                        </span>
                       </th>
                       <th className="p-2 border text-center">
                         Family
                         <br />
-                        <span className="text-xs text-orange-600 font-bold">ONLY before v2.0.0</span>
+                        <span className="text-xs text-orange-600 font-bold">
+                          ONLY before v2.0.0
+                        </span>
                       </th>
                       <th className="p-2 border text-left">Description</th>
                     </tr>
                   </thead>
                   <tbody className="text-xs">
                     {[
-                      ["Transfer Jig Maker", "$790", "Free for life", "Automated jig generation software"],
-                      ["STL Classifier (Expected May 2025)", "$590", "Free for life", "Classify STL by color and height"],
-                      ["HTML Viewer Converter (Expected May 2025)", "$390", "Free for life", "Convert STL to HTML viewer"],
-                      ["Image Converter (Expected May 2025)", "$390", "Free for life", "Convert STL to image quickly"],
-                      ["Printing Model Maker (Expected June 2025)", "$590", "Free for life", "Lightweight model creator"],
-                      ["Bite Finder (Expected June 2025)", "$1,090", "Free for life", "Revolutionary bite locator for model-less workflows"],
-                      ["Fast & Easy Modifier (Expected June 2025)", "$590", "Free for life", "Quick modifier (hook, hole, attachment)"],
-                      ["Denture CAD (Expected 2025)", "$790", "Free for life", "Arrangement library, labial facing, custom tray"],
-                      ["Crown CAD (Expected 2025)", "$790", "Free for life", "Integrated crown CAD with the best features"],
-                      ["...new module 1 (Coming Soon)", "$790", "Free for life", ""],
-                      ["...new module 2 (Coming Soon)", "$790", "Free for life", ""],
-                      ["...new module 3 (Coming Soon)", "$790", "Free for life", ""],
-                      ["AI DLAS CAD (Expected 2026)", "$59/month", "$5.9/month", ""],
+                      [
+                        "Transfer Jig Maker",
+                        "$790",
+                        "Free for life",
+                        "Automated jig generation software",
+                      ],
+                      [
+                        "STL Classifier (Expected May 2025)",
+                        "$590",
+                        "Free for life",
+                        "Classify STL by color and height",
+                      ],
+                      [
+                        "HTML Viewer Converter (Expected May 2025)",
+                        "$390",
+                        "Free for life",
+                        "Convert STL to HTML viewer",
+                      ],
+                      [
+                        "Image Converter (Expected May 2025)",
+                        "$390",
+                        "Free for life",
+                        "Convert STL to image quickly",
+                      ],
+                      [
+                        "Printing Model Maker (Expected June 2025)",
+                        "$590",
+                        "Free for life",
+                        "Lightweight model creator",
+                      ],
+                      [
+                        "Bite Finder (Expected June 2025)",
+                        "$1,090",
+                        "Free for life",
+                        "Revolutionary bite locator for model-less workflows",
+                      ],
+                      [
+                        "Fast & Easy Modifier (Expected June 2025)",
+                        "$590",
+                        "Free for life",
+                        "Quick modifier (hook, hole, attachment)",
+                      ],
+                      [
+                        "Denture CAD (Expected 2025)",
+                        "$790",
+                        "Free for life",
+                        "Arrangement library, labial facing, custom tray",
+                      ],
+                      [
+                        "Crown CAD (Expected 2025)",
+                        "$790",
+                        "Free for life",
+                        "Integrated crown CAD with the best features",
+                      ],
+                      [
+                        "...new module 1 (Coming Soon)",
+                        "$790",
+                        "Free for life",
+                        "",
+                      ],
+                      [
+                        "...new module 2 (Coming Soon)",
+                        "$790",
+                        "Free for life",
+                        "",
+                      ],
+                      [
+                        "...new module 3 (Coming Soon)",
+                        "$790",
+                        "Free for life",
+                        "",
+                      ],
+                      [
+                        "AI DLAS CAD (Expected 2026)",
+                        "$59/month",
+                        "$5.9/month",
+                        "",
+                      ],
                     ].map(([title, price1, price2, desc], idx) => (
                       <tr key={idx}>
                         <td className="p-2 border">{title}</td>
@@ -827,7 +895,9 @@ export default function Page() {
               className="w-full p-3 border border-gray-300 rounded"
               required
             >
-              <option value="">{t("signup.form.countryPlaceholder")}</option>
+              <option value="">
+                {t("signup.form.countryPlaceholder")}
+              </option>
               {countries.map((country, index) => (
                 <option key={index} value={country}>
                   {country}
@@ -861,7 +931,9 @@ export default function Page() {
                   onChange={(e) => setTermsAgree(e.target.checked)}
                   className="form-checkbox h-5 w-5 text-black"
                 />
-                <span className="ml-2">{t("signup.form.agreeRequired")}</span>
+                <span className="ml-2">
+                  {t("signup.form.agreeRequired")}
+                </span>
               </label>
               <label className="flex items-center">
                 <input
@@ -870,7 +942,9 @@ export default function Page() {
                   onChange={(e) => setMarketingAgree(e.target.checked)}
                   className="form-checkbox h-5 w-5 text-black"
                 />
-                <span className="ml-2">{t("signup.form.agreeMarketing")}</span>
+                <span className="ml-2">
+                  {t("signup.form.agreeMarketing")}
+                </span>
               </label>
             </div>
 
@@ -896,11 +970,11 @@ export default function Page() {
             >
               ×
             </button>
-            <h2 className="text-2xl font-bold mb-4 text-center">내 정보</h2>
+            <h2 className="text-2xl font-bold mb-4 text-center">My Info</h2>
             <div className="space-y-2 text-center">
               <p>ID: {userID}</p>
-              <p>라이센스 상태: {licenseStatus ?? "불러오는 중..."}</p>
-              <p>정드: ???</p>
+              <p>License status: {licenseStatus ?? "Loading..."}</p>
+              <p>Points: ???</p>
             </div>
           </div>
         </div>
