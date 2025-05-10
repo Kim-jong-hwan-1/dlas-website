@@ -2,99 +2,116 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { useLang } from "@/components/LanguageWrapper";
 
 export default function Page() {
-  // --- Login state ---
+  const { t } = useLang();
+
+  // --- 로그인 상태 관리 ---
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  // (1) 페이지 로드(새로고침) 시 Local Storage 확인하여 로그인 상태 복원
   useEffect(() => {
     const storedIsLoggedIn = localStorage.getItem("isLoggedIn");
     const storedExpireTime = localStorage.getItem("loginExpireTime");
-  
+
     if (storedIsLoggedIn === "true" && storedExpireTime) {
       const expireTime = parseInt(storedExpireTime, 10);
+      // 현재 시간이 만료 시간 전이라면, 로그인 상태 유지
       if (Date.now() < expireTime) {
         setIsLoggedIn(true);
-  
-        // ✅ 사용자 정보도 복원
-        const storedUserStr = localStorage.getItem("DLASUser");
-        if (storedUserStr) {
-          try {
-            const storedUser = JSON.parse(storedUserStr);
-            setUserName(storedUser.userName || "");
-            setUserId(storedUser.userId || "");
-            setUserCountry(storedUser.userCountry || "");
-            setUserPhone(storedUser.userPhone || "");
-            setUserEmail(storedUser.userEmail || "");
-          } catch (err) {
-            console.error("Could not parse stored user data:", err);
-          }
-        }
       } else {
+        // 만료되었으면 Local Storage 정리
         localStorage.removeItem("isLoggedIn");
         localStorage.removeItem("loginExpireTime");
+        localStorage.removeItem("userID"); // 만료 시 userID도 제거
       }
     }
   }, []);
-  
 
-  // (2) Logout function
+  // (2) 로그아웃 함수
   const handleLogout = () => {
-    // Remove login state
+    // 로그인 관련 로컬스토리지 값들을 제거
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("loginExpireTime");
+    localStorage.removeItem("userID");
     setIsLoggedIn(false);
-    setShowMyModal(false);
   };
 
-  // For the MY page modal
+  // ▼▼▼ 새로 추가된 부분: MY 모달 관련 상태들 ▼▼▼
   const [showMyModal, setShowMyModal] = useState(false);
+  const [userID, setUserID] = useState("");
+  const [licenseStatus, setLicenseStatus] = useState<string | null>(null);
 
-  // --- Signup states ---
-  const [signupName, setSignupName] = useState("");
-  const [signupId, setSignupId] = useState(""); // used as user ID
-  const [signupPassword, setSignupPassword] = useState("");
-  const [signupConfirmPassword, setSignupConfirmPassword] = useState("");
+  // MY 모달에서 라이센스 상태 불러오기
+  const fetchLicenseStatus = async () => {
+    try {
+      // 예시: /auth/license?email=사용자ID 로 라이센스 상태 불러온다고 가정
+      // 실제 API에 맞춰서 수정하세요.
+      const res = await fetch(
+        `https://license-server-697p.onrender.com/auth/license?email=${userID}`
+      );
+      if (!res.ok) {
+        throw new Error("Failed to fetch license status");
+      }
+      const data = await res.json();
+      setLicenseStatus(data.status);
+    } catch (error) {
+      console.error(error);
+      setLicenseStatus("Error fetching license");
+    }
+  };
+
+  // MY 모달 열릴 때 라이센스 상태를 가져온다.
+  useEffect(() => {
+    if (showMyModal && userID) {
+      fetchLicenseStatus();
+    }
+  }, [showMyModal, userID]);
+  // ▲▲▲ 새로 추가된 부분 끝 ▲▲▲
+
+  // --- 회원가입 로직 관련 상태 ---
+  const [idForSignup, setIdForSignup] = useState(""); // (원래 email이었지만, ID로 사용)
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const [signupCountry, setSignupCountry] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [signupEmail, setSignupEmail] = useState("");
+  const [name, setName] = useState("");
+  const [country, setCountry] = useState("");
+  const [workplaceName, setWorkplaceName] = useState("");
+  const [workplaceAddress, setWorkplaceAddress] = useState("");
   const [marketingAgree, setMarketingAgree] = useState(false);
+  // 약관 동의 상태
   const [termsAgree, setTermsAgree] = useState(false);
 
-  // --- For showing the MY info (stored after signup) ---
-  const [userName, setUserName] = useState("");
-  const [userId, setUserId] = useState("");
-  const [userCountry, setUserCountry] = useState("");
-  const [userPhone, setUserPhone] = useState("");
-  const [userEmail, setUserEmail] = useState("");
+  // "Coming Soon" 모달 상태 (Family)
+  const [showComingSoonModal, setShowComingSoonModal] = useState(false);
+  const [showFamilyModal, setShowFamilyModal] = useState(false);
 
-  // --- Sign Up handler ---
+  // 회원가입 폼 제출 처리
   const handleSignupSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Password check
-    if (signupPassword !== signupConfirmPassword) {
-      setPasswordError("The passwords you entered do not match.");
+    // 비밀번호 확인
+    if (password !== confirmPassword) {
+      setPasswordError(t("signup.error.notMatch"));
       return;
     }
-
-    // Terms must be agreed
+    // 필수 약관 미동의 시 막기
     if (!termsAgree) {
-      setPasswordError("You must agree to the Terms & Conditions.");
+      setPasswordError(t("signup.error.mustAgree"));
       return;
     }
 
     setPasswordError("");
 
-    // Construct signup data
+    // 회원가입 요청할 데이터 생성
     const requestData = {
-      email: signupId, // using "ID" as 'email' in the server's perspective
-      password: signupPassword,
-      name: signupName,
-      country: signupCountry,
-      workplace_name: phoneNumber, // phone
-      workplace_address: signupEmail, // email
+      email: idForSignup,
+      password,
+      name,
+      country,
+      workplace_name: workplaceName,
+      workplace_address: workplaceAddress,
       marketing_agree: marketingAgree,
     };
 
@@ -114,43 +131,32 @@ export default function Page() {
           const message =
             typeof data.detail === "object"
               ? JSON.stringify(data.detail)
-              : data.detail || "Unknown error";
-          alert(`Signup failed: ${message}`);
+              : data.detail || "알 수 없는 오류";
+          alert(`회원가입 실패: ${message}`);
           return;
         }
 
-        alert(`Signup success: ${data.message}`);
-
-        // Store user info in localStorage (for later "MY" modal)
-        const userData = {
-          userName: signupName,
-          userId: signupId,
-          userCountry: signupCountry,
-          userPhone: phoneNumber,
-          userEmail: signupEmail,
-        };
-        localStorage.setItem("DLASUser", JSON.stringify(userData));
-
-        // Close signup modal
+        alert(`회원가입 완료: ${data.message}`);
+        // 회원가입 완료 후 모달 닫기
         document.getElementById("signup-modal")?.classList.add("hidden");
       } catch (e) {
-        console.error("JSON parse error", text);
-        alert("Invalid response from server.");
+        console.error("JSON 파싱 실패", text);
+        alert("서버에서 잘못된 응답을 받았습니다.");
       }
     } catch (err) {
-      console.error("Signup error", err);
-      alert("Network error");
+      console.error("회원가입 중 오류", err);
+      alert("네트워크 오류");
     }
   };
 
-  // --- Login states ---
+  // 로그인 로직 (토큰 발급 없음)
   const [idForLogin, setIdForLogin] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
 
-  // (3) Login handler
   const handleLoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    // 로그인 요청할 데이터
     const requestData = {
       email: idForLogin,
       password: loginPassword,
@@ -170,52 +176,39 @@ export default function Page() {
         const message =
           typeof errorData.detail === "object"
             ? JSON.stringify(errorData.detail)
-            : errorData.detail ||
-              errorData.message ||
-              "Unknown error";
-        alert(`Login error: ${message}`);
+            : errorData.detail || errorData.message || "Unknown Error";
+
+        alert(`Login Error: ${message}`);
         return;
       }
 
-      // Login success
-      alert("Login success!");
+      // (로그인 성공)
+      alert("로그인 성공!");
       setIsLoggedIn(true);
 
-      // Set expiry in 1 hour
-      const oneHourLater = Date.now() + 60 * 60 * 1000; 
+      // (3) 로그인 시 한 시간 뒤 만료 시간을 Local Storage에 저장
+      const oneHourLater = Date.now() + 60 * 60 * 1000; // 1시간 (밀리초)
       localStorage.setItem("isLoggedIn", "true");
       localStorage.setItem("loginExpireTime", oneHourLater.toString());
 
-      // If we have stored signup data and the ID matches, load it for MY modal
-      const storedUserStr = localStorage.getItem("DLASUser");
-      if (storedUserStr) {
-        try {
-          const storedUser = JSON.parse(storedUserStr);
-          if (storedUser.userId === idForLogin) {
-            setUserName(storedUser.userName || "");
-            setUserId(storedUser.userId || "");
-            setUserCountry(storedUser.userCountry || "");
-            setUserPhone(storedUser.userPhone || "");
-            setUserEmail(storedUser.userEmail || "");
-          }
-        } catch (err) {
-          console.error("Could not parse stored user data:", err);
-        }
-      }
+      // ▼▼▼ 새로 추가된 부분: 로그인 시 userID 로컬스토리지 저장 ▼▼▼
+      localStorage.setItem("userID", idForLogin);
+      setUserID(idForLogin);
+      // ▲▲▲
 
-      // Close login modal
+      // 모달 닫기
       document.getElementById("login-modal")!.classList.add("hidden");
     } catch (error) {
       console.error("Login error:", error);
       if (error instanceof Error) {
-        alert(`Login error: ${error.message}`);
+        alert(`로그인 중 오류: ${error.message}`);
       } else {
-        alert("Unknown login error occurred.");
+        alert("로그인 중 알 수 없는 오류가 발생했습니다.");
       }
     }
   };
 
-  // Countries list
+  // 국가 목록
   const countries = [
     "Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda",
     "Argentina","Armenia","Australia","Austria","Azerbaijan","Bahamas","Bahrain",
@@ -249,7 +242,7 @@ export default function Page() {
     "Zambia","Zimbabwe"
   ];
 
-  // Scroll to sections logic
+  // 탭 이동(스크롤) 로직
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const tab = urlParams.get("tab");
@@ -272,6 +265,7 @@ export default function Page() {
       window.history.replaceState(null, "", `/?tab=${id}`);
       return;
     }
+
     const el = document.getElementById(id);
     if (el) {
       window.scrollTo({
@@ -282,7 +276,7 @@ export default function Page() {
     }
   };
 
-  // Modules list
+  // 모듈 목록
   const modules = [
     "Bite Finder",
     "Transfer Jig Maker",
@@ -295,13 +289,9 @@ export default function Page() {
     "Denture Cad",
   ];
 
-  // Family license modals
-  const [showComingSoonModal, setShowComingSoonModal] = useState(false);
-  const [showFamilyModal, setShowFamilyModal] = useState(false);
-
   return (
     <div className="min-h-screen bg-white text-black relative">
-      {/* Logo (PC only) */}
+      {/* 왼쪽 상단 로고 (PC에서만) */}
       <Image
         src="/left-up.png"
         alt="Top Left Logo"
@@ -310,9 +300,10 @@ export default function Page() {
         className="fixed top-4 left-4 z-50 hidden sm:block"
       />
 
-      {/* Top Navigation */}
+      {/* 상단 네비게이션 */}
       <nav className="fixed top-0 left-0 w-full bg-white py-4 px-8 shadow-lg z-40">
         <div className="flex justify-center items-center relative">
+          {/* 로고: 모바일에서 상단 여백을 80px로 조정, PC에서는 0 */}
           <Image
             src="/logo.png"
             alt="DLAS Logo"
@@ -321,7 +312,7 @@ export default function Page() {
             className="object-contain max-w-full sm:max-w-[600px] mx-auto mt-[80px] sm:mt-0 mb-0 sm:mb-0"
             priority
           />
-          {/* Nav menu (hidden on mobile, visible on sm+) */}
+          {/* 네비게이션 메뉴 - 모바일에서는 hidden, sm이상에서는 flex */}
           <div className="absolute bottom-2 right-4 sm:right-8 hidden sm:flex flex-wrap items-center gap-x-4 gap-y-2">
             {["home", "download", "buy", "contact"].map((tab) => (
               <button
@@ -331,23 +322,24 @@ export default function Page() {
                            border-b-2 border-transparent hover:border-black 
                            text-gray-700 hover:text-black"
               >
-                {tab.toUpperCase()}
+                {t(`nav.${tab}`)}
               </button>
             ))}
-            {/* Terms & Privacy */}
+
+            {/* Terms & Privacy 버튼 */}
             <button
               onClick={() => scrollToSection("terms-privacy")}
               className="relative pb-2 transition-colors duration-200 cursor-pointer
                          border-b-2 border-transparent hover:border-black
                          text-gray-700 hover:text-black"
             >
-              TERMS
+              {t("nav.terms")}
             </button>
           </div>
         </div>
       </nav>
 
-      {/* Login & Signup (or MY & Logout) buttons */}
+      {/* 로그인 & 사인업 버튼: 모바일에서는 왼쪽 맨위, PC에서는 우측 상단 */}
       <div
         className="
           fixed 
@@ -358,13 +350,14 @@ export default function Page() {
       >
         {!isLoggedIn ? (
           <>
+            {/* 로그인 & 회원가입 버튼 */}
             <button
               onClick={() =>
                 document.getElementById("login-modal")!.classList.remove("hidden")
               }
               className="text-sm font-medium border border-gray-300 px-4 py-2 rounded hover:bg-gray-100 transition"
             >
-              Login
+              {t("nav.login")}
             </button>
             <button
               onClick={() =>
@@ -372,17 +365,20 @@ export default function Page() {
               }
               className="text-sm font-medium border border-gray-300 px-4 py-2 rounded hover:bg-gray-100 transition"
             >
-              Sign Up
+              {t("nav.signup")}
             </button>
           </>
         ) : (
           <>
+            {/* MY & Logout 버튼 */}
+            {/* ▼▼▼ 새로 수정된 부분: MY 버튼에서 모달 열기 ▼▼▼ */}
             <button
               onClick={() => setShowMyModal(true)}
               className="text-sm font-medium border border-gray-300 px-4 py-2 rounded hover:bg-gray-100 transition"
             >
               MY
             </button>
+            {/* ▲▲▲ */}
             <button
               onClick={handleLogout}
               className="text-sm font-medium border border-gray-300 px-4 py-2 rounded hover:bg-gray-100 transition"
@@ -394,75 +390,69 @@ export default function Page() {
       </div>
 
       <main className="pt-[180px]">
-        {/* Home Section */}
+        {/* 홈 섹션 */}
         <section id="home" className="scroll-mt-[180px] text-center py-20">
           <p className="text-xl text-gray-300 mb-2">
             <span className="text-5xl font-bold block">
-              The Next Big Thing
+              {t("home.subtitle")}
             </span>
           </p>
-          <h1 className="text-6xl font-bold mb-8">
-            DLAS - Dental Lab Automation System
-          </h1>
+          <h1 className="text-6xl font-bold mb-8">{t("home.title")}</h1>
           <button
             onClick={() => setShowFamilyModal(true)}
             className="text-2xl font-bold cursor-pointer mt-6 bg-black text-white px-10 py-6 rounded hover:bg-gray-800 transition"
           >
-            Buy Now (Family License)
+            {t("home.cta")} {t("home.price")}
           </button>
           <div className="mt-16 px-6 max-w-4xl mx-auto text-center">
             <h2 className="text-3xl font-semibold mb-4 text-gray-900">
-              A Game Changer in Dental Automation
+              {t("home.gameChangerTitle")}
             </h2>
             <p className="text-lg text-gray-600 leading-relaxed mb-4">
-              Automate your lab tasks efficiently and effectively.  
-              Experience the latest in dental technology all in one place.
+              {t("home.gameChangerDesc")}
             </p>
             <p className="italic text-2xl text-gray-800 font-medium">
-              "Revolutionizing Dental Labs Worldwide"
+              {t("home.gameChangerQuote")}
             </p>
           </div>
         </section>
 
-        {/* Download Section */}
+        {/* 다운로드 섹션 */}
         <section
           id="download"
           className="scroll-mt-[180px] text-center py-20 bg-gray-100"
         >
-          <h2 className="text-4xl font-bold mb-4">Download DLAS</h2>
+          <h2 className="text-4xl font-bold mb-4">{t("download.title")}</h2>
           <p className="text-lg text-gray-500 max-w-3xl mx-auto mt-2">
-            Get the latest version of DLAS software.  
-            Compatible with Windows 10 and above.
+            {t("download.desc")}
           </p>
           <a
             href="/downloads/DLAS_Setup.exe"
             download
             className="inline-block mt-6 bg-black text-white px-8 py-4 rounded hover:bg-gray-800 transition"
           >
-            Download Now
+            {t("download.button")}
           </a>
         </section>
 
-        {/* Buy Section */}
+        {/* 구매 섹션 */}
         <section id="buy" className="scroll-mt-[180px] py-20 px-10 bg-white">
           <h1 className="text-4xl font-bold mb-6 text-center">
-            Purchase Modules
+            {t("buy.title")}
           </h1>
 
-          {/* Family License Card */}
           <div
             className="mb-12 w-[28rem] h-[36rem] border p-10 rounded-lg shadow hover:shadow-lg transition flex flex-col items-center mx-auto cursor-pointer"
             onClick={() => setShowFamilyModal(true)}
           >
             <div className="w-[28rem] h-[28rem] bg-gray-100 mb-6 px-8 flex items-center justify-center">
-              <span className="text-gray-400">Family License Gif Placeholder</span>
+              <span className="text-gray-400">{t("buy.familyGifPlaceholder")}</span>
             </div>
             <div className="text-lg font-semibold text-center text-gray-800">
-              Family License
+              {t("buy.familyLicense")}
             </div>
           </div>
 
-          {/* Individual Modules */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-items-center">
             {modules.map((mod, i) => (
               <div
@@ -479,9 +469,7 @@ export default function Page() {
                       className="object-contain"
                     />
                   ) : (
-                    <span className="text-gray-400 text-2xl font-bold">
-                      Coming Soon
-                    </span>
+                    <span className="text-gray-400 text-2xl font-bold">Coming Soon</span>
                   )}
                 </div>
                 <div className="text-xl font-semibold text-center text-gray-800">
@@ -492,17 +480,18 @@ export default function Page() {
           </div>
         </section>
 
-        {/* Contact Section */}
+        {/* 연락처 섹션 */}
         <section
           id="contact"
           className="scroll-mt-[180px] py-20 text-center bg-gray-100"
         >
-          <h2 className="text-4xl font-bold">Contact Us</h2>
+          <h2 className="text-4xl font-bold">{t("contact.title")}</h2>
           <p className="text-lg text-gray-500 max-w-3xl mx-auto mt-4">
-            For any inquiries, please reach out:
+            {t("contact.info1")}
             <br />
-            Email: support@dlas.io
+            {t("contact.info2")}
             <br />
+            {/* 아래가 추가된 연락처 정보(영어) */}
             Phone (Korea): +82-10-9756-1992
             <br />
             Kakao: messso
@@ -518,49 +507,120 @@ export default function Page() {
           </p>
         </section>
 
-        {/* Terms & Privacy Section */}
+        {/* --- Terms & Privacy 섹션 --- */}
         <section
           id="terms-privacy"
           className="scroll-mt-[180px] py-20 px-6 bg-white"
         >
           <div className="max-w-4xl mx-auto text-left leading-7 text-gray-700">
-            <h2 className="text-4xl font-bold mb-8 text-center">
-              Terms & Privacy
-            </h2>
+            <h2 className="text-4xl font-bold mb-8 text-center">{t("terms.title")}</h2>
 
-            <h3 className="text-2xl font-bold mb-4">Terms of Service</h3>
-            <p className="mb-4">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-              eu dictum nulla. Phasellus maximus augue vel diam cursus, eu
-              laoreet tortor commodo. In semper nunc non sem placerat blandit.
-            </p>
-            <p className="mb-4">
-              Suspendisse potenti. Curabitur fermentum ornare nulla, a
-              pellentesque orci cursus et. Integer viverra, urna nec rutrum
-              congue, nibh metus tincidunt mi, vel suscipit sem mauris eget
-              metus.
-            </p>
+            <h3 className="text-2xl font-bold mb-4">{t("terms.headingTerms")}</h3>
+
+            <h4 className="font-semibold mb-1">{t("terms.article1.title")}</h4>
+            <p
+              className="mb-4"
+              dangerouslySetInnerHTML={{ __html: t("terms.article1.desc") }}
+            />
+
+            <h4 className="font-semibold mb-1">{t("terms.article2.title")}</h4>
+            <p
+              className="mb-4"
+              dangerouslySetInnerHTML={{ __html: t("terms.article2.desc") }}
+            />
+
+            <h4 className="font-semibold mb-1">{t("terms.article3.title")}</h4>
+            <p
+              className="mb-4"
+              dangerouslySetInnerHTML={{ __html: t("terms.article3.desc") }}
+            />
+
+            <h4 className="font-semibold mb-1">{t("terms.article4.title")}</h4>
+            <p
+              className="mb-4"
+              dangerouslySetInnerHTML={{ __html: t("terms.article4.desc") }}
+            />
+
+            <h4 className="font-semibold mb-1">{t("terms.article5.title")}</h4>
+            <p
+              className="mb-4"
+              dangerouslySetInnerHTML={{ __html: t("terms.article5.desc") }}
+            />
+
+            <h4 className="font-semibold mb-1">{t("terms.article6.title")}</h4>
+            <p
+              className="mb-4"
+              dangerouslySetInnerHTML={{ __html: t("terms.article6.desc") }}
+            />
+
+            <h4 className="font-semibold mb-1">{t("terms.article7.title")}</h4>
+            <p
+              className="mb-4"
+              dangerouslySetInnerHTML={{ __html: t("terms.article7.desc") }}
+            />
+
+            <h4 className="font-semibold mb-1">{t("terms.article8.title")}</h4>
+            <p
+              className="mb-4"
+              dangerouslySetInnerHTML={{ __html: t("terms.article8.desc") }}
+            />
+
             <p className="mb-12">
-              <strong>Effective date: January 1st, 2025</strong>
+              <strong>{t("terms.effectiveDate")}</strong>
             </p>
 
-            <h3 className="text-2xl font-bold mb-4">Privacy Policy</h3>
+            <h3 className="text-2xl font-bold mb-4">{t("privacy.headingPrivacy")}</h3>
+            <p className="mb-4">{t("privacy.intro")}</p>
+
+            <h4 className="font-semibold mb-1">{t("privacy.article1.title")}</h4>
+            <p
+              className="mb-4"
+              dangerouslySetInnerHTML={{ __html: t("privacy.article1.desc") }}
+            />
+
+            <h4 className="font-semibold mb-1">{t("privacy.article2.title")}</h4>
+            <p
+              className="mb-4"
+              dangerouslySetInnerHTML={{ __html: t("privacy.article2.desc") }}
+            />
+
+            <h4 className="font-semibold mb-1">{t("privacy.article3.title")}</h4>
+            <p
+              className="mb-4"
+              dangerouslySetInnerHTML={{ __html: t("privacy.article3.desc") }}
+            />
+
+            <h4 className="font-semibold mb-1">{t("privacy.article4.title")}</h4>
+            <p
+              className="mb-4"
+              dangerouslySetInnerHTML={{ __html: t("privacy.article4.desc") }}
+            />
+
+            <h4 className="font-semibold mb-1">{t("privacy.article5.title")}</h4>
+            <p
+              className="mb-4"
+              dangerouslySetInnerHTML={{ __html: t("privacy.article5.desc") }}
+            />
+
+            <h4 className="font-semibold mb-1">{t("privacy.article6.title")}</h4>
+            <p
+              className="mb-4"
+              dangerouslySetInnerHTML={{ __html: t("privacy.article6.desc") }}
+            />
+
+            <h4 className="font-semibold mb-1">{t("privacy.article7.title")}</h4>
+            <p
+              className="mb-4"
+              dangerouslySetInnerHTML={{ __html: t("privacy.article7.desc") }}
+            />
+
             <p className="mb-4">
-              Donec sed ante sit amet nunc mollis blandit nec eget est. Integer
-              at accumsan quam. Aenean sed lacus vulputate, luctus massa a,
-              pulvinar odio. Sed auctor neque at nibh cursus laoreet.
-            </p>
-            <p className="mb-4">
-              Aenean tempor efficitur est, eget malesuada metus laoreet quis.
-              Integer scelerisque purus massa, eget faucibus mauris porta at.
-            </p>
-            <p className="mb-4">
-              <strong>Effective date: January 1st, 2025</strong>
+              <strong>{t("privacy.effectiveDate")}</strong>
             </p>
           </div>
         </section>
 
-        {/* Family License Modal */}
+        {/* 패밀리 라이선스 모달 */}
         {showFamilyModal && (
           <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center px-6 py-10 overflow-y-auto">
             <div className="bg-white p-8 rounded-xl shadow-xl w-full max-w-[1100px] h-fit relative">
@@ -571,24 +631,19 @@ export default function Page() {
                 ×
               </button>
               <h2 className="text-3xl font-bold mb-4 text-center">
-                Family License
+                {t("family.modalTitle")}
               </h2>
 
+              {/* Description */}
               <div className="text-gray-700 text-sm leading-relaxed space-y-2 mb-6">
-                <p>
-                  The Family License grants you lifetime free access to all
-                  modules released before version 2.0.0.
-                </p>
-                <p>
-                  After version 2.0.0, Family License users receive major
-                  discounts on newly released modules.
-                </p>
-                <p>
-                  This is a special promotion only available before the official
-                  v2.0.0 release.
-                </p>
+                <p>{t("family.desc1")}</p>
+                <p>{t("family.desc2")}</p>
+                <p>{t("family.desc3")}</p>
+                <p>{t("family.desc4")}</p>
+                <p>{t("family.desc5")}</p>
               </div>
 
+              {/* Pricing Table */}
               <div className="overflow-x-auto">
                 <table className="w-full text-sm border border-gray-300 mb-4 whitespace-nowrap">
                   <thead>
@@ -597,76 +652,27 @@ export default function Page() {
                       <th className="p-2 border text-center">
                         General User
                         <br />
-                        <span className="text-xs text-gray-600">
-                          (After v2.0.0)
-                        </span>
+                        <span className="text-xs text-gray-600">After v2.0.0 Release</span>
                       </th>
                       <th className="p-2 border text-center">
                         Family
                         <br />
-                        <span className="text-xs text-orange-600 font-bold">
-                          (Before v2.0.0)
-                        </span>
+                        <span className="text-xs text-orange-600 font-bold">ONLY before v2.0.0</span>
                       </th>
                       <th className="p-2 border text-left">Description</th>
                     </tr>
                   </thead>
                   <tbody className="text-xs">
                     {[
-                      [
-                        "Transfer Jig Maker",
-                        "$790",
-                        "Free for life",
-                        "Automated jig generation software",
-                      ],
-                      [
-                        "STL Classifier (Expected May 2025)",
-                        "$590",
-                        "Free for life",
-                        "Classify STL by color and height",
-                      ],
-                      [
-                        "HTML Viewer Converter (Expected May 2025)",
-                        "$390",
-                        "Free for life",
-                        "Convert STL to HTML viewer",
-                      ],
-                      [
-                        "Image Converter (Expected May 2025)",
-                        "$390",
-                        "Free for life",
-                        "Convert STL to image quickly",
-                      ],
-                      [
-                        "Printing Model Maker (Expected June 2025)",
-                        "$590",
-                        "Free for life",
-                        "Lightweight model creator",
-                      ],
-                      [
-                        "Bite Finder (Expected June 2025)",
-                        "$1,090",
-                        "Free for life",
-                        "Revolutionary bite locator",
-                      ],
-                      [
-                        "Fast & Easy Modifier (Expected June 2025)",
-                        "$590",
-                        "Free for life",
-                        "Quick modifier (hook, hole, attachment)",
-                      ],
-                      [
-                        "Denture CAD (Expected 2025)",
-                        "$790",
-                        "Free for life",
-                        "Arrangement library, labial facing, custom tray",
-                      ],
-                      [
-                        "Crown CAD (Expected 2025)",
-                        "$790",
-                        "Free for life",
-                        "Integrated crown CAD features",
-                      ],
+                      ["Transfer Jig Maker", "$790", "Free for life", "Automated jig generation software"],
+                      ["STL Classifier (Expected May 2025)", "$590", "Free for life", "Classify STL by color and height"],
+                      ["HTML Viewer Converter (Expected May 2025)", "$390", "Free for life", "Convert STL to HTML viewer"],
+                      ["Image Converter (Expected May 2025)", "$390", "Free for life", "Convert STL to image quickly"],
+                      ["Printing Model Maker (Expected June 2025)", "$590", "Free for life", "Lightweight model creator"],
+                      ["Bite Finder (Expected June 2025)", "$1,090", "Free for life", "Revolutionary bite locator for model-less workflows"],
+                      ["Fast & Easy Modifier (Expected June 2025)", "$590", "Free for life", "Quick modifier (hook, hole, attachment)"],
+                      ["Denture CAD (Expected 2025)", "$790", "Free for life", "Arrangement library, labial facing, custom tray"],
+                      ["Crown CAD (Expected 2025)", "$790", "Free for life", "Integrated crown CAD with the best features"],
                       ["...new module 1 (Coming Soon)", "$790", "Free for life", ""],
                       ["...new module 2 (Coming Soon)", "$790", "Free for life", ""],
                       ["...new module 3 (Coming Soon)", "$790", "Free for life", ""],
@@ -682,18 +688,17 @@ export default function Page() {
                   </tbody>
                 </table>
                 <p className="text-xs text-gray-500 text-right mt-2">
-                  *All pricing is subject to change.
+                  {t("family.tableNote")}
                 </p>
               </div>
 
+              {/* Payment Button */}
               <div className="text-center mt-6">
                 <button
                   className="bg-black text-white px-8 py-3 rounded hover:bg-gray-800 transition"
-                  onClick={() =>
-                    alert("Please contact us for payment details.")
-                  }
+                  onClick={() => alert(t("family.paymentMsg"))}
                 >
-                  Proceed to Payment
+                  {t("family.paymentBtn")}
                 </button>
               </div>
             </div>
@@ -701,7 +706,7 @@ export default function Page() {
         )}
       </main>
 
-      {/* Login Modal */}
+      {/* 로그인 모달 */}
       <div
         id="login-modal"
         className="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-center justify-center"
@@ -715,7 +720,9 @@ export default function Page() {
           >
             ×
           </button>
-          <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
+          <h2 className="text-2xl font-bold mb-4 text-center">
+            {t("login.title")}
+          </h2>
           <form className="space-y-4" onSubmit={handleLoginSubmit}>
             <input
               type="text"
@@ -727,7 +734,7 @@ export default function Page() {
             />
             <input
               type="password"
-              placeholder="Password"
+              placeholder={t("login.form.password")}
               value={loginPassword}
               onChange={(e) => setLoginPassword(e.target.value)}
               className="w-full p-3 border border-gray-300 rounded"
@@ -737,11 +744,11 @@ export default function Page() {
               type="submit"
               className="w-full bg-black text-white py-3 rounded hover:bg-gray-800"
             >
-              Log In
+              {t("login.form.submit")}
             </button>
           </form>
           <p className="mt-4 text-center text-sm text-gray-500">
-            Don't have an account?{" "}
+            {t("login.form.noAccount")}{" "}
             <a
               href="#"
               className="text-blue-600 hover:underline"
@@ -753,13 +760,13 @@ export default function Page() {
                   .classList.remove("hidden");
               }}
             >
-              Sign up now
+              {t("login.form.signupNow")}
             </a>
           </p>
         </div>
       </div>
 
-      {/* Sign Up Modal */}
+      {/* 회원가입 모달 */}
       <div
         id="signup-modal"
         className="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-center justify-center"
@@ -774,39 +781,40 @@ export default function Page() {
             ×
           </button>
           <h2 className="text-2xl font-bold mb-4 text-center">
-            Sign Up
+            {t("signup.title")}
           </h2>
           <form className="space-y-4" onSubmit={handleSignupSubmit}>
             <input
               type="text"
-              placeholder="Name"
-              value={signupName}
-              onChange={(e) => setSignupName(e.target.value)}
+              placeholder={t("signup.form.name")}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               className="w-full p-3 border border-gray-300 rounded"
               required
             />
+            {/* ID 필드 */}
             <input
               type="text"
               placeholder="ID"
               className="w-full p-3 border border-gray-300 rounded"
-              value={signupId}
-              onChange={(e) => setSignupId(e.target.value)}
+              value={idForSignup}
+              onChange={(e) => setIdForSignup(e.target.value)}
               required
             />
             <input
               type="password"
-              placeholder="Password"
+              placeholder={t("signup.form.password")}
               className="w-full p-3 border border-gray-300 rounded"
-              value={signupPassword}
-              onChange={(e) => setSignupPassword(e.target.value)}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               required
             />
             <input
               type="password"
-              placeholder="Confirm Password"
+              placeholder={t("signup.form.confirmPassword")}
               className="w-full p-3 border border-gray-300 rounded"
-              value={signupConfirmPassword}
-              onChange={(e) => setSignupConfirmPassword(e.target.value)}
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
               required
             />
             {passwordError && (
@@ -814,37 +822,37 @@ export default function Page() {
             )}
 
             <select
-              value={signupCountry}
-              onChange={(e) => setSignupCountry(e.target.value)}
+              value={country}
+              onChange={(e) => setCountry(e.target.value)}
               className="w-full p-3 border border-gray-300 rounded"
               required
             >
-              <option value="">Select your country</option>
-              {countries.map((c, index) => (
-                <option key={index} value={c}>
-                  {c}
+              <option value="">{t("signup.form.countryPlaceholder")}</option>
+              {countries.map((country, index) => (
+                <option key={index} value={country}>
+                  {country}
                 </option>
               ))}
             </select>
 
             <input
               type="text"
-              placeholder="Phone number (used for password recovery)"
-              value={phoneNumber}
-              onChange={(e) => setPhoneNumber(e.target.value)}
+              placeholder={`${t("signup.form.phoneNumber")} (Used for password recovery)`}
+              value={workplaceName}
+              onChange={(e) => setWorkplaceName(e.target.value)}
               className="w-full p-3 border border-gray-300 rounded"
               required
             />
             <input
               type="text"
-              placeholder="Email (used for password recovery)"
-              value={signupEmail}
-              onChange={(e) => setSignupEmail(e.target.value)}
+              placeholder={`${t("signup.form.email")} (Used for password recovery)`}
+              value={workplaceAddress}
+              onChange={(e) => setWorkplaceAddress(e.target.value)}
               className="w-full p-3 border border-gray-300 rounded"
               required
             />
 
-            {/* Terms & Marketing */}
+            {/* 약관 동의 체크박스 구간 */}
             <div className="text-sm text-gray-600 mt-4 space-y-2">
               <label className="flex items-center">
                 <input
@@ -853,9 +861,7 @@ export default function Page() {
                   onChange={(e) => setTermsAgree(e.target.checked)}
                   className="form-checkbox h-5 w-5 text-black"
                 />
-                <span className="ml-2">
-                  I agree to the Terms & Privacy (required)
-                </span>
+                <span className="ml-2">{t("signup.form.agreeRequired")}</span>
               </label>
               <label className="flex items-center">
                 <input
@@ -864,9 +870,7 @@ export default function Page() {
                   onChange={(e) => setMarketingAgree(e.target.checked)}
                   className="form-checkbox h-5 w-5 text-black"
                 />
-                <span className="ml-2">
-                  I agree to receive marketing information (optional)
-                </span>
+                <span className="ml-2">{t("signup.form.agreeMarketing")}</span>
               </label>
             </div>
 
@@ -874,49 +878,40 @@ export default function Page() {
               type="submit"
               className="w-full bg-black text-white py-3 rounded hover:bg-gray-800"
             >
-              Sign Up
+              {t("signup.form.submit")}
             </button>
           </form>
         </div>
       </div>
 
-      {/* MY Modal (shows user info) */}
+      {/* ▼▼▼ 새로 추가된 부분: MY 모달 ▼▼▼ */}
       {showMyModal && (
-        <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center px-6 py-10 overflow-y-auto">
-          <div className="bg-white p-8 rounded-xl shadow-xl w-full max-w-md relative">
+        <div
+          className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center"
+        >
+          <div className="bg-white w-full max-w-md p-8 rounded-lg shadow-xl relative">
             <button
+              className="absolute top-2 right-3 text-gray-500 hover:text-black text-2xl"
               onClick={() => setShowMyModal(false)}
-              className="absolute top-4 right-4 text-gray-400 hover:text-black text-2xl"
             >
               ×
             </button>
-            <h2 className="text-2xl font-bold mb-6 text-center">
-              My Information
-            </h2>
-            <div className="space-y-4 text-gray-700 text-sm">
-              <p><strong>Name:</strong> {userName || "N/A"}</p>
-              <p><strong>ID:</strong> {userId || "N/A"}</p>
-              <p><strong>Country:</strong> {userCountry || "N/A"}</p>
-              <p><strong>Phone:</strong> {userPhone || "N/A"}</p>
-              <p><strong>Email:</strong> {userEmail || "N/A"}</p>
-            </div>
-            <div className="text-center mt-6">
-              <button
-                className="bg-black text-white px-8 py-3 rounded hover:bg-gray-800 transition"
-                onClick={() => setShowMyModal(false)}
-              >
-                Close
-              </button>
+            <h2 className="text-2xl font-bold mb-4 text-center">내 정보</h2>
+            <div className="space-y-2 text-center">
+              <p>ID: {userID}</p>
+              <p>라이센스 상태: {licenseStatus ?? "불러오는 중..."}</p>
+              <p>정드: ???</p>
             </div>
           </div>
         </div>
       )}
+      {/* ▲▲▲ */}
 
       {/* Footer */}
       <footer className="bg-black text-white py-10 px-6 text-center mt-20">
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="text-sm">
-            © {new Date().getFullYear()} DLAS. All rights reserved.
+            © {new Date().getFullYear()} DLAS. {t("footer.rights")}
           </div>
           <div className="flex gap-4">
             <a
@@ -925,7 +920,7 @@ export default function Page() {
               rel="noopener noreferrer"
               className="hover:text-red-500"
             >
-              YouTube
+              {t("footer.youtube")}
             </a>
             <a
               href="https://www.instagram.com/dlas_official_"
@@ -933,7 +928,7 @@ export default function Page() {
               rel="noopener noreferrer"
               className="hover:text-pink-400"
             >
-              Instagram
+              {t("footer.instagram")}
             </a>
           </div>
         </div>
