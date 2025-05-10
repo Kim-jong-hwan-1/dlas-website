@@ -7,23 +7,36 @@ export default function Page() {
   // --- Login state ---
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // (1) On page load, restore login status from localStorage
   useEffect(() => {
     const storedIsLoggedIn = localStorage.getItem("isLoggedIn");
     const storedExpireTime = localStorage.getItem("loginExpireTime");
-
+  
     if (storedIsLoggedIn === "true" && storedExpireTime) {
       const expireTime = parseInt(storedExpireTime, 10);
-      // If not expired, keep logged in
       if (Date.now() < expireTime) {
         setIsLoggedIn(true);
+  
+        // ✅ 사용자 정보도 복원
+        const storedUserStr = localStorage.getItem("DLASUser");
+        if (storedUserStr) {
+          try {
+            const storedUser = JSON.parse(storedUserStr);
+            setUserName(storedUser.userName || "");
+            setUserId(storedUser.userId || "");
+            setUserCountry(storedUser.userCountry || "");
+            setUserPhone(storedUser.userPhone || "");
+            setUserEmail(storedUser.userEmail || "");
+          } catch (err) {
+            console.error("Could not parse stored user data:", err);
+          }
+        }
       } else {
-        // If expired, clear
         localStorage.removeItem("isLoggedIn");
         localStorage.removeItem("loginExpireTime");
       }
     }
   }, []);
+  
 
   // (2) Logout function
   const handleLogout = () => {
