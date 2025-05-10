@@ -104,8 +104,6 @@ export default function Page() {
   // 약관 동의 상태
   const [termsAgree, setTermsAgree] = useState(false);
 
-  const [showComingSoonModal, setShowComingSoonModal] = useState(false);
-
   // 패밀리 라이선스 모달
   const [showFamilyModal, setShowFamilyModal] = useState(false);
 
@@ -737,74 +735,79 @@ export default function Page() {
 
         {/* 패밀리 라이선스 모달 */}
         {showFamilyModal && (
-          <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center px-6 py-10 overflow-y-auto">
-            {/* 여기서 overflow-x-auto를 통해서 테이블이 잘리지 않고 가로 스크롤이 가능하도록 함 */}
-            <div className="bg-white p-8 rounded-xl shadow-xl w-full max-w-[1100px] h-fit relative overflow-x-auto">
-              <button
-                onClick={() => setShowFamilyModal(false)}
-                className="absolute top-4 right-4 text-gray-400 hover:text-black text-2xl"
-              >
-                ×
-              </button>
-              <h2 className="text-3xl font-bold mb-4 text-center">
-                {t("family.modalTitle")}
-              </h2>
-
-              {/* Description */}
-              <div className="text-gray-700 text-sm leading-relaxed space-y-2 mb-6">
-                <p>{t("family.desc1")}</p>
-                <p>{t("family.desc2")}</p>
-                <p>{t("family.desc3")}</p>
-                <p>{t("family.desc4")}</p>
-                <p>{t("family.desc5")}</p>
-              </div>
-
-              {/* 데스크톱과 동일한 테이블 그대로 사용 (가로 스크롤) */}
-              <table className="w-full text-sm border border-gray-300 mb-4 whitespace-nowrap">
-                <thead>
-                  <tr className="bg-gray-100">
-                    <th className="p-2 border text-left">Module</th>
-                    <th className="p-2 border text-center">
-                      General User
-                      <br />
-                      <span className="text-xs text-gray-600">
-                        After v2.0.0 Release
-                      </span>
-                    </th>
-                    <th className="p-2 border text-center">
-                      Family
-                      <br />
-                      <span className="text-xs text-orange-600 font-bold">
-                        ONLY before v2.0.0
-                      </span>
-                    </th>
-                    <th className="p-2 border text-left">Description</th>
-                  </tr>
-                </thead>
-                <tbody className="text-xs">
-                  {familyTableData.map(([title, price1, price2, desc], idx) => (
-                    <tr key={idx}>
-                      <td className="p-2 border">{title}</td>
-                      <td className="p-2 border text-center">{price1}</td>
-                      <td className="p-2 border text-center">{price2}</td>
-                      <td className="p-2 border">{desc}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-
-              <p className="text-xs text-gray-500 text-right mt-2">
-                {t("family.tableNote")}
-              </p>
-
-              {/* Payment Button */}
-              <div className="text-center mt-6">
+          // 가장 바깥 레이어에 overflow-auto로 세로 스크롤 가능
+          <div className="fixed inset-0 z-50 bg-black bg-opacity-50 overflow-auto">
+            {/* 내용 컨테이너: 화면보다 커져도 스크롤 가능 */}
+            <div className="flex min-h-full items-start justify-center px-6 py-10">
+              {/* 가로 스크롤 필요시를 위해 overflow-x-auto 적용 */}
+              <div className="bg-white p-8 rounded-xl shadow-xl w-full max-w-[1100px] relative overflow-x-auto">
+                {/* 닫기 버튼 (오른쪽 상단) */}
                 <button
-                  className="bg-black text-white px-8 py-3 rounded hover:bg-gray-800 transition"
-                  onClick={() => alert(t("family.paymentMsg"))}
+                  onClick={() => setShowFamilyModal(false)}
+                  className="absolute top-4 right-4 text-gray-400 hover:text-black text-2xl"
                 >
-                  {t("family.paymentBtn")}
+                  ×
                 </button>
+
+                <h2 className="text-3xl font-bold mb-4 text-center">
+                  {t("family.modalTitle")}
+                </h2>
+
+                {/* Description */}
+                <div className="text-gray-700 text-sm leading-relaxed space-y-2 mb-6">
+                  <p>{t("family.desc1")}</p>
+                  <p>{t("family.desc2")}</p>
+                  <p>{t("family.desc3")}</p>
+                  <p>{t("family.desc4")}</p>
+                  <p>{t("family.desc5")}</p>
+                </div>
+
+                {/* 테이블 (가로 스크롤 가능) */}
+                <table className="w-full text-sm border border-gray-300 mb-4 whitespace-nowrap">
+                  <thead>
+                    <tr className="bg-gray-100">
+                      <th className="p-2 border text-left">Module</th>
+                      <th className="p-2 border text-center">
+                        General User
+                        <br />
+                        <span className="text-xs text-gray-600">
+                          After v2.0.0 Release
+                        </span>
+                      </th>
+                      <th className="p-2 border text-center">
+                        Family
+                        <br />
+                        <span className="text-xs text-orange-600 font-bold">
+                          ONLY before v2.0.0
+                        </span>
+                      </th>
+                      <th className="p-2 border text-left">Description</th>
+                    </tr>
+                  </thead>
+                  <tbody className="text-xs">
+                    {familyTableData.map(([title, price1, price2, desc], idx) => (
+                      <tr key={idx}>
+                        <td className="p-2 border">{title}</td>
+                        <td className="p-2 border text-center">{price1}</td>
+                        <td className="p-2 border text-center">{price2}</td>
+                        <td className="p-2 border">{desc}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                <p className="text-xs text-gray-500 text-right mt-2">
+                  {t("family.tableNote")}
+                </p>
+
+                {/* 결제/구매 버튼 */}
+                <div className="text-center mt-6">
+                  <button
+                    className="bg-black text-white px-8 py-3 rounded hover:bg-gray-800 transition"
+                    onClick={() => alert(t("family.paymentMsg"))}
+                  >
+                    {t("family.paymentBtn")}
+                  </button>
+                </div>
               </div>
             </div>
           </div>
