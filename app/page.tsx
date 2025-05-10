@@ -852,75 +852,67 @@ export default function Page() {
             {t("signup.title")}
           </h2>
           <form className="space-y-4" onSubmit={handleSignupSubmit}>
-            <input
-              type="text"
-              placeholder={t("signup.form.name")}
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded"
-              required
-            />
-            {/* ID 필드 */}
-            <input
-              type="text"
-              placeholder="ID"
-              className="w-full p-3 border border-gray-300 rounded"
-              value={idForSignup}
-              onChange={(e) => setIdForSignup(e.target.value)}
-              required
-            />
-            <input
-              type="password"
-              placeholder={t("signup.form.password")}
-              className="w-full p-3 border border-gray-300 rounded"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-            <input
-              type="password"
-              placeholder={t("signup.form.confirmPassword")}
-              className="w-full p-3 border border-gray-300 rounded"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
-            />
-            {passwordError && (
-              <p className="text-red-500 text-sm">{passwordError}</p>
-            )}
-
-            <select
-              value={country}
-              onChange={(e) => setCountry(e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded"
-              required
-            >
-              <option value="">
-                {t("signup.form.countryPlaceholder")}
-              </option>
-              {countries.map((country, index) => (
-                <option key={index} value={country}>
-                  {country}
-                </option>
-              ))}
-            </select>
-
-            <input
-              type="text"
-              placeholder={`${t("signup.form.phoneNumber")} (Used for password recovery)`}
-              value={workplaceName}
-              onChange={(e) => setWorkplaceName(e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded"
-              required
-            />
-            <input
-              type="text"
-              placeholder={`${t("signup.form.email")} (Used for password recovery)`}
-              value={workplaceAddress}
-              onChange={(e) => setWorkplaceAddress(e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded"
-              required
-            />
+  <input
+    type="text"
+    placeholder={t("signup.form.name")}
+    value={name}
+    onChange={(e) => setName(e.target.value)}
+    className="w-full p-3 border border-gray-300 rounded"
+    required
+  />
+  <input
+    type="text"
+    placeholder={t("signup.form.id")}
+    className="w-full p-3 border border-gray-300 rounded"
+    value={idForSignup}
+    onChange={(e) => setIdForSignup(e.target.value)}
+    required
+  />
+  <input
+    type="password"
+    placeholder={t("signup.form.password")}
+    className="w-full p-3 border border-gray-300 rounded"
+    value={password}
+    onChange={(e) => setPassword(e.target.value)}
+    required
+  />
+  <input
+    type="password"
+    placeholder={t("signup.form.confirmPassword")}
+    className="w-full p-3 border border-gray-300 rounded"
+    value={confirmPassword}
+    onChange={(e) => setConfirmPassword(e.target.value)}
+    required
+  />
+  <select
+    value={country}
+    onChange={(e) => setCountry(e.target.value)}
+    className="w-full p-3 border border-gray-300 rounded"
+    required
+  >
+    <option value="">{t("signup.form.countryPlaceholder")}</option>
+    {countries.map((country, index) => (
+      <option key={index} value={country}>
+        {country}
+      </option>
+    ))}
+  </select>
+  <input
+    type="text"
+    placeholder={t("signup.form.workplaceName")}
+    value={workplaceName}
+    onChange={(e) => setWorkplaceName(e.target.value)}
+    className="w-full p-3 border border-gray-300 rounded"
+    required
+  />
+  <input
+    type="text"
+    placeholder={t("signup.form.workplaceAddress")}
+    value={workplaceAddress}
+    onChange={(e) => setWorkplaceAddress(e.target.value)}
+    className="w-full p-3 border border-gray-300 rounded"
+    required
+  />
 
             {/* 약관 동의 체크박스 구간 */}
             <div className="text-sm text-gray-600 mt-4 space-y-2">

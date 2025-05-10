@@ -170,8 +170,11 @@ of your personal data at any time.`,
         password: "Password",
         confirmPassword: "Confirm Password",
         countryPlaceholder: "Select Country",
-        workplaceName: "Workplace Name (Dental Lab / Clinic)",
-        workplaceAddress: "Workplace Address",
+        // ---------------- [추가/수정된 부분] ----------------
+        id: "ID",
+        workplaceName: "Phone number (Used for password recovery)",
+        workplaceAddress: "Email (Used for password recovery)",
+        // --------------------------------------------------
         agreeRequired: "I agree to the Terms and Conditions (required)",
         agreeMarketing: "I agree to receive marketing emails (optional)",
         submit: "Create Account",
@@ -195,8 +198,7 @@ of your personal data at any time.`,
         "If you don’t understand what innovation is, or you're a beginner or inexperienced, please do not sign up.",
       desc3:
         "Our automation programs may have bugs depending on your computer environment. Report them, and we’ll improve.",
-      desc4:
-        "We recommend using the free license first before purchasing.",
+      desc4: "We recommend using the free license first before purchasing.",
       desc5:
         "After v2.0.0, the family license will likely increase in value. One user can own multiple licenses, and reselling is allowed.",
       tableNote: "※ Plans may be subject to change.",
@@ -368,8 +370,11 @@ of your personal data at any time.`,
         password: "密码",
         confirmPassword: "确认密码",
         countryPlaceholder: "选择国家",
-        workplaceName: "工作场所名称（牙科实验室 / 诊所）",
-        workplaceAddress: "工作场所地址",
+        // ---------------- [추가/수정된 부분] ----------------
+        id: "ID",
+        workplaceName: "电话号码（用于找回密码）",
+        workplaceAddress: "邮箱（用于找回密码）",
+        // --------------------------------------------------
         agreeRequired: "我同意条款和条件（必需）",
         agreeMarketing: "我同意接收营销邮件（可选）",
         submit: "创建账号",
@@ -393,8 +398,7 @@ of your personal data at any time.`,
         "如果您不理解什么是创新，或您是新手/缺乏经验，请勿加入。",
       desc3:
         "根据电脑环境不同，我们的自动化程序可能会出现 Bug。请报告给我们，我们会改进。",
-      desc4:
-        "购买前建议先试用免费版许可证。",
+      desc4: "购买前建议先试用免费版许可证。",
       desc5:
         "在 v2.0.0 之后，家庭版许可证的价值可能会提升。一个用户可以拥有多个许可证，并且允许转售。",
       tableNote: "※ 计划可能随时变更。",
@@ -566,8 +570,11 @@ of your personal data at any time.`,
         password: "パスワード",
         confirmPassword: "パスワード（確認）",
         countryPlaceholder: "国を選択",
-        workplaceName: "勤務先名（歯科技工所 / クリニック）",
-        workplaceAddress: "勤務先の住所",
+        // ---------------- [추가/수정된 부분] ----------------
+        id: "ID",
+        workplaceName: "電話番号（パスワード再設定用）",
+        workplaceAddress: "メールアドレス（パスワード再設定用）",
+        // --------------------------------------------------
         agreeRequired: "利用規約に同意します（必須）",
         agreeMarketing: "マーケティングメールを受け取ることに同意します（任意）",
         submit: "アカウント作成",
@@ -591,8 +598,7 @@ of your personal data at any time.`,
         "もしイノベーションが何か理解できない方や、初心者または経験が浅い方は参加をご遠慮ください。",
       desc3:
         "コンピュータ環境によっては、私たちの自動化プログラムにバグが発生する可能性があります。報告いただければ改善します。",
-      desc4:
-        "購入前に無料ライセンスを使ってみることをお勧めします。",
+      desc4: "購入前に無料ライセンスを使ってみることをお勧めします。",
       desc5:
         "v2.0.0以降、ファミリーライセンスの価値が上がる可能性があります。1人が複数ライセンスを所有でき、転売も許可されます。",
       tableNote: "※ 計画は予告なしに変更される場合があります。",
@@ -605,199 +611,201 @@ of your personal data at any time.`,
   // 4. 독일어 (de)
   /////////////////////////////////////////////////////////////////////
   de: {
-      nav: {
-        home: "Startseite",
-        download: "Download",
-        buy: "Kaufen",
-        contact: "Kontakt",
-        terms: "AGB & Datenschutz",
-        family: "Familie",
-        login: "Login",
-        signup: "Registrieren",
+    nav: {
+      home: "Startseite",
+      download: "Download",
+      buy: "Kaufen",
+      contact: "Kontakt",
+      terms: "AGB & Datenschutz",
+      family: "Familie",
+      login: "Login",
+      signup: "Registrieren",
+    },
+    home: {
+      subtitle: "Maximieren Sie Ihre Produktivität mit nur einem Klick",
+      title: "Von Stunden zu Sekunden",
+      cta: "Treten Sie der DLAS-Familie bei – nur",
+      price: "$390",
+      gameChangerTitle: "Revolution in der digitalen Zahnmedizin",
+      gameChangerDesc:
+        "DLAS ist mehr als nur eine Software. Es ist eine Revolution in der Dental-CAD-Automatisierung und bietet moderne Werkzeuge zur Vereinfachung komplexer Workflows, Verringerung manueller Arbeit und Maximierung der Produktivität.",
+      gameChangerQuote: `"Die Zukunft der Dentalautomatisierung ist hier"`,
+    },
+    download: {
+      title: "Software herunterladen",
+      desc: "Klicken Sie unten, um die neueste Version der DLAS CAD Software herunterzuladen.",
+      button: "Jetzt herunterladen",
+    },
+    buy: {
+      title: "Lizenz kaufen",
+      familyGifPlaceholder: "GIF-Platzhalter für Familienlizenz",
+      familyLicense: "Familienlizenz",
+      moduleGif: "GIF-Platzhalter",
+    },
+    contact: {
+      title: "Kontakt aufnehmen",
+      info1: "support@dlas.io",
+      info2: "63, Dunsan-ro, Seo-gu, Daejeon, Republik Korea 403-817 (DLAS)",
+      form: {
+        firstName: "Vorname",
+        lastName: "Nachname",
+        email: "E-Mail-Adresse",
+        phone: "Telefonnummer",
+        message: "Nachricht",
+        submit: "Absenden",
       },
-      home: {
-        subtitle: "Maximieren Sie Ihre Produktivität mit nur einem Klick",
-        title: "Von Stunden zu Sekunden",
-        cta: "Treten Sie der DLAS-Familie bei – nur",
-        price: "$390",
-        gameChangerTitle: "Revolution in der digitalen Zahnmedizin",
-        gameChangerDesc:
-          "DLAS ist mehr als nur eine Software. Es ist eine Revolution in der Dental-CAD-Automatisierung und bietet moderne Werkzeuge zur Vereinfachung komplexer Workflows, Verringerung manueller Arbeit und Maximierung der Produktivität.",
-        gameChangerQuote: `"Die Zukunft der Dentalautomatisierung ist hier"`,
+    },
+    terms: {
+      title: "AGB & Datenschutz",
+      headingTerms: "[Allgemeine Geschäftsbedingungen]",
+      article1: {
+        title: "Artikel 1 (Zweck)",
+        desc: `Diese Allgemeinen Geschäftsbedingungen ("Bedingungen") regeln die Nutzung der von DLAS ("Unternehmen") betriebenen Website angebotenen Software und zugehörigen Dienstleistungen ("Dienste").`,
       },
-      download: {
-        title: "Software herunterladen",
-        desc: "Klicken Sie unten, um die neueste Version der DLAS CAD Software herunterzuladen.",
-        button: "Jetzt herunterladen",
-      },
-      buy: {
-        title: "Lizenz kaufen",
-        familyGifPlaceholder: "GIF-Platzhalter für Familienlizenz",
-        familyLicense: "Familienlizenz",
-        moduleGif: "GIF-Platzhalter",
-      },
-      contact: {
-        title: "Kontakt aufnehmen",
-        info1: "support@dlas.io",
-        info2: "63, Dunsan-ro, Seo-gu, Daejeon, Republik Korea 403-817 (DLAS)",
-        form: {
-          firstName: "Vorname",
-          lastName: "Nachname",
-          email: "E-Mail-Adresse",
-          phone: "Telefonnummer",
-          message: "Nachricht",
-          submit: "Absenden",
-        },
-      },
-      terms: {
-        title: "AGB & Datenschutz",
-        headingTerms: "[Allgemeine Geschäftsbedingungen]",
-        article1: {
-          title: "Artikel 1 (Zweck)",
-          desc: `Diese Allgemeinen Geschäftsbedingungen ("Bedingungen") regeln die Nutzung der von DLAS ("Unternehmen") betriebenen Website angebotenen Software und zugehörigen Dienstleistungen ("Dienste").`,
-        },
-        article2: {
-          title: "Artikel 2 (Begriffe)",
-          desc: `1. "Benutzer" bezeichnet jede Person, die diesen Bedingungen zustimmt und die Dienste nutzt.<br/>
+      article2: {
+        title: "Artikel 2 (Begriffe)",
+        desc: `1. "Benutzer" bezeichnet jede Person, die diesen Bedingungen zustimmt und die Dienste nutzt.<br/>
 2. "Produkt" bezieht sich auf jede KI-basierte Software, Module oder Programme, die vom Unternehmen bereitgestellt werden.`,
-        },
-        article3: {
-          title: "Artikel 3 (Geltung und Änderung der Bedingungen)",
-          desc: `1. Diese Bedingungen werden mit ihrer Veröffentlichung auf der Website wirksam.<br/>
+      },
+      article3: {
+        title: "Artikel 3 (Geltung und Änderung der Bedingungen)",
+        desc: `1. Diese Bedingungen werden mit ihrer Veröffentlichung auf der Website wirksam.<br/>
 2. Das Unternehmen kann diese Bedingungen in Übereinstimmung mit geltendem Recht ändern und wird die Benutzer im Voraus benachrichtigen.`,
-        },
-        article4: {
-          title: "Artikel 4 (Bereitstellung der Dienste)",
-          desc: `Das Unternehmen stellt folgende Dienste zur Verfügung:<br/>
+      },
+      article4: {
+        title: "Artikel 4 (Bereitstellung der Dienste)",
+        desc: `Das Unternehmen stellt folgende Dienste zur Verfügung:<br/>
 - Herunterladbare KI-basierte Dentalsoftware<br/>
 - Kauf und Aktivierung kostenpflichtiger Module<br/>
 - Andere vom Unternehmen angegebene Dienste`,
-        },
-        article5: {
-          title: "Artikel 5 (Zahlung und Rückerstattungen)",
-          desc: `1. Benutzer können Produkte mit den vom Unternehmen angegebenen Zahlungsmethoden erwerben.<br/>
-2. Aufgrund der Natur digitaler Produkte sind Rückerstattungen nach dem Download oder der Aktivierung nicht möglich, außer wenn gesetzlich vorgeschrieben.`,
-        },
-        article6: {
-          title: "Artikel 6 (Geistiges Eigentum)",
-          desc: `1. Sämtliche Inhalte und Software auf der Website sind urheberrechtlich geschützt und gehören dem Unternehmen.<br/>
-2. Unerlaubtes Kopieren, Weiterverbreiten oder Reverse Engineering ist untersagt und kann rechtliche Konsequenzen nach sich ziehen.`,
-        },
-        article7: {
-          title: "Artikel 7 (Haftungsausschluss)",
-          desc: `1. Das Unternehmen haftet nicht für Dienstunterbrechungen, die durch höhere Gewalt wie Naturkatastrophen, Cyberangriffe oder Systemausfälle verursacht werden.<br/>
-2. Das Unternehmen ist nicht für Schäden verantwortlich, die durch Fahrlässigkeit des Benutzers entstehen.`,
-        },
-        article8: {
-          title: "Artikel 8 (Anwendbares Recht und Gerichtsstand)",
-          desc: `Alle Streitigkeiten, die sich aus diesen Bedingungen ergeben, unterliegen dem Recht der Republik Korea. Das zuständige Gericht am Unternehmenssitz ist das erstinstanzliche Gericht.`,
-        },
-        effectiveDate: "Wirksam ab: 29. April 2025",
       },
-      privacy: {
-        headingPrivacy: "[Datenschutzerklärung]",
-        intro: `DLAS ("Unternehmen") respektiert Ihre Privatsphäre und verarbeitet Ihre persönlichen Daten in Übereinstimmung mit den geltenden Gesetzen, einschließlich des Datenschutzgesetzes.`,
-        article1: {
-          title: "Artikel 1 (Erhobene Informationen)",
-          desc: `Wir können folgende Arten von Informationen erfassen:<br/>
+      article5: {
+        title: "Artikel 5 (Zahlung und Rückerstattungen)",
+        desc: `1. Benutzer können Produkte mit den vom Unternehmen angegebenen Zahlungsmethoden erwerben.<br/>
+2. Aufgrund der Natur digitaler Produkte sind Rückerstattungen nach dem Download oder der Aktivierung nicht möglich, außer wenn gesetzlich vorgeschrieben.`,
+      },
+      article6: {
+        title: "Artikel 6 (Geistiges Eigentum)",
+        desc: `1. Sämtliche Inhalte und Software auf der Website sind urheberrechtlich geschützt und gehören dem Unternehmen.<br/>
+2. Unerlaubtes Kopieren, Weiterverbreiten oder Reverse Engineering ist untersagt und kann rechtliche Konsequenzen nach sich ziehen.`,
+      },
+      article7: {
+        title: "Artikel 7 (Haftungsausschluss)",
+        desc: `1. Das Unternehmen haftet nicht für Dienstunterbrechungen, die durch höhere Gewalt wie Naturkatastrophen, Cyberangriffe oder Systemausfälle verursacht werden.<br/>
+2. Das Unternehmen ist nicht für Schäden verantwortlich, die durch Fahrlässigkeit des Benutzers entstehen.`,
+      },
+      article8: {
+        title: "Artikel 8 (Anwendbares Recht und Gerichtsstand)",
+        desc: `Alle Streitigkeiten, die sich aus diesen Bedingungen ergeben, unterliegen dem Recht der Republik Korea. Das zuständige Gericht am Unternehmenssitz ist das erstinstanzliche Gericht.`,
+      },
+      effectiveDate: "Wirksam ab: 29. April 2025",
+    },
+    privacy: {
+      headingPrivacy: "[Datenschutzerklärung]",
+      intro: `DLAS ("Unternehmen") respektiert Ihre Privatsphäre und verarbeitet Ihre persönlichen Daten in Übereinstimmung mit den geltenden Gesetzen, einschließlich des Datenschutzgesetzes.`,
+      article1: {
+        title: "Artikel 1 (Erhobene Informationen)",
+        desc: `Wir können folgende Arten von Informationen erfassen:<br/>
 - E-Mail-Adresse und Passwort (bei der Registrierung)<br/>
 - Name und Zahlungsinformationen (für kostenpflichtige Dienste)<br/>
 - Zugriffsprotokolle, IP-Adresse, Nutzungsverlauf (für Servicequalität und Sicherheit)`,
-        },
-        article2: {
-          title: "Artikel 2 (Zweck der Erfassung)",
-          desc: `Personenbezogene Daten werden für folgende Zwecke erfasst und verwendet:<br/>
+      },
+      article2: {
+        title: "Artikel 2 (Zweck der Erfassung)",
+        desc: `Personenbezogene Daten werden für folgende Zwecke erfasst und verwendet:<br/>
 - Benutzerauthentifizierung und Bereitstellung von Diensten<br/>
 - Zahlungsabwicklung und Rückerstattungsunterstützung<br/>
 - Kundensupport und Zustellung von Benachrichtigungen<br/>
 - Verhinderung von Betrug und Missbrauch des Systems`,
-        },
-        article3: {
-          title: "Artikel 3 (Aufbewahrungsfrist)",
-          desc: `- Daten werden bei Kündigung des Kontos gelöscht, sofern nicht gesetzlich anders vorgeschrieben.<br/>
+      },
+      article3: {
+        title: "Artikel 3 (Aufbewahrungsfrist)",
+        desc: `- Daten werden bei Kündigung des Kontos gelöscht, sofern nicht gesetzlich anders vorgeschrieben.<br/>
 - Bestimmte Daten können für gesetzlich vorgeschriebene Zeiträume aufbewahrt werden (z.B. nach E-Commerce-Bestimmungen).`,
-        },
-        article4: {
-          title: "Artikel 4 (Weitergabe an Dritte)",
-          desc: `Wir geben personenbezogene Daten nicht an Dritte weiter, außer:<br/>
+      },
+      article4: {
+        title: "Artikel 4 (Weitergabe an Dritte)",
+        desc: `Wir geben personenbezogene Daten nicht an Dritte weiter, außer:<br/>
 - Mit Ihrer vorherigen Zustimmung<br/>
 - Wenn gesetzlich oder gerichtlich vorgeschrieben`,
-        },
-        article5: {
-          title: "Artikel 5 (Löschung personenbezogener Daten)",
-          desc: `Personenbezogene Daten werden nach Ablauf der Aufbewahrungsfrist sicher gelöscht:<br/>
+      },
+      article5: {
+        title: "Artikel 5 (Löschung personenbezogener Daten)",
+        desc: `Personenbezogene Daten werden nach Ablauf der Aufbewahrungsfrist sicher gelöscht:<br/>
 - Digitale Dateien: endgültig gelöscht<br/>
 - Papierdokumente: geschreddert oder verbrannt`,
-        },
-        article6: {
-          title: "Artikel 6 (Rechte des Benutzers)",
-          desc: `Sie können jederzeit die Einsicht, Änderung, Löschung oder Einschränkung der Verarbeitung Ihrer personenbezogenen Daten verlangen.`,
-        },
-        article7: {
-          title: "Artikel 7 (Datenschutzbeauftragter)",
-          desc: `- Beauftragter: JongHwan Kim<br/>
+      },
+      article6: {
+        title: "Artikel 6 (Rechte des Benutzers)",
+        desc: `Sie können jederzeit die Einsicht, Änderung, Löschung oder Einschränkung der Verarbeitung Ihrer personenbezogenen Daten verlangen.`,
+      },
+      article7: {
+        title: "Artikel 7 (Datenschutzbeauftragter)",
+        desc: `- Beauftragter: JongHwan Kim<br/>
 - E-Mail: support@dlas.io`,
-        },
-        effectiveDate: "Wirksam ab: 29. April 2025",
       },
-      login: {
-        title: "Bei DLAS anmelden",
-        form: {
-          email: "E-Mail",
-          password: "Passwort",
-          submit: "Login",
-          noAccount: "Noch keinen Account?",
-          signupNow: "Jetzt registrieren",
-        },
-      },
-      signup: {
-        title: "Bei DLAS registrieren",
-        success: "Erfolgreich registriert!",
-        marketingLabel: "Marketing-Einwilligung",
-        error: {
-          notMatch: "Passwörter stimmen nicht überein.",
-          mustAgree: "Sie müssen den erforderlichen Bedingungen zustimmen.",
-        },
-        form: {
-          name: "Name",
-          email: "E-Mail",
-          password: "Passwort",
-          confirmPassword: "Passwort bestätigen",
-          countryPlaceholder: "Land auswählen",
-          workplaceName: "Name des Arbeitsplatzes (Dentallabor / Klinik)",
-          workplaceAddress: "Adresse des Arbeitsplatzes",
-          agreeRequired: "Ich stimme den Nutzungsbedingungen zu (erforderlich)",
-          agreeMarketing: "Ich stimme dem Erhalt von Marketing-E-Mails zu (optional)",
-          submit: "Konto erstellen",
-        },
-      },
-      common: {
-        yes: "Ja",
-        no: "Nein",
-        ok: "OK",
-      },
-      footer: {
-        rights: "Alle Rechte vorbehalten.",
-        youtube: "YouTube",
-        instagram: "Instagram",
-      },
-      family: {
-        modalTitle: "Informationen zur Familienlizenz",
-        desc1:
-          "Wir suchen Partner, die zusammen mit DLAS wachsen möchten. Nur Zahnlabore, die digitale Innovation vorantreiben, sollten teilnehmen.",
-        desc2:
-          "Wenn Sie nicht verstehen, was Innovation bedeutet, oder wenn Sie ein Anfänger oder unerfahren sind, melden Sie sich bitte nicht an.",
-        desc3:
-          "Unsere Automatisierungsprogramme können je nach Computerumgebung Fehler aufweisen. Bitte melden Sie diese, damit wir sie beheben können.",
-        desc4:
-          "Wir empfehlen, vor dem Kauf zuerst die kostenlose Lizenz zu nutzen.",
-        desc5:
-          "Nach Version v2.0.0 wird der Wert der Familienlizenz voraussichtlich steigen. Ein Benutzer kann mehrere Lizenzen besitzen, und der Weiterverkauf ist erlaubt.",
-        tableNote: "※ Pläne können sich jederzeit ändern.",
-        paymentBtn: "Zur Zahlung (in Kürze)",
-        paymentMsg: "Zahlungsintegration folgt in Kürze.",
+      effectiveDate: "Wirksam ab: 29. April 2025",
+    },
+    login: {
+      title: "Bei DLAS anmelden",
+      form: {
+        email: "E-Mail",
+        password: "Passwort",
+        submit: "Login",
+        noAccount: "Noch keinen Account?",
+        signupNow: "Jetzt registrieren",
       },
     },
+    signup: {
+      title: "Bei DLAS registrieren",
+      success: "Erfolgreich registriert!",
+      marketingLabel: "Marketing-Einwilligung",
+      error: {
+        notMatch: "Passwörter stimmen nicht überein.",
+        mustAgree: "Sie müssen den erforderlichen Bedingungen zustimmen.",
+      },
+      form: {
+        name: "Name",
+        email: "E-Mail",
+        password: "Passwort",
+        confirmPassword: "Passwort bestätigen",
+        countryPlaceholder: "Land auswählen",
+        // ---------------- [추가/수정된 부분] ----------------
+        id: "ID",
+        workplaceName: "Telefonnummer (zur Passwortwiederherstellung)",
+        workplaceAddress: "E-Mail-Adresse (zur Passwortwiederherstellung)",
+        // --------------------------------------------------
+        agreeRequired: "Ich stimme den Nutzungsbedingungen zu (erforderlich)",
+        agreeMarketing: "Ich stimme dem Erhalt von Marketing-E-Mails zu (optional)",
+        submit: "Konto erstellen",
+      },
+    },
+    common: {
+      yes: "Ja",
+      no: "Nein",
+      ok: "OK",
+    },
+    footer: {
+      rights: "Alle Rechte vorbehalten.",
+      youtube: "YouTube",
+      instagram: "Instagram",
+    },
+    family: {
+      modalTitle: "Informationen zur Familienlizenz",
+      desc1:
+        "Wir suchen Partner, die zusammen mit DLAS wachsen möchten. Nur Zahnlabore, die digitale Innovation vorantreiben, sollten teilnehmen.",
+      desc2:
+        "Wenn Sie nicht verstehen, was Innovation bedeutet, oder wenn Sie ein Anfänger oder unerfahren sind, melden Sie sich bitte nicht an.",
+      desc3:
+        "Unsere Automatisierungsprogramme können je nach Computerumgebung Fehler aufweisen. Bitte melden Sie diese, damit wir sie beheben können.",
+      desc4: "Wir empfehlen, vor dem Kauf zuerst die kostenlose Lizenz zu nutzen.",
+      desc5:
+        "Nach Version v2.0.0 wird der Wert der Familienlizenz voraussichtlich steigen. Ein Benutzer kann mehrere Lizenzen besitzen, und der Weiterverkauf ist erlaubt.",
+      tableNote: "※ Pläne können sich jederzeit ändern.",
+      paymentBtn: "Zur Zahlung (in Kürze)",
+      paymentMsg: "Zahlungsintegration folgt in Kürze.",
+    },
+  },
 
   /////////////////////////////////////////////////////////////////////
   // 5. 프랑스어 (fr)
@@ -962,8 +970,11 @@ of your personal data at any time.`,
         password: "Mot de passe",
         confirmPassword: "Confirmer le mot de passe",
         countryPlaceholder: "Choisissez un pays",
-        workplaceName: "Nom de l'établissement (Laboratoire / Clinique)",
-        workplaceAddress: "Adresse de l'établissement",
+        // ---------------- [추가/수정된 부분] ----------------
+        id: "ID",
+        workplaceName: "Numéro de téléphone (pour la récupération du mot de passe)",
+        workplaceAddress: "Adresse e-mail (pour la récupération du mot de passe)",
+        // --------------------------------------------------
         agreeRequired: "J'accepte les Conditions d'Utilisation (obligatoire)",
         agreeMarketing: "J'accepte de recevoir des e-mails marketing (optionnel)",
         submit: "Créer un Compte",
@@ -987,8 +998,7 @@ of your personal data at any time.`,
         "Si vous ne comprenez pas la notion d'innovation ou si vous êtes débutant ou inexpérimenté, veuillez ne pas vous inscrire.",
       desc3:
         "Nos programmes d'automatisation peuvent présenter des bugs selon l'environnement informatique. Signalez-les, et nous ferons des améliorations.",
-      desc4:
-        "Nous recommandons d'utiliser d'abord la licence gratuite avant d'acheter.",
+      desc4: "Nous recommandons d'utiliser d'abord la licence gratuite avant d'acheter.",
       desc5:
         "Après la version v2.0.0, la valeur de la licence Famille augmentera probablement. Un utilisateur peut posséder plusieurs licences, et la revente est autorisée.",
       tableNote: "※ Les plans peuvent être modifiés sans préavis.",
@@ -1160,8 +1170,11 @@ of your personal data at any time.`,
         password: "पासवर्ड",
         confirmPassword: "पासवर्ड की पुष्टि करें",
         countryPlaceholder: "देश चुनें",
-        workplaceName: "कार्यस्थल का नाम (डेंटल लैब / क्लिनिक)",
-        workplaceAddress: "कार्यस्थल का पता",
+        // ---------------- [추가/수정된 부분] ----------------
+        id: "ID",
+        workplaceName: "फ़ोन नंबर (पासवर्ड रिकवरी के लिए)",
+        workplaceAddress: "ईमेल (पासवर्ड रिकवरी के लिए)",
+        // --------------------------------------------------
         agreeRequired: "मैं नियमों और शर्तों से सहमत हूं (आवश्यक)",
         agreeMarketing: "मैं मार्केटिंग ईमेल प्राप्त करने के लिए सहमत हूं (वैकल्पिक)",
         submit: "खाता बनाएं",
@@ -1185,8 +1198,7 @@ of your personal data at any time.`,
         "यदि आप इनोवेशन का अर्थ नहीं समझते हैं, या आप एक नौसिखिया/अनुभवहीन हैं, तो कृपया साइन अप न करें।",
       desc3:
         "हमारे ऑटोमेशन प्रोग्राम में, कंप्यूटर परिवेश के अनुसार बग हो सकते हैं। कृपया रिपोर्ट करें, हम उन्हें सुधारेंगे।",
-      desc4:
-        "खरीदने से पहले मुफ्त लाइसेंस का उपयोग करना अनुशंसित है।",
+      desc4: "खरीदने से पहले मुफ्त लाइसेंस का उपयोग करना अनुशंसित है।",
       desc5:
         "v2.0.0 के बाद, फैमिली लाइसेंस का मूल्य बढ़ सकता है। एक यूज़र कई लाइसेंस रख सकता है, और रीसेल की अनुमति है।",
       tableNote: "※ योजना बिना किसी पूर्व सूचना के बदल सकती है।",
@@ -1358,8 +1370,11 @@ of your personal data at any time.`,
         password: "Senha",
         confirmPassword: "Confirmar Senha",
         countryPlaceholder: "Selecione o País",
-        workplaceName: "Nome do Local de Trabalho (Laboratório / Clínica)",
-        workplaceAddress: "Endereço do Local de Trabalho",
+        // ---------------- [추가/수정된 부분] ----------------
+        id: "ID",
+        workplaceName: "Número de telefone (usado para recuperação de senha)",
+        workplaceAddress: "E-mail (usado para recuperação de senha)",
+        // --------------------------------------------------
         agreeRequired: "Concordo com os Termos e Condições (obrigatório)",
         agreeMarketing: "Concordo em receber e-mails de marketing (opcional)",
         submit: "Criar Conta",
@@ -1383,8 +1398,7 @@ of your personal data at any time.`,
         "Se você não entende o que é inovação, ou se é iniciante ou inexperiente, por favor não se inscreva.",
       desc3:
         "Nossos programas de automação podem apresentar bugs dependendo do ambiente do computador. Relate-os para que possamos melhorar.",
-      desc4:
-        "Recomendamos usar primeiro a licença gratuita antes de comprar.",
+      desc4: "Recomendamos usar primeiro a licença gratuita antes de comprar.",
       desc5:
         "Após a versão v2.0.0, o valor da licença familiar provavelmente aumentará. Um usuário pode possuir várias licenças e a revenda é permitida.",
       tableNote: "※ Os planos podem mudar sem aviso prévio.",
@@ -1556,8 +1570,11 @@ of your personal data at any time.`,
         password: "비밀번호",
         confirmPassword: "비밀번호 확인",
         countryPlaceholder: "국가 선택",
-        workplaceName: "근무처 이름(치과랩 / 병원)",
-        workplaceAddress: "근무처 주소",
+        // ---------------- [추가/수정된 부분] ----------------
+        id: "ID",
+        workplaceName: "전화번호 (비밀번호 찾기 용)",
+        workplaceAddress: "이메일 (비밀번호 찾기 용)",
+        // --------------------------------------------------
         agreeRequired: "이용약관에 동의합니다(필수)",
         agreeMarketing: "마케팅 이메일 수신에 동의합니다(선택)",
         submit: "계정 생성",
@@ -1581,8 +1598,7 @@ of your personal data at any time.`,
         "혁신이 무엇인지 이해하지 못하거나, 초보 혹은 경험이 없는 경우에는 가입을 자제해 주세요.",
       desc3:
         "자동화 프로그램은 컴퓨터 환경에 따라 버그가 있을 수 있습니다. 보고해주시면 개선하겠습니다.",
-      desc4:
-        "구매 전에 무료 라이선스를 먼저 사용하는 것을 권장합니다.",
+      desc4: "구매 전에 무료 라이선스를 먼저 사용하는 것을 권장합니다.",
       desc5:
         "v2.0.0 이후에는 패밀리 라이선스 가치가 높아질 수 있습니다. 한 사람이 여러 개를 구매할 수 있으며, 재판매도 허용합니다.",
       tableNote: "※ 계획은 사전 통지 없이 변경될 수 있습니다.",
@@ -1754,8 +1770,11 @@ of your personal data at any time.`,
         password: "Пароль",
         confirmPassword: "Подтвердите пароль",
         countryPlaceholder: "Выберите страну",
-        workplaceName: "Название рабочего места (Лаборатория / Клиника)",
-        workplaceAddress: "Адрес рабочего места",
+        // ---------------- [추가/수정된 부분] ----------------
+        id: "ID",
+        workplaceName: "Номер телефона (для восстановления пароля)",
+        workplaceAddress: "Электронная почта (для восстановления пароля)",
+        // --------------------------------------------------
         agreeRequired: "Я согласен с Условиями (обязательно)",
         agreeMarketing: "Я согласен получать маркетинговые письма (по желанию)",
         submit: "Создать аккаунт",
@@ -1779,8 +1798,7 @@ of your personal data at any time.`,
         "Если вы не понимаете, что такое инновации, или являетесь новичком / не имеете опыта, не регистрируйтесь.",
       desc3:
         "Наши программы автоматизации могут содержать ошибки в зависимости от компьютерной среды. Пожалуйста, сообщайте, мы улучшим их.",
-      desc4:
-        "Перед покупкой рекомендуем использовать бесплатную лицензию.",
+      desc4: "Перед покупкой рекомендуем использовать бесплатную лицензию.",
       desc5:
         "После версии v2.0.0 стоимость семейной лицензии, вероятно, вырастет. Один пользователь может владеть несколькими лицензиями, перепродажа разрешена.",
       tableNote: "※ План может быть изменен без предварительного уведомления.",
@@ -1952,8 +1970,11 @@ of your personal data at any time.`,
         password: "Contraseña",
         confirmPassword: "Confirmar Contraseña",
         countryPlaceholder: "Seleccionar País",
-        workplaceName: "Nombre del lugar de trabajo (Laboratorio / Clínica)",
-        workplaceAddress: "Dirección del lugar de trabajo",
+        // ---------------- [추가/수정된 부분] ----------------
+        id: "ID",
+        workplaceName: "Número de teléfono (utilizado para recuperar la contraseña)",
+        workplaceAddress: "Correo electrónico (utilizado para recuperar la contraseña)",
+        // --------------------------------------------------
         agreeRequired: "Acepto los Términos y Condiciones (requerido)",
         agreeMarketing: "Acepto recibir correos de marketing (opcional)",
         submit: "Crear Cuenta",
@@ -1977,8 +1998,7 @@ of your personal data at any time.`,
         "Si no entiendes qué es la innovación, o eres principiante o inexperto, por favor no te registres.",
       desc3:
         "Nuestros programas de automatización pueden tener bugs según el entorno informático. Infórmanos y los mejoraremos.",
-      desc4:
-        "Recomendamos probar primero la licencia gratuita antes de comprar.",
+      desc4: "Recomendamos probar primero la licencia gratuita antes de comprar.",
       desc5:
         "Después de la versión v2.0.0, el valor de la licencia familiar probablemente aumentará. Un usuario puede poseer varias licencias y la reventa está permitida.",
       tableNote: "※ El plan puede cambiar sin previo aviso.",
@@ -2150,8 +2170,11 @@ of your personal data at any time.`,
         password: "كلمة المرور",
         confirmPassword: "تأكيد كلمة المرور",
         countryPlaceholder: "اختر الدولة",
-        workplaceName: "اسم جهة العمل (مختبر/عيادة)",
-        workplaceAddress: "عنوان جهة العمل",
+        // ---------------- [추가/수정된 부분] ----------------
+        id: "ID",
+        workplaceName: "رقم الهاتف (لاستعادة كلمة المرور)",
+        workplaceAddress: "البريد الإلكتروني (لاستعادة كلمة المرور)",
+        // --------------------------------------------------
         agreeRequired: "أوافق على الشروط والأحكام (إلزامي)",
         agreeMarketing: "أوافق على تلقي الرسائل التسويقية (اختياري)",
         submit: "إنشاء حساب",
@@ -2175,8 +2198,7 @@ of your personal data at any time.`,
         "إذا كنت لا تفهم مفهوم الابتكار أو كنت مبتدئًا أو تفتقر للخبرة، فالرجاء عدم التسجيل.",
       desc3:
         "قد تحتوي برامج الأتمتة لدينا على بعض الأخطاء البرمجية تبعًا لبيئة الحاسوب. أخبرنا بها لنقوم بتحسينها.",
-      desc4:
-        "ننصحك بتجربة الرخصة المجانية أولًا قبل الشراء.",
+      desc4: "ننصحك بتجربة الرخصة المجانية أولًا قبل الشراء.",
       desc5:
         "بعد الإصدار v2.0.0، قد ترتفع قيمة رخصة العائلة. يمكن للمستخدم الواحد امتلاك عدة رخص ويسمح بإعادة البيع.",
       tableNote: "※ الخطة قابلة للتغيير دون إشعار مسبق.",
@@ -2348,8 +2370,11 @@ of your personal data at any time.`,
         password: "Şifre",
         confirmPassword: "Şifreyi Onayla",
         countryPlaceholder: "Ülke Seçin",
-        workplaceName: "Çalışma Yeri (Diş Laboratuvarı / Klinik)",
-        workplaceAddress: "Çalışma Yeri Adresi",
+        // ---------------- [추가/수정된 부분] ----------------
+        id: "ID",
+        workplaceName: "Telefon numarası (şifre kurtarma için kullanılır)",
+        workplaceAddress: "E-posta adresi (şifre kurtarma için kullanılır)",
+        // --------------------------------------------------
         agreeRequired: "Kullanım Koşullarını kabul ediyorum (zorunlu)",
         agreeMarketing: "Pazarlama e-postalarını kabul ediyorum (isteğe bağlı)",
         submit: "Hesap Oluştur",
@@ -2373,8 +2398,7 @@ of your personal data at any time.`,
         "Yeniliğin ne olduğunu anlamıyorsanız veya acemi ya da deneyimsizseniz, lütfen kaydolmayın.",
       desc3:
         "Bilgisayar ortamına bağlı olarak otomasyon programlarımızda hatalar olabilir. Bunları bildirirseniz geliştireceğiz.",
-      desc4:
-        "Satın almadan önce ücretsiz lisansı kullanmanızı öneririz.",
+      desc4: "Satın almadan önce ücretsiz lisansı kullanmanızı öneririz.",
       desc5:
         "v2.0.0'dan sonra aile lisansının değeri muhtemelen artacaktır. Bir kullanıcı birden fazla lisansa sahip olabilir ve yeniden satışa izin verilir.",
       tableNote: "※ Planlar önceden bildirim yapılmaksızın değiştirilebilir.",
@@ -2546,8 +2570,11 @@ of your personal data at any time.`,
         password: "Mật khẩu",
         confirmPassword: "Xác nhận Mật khẩu",
         countryPlaceholder: "Chọn Quốc gia",
-        workplaceName: "Tên Nơi làm việc (Phòng thí nghiệm / Phòng khám)",
-        workplaceAddress: "Địa chỉ Nơi làm việc",
+        // ---------------- [추가/수정된 부분] ----------------
+        id: "ID",
+        workplaceName: "Số điện thoại (dùng để khôi phục mật khẩu)",
+        workplaceAddress: "Email (dùng để khôi phục mật khẩu)",
+        // --------------------------------------------------
         agreeRequired: "Tôi đồng ý với Điều khoản Dịch vụ (bắt buộc)",
         agreeMarketing: "Tôi đồng ý nhận email Marketing (tùy chọn)",
         submit: "Tạo Tài khoản",
@@ -2571,8 +2598,7 @@ of your personal data at any time.`,
         "Nếu bạn không hiểu đổi mới là gì hoặc bạn là người mới/thiếu kinh nghiệm, xin đừng đăng ký.",
       desc3:
         "Các chương trình tự động hóa của chúng tôi có thể gặp lỗi tùy thuộc vào môi trường máy tính. Hãy báo cáo để chúng tôi cải tiến.",
-      desc4:
-        "Chúng tôi khuyên bạn nên dùng thử giấy phép miễn phí trước khi mua.",
+      desc4: "Chúng tôi khuyên bạn nên dùng thử giấy phép miễn phí trước khi mua.",
       desc5:
         "Sau bản v2.0.0, giá trị giấy phép Gia đình có thể sẽ tăng. Một người dùng có thể sở hữu nhiều giấy phép và được phép bán lại.",
       tableNote: "※ Kế hoạch có thể thay đổi mà không thông báo trước.",
@@ -2744,8 +2770,11 @@ of your personal data at any time.`,
         password: "รหัสผ่าน",
         confirmPassword: "ยืนยันรหัสผ่าน",
         countryPlaceholder: "เลือกประเทศ",
-        workplaceName: "ชื่อสถานที่ทำงาน (แลปทันตกรรม / คลินิก)",
-        workplaceAddress: "ที่อยู่สถานที่ทำงาน",
+        // ---------------- [추가/수정된 부분] ----------------
+        id: "ID",
+        workplaceName: "หมายเลขโทรศัพท์ (ใช้กู้คืนรหัสผ่าน)",
+        workplaceAddress: "อีเมล (ใช้กู้คืนรหัสผ่าน)",
+        // --------------------------------------------------
         agreeRequired: "ฉันยอมรับข้อกำหนดการให้บริการ (จำเป็น)",
         agreeMarketing: "ฉันยอมรับการรับอีเมลการตลาด (ไม่บังคับ)",
         submit: "สร้างบัญชี",
@@ -2769,8 +2798,7 @@ of your personal data at any time.`,
         "หากคุณไม่เข้าใจว่านวัตกรรมคืออะไร หรือเป็นมือใหม่/ขาดประสบการณ์ โปรดอย่าสมัคร",
       desc3:
         "โปรแกรมอัตโนมัติของเราอาจมีบั๊กตามสภาพแวดล้อมของคอมพิวเตอร์ กรุณาแจ้งให้เราทราบเพื่อปรับปรุง",
-      desc4:
-        "แนะนำให้ลองใช้ไลเซนส์ฟรีก่อนที่จะซื้อ",
+      desc4: "แนะนำให้ลองใช้ไลเซนส์ฟรีก่อนที่จะซื้อ",
       desc5:
         "หลังจาก v2.0.0 ไลเซนส์ครอบครัวอาจมีมูลค่าเพิ่มขึ้น ผู้ใช้หนึ่งรายสามารถเป็นเจ้าของไลเซนส์หลายใบ และอนุญาตให้ขายต่อได้",
       tableNote: "※ แผนอาจเปลี่ยนแปลงได้ตลอดเวลาโดยไม่ต้องแจ้งล่วงหน้า",
@@ -2942,8 +2970,11 @@ of your personal data at any time.`,
         password: "Kata Sandi",
         confirmPassword: "Konfirmasi Kata Sandi",
         countryPlaceholder: "Pilih Negara",
-        workplaceName: "Nama Tempat Kerja (Lab Gigi/Klinik)",
-        workplaceAddress: "Alamat Tempat Kerja",
+        // ---------------- [추가/수정된 부분] ----------------
+        id: "ID",
+        workplaceName: "Nomor telepon (digunakan untuk pemulihan kata sandi)",
+        workplaceAddress: "Email (digunakan untuk pemulihan kata sandi)",
+        // --------------------------------------------------
         agreeRequired: "Saya setuju dengan Syarat dan Ketentuan (wajib)",
         agreeMarketing: "Saya setuju menerima email pemasaran (opsional)",
         submit: "Buat Akun",
@@ -2967,8 +2998,7 @@ of your personal data at any time.`,
         "Jika Anda tidak memahami apa itu inovasi, atau Anda pemula/tidak berpengalaman, mohon tidak mendaftar.",
       desc3:
         "Program otomatisasi kami mungkin memiliki bug tergantung pada lingkungan komputer Anda. Laporkan kepada kami agar bisa kami perbaiki.",
-      desc4:
-        "Kami sarankan mencoba lisensi gratis sebelum membeli.",
+      desc4: "Kami sarankan mencoba lisensi gratis sebelum membeli.",
       desc5:
         "Setelah versi v2.0.0, nilai lisensi keluarga kemungkinan akan meningkat. Seorang pengguna dapat memiliki beberapa lisensi, dan penjualan kembali diperbolehkan.",
       tableNote: "※ Rencana dapat berubah sewaktu-waktu tanpa pemberitahuan.",
