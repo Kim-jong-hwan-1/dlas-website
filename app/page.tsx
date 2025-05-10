@@ -54,7 +54,7 @@ export default function Page() {
   const fetchUserInfo = async () => {
     try {
       // 실제로는 해당 API에 맞춰서 수정하세요.
-      // 예시: /auth/userinfo?email=사용자ID 로 유저정보와 라이센스 상태를 같이 불러온다고 가정
+      // 예: /auth/userinfo?email=사용자ID
       const res = await fetch(
         `https://license-server-697p.onrender.com/auth/userinfo?email=${userID}`
       );
@@ -104,8 +104,9 @@ export default function Page() {
   // 약관 동의 상태
   const [termsAgree, setTermsAgree] = useState(false);
 
-  // "Coming Soon" 모달 상태 (Family)
   const [showComingSoonModal, setShowComingSoonModal] = useState(false);
+
+  // 패밀리 라이선스 모달
   const [showFamilyModal, setShowFamilyModal] = useState(false);
 
   // 회원가입 폼 제출 처리
@@ -173,7 +174,7 @@ export default function Page() {
     }
   };
 
-  // 로그인 로직 (토큰 발급 없음)
+  // 로그인 로직
   const [idForLogin, setIdForLogin] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
 
@@ -216,14 +217,13 @@ export default function Page() {
       setIsLoggedIn(true);
 
       // (3) 로그인 시 한 시간 뒤 만료 시간을 Local Storage에 저장
-      const oneHourLater = Date.now() + 60 * 60 * 1000; // 1시간 (밀리초)
+      const oneHourLater = Date.now() + 60 * 60 * 1000; // 1시간
       localStorage.setItem("isLoggedIn", "true");
       localStorage.setItem("loginExpireTime", oneHourLater.toString());
 
-      // ▼▼▼ 로그인 시 userID 로컬스토리지 저장 ▼▼▼
+      // userID 저장
       localStorage.setItem("userID", idForLogin);
       setUserID(idForLogin);
-      // ▲▲▲
 
       // 모달 닫기
       document.getElementById("login-modal")!.classList.add("hidden");
@@ -449,7 +449,7 @@ export default function Page() {
         </div>
       </nav>
 
-      {/* 로그인 & 사인업 버튼: 모바일에서는 왼쪽 맨위, PC에서는 우측 상단 */}
+      {/* 로그인 & 사인업 버튼 */}
       <div
         className="
           fixed 
@@ -738,7 +738,8 @@ export default function Page() {
         {/* 패밀리 라이선스 모달 */}
         {showFamilyModal && (
           <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center px-6 py-10 overflow-y-auto">
-            <div className="bg-white p-8 rounded-xl shadow-xl w-full max-w-[1100px] h-fit relative">
+            {/* 여기서 overflow-x-auto를 통해서 테이블이 잘리지 않고 가로 스크롤이 가능하도록 함 */}
+            <div className="bg-white p-8 rounded-xl shadow-xl w-full max-w-[1100px] h-fit relative overflow-x-auto">
               <button
                 onClick={() => setShowFamilyModal(false)}
                 className="absolute top-4 right-4 text-gray-400 hover:text-black text-2xl"
@@ -758,83 +759,43 @@ export default function Page() {
                 <p>{t("family.desc5")}</p>
               </div>
 
-              {/* -- 반응형 테이블 -- */}
-              {/* 데스크톱/태블릿용 (md 이상) */}
-              <div className="hidden md:block overflow-x-auto">
-                <table className="w-full text-sm border border-gray-300 mb-4 whitespace-nowrap">
-                  <thead>
-                    <tr className="bg-gray-100">
-                      <th className="p-2 border text-left">Module</th>
-                      <th className="p-2 border text-center">
-                        General User
-                        <br />
-                        <span className="text-xs text-gray-600">
-                          After v2.0.0 Release
-                        </span>
-                      </th>
-                      <th className="p-2 border text-center">
-                        Family
-                        <br />
-                        <span className="text-xs text-orange-600 font-bold">
-                          ONLY before v2.0.0
-                        </span>
-                      </th>
-                      <th className="p-2 border text-left">Description</th>
+              {/* 데스크톱과 동일한 테이블 그대로 사용 (가로 스크롤) */}
+              <table className="w-full text-sm border border-gray-300 mb-4 whitespace-nowrap">
+                <thead>
+                  <tr className="bg-gray-100">
+                    <th className="p-2 border text-left">Module</th>
+                    <th className="p-2 border text-center">
+                      General User
+                      <br />
+                      <span className="text-xs text-gray-600">
+                        After v2.0.0 Release
+                      </span>
+                    </th>
+                    <th className="p-2 border text-center">
+                      Family
+                      <br />
+                      <span className="text-xs text-orange-600 font-bold">
+                        ONLY before v2.0.0
+                      </span>
+                    </th>
+                    <th className="p-2 border text-left">Description</th>
+                  </tr>
+                </thead>
+                <tbody className="text-xs">
+                  {familyTableData.map(([title, price1, price2, desc], idx) => (
+                    <tr key={idx}>
+                      <td className="p-2 border">{title}</td>
+                      <td className="p-2 border text-center">{price1}</td>
+                      <td className="p-2 border text-center">{price2}</td>
+                      <td className="p-2 border">{desc}</td>
                     </tr>
-                  </thead>
-                  <tbody className="text-xs">
-                    {familyTableData.map(([title, price1, price2, desc], idx) => (
-                      <tr key={idx}>
-                        <td className="p-2 border">{title}</td>
-                        <td className="p-2 border text-center">{price1}</td>
-                        <td className="p-2 border text-center">{price2}</td>
-                        <td className="p-2 border">{desc}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-                <p className="text-xs text-gray-500 text-right mt-2">
-                  {t("family.tableNote")}
-                </p>
-              </div>
+                  ))}
+                </tbody>
+              </table>
 
-              {/* 모바일용 (md 미만) */}
-              <div className="block md:hidden space-y-4">
-                {familyTableData.map(([title, price1, price2, desc], idx) => (
-                  <div
-                    key={idx}
-                    className="border border-gray-300 rounded p-4 text-xs"
-                  >
-                    <div className="mb-2">
-                      <span className="font-bold">Module: </span>
-                      {title}
-                    </div>
-                    <div className="mb-2">
-                      <span className="font-bold">General User: </span>
-                      {price1}{" "}
-                      <span className="text-gray-600 text-[10px]">
-                        (After v2.0.0 Release)
-                      </span>
-                    </div>
-                    <div className="mb-2">
-                      <span className="font-bold">Family: </span>
-                      {price2}{" "}
-                      <span className="text-orange-600 text-[10px] font-bold">
-                        (ONLY before v2.0.0)
-                      </span>
-                    </div>
-                    {desc && (
-                      <div>
-                        <span className="font-bold">Description: </span>
-                        {desc}
-                      </div>
-                    )}
-                  </div>
-                ))}
-                <p className="text-[10px] text-gray-500 text-right mt-2">
-                  {t("family.tableNote")}
-                </p>
-              </div>
+              <p className="text-xs text-gray-500 text-right mt-2">
+                {t("family.tableNote")}
+              </p>
 
               {/* Payment Button */}
               <div className="text-center mt-6">
@@ -999,9 +960,7 @@ export default function Page() {
                   onChange={(e) => setTermsAgree(e.target.checked)}
                   className="form-checkbox h-5 w-5 text-black"
                 />
-                <span className="ml-2">
-                  {t("signup.form.agreeRequired")}
-                </span>
+                <span className="ml-2">{t("signup.form.agreeRequired")}</span>
               </label>
               <label className="flex items-center">
                 <input
@@ -1010,9 +969,7 @@ export default function Page() {
                   onChange={(e) => setMarketingAgree(e.target.checked)}
                   className="form-checkbox h-5 w-5 text-black"
                 />
-                <span className="ml-2">
-                  {t("signup.form.agreeMarketing")}
-                </span>
+                <span className="ml-2">{t("signup.form.agreeMarketing")}</span>
               </label>
             </div>
 
