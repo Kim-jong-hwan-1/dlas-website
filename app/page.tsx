@@ -24,6 +24,7 @@ export default function Page() {
         // 만료되었으면 Local Storage 정리
         localStorage.removeItem("isLoggedIn");
         localStorage.removeItem("loginExpireTime");
+        localStorage.removeItem("userID"); // 만료 시 userID도 제거
       }
     }
   }, []);
@@ -33,8 +34,41 @@ export default function Page() {
     // 로그인 관련 로컬스토리지 값들을 제거
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("loginExpireTime");
+    localStorage.removeItem("userID");
     setIsLoggedIn(false);
   };
+
+  // ▼▼▼ 새로 추가된 부분: MY 모달 관련 상태들 ▼▼▼
+  const [showMyModal, setShowMyModal] = useState(false);
+  const [userID, setUserID] = useState("");
+  const [licenseStatus, setLicenseStatus] = useState<string | null>(null);
+
+  // MY 모달에서 라이센스 상태 불러오기
+  const fetchLicenseStatus = async () => {
+    try {
+      // 예시: /auth/license?email=사용자ID 로 라이센스 상태 불러온다고 가정
+      // 실제 API에 맞춰서 수정하세요.
+      const res = await fetch(
+        `https://license-server-697p.onrender.com/auth/license?email=${userID}`
+      );
+      if (!res.ok) {
+        throw new Error("Failed to fetch license status");
+      }
+      const data = await res.json();
+      setLicenseStatus(data.status);
+    } catch (error) {
+      console.error(error);
+      setLicenseStatus("Error fetching license");
+    }
+  };
+
+  // MY 모달 열릴 때 라이센스 상태를 가져온다.
+  useEffect(() => {
+    if (showMyModal && userID) {
+      fetchLicenseStatus();
+    }
+  }, [showMyModal, userID]);
+  // ▲▲▲ 새로 추가된 부분 끝 ▲▲▲
 
   // --- 회원가입 로직 관련 상태 ---
   const [idForSignup, setIdForSignup] = useState(""); // (원래 email이었지만, ID로 사용)
@@ -148,7 +182,7 @@ export default function Page() {
         return;
       }
 
-      // 로그인 성공 처리
+      // (로그인 성공)
       alert("로그인 성공!");
       setIsLoggedIn(true);
 
@@ -156,6 +190,11 @@ export default function Page() {
       const oneHourLater = Date.now() + 60 * 60 * 1000; // 1시간 (밀리초)
       localStorage.setItem("isLoggedIn", "true");
       localStorage.setItem("loginExpireTime", oneHourLater.toString());
+
+      // ▼▼▼ 새로 추가된 부분: 로그인 시 userID 로컬스토리지 저장 ▼▼▼
+      localStorage.setItem("userID", idForLogin);
+      setUserID(idForLogin);
+      // ▲▲▲
 
       // 모달 닫기
       document.getElementById("login-modal")!.classList.add("hidden");
@@ -332,12 +371,14 @@ export default function Page() {
         ) : (
           <>
             {/* MY & Logout 버튼 */}
+            {/* ▼▼▼ 새로 수정된 부분: MY 버튼에서 모달 열기 ▼▼▼ */}
             <button
-              onClick={() => alert("MY 페이지로 이동(예시)")}
+              onClick={() => setShowMyModal(true)}
               className="text-sm font-medium border border-gray-300 px-4 py-2 rounded hover:bg-gray-100 transition"
             >
               MY
             </button>
+            {/* ▲▲▲ */}
             <button
               onClick={handleLogout}
               className="text-sm font-medium border border-gray-300 px-4 py-2 rounded hover:bg-gray-100 transition"
@@ -455,7 +496,14 @@ export default function Page() {
             <br />
             Kakao: messso
             <br />
-            WhatsApp: <a href="https://wa.me/821097561992" target="_blank" rel="noopener noreferrer">wa.me/821097561992</a>
+            WhatsApp:{" "}
+            <a
+              href="https://wa.me/821097561992"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              wa.me/821097561992
+            </a>
           </p>
         </section>
 
@@ -835,6 +883,29 @@ export default function Page() {
           </form>
         </div>
       </div>
+
+      {/* ▼▼▼ 새로 추가된 부분: MY 모달 ▼▼▼ */}
+      {showMyModal && (
+        <div
+          className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center"
+        >
+          <div className="bg-white w-full max-w-md p-8 rounded-lg shadow-xl relative">
+            <button
+              className="absolute top-2 right-3 text-gray-500 hover:text-black text-2xl"
+              onClick={() => setShowMyModal(false)}
+            >
+              ×
+            </button>
+            <h2 className="text-2xl font-bold mb-4 text-center">내 정보</h2>
+            <div className="space-y-2 text-center">
+              <p>ID: {userID}</p>
+              <p>라이센스 상태: {licenseStatus ?? "불러오는 중..."}</p>
+              <p>정드: ???</p>
+            </div>
+          </div>
+        </div>
+      )}
+      {/* ▲▲▲ */}
 
       {/* Footer */}
       <footer className="bg-black text-white py-10 px-6 text-center mt-20">
