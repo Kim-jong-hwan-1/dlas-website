@@ -38,58 +38,59 @@ export default function Page() {
     setIsLoggedIn(false);
   };
 
-  // ▼▼▼ MY 모달 관련 상태들 ▼▼▼
-  const [showMyModal, setShowMyModal] = useState(false);
-  const [userID, setUserID] = useState("");
-  const [userInfo, setUserInfo] = useState<{
-    name?: string;
-    id?: string;
-    country?: string;
-    phone?: string;
-    email?: string;
-    licenseStatus?: string;
-  }>({});
+// ▼▼▼ MY 모달 관련 상태들 ▼▼▼
+const [showMyModal, setShowMyModal] = useState(false);
+const [userID, setUserID] = useState("");
+const [userInfo, setUserInfo] = useState<{
+  name?: string;
+  id?: string;
+  country?: string;
+  phone?: string;
+  email?: string;
+  licenseStatus?: string;
+}>({});
 
-  // MY 모달에서 사용자 정보 및 라이선스 상태 불러오기
-  const fetchUserInfo = async () => {
-    try {
-      // 실제로는 해당 API에 맞춰서 수정하세요.
-      // 예: /auth/userinfo?email=사용자ID
-      const res = await fetch(
-        `https://license-server-697p.onrender.com/auth/userinfo?email=${userID}`
-      );
-      if (!res.ok) {
-        throw new Error("Failed to fetch user info");
-      }
-      const data = await res.json();
-      setUserInfo({
-        name: data.name,
-        id: data.id,
-        country: data.country,
-        phone: data.phone,
-        email: data.email,
-        licenseStatus: data.licenseStatus,
-      });
-    } catch (error) {
-      console.error(error);
-      setUserInfo({
-        name: "-",
-        id: userID,
-        country: "-",
-        phone: "-",
-        email: "-",
-        licenseStatus: "Error fetching license",
-      });
-    }
-  };
+// ✅ 수정된 fetchUserInfo: admin 엔드포인트 사용 + email 매개변수
+const fetchUserInfo = async (email: string) => {
+  try {
+    const res = await fetch(
+      `https://license-server-697p.onrender.com/admin/userinfo?email=${email}`
+    );
+    if (!res.ok) throw new Error("Failed to fetch user info");
+    const data = await res.json();
+    setUserInfo({
+      name: data.name,
+      id: data.id,
+      country: data.country,
+      phone: data.phone,
+      email: data.email,
+      licenseStatus: data.licenseStatus,
+    });
+  } catch (error) {
+    console.error(error);
+    setUserInfo({
+      name: "-",
+      id: email,
+      country: "-",
+      phone: "-",
+      email: "-",
+      licenseStatus: "Error fetching license",
+    });
+  }
+};
 
-  // MY 모달 열릴 때 유저 정보 가져오기
-  useEffect(() => {
-    if (showMyModal && userID) {
-      fetchUserInfo();
+// ✅ 수정된 useEffect: localStorage fallback 적용
+useEffect(() => {
+  if (showMyModal) {
+    const storedID = userID || localStorage.getItem("userID");
+    if (storedID) {
+      setUserID(storedID);
+      fetchUserInfo(storedID);
     }
-  }, [showMyModal, userID]);
-  // ▲▲▲ MY 모달 끝 ▲▲▲
+  }
+}, [showMyModal]);
+// ▲▲▲ MY 모달 끝 ▲▲▲
+
 
   // --- 회원가입 로직 관련 상태 ---
   const [idForSignup, setIdForSignup] = useState(""); // (원래 email이었지만, ID로 사용)
