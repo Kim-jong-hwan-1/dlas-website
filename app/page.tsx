@@ -1161,6 +1161,14 @@ export default function Page() {
             </a>
           </div>
         </div>
+
+        {/* 추가 정보 (영문 표기) */}
+        <div className="text-sm text-white leading-snug text-center mt-4">
+          <p>DLAS, Inc.</p>
+          <p>CEO: Jonghwan Kim</p>
+          <p>Business Registration No.: 753-06-03175</p>
+          <p>Tel: +82-10-9756-1992 (Republic of Korea)</p>
+        </div>
       </footer>
     </div>
   );
