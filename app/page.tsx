@@ -568,7 +568,7 @@ export default function Page() {
                     />
                   ) : (
                     <span className="text-gray-400 text-2xl font-bold">
-                      Coming Soon
+                      {t("buy.comingSoon")}
                     </span>
                   )}
                 </div>
@@ -772,14 +772,13 @@ export default function Page() {
                     {/* 강조문구 + 버튼 */}
                     <div className="my-4 text-center">
                       <p className="font-bold text-red-600 mb-2">
-                        We recommend using the free license first before
-                        purchasing.
+                        {t("family.recommendFreeLicense")}
                       </p>
                       <button
                         onClick={() => setShowFreeLicenseGuide(true)}
                         className="underline text-blue-600 cursor-pointer"
                       >
-                        (How to get the free license)
+                        {t("family.howToGetFreeLicenseLink")}
                       </button>
                     </div>
 
@@ -788,20 +787,22 @@ export default function Page() {
                         <tr className="bg-gray-100">
                           <th className="p-2 border text-left">Module</th>
                           <th className="p-2 border text-center">
-                            General User
+                            {t("family.generalUser")}
                             <br />
                             <span className="text-xs text-gray-600">
-                              After v2.0.0 Release
+                              {t("family.afterRelease")}
                             </span>
                           </th>
                           <th className="p-2 border text-center">
-                            Family
+                            {t("family.familyUser")}
                             <br />
                             <span className="text-xs text-orange-600 font-bold">
-                              ONLY before v2.0.0
+                              {t("family.onlyBeforeRelease")}
                             </span>
                           </th>
-                          <th className="p-2 border text-left">Description</th>
+                          <th className="p-2 border text-left">
+                            {t("family.description")}
+                          </th>
                         </tr>
                       </thead>
                       <tbody className="text-xs">
@@ -841,10 +842,10 @@ export default function Page() {
                       onClick={() => setShowFreeLicenseGuide(false)}
                       className="underline text-blue-600 mb-4"
                     >
-                      ← Back
+                      {t("family.backLink")}
                     </button>
                     <h3 className="text-2xl font-bold mb-4 text-center">
-                      How to get the free license
+                      {t("family.howToGetFreeLicenseTitle")}
                     </h3>
 
                     <div className="flex flex-row items-start justify-center space-x-4">
@@ -867,56 +868,37 @@ export default function Page() {
 
                     <div className="text-sm text-gray-700 mt-4 leading-6 space-y-2">
                       <p>
-                        1) Follow us on Instagram:{" "}
+                        {t("family.howToGetFreeLicenseStep1")}{" "}
                         <a
                           href="https://www.instagram.com/dlas_official_"
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-blue-600 underline"
                         >
-                          here
+                          {t("family.here")}
                         </a>{" "}
-                        and take a screenshot.
+                        {t("family.takeScreenshot")}
                       </p>
                       <p>
-                        2) Like our post:{" "}
+                        {t("family.howToGetFreeLicenseStep2")}{" "}
                         <a
                           href="https://www.instagram.com/p/CokRraVPEi1/"
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-blue-600 underline"
                         >
-                          here
+                          {t("family.here")}
                         </a>{" "}
-                        and take a screenshot.
+                        {t("family.takeScreenshot")}
                       </p>
-                      <p>
-                        3) Take a screenshot so that your Instagram ID is
-                        clearly visible.
-                      </p>
-                      <p>
-                        Then send all the screenshots to{" "}
-                        <strong>support@dlas.io</strong> with the email subject
-                        line format: <strong>dlas (your dlas ID)</strong>.
-                      </p>
-                      <p>
-                        Our AI will review your screenshots and respond within
-                        10 minutes.
-                      </p>
+                      <p>{t("family.howToGetFreeLicenseStep3")}</p>
+                      <p>{t("family.howToGetFreeLicenseStep4")}</p>
+                      <p>{t("family.howToGetFreeLicenseStep5")}</p>
                       <hr className="my-3" />
                       <div className="font-bold text-gray-900 space-y-1">
-                        <p>
-                          - Each verified Instagram account grants 3 hours of
-                          free license.
-                        </p>
-                        <p>
-                          - One DLAS ID can redeem multiple times by using
-                          different Instagram accounts.
-                        </p>
-                        <p>
-                          - One Instagram account cannot be reused or verified
-                          again for another DLAS ID.
-                        </p>
+                        <p>{t("family.howToGetFreeLicenseNotice1")}</p>
+                        <p>{t("family.howToGetFreeLicenseNotice2")}</p>
+                        <p>{t("family.howToGetFreeLicenseNotice3")}</p>
                       </div>
                     </div>
                   </div>
@@ -925,7 +907,6 @@ export default function Page() {
             </div>
           </div>
         )}
-
       </main>
 
       {/* 로그인 모달 */}
