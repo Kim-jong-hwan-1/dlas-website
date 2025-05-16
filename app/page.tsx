@@ -842,67 +842,66 @@ export default function Page() {
                     <h3 className="text-2xl font-bold mb-4 text-center">
                       How to get the free license
                     </h3>
-                    <div className="flex flex-col items-center space-y-4">
-                      {/* 실제 이미지를 사용하실 경우 아래 placeholder div 대신 <Image>를 사용하세요.
-                          예: 
-                          <Image 
-                            src="/images/free_guide_1.png"
-                            alt="Free License Guide 1"
-                            width={300}
-                            height={200}
-                          />
-                      */}
-                      <div className="w-full max-w-sm h-48 bg-gray-200 flex items-center justify-center">
+                    {/* 
+                      세로 방향(핸드폰 캡쳐)이 가로로 저장되어 있다면 
+                      rotate-90 등을 사용해서 세로로 보이게 할 수 있습니다.
+                      여기서는 예시로 회전된 상태(rotate-90)로 가정했습니다.
+                    */}
+                    <div className="flex flex-row items-start justify-center space-x-4">
+                      {/* 첫 번째 이미지 (회전 예시) */}
+                      <div className="w-32 h-64 bg-gray-200 flex items-center justify-center transform rotate-90">
                         <span className="text-gray-400">Image 1 Placeholder</span>
                       </div>
-                      <div className="w-full max-w-sm h-48 bg-gray-200 flex items-center justify-center">
+                      {/* 두 번째 이미지 (회전 예시) */}
+                      <div className="w-32 h-64 bg-gray-200 flex items-center justify-center transform rotate-90">
                         <span className="text-gray-400">Image 2 Placeholder</span>
                       </div>
-                      <div className="w-full max-w-sm h-48 bg-gray-200 flex items-center justify-center">
+                      {/* 세 번째 이미지 (회전 예시) */}
+                      <div className="w-32 h-64 bg-gray-200 flex items-center justify-center transform rotate-90">
                         <span className="text-gray-400">Image 3 Placeholder</span>
                       </div>
+                    </div>
 
-                      {/* 설명 */}
-                      <div className="text-sm text-gray-700 mt-4 leading-6 space-y-2">
-                        <p>
-                          1) Follow us on Instagram:{" "}
-                          <a
-                            href="https://www.instagram.com/dlas_official_"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-blue-600 underline"
-                          >
-                            here
-                          </a>{" "}
-                          and take a screenshot.
-                        </p>
-                        <p>
-                          2) Like our post:{" "}
-                          <a
-                            href="https://www.instagram.com/p/CokRraVPEi1/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-blue-600 underline"
-                          >
-                            here
-                          </a>{" "}
-                          and take a screenshot.
-                        </p>
-                        <p>
-                          Then send both screenshots to{" "}
-                          <strong>support@dlas.io</strong> with the email
-                          subject line format: <strong>dlas (your dlas ID)</strong>.
-                        </p>
-                        <p>
-                          Our AI will review your screenshots and respond within
-                          10 minutes.
-                        </p>
-                        <hr className="my-3" />
-                        <div className="font-bold text-gray-900 space-y-1">
-                          <p>- Each verified Instagram account grants 3 hours of free license.</p>
-                          <p>- One DLAS ID can redeem multiple times by using different Instagram accounts.</p>
-                          <p>- One Instagram account cannot be reused or verified again for another DLAS ID.</p>
-                        </div>
+                    {/* 설명 */}
+                    <div className="text-sm text-gray-700 mt-4 leading-6 space-y-2">
+                      <p>
+                        1) Follow us on Instagram:{" "}
+                        <a
+                          href="https://www.instagram.com/dlas_official_"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 underline"
+                        >
+                          here
+                        </a>{" "}
+                        and take a screenshot.
+                      </p>
+                      <p>
+                        2) Like our post:{" "}
+                        <a
+                          href="https://www.instagram.com/p/CokRraVPEi1/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 underline"
+                        >
+                          here
+                        </a>{" "}
+                        and take a screenshot.
+                      </p>
+                      <p>
+                        Then send both screenshots to{" "}
+                        <strong>support@dlas.io</strong> with the email
+                        subject line format: <strong>dlas (your dlas ID)</strong>.
+                      </p>
+                      <p>
+                        Our AI will review your screenshots and respond within
+                        10 minutes.
+                      </p>
+                      <hr className="my-3" />
+                      <div className="font-bold text-gray-900 space-y-1">
+                        <p>- Each verified Instagram account grants 3 hours of free license.</p>
+                        <p>- One DLAS ID can redeem multiple times by using different Instagram accounts.</p>
+                        <p>- One Instagram account cannot be reused or verified again for another DLAS ID.</p>
                       </div>
                     </div>
                   </div>
