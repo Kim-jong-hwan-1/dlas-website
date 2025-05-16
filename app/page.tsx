@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useState } from "react";
@@ -116,12 +117,12 @@ export default function Page() {
 
     // 비밀번호 확인
     if (password !== confirmPassword) {
-      setPasswordError("Passwords do not match.");
+      setPasswordError(t("signup.error.notMatch"));
       return;
     }
     // 필수 약관 미동의 시 막기
     if (!termsAgree) {
-      setPasswordError("You must agree to the required terms.");
+      setPasswordError(t("signup.error.mustAgree"));
       return;
     }
 
@@ -162,7 +163,7 @@ export default function Page() {
           return;
         }
 
-        alert(`Sign up completed: ${data.message}`);
+        alert(t("signup.success"));
         // 회원가입 완료 후 모달 닫기
         document.getElementById("signup-modal")?.classList.add("hidden");
       } catch (e) {
@@ -238,36 +239,201 @@ export default function Page() {
 
   // 국가 목록
   const countries = [
-    "Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda",
-    "Argentina","Armenia","Australia","Austria","Azerbaijan","Bahamas","Bahrain",
-    "Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bhutan","Bolivia",
-    "Bosnia and Herzegovina","Botswana","Brazil","Brunei","Bulgaria","Burkina Faso",
-    "Burundi","Cabo Verde","Cambodia","Cameroon","Canada","Central African Republic",
-    "Chad","Chile","China","Colombia","Comoros","Congo (Brazzaville)","Congo (Kinshasa)",
-    "Costa Rica","Croatia","Cuba","Cyprus","Czech Republic","Denmark","Djibouti",
-    "Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea",
-    "Eritrea","Estonia","Eswatini","Ethiopia","Fiji","Finland","France","Gabon",
-    "Gambia","Georgia","Germany","Ghana","Greece","Grenada","Guatemala","Guinea",
-    "Guinea-Bissau","Guyana","Haiti","Honduras","Hungary","Iceland","India","Indonesia",
-    "Iran","Iraq","Ireland","Israel","Italy","Jamaica","Japan","Jordan","Kazakhstan",
-    "Kenya","Kiribati","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho",
-    "Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Madagascar","Malawi",
-    "Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius",
-    "Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Morocco",
-    "Mozambique","Myanmar","Namibia","Nauru","Nepal","Netherlands","New Zealand",
-    "Nicaragua","Niger","Nigeria","North Korea","North Macedonia","Norway","Oman",
-    "Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru",
-    "Philippines","Poland","Portugal","Qatar","Romania","Russia","Rwanda",
-    "Saint Kitts and Nevis","Saint Lucia","Saint Vincent and the Grenadines",
-    "Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal",
-    "Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia",
-    "Solomon Islands","Somalia","South Africa","South Korea","South Sudan",
-    "Spain","Sri Lanka","Sudan","Suriname","Sweden","Switzerland","Syria",
-    "Taiwan","Tajikistan","Tanzania","Thailand","Timor-Leste","Togo","Tonga",
-    "Trinidad and Tobago","Tunisia","Turkey","Turkmenistan","Tuvalu","Uganda",
-    "Ukraine","United Arab Emirates","United Kingdom","United States","Uruguay",
-    "Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Yemen",
-    "Zambia","Zimbabwe"
+    "Afghanistan",
+    "Albania",
+    "Algeria",
+    "Andorra",
+    "Angola",
+    "Antigua and Barbuda",
+    "Argentina",
+    "Armenia",
+    "Australia",
+    "Austria",
+    "Azerbaijan",
+    "Bahamas",
+    "Bahrain",
+    "Bangladesh",
+    "Barbados",
+    "Belarus",
+    "Belgium",
+    "Belize",
+    "Benin",
+    "Bhutan",
+    "Bolivia",
+    "Bosnia and Herzegovina",
+    "Botswana",
+    "Brazil",
+    "Brunei",
+    "Bulgaria",
+    "Burkina Faso",
+    "Burundi",
+    "Cabo Verde",
+    "Cambodia",
+    "Cameroon",
+    "Canada",
+    "Central African Republic",
+    "Chad",
+    "Chile",
+    "China",
+    "Colombia",
+    "Comoros",
+    "Congo (Brazzaville)",
+    "Congo (Kinshasa)",
+    "Costa Rica",
+    "Croatia",
+    "Cuba",
+    "Cyprus",
+    "Czech Republic",
+    "Denmark",
+    "Djibouti",
+    "Dominica",
+    "Dominican Republic",
+    "Ecuador",
+    "Egypt",
+    "El Salvador",
+    "Equatorial Guinea",
+    "Eritrea",
+    "Estonia",
+    "Eswatini",
+    "Ethiopia",
+    "Fiji",
+    "Finland",
+    "France",
+    "Gabon",
+    "Gambia",
+    "Georgia",
+    "Germany",
+    "Ghana",
+    "Greece",
+    "Grenada",
+    "Guatemala",
+    "Guinea",
+    "Guinea-Bissau",
+    "Guyana",
+    "Haiti",
+    "Honduras",
+    "Hungary",
+    "Iceland",
+    "India",
+    "Indonesia",
+    "Iran",
+    "Iraq",
+    "Ireland",
+    "Israel",
+    "Italy",
+    "Jamaica",
+    "Japan",
+    "Jordan",
+    "Kazakhstan",
+    "Kenya",
+    "Kiribati",
+    "Kuwait",
+    "Kyrgyzstan",
+    "Laos",
+    "Latvia",
+    "Lebanon",
+    "Lesotho",
+    "Liberia",
+    "Libya",
+    "Liechtenstein",
+    "Lithuania",
+    "Luxembourg",
+    "Madagascar",
+    "Malawi",
+    "Malaysia",
+    "Maldives",
+    "Mali",
+    "Malta",
+    "Marshall Islands",
+    "Mauritania",
+    "Mauritius",
+    "Mexico",
+    "Micronesia",
+    "Moldova",
+    "Monaco",
+    "Mongolia",
+    "Montenegro",
+    "Morocco",
+    "Mozambique",
+    "Myanmar",
+    "Namibia",
+    "Nauru",
+    "Nepal",
+    "Netherlands",
+    "New Zealand",
+    "Nicaragua",
+    "Niger",
+    "Nigeria",
+    "North Korea",
+    "North Macedonia",
+    "Norway",
+    "Oman",
+    "Pakistan",
+    "Palau",
+    "Palestine",
+    "Panama",
+    "Papua New Guinea",
+    "Paraguay",
+    "Peru",
+    "Philippines",
+    "Poland",
+    "Portugal",
+    "Qatar",
+    "Romania",
+    "Russia",
+    "Rwanda",
+    "Saint Kitts and Nevis",
+    "Saint Lucia",
+    "Saint Vincent and the Grenadines",
+    "Samoa",
+    "San Marino",
+    "Sao Tome and Principe",
+    "Saudi Arabia",
+    "Senegal",
+    "Serbia",
+    "Seychelles",
+    "Sierra Leone",
+    "Singapore",
+    "Slovakia",
+    "Slovenia",
+    "Solomon Islands",
+    "Somalia",
+    "South Africa",
+    "South Korea",
+    "South Sudan",
+    "Spain",
+    "Sri Lanka",
+    "Sudan",
+    "Suriname",
+    "Sweden",
+    "Switzerland",
+    "Syria",
+    "Taiwan",
+    "Tajikistan",
+    "Tanzania",
+    "Thailand",
+    "Timor-Leste",
+    "Togo",
+    "Tonga",
+    "Trinidad and Tobago",
+    "Tunisia",
+    "Turkey",
+    "Turkmenistan",
+    "Tuvalu",
+    "Uganda",
+    "Ukraine",
+    "United Arab Emirates",
+    "United Kingdom",
+    "United States",
+    "Uruguay",
+    "Uzbekistan",
+    "Vanuatu",
+    "Vatican City",
+    "Venezuela",
+    "Vietnam",
+    "Yemen",
+    "Zambia",
+    "Zimbabwe",
   ];
 
   // 탭 이동(스크롤) 로직
@@ -427,9 +593,7 @@ export default function Page() {
               <button
                 key={tab}
                 onClick={() => scrollToSection(tab)}
-                className="relative pb-2 transition-colors duration-200 cursor-pointer
-                           border-b-2 border-transparent hover:border-black 
-                           text-gray-700 hover:text-black"
+                className="relative pb-2 transition-colors duration-200 cursor-pointer border-b-2 border-transparent hover:border-black text-gray-700 hover:text-black"
               >
                 {t(`nav.${tab}`)}
               </button>
@@ -438,9 +602,7 @@ export default function Page() {
             {/* Terms & Privacy 버튼 */}
             <button
               onClick={() => scrollToSection("terms-privacy")}
-              className="relative pb-2 transition-colors duration-200 cursor-pointer
-                         border-b-2 border-transparent hover:border-black
-                         text-gray-700 hover:text-black"
+              className="relative pb-2 transition-colors duration-200 cursor-pointer border-b-2 border-transparent hover:border-black text-gray-700 hover:text-black"
             >
               {t("nav.terms")}
             </button>
@@ -486,13 +648,13 @@ export default function Page() {
               onClick={() => setShowMyModal(true)}
               className="text-sm font-medium border border-gray-300 px-4 py-2 rounded hover:bg-gray-100 transition"
             >
-              {t("nav.my")} {/* 기존 "MY" -> 다국어화 */}
+              {t("nav.my")}
             </button>
             <button
               onClick={handleLogout}
               className="text-sm font-medium border border-gray-300 px-4 py-2 rounded hover:bg-gray-100 transition"
             >
-              {t("nav.logout")} {/* 기존 "Logout" -> 다국어화 */}
+              {t("nav.logout")}
             </button>
           </>
         )}
@@ -550,7 +712,6 @@ export default function Page() {
             {t("buy.title")}
           </h1>
 
-          {/* (중략) 실제 모듈 카드들 ... */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-items-center">
             {modules.map((mod, i) => (
               <div
@@ -568,7 +729,7 @@ export default function Page() {
                     />
                   ) : (
                     <span className="text-gray-400 text-2xl font-bold">
-                      {t("buy.comingSoon")}
+                      Coming Soon
                     </span>
                   )}
                 </div>
@@ -747,7 +908,6 @@ export default function Page() {
                 <button
                   onClick={() => {
                     setShowFamilyModal(false);
-                    // 혹시나 가이드 화면에서 닫을 때도 초기화
                     setShowFreeLicenseGuide(false);
                   }}
                   className="absolute top-4 right-4 text-gray-400 hover:text-black text-2xl"
@@ -772,13 +932,13 @@ export default function Page() {
                     {/* 강조문구 + 버튼 */}
                     <div className="my-4 text-center">
                       <p className="font-bold text-red-600 mb-2">
-                        {t("family.recommendFreeLicense")}
+                        {t("family.freeLicenseRecommendation")}
                       </p>
                       <button
                         onClick={() => setShowFreeLicenseGuide(true)}
                         className="underline text-blue-600 cursor-pointer"
                       >
-                        {t("family.howToGetFreeLicenseLink")}
+                        {t("family.freeLicenseLink")}
                       </button>
                     </div>
 
@@ -787,22 +947,20 @@ export default function Page() {
                         <tr className="bg-gray-100">
                           <th className="p-2 border text-left">Module</th>
                           <th className="p-2 border text-center">
-                            {t("family.generalUser")}
+                            General User
                             <br />
                             <span className="text-xs text-gray-600">
-                              {t("family.afterRelease")}
+                              After v2.0.0 Release
                             </span>
                           </th>
                           <th className="p-2 border text-center">
-                            {t("family.familyUser")}
+                            Family
                             <br />
                             <span className="text-xs text-orange-600 font-bold">
-                              {t("family.onlyBeforeRelease")}
+                              ONLY before v2.0.0
                             </span>
                           </th>
-                          <th className="p-2 border text-left">
-                            {t("family.description")}
-                          </th>
+                          <th className="p-2 border text-left">Description</th>
                         </tr>
                       </thead>
                       <tbody className="text-xs">
@@ -836,16 +994,16 @@ export default function Page() {
                     </div>
                   </>
                 ) : (
-                  // 여기부터 무료 라이선스 획득 방법 화면
+                  // 무료 라이선스 획득 방법 화면
                   <div className="mt-6">
                     <button
                       onClick={() => setShowFreeLicenseGuide(false)}
                       className="underline text-blue-600 mb-4"
                     >
-                      {t("family.backLink")}
+                      ← Back
                     </button>
                     <h3 className="text-2xl font-bold mb-4 text-center">
-                      {t("family.howToGetFreeLicenseTitle")}
+                      {t("family.freeLicenseGuide.title")}
                     </h3>
 
                     <div className="flex flex-row items-start justify-center space-x-4">
@@ -867,38 +1025,28 @@ export default function Page() {
                     </div>
 
                     <div className="text-sm text-gray-700 mt-4 leading-6 space-y-2">
-                      <p>
-                        {t("family.howToGetFreeLicenseStep1")}{" "}
-                        <a
-                          href="https://www.instagram.com/dlas_official_"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-blue-600 underline"
-                        >
-                          {t("family.here")}
-                        </a>{" "}
-                        {t("family.takeScreenshot")}
-                      </p>
-                      <p>
-                        {t("family.howToGetFreeLicenseStep2")}{" "}
-                        <a
-                          href="https://www.instagram.com/p/CokRraVPEi1/"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-blue-600 underline"
-                        >
-                          {t("family.here")}
-                        </a>{" "}
-                        {t("family.takeScreenshot")}
-                      </p>
-                      <p>{t("family.howToGetFreeLicenseStep3")}</p>
-                      <p>{t("family.howToGetFreeLicenseStep4")}</p>
-                      <p>{t("family.howToGetFreeLicenseStep5")}</p>
+                      <p
+                        dangerouslySetInnerHTML={{
+                          __html: t("family.freeLicenseGuide.step1"),
+                        }}
+                      />
+                      <p
+                        dangerouslySetInnerHTML={{
+                          __html: t("family.freeLicenseGuide.step2"),
+                        }}
+                      />
+                      <p>{t("family.freeLicenseGuide.step3")}</p>
+                      <p
+                        dangerouslySetInnerHTML={{
+                          __html: t("family.freeLicenseGuide.step4"),
+                        }}
+                      />
+                      <p>{t("family.freeLicenseGuide.step5")}</p>
                       <hr className="my-3" />
                       <div className="font-bold text-gray-900 space-y-1">
-                        <p>{t("family.howToGetFreeLicenseNotice1")}</p>
-                        <p>{t("family.howToGetFreeLicenseNotice2")}</p>
-                        <p>{t("family.howToGetFreeLicenseNotice3")}</p>
+                        <p>{t("family.freeLicenseGuide.note1")}</p>
+                        <p>{t("family.freeLicenseGuide.note2")}</p>
+                        <p>{t("family.freeLicenseGuide.note3")}</p>
                       </div>
                     </div>
                   </div>
@@ -929,7 +1077,7 @@ export default function Page() {
           <form className="space-y-4" onSubmit={handleLoginSubmit}>
             <input
               type="text"
-              placeholder="ID"
+              placeholder={t("login.form.email")}
               value={idForLogin}
               onChange={(e) => setIdForLogin(e.target.value)}
               className="w-full p-3 border border-gray-300 rounded"
@@ -1067,9 +1215,7 @@ export default function Page() {
                   onChange={(e) => setMarketingAgree(e.target.checked)}
                   className="form-checkbox h-5 w-5 text-black"
                 />
-                <span className="ml-2">
-                  {t("signup.form.agreeMarketing")}
-                </span>
+                <span className="ml-2">{t("signup.form.agreeMarketing")}</span>
               </label>
             </div>
 
@@ -1089,9 +1235,7 @@ export default function Page() {
 
       {/* MY 모달 */}
       {showMyModal && (
-        <div
-          className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center"
-        >
+        <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
           <div className="bg-white w-full max-w-md p-8 rounded-lg shadow-xl relative">
             <button
               className="absolute top-2 right-3 text-gray-500 hover:text-black text-2xl"
@@ -1108,8 +1252,7 @@ export default function Page() {
                 {userInfo.name ?? "-"}
               </p>
               <p>
-                <strong>{t("myModal.labels.id")}:</strong>{" "}
-                {userInfo.id ?? "-"}
+                <strong>{t("myModal.labels.id")}:</strong> {userInfo.id ?? "-"}
               </p>
               <p>
                 <strong>{t("myModal.labels.country")}:</strong>{" "}
