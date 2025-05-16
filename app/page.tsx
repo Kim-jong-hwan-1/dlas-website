@@ -205,9 +205,7 @@ export default function Page() {
         const message =
           typeof errorData.detail === "object"
             ? JSON.stringify(errorData.detail)
-            : errorData.detail ||
-              errorData.message ||
-              "Unknown error";
+            : errorData.detail || errorData.message || "Unknown error";
 
         alert(`Login error: ${message}`);
         return;
@@ -472,7 +470,9 @@ export default function Page() {
             </button>
             <button
               onClick={() =>
-                document.getElementById("signup-modal")!.classList.remove("hidden")
+                document
+                  .getElementById("signup-modal")!
+                  .classList.remove("hidden")
               }
               className="text-sm font-medium border border-gray-300 px-4 py-2 rounded hover:bg-gray-100 transition"
             >
@@ -486,13 +486,13 @@ export default function Page() {
               onClick={() => setShowMyModal(true)}
               className="text-sm font-medium border border-gray-300 px-4 py-2 rounded hover:bg-gray-100 transition"
             >
-              MY
+              {t("nav.my")} {/* 기존 "MY" -> 다국어화 */}
             </button>
             <button
               onClick={handleLogout}
               className="text-sm font-medium border border-gray-300 px-4 py-2 rounded hover:bg-gray-100 transition"
             >
-              Logout
+              {t("nav.logout")} {/* 기존 "Logout" -> 다국어화 */}
             </button>
           </>
         )}
@@ -550,22 +550,7 @@ export default function Page() {
             {t("buy.title")}
           </h1>
 
-          {/* 
-              패밀리 라이선스 카드
-              - "가려줘, 없애진 말고 띄우지만 말아줘" => hidden 클래스 추가
-          */}
-          <div
-            className="hidden mb-12 w-[28rem] h-[36rem] border p-10 rounded-lg shadow hover:shadow-lg transition flex flex-col items-center mx-auto cursor-pointer"
-            onClick={() => setShowFamilyModal(true)}
-          >
-            <div className="w-[28rem] h-[28rem] bg-gray-100 mb-6 px-8 flex items-center justify-center">
-              <span className="text-gray-400">{t("buy.familyGifPlaceholder")}</span>
-            </div>
-            <div className="text-lg font-semibold text-center text-gray-800">
-              {t("buy.familyLicense")}
-            </div>
-          </div>
-
+          {/* (중략) 실제 모듈 카드들 ... */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-items-center">
             {modules.map((mod, i) => (
               <div
@@ -692,43 +677,57 @@ export default function Page() {
             </h3>
             <p className="mb-4">{t("privacy.intro")}</p>
 
-            <h4 className="font-semibold mb-1">{t("privacy.article1.title")}</h4>
+            <h4 className="font-semibold mb-1">
+              {t("privacy.article1.title")}
+            </h4>
             <p
               className="mb-4"
               dangerouslySetInnerHTML={{ __html: t("privacy.article1.desc") }}
             />
 
-            <h4 className="font-semibold mb-1">{t("privacy.article2.title")}</h4>
+            <h4 className="font-semibold mb-1">
+              {t("privacy.article2.title")}
+            </h4>
             <p
               className="mb-4"
               dangerouslySetInnerHTML={{ __html: t("privacy.article2.desc") }}
             />
 
-            <h4 className="font-semibold mb-1">{t("privacy.article3.title")}</h4>
+            <h4 className="font-semibold mb-1">
+              {t("privacy.article3.title")}
+            </h4>
             <p
               className="mb-4"
               dangerouslySetInnerHTML={{ __html: t("privacy.article3.desc") }}
             />
 
-            <h4 className="font-semibold mb-1">{t("privacy.article4.title")}</h4>
+            <h4 className="font-semibold mb-1">
+              {t("privacy.article4.title")}
+            </h4>
             <p
               className="mb-4"
               dangerouslySetInnerHTML={{ __html: t("privacy.article4.desc") }}
             />
 
-            <h4 className="font-semibold mb-1">{t("privacy.article5.title")}</h4>
+            <h4 className="font-semibold mb-1">
+              {t("privacy.article5.title")}
+            </h4>
             <p
               className="mb-4"
               dangerouslySetInnerHTML={{ __html: t("privacy.article5.desc") }}
             />
 
-            <h4 className="font-semibold mb-1">{t("privacy.article6.title")}</h4>
+            <h4 className="font-semibold mb-1">
+              {t("privacy.article6.title")}
+            </h4>
             <p
               className="mb-4"
               dangerouslySetInnerHTML={{ __html: t("privacy.article6.desc") }}
             />
 
-            <h4 className="font-semibold mb-1">{t("privacy.article7.title")}</h4>
+            <h4 className="font-semibold mb-1">
+              {t("privacy.article7.title")}
+            </h4>
             <p
               className="mb-4"
               dangerouslySetInnerHTML={{ __html: t("privacy.article7.desc") }}
@@ -773,7 +772,8 @@ export default function Page() {
                     {/* 강조문구 + 버튼 */}
                     <div className="my-4 text-center">
                       <p className="font-bold text-red-600 mb-2">
-                        We recommend using the free license first before purchasing.
+                        We recommend using the free license first before
+                        purchasing.
                       </p>
                       <button
                         onClick={() => setShowFreeLicenseGuide(true)}
@@ -847,7 +847,6 @@ export default function Page() {
                       How to get the free license
                     </h3>
 
-                    {/* 실제 이미지 3장으로 대체 */}
                     <div className="flex flex-row items-start justify-center space-x-4">
                       <img
                         src="/free_liecense/1.png"
@@ -866,7 +865,6 @@ export default function Page() {
                       />
                     </div>
 
-                    {/* 설명 */}
                     <div className="text-sm text-gray-700 mt-4 leading-6 space-y-2">
                       <p>
                         1) Follow us on Instagram:{" "}
@@ -893,12 +891,13 @@ export default function Page() {
                         and take a screenshot.
                       </p>
                       <p>
-                        3) Take a screenshot so that your Instagram ID is clearly visible.
+                        3) Take a screenshot so that your Instagram ID is
+                        clearly visible.
                       </p>
                       <p>
                         Then send all the screenshots to{" "}
-                        <strong>support@dlas.io</strong> with the email
-                        subject line format: <strong>dlas (your dlas ID)</strong>.
+                        <strong>support@dlas.io</strong> with the email subject
+                        line format: <strong>dlas (your dlas ID)</strong>.
                       </p>
                       <p>
                         Our AI will review your screenshots and respond within
@@ -906,9 +905,18 @@ export default function Page() {
                       </p>
                       <hr className="my-3" />
                       <div className="font-bold text-gray-900 space-y-1">
-                        <p>- Each verified Instagram account grants 3 hours of free license.</p>
-                        <p>- One DLAS ID can redeem multiple times by using different Instagram accounts.</p>
-                        <p>- One Instagram account cannot be reused or verified again for another DLAS ID.</p>
+                        <p>
+                          - Each verified Instagram account grants 3 hours of
+                          free license.
+                        </p>
+                        <p>
+                          - One DLAS ID can redeem multiple times by using
+                          different Instagram accounts.
+                        </p>
+                        <p>
+                          - One Instagram account cannot be reused or verified
+                          again for another DLAS ID.
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -1110,26 +1118,33 @@ export default function Page() {
             >
               ×
             </button>
-            <h2 className="text-2xl font-bold mb-4 text-center">My Info</h2>
+            <h2 className="text-2xl font-bold mb-4 text-center">
+              {t("myModal.title")}
+            </h2>
             <div className="space-y-2 text-center text-sm">
               <p>
-                <strong>이름:</strong> {userInfo.name ?? "-"}
+                <strong>{t("myModal.labels.name")}:</strong>{" "}
+                {userInfo.name ?? "-"}
               </p>
               <p>
-                <strong>아이디:</strong> {userInfo.id ?? "-"}
+                <strong>{t("myModal.labels.id")}:</strong>{" "}
+                {userInfo.id ?? "-"}
               </p>
               <p>
-                <strong>국가:</strong> {userInfo.country ?? "-"}
+                <strong>{t("myModal.labels.country")}:</strong>{" "}
+                {userInfo.country ?? "-"}
               </p>
               <p>
-                <strong>전화번호:</strong> {userInfo.phone ?? "-"}
+                <strong>{t("myModal.labels.phone")}:</strong>{" "}
+                {userInfo.phone ?? "-"}
               </p>
               <p>
-                <strong>이메일:</strong> {userInfo.email ?? "-"}
+                <strong>{t("myModal.labels.email")}:</strong>{" "}
+                {userInfo.email ?? "-"}
               </p>
               <p>
-                <strong>라이선스 상태:</strong>{" "}
-                {userInfo.licenseStatus ?? "Loading..."}
+                <strong>{t("myModal.labels.licenseStatus")}:</strong>{" "}
+                {userInfo.licenseStatus ?? t("myModal.labels.loading")}
               </p>
             </div>
           </div>
@@ -1162,7 +1177,6 @@ export default function Page() {
           </div>
         </div>
 
-        {/* 추가 정보 (영문 표기) */}
         <div className="text-sm text-white leading-snug text-center mt-4">
           <p>DLAS, Inc.</p>
           <p>CEO: Jonghwan Kim</p>
