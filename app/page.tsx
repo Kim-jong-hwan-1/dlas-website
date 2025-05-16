@@ -773,7 +773,7 @@ export default function Page() {
                       </p>
                       <button
                         onClick={() => setShowFreeLicenseGuide(true)}
-                        className="underline text-blue-600"
+                        className="underline text-blue-600 cursor-pointer"
                       >
                         (How to get the free license)
                       </button>
@@ -824,9 +824,7 @@ export default function Page() {
                     <div className="text-center mt-6">
                       <button
                         className="bg-black text-white px-8 py-3 rounded hover:bg-gray-800 transition"
-                        onClick={() =>
-                          alert(t("family.paymentMsg"))
-                        }
+                        onClick={() => alert(t("family.paymentMsg"))}
                       >
                         {t("family.paymentBtn")}
                       </button>
@@ -845,12 +843,23 @@ export default function Page() {
                       How to get the free license
                     </h3>
                     <div className="flex flex-col items-center space-y-4">
-                      {/* 이미지 1,2 자리 */}
+                      {/* 실제 이미지를 사용하실 경우 아래 placeholder div 대신 <Image>를 사용하세요.
+                          예: 
+                          <Image 
+                            src="/images/free_guide_1.png"
+                            alt="Free License Guide 1"
+                            width={300}
+                            height={200}
+                          />
+                      */}
                       <div className="w-full max-w-sm h-48 bg-gray-200 flex items-center justify-center">
                         <span className="text-gray-400">Image 1 Placeholder</span>
                       </div>
                       <div className="w-full max-w-sm h-48 bg-gray-200 flex items-center justify-center">
                         <span className="text-gray-400">Image 2 Placeholder</span>
+                      </div>
+                      <div className="w-full max-w-sm h-48 bg-gray-200 flex items-center justify-center">
+                        <span className="text-gray-400">Image 3 Placeholder</span>
                       </div>
 
                       {/* 설명 */}
@@ -888,6 +897,12 @@ export default function Page() {
                           Our AI will review your screenshots and respond within
                           10 minutes.
                         </p>
+                        <hr className="my-3" />
+                        <div className="font-bold text-gray-900 space-y-1">
+                          <p>- Each verified Instagram account grants 3 hours of free license.</p>
+                          <p>- One DLAS ID can redeem multiple times by using different Instagram accounts.</p>
+                          <p>- One Instagram account cannot be reused or verified again for another DLAS ID.</p>
+                        </div>
                       </div>
                     </div>
                   </div>
