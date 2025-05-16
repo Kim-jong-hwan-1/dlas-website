@@ -464,9 +464,7 @@ export default function Page() {
             {/* 로그인 & 회원가입 버튼 */}
             <button
               onClick={() =>
-                document
-                  .getElementById("login-modal")!
-                  .classList.remove("hidden")
+                document.getElementById("login-modal")!.classList.remove("hidden")
               }
               className="text-sm font-medium border border-gray-300 px-4 py-2 rounded hover:bg-gray-100 transition"
             >
@@ -474,9 +472,7 @@ export default function Page() {
             </button>
             <button
               onClick={() =>
-                document
-                  .getElementById("signup-modal")!
-                  .classList.remove("hidden")
+                document.getElementById("signup-modal")!.classList.remove("hidden")
               }
               className="text-sm font-medium border border-gray-300 px-4 py-2 rounded hover:bg-gray-100 transition"
             >
@@ -511,15 +507,12 @@ export default function Page() {
             </span>
           </p>
           <h1 className="text-6xl font-bold mb-8">{t("home.title")}</h1>
-          {/* 패밀리 라이선스 CTA 버튼 숨김 처리 (코드만 유지) */}
-          {false && (
-            <button
-              onClick={() => setShowFamilyModal(true)}
-              className="text-2xl font-bold cursor-pointer mt-6 bg-black text-white px-10 py-6 rounded hover:bg-gray-800 transition"
-            >
-              {t("home.cta")} {t("home.price")}
-            </button>
-          )}
+          <button
+            onClick={() => setShowFamilyModal(true)}
+            className="text-2xl font-bold cursor-pointer mt-6 bg-black text-white px-10 py-6 rounded hover:bg-gray-800 transition"
+          >
+            {t("home.cta")} {t("home.price")}
+          </button>
           <div className="mt-16 px-6 max-w-4xl mx-auto text-center">
             <h2 className="text-3xl font-semibold mb-4 text-gray-900">
               {t("home.gameChangerTitle")}
@@ -557,22 +550,21 @@ export default function Page() {
             {t("buy.title")}
           </h1>
 
-          {/* 패밀리 라이센스 소개 블록 숨김 처리 (코드만 유지) */}
-          {false && (
-            <div
-              className="mb-12 w-[28rem] h-[36rem] border p-10 rounded-lg shadow hover:shadow-lg transition flex flex-col items-center mx-auto cursor-pointer"
-              onClick={() => setShowFamilyModal(true)}
-            >
-              <div className="w-[28rem] h-[28rem] bg-gray-100 mb-6 px-8 flex items-center justify-center">
-                <span className="text-gray-400">
-                  {t("buy.familyGifPlaceholder")}
-                </span>
-              </div>
-              <div className="text-lg font-semibold text-center text-gray-800">
-                {t("buy.familyLicense")}
-              </div>
+          {/* 
+              패밀리 라이선스 카드
+              - "가려줘, 없애진 말고 띄우지만 말아줘" => hidden 클래스 추가
+          */}
+          <div
+            className="hidden mb-12 w-[28rem] h-[36rem] border p-10 rounded-lg shadow hover:shadow-lg transition flex flex-col items-center mx-auto cursor-pointer"
+            onClick={() => setShowFamilyModal(true)}
+          >
+            <div className="w-[28rem] h-[28rem] bg-gray-100 mb-6 px-8 flex items-center justify-center">
+              <span className="text-gray-400">{t("buy.familyGifPlaceholder")}</span>
             </div>
-          )}
+            <div className="text-lg font-semibold text-center text-gray-800">
+              {t("buy.familyLicense")}
+            </div>
+          </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-items-center">
             {modules.map((mod, i) => (
@@ -700,57 +692,43 @@ export default function Page() {
             </h3>
             <p className="mb-4">{t("privacy.intro")}</p>
 
-            <h4 className="font-semibold mb-1">
-              {t("privacy.article1.title")}
-            </h4>
+            <h4 className="font-semibold mb-1">{t("privacy.article1.title")}</h4>
             <p
               className="mb-4"
               dangerouslySetInnerHTML={{ __html: t("privacy.article1.desc") }}
             />
 
-            <h4 className="font-semibold mb-1">
-              {t("privacy.article2.title")}
-            </h4>
+            <h4 className="font-semibold mb-1">{t("privacy.article2.title")}</h4>
             <p
               className="mb-4"
               dangerouslySetInnerHTML={{ __html: t("privacy.article2.desc") }}
             />
 
-            <h4 className="font-semibold mb-1">
-              {t("privacy.article3.title")}
-            </h4>
+            <h4 className="font-semibold mb-1">{t("privacy.article3.title")}</h4>
             <p
               className="mb-4"
               dangerouslySetInnerHTML={{ __html: t("privacy.article3.desc") }}
             />
 
-            <h4 className="font-semibold mb-1">
-              {t("privacy.article4.title")}
-            </h4>
+            <h4 className="font-semibold mb-1">{t("privacy.article4.title")}</h4>
             <p
               className="mb-4"
               dangerouslySetInnerHTML={{ __html: t("privacy.article4.desc") }}
             />
 
-            <h4 className="font-semibold mb-1">
-              {t("privacy.article5.title")}
-            </h4>
+            <h4 className="font-semibold mb-1">{t("privacy.article5.title")}</h4>
             <p
               className="mb-4"
               dangerouslySetInnerHTML={{ __html: t("privacy.article5.desc") }}
             />
 
-            <h4 className="font-semibold mb-1">
-              {t("privacy.article6.title")}
-            </h4>
+            <h4 className="font-semibold mb-1">{t("privacy.article6.title")}</h4>
             <p
               className="mb-4"
               dangerouslySetInnerHTML={{ __html: t("privacy.article6.desc") }}
             />
 
-            <h4 className="font-semibold mb-1">
-              {t("privacy.article7.title")}
-            </h4>
+            <h4 className="font-semibold mb-1">{t("privacy.article7.title")}</h4>
             <p
               className="mb-4"
               dangerouslySetInnerHTML={{ __html: t("privacy.article7.desc") }}
@@ -762,14 +740,15 @@ export default function Page() {
           </div>
         </section>
 
-        {/* 패밀리 라이선스 모달 숨김 처리 (코드만 유지) */}
-        {false && showFamilyModal && (
+        {/* 패밀리 라이선스 모달 */}
+        {showFamilyModal && (
           <div className="fixed inset-0 z-50 bg-black bg-opacity-50 overflow-auto">
             <div className="flex min-h-full items-start justify-center px-6 py-10">
               <div className="bg-white p-8 rounded-xl shadow-xl w-full max-w-[1100px] relative overflow-x-auto">
                 <button
                   onClick={() => {
                     setShowFamilyModal(false);
+                    // 혹시나 가이드 화면에서 닫을 때도 초기화
                     setShowFreeLicenseGuide(false);
                   }}
                   className="absolute top-4 right-4 text-gray-400 hover:text-black text-2xl"
@@ -868,28 +847,22 @@ export default function Page() {
                       How to get the free license
                     </h3>
 
-                    {/* 실제 3장의 사진으로 교체 */}
+                    {/* 실제 이미지 3장으로 대체 */}
                     <div className="flex flex-row items-start justify-center space-x-4">
-                      <Image
+                      <img
                         src="/free_liecense/1.png"
-                        alt="Screenshot 1"
-                        width={200}
-                        height={400}
-                        className="object-contain"
+                        alt="Step 1"
+                        className="w-60 h-auto"
                       />
-                      <Image
+                      <img
                         src="/free_liecense/2.png"
-                        alt="Screenshot 2"
-                        width={200}
-                        height={400}
-                        className="object-contain"
+                        alt="Step 2"
+                        className="w-60 h-auto"
                       />
-                      <Image
+                      <img
                         src="/free_liecense/3.png"
-                        alt="Screenshot 3"
-                        width={200}
-                        height={400}
-                        className="object-contain"
+                        alt="Step 3"
+                        className="w-60 h-auto"
                       />
                     </div>
 
@@ -920,13 +893,12 @@ export default function Page() {
                         and take a screenshot.
                       </p>
                       <p>
-                        3) Make sure your Instagram ID is visible and take a
-                        screenshot.
+                        3) Take a screenshot so that your Instagram ID is clearly visible.
                       </p>
                       <p>
-                        Then send <strong>all 3 screenshots</strong> to{" "}
-                        <strong>support@dlas.io</strong> with the email subject
-                        line format: <strong>dlas (your dlas ID)</strong>.
+                        Then send all the screenshots to{" "}
+                        <strong>support@dlas.io</strong> with the email
+                        subject line format: <strong>dlas (your dlas ID)</strong>.
                       </p>
                       <p>
                         Our AI will review your screenshots and respond within
@@ -934,18 +906,9 @@ export default function Page() {
                       </p>
                       <hr className="my-3" />
                       <div className="font-bold text-gray-900 space-y-1">
-                        <p>
-                          - Each verified Instagram account grants 3 hours of
-                          free license.
-                        </p>
-                        <p>
-                          - One DLAS ID can redeem multiple times by using
-                          different Instagram accounts.
-                        </p>
-                        <p>
-                          - One Instagram account cannot be reused or verified
-                          again for another DLAS ID.
-                        </p>
+                        <p>- Each verified Instagram account grants 3 hours of free license.</p>
+                        <p>- One DLAS ID can redeem multiple times by using different Instagram accounts.</p>
+                        <p>- One Instagram account cannot be reused or verified again for another DLAS ID.</p>
                       </div>
                     </div>
                   </div>
@@ -1005,9 +968,7 @@ export default function Page() {
               className="text-blue-600 hover:underline"
               onClick={(e) => {
                 e.preventDefault();
-                document
-                  .getElementById("login-modal")!
-                  .classList.add("hidden");
+                document.getElementById("login-modal")!.classList.add("hidden");
                 document
                   .getElementById("signup-modal")!
                   .classList.remove("hidden");
@@ -1075,9 +1036,7 @@ export default function Page() {
               className="w-full p-3 border border-gray-300 rounded"
               required
             >
-              <option value="">
-                {t("signup.form.countryPlaceholder")}
-              </option>
+              <option value="">{t("signup.form.countryPlaceholder")}</option>
               {countries.map((country, index) => (
                 <option key={index} value={country}>
                   {country}
@@ -1110,9 +1069,7 @@ export default function Page() {
                   onChange={(e) => setTermsAgree(e.target.checked)}
                   className="form-checkbox h-5 w-5 text-black"
                 />
-                <span className="ml-2">
-                  {t("signup.form.agreeRequired")}
-                </span>
+                <span className="ml-2">{t("signup.form.agreeRequired")}</span>
               </label>
               <label className="flex items-center">
                 <input
