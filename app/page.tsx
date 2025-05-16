@@ -38,59 +38,58 @@ export default function Page() {
     setIsLoggedIn(false);
   };
 
-// ▼▼▼ MY 모달 관련 상태들 ▼▼▼
-const [showMyModal, setShowMyModal] = useState(false);
-const [userID, setUserID] = useState("");
-const [userInfo, setUserInfo] = useState<{
-  name?: string;
-  id?: string;
-  country?: string;
-  phone?: string;
-  email?: string;
-  licenseStatus?: string;
-}>({});
+  // ▼▼▼ MY 모달 관련 상태들 ▼▼▼
+  const [showMyModal, setShowMyModal] = useState(false);
+  const [userID, setUserID] = useState("");
+  const [userInfo, setUserInfo] = useState<{
+    name?: string;
+    id?: string;
+    country?: string;
+    phone?: string;
+    email?: string;
+    licenseStatus?: string;
+  }>({});
 
-// ✅ 수정된 fetchUserInfo: admin 엔드포인트 사용 + email 매개변수
-const fetchUserInfo = async (email: string) => {
-  try {
-    const res = await fetch(
-      `https://license-server-697p.onrender.com/admin/userinfo?email=${email}`
-    );
-    if (!res.ok) throw new Error("Failed to fetch user info");
-    const data = await res.json();
-    setUserInfo({
-      name: data.name,
-      id: data.id,
-      country: data.country,
-      phone: data.phone,
-      email: data.email,
-      licenseStatus: data.licenseStatus,
-    });
-  } catch (error) {
-    console.error(error);
-    setUserInfo({
-      name: "-",
-      id: email,
-      country: "-",
-      phone: "-",
-      email: "-",
-      licenseStatus: "Error fetching license",
-    });
-  }
-};
-
-// ✅ 수정된 useEffect: localStorage fallback 적용
-useEffect(() => {
-  if (showMyModal) {
-    const storedID = userID || localStorage.getItem("userID");
-    if (storedID) {
-      setUserID(storedID);
-      fetchUserInfo(storedID);
+  // ✅ 수정된 fetchUserInfo: admin 엔드포인트 사용 + email 매개변수
+  const fetchUserInfo = async (email: string) => {
+    try {
+      const res = await fetch(
+        `https://license-server-697p.onrender.com/admin/userinfo?email=${email}`
+      );
+      if (!res.ok) throw new Error("Failed to fetch user info");
+      const data = await res.json();
+      setUserInfo({
+        name: data.name,
+        id: data.id,
+        country: data.country,
+        phone: data.phone,
+        email: data.email,
+        licenseStatus: data.licenseStatus,
+      });
+    } catch (error) {
+      console.error(error);
+      setUserInfo({
+        name: "-",
+        id: email,
+        country: "-",
+        phone: "-",
+        email: "-",
+        licenseStatus: "Error fetching license",
+      });
     }
-  }
-}, [showMyModal]);
-// ▲▲▲ MY 모달 끝 ▲▲▲
+  };
 
+  // ✅ 수정된 useEffect: localStorage fallback 적용
+  useEffect(() => {
+    if (showMyModal) {
+      const storedID = userID || localStorage.getItem("userID");
+      if (storedID) {
+        setUserID(storedID);
+        fetchUserInfo(storedID);
+      }
+    }
+  }, [showMyModal]);
+  // ▲▲▲ MY 모달 끝 ▲▲▲
 
   // --- 회원가입 로직 관련 상태 ---
   const [idForSignup, setIdForSignup] = useState(""); // (원래 email이었지만, ID로 사용)
@@ -107,6 +106,9 @@ useEffect(() => {
 
   // 패밀리 라이선스 모달
   const [showFamilyModal, setShowFamilyModal] = useState(false);
+
+  // ** 새로 추가: 무료 라이선스 안내 화면 전환용 상태
+  const [showFreeLicenseGuide, setShowFreeLicenseGuide] = useState(false);
 
   // 회원가입 폼 제출 처리
   const handleSignupSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -736,83 +738,165 @@ useEffect(() => {
 
         {/* 패밀리 라이선스 모달 */}
         {showFamilyModal && (
-          // 가장 바깥 레이어에 overflow-auto로 세로 스크롤 가능
           <div className="fixed inset-0 z-50 bg-black bg-opacity-50 overflow-auto">
-            {/* 내용 컨테이너: 화면보다 커져도 스크롤 가능 */}
             <div className="flex min-h-full items-start justify-center px-6 py-10">
-              {/* 가로 스크롤 필요시를 위해 overflow-x-auto 적용 */}
               <div className="bg-white p-8 rounded-xl shadow-xl w-full max-w-[1100px] relative overflow-x-auto">
-                {/* 닫기 버튼 (오른쪽 상단) */}
                 <button
-                  onClick={() => setShowFamilyModal(false)}
+                  onClick={() => {
+                    setShowFamilyModal(false);
+                    // 혹시나 가이드 화면에서 닫을 때도 초기화
+                    setShowFreeLicenseGuide(false);
+                  }}
                   className="absolute top-4 right-4 text-gray-400 hover:text-black text-2xl"
                 >
                   ×
                 </button>
 
-                <h2 className="text-3xl font-bold mb-4 text-center">
-                  {t("family.modalTitle")}
-                </h2>
+                {!showFreeLicenseGuide ? (
+                  <>
+                    <h2 className="text-3xl font-bold mb-4 text-center">
+                      {t("family.modalTitle")}
+                    </h2>
 
-                {/* Description */}
-                <div className="text-gray-700 text-sm leading-relaxed space-y-2 mb-6">
-                  <p>{t("family.desc1")}</p>
-                  <p>{t("family.desc2")}</p>
-                  <p>{t("family.desc3")}</p>
-                  <p>{t("family.desc4")}</p>
-                  <p>{t("family.desc5")}</p>
-                </div>
+                    <div className="text-gray-700 text-sm leading-relaxed space-y-2 mb-6">
+                      <p>{t("family.desc1")}</p>
+                      <p>{t("family.desc2")}</p>
+                      <p>{t("family.desc3")}</p>
+                      <p>{t("family.desc4")}</p>
+                      <p>{t("family.desc5")}</p>
+                    </div>
 
-                {/* 테이블 (가로 스크롤 가능) */}
-                <table className="w-full text-sm border border-gray-300 mb-4 whitespace-nowrap">
-                  <thead>
-                    <tr className="bg-gray-100">
-                      <th className="p-2 border text-left">Module</th>
-                      <th className="p-2 border text-center">
-                        General User
-                        <br />
-                        <span className="text-xs text-gray-600">
-                          After v2.0.0 Release
-                        </span>
-                      </th>
-                      <th className="p-2 border text-center">
-                        Family
-                        <br />
-                        <span className="text-xs text-orange-600 font-bold">
-                          ONLY before v2.0.0
-                        </span>
-                      </th>
-                      <th className="p-2 border text-left">Description</th>
-                    </tr>
-                  </thead>
-                  <tbody className="text-xs">
-                    {familyTableData.map(([title, price1, price2, desc], idx) => (
-                      <tr key={idx}>
-                        <td className="p-2 border">{title}</td>
-                        <td className="p-2 border text-center">{price1}</td>
-                        <td className="p-2 border text-center">{price2}</td>
-                        <td className="p-2 border">{desc}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-                <p className="text-xs text-gray-500 text-right mt-2">
-                  {t("family.tableNote")}
-                </p>
+                    {/* 강조문구 + 버튼 */}
+                    <div className="my-4 text-center">
+                      <p className="font-bold text-red-600 mb-2">
+                        We recommend using the free license first before purchasing.
+                      </p>
+                      <button
+                        onClick={() => setShowFreeLicenseGuide(true)}
+                        className="underline text-blue-600"
+                      >
+                        (How to get the free license)
+                      </button>
+                    </div>
 
-                {/* 결제/구매 버튼 */}
-                <div className="text-center mt-6">
-                  <button
-                    className="bg-black text-white px-8 py-3 rounded hover:bg-gray-800 transition"
-                    onClick={() => alert(t("family.paymentMsg"))}
-                  >
-                    {t("family.paymentBtn")}
-                  </button>
-                </div>
+                    <table className="w-full text-sm border border-gray-300 mb-4 whitespace-nowrap">
+                      <thead>
+                        <tr className="bg-gray-100">
+                          <th className="p-2 border text-left">Module</th>
+                          <th className="p-2 border text-center">
+                            General User
+                            <br />
+                            <span className="text-xs text-gray-600">
+                              After v2.0.0 Release
+                            </span>
+                          </th>
+                          <th className="p-2 border text-center">
+                            Family
+                            <br />
+                            <span className="text-xs text-orange-600 font-bold">
+                              ONLY before v2.0.0
+                            </span>
+                          </th>
+                          <th className="p-2 border text-left">Description</th>
+                        </tr>
+                      </thead>
+                      <tbody className="text-xs">
+                        {familyTableData.map(
+                          ([title, price1, price2, desc], idx) => (
+                            <tr key={idx}>
+                              <td className="p-2 border">{title}</td>
+                              <td className="p-2 border text-center">
+                                {price1}
+                              </td>
+                              <td className="p-2 border text-center">
+                                {price2}
+                              </td>
+                              <td className="p-2 border">{desc}</td>
+                            </tr>
+                          )
+                        )}
+                      </tbody>
+                    </table>
+                    <p className="text-xs text-gray-500 text-right mt-2">
+                      {t("family.tableNote")}
+                    </p>
+
+                    <div className="text-center mt-6">
+                      <button
+                        className="bg-black text-white px-8 py-3 rounded hover:bg-gray-800 transition"
+                        onClick={() =>
+                          alert(t("family.paymentMsg"))
+                        }
+                      >
+                        {t("family.paymentBtn")}
+                      </button>
+                    </div>
+                  </>
+                ) : (
+                  // 여기부터 무료 라이선스 획득 방법 화면
+                  <div className="mt-6">
+                    <button
+                      onClick={() => setShowFreeLicenseGuide(false)}
+                      className="underline text-blue-600 mb-4"
+                    >
+                      ← Back
+                    </button>
+                    <h3 className="text-2xl font-bold mb-4 text-center">
+                      How to get the free license
+                    </h3>
+                    <div className="flex flex-col items-center space-y-4">
+                      {/* 이미지 1,2 자리 */}
+                      <div className="w-full max-w-sm h-48 bg-gray-200 flex items-center justify-center">
+                        <span className="text-gray-400">Image 1 Placeholder</span>
+                      </div>
+                      <div className="w-full max-w-sm h-48 bg-gray-200 flex items-center justify-center">
+                        <span className="text-gray-400">Image 2 Placeholder</span>
+                      </div>
+
+                      {/* 설명 */}
+                      <div className="text-sm text-gray-700 mt-4 leading-6 space-y-2">
+                        <p>
+                          1) Follow us on Instagram:{" "}
+                          <a
+                            href="https://www.instagram.com/dlas_official_"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 underline"
+                          >
+                            here
+                          </a>{" "}
+                          and take a screenshot.
+                        </p>
+                        <p>
+                          2) Like our post:{" "}
+                          <a
+                            href="https://www.instagram.com/p/CokRraVPEi1/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 underline"
+                          >
+                            here
+                          </a>{" "}
+                          and take a screenshot.
+                        </p>
+                        <p>
+                          Then send both screenshots to{" "}
+                          <strong>support@dlas.io</strong> with the email
+                          subject line format: <strong>dlas (your dlas ID)</strong>.
+                        </p>
+                        <p>
+                          Our AI will review your screenshots and respond within
+                          10 minutes.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
         )}
+
       </main>
 
       {/* 로그인 모달 */}
@@ -973,7 +1057,9 @@ useEffect(() => {
                   onChange={(e) => setMarketingAgree(e.target.checked)}
                   className="form-checkbox h-5 w-5 text-black"
                 />
-                <span className="ml-2">{t("signup.form.agreeMarketing")}</span>
+                <span className="ml-2">
+                  {t("signup.form.agreeMarketing")}
+                </span>
               </label>
             </div>
 
