@@ -849,15 +849,15 @@ export default function Page() {
                     */}
                     <div className="flex flex-row items-start justify-center space-x-4">
                       {/* 첫 번째 이미지 (회전 예시) */}
-                      <div className="w-32 h-64 bg-gray-200 flex items-center justify-center transform rotate-90">
+                      <div className="w-32 h-64 bg-gray-200 flex items-center justify-center ">
                         <span className="text-gray-400">Image 1 Placeholder</span>
                       </div>
                       {/* 두 번째 이미지 (회전 예시) */}
-                      <div className="w-32 h-64 bg-gray-200 flex items-center justify-center transform rotate-90">
+                      <div className="w-32 h-64 bg-gray-200 flex items-center justify-center ">
                         <span className="text-gray-400">Image 2 Placeholder</span>
                       </div>
                       {/* 세 번째 이미지 (회전 예시) */}
-                      <div className="w-32 h-64 bg-gray-200 flex items-center justify-center transform rotate-90">
+                      <div className="w-32 h-64 bg-gray-200 flex items-center justify-center ">
                         <span className="text-gray-400">Image 3 Placeholder</span>
                       </div>
                     </div>
