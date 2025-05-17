@@ -108,6 +108,8 @@ export default function Page() {
   const [showFreeLicenseGuide, setShowFreeLicenseGuide] = useState(false);
   // 결제 진행(모듈 상태 안내) 단계
   const [showPaymentProceed, setShowPaymentProceed] = useState(false);
+  // 결제 문의 모달
+  const [showPaymentSupportModal, setShowPaymentSupportModal] = useState(false);
 
   // 회원가입 폼 제출 처리
   const handleSignupSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -386,6 +388,11 @@ export default function Page() {
       "",
     ],
   ];
+
+  // 이메일 복사 함수
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText("support@dlas.io");
+  };
 
   return (
     <div className="min-h-screen bg-white text-black relative">
@@ -769,10 +776,13 @@ export default function Page() {
                         </p>
                         <ul className="list-disc list-inside space-y-1">
                           <li>Only "Transfer Jig Maker" is currently enabled.</li>
+                          <li>
+                            FAST IMAGE CONVERTER is also available (quickly converts STL to images).
+                          </li>
                           <li>Shrink, exocad, and 3Shape are all supported.</li>
                           <li>Inner-only is exocad only.</li>
                           <li>
-                            Inner+hole is possible with exocad & 3Shape, 
+                            Inner+hole is possible with exocad & 3Shape,
                             but 3Shape requires shrink processing.
                           </li>
                           <li>
@@ -802,10 +812,7 @@ export default function Page() {
                       <button
                         className="bg-black text-white px-8 py-3 rounded hover:bg-gray-800 transition"
                         onClick={() => {
-                          // 안내 후 결제 전 문의
-                          alert(
-                            "We are preparing a payment gateway.\nIf you want to purchase right now, please contact support@dlas.io."
-                          );
+                          setShowPaymentSupportModal(true);
                         }}
                       >
                         I agree
@@ -965,6 +972,46 @@ export default function Page() {
                     </div>
                   </>
                 )}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* 결제 문의 (이메일 안내) 모달 */}
+        {showPaymentSupportModal && (
+          <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center px-4">
+            <div className="bg-white w-full max-w-md p-8 rounded-lg shadow-xl relative">
+              <button
+                className="absolute top-2 right-3 text-gray-500 hover:text-black text-2xl"
+                onClick={() => setShowPaymentSupportModal(false)}
+              >
+                ×
+              </button>
+              <h2 className="text-2xl font-bold mb-4 text-center">
+                Purchase Inquiry
+              </h2>
+              <p className="text-sm text-gray-700 leading-relaxed mb-4">
+                We are preparing a payment gateway. If you want to purchase right now,
+                please contact:
+              </p>
+              <div className="flex items-center justify-between gap-2 bg-gray-100 rounded p-2 mb-4">
+                <span className="text-black text-sm font-bold">
+                  support@dlas.io
+                </span>
+                <button
+                  onClick={handleCopyEmail}
+                  className="bg-gray-300 text-black px-3 py-1 rounded hover:bg-gray-400 transition text-sm"
+                >
+                  Copy
+                </button>
+              </div>
+              <div className="text-center">
+                <button
+                  className="bg-black text-white px-8 py-3 rounded hover:bg-gray-800 transition"
+                  onClick={() => setShowPaymentSupportModal(false)}
+                >
+                  Close
+                </button>
               </div>
             </div>
           </div>
@@ -1188,37 +1235,40 @@ export default function Page() {
       )}
 
       {/* Footer */}
-      <footer className="bg-black text-white py-10 px-6 text-center mt-20">
-        <div className="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-          <div className="text-sm">
-            © {new Date().getFullYear()} DLAS. {t("footer.rights")}
+      <footer className="bg-black text-white py-10 px-6 mt-20">
+        <div className="max-w-5xl mx-auto">
+          {/* 첫 번째 줄: 저작권, 소셜 링크 */}
+          <div className="flex flex-col md:flex-row items-center md:items-start justify-between gap-4">
+            <div className="text-sm">
+              © {new Date().getFullYear()} DLAS. {t("footer.rights")}
+            </div>
+            <div className="flex gap-4">
+              <a
+                href="https://www.youtube.com/@Dlas-official-e6k"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-red-500"
+              >
+                {t("footer.youtube")}
+              </a>
+              <a
+                href="https://www.instagram.com/dlas_official_"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-pink-400"
+              >
+                {t("footer.instagram")}
+              </a>
+            </div>
           </div>
-          <div className="flex gap-4">
-            <a
-              href="https://www.youtube.com/@Dlas-official-e6k"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-red-500"
-            >
-              {t("footer.youtube")}
-            </a>
-            <a
-              href="https://www.instagram.com/dlas_official_"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-pink-400"
-            >
-              {t("footer.instagram")}
-            </a>
-          </div>
-        </div>
 
-        {/* 추가 정보 (영문 표기) */}
-        <div className="text-sm text-white leading-snug text-center mt-4">
-          <p>DLAS, Inc.</p>
-          <p>CEO: Jonghwan Kim</p>
-          <p>Business Registration No.: 753-06-03175</p>
-          <p>Tel: +82-10-9756-1992 (Republic of Korea)</p>
+          {/* 두 번째 줄: 사업자 정보 (왼쪽 정렬) */}
+          <div className="mt-6 text-sm text-white leading-snug">
+            <p>DLAS (Sole Proprietorship)</p>
+            <p>Owner: Jonghwan Kim</p>
+            <p>Business Registration No.: 753-06-03175</p>
+            <p>Tel: +82-10-9756-1992 (Republic of Korea)</p>
+          </div>
         </div>
       </footer>
     </div>
