@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useEffect, useState } from "react";
@@ -55,7 +54,7 @@ export default function Page() {
   const fetchUserInfo = async (email: string) => {
     try {
       const res = await fetch(
-        `https://license-server-697p.onrender.com/admin/userinfo?email=${email}`
+        https://license-server-697p.onrender.com/admin/userinfo?email=${email}
       );
       if (!res.ok) throw new Error("Failed to fetch user info");
       const data = await res.json();
@@ -117,12 +116,12 @@ export default function Page() {
 
     // 비밀번호 확인
     if (password !== confirmPassword) {
-      setPasswordError(t("signup.error.notMatch"));
+      setPasswordError("Passwords do not match.");
       return;
     }
     // 필수 약관 미동의 시 막기
     if (!termsAgree) {
-      setPasswordError(t("signup.error.mustAgree"));
+      setPasswordError("You must agree to the required terms.");
       return;
     }
 
@@ -159,11 +158,11 @@ export default function Page() {
             typeof data.detail === "object"
               ? JSON.stringify(data.detail)
               : data.detail || "Unknown error";
-          alert(`Sign up failed: ${message}`);
+          alert(Sign up failed: ${message});
           return;
         }
 
-        alert(t("signup.success"));
+        alert(Sign up completed: ${data.message});
         // 회원가입 완료 후 모달 닫기
         document.getElementById("signup-modal")?.classList.add("hidden");
       } catch (e) {
@@ -206,9 +205,11 @@ export default function Page() {
         const message =
           typeof errorData.detail === "object"
             ? JSON.stringify(errorData.detail)
-            : errorData.detail || errorData.message || "Unknown error";
+            : errorData.detail ||
+              errorData.message ||
+              "Unknown error";
 
-        alert(`Login error: ${message}`);
+        alert(Login error: ${message});
         return;
       }
 
@@ -230,7 +231,7 @@ export default function Page() {
     } catch (error) {
       console.error("Error during login:", error);
       if (error instanceof Error) {
-        alert(`Error during login: ${error.message}`);
+        alert(Error during login: ${error.message});
       } else {
         alert("An unknown error occurred while logging in.");
       }
@@ -239,201 +240,36 @@ export default function Page() {
 
   // 국가 목록
   const countries = [
-    "Afghanistan",
-    "Albania",
-    "Algeria",
-    "Andorra",
-    "Angola",
-    "Antigua and Barbuda",
-    "Argentina",
-    "Armenia",
-    "Australia",
-    "Austria",
-    "Azerbaijan",
-    "Bahamas",
-    "Bahrain",
-    "Bangladesh",
-    "Barbados",
-    "Belarus",
-    "Belgium",
-    "Belize",
-    "Benin",
-    "Bhutan",
-    "Bolivia",
-    "Bosnia and Herzegovina",
-    "Botswana",
-    "Brazil",
-    "Brunei",
-    "Bulgaria",
-    "Burkina Faso",
-    "Burundi",
-    "Cabo Verde",
-    "Cambodia",
-    "Cameroon",
-    "Canada",
-    "Central African Republic",
-    "Chad",
-    "Chile",
-    "China",
-    "Colombia",
-    "Comoros",
-    "Congo (Brazzaville)",
-    "Congo (Kinshasa)",
-    "Costa Rica",
-    "Croatia",
-    "Cuba",
-    "Cyprus",
-    "Czech Republic",
-    "Denmark",
-    "Djibouti",
-    "Dominica",
-    "Dominican Republic",
-    "Ecuador",
-    "Egypt",
-    "El Salvador",
-    "Equatorial Guinea",
-    "Eritrea",
-    "Estonia",
-    "Eswatini",
-    "Ethiopia",
-    "Fiji",
-    "Finland",
-    "France",
-    "Gabon",
-    "Gambia",
-    "Georgia",
-    "Germany",
-    "Ghana",
-    "Greece",
-    "Grenada",
-    "Guatemala",
-    "Guinea",
-    "Guinea-Bissau",
-    "Guyana",
-    "Haiti",
-    "Honduras",
-    "Hungary",
-    "Iceland",
-    "India",
-    "Indonesia",
-    "Iran",
-    "Iraq",
-    "Ireland",
-    "Israel",
-    "Italy",
-    "Jamaica",
-    "Japan",
-    "Jordan",
-    "Kazakhstan",
-    "Kenya",
-    "Kiribati",
-    "Kuwait",
-    "Kyrgyzstan",
-    "Laos",
-    "Latvia",
-    "Lebanon",
-    "Lesotho",
-    "Liberia",
-    "Libya",
-    "Liechtenstein",
-    "Lithuania",
-    "Luxembourg",
-    "Madagascar",
-    "Malawi",
-    "Malaysia",
-    "Maldives",
-    "Mali",
-    "Malta",
-    "Marshall Islands",
-    "Mauritania",
-    "Mauritius",
-    "Mexico",
-    "Micronesia",
-    "Moldova",
-    "Monaco",
-    "Mongolia",
-    "Montenegro",
-    "Morocco",
-    "Mozambique",
-    "Myanmar",
-    "Namibia",
-    "Nauru",
-    "Nepal",
-    "Netherlands",
-    "New Zealand",
-    "Nicaragua",
-    "Niger",
-    "Nigeria",
-    "North Korea",
-    "North Macedonia",
-    "Norway",
-    "Oman",
-    "Pakistan",
-    "Palau",
-    "Palestine",
-    "Panama",
-    "Papua New Guinea",
-    "Paraguay",
-    "Peru",
-    "Philippines",
-    "Poland",
-    "Portugal",
-    "Qatar",
-    "Romania",
-    "Russia",
-    "Rwanda",
-    "Saint Kitts and Nevis",
-    "Saint Lucia",
-    "Saint Vincent and the Grenadines",
-    "Samoa",
-    "San Marino",
-    "Sao Tome and Principe",
-    "Saudi Arabia",
-    "Senegal",
-    "Serbia",
-    "Seychelles",
-    "Sierra Leone",
-    "Singapore",
-    "Slovakia",
-    "Slovenia",
-    "Solomon Islands",
-    "Somalia",
-    "South Africa",
-    "South Korea",
-    "South Sudan",
-    "Spain",
-    "Sri Lanka",
-    "Sudan",
-    "Suriname",
-    "Sweden",
-    "Switzerland",
-    "Syria",
-    "Taiwan",
-    "Tajikistan",
-    "Tanzania",
-    "Thailand",
-    "Timor-Leste",
-    "Togo",
-    "Tonga",
-    "Trinidad and Tobago",
-    "Tunisia",
-    "Turkey",
-    "Turkmenistan",
-    "Tuvalu",
-    "Uganda",
-    "Ukraine",
-    "United Arab Emirates",
-    "United Kingdom",
-    "United States",
-    "Uruguay",
-    "Uzbekistan",
-    "Vanuatu",
-    "Vatican City",
-    "Venezuela",
-    "Vietnam",
-    "Yemen",
-    "Zambia",
-    "Zimbabwe",
+    "Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda",
+    "Argentina","Armenia","Australia","Austria","Azerbaijan","Bahamas","Bahrain",
+    "Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bhutan","Bolivia",
+    "Bosnia and Herzegovina","Botswana","Brazil","Brunei","Bulgaria","Burkina Faso",
+    "Burundi","Cabo Verde","Cambodia","Cameroon","Canada","Central African Republic",
+    "Chad","Chile","China","Colombia","Comoros","Congo (Brazzaville)","Congo (Kinshasa)",
+    "Costa Rica","Croatia","Cuba","Cyprus","Czech Republic","Denmark","Djibouti",
+    "Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea",
+    "Eritrea","Estonia","Eswatini","Ethiopia","Fiji","Finland","France","Gabon",
+    "Gambia","Georgia","Germany","Ghana","Greece","Grenada","Guatemala","Guinea",
+    "Guinea-Bissau","Guyana","Haiti","Honduras","Hungary","Iceland","India","Indonesia",
+    "Iran","Iraq","Ireland","Israel","Italy","Jamaica","Japan","Jordan","Kazakhstan",
+    "Kenya","Kiribati","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho",
+    "Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Madagascar","Malawi",
+    "Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius",
+    "Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Morocco",
+    "Mozambique","Myanmar","Namibia","Nauru","Nepal","Netherlands","New Zealand",
+    "Nicaragua","Niger","Nigeria","North Korea","North Macedonia","Norway","Oman",
+    "Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru",
+    "Philippines","Poland","Portugal","Qatar","Romania","Russia","Rwanda",
+    "Saint Kitts and Nevis","Saint Lucia","Saint Vincent and the Grenadines",
+    "Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal",
+    "Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia",
+    "Solomon Islands","Somalia","South Africa","South Korea","South Sudan",
+    "Spain","Sri Lanka","Sudan","Suriname","Sweden","Switzerland","Syria",
+    "Taiwan","Tajikistan","Tanzania","Thailand","Timor-Leste","Togo","Tonga",
+    "Trinidad and Tobago","Tunisia","Turkey","Turkmenistan","Tuvalu","Uganda",
+    "Ukraine","United Arab Emirates","United Kingdom","United States","Uruguay",
+    "Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Yemen",
+    "Zambia","Zimbabwe"
   ];
 
   // 탭 이동(스크롤) 로직
@@ -456,7 +292,7 @@ export default function Page() {
   const scrollToSection = (id: string) => {
     if (id === "home") {
       window.scrollTo({ top: 0, behavior: "smooth" });
-      window.history.replaceState(null, "", `/?tab=${id}`);
+      window.history.replaceState(null, "", /?tab=${id});
       return;
     }
     const el = document.getElementById(id);
@@ -465,7 +301,7 @@ export default function Page() {
         top: el.offsetTop - 160,
         behavior: "smooth",
       });
-      window.history.replaceState(null, "", `/?tab=${id}`);
+      window.history.replaceState(null, "", /?tab=${id});
     }
   };
 
@@ -593,16 +429,20 @@ export default function Page() {
               <button
                 key={tab}
                 onClick={() => scrollToSection(tab)}
-                className="relative pb-2 transition-colors duration-200 cursor-pointer border-b-2 border-transparent hover:border-black text-gray-700 hover:text-black"
+                className="relative pb-2 transition-colors duration-200 cursor-pointer
+                           border-b-2 border-transparent hover:border-black 
+                           text-gray-700 hover:text-black"
               >
-                {t(`nav.${tab}`)}
+                {t(nav.${tab})}
               </button>
             ))}
 
             {/* Terms & Privacy 버튼 */}
             <button
               onClick={() => scrollToSection("terms-privacy")}
-              className="relative pb-2 transition-colors duration-200 cursor-pointer border-b-2 border-transparent hover:border-black text-gray-700 hover:text-black"
+              className="relative pb-2 transition-colors duration-200 cursor-pointer
+                         border-b-2 border-transparent hover:border-black
+                         text-gray-700 hover:text-black"
             >
               {t("nav.terms")}
             </button>
@@ -632,9 +472,7 @@ export default function Page() {
             </button>
             <button
               onClick={() =>
-                document
-                  .getElementById("signup-modal")!
-                  .classList.remove("hidden")
+                document.getElementById("signup-modal")!.classList.remove("hidden")
               }
               className="text-sm font-medium border border-gray-300 px-4 py-2 rounded hover:bg-gray-100 transition"
             >
@@ -648,13 +486,13 @@ export default function Page() {
               onClick={() => setShowMyModal(true)}
               className="text-sm font-medium border border-gray-300 px-4 py-2 rounded hover:bg-gray-100 transition"
             >
-              {t("nav.my")}
+              MY
             </button>
             <button
               onClick={handleLogout}
               className="text-sm font-medium border border-gray-300 px-4 py-2 rounded hover:bg-gray-100 transition"
             >
-              {t("nav.logout")}
+              Logout
             </button>
           </>
         )}
@@ -712,6 +550,22 @@ export default function Page() {
             {t("buy.title")}
           </h1>
 
+          {/* 
+              패밀리 라이선스 카드
+              - "가려줘, 없애진 말고 띄우지만 말아줘" => hidden 클래스 추가
+          */}
+          <div
+            className="hidden mb-12 w-[28rem] h-[36rem] border p-10 rounded-lg shadow hover:shadow-lg transition flex flex-col items-center mx-auto cursor-pointer"
+            onClick={() => setShowFamilyModal(true)}
+          >
+            <div className="w-[28rem] h-[28rem] bg-gray-100 mb-6 px-8 flex items-center justify-center">
+              <span className="text-gray-400">{t("buy.familyGifPlaceholder")}</span>
+            </div>
+            <div className="text-lg font-semibold text-center text-gray-800">
+              {t("buy.familyLicense")}
+            </div>
+          </div>
+
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-items-center">
             {modules.map((mod, i) => (
               <div
@@ -722,7 +576,7 @@ export default function Page() {
                   {mod === "Transfer Jig Maker" ? (
                     <Image
                       src="/gifs/transfer_jig.gif"
-                      alt={`${mod} gif`}
+                      alt={${mod} gif}
                       width={200}
                       height={200}
                       className="object-contain"
@@ -838,57 +692,43 @@ export default function Page() {
             </h3>
             <p className="mb-4">{t("privacy.intro")}</p>
 
-            <h4 className="font-semibold mb-1">
-              {t("privacy.article1.title")}
-            </h4>
+            <h4 className="font-semibold mb-1">{t("privacy.article1.title")}</h4>
             <p
               className="mb-4"
               dangerouslySetInnerHTML={{ __html: t("privacy.article1.desc") }}
             />
 
-            <h4 className="font-semibold mb-1">
-              {t("privacy.article2.title")}
-            </h4>
+            <h4 className="font-semibold mb-1">{t("privacy.article2.title")}</h4>
             <p
               className="mb-4"
               dangerouslySetInnerHTML={{ __html: t("privacy.article2.desc") }}
             />
 
-            <h4 className="font-semibold mb-1">
-              {t("privacy.article3.title")}
-            </h4>
+            <h4 className="font-semibold mb-1">{t("privacy.article3.title")}</h4>
             <p
               className="mb-4"
               dangerouslySetInnerHTML={{ __html: t("privacy.article3.desc") }}
             />
 
-            <h4 className="font-semibold mb-1">
-              {t("privacy.article4.title")}
-            </h4>
+            <h4 className="font-semibold mb-1">{t("privacy.article4.title")}</h4>
             <p
               className="mb-4"
               dangerouslySetInnerHTML={{ __html: t("privacy.article4.desc") }}
             />
 
-            <h4 className="font-semibold mb-1">
-              {t("privacy.article5.title")}
-            </h4>
+            <h4 className="font-semibold mb-1">{t("privacy.article5.title")}</h4>
             <p
               className="mb-4"
               dangerouslySetInnerHTML={{ __html: t("privacy.article5.desc") }}
             />
 
-            <h4 className="font-semibold mb-1">
-              {t("privacy.article6.title")}
-            </h4>
+            <h4 className="font-semibold mb-1">{t("privacy.article6.title")}</h4>
             <p
               className="mb-4"
               dangerouslySetInnerHTML={{ __html: t("privacy.article6.desc") }}
             />
 
-            <h4 className="font-semibold mb-1">
-              {t("privacy.article7.title")}
-            </h4>
+            <h4 className="font-semibold mb-1">{t("privacy.article7.title")}</h4>
             <p
               className="mb-4"
               dangerouslySetInnerHTML={{ __html: t("privacy.article7.desc") }}
@@ -908,6 +748,7 @@ export default function Page() {
                 <button
                   onClick={() => {
                     setShowFamilyModal(false);
+                    // 혹시나 가이드 화면에서 닫을 때도 초기화
                     setShowFreeLicenseGuide(false);
                   }}
                   className="absolute top-4 right-4 text-gray-400 hover:text-black text-2xl"
@@ -932,13 +773,13 @@ export default function Page() {
                     {/* 강조문구 + 버튼 */}
                     <div className="my-4 text-center">
                       <p className="font-bold text-red-600 mb-2">
-                        {t("family.freeLicenseRecommendation")}
+                        We recommend using the free license first before purchasing.
                       </p>
                       <button
                         onClick={() => setShowFreeLicenseGuide(true)}
                         className="underline text-blue-600 cursor-pointer"
                       >
-                        {t("family.freeLicenseLink")}
+                        (How to get the free license)
                       </button>
                     </div>
 
@@ -994,7 +835,7 @@ export default function Page() {
                     </div>
                   </>
                 ) : (
-                  // 무료 라이선스 획득 방법 화면
+                  // 여기부터 무료 라이선스 획득 방법 화면
                   <div className="mt-6">
                     <button
                       onClick={() => setShowFreeLicenseGuide(false)}
@@ -1003,9 +844,10 @@ export default function Page() {
                       ← Back
                     </button>
                     <h3 className="text-2xl font-bold mb-4 text-center">
-                      {t("family.freeLicenseGuide.title")}
+                      How to get the free license
                     </h3>
 
+                    {/* 실제 이미지 3장으로 대체 */}
                     <div className="flex flex-row items-start justify-center space-x-4">
                       <img
                         src="/free_liecense/1.png"
@@ -1024,29 +866,49 @@ export default function Page() {
                       />
                     </div>
 
+                    {/* 설명 */}
                     <div className="text-sm text-gray-700 mt-4 leading-6 space-y-2">
-                      <p
-                        dangerouslySetInnerHTML={{
-                          __html: t("family.freeLicenseGuide.step1"),
-                        }}
-                      />
-                      <p
-                        dangerouslySetInnerHTML={{
-                          __html: t("family.freeLicenseGuide.step2"),
-                        }}
-                      />
-                      <p>{t("family.freeLicenseGuide.step3")}</p>
-                      <p
-                        dangerouslySetInnerHTML={{
-                          __html: t("family.freeLicenseGuide.step4"),
-                        }}
-                      />
-                      <p>{t("family.freeLicenseGuide.step5")}</p>
+                      <p>
+                        1) Follow us on Instagram:{" "}
+                        <a
+                          href="https://www.instagram.com/dlas_official_"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 underline"
+                        >
+                          here
+                        </a>{" "}
+                        and take a screenshot.
+                      </p>
+                      <p>
+                        2) Like our post:{" "}
+                        <a
+                          href="https://www.instagram.com/p/CokRraVPEi1/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 underline"
+                        >
+                          here
+                        </a>{" "}
+                        and take a screenshot.
+                      </p>
+                      <p>
+                        3) Take a screenshot so that your Instagram ID is clearly visible.
+                      </p>
+                      <p>
+                        Then send all the screenshots to{" "}
+                        <strong>support@dlas.io</strong> with the email
+                        subject line format: <strong>dlas (your dlas ID)</strong>.
+                      </p>
+                      <p>
+                        Our AI will review your screenshots and respond within
+                        10 minutes.
+                      </p>
                       <hr className="my-3" />
                       <div className="font-bold text-gray-900 space-y-1">
-                        <p>{t("family.freeLicenseGuide.note1")}</p>
-                        <p>{t("family.freeLicenseGuide.note2")}</p>
-                        <p>{t("family.freeLicenseGuide.note3")}</p>
+                        <p>- Each verified Instagram account grants 3 hours of free license.</p>
+                        <p>- One DLAS ID can redeem multiple times by using different Instagram accounts.</p>
+                        <p>- One Instagram account cannot be reused or verified again for another DLAS ID.</p>
                       </div>
                     </div>
                   </div>
@@ -1055,6 +917,7 @@ export default function Page() {
             </div>
           </div>
         )}
+
       </main>
 
       {/* 로그인 모달 */}
@@ -1077,7 +940,7 @@ export default function Page() {
           <form className="space-y-4" onSubmit={handleLoginSubmit}>
             <input
               type="text"
-              placeholder={t("login.form.email")}
+              placeholder="ID"
               value={idForLogin}
               onChange={(e) => setIdForLogin(e.target.value)}
               className="w-full p-3 border border-gray-300 rounded"
@@ -1215,7 +1078,9 @@ export default function Page() {
                   onChange={(e) => setMarketingAgree(e.target.checked)}
                   className="form-checkbox h-5 w-5 text-black"
                 />
-                <span className="ml-2">{t("signup.form.agreeMarketing")}</span>
+                <span className="ml-2">
+                  {t("signup.form.agreeMarketing")}
+                </span>
               </label>
             </div>
 
@@ -1235,7 +1100,9 @@ export default function Page() {
 
       {/* MY 모달 */}
       {showMyModal && (
-        <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
+        <div
+          className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center"
+        >
           <div className="bg-white w-full max-w-md p-8 rounded-lg shadow-xl relative">
             <button
               className="absolute top-2 right-3 text-gray-500 hover:text-black text-2xl"
@@ -1243,32 +1110,26 @@ export default function Page() {
             >
               ×
             </button>
-            <h2 className="text-2xl font-bold mb-4 text-center">
-              {t("myModal.title")}
-            </h2>
+            <h2 className="text-2xl font-bold mb-4 text-center">My Info</h2>
             <div className="space-y-2 text-center text-sm">
               <p>
-                <strong>{t("myModal.labels.name")}:</strong>{" "}
-                {userInfo.name ?? "-"}
+                <strong>이름:</strong> {userInfo.name ?? "-"}
               </p>
               <p>
-                <strong>{t("myModal.labels.id")}:</strong> {userInfo.id ?? "-"}
+                <strong>아이디:</strong> {userInfo.id ?? "-"}
               </p>
               <p>
-                <strong>{t("myModal.labels.country")}:</strong>{" "}
-                {userInfo.country ?? "-"}
+                <strong>국가:</strong> {userInfo.country ?? "-"}
               </p>
               <p>
-                <strong>{t("myModal.labels.phone")}:</strong>{" "}
-                {userInfo.phone ?? "-"}
+                <strong>전화번호:</strong> {userInfo.phone ?? "-"}
               </p>
               <p>
-                <strong>{t("myModal.labels.email")}:</strong>{" "}
-                {userInfo.email ?? "-"}
+                <strong>이메일:</strong> {userInfo.email ?? "-"}
               </p>
               <p>
-                <strong>{t("myModal.labels.licenseStatus")}:</strong>{" "}
-                {userInfo.licenseStatus ?? t("myModal.labels.loading")}
+                <strong>라이선스 상태:</strong>{" "}
+                {userInfo.licenseStatus ?? "Loading..."}
               </p>
             </div>
           </div>
@@ -1301,6 +1162,7 @@ export default function Page() {
           </div>
         </div>
 
+        {/* 추가 정보 (영문 표기) */}
         <div className="text-sm text-white leading-snug text-center mt-4">
           <p>DLAS, Inc.</p>
           <p>CEO: Jonghwan Kim</p>
