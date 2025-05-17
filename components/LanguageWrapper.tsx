@@ -1,10 +1,10 @@
+// components/LanguageWrapper.tsx
 'use client';
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { translations } from '@/translations/translations';
 
-// ✅ 모든 언어 자동 추론 (translations 객체 기반)
-export type LangCode = keyof typeof translations;
+export type LangCode = 'en' | 'ko';
 
 interface LangContextType {
   lang: LangCode;
@@ -25,26 +25,23 @@ export default function LanguageWrapper({ children }: { children: React.ReactNod
 
   useEffect(() => {
     const saved = localStorage.getItem('selectedLanguage');
-
-    // ✅ 저장된 언어가 translations에 존재하면 적용
-    if (saved && saved in translations) {
-      setLang(saved as LangCode);
+    if (saved === 'ko' || saved === 'en') {
+      setLang(saved);
     }
   }, []);
 
-  // ✅ 번역 함수 (매칭 안 되면 fallback으로 key 반환)
+  // 번역 함수
   const t = (key: string): string => {
+    // 예: "terms.article1.title" --> ["terms","article1","title"]
     const parts = key.split('.');
-    let result: any = translations[lang] || translations['en'];
-
+    let result: any = translations[lang];
     for (const part of parts) {
       if (result && typeof result === 'object') {
         result = result[part];
       } else {
-        return key;
+        return key; // 매칭 못 찾으면 key 그대로
       }
     }
-
     return typeof result === 'string' ? result : key;
   };
 

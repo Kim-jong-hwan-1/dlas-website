@@ -21,7 +21,7 @@ export const translations = {
       gameChangerTitle: "Game Changer in Digital Dentistry",
       gameChangerDesc:
         "DLAS is more than just a software. It is a revolution in dental CAD automation, designed to empower dental professionals with cutting-edge tools that simplify complex workflows, reduce manual labor, and maximize productivity.",
-      gameChangerQuote: "The future of dental automation is here",
+      gameChangerQuote: `"The future of dental automation is here"`,
     },
     download: {
       title: "Download Software",
@@ -52,97 +52,97 @@ export const translations = {
       headingTerms: "[Terms of Service]",
       article1: {
         title: "Article 1 (Purpose)",
-        desc: These Terms of Service ("Terms") govern the use of software and related
-services ("Services") provided through the website operated by DLAS ("Company").,
+        desc: `These Terms of Service ("Terms") govern the use of software and related
+services ("Services") provided through the website operated by DLAS ("Company").`,
       },
       article2: {
         title: "Article 2 (Definitions)",
-        desc: 1. "User" refers to any individual who agrees to these Terms and uses the Services.<br/>
-2. "Product" refers to any AI-based software, modules, or programs provided by the Company.,
+        desc: `1. "User" refers to any individual who agrees to these Terms and uses the Services.<br/>
+2. "Product" refers to any AI-based software, modules, or programs provided by the Company.`,
       },
       article3: {
         title: "Article 3 (Effect and Modification of Terms)",
-        desc: 1. These Terms become effective upon posting on the website.<br/>
-2. The Company may revise these Terms in compliance with applicable laws and will notify users in advance.,
+        desc: `1. These Terms become effective upon posting on the website.<br/>
+2. The Company may revise these Terms in compliance with applicable laws and will notify users in advance.`,
       },
       article4: {
         title: "Article 4 (Provision of Services)",
-        desc: The Company provides the following services:<br/>
+        desc: `The Company provides the following services:<br/>
 - Downloadable AI-based dental software<br/>
 - Purchase and activation of paid modules<br/>
-- Other services designated by the Company,
+- Other services designated by the Company`,
       },
       article5: {
         title: "Article 5 (Payment and Refunds)",
-        desc: 1. Users may purchase products using payment methods designated by the Company.<br/>
+        desc: `1. Users may purchase products using payment methods designated by the Company.<br/>
 2. Due to the nature of digital products, refunds are not available after download or activation,
-except where required by law.,
+except where required by law.`,
       },
       article6: {
         title: "Article 6 (Intellectual Property)",
-        desc: 1. All content and software provided on the website are protected under copyright and 
+        desc: `1. All content and software provided on the website are protected under copyright and 
 belong to the Company.<br/>
 2. Unauthorized duplication, redistribution, or reverse engineering is prohibited 
-and may lead to legal consequences.,
+and may lead to legal consequences.`,
       },
       article7: {
         title: "Article 7 (Disclaimer)",
-        desc: 1. The Company shall not be liable for service failures caused by force majeure events 
+        desc: `1. The Company shall not be liable for service failures caused by force majeure events 
 such as natural disasters, cyberattacks, or system failures.<br/>
-2. The Company is not responsible for damages caused by the user's negligence.,
+2. The Company is not responsible for damages caused by the user's negligence.`,
       },
       article8: {
         title: "Article 8 (Governing Law and Jurisdiction)",
-        desc: Any disputes arising from these Terms shall be governed by the laws of the Republic of Korea,
-with the court having jurisdiction over the Company's headquarters as the court of first instance.,
+        desc: `Any disputes arising from these Terms shall be governed by the laws of the Republic of Korea,
+with the court having jurisdiction over the Company's headquarters as the court of first instance.`,
       },
       effectiveDate: "Effective Date: April 29, 2025",
     },
     privacy: {
       headingPrivacy: "[Privacy Policy]",
-      intro: DLAS ("Company") respects your privacy and handles your personal data in accordance with 
-applicable laws including the Personal Information Protection Act.,
+      intro: `DLAS ("Company") respects your privacy and handles your personal data in accordance with 
+applicable laws including the Personal Information Protection Act.`,
       article1: {
         title: "Article 1 (Collected Information)",
-        desc: We may collect the following types of information:<br/>
+        desc: `We may collect the following types of information:<br/>
 - Email address and password (when registering)<br/>
 - Name and payment details (for paid services)<br/>
-- Access logs, IP address, usage history (for service quality and security),
+- Access logs, IP address, usage history (for service quality and security)`,
       },
       article2: {
         title: "Article 2 (Purpose of Collection)",
-        desc: Personal data is collected and used for the following purposes:<br/>
+        desc: `Personal data is collected and used for the following purposes:<br/>
 - User authentication and service provision<br/>
 - Payment processing and refund support<br/>
 - Customer support and notification delivery<br/>
-- Prevention of fraud and system abuse,
+- Prevention of fraud and system abuse`,
       },
       article3: {
         title: "Article 3 (Retention Period)",
-        desc: - Data is deleted upon account termination unless otherwise required by law.<br/>
-- Certain data may be retained for a legally mandated period (e.g., under e-commerce regulations).,
+        desc: `- Data is deleted upon account termination unless otherwise required by law.<br/>
+- Certain data may be retained for a legally mandated period (e.g., under e-commerce regulations).`,
       },
       article4: {
         title: "Article 4 (Third-party Disclosure)",
-        desc: We do not share personal data with third parties except:<br/>
+        desc: `We do not share personal data with third parties except:<br/>
 - With your prior consent<br/>
-- When required by law or legal proceedings,
+- When required by law or legal proceedings`,
       },
       article5: {
         title: "Article 5 (Destruction of Personal Data)",
-        desc: Personal data will be securely destroyed after the retention period.<br/>
+        desc: `Personal data will be securely destroyed after the retention period.<br/>
 - Digital files: permanently deleted<br/>
-- Paper documents: shredded or incinerated,
+- Paper documents: shredded or incinerated`,
       },
       article6: {
         title: "Article 6 (User Rights)",
-        desc: You may request to view, modify, delete, or restrict the processing 
-of your personal data at any time.,
+        desc: `You may request to view, modify, delete, or restrict the processing 
+of your personal data at any time.`,
       },
       article7: {
         title: "Article 7 (Data Protection Officer)",
-        desc: - Officer: JongHwan Kim<br/>
-- Email: support@dlas.io,
+        desc: `- Officer: JongHwan Kim<br/>
+- Email: support@dlas.io`,
       },
       effectiveDate: "Effective Date: April 29, 2025",
     },
@@ -229,7 +229,7 @@ of your personal data at any time.,
       gameChangerTitle: "数字化牙科的变革者",
       gameChangerDesc:
         "DLAS 不仅仅是一款软件，它是牙科 CAD 自动化的革命。通过简化复杂的工作流程、减少手动操作并提升生产力，为牙科从业者提供强大工具。",
-      gameChangerQuote: "牙科自动化的未来就在这里",
+      gameChangerQuote: `"牙科自动化的未来就在这里"`,
     },
     download: {
       title: "下载软件",
@@ -260,89 +260,89 @@ of your personal data at any time.,
       headingTerms: "[服务条款]",
       article1: {
         title: "第一条（目的）",
-        desc: 本服务条款（“条款”）适用于由 DLAS（“公司”）运营的网站所提供的各类软件及相关服务（“服务”）的使用。,
+        desc: `本服务条款（“条款”）适用于由 DLAS（“公司”）运营的网站所提供的各类软件及相关服务（“服务”）的使用。`,
       },
       article2: {
         title: "第二条（定义）",
-        desc: 1. “用户”指同意本条款并使用本服务的任何个人或实体。<br/>
-2. “产品”指由公司提供的任何基于 AI 的软件、模块或程序。,
+        desc: `1. “用户”指同意本条款并使用本服务的任何个人或实体。<br/>
+2. “产品”指由公司提供的任何基于 AI 的软件、模块或程序。`,
       },
       article3: {
         title: "第三条（条款的生效与修改）",
-        desc: 1. 本条款在发布于网站后生效。<br/>
-2. 公司可依据适用法律修改本条款，并会提前通知用户。,
+        desc: `1. 本条款在发布于网站后生效。<br/>
+2. 公司可依据适用法律修改本条款，并会提前通知用户。`,
       },
       article4: {
         title: "第四条（服务的提供）",
-        desc: 公司提供以下服务：<br/>
+        desc: `公司提供以下服务：<br/>
 - 可下载的 AI 牙科软件<br/>
 - 付费模块的购买与激活<br/>
-- 公司指定的其他服务,
+- 公司指定的其他服务`,
       },
       article5: {
         title: "第五条（付款与退款）",
-        desc: 1. 用户可通过公司指定的付款方式购买产品。<br/>
-2. 因数字产品的性质，除法律另有规定外，下载或激活后不予退款。,
+        desc: `1. 用户可通过公司指定的付款方式购买产品。<br/>
+2. 因数字产品的性质，除法律另有规定外，下载或激活后不予退款。`,
       },
       article6: {
         title: "第六条（知识产权）",
-        desc: 1. 网站上的所有内容和软件均受版权保护，归公司所有。<br/>
-2. 未经授权的复制、再分发或逆向工程行为均被禁止，并可能承担法律责任。,
+        desc: `1. 网站上的所有内容和软件均受版权保护，归公司所有。<br/>
+2. 未经授权的复制、再分发或逆向工程行为均被禁止，并可能承担法律责任。`,
       },
       article7: {
         title: "第七条（免责声明）",
-        desc: 1. 因不可抗力事件（如自然灾害、网络攻击或系统故障）导致的服务中断，公司不承担责任。<br/>
-2. 对于因用户过失造成的损失，公司概不负责。,
+        desc: `1. 因不可抗力事件（如自然灾害、网络攻击或系统故障）导致的服务中断，公司不承担责任。<br/>
+2. 对于因用户过失造成的损失，公司概不负责。`,
       },
       article8: {
         title: "第八条（适用法律与管辖）",
-        desc: 因本条款引起的争议应适用大韩民国法律，并以公司总部所在地法院作为第一审管辖法院。,
+        desc: `因本条款引起的争议应适用大韩民国法律，并以公司总部所在地法院作为第一审管辖法院。`,
       },
       effectiveDate: "生效日期：2025年4月29日",
     },
     privacy: {
       headingPrivacy: "[隐私政策]",
-      intro: DLAS（“公司”）尊重您的隐私，并根据适用法律（包括个人信息保护法）处理您的个人数据。,
+      intro: `DLAS（“公司”）尊重您的隐私，并根据适用法律（包括个人信息保护法）处理您的个人数据。`,
       article1: {
         title: "第一条（收集的信息）",
-        desc: 公司可能会收集以下类型的信息：<br/>
+        desc: `公司可能会收集以下类型的信息：<br/>
 - 注册时的邮箱地址和密码<br/>
 - 付费服务时的姓名和支付信息<br/>
-- 访问日志、IP 地址、使用历史（用于服务质量和安全）,
+- 访问日志、IP 地址、使用历史（用于服务质量和安全）`,
       },
       article2: {
         title: "第二条（收集的目的）",
-        desc: 收集的个人数据将用于以下目的：<br/>
+        desc: `收集的个人数据将用于以下目的：<br/>
 - 用户认证和提供服务<br/>
 - 支付处理和退款支持<br/>
 - 客户支持和通知发送<br/>
-- 防止欺诈和系统滥用,
+- 防止欺诈和系统滥用`,
       },
       article3: {
         title: "第三条（保留期限）",
-        desc: - 除非法律另有要求，否则在用户注销账户后立即删除数据。<br/>
-- 在法律规定的期限内（如电子商务法规），公司会保留相关数据，期满后即删除。,
+        desc: `- 除非法律另有要求，否则在用户注销账户后立即删除数据。<br/>
+- 在法律规定的期限内（如电子商务法规），公司会保留相关数据，期满后即删除。`,
       },
       article4: {
         title: "第四条（向第三方披露）",
-        desc: 除以下情形外，公司不会与第三方共享个人数据：<br/>
+        desc: `除以下情形外，公司不会与第三方共享个人数据：<br/>
 - 获得用户事先同意<br/>
-- 法律或司法程序要求,
+- 法律或司法程序要求`,
       },
       article5: {
         title: "第五条（个人数据的销毁）",
-        desc: 在保留期限结束后，公司会安全地销毁个人数据：<br/>
+        desc: `在保留期限结束后，公司会安全地销毁个人数据：<br/>
 - 电子文件：永久删除<br/>
-- 纸质文件：粉碎或焚烧,
+- 纸质文件：粉碎或焚烧`,
       },
       article6: {
         title: "第六条（用户权利）",
-        desc: 用户可随时请求查看、修改、删除或限制处理其个人数据。,
+        desc: `用户可随时请求查看、修改、删除或限制处理其个人数据。`,
       },
       article7: {
         title: "第七条（数据保护负责人）",
-        desc: - 负责人：JongHwan Kim<br/>
-- 邮箱：support@dlas.io,
+        desc: `- 负责人：JongHwan Kim<br/>
+- 邮箱：support@dlas.io`,
       },
       effectiveDate: "生效日期：2025年4月29日",
     },
@@ -429,7 +429,7 @@ of your personal data at any time.,
       gameChangerTitle: "デジタル歯科のゲームチェンジャー",
       gameChangerDesc:
         "DLASは単なるソフトウェアではなく、歯科CAD自動化の革命です。複雑なワークフローを簡素化し、生産性を最大化する最新ツールを提供します。",
-      gameChangerQuote: "歯科自動化の未来がここに",
+      gameChangerQuote: `"歯科自動化の未来がここに"`,
     },
     download: {
       title: "ソフトウェアのダウンロード",
@@ -460,89 +460,89 @@ of your personal data at any time.,
       headingTerms: "[利用規約]",
       article1: {
         title: "第1条（目的）",
-        desc: 本利用規約（以下「本規約」）は、DLAS（以下「当社」）が運営するウェブサイトを通じて提供されるソフトウェアおよび関連サービス（以下「本サービス」）の利用に関する事項を定めます。,
+        desc: `本利用規約（以下「本規約」）は、DLAS（以下「当社」）が運営するウェブサイトを通じて提供されるソフトウェアおよび関連サービス（以下「本サービス」）の利用に関する事項を定めます。`,
       },
       article2: {
         title: "第2条（定義）",
-        desc: 1. 「ユーザー」とは、本規約に同意し、本サービスを利用する個人または法人をいいます。<br/>
-2. 「製品」とは、当社が提供するAIベースのソフトウェア、モジュール、プログラムなどを指します。,
+        desc: `1. 「ユーザー」とは、本規約に同意し、本サービスを利用する個人または法人をいいます。<br/>
+2. 「製品」とは、当社が提供するAIベースのソフトウェア、モジュール、プログラムなどを指します。`,
       },
       article3: {
         title: "第3条（効力および改訂）",
-        desc: 1. 本規約は、ウェブサイトに掲載された時点で効力を生じます。<br/>
-2. 当社は、適用法令を遵守する範囲で本規約を改訂し、改訂時には事前にユーザーに通知します。,
+        desc: `1. 本規約は、ウェブサイトに掲載された時点で効力を生じます。<br/>
+2. 当社は、適用法令を遵守する範囲で本規約を改訂し、改訂時には事前にユーザーに通知します。`,
       },
       article4: {
         title: "第4条（サービスの提供）",
-        desc: 当社は以下のサービスを提供します：<br/>
+        desc: `当社は以下のサービスを提供します：<br/>
 - AIベースの歯科ソフトウェアのダウンロード<br/>
 - 有料モジュールの購入および有効化<br/>
-- 当社が指定するその他のサービス,
+- 当社が指定するその他のサービス`,
       },
       article5: {
         title: "第5条（支払い・返金）",
-        desc: 1. ユーザーは、当社が指定した支払い方法を通じて製品を購入できます。<br/>
-2. デジタル製品の性質上、法律で定められる場合を除き、ダウンロードまたは有効化後の返金はできません。,
+        desc: `1. ユーザーは、当社が指定した支払い方法を通じて製品を購入できます。<br/>
+2. デジタル製品の性質上、法律で定められる場合を除き、ダウンロードまたは有効化後の返金はできません。`,
       },
       article6: {
         title: "第6条（知的財産権）",
-        desc: 1. ウェブサイト上で提供されるすべてのコンテンツおよびソフトウェアの著作権は当社に帰属します。<br/>
-2. 無断複製、再配布、リバースエンジニアリングなどは禁じられており、法的責任を負う場合があります。,
+        desc: `1. ウェブサイト上で提供されるすべてのコンテンツおよびソフトウェアの著作権は当社に帰属します。<br/>
+2. 無断複製、再配布、リバースエンジニアリングなどは禁じられており、法的責任を負う場合があります。`,
       },
       article7: {
         title: "第7条（免責事項）",
-        desc: 1. 自然災害、サイバー攻撃、システム障害などの不可抗力によるサービス障害について、当社は責任を負いません。<br/>
-2. ユーザーの過失による損害について、当社は一切の責任を負いません。,
+        desc: `1. 自然災害、サイバー攻撃、システム障害などの不可抗力によるサービス障害について、当社は責任を負いません。<br/>
+2. ユーザーの過失による損害について、当社は一切の責任を負いません。`,
       },
       article8: {
         title: "第8条（準拠法・管轄）",
-        desc: 本規約に基づく紛争については、大韓民国の法令を準拠法とし、当社本社所在地の裁判所を第一審の管轄裁判所とします。,
+        desc: `本規約に基づく紛争については、大韓民国の法令を準拠法とし、当社本社所在地の裁判所を第一審の管轄裁判所とします。`,
       },
       effectiveDate: "施行日：2025年4月29日",
     },
     privacy: {
       headingPrivacy: "[プライバシーポリシー]",
-      intro: DLAS（「当社」）は、個人情報保護法などの関連法令を遵守し、ユーザーの個人情報を安全に取り扱います。,
+      intro: `DLAS（「当社」）は、個人情報保護法などの関連法令を遵守し、ユーザーの個人情報を安全に取り扱います。`,
       article1: {
         title: "第1条（収集する個人情報）",
-        desc: 当社は以下の個人情報を収集する場合があります：<br/>
+        desc: `当社は以下の個人情報を収集する場合があります：<br/>
 - 会員登録時のメールアドレス、パスワード<br/>
 - 有料サービス利用時の名前、支払い情報<br/>
-- サービス利用記録、アクセスIP、ログ記録など,
+- サービス利用記録、アクセスIP、ログ記録など`,
       },
       article2: {
         title: "第2条（収集・利用目的）",
-        desc: 当社は、収集した個人情報を以下の目的で利用します：<br/>
+        desc: `当社は、収集した個人情報を以下の目的で利用します：<br/>
 - ユーザー認証およびサービス提供<br/>
 - 決済および返金処理<br/>
 - カスタマーサポートおよび通知の配信<br/>
-- 不正利用防止,
+- 不正利用防止`,
       },
       article3: {
         title: "第3条（保有・利用期間）",
-        desc: - ユーザーが退会した場合、関連法令に定めのある場合を除き、速やかにデータを破棄します。<br/>
-- 電子商取引関連の法令に基づき一定期間保存が必要な情報は、その期間終了後に破棄します。,
+        desc: `- ユーザーが退会した場合、関連法令に定めのある場合を除き、速やかにデータを破棄します。<br/>
+- 電子商取引関連の法令に基づき一定期間保存が必要な情報は、その期間終了後に破棄します。`,
       },
       article4: {
         title: "第4条（第三者提供）",
-        desc: 当社は原則としてユーザーの個人情報を外部に提供しませんが、以下の場合は例外とします：<br/>
+        desc: `当社は原則としてユーザーの個人情報を外部に提供しませんが、以下の場合は例外とします：<br/>
 - ユーザーの事前同意がある場合<br/>
-- 法令または捜査目的で要求された場合,
+- 法令または捜査目的で要求された場合`,
       },
       article5: {
         title: "第5条（個人情報の破棄）",
-        desc: 保有期間の満了または処理目的が達成された個人情報は安全に破棄します：<br/>
+        desc: `保有期間の満了または処理目的が達成された個人情報は安全に破棄します：<br/>
 - 電子データ：永久削除<br/>
-- 紙媒体：裁断または焼却,
+- 紙媒体：裁断または焼却`,
       },
       article6: {
         title: "第6条（ユーザーの権利）",
-        desc: ユーザーは、いつでも自分の個人情報の閲覧、訂正、削除、処理停止などを要求できます。,
+        desc: `ユーザーは、いつでも自分の個人情報の閲覧、訂正、削除、処理停止などを要求できます。`,
       },
       article7: {
         title: "第7条（個人情報保護管理者）",
-        desc: - 管理者：Kim JongHwan<br/>
-- メール：support@dlas.io,
+        desc: `- 管理者：Kim JongHwan<br/>
+- メール：support@dlas.io`,
       },
       effectiveDate: "施行日：2025年4月29日",
     },
@@ -629,7 +629,7 @@ of your personal data at any time.,
       gameChangerTitle: "Revolution in der digitalen Zahnmedizin",
       gameChangerDesc:
         "DLAS ist mehr als nur eine Software. Es ist eine Revolution in der Dental-CAD-Automatisierung und bietet moderne Werkzeuge zur Vereinfachung komplexer Workflows, Verringerung manueller Arbeit und Maximierung der Produktivität.",
-      gameChangerQuote: "Die Zukunft der Dentalautomatisierung ist hier",
+      gameChangerQuote: `"Die Zukunft der Dentalautomatisierung ist hier"`,
     },
     download: {
       title: "Software herunterladen",
@@ -660,89 +660,89 @@ of your personal data at any time.,
       headingTerms: "[Allgemeine Geschäftsbedingungen]",
       article1: {
         title: "Artikel 1 (Zweck)",
-        desc: Diese Allgemeinen Geschäftsbedingungen ("Bedingungen") regeln die Nutzung der von DLAS ("Unternehmen") betriebenen Website angebotenen Software und zugehörigen Dienstleistungen ("Dienste").,
+        desc: `Diese Allgemeinen Geschäftsbedingungen ("Bedingungen") regeln die Nutzung der von DLAS ("Unternehmen") betriebenen Website angebotenen Software und zugehörigen Dienstleistungen ("Dienste").`,
       },
       article2: {
         title: "Artikel 2 (Begriffe)",
-        desc: 1. "Benutzer" bezeichnet jede Person, die diesen Bedingungen zustimmt und die Dienste nutzt.<br/>
-2. "Produkt" bezieht sich auf jede KI-basierte Software, Module oder Programme, die vom Unternehmen bereitgestellt werden.,
+        desc: `1. "Benutzer" bezeichnet jede Person, die diesen Bedingungen zustimmt und die Dienste nutzt.<br/>
+2. "Produkt" bezieht sich auf jede KI-basierte Software, Module oder Programme, die vom Unternehmen bereitgestellt werden.`,
       },
       article3: {
         title: "Artikel 3 (Geltung und Änderung der Bedingungen)",
-        desc: 1. Diese Bedingungen werden mit ihrer Veröffentlichung auf der Website wirksam.<br/>
-2. Das Unternehmen kann diese Bedingungen in Übereinstimmung mit geltendem Recht ändern und wird die Benutzer im Voraus benachrichtigen.,
+        desc: `1. Diese Bedingungen werden mit ihrer Veröffentlichung auf der Website wirksam.<br/>
+2. Das Unternehmen kann diese Bedingungen in Übereinstimmung mit geltendem Recht ändern und wird die Benutzer im Voraus benachrichtigen.`,
       },
       article4: {
         title: "Artikel 4 (Bereitstellung der Dienste)",
-        desc: Das Unternehmen stellt folgende Dienste zur Verfügung:<br/>
+        desc: `Das Unternehmen stellt folgende Dienste zur Verfügung:<br/>
 - Herunterladbare KI-basierte Dentalsoftware<br/>
 - Kauf und Aktivierung kostenpflichtiger Module<br/>
-- Andere vom Unternehmen angegebene Dienste,
+- Andere vom Unternehmen angegebene Dienste`,
       },
       article5: {
         title: "Artikel 5 (Zahlung und Rückerstattungen)",
-        desc: 1. Benutzer können Produkte mit den vom Unternehmen angegebenen Zahlungsmethoden erwerben.<br/>
-2. Aufgrund der Natur digitaler Produkte sind Rückerstattungen nach dem Download oder der Aktivierung nicht möglich, außer wenn gesetzlich vorgeschrieben.,
+        desc: `1. Benutzer können Produkte mit den vom Unternehmen angegebenen Zahlungsmethoden erwerben.<br/>
+2. Aufgrund der Natur digitaler Produkte sind Rückerstattungen nach dem Download oder der Aktivierung nicht möglich, außer wenn gesetzlich vorgeschrieben.`,
       },
       article6: {
         title: "Artikel 6 (Geistiges Eigentum)",
-        desc: 1. Sämtliche Inhalte und Software auf der Website sind urheberrechtlich geschützt und gehören dem Unternehmen.<br/>
-2. Unerlaubtes Kopieren, Weiterverbreiten oder Reverse Engineering ist untersagt und kann rechtliche Konsequenzen nach sich ziehen.,
+        desc: `1. Sämtliche Inhalte und Software auf der Website sind urheberrechtlich geschützt und gehören dem Unternehmen.<br/>
+2. Unerlaubtes Kopieren, Weiterverbreiten oder Reverse Engineering ist untersagt und kann rechtliche Konsequenzen nach sich ziehen.`,
       },
       article7: {
         title: "Artikel 7 (Haftungsausschluss)",
-        desc: 1. Das Unternehmen haftet nicht für Dienstunterbrechungen, die durch höhere Gewalt wie Naturkatastrophen, Cyberangriffe oder Systemausfälle verursacht werden.<br/>
-2. Das Unternehmen ist nicht für Schäden verantwortlich, die durch Fahrlässigkeit des Benutzers entstehen.,
+        desc: `1. Das Unternehmen haftet nicht für Dienstunterbrechungen, die durch höhere Gewalt wie Naturkatastrophen, Cyberangriffe oder Systemausfälle verursacht werden.<br/>
+2. Das Unternehmen ist nicht für Schäden verantwortlich, die durch Fahrlässigkeit des Benutzers entstehen.`,
       },
       article8: {
         title: "Artikel 8 (Anwendbares Recht und Gerichtsstand)",
-        desc: Alle Streitigkeiten, die sich aus diesen Bedingungen ergeben, unterliegen dem Recht der Republik Korea. Das zuständige Gericht am Unternehmenssitz ist das erstinstanzliche Gericht.,
+        desc: `Alle Streitigkeiten, die sich aus diesen Bedingungen ergeben, unterliegen dem Recht der Republik Korea. Das zuständige Gericht am Unternehmenssitz ist das erstinstanzliche Gericht.`,
       },
       effectiveDate: "Wirksam ab: 29. April 2025",
     },
     privacy: {
       headingPrivacy: "[Datenschutzerklärung]",
-      intro: DLAS ("Unternehmen") respektiert Ihre Privatsphäre und verarbeitet Ihre persönlichen Daten in Übereinstimmung mit den geltenden Gesetzen, einschließlich des Datenschutzgesetzes.,
+      intro: `DLAS ("Unternehmen") respektiert Ihre Privatsphäre und verarbeitet Ihre persönlichen Daten in Übereinstimmung mit den geltenden Gesetzen, einschließlich des Datenschutzgesetzes.`,
       article1: {
         title: "Artikel 1 (Erhobene Informationen)",
-        desc: Wir können folgende Arten von Informationen erfassen:<br/>
+        desc: `Wir können folgende Arten von Informationen erfassen:<br/>
 - E-Mail-Adresse und Passwort (bei der Registrierung)<br/>
 - Name und Zahlungsinformationen (für kostenpflichtige Dienste)<br/>
-- Zugriffsprotokolle, IP-Adresse, Nutzungsverlauf (für Servicequalität und Sicherheit),
+- Zugriffsprotokolle, IP-Adresse, Nutzungsverlauf (für Servicequalität und Sicherheit)`,
       },
       article2: {
         title: "Artikel 2 (Zweck der Erfassung)",
-        desc: Personenbezogene Daten werden für folgende Zwecke erfasst und verwendet:<br/>
+        desc: `Personenbezogene Daten werden für folgende Zwecke erfasst und verwendet:<br/>
 - Benutzerauthentifizierung und Bereitstellung von Diensten<br/>
 - Zahlungsabwicklung und Rückerstattungsunterstützung<br/>
 - Kundensupport und Zustellung von Benachrichtigungen<br/>
-- Verhinderung von Betrug und Missbrauch des Systems,
+- Verhinderung von Betrug und Missbrauch des Systems`,
       },
       article3: {
         title: "Artikel 3 (Aufbewahrungsfrist)",
-        desc: - Daten werden bei Kündigung des Kontos gelöscht, sofern nicht gesetzlich anders vorgeschrieben.<br/>
-- Bestimmte Daten können für gesetzlich vorgeschriebene Zeiträume aufbewahrt werden (z.B. nach E-Commerce-Bestimmungen).,
+        desc: `- Daten werden bei Kündigung des Kontos gelöscht, sofern nicht gesetzlich anders vorgeschrieben.<br/>
+- Bestimmte Daten können für gesetzlich vorgeschriebene Zeiträume aufbewahrt werden (z.B. nach E-Commerce-Bestimmungen).`,
       },
       article4: {
         title: "Artikel 4 (Weitergabe an Dritte)",
-        desc: Wir geben personenbezogene Daten nicht an Dritte weiter, außer:<br/>
+        desc: `Wir geben personenbezogene Daten nicht an Dritte weiter, außer:<br/>
 - Mit Ihrer vorherigen Zustimmung<br/>
-- Wenn gesetzlich oder gerichtlich vorgeschrieben,
+- Wenn gesetzlich oder gerichtlich vorgeschrieben`,
       },
       article5: {
         title: "Artikel 5 (Löschung personenbezogener Daten)",
-        desc: Personenbezogene Daten werden nach Ablauf der Aufbewahrungsfrist sicher gelöscht:<br/>
+        desc: `Personenbezogene Daten werden nach Ablauf der Aufbewahrungsfrist sicher gelöscht:<br/>
 - Digitale Dateien: endgültig gelöscht<br/>
-- Papierdokumente: geschreddert oder verbrannt,
+- Papierdokumente: geschreddert oder verbrannt`,
       },
       article6: {
         title: "Artikel 6 (Rechte des Benutzers)",
-        desc: Sie können jederzeit die Einsicht, Änderung, Löschung oder Einschränkung der Verarbeitung Ihrer personenbezogenen Daten verlangen.,
+        desc: `Sie können jederzeit die Einsicht, Änderung, Löschung oder Einschränkung der Verarbeitung Ihrer personenbezogenen Daten verlangen.`,
       },
       article7: {
         title: "Artikel 7 (Datenschutzbeauftragter)",
-        desc: - Beauftragter: JongHwan Kim<br/>
-- E-Mail: support@dlas.io,
+        desc: `- Beauftragter: JongHwan Kim<br/>
+- E-Mail: support@dlas.io`,
       },
       effectiveDate: "Wirksam ab: 29. April 2025",
     },
@@ -829,7 +829,7 @@ of your personal data at any time.,
       gameChangerTitle: "Une révolution dans la dentisterie numérique",
       gameChangerDesc:
         "DLAS est plus qu'un simple logiciel : c'est une révolution dans l'automatisation du CAD dentaire, simplifiant les processus complexes et augmentant la productivité.",
-      gameChangerQuote: "L'avenir de l'automatisation dentaire est arrivé",
+      gameChangerQuote: `"L'avenir de l'automatisation dentaire est arrivé"`,
     },
     download: {
       title: "Télécharger le logiciel",
@@ -860,89 +860,89 @@ of your personal data at any time.,
       headingTerms: "[Conditions d'Utilisation]",
       article1: {
         title: "Article 1 (Objet)",
-        desc: Les présentes Conditions d'Utilisation ("Conditions") régissent l'utilisation des logiciels et services associés ("Services") fournis via le site web géré par DLAS ("Société").,
+        desc: `Les présentes Conditions d'Utilisation ("Conditions") régissent l'utilisation des logiciels et services associés ("Services") fournis via le site web géré par DLAS ("Société").`,
       },
       article2: {
         title: "Article 2 (Définitions)",
-        desc: 1. "Utilisateur" désigne toute personne qui accepte ces Conditions et utilise les Services.<br/>
-2. "Produit" désigne tout logiciel, module ou programme basé sur l'IA fourni par la Société.,
+        desc: `1. "Utilisateur" désigne toute personne qui accepte ces Conditions et utilise les Services.<br/>
+2. "Produit" désigne tout logiciel, module ou programme basé sur l'IA fourni par la Société.`,
       },
       article3: {
         title: "Article 3 (Effet et Modification des Conditions)",
-        desc: 1. Les présentes Conditions prennent effet dès leur publication sur le site web.<br/>
-2. La Société peut réviser ces Conditions en conformité avec les lois applicables et informera les utilisateurs à l'avance.,
+        desc: `1. Les présentes Conditions prennent effet dès leur publication sur le site web.<br/>
+2. La Société peut réviser ces Conditions en conformité avec les lois applicables et informera les utilisateurs à l'avance.`,
       },
       article4: {
         title: "Article 4 (Fourniture des Services)",
-        desc: La Société fournit les services suivants :<br/>
+        desc: `La Société fournit les services suivants :<br/>
 - Logiciel dentaire basé sur l'IA téléchargeable<br/>
 - Achat et activation de modules payants<br/>
-- Autres services désignés par la Société,
+- Autres services désignés par la Société`,
       },
       article5: {
         title: "Article 5 (Paiement et Remboursements)",
-        desc: 1. Les utilisateurs peuvent acheter des produits en utilisant les méthodes de paiement désignées par la Société.<br/>
-2. En raison de la nature des produits numériques, les remboursements ne sont pas disponibles après le téléchargement ou l'activation, sauf si la loi l'exige.,
+        desc: `1. Les utilisateurs peuvent acheter des produits en utilisant les méthodes de paiement désignées par la Société.<br/>
+2. En raison de la nature des produits numériques, les remboursements ne sont pas disponibles après le téléchargement ou l'activation, sauf si la loi l'exige.`,
       },
       article6: {
         title: "Article 6 (Propriété Intellectuelle)",
-        desc: 1. Tout le contenu et les logiciels fournis sur le site web sont protégés par des droits d'auteur et appartiennent à la Société.<br/>
-2. Toute duplication, redistribution ou ingénierie inverse non autorisée est interdite et peut entraîner des conséquences juridiques.,
+        desc: `1. Tout le contenu et les logiciels fournis sur le site web sont protégés par des droits d'auteur et appartiennent à la Société.<br/>
+2. Toute duplication, redistribution ou ingénierie inverse non autorisée est interdite et peut entraîner des conséquences juridiques.`,
       },
       article7: {
         title: "Article 7 (Clause de Non-responsabilité)",
-        desc: 1. La Société ne saurait être tenue responsable des défaillances de service causées par des événements de force majeure tels que des catastrophes naturelles, des cyberattaques ou des pannes de système.<br/>
-2. La Société n'est pas responsable des dommages causés par la négligence de l'utilisateur.,
+        desc: `1. La Société ne saurait être tenue responsable des défaillances de service causées par des événements de force majeure tels que des catastrophes naturelles, des cyberattaques ou des pannes de système.<br/>
+2. La Société n'est pas responsable des dommages causés par la négligence de l'utilisateur.`,
       },
       article8: {
         title: "Article 8 (Loi Applicable et Juridiction)",
-        desc: Tout litige découlant des présentes Conditions sera régi par les lois de la République de Corée, le tribunal ayant compétence sur le siège de la Société étant le tribunal de première instance.,
+        desc: `Tout litige découlant des présentes Conditions sera régi par les lois de la République de Corée, le tribunal ayant compétence sur le siège de la Société étant le tribunal de première instance.`,
       },
       effectiveDate: "Date d'entrée en vigueur : 29 avril 2025",
     },
     privacy: {
       headingPrivacy: "[Politique de Confidentialité]",
-      intro: DLAS ("Société") respecte votre vie privée et traite vos données personnelles conformément aux lois applicables, y compris la loi sur la protection des données personnelles.,
+      intro: `DLAS ("Société") respecte votre vie privée et traite vos données personnelles conformément aux lois applicables, y compris la loi sur la protection des données personnelles.`,
       article1: {
         title: "Article 1 (Informations Collectées)",
-        desc: Nous pouvons collecter les types d'informations suivants :<br/>
+        desc: `Nous pouvons collecter les types d'informations suivants :<br/>
 - Adresse e-mail et mot de passe (lors de l'inscription)<br/>
 - Nom et détails de paiement (pour les services payants)<br/>
-- Journaux d'accès, adresse IP, historique d'utilisation (pour la qualité et la sécurité du service),
+- Journaux d'accès, adresse IP, historique d'utilisation (pour la qualité et la sécurité du service)`,
       },
       article2: {
         title: "Article 2 (But de la Collecte)",
-        desc: Les données personnelles sont collectées et utilisées aux fins suivantes :<br/>
+        desc: `Les données personnelles sont collectées et utilisées aux fins suivantes :<br/>
 - Authentification de l'utilisateur et fourniture de services<br/>
 - Traitement des paiements et assistance aux remboursements<br/>
 - Support client et envoi de notifications<br/>
-- Prévention de la fraude et des abus du système,
+- Prévention de la fraude et des abus du système`,
       },
       article3: {
         title: "Article 3 (Durée de Conservation)",
-        desc: - Les données sont supprimées lors de la résiliation du compte, à moins que la loi ne l'exige autrement.<br/>
-- Certaines données peuvent être conservées pendant une période prescrite par la loi (par ex. réglementations en e-commerce).,
+        desc: `- Les données sont supprimées lors de la résiliation du compte, à moins que la loi ne l'exige autrement.<br/>
+- Certaines données peuvent être conservées pendant une période prescrite par la loi (par ex. réglementations en e-commerce).`,
       },
       article4: {
         title: "Article 4 (Divulgation à des Tiers)",
-        desc: Nous ne partageons pas les données personnelles avec des tiers, sauf :<br/>
+        desc: `Nous ne partageons pas les données personnelles avec des tiers, sauf :<br/>
 - Avec votre consentement préalable<br/>
-- Lorsque la loi ou une procédure légale l'exige,
+- Lorsque la loi ou une procédure légale l'exige`,
       },
       article5: {
         title: "Article 5 (Destruction des Données Personnelles)",
-        desc: Les données personnelles sont détruites de manière sécurisée après la période de conservation :<br/>
+        desc: `Les données personnelles sont détruites de manière sécurisée après la période de conservation :<br/>
 - Fichiers numériques : supprimés définitivement<br/>
-- Documents papier : déchiquetés ou incinérés,
+- Documents papier : déchiquetés ou incinérés`,
       },
       article6: {
         title: "Article 6 (Droits de l'Utilisateur)",
-        desc: Vous pouvez demander à tout moment à consulter, modifier, supprimer ou restreindre le traitement de vos données personnelles.,
+        desc: `Vous pouvez demander à tout moment à consulter, modifier, supprimer ou restreindre le traitement de vos données personnelles.`,
       },
       article7: {
         title: "Article 7 (Responsable de la Protection des Données)",
-        desc: - Responsable : JongHwan Kim<br/>
-- E-mail : support@dlas.io,
+        desc: `- Responsable : JongHwan Kim<br/>
+- E-mail : support@dlas.io`,
       },
       effectiveDate: "Date d'entrée en vigueur : 29 avril 2025",
     },
@@ -1029,7 +1029,7 @@ of your personal data at any time.,
       gameChangerTitle: "डिजिटल डेंटिस्ट्री में क्रांतिकारी बदलाव",
       gameChangerDesc:
         "DLAS एक सॉफ्टवेयर मात्र नहीं, बल्कि डेंटल CAD ऑटोमेशन में क्रांति है, जो जटिल वर्कफ़्लो को सरल बनाती है और उत्पादकता बढ़ाती है।",
-      gameChangerQuote: "डेंटल ऑटोमेशन का भविष्य यहीं है",
+      gameChangerQuote: `"डेंटल ऑटोमेशन का भविष्य यहीं है"`,
     },
     download: {
       title: "सॉफ़्टवेयर डाउनलोड करें",
@@ -1060,89 +1060,89 @@ of your personal data at any time.,
       headingTerms: "[सेवा की शर्तें]",
       article1: {
         title: "अनुच्छेद 1 (उद्देश्य)",
-        desc: ये सेवा शर्तें ("शर्तें") DLAS ("कंपनी") द्वारा संचालित वेबसाइट के माध्यम से प्रदान किए जाने वाले सॉफ़्टवेयर और संबंधित सेवाओं ("सेवाएँ") के उपयोग को नियंत्रित करती हैं।,
+        desc: `ये सेवा शर्तें ("शर्तें") DLAS ("कंपनी") द्वारा संचालित वेबसाइट के माध्यम से प्रदान किए जाने वाले सॉफ़्टवेयर और संबंधित सेवाओं ("सेवाएँ") के उपयोग को नियंत्रित करती हैं।`,
       },
       article2: {
         title: "अनुच्छेद 2 (परिभाषाएँ)",
-        desc: 1. "यूज़र" वह व्यक्ति है जो इन शर्तों से सहमत होता है और सेवाओं का उपयोग करता है।<br/>
-2. "प्रोडक्ट" से आशय कंपनी द्वारा प्रदान किए जाने वाले किसी भी AI-आधारित सॉफ़्टवेयर, मॉड्यूल या प्रोग्राम से है।,
+        desc: `1. "यूज़र" वह व्यक्ति है जो इन शर्तों से सहमत होता है और सेवाओं का उपयोग करता है।<br/>
+2. "प्रोडक्ट" से आशय कंपनी द्वारा प्रदान किए जाने वाले किसी भी AI-आधारित सॉफ़्टवेयर, मॉड्यूल या प्रोग्राम से है।`,
       },
       article3: {
         title: "अनुच्छेद 3 (प्रभाव और संशोधन)",
-        desc: 1. ये शर्तें वेबसाइट पर पोस्ट करते ही प्रभावी हो जाती हैं।<br/>
-2. कंपनी लागू कानूनों का पालन करते हुए इन शर्तों में संशोधन कर सकती है और अग्रिम रूप से यूज़र्स को सूचित करेगी।,
+        desc: `1. ये शर्तें वेबसाइट पर पोस्ट करते ही प्रभावी हो जाती हैं।<br/>
+2. कंपनी लागू कानूनों का पालन करते हुए इन शर्तों में संशोधन कर सकती है और अग्रिम रूप से यूज़र्स को सूचित करेगी।`,
       },
       article4: {
         title: "अनुच्छेद 4 (सेवाओं का प्रावधान)",
-        desc: कंपनी निम्नलिखित सेवाएँ प्रदान करती है:<br/>
+        desc: `कंपनी निम्नलिखित सेवाएँ प्रदान करती है:<br/>
 - डाउनलोड करने योग्य AI-आधारित डेंटल सॉफ़्टवेयर<br/>
 - सशुल्क मॉड्यूल की खरीद और सक्रियण<br/>
-- कंपनी द्वारा निर्दिष्ट अन्य सेवाएँ,
+- कंपनी द्वारा निर्दिष्ट अन्य सेवाएँ`,
       },
       article5: {
         title: "अनुच्छेद 5 (भुगतान और रिफंड)",
-        desc: 1. यूज़र कंपनी द्वारा निर्दिष्ट भुगतान विधियों का उपयोग करके प्रोडक्ट खरीद सकते हैं।<br/>
-2. डिजिटल प्रोडक्ट की प्रकृति के कारण, कानूनी प्रावधानों को छोड़कर, डाउनलोड या सक्रियण के बाद रिफंड संभव नहीं है।,
+        desc: `1. यूज़र कंपनी द्वारा निर्दिष्ट भुगतान विधियों का उपयोग करके प्रोडक्ट खरीद सकते हैं।<br/>
+2. डिजिटल प्रोडक्ट की प्रकृति के कारण, कानूनी प्रावधानों को छोड़कर, डाउनलोड या सक्रियण के बाद रिफंड संभव नहीं है।`,
       },
       article6: {
         title: "अनुच्छेद 6 (बौद्धिक संपदा)",
-        desc: 1. वेबसाइट पर उपलब्ध सभी सामग्री और सॉफ़्टवेयर कॉपीराइट के तहत सुरक्षित हैं और कंपनी के स्वामित्व में हैं।<br/>
-2. अनधिकृत प्रतिलिपि, पुनर्वितरण या रिवर्स इंजीनियरिंग प्रतिबंधित हैं और कानूनी कार्रवाई हो सकती है।,
+        desc: `1. वेबसाइट पर उपलब्ध सभी सामग्री और सॉफ़्टवेयर कॉपीराइट के तहत सुरक्षित हैं और कंपनी के स्वामित्व में हैं।<br/>
+2. अनधिकृत प्रतिलिपि, पुनर्वितरण या रिवर्स इंजीनियरिंग प्रतिबंधित हैं और कानूनी कार्रवाई हो सकती है।`,
       },
       article7: {
         title: "अनुच्छेद 7 (अस्वीकरण)",
-        desc: 1. प्राकृतिक आपदाओं, साइबर हमलों या सिस्टम विफलताओं जैसे फोर्स मेजर घटनाओं के कारण सेवा में आने वाली विफलताओं के लिए कंपनी ज़िम्मेदार नहीं है।<br/>
-2. यूज़र की लापरवाही के कारण हुए नुक़सान के लिए कंपनी ज़िम्मेदार नहीं है।,
+        desc: `1. प्राकृतिक आपदाओं, साइबर हमलों या सिस्टम विफलताओं जैसे फोर्स मेजर घटनाओं के कारण सेवा में आने वाली विफलताओं के लिए कंपनी ज़िम्मेदार नहीं है।<br/>
+2. यूज़र की लापरवाही के कारण हुए नुक़सान के लिए कंपनी ज़िम्मेदार नहीं है।`,
       },
       article8: {
         title: "अनुच्छेद 8 (शासन विधि और क्षेत्राधिकार)",
-        desc: इन शर्तों से उत्पन्न किसी भी विवाद पर कोरिया गणराज्य के कानूनों का नियंत्रण होगा, और कंपनी के मुख्यालय के अधिकार क्षेत्र वाली अदालत को प्रथम दृष्टया न्यायालय माना जाएगा।,
+        desc: `इन शर्तों से उत्पन्न किसी भी विवाद पर कोरिया गणराज्य के कानूनों का नियंत्रण होगा, और कंपनी के मुख्यालय के अधिकार क्षेत्र वाली अदालत को प्रथम दृष्टया न्यायालय माना जाएगा।`,
       },
       effectiveDate: "प्रभावी तिथि: 29 अप्रैल 2025",
     },
     privacy: {
       headingPrivacy: "[गोपनीयता नीति]",
-      intro: DLAS ("कंपनी") आपकी गोपनीयता का सम्मान करता है और प्रासंगिक कानूनों (व्यक्तिगत डेटा सुरक्षा अधिनियम सहित) के अनुसार आपके निजी डेटा को संभालती है।,
+      intro: `DLAS ("कंपनी") आपकी गोपनीयता का सम्मान करता है और प्रासंगिक कानूनों (व्यक्तिगत डेटा सुरक्षा अधिनियम सहित) के अनुसार आपके निजी डेटा को संभालती है।`,
       article1: {
         title: "अनुच्छेद 1 (एकत्रित जानकारी)",
-        desc: हम निम्न प्रकार की जानकारी एकत्र कर सकते हैं:<br/>
+        desc: `हम निम्न प्रकार की जानकारी एकत्र कर सकते हैं:<br/>
 - पंजीकरण के समय ईमेल पता और पासवर्ड<br/>
 - सशुल्क सेवाओं के लिए नाम और भुगतान विवरण<br/>
-- एक्सेस लॉग, IP पता, उपयोग इतिहास (सेवा गुणवत्ता और सुरक्षा के लिए),
+- एक्सेस लॉग, IP पता, उपयोग इतिहास (सेवा गुणवत्ता और सुरक्षा के लिए)`,
       },
       article2: {
         title: "अनुच्छेद 2 (संग्रह का उद्देश्य)",
-        desc: निजी डेटा को निम्न उद्देश्यों के लिए एकत्र और उपयोग किया जाता है:<br/>
+        desc: `निजी डेटा को निम्न उद्देश्यों के लिए एकत्र और उपयोग किया जाता है:<br/>
 - यूज़र प्रमाणीकरण और सेवा प्रावधान<br/>
 - भुगतान प्रबंधन और रिफंड सहायता<br/>
 - ग्राहक सहायता और सूचनाओं की डिलीवरी<br/>
-- धोखाधड़ी और सिस्टम के दुरुपयोग को रोकना,
+- धोखाधड़ी और सिस्टम के दुरुपयोग को रोकना`,
       },
       article3: {
         title: "अनुच्छेद 3 (रखरखाव अवधि)",
-        desc: - खाता समाप्ति पर, जब तक कि कानून अन्यथा न कहे, डेटा को हटा दिया जाता है।<br/>
-- कुछ डेटा कानूनी अनिवार्य अवधि के लिए रखा जा सकता है (जैसे ई-कॉमर्स विनियमों के तहत)।,
+        desc: `- खाता समाप्ति पर, जब तक कि कानून अन्यथा न कहे, डेटा को हटा दिया जाता है।<br/>
+- कुछ डेटा कानूनी अनिवार्य अवधि के लिए रखा जा सकता है (जैसे ई-कॉमर्स विनियमों के तहत)।`,
       },
       article4: {
         title: "अनुच्छेद 4 (तीसरे पक्ष को प्रकटीकरण)",
-        desc: हम व्यक्तिगत डेटा को तीसरे पक्ष के साथ साझा नहीं करते, सिवाय इन परिस्थितियों में:<br/>
+        desc: `हम व्यक्तिगत डेटा को तीसरे पक्ष के साथ साझा नहीं करते, सिवाय इन परिस्थितियों में:<br/>
 - आपकी पूर्व सहमति के साथ<br/>
-- जब कानून या कानूनी प्रक्रिया द्वारा आवश्यक हो,
+- जब कानून या कानूनी प्रक्रिया द्वारा आवश्यक हो`,
       },
       article5: {
         title: "अनुच्छेद 5 (व्यक्तिगत डेटा का नष्ट करना)",
-        desc: रखरखाव अवधि समाप्त होने के बाद निजी डेटा को सुरक्षित रूप से नष्ट कर दिया जाता है:<br/>
+        desc: `रखरखाव अवधि समाप्त होने के बाद निजी डेटा को सुरक्षित रूप से नष्ट कर दिया जाता है:<br/>
 - डिजिटल फ़ाइलें: स्थायी रूप से हटाई जाती हैं<br/>
-- कागज़ी दस्तावेज़: कतरन या जला दिया जाता है,
+- कागज़ी दस्तावेज़: कतरन या जला दिया जाता है`,
       },
       article6: {
         title: "अनुच्छेद 6 (यूज़र अधिकार)",
-        desc: आप कभी भी अपने निजी डेटा को देखने, संशोधित करने, हटाने या उसके प्रसंस्करण को सीमित करने का अनुरोध कर सकते हैं।,
+        desc: `आप कभी भी अपने निजी डेटा को देखने, संशोधित करने, हटाने या उसके प्रसंस्करण को सीमित करने का अनुरोध कर सकते हैं।`,
       },
       article7: {
         title: "अनुच्छेद 7 (डेटा संरक्षण अधिकारी)",
-        desc: - अधिकारी: JongHwan Kim<br/>
-- ईमेल: support@dlas.io,
+        desc: `- अधिकारी: JongHwan Kim<br/>
+- ईमेल: support@dlas.io`,
       },
       effectiveDate: "प्रभावी तिथि: 29 अप्रैल 2025",
     },
@@ -1229,7 +1229,7 @@ of your personal data at any time.,
       gameChangerTitle: "Uma revolução na Odontologia Digital",
       gameChangerDesc:
         "DLAS é mais do que um software; é uma revolução na automação CAD odontológica, simplificando fluxos de trabalho complexos e aumentando a produtividade.",
-      gameChangerQuote: "O futuro da automação odontológica está aqui",
+      gameChangerQuote: `"O futuro da automação odontológica está aqui"`,
     },
     download: {
       title: "Baixar Software",
@@ -1260,89 +1260,89 @@ of your personal data at any time.,
       headingTerms: "[Termos de Serviço]",
       article1: {
         title: "Artigo 1 (Objetivo)",
-        desc: Estes Termos de Serviço ("Termos") regem o uso de software e serviços relacionados ("Serviços") fornecidos por meio do site operado pela DLAS ("Empresa").,
+        desc: `Estes Termos de Serviço ("Termos") regem o uso de software e serviços relacionados ("Serviços") fornecidos por meio do site operado pela DLAS ("Empresa").`,
       },
       article2: {
         title: "Artigo 2 (Definições)",
-        desc: 1. "Usuário" refere-se a qualquer indivíduo que concorde com estes Termos e utilize os Serviços.<br/>
-2. "Produto" refere-se a qualquer software, módulo ou programa baseado em IA fornecido pela Empresa.,
+        desc: `1. "Usuário" refere-se a qualquer indivíduo que concorde com estes Termos e utilize os Serviços.<br/>
+2. "Produto" refere-se a qualquer software, módulo ou programa baseado em IA fornecido pela Empresa.`,
       },
       article3: {
         title: "Artigo 3 (Efeito e Modificação dos Termos)",
-        desc: 1. Estes Termos entram em vigor quando publicados no site.<br/>
-2. A Empresa pode revisar estes Termos em conformidade com as leis aplicáveis e notificará os usuários com antecedência.,
+        desc: `1. Estes Termos entram em vigor quando publicados no site.<br/>
+2. A Empresa pode revisar estes Termos em conformidade com as leis aplicáveis e notificará os usuários com antecedência.`,
       },
       article4: {
         title: "Artigo 4 (Fornecimento de Serviços)",
-        desc: A Empresa fornece os seguintes serviços:<br/>
+        desc: `A Empresa fornece os seguintes serviços:<br/>
 - Software odontológico baseado em IA para download<br/>
 - Compra e ativação de módulos pagos<br/>
-- Outros serviços designados pela Empresa,
+- Outros serviços designados pela Empresa`,
       },
       article5: {
         title: "Artigo 5 (Pagamento e Reembolsos)",
-        desc: 1. Os usuários podem adquirir produtos usando os métodos de pagamento designados pela Empresa.<br/>
-2. Devido à natureza de produtos digitais, não há reembolso após o download ou ativação, exceto quando exigido por lei.,
+        desc: `1. Os usuários podem adquirir produtos usando os métodos de pagamento designados pela Empresa.<br/>
+2. Devido à natureza de produtos digitais, não há reembolso após o download ou ativação, exceto quando exigido por lei.`,
       },
       article6: {
         title: "Artigo 6 (Propriedade Intelectual)",
-        desc: 1. Todo o conteúdo e software fornecidos no site são protegidos por direitos autorais e pertencem à Empresa.<br/>
-2. Reprodução, redistribuição ou engenharia reversa não autorizadas são proibidas e podem resultar em consequências legais.,
+        desc: `1. Todo o conteúdo e software fornecidos no site são protegidos por direitos autorais e pertencem à Empresa.<br/>
+2. Reprodução, redistribuição ou engenharia reversa não autorizadas são proibidas e podem resultar em consequências legais.`,
       },
       article7: {
         title: "Artigo 7 (Isenção de Responsabilidade)",
-        desc: 1. A Empresa não se responsabiliza por falhas de serviço causadas por eventos de força maior, como desastres naturais, ataques cibernéticos ou falhas de sistema.<br/>
-2. A Empresa não é responsável por danos causados pela negligência do usuário.,
+        desc: `1. A Empresa não se responsabiliza por falhas de serviço causadas por eventos de força maior, como desastres naturais, ataques cibernéticos ou falhas de sistema.<br/>
+2. A Empresa não é responsável por danos causados pela negligência do usuário.`,
       },
       article8: {
         title: "Artigo 8 (Lei Aplicável e Jurisdição)",
-        desc: Qualquer disputa decorrente destes Termos será regida pelas leis da República da Coreia, com o tribunal que tenha jurisdição sobre a sede da Empresa como o tribunal de primeira instância.,
+        desc: `Qualquer disputa decorrente destes Termos será regida pelas leis da República da Coreia, com o tribunal que tenha jurisdição sobre a sede da Empresa como o tribunal de primeira instância.`,
       },
       effectiveDate: "Data de Vigência: 29 de abril de 2025",
     },
     privacy: {
       headingPrivacy: "[Política de Privacidade]",
-      intro: A DLAS ("Empresa") respeita sua privacidade e trata seus dados pessoais de acordo com as leis aplicáveis, incluindo a Lei de Proteção de Dados Pessoais.,
+      intro: `A DLAS ("Empresa") respeita sua privacidade e trata seus dados pessoais de acordo com as leis aplicáveis, incluindo a Lei de Proteção de Dados Pessoais.`,
       article1: {
         title: "Artigo 1 (Informações Coletadas)",
-        desc: Podemos coletar os seguintes tipos de informações:<br/>
+        desc: `Podemos coletar os seguintes tipos de informações:<br/>
 - Endereço de e-mail e senha (ao se registrar)<br/>
 - Nome e detalhes de pagamento (para serviços pagos)<br/>
-- Logs de acesso, endereço IP, histórico de uso (para qualidade e segurança do serviço),
+- Logs de acesso, endereço IP, histórico de uso (para qualidade e segurança do serviço)`,
       },
       article2: {
         title: "Artigo 2 (Finalidade da Coleta)",
-        desc: Os dados pessoais são coletados e utilizados para as seguintes finalidades:<br/>
+        desc: `Os dados pessoais são coletados e utilizados para as seguintes finalidades:<br/>
 - Autenticação de usuários e fornecimento de serviços<br/>
 - Processamento de pagamentos e suporte a reembolsos<br/>
 - Suporte ao cliente e envio de notificações<br/>
-- Prevenção de fraudes e uso indevido do sistema,
+- Prevenção de fraudes e uso indevido do sistema`,
       },
       article3: {
         title: "Artigo 3 (Período de Retenção)",
-        desc: - Os dados são excluídos após o encerramento da conta, a menos que exigido por lei.<br/>
-- Alguns dados podem ser retidos por períodos determinados por lei (por exemplo, de acordo com regulamentações de comércio eletrônico).,
+        desc: `- Os dados são excluídos após o encerramento da conta, a menos que exigido por lei.<br/>
+- Alguns dados podem ser retidos por períodos determinados por lei (por exemplo, de acordo com regulamentações de comércio eletrônico).`,
       },
       article4: {
         title: "Artigo 4 (Divulgação a Terceiros)",
-        desc: Não compartilhamos dados pessoais com terceiros, exceto:<br/>
+        desc: `Não compartilhamos dados pessoais com terceiros, exceto:<br/>
 - Com seu consentimento prévio<br/>
-- Quando exigido por lei ou processo legal,
+- Quando exigido por lei ou processo legal`,
       },
       article5: {
         title: "Artigo 5 (Destruição de Dados Pessoais)",
-        desc: Os dados pessoais serão destruídos de forma segura após o período de retenção:<br/>
+        desc: `Os dados pessoais serão destruídos de forma segura após o período de retenção:<br/>
 - Arquivos digitais: excluídos permanentemente<br/>
-- Documentos em papel: triturados ou incinerados,
+- Documentos em papel: triturados ou incinerados`,
       },
       article6: {
         title: "Artigo 6 (Direitos do Usuário)",
-        desc: Você pode solicitar, a qualquer momento, a visualização, modificação, exclusão ou restrição de processamento de seus dados pessoais.,
+        desc: `Você pode solicitar, a qualquer momento, a visualização, modificação, exclusão ou restrição de processamento de seus dados pessoais.`,
       },
       article7: {
         title: "Artigo 7 (Encarregado de Proteção de Dados)",
-        desc: - Responsável: JongHwan Kim<br/>
-- E-mail: support@dlas.io,
+        desc: `- Responsável: JongHwan Kim<br/>
+- E-mail: support@dlas.io`,
       },
       effectiveDate: "Data de Vigência: 29 de abril de 2025",
     },
@@ -1429,7 +1429,7 @@ of your personal data at any time.,
       gameChangerTitle: "디지털 덴티스트리의 게임 체인저",
       gameChangerDesc:
         "DLAS는 단순한 소프트웨어가 아니라, 치과 CAD 자동화의 혁신으로 복잡한 워크플로우를 단순화하고 생산성을 높여줍니다.",
-      gameChangerQuote: "치과 자동화의 미래가 여기 있습니다",
+      gameChangerQuote: `"치과 자동화의 미래가 여기 있습니다"`,
     },
     download: {
       title: "소프트웨어 다운로드",
@@ -1460,89 +1460,89 @@ of your personal data at any time.,
       headingTerms: "[이용약관]",
       article1: {
         title: "제1조 (목적)",
-        desc: 본 약관(이하 "약관")은 DLAS("회사")가 운영하는 웹사이트를 통해 제공되는 소프트웨어 및 관련 서비스("서비스")의 이용에 관한 사항을 규정함을 목적으로 합니다.,
+        desc: `본 약관(이하 "약관")은 DLAS("회사")가 운영하는 웹사이트를 통해 제공되는 소프트웨어 및 관련 서비스("서비스")의 이용에 관한 사항을 규정함을 목적으로 합니다.`,
       },
       article2: {
         title: "제2조 (정의)",
-        desc: 1. "회원"이라 함은 본 약관에 동의하고 서비스를 이용하는 개인 사용자를 의미합니다.<br/>
-2. "제품"이라 함은 회사가 제공하는 모든 AI 기반 소프트웨어, 모듈, 프로그램 등을 말합니다.,
+        desc: `1. "회원"이라 함은 본 약관에 동의하고 서비스를 이용하는 개인 사용자를 의미합니다.<br/>
+2. "제품"이라 함은 회사가 제공하는 모든 AI 기반 소프트웨어, 모듈, 프로그램 등을 말합니다.`,
       },
       article3: {
         title: "제3조 (약관의 효력 및 변경)",
-        desc: 1. 본 약관은 웹사이트에 게시함으로써 효력이 발생합니다.<br/>
-2. 회사는 관련 법령을 준수하는 범위 내에서 약관을 개정할 수 있으며, 개정 시 사전에 공지합니다.,
+        desc: `1. 본 약관은 웹사이트에 게시함으로써 효력이 발생합니다.<br/>
+2. 회사는 관련 법령을 준수하는 범위 내에서 약관을 개정할 수 있으며, 개정 시 사전에 공지합니다.`,
       },
       article4: {
         title: "제4조 (서비스의 제공)",
-        desc: 회사는 다음과 같은 서비스를 제공합니다:<br/>
+        desc: `회사는 다음과 같은 서비스를 제공합니다:<br/>
 - AI 기반 치과 소프트웨어 다운로드<br/>
 - 유료 모듈의 구매 및 활성화<br/>
-- 회사가 지정하는 기타 서비스,
+- 회사가 지정하는 기타 서비스`,
       },
       article5: {
         title: "제5조 (결제 및 환불)",
-        desc: 1. 회원은 회사가 지정한 결제수단을 통해 제품을 구매할 수 있습니다.<br/>
-2. 디지털 제품의 특성상, 다운로드 또는 활성화 후에는 관련 법령에서 정한 경우를 제외하고 환불이 불가합니다.,
+        desc: `1. 회원은 회사가 지정한 결제수단을 통해 제품을 구매할 수 있습니다.<br/>
+2. 디지털 제품의 특성상, 다운로드 또는 활성화 후에는 관련 법령에서 정한 경우를 제외하고 환불이 불가합니다.`,
       },
       article6: {
         title: "제6조 (지적재산권)",
-        desc: 1. 웹사이트에 제공되는 모든 콘텐츠와 소프트웨어에 대한 저작권은 회사에 귀속됩니다.<br/>
-2. 무단 복제, 배포, 역공학 등의 행위는 금지되며, 법적 책임이 따를 수 있습니다.,
+        desc: `1. 웹사이트에 제공되는 모든 콘텐츠와 소프트웨어에 대한 저작권은 회사에 귀속됩니다.<br/>
+2. 무단 복제, 배포, 역공학 등의 행위는 금지되며, 법적 책임이 따를 수 있습니다.`,
       },
       article7: {
         title: "제7조 (책임의 한계)",
-        desc: 1. 회사는 자연재해, 사이버 공격, 시스템 장애 등 불가항력으로 인한 서비스 장애에 대해 책임을 지지 않습니다.<br/>
-2. 회원의 과실로 인한 피해에 대해서는 회사가 책임지지 않습니다.,
+        desc: `1. 회사는 자연재해, 사이버 공격, 시스템 장애 등 불가항력으로 인한 서비스 장애에 대해 책임을 지지 않습니다.<br/>
+2. 회원의 과실로 인한 피해에 대해서는 회사가 책임지지 않습니다.`,
       },
       article8: {
         title: "제8조 (준거법 및 관할)",
-        desc: 본 약관에 따른 분쟁에 대해서는 대한민국 법령을 준거법으로 하며, 회사 본사가 소재하는 관할 법원을 제1심 관할법원으로 합니다.,
+        desc: `본 약관에 따른 분쟁에 대해서는 대한민국 법령을 준거법으로 하며, 회사 본사가 소재하는 관할 법원을 제1심 관할법원으로 합니다.`,
       },
       effectiveDate: "시행일자: 2025년 4월 29일",
     },
     privacy: {
       headingPrivacy: "[개인정보처리방침]",
-      intro: DLAS("회사")는 「개인정보 보호법」 등 관련 법령을 준수하며, 이용자의 개인정보를 안전하게 처리합니다.,
+      intro: `DLAS("회사")는 「개인정보 보호법」 등 관련 법령을 준수하며, 이용자의 개인정보를 안전하게 처리합니다.`,
       article1: {
         title: "제1조 (수집하는 개인정보)",
-        desc: 회사는 다음과 같은 개인정보를 수집할 수 있습니다:<br/>
+        desc: `회사는 다음과 같은 개인정보를 수집할 수 있습니다:<br/>
 - 회원가입 시 이메일 주소, 비밀번호<br/>
 - 유료 서비스 이용 시 결제 정보, 이름 등<br/>
-- 서비스 이용기록, 접속 IP, 로그기록 등,
+- 서비스 이용기록, 접속 IP, 로그기록 등`,
       },
       article2: {
         title: "제2조 (개인정보의 수집 및 이용 목적)",
-        desc: 회사는 수집한 개인정보를 다음과 같은 목적으로 이용합니다:<br/>
+        desc: `회사는 수집한 개인정보를 다음과 같은 목적으로 이용합니다:<br/>
 - 회원 인증 및 서비스 제공<br/>
 - 결제 및 환불 처리<br/>
 - 고객 지원 및 공지사항 전달<br/>
-- 부정 이용 방지,
+- 부정 이용 방지`,
       },
       article3: {
         title: "제3조 (개인정보의 보유 및 이용기간)",
-        desc: - 회원 탈퇴 시 지체없이 파기하며, 법령에서 정한 기간이 있는 경우 해당 기간 동안 보관합니다.<br/>
-- 전자상거래 관련 법령에 따라 일정 기간 보존해야 하는 정보는 해당 기간 보존 후 파기합니다.,
+        desc: `- 회원 탈퇴 시 지체없이 파기하며, 법령에서 정한 기간이 있는 경우 해당 기간 동안 보관합니다.<br/>
+- 전자상거래 관련 법령에 따라 일정 기간 보존해야 하는 정보는 해당 기간 보존 후 파기합니다.`,
       },
       article4: {
         title: "제4조 (개인정보의 제3자 제공)",
-        desc: 회사는 원칙적으로 이용자의 개인정보를 외부에 제공하지 않으며, 다음의 경우에만 예외로 합니다:<br/>
+        desc: `회사는 원칙적으로 이용자의 개인정보를 외부에 제공하지 않으며, 다음의 경우에만 예외로 합니다:<br/>
 - 이용자가 사전에 동의한 경우<br/>
-- 법령 또는 수사 목적으로 요구되는 경우,
+- 법령 또는 수사 목적으로 요구되는 경우`,
       },
       article5: {
         title: "제5조 (개인정보의 파기)",
-        desc: 개인정보는 보유기간이 만료되거나 처리 목적이 달성되면 안전하게 파기합니다.<br/>
+        desc: `개인정보는 보유기간이 만료되거나 처리 목적이 달성되면 안전하게 파기합니다.<br/>
 - 전자적 파일: 영구 삭제<br/>
-- 종이 문서: 파쇄 또는 소각,
+- 종이 문서: 파쇄 또는 소각`,
       },
       article6: {
         title: "제6조 (이용자의 권리)",
-        desc: 이용자는 언제든지 본인의 개인정보 열람, 정정, 삭제, 처리정지 등을 요청할 수 있습니다.,
+        desc: `이용자는 언제든지 본인의 개인정보 열람, 정정, 삭제, 처리정지 등을 요청할 수 있습니다.`,
       },
       article7: {
         title: "제7조 (개인정보 보호책임자)",
-        desc: - 책임자: 김종환<br/>
-- 이메일: support@dlas.io,
+        desc: `- 책임자: 김종환<br/>
+- 이메일: support@dlas.io`,
       },
       effectiveDate: "시행일자: 2025년 4월 29일",
     },
@@ -1629,7 +1629,7 @@ of your personal data at any time.,
       gameChangerTitle: "Прорыв в цифровой стоматологии",
       gameChangerDesc:
         "DLAS — это не просто программа, а революция в автоматизации стоматологического CAD, упрощающая сложные рабочие процессы и повышающая производительность.",
-      gameChangerQuote: "Будущее автоматизации стоматологии здесь",
+      gameChangerQuote: `"Будущее автоматизации стоматологии здесь"`,
     },
     download: {
       title: "Скачать программу",
@@ -1660,89 +1660,89 @@ of your personal data at any time.,
       headingTerms: "[Условия обслуживания]",
       article1: {
         title: "Статья 1 (Цель)",
-        desc: Настоящие Условия обслуживания («Условия») регулируют использование программного обеспечения и связанных с ним услуг («Сервисы»), предоставляемых через веб-сайт, управляемый DLAS («Компания»).,
+        desc: `Настоящие Условия обслуживания («Условия») регулируют использование программного обеспечения и связанных с ним услуг («Сервисы»), предоставляемых через веб-сайт, управляемый DLAS («Компания»).`,
       },
       article2: {
         title: "Статья 2 (Определения)",
-        desc: 1. «Пользователь» – любое лицо, которое соглашается с настоящими Условиями и использует Сервисы.<br/>
-2. «Продукт» – любое программное обеспечение, модули или программы на базе искусственного интеллекта, предоставляемые Компанией.,
+        desc: `1. «Пользователь» – любое лицо, которое соглашается с настоящими Условиями и использует Сервисы.<br/>
+2. «Продукт» – любое программное обеспечение, модули или программы на базе искусственного интеллекта, предоставляемые Компанией.`,
       },
       article3: {
         title: "Статья 3 (Действие и изменение Условий)",
-        desc: 1. Настоящие Условия вступают в силу с момента их размещения на веб-сайте.<br/>
-2. Компания может вносить изменения в Условия в соответствии с применимым законодательством и уведомлять пользователей заранее.,
+        desc: `1. Настоящие Условия вступают в силу с момента их размещения на веб-сайте.<br/>
+2. Компания может вносить изменения в Условия в соответствии с применимым законодательством и уведомлять пользователей заранее.`,
       },
       article4: {
         title: "Статья 4 (Предоставление Сервисов)",
-        desc: Компания предоставляет следующие Сервисы:<br/>
+        desc: `Компания предоставляет следующие Сервисы:<br/>
 - Загружаемое программное обеспечение для стоматологии на базе ИИ<br/>
 - Покупка и активация платных модулей<br/>
-- Другие услуги, определяемые Компанией,
+- Другие услуги, определяемые Компанией`,
       },
       article5: {
         title: "Статья 5 (Оплата и возвраты)",
-        desc: 1. Пользователи могут приобретать продукты, используя методы оплаты, указанные Компанией.<br/>
-2. Из-за специфики цифровых продуктов возврат средств после загрузки или активации невозможен, за исключением случаев, предусмотренных законом.,
+        desc: `1. Пользователи могут приобретать продукты, используя методы оплаты, указанные Компанией.<br/>
+2. Из-за специфики цифровых продуктов возврат средств после загрузки или активации невозможен, за исключением случаев, предусмотренных законом.`,
       },
       article6: {
         title: "Статья 6 (Интеллектуальная собственность)",
-        desc: 1. Все материалы и программное обеспечение, размещенные на веб-сайте, защищены авторским правом и принадлежат Компании.<br/>
-2. Несанкционированное копирование, распространение или реверс-инжиниринг запрещены и могут повлечь юридическую ответственность.,
+        desc: `1. Все материалы и программное обеспечение, размещенные на веб-сайте, защищены авторским правом и принадлежат Компании.<br/>
+2. Несанкционированное копирование, распространение или реверс-инжиниринг запрещены и могут повлечь юридическую ответственность.`,
       },
       article7: {
         title: "Статья 7 (Отказ от ответственности)",
-        desc: 1. Компания не несет ответственности за сбои в работе сервиса, вызванные форс-мажорными обстоятельствами, такими как стихийные бедствия, кибератаки или сбои системы.<br/>
-2. Компания не несет ответственности за ущерб, вызванный небрежностью пользователя.,
+        desc: `1. Компания не несет ответственности за сбои в работе сервиса, вызванные форс-мажорными обстоятельствами, такими как стихийные бедствия, кибератаки или сбои системы.<br/>
+2. Компания не несет ответственности за ущерб, вызванный небрежностью пользователя.`,
       },
       article8: {
         title: "Статья 8 (Применимое право и юрисдикция)",
-        desc: Все споры, возникающие из настоящих Условий, регулируются законодательством Республики Корея, а компетентным судом первой инстанции является суд по месту нахождения штаб-квартиры Компании.,
+        desc: `Все споры, возникающие из настоящих Условий, регулируются законодательством Республики Корея, а компетентным судом первой инстанции является суд по месту нахождения штаб-квартиры Компании.`,
       },
       effectiveDate: "Дата вступления в силу: 29 апреля 2025 года",
     },
     privacy: {
       headingPrivacy: "[Политика конфиденциальности]",
-      intro: DLAS («Компания») уважает вашу конфиденциальность и обрабатывает ваши персональные данные в соответствии с применимым законодательством, включая Закон о защите персональных данных.,
+      intro: `DLAS («Компания») уважает вашу конфиденциальность и обрабатывает ваши персональные данные в соответствии с применимым законодательством, включая Закон о защите персональных данных.`,
       article1: {
         title: "Статья 1 (Собираемая информация)",
-        desc: Мы можем собирать следующие типы информации:<br/>
+        desc: `Мы можем собирать следующие типы информации:<br/>
 - Адрес электронной почты и пароль (при регистрации)<br/>
 - Имя и платёжные данные (для платных услуг)<br/>
-- Журналы доступа, IP-адрес, историю использования (для качества и безопасности сервиса),
+- Журналы доступа, IP-адрес, историю использования (для качества и безопасности сервиса)`,
       },
       article2: {
         title: "Статья 2 (Цели сбора)",
-        desc: Персональные данные собираются и используются в следующих целях:<br/>
+        desc: `Персональные данные собираются и используются в следующих целях:<br/>
 - Аутентификация пользователя и предоставление Сервисов<br/>
 - Обработка платежей и поддержка возврата средств<br/>
 - Поддержка клиентов и рассылка уведомлений<br/>
-- Предотвращение мошенничества и злоупотреблений системой,
+- Предотвращение мошенничества и злоупотреблений системой`,
       },
       article3: {
         title: "Статья 3 (Срок хранения)",
-        desc: - Данные удаляются при удалении учетной записи, если иное не требуется по закону.<br/>
-- Некоторые данные могут храниться в течение срока, установленного законом (например, по правилам электронной торговли).,
+        desc: `- Данные удаляются при удалении учетной записи, если иное не требуется по закону.<br/>
+- Некоторые данные могут храниться в течение срока, установленного законом (например, по правилам электронной торговли).`,
       },
       article4: {
         title: "Статья 4 (Передача третьим лицам)",
-        desc: Мы не передаем персональные данные третьим лицам, за исключением следующих случаев:<br/>
+        desc: `Мы не передаем персональные данные третьим лицам, за исключением следующих случаев:<br/>
 - При вашем предварительном согласии<br/>
-- Когда это требуется законом или судебным процессом,
+- Когда это требуется законом или судебным процессом`,
       },
       article5: {
         title: "Статья 5 (Уничтожение персональных данных)",
-        desc: После окончания срока хранения персональные данные уничтожаются безопасным способом:<br/>
+        desc: `После окончания срока хранения персональные данные уничтожаются безопасным способом:<br/>
 - Цифровые файлы: безвозвратно удаляются<br/>
-- Бумажные документы: измельчаются или сжигаются,
+- Бумажные документы: измельчаются или сжигаются`,
       },
       article6: {
         title: "Статья 6 (Права пользователя)",
-        desc: Вы можете в любое время запросить просмотр, изменение, удаление или ограничение обработки своих персональных данных.,
+        desc: `Вы можете в любое время запросить просмотр, изменение, удаление или ограничение обработки своих персональных данных.`,
       },
       article7: {
         title: "Статья 7 (Ответственный за защиту данных)",
-        desc: - Ответственный: JongHwan Kim<br/>
-- E-mail: support@dlas.io,
+        desc: `- Ответственный: JongHwan Kim<br/>
+- E-mail: support@dlas.io`,
       },
       effectiveDate: "Дата вступления в силу: 29 апреля 2025 года",
     },
@@ -1829,7 +1829,7 @@ of your personal data at any time.,
       gameChangerTitle: "Revolución en la Odontología Digital",
       gameChangerDesc:
         "DLAS no es solo un software, sino una revolución en la automatización del CAD dental, simplificando flujos de trabajo complejos y maximizando la productividad.",
-      gameChangerQuote: "El futuro de la automatización dental está aquí",
+      gameChangerQuote: `"El futuro de la automatización dental está aquí"`,
     },
     download: {
       title: "Descargar Software",
@@ -1860,89 +1860,89 @@ of your personal data at any time.,
       headingTerms: "[Términos del Servicio]",
       article1: {
         title: "Artículo 1 (Propósito)",
-        desc: Estos Términos del Servicio ("Términos") regulan el uso de software y servicios relacionados ("Servicios") provistos a través del sitio web operado por DLAS ("Compañía").,
+        desc: `Estos Términos del Servicio ("Términos") regulan el uso de software y servicios relacionados ("Servicios") provistos a través del sitio web operado por DLAS ("Compañía").`,
       },
       article2: {
         title: "Artículo 2 (Definiciones)",
-        desc: 1. "Usuario" se refiere a cualquier individuo que acepte estos Términos y utilice los Servicios.<br/>
-2. "Producto" se refiere a cualquier software, módulo o programa basado en IA provisto por la Compañía.,
+        desc: `1. "Usuario" se refiere a cualquier individuo que acepte estos Términos y utilice los Servicios.<br/>
+2. "Producto" se refiere a cualquier software, módulo o programa basado en IA provisto por la Compañía.`,
       },
       article3: {
         title: "Artículo 3 (Efecto y Modificación de los Términos)",
-        desc: 1. Estos Términos entran en vigor al publicarse en el sitio web.<br/>
-2. La Compañía puede revisar estos Términos de conformidad con las leyes aplicables y notificará a los usuarios con anticipación.,
+        desc: `1. Estos Términos entran en vigor al publicarse en el sitio web.<br/>
+2. La Compañía puede revisar estos Términos de conformidad con las leyes aplicables y notificará a los usuarios con anticipación.`,
       },
       article4: {
         title: "Artículo 4 (Prestación de los Servicios)",
-        desc: La Compañía proporciona los siguientes Servicios:<br/>
+        desc: `La Compañía proporciona los siguientes Servicios:<br/>
 - Software dental basado en IA descargable<br/>
 - Compra y activación de módulos de pago<br/>
-- Otros servicios designados por la Compañía,
+- Otros servicios designados por la Compañía`,
       },
       article5: {
         title: "Artículo 5 (Pago y Reembolsos)",
-        desc: 1. Los usuarios pueden comprar productos utilizando los métodos de pago designados por la Compañía.<br/>
-2. Debido a la naturaleza de los productos digitales, no hay reembolsos después de la descarga o activación, excepto cuando lo exija la ley.,
+        desc: `1. Los usuarios pueden comprar productos utilizando los métodos de pago designados por la Compañía.<br/>
+2. Debido a la naturaleza de los productos digitales, no hay reembolsos después de la descarga o activación, excepto cuando lo exija la ley.`,
       },
       article6: {
         title: "Artículo 6 (Propiedad Intelectual)",
-        desc: 1. Todo el contenido y el software provistos en el sitio web están protegidos por derechos de autor y pertenecen a la Compañía.<br/>
-2. La duplicación, redistribución o ingeniería inversa no autorizadas están prohibidas y pueden conllevar consecuencias legales.,
+        desc: `1. Todo el contenido y el software provistos en el sitio web están protegidos por derechos de autor y pertenecen a la Compañía.<br/>
+2. La duplicación, redistribución o ingeniería inversa no autorizadas están prohibidas y pueden conllevar consecuencias legales.`,
       },
       article7: {
         title: "Artículo 7 (Exención de Responsabilidad)",
-        desc: 1. La Compañía no será responsable de fallas del servicio causadas por eventos de fuerza mayor, como desastres naturales, ciberataques o fallas del sistema.<br/>
-2. La Compañía no se hace responsable de los daños causados por la negligencia del usuario.,
+        desc: `1. La Compañía no será responsable de fallas del servicio causadas por eventos de fuerza mayor, como desastres naturales, ciberataques o fallas del sistema.<br/>
+2. La Compañía no se hace responsable de los daños causados por la negligencia del usuario.`,
       },
       article8: {
         title: "Artículo 8 (Ley Aplicable y Jurisdicción)",
-        desc: Cualquier disputa que surja de estos Términos se regirá por las leyes de la República de Corea, con la corte que tenga jurisdicción sobre la sede de la Compañía como corte de primera instancia.,
+        desc: `Cualquier disputa que surja de estos Términos se regirá por las leyes de la República de Corea, con la corte que tenga jurisdicción sobre la sede de la Compañía como corte de primera instancia.`,
       },
       effectiveDate: "Fecha de Vigencia: 29 de abril de 2025",
     },
     privacy: {
       headingPrivacy: "[Política de Privacidad]",
-      intro: DLAS ("Compañía") respeta su privacidad y maneja sus datos personales de conformidad con las leyes aplicables, incluyendo la Ley de Protección de Datos Personales.,
+      intro: `DLAS ("Compañía") respeta su privacidad y maneja sus datos personales de conformidad con las leyes aplicables, incluyendo la Ley de Protección de Datos Personales.`,
       article1: {
         title: "Artículo 1 (Información Recopilada)",
-        desc: Podemos recopilar los siguientes tipos de información:<br/>
+        desc: `Podemos recopilar los siguientes tipos de información:<br/>
 - Dirección de correo electrónico y contraseña (al registrarse)<br/>
 - Nombre y detalles de pago (para servicios de pago)<br/>
-- Registros de acceso, dirección IP, historial de uso (para la calidad y seguridad del servicio),
+- Registros de acceso, dirección IP, historial de uso (para la calidad y seguridad del servicio)`,
       },
       article2: {
         title: "Artículo 2 (Propósito de la Recopilación)",
-        desc: Los datos personales se recopilan y utilizan con los siguientes fines:<br/>
+        desc: `Los datos personales se recopilan y utilizan con los siguientes fines:<br/>
 - Autenticación de usuario y prestación de servicios<br/>
 - Procesamiento de pagos y soporte de reembolsos<br/>
 - Soporte al cliente y envío de notificaciones<br/>
-- Prevención de fraude y abuso del sistema,
+- Prevención de fraude y abuso del sistema`,
       },
       article3: {
         title: "Artículo 3 (Período de Retención)",
-        desc: - Los datos se eliminan al cerrar la cuenta, a menos que la ley disponga lo contrario.<br/>
-- Ciertos datos pueden retenerse durante un período prescrito por la ley (por ejemplo, bajo regulaciones de comercio electrónico).,
+        desc: `- Los datos se eliminan al cerrar la cuenta, a menos que la ley disponga lo contrario.<br/>
+- Ciertos datos pueden retenerse durante un período prescrito por la ley (por ejemplo, bajo regulaciones de comercio electrónico).`,
       },
       article4: {
         title: "Artículo 4 (Divulgación a Terceros)",
-        desc: No compartimos datos personales con terceros, excepto:<br/>
+        desc: `No compartimos datos personales con terceros, excepto:<br/>
 - Con su consentimiento previo<br/>
-- Cuando lo exija la ley o un proceso legal,
+- Cuando lo exija la ley o un proceso legal`,
       },
       article5: {
         title: "Artículo 5 (Destrucción de Datos Personales)",
-        desc: Los datos personales se destruyen de manera segura después del período de retención:<br/>
+        desc: `Los datos personales se destruyen de manera segura después del período de retención:<br/>
 - Archivos digitales: eliminados permanentemente<br/>
-- Documentos en papel: triturados o incinerados,
+- Documentos en papel: triturados o incinerados`,
       },
       article6: {
         title: "Artículo 6 (Derechos del Usuario)",
-        desc: Usted puede solicitar en cualquier momento ver, modificar, eliminar o restringir el procesamiento de sus datos personales.,
+        desc: `Usted puede solicitar en cualquier momento ver, modificar, eliminar o restringir el procesamiento de sus datos personales.`,
       },
       article7: {
         title: "Artículo 7 (Responsable de Protección de Datos)",
-        desc: - Responsable: JongHwan Kim<br/>
-- Email: support@dlas.io,
+        desc: `- Responsable: JongHwan Kim<br/>
+- Email: support@dlas.io`,
       },
       effectiveDate: "Fecha de Vigencia: 29 de abril de 2025",
     },
@@ -2029,7 +2029,7 @@ of your personal data at any time.,
       gameChangerTitle: "نقلة نوعية في طب الأسنان الرقمي",
       gameChangerDesc:
         "DLAS ليس مجرد برنامج، بل هو ثورة في أتمتة تصميم الأسنان بالحاسوب (CAD). يبسّط العمليات المعقدة ويزيد من الإنتاجية، مما يتيح لأخصائيي طب الأسنان إنجاز العمل بكفاءة عالية.",
-      gameChangerQuote: "مستقبل أتمتة طب الأسنان يبدأ هنا",
+      gameChangerQuote: `"مستقبل أتمتة طب الأسنان يبدأ هنا"`,
     },
     download: {
       title: "تنزيل البرنامج",
@@ -2060,89 +2060,89 @@ of your personal data at any time.,
       headingTerms: "[شروط الخدمة]",
       article1: {
         title: "المادة 1 (الغرض)",
-        desc: تنظم هذه الشروط ("الشروط") استخدام البرامج والخدمات ذات الصلة ("الخدمات") المقدمة عبر الموقع الإلكتروني الذي تديره DLAS ("الشركة").,
+        desc: `تنظم هذه الشروط ("الشروط") استخدام البرامج والخدمات ذات الصلة ("الخدمات") المقدمة عبر الموقع الإلكتروني الذي تديره DLAS ("الشركة").`,
       },
       article2: {
         title: "المادة 2 (التعريفات)",
-        desc: 1. يشير مصطلح "المستخدم" إلى أي شخص يوافق على هذه الشروط ويستخدم الخدمات.<br/>
-2. يشير مصطلح "المنتج" إلى أي برنامج أو وحدة أو برنامج يعتمد على الذكاء الاصطناعي توفره الشركة.,
+        desc: `1. يشير مصطلح "المستخدم" إلى أي شخص يوافق على هذه الشروط ويستخدم الخدمات.<br/>
+2. يشير مصطلح "المنتج" إلى أي برنامج أو وحدة أو برنامج يعتمد على الذكاء الاصطناعي توفره الشركة.`,
       },
       article3: {
         title: "المادة 3 (سريان وتعديل الشروط)",
-        desc: 1. تسري هذه الشروط من لحظة نشرها على الموقع الإلكتروني.<br/>
-2. يجوز للشركة تعديل هذه الشروط بما يتوافق مع القوانين المعمول بها، وستقوم بإبلاغ المستخدمين مسبقًا.,
+        desc: `1. تسري هذه الشروط من لحظة نشرها على الموقع الإلكتروني.<br/>
+2. يجوز للشركة تعديل هذه الشروط بما يتوافق مع القوانين المعمول بها، وستقوم بإبلاغ المستخدمين مسبقًا.`,
       },
       article4: {
         title: "المادة 4 (تقديم الخدمات)",
-        desc: تقدم الشركة الخدمات التالية:<br/>
+        desc: `تقدم الشركة الخدمات التالية:<br/>
 - برنامج أسنان يعتمد على الذكاء الاصطناعي قابل للتنزيل<br/>
 - شراء وتفعيل الوحدات المدفوعة<br/>
-- خدمات أخرى تحددها الشركة,
+- خدمات أخرى تحددها الشركة`,
       },
       article5: {
         title: "المادة 5 (الدفع والاسترداد)",
-        desc: 1. يمكن للمستخدمين شراء المنتجات باستخدام طرق الدفع التي تحددها الشركة.<br/>
-2. نظرًا لطبيعة المنتجات الرقمية، لا تتوفر عمليات الاسترداد بعد التنزيل أو التفعيل، إلا في الحالات التي يفرضها القانون.,
+        desc: `1. يمكن للمستخدمين شراء المنتجات باستخدام طرق الدفع التي تحددها الشركة.<br/>
+2. نظرًا لطبيعة المنتجات الرقمية، لا تتوفر عمليات الاسترداد بعد التنزيل أو التفعيل، إلا في الحالات التي يفرضها القانون.`,
       },
       article6: {
         title: "المادة 6 (الملكية الفكرية)",
-        desc: 1. جميع المحتويات والبرامج المتوفرة على الموقع الإلكتروني محمية بحقوق الطبع والنشر وتعود ملكيتها للشركة.<br/>
-2. يُحظر النسخ أو إعادة التوزيع أو الهندسة العكسية غير المصرح بها، وقد يؤدي ذلك إلى عواقب قانونية.,
+        desc: `1. جميع المحتويات والبرامج المتوفرة على الموقع الإلكتروني محمية بحقوق الطبع والنشر وتعود ملكيتها للشركة.<br/>
+2. يُحظر النسخ أو إعادة التوزيع أو الهندسة العكسية غير المصرح بها، وقد يؤدي ذلك إلى عواقب قانونية.`,
       },
       article7: {
         title: "المادة 7 (إخلاء المسؤولية)",
-        desc: 1. لا تتحمل الشركة أي مسؤولية عن انقطاع الخدمة الناتج عن أحداث قوة قاهرة مثل الكوارث الطبيعية أو الهجمات الإلكترونية أو أعطال النظام.<br/>
-2. لا تتحمل الشركة مسؤولية الأضرار الناجمة عن إهمال المستخدم.,
+        desc: `1. لا تتحمل الشركة أي مسؤولية عن انقطاع الخدمة الناتج عن أحداث قوة قاهرة مثل الكوارث الطبيعية أو الهجمات الإلكترونية أو أعطال النظام.<br/>
+2. لا تتحمل الشركة مسؤولية الأضرار الناجمة عن إهمال المستخدم.`,
       },
       article8: {
         title: "المادة 8 (القانون الحاكم والاختصاص)",
-        desc: تخضع أي نزاعات تنشأ عن هذه الشروط لقوانين جمهورية كوريا، وتكون المحكمة التي تقع في مقر الشركة هي المحكمة المختصة في الدرجة الأولى.,
+        desc: `تخضع أي نزاعات تنشأ عن هذه الشروط لقوانين جمهورية كوريا، وتكون المحكمة التي تقع في مقر الشركة هي المحكمة المختصة في الدرجة الأولى.`,
       },
       effectiveDate: "تاريخ السريان: 29 أبريل 2025",
     },
     privacy: {
       headingPrivacy: "[سياسة الخصوصية]",
-      intro: تحترم DLAS ("الشركة") خصوصيتك وتعالج بياناتك الشخصية وفقًا للقوانين المعمول بها، بما في ذلك قانون حماية البيانات الشخصية.,
+      intro: `تحترم DLAS ("الشركة") خصوصيتك وتعالج بياناتك الشخصية وفقًا للقوانين المعمول بها، بما في ذلك قانون حماية البيانات الشخصية.`,
       article1: {
         title: "المادة 1 (المعلومات التي يتم جمعها)",
-        desc: قد نجمع الأنواع التالية من المعلومات:<br/>
+        desc: `قد نجمع الأنواع التالية من المعلومات:<br/>
 - عنوان البريد الإلكتروني وكلمة المرور (عند التسجيل)<br/>
 - الاسم وتفاصيل الدفع (للخدمات المدفوعة)<br/>
-- سجلات الوصول، وعنوان IP، وسجل الاستخدام (لجودة وأمان الخدمة),
+- سجلات الوصول، وعنوان IP، وسجل الاستخدام (لجودة وأمان الخدمة)`,
       },
       article2: {
         title: "المادة 2 (الغرض من الجمع)",
-        desc: يتم جمع البيانات الشخصية واستخدامها للأغراض التالية:<br/>
+        desc: `يتم جمع البيانات الشخصية واستخدامها للأغراض التالية:<br/>
 - مصادقة المستخدم وتقديم الخدمات<br/>
 - معالجة الدفع ودعم الاسترداد<br/>
 - دعم العملاء وإرسال الإشعارات<br/>
-- منع الاحتيال وإساءة استخدام النظام,
+- منع الاحتيال وإساءة استخدام النظام`,
       },
       article3: {
         title: "المادة 3 (فترة الاحتفاظ)",
-        desc: - يتم حذف البيانات عند إنهاء الحساب ما لم يكن مطلوبًا بموجب القانون.<br/>
-- قد يتم الاحتفاظ ببعض البيانات لفترة زمنية مطلوبة قانونًا (مثلما هو الحال في لوائح التجارة الإلكترونية).,
+        desc: `- يتم حذف البيانات عند إنهاء الحساب ما لم يكن مطلوبًا بموجب القانون.<br/>
+- قد يتم الاحتفاظ ببعض البيانات لفترة زمنية مطلوبة قانونًا (مثلما هو الحال في لوائح التجارة الإلكترونية).`,
       },
       article4: {
         title: "المادة 4 (الكشف لطرف ثالث)",
-        desc: لا نشارك البيانات الشخصية مع أطراف ثالثة إلا في الحالات التالية:<br/>
+        desc: `لا نشارك البيانات الشخصية مع أطراف ثالثة إلا في الحالات التالية:<br/>
 - بموافقتك المسبقة<br/>
-- عندما يتطلب القانون أو الإجراءات القانونية ذلك,
+- عندما يتطلب القانون أو الإجراءات القانونية ذلك`,
       },
       article5: {
         title: "المادة 5 (إتلاف البيانات الشخصية)",
-        desc: سيتم إتلاف البيانات الشخصية بأمان بعد انتهاء فترة الاحتفاظ:<br/>
+        desc: `سيتم إتلاف البيانات الشخصية بأمان بعد انتهاء فترة الاحتفاظ:<br/>
 - الملفات الرقمية: حذف دائم<br/>
-- المستندات الورقية: تمزيق أو حرق,
+- المستندات الورقية: تمزيق أو حرق`,
       },
       article6: {
         title: "المادة 6 (حقوق المستخدم)",
-        desc: يجوز لك في أي وقت طلب عرض أو تعديل أو حذف أو تقييد معالجة بياناتك الشخصية.,
+        desc: `يجوز لك في أي وقت طلب عرض أو تعديل أو حذف أو تقييد معالجة بياناتك الشخصية.`,
       },
       article7: {
         title: "المادة 7 (مسؤول حماية البيانات)",
-        desc: - المسؤول: JongHwan Kim<br/>
-- البريد الإلكتروني: support@dlas.io,
+        desc: `- المسؤول: JongHwan Kim<br/>
+- البريد الإلكتروني: support@dlas.io`,
       },
       effectiveDate: "تاريخ السريان: 29 أبريل 2025",
     },
@@ -2229,7 +2229,7 @@ of your personal data at any time.,
       gameChangerTitle: "Dijital Diş Hekimliğinde Devrim",
       gameChangerDesc:
         "DLAS sadece bir yazılımdan ibaret değil; diş CAD otomasyonunda bir devrim niteliğindedir, karmaşık iş akışlarını basitleştirir ve verimliliği en üst düzeye çıkarır.",
-      gameChangerQuote: "Diş otomasyonunun geleceği burada",
+      gameChangerQuote: `"Diş otomasyonunun geleceği burada"`,
     },
     download: {
       title: "Yazılımı İndir",
@@ -2260,89 +2260,89 @@ of your personal data at any time.,
       headingTerms: "[Hizmet Koşulları]",
       article1: {
         title: "Madde 1 (Amaç)",
-        desc: Bu Hizmet Koşulları ("Koşullar"), DLAS ("Şirket") tarafından işletilen web sitesi aracılığıyla sunulan yazılım ve ilgili hizmetlerin ("Hizmetler") kullanımını düzenler.,
+        desc: `Bu Hizmet Koşulları ("Koşullar"), DLAS ("Şirket") tarafından işletilen web sitesi aracılığıyla sunulan yazılım ve ilgili hizmetlerin ("Hizmetler") kullanımını düzenler.`,
       },
       article2: {
         title: "Madde 2 (Tanımlar)",
-        desc: 1. "Kullanıcı", bu Koşulları kabul eden ve Hizmetleri kullanan herkesi ifade eder.<br/>
-2. "Ürün", Şirket tarafından sunulan her türlü yapay zeka tabanlı yazılım, modül veya programı ifade eder.,
+        desc: `1. "Kullanıcı", bu Koşulları kabul eden ve Hizmetleri kullanan herkesi ifade eder.<br/>
+2. "Ürün", Şirket tarafından sunulan her türlü yapay zeka tabanlı yazılım, modül veya programı ifade eder.`,
       },
       article3: {
         title: "Madde 3 (Koşulların Yürürlüğü ve Değişikliği)",
-        desc: 1. Bu Koşullar, web sitesinde yayınlandığı anda yürürlüğe girer.<br/>
-2. Şirket, geçerli yasalara uygun olarak bu Koşulları revize edebilir ve kullanıcıları önceden bilgilendirir.,
+        desc: `1. Bu Koşullar, web sitesinde yayınlandığı anda yürürlüğe girer.<br/>
+2. Şirket, geçerli yasalara uygun olarak bu Koşulları revize edebilir ve kullanıcıları önceden bilgilendirir.`,
       },
       article4: {
         title: "Madde 4 (Hizmetlerin Sağlanması)",
-        desc: Şirket aşağıdaki hizmetleri sunar:<br/>
+        desc: `Şirket aşağıdaki hizmetleri sunar:<br/>
 - Yapay zeka tabanlı dişçilik yazılımının indirilmesi<br/>
 - Ücretli modüllerin satın alınması ve etkinleştirilmesi<br/>
-- Şirketin belirlediği diğer hizmetler,
+- Şirketin belirlediği diğer hizmetler`,
       },
       article5: {
         title: "Madde 5 (Ödeme ve İade)",
-        desc: 1. Kullanıcılar, Şirket tarafından belirlenen ödeme yöntemlerini kullanarak ürünleri satın alabilir.<br/>
-2. Dijital ürünlerin doğası gereği, indirme veya etkinleştirmeden sonra yasal olarak gerekli olmadıkça iade yapılmaz.,
+        desc: `1. Kullanıcılar, Şirket tarafından belirlenen ödeme yöntemlerini kullanarak ürünleri satın alabilir.<br/>
+2. Dijital ürünlerin doğası gereği, indirme veya etkinleştirmeden sonra yasal olarak gerekli olmadıkça iade yapılmaz.`,
       },
       article6: {
         title: "Madde 6 (Fikri Mülkiyet)",
-        desc: 1. Web sitesinde sunulan tüm içerik ve yazılımlar telif hakkı kapsamındadır ve Şirkete aittir.<br/>
-2. Yetkisiz kopyalama, yeniden dağıtım veya tersine mühendislik yasaktır ve hukuki sonuçlar doğurabilir.,
+        desc: `1. Web sitesinde sunulan tüm içerik ve yazılımlar telif hakkı kapsamındadır ve Şirkete aittir.<br/>
+2. Yetkisiz kopyalama, yeniden dağıtım veya tersine mühendislik yasaktır ve hukuki sonuçlar doğurabilir.`,
       },
       article7: {
         title: "Madde 7 (Sorumluluk Sınırı)",
-        desc: 1. Doğal afetler, siber saldırılar veya sistem arızaları gibi mücbir sebeplerden kaynaklanan hizmet aksaklıklarından Şirket sorumlu değildir.<br/>
-2. Kullanıcının ihmali nedeniyle oluşan zararlardan Şirket sorumlu değildir.,
+        desc: `1. Doğal afetler, siber saldırılar veya sistem arızaları gibi mücbir sebeplerden kaynaklanan hizmet aksaklıklarından Şirket sorumlu değildir.<br/>
+2. Kullanıcının ihmali nedeniyle oluşan zararlardan Şirket sorumlu değildir.`,
       },
       article8: {
         title: "Madde 8 (Geçerli Hukuk ve Yetkili Mahkeme)",
-        desc: Bu Koşullardan kaynaklanan herhangi bir uyuşmazlık, Kore Cumhuriyeti kanunlarına tabi olacak ve Şirket merkezinin bulunduğu yer mahkemesi ilk derecede yetkili olacaktır.,
+        desc: `Bu Koşullardan kaynaklanan herhangi bir uyuşmazlık, Kore Cumhuriyeti kanunlarına tabi olacak ve Şirket merkezinin bulunduğu yer mahkemesi ilk derecede yetkili olacaktır.`,
       },
       effectiveDate: "Yürürlük Tarihi: 29 Nisan 2025",
     },
     privacy: {
       headingPrivacy: "[Gizlilik Politikası]",
-      intro: DLAS ("Şirket"), kişisel verilerinizi koruma kanunu dahil olmak üzere geçerli yasalara uygun şekilde gizliliğinize saygı gösterir ve verilerinizi işler.,
+      intro: `DLAS ("Şirket"), kişisel verilerinizi koruma kanunu dahil olmak üzere geçerli yasalara uygun şekilde gizliliğinize saygı gösterir ve verilerinizi işler.`,
       article1: {
         title: "Madde 1 (Toplanan Bilgiler)",
-        desc: Aşağıdaki türde bilgileri toplayabiliriz:<br/>
+        desc: `Aşağıdaki türde bilgileri toplayabiliriz:<br/>
 - Kayıt sırasında e-posta adresi ve şifre<br/>
 - Ücretli hizmetler için ad ve ödeme bilgileri<br/>
-- Erişim günlükleri, IP adresi, kullanım geçmişi (hizmet kalitesi ve güvenlik için),
+- Erişim günlükleri, IP adresi, kullanım geçmişi (hizmet kalitesi ve güvenlik için)`,
       },
       article2: {
         title: "Madde 2 (Toplama Amacı)",
-        desc: Kişisel veriler aşağıdaki amaçlarla toplanır ve kullanılır:<br/>
+        desc: `Kişisel veriler aşağıdaki amaçlarla toplanır ve kullanılır:<br/>
 - Kullanıcı kimlik doğrulaması ve hizmet sunumu<br/>
 - Ödeme işlemleri ve iade desteği<br/>
 - Müşteri desteği ve bildirim gönderimi<br/>
-- Dolandırıcılık ve sistem kötüye kullanımını önleme,
+- Dolandırıcılık ve sistem kötüye kullanımını önleme`,
       },
       article3: {
         title: "Madde 3 (Saklama Süresi)",
-        desc: - Hukuk tarafından aksi gerekmedikçe, hesap kapatıldığında veriler silinir.<br/>
-- Bazı veriler, kanunen gerekli süreler boyunca saklanabilir (örn. e-ticaret düzenlemelerine göre).,
+        desc: `- Hukuk tarafından aksi gerekmedikçe, hesap kapatıldığında veriler silinir.<br/>
+- Bazı veriler, kanunen gerekli süreler boyunca saklanabilir (örn. e-ticaret düzenlemelerine göre).`,
       },
       article4: {
         title: "Madde 4 (Üçüncü Taraflara İfşa)",
-        desc: Kişisel verileri aşağıdaki durumlar dışında üçüncü taraflarla paylaşmayız:<br/>
+        desc: `Kişisel verileri aşağıdaki durumlar dışında üçüncü taraflarla paylaşmayız:<br/>
 - Önceden onayınız olması halinde<br/>
-- Kanun veya yasal işlemler gerektiğinde,
+- Kanun veya yasal işlemler gerektiğinde`,
       },
       article5: {
         title: "Madde 5 (Kişisel Verilerin İmhası)",
-        desc: Saklama süresi sona erdiğinde kişisel veriler güvenli bir şekilde imha edilir:<br/>
+        desc: `Saklama süresi sona erdiğinde kişisel veriler güvenli bir şekilde imha edilir:<br/>
 - Dijital dosyalar: kalıcı olarak silinir<br/>
-- Kağıt belgeler: parçalanır veya yakılır,
+- Kağıt belgeler: parçalanır veya yakılır`,
       },
       article6: {
         title: "Madde 6 (Kullanıcı Hakları)",
-        desc: Kişisel verilerinizi istediğiniz zaman görüntüleme, değiştirme, silme veya işlenmesini kısıtlama talebinde bulunabilirsiniz.,
+        desc: `Kişisel verilerinizi istediğiniz zaman görüntüleme, değiştirme, silme veya işlenmesini kısıtlama talebinde bulunabilirsiniz.`,
       },
       article7: {
         title: "Madde 7 (Veri Koruma Görevlisi)",
-        desc: - Görevli: JongHwan Kim<br/>
-- E-posta: support@dlas.io,
+        desc: `- Görevli: JongHwan Kim<br/>
+- E-posta: support@dlas.io`,
       },
       effectiveDate: "Yürürlük Tarihi: 29 Nisan 2025",
     },
@@ -2429,7 +2429,7 @@ of your personal data at any time.,
       gameChangerTitle: "Bước đột phá trong Nha khoa Kỹ thuật số",
       gameChangerDesc:
         "DLAS không chỉ là một phần mềm, mà là cuộc cách mạng trong tự động hóa CAD nha khoa, giúp đơn giản hóa quy trình phức tạp và tối ưu hóa năng suất làm việc.",
-      gameChangerQuote: "Tương lai của tự động hóa nha khoa đã ở đây",
+      gameChangerQuote: `"Tương lai của tự động hóa nha khoa đã ở đây"`,
     },
     download: {
       title: "Tải phần mềm",
@@ -2460,89 +2460,89 @@ of your personal data at any time.,
       headingTerms: "[Điều khoản Dịch vụ]",
       article1: {
         title: "Điều 1 (Mục đích)",
-        desc: Các Điều khoản Dịch vụ ("Điều khoản") này quy định việc sử dụng phần mềm và các dịch vụ liên quan ("Dịch vụ") do DLAS ("Công ty") vận hành thông qua trang web.,
+        desc: `Các Điều khoản Dịch vụ ("Điều khoản") này quy định việc sử dụng phần mềm và các dịch vụ liên quan ("Dịch vụ") do DLAS ("Công ty") vận hành thông qua trang web.`,
       },
       article2: {
         title: "Điều 2 (Định nghĩa)",
-        desc: 1. "Người dùng" là bất kỳ cá nhân nào đồng ý với các Điều khoản này và sử dụng Dịch vụ.<br/>
-2. "Sản phẩm" là bất kỳ phần mềm, mô-đun hoặc chương trình dựa trên AI nào do Công ty cung cấp.,
+        desc: `1. "Người dùng" là bất kỳ cá nhân nào đồng ý với các Điều khoản này và sử dụng Dịch vụ.<br/>
+2. "Sản phẩm" là bất kỳ phần mềm, mô-đun hoặc chương trình dựa trên AI nào do Công ty cung cấp.`,
       },
       article3: {
         title: "Điều 3 (Hiệu lực và Sửa đổi Điều khoản)",
-        desc: 1. Các Điều khoản này có hiệu lực ngay khi được đăng trên trang web.<br/>
-2. Công ty có thể sửa đổi các Điều khoản này theo quy định của pháp luật và sẽ thông báo trước cho người dùng.,
+        desc: `1. Các Điều khoản này có hiệu lực ngay khi được đăng trên trang web.<br/>
+2. Công ty có thể sửa đổi các Điều khoản này theo quy định của pháp luật và sẽ thông báo trước cho người dùng.`,
       },
       article4: {
         title: "Điều 4 (Cung cấp Dịch vụ)",
-        desc: Công ty cung cấp các dịch vụ sau:<br/>
+        desc: `Công ty cung cấp các dịch vụ sau:<br/>
 - Phần mềm nha khoa dựa trên AI có thể tải xuống<br/>
 - Mua và kích hoạt các mô-đun trả phí<br/>
-- Các dịch vụ khác do Công ty chỉ định,
+- Các dịch vụ khác do Công ty chỉ định`,
       },
       article5: {
         title: "Điều 5 (Thanh toán và Hoàn tiền)",
-        desc: 1. Người dùng có thể mua Sản phẩm bằng các phương thức thanh toán do Công ty chỉ định.<br/>
-2. Do tính chất của sản phẩm kỹ thuật số, không hỗ trợ hoàn tiền sau khi tải xuống hoặc kích hoạt, trừ trường hợp được luật định.,
+        desc: `1. Người dùng có thể mua Sản phẩm bằng các phương thức thanh toán do Công ty chỉ định.<br/>
+2. Do tính chất của sản phẩm kỹ thuật số, không hỗ trợ hoàn tiền sau khi tải xuống hoặc kích hoạt, trừ trường hợp được luật định.`,
       },
       article6: {
         title: "Điều 6 (Quyền sở hữu trí tuệ)",
-        desc: 1. Mọi nội dung và phần mềm được cung cấp trên trang web đều được bảo vệ bởi bản quyền và thuộc sở hữu của Công ty.<br/>
-2. Nghiêm cấm sao chép, phân phối hoặc dịch ngược không được phép và có thể dẫn đến trách nhiệm pháp lý.,
+        desc: `1. Mọi nội dung và phần mềm được cung cấp trên trang web đều được bảo vệ bởi bản quyền và thuộc sở hữu của Công ty.<br/>
+2. Nghiêm cấm sao chép, phân phối hoặc dịch ngược không được phép và có thể dẫn đến trách nhiệm pháp lý.`,
       },
       article7: {
         title: "Điều 7 (Miễn trừ Trách nhiệm)",
-        desc: 1. Công ty không chịu trách nhiệm cho những gián đoạn dịch vụ do các sự kiện bất khả kháng như thiên tai, tấn công mạng hoặc lỗi hệ thống.<br/>
-2. Công ty không chịu trách nhiệm cho thiệt hại gây ra bởi sự bất cẩn của người dùng.,
+        desc: `1. Công ty không chịu trách nhiệm cho những gián đoạn dịch vụ do các sự kiện bất khả kháng như thiên tai, tấn công mạng hoặc lỗi hệ thống.<br/>
+2. Công ty không chịu trách nhiệm cho thiệt hại gây ra bởi sự bất cẩn của người dùng.`,
       },
       article8: {
         title: "Điều 8 (Luật Áp dụng và Thẩm quyền)",
-        desc: Bất kỳ tranh chấp nào phát sinh từ các Điều khoản này sẽ tuân theo luật pháp của Đại Hàn Dân Quốc, và tòa án có thẩm quyền tại trụ sở của Công ty sẽ là tòa án sơ thẩm.,
+        desc: `Bất kỳ tranh chấp nào phát sinh từ các Điều khoản này sẽ tuân theo luật pháp của Đại Hàn Dân Quốc, và tòa án có thẩm quyền tại trụ sở của Công ty sẽ là tòa án sơ thẩm.`,
       },
       effectiveDate: "Ngày có hiệu lực: 29/4/2025",
     },
     privacy: {
       headingPrivacy: "[Chính sách Bảo mật]",
-      intro: DLAS ("Công ty") tôn trọng quyền riêng tư của bạn và xử lý dữ liệu cá nhân của bạn theo luật hiện hành, bao gồm cả Luật Bảo vệ Dữ liệu Cá nhân.,
+      intro: `DLAS ("Công ty") tôn trọng quyền riêng tư của bạn và xử lý dữ liệu cá nhân của bạn theo luật hiện hành, bao gồm cả Luật Bảo vệ Dữ liệu Cá nhân.`,
       article1: {
         title: "Điều 1 (Thông tin Thu thập)",
-        desc: Chúng tôi có thể thu thập các loại thông tin sau:<br/>
+        desc: `Chúng tôi có thể thu thập các loại thông tin sau:<br/>
 - Địa chỉ email và mật khẩu (khi đăng ký)<br/>
 - Tên và chi tiết thanh toán (đối với dịch vụ trả phí)<br/>
-- Nhật ký truy cập, địa chỉ IP, lịch sử sử dụng (để đảm bảo chất lượng và bảo mật dịch vụ),
+- Nhật ký truy cập, địa chỉ IP, lịch sử sử dụng (để đảm bảo chất lượng và bảo mật dịch vụ)`,
       },
       article2: {
         title: "Điều 2 (Mục đích Thu thập)",
-        desc: Dữ liệu cá nhân được thu thập và sử dụng cho các mục đích sau:<br/>
+        desc: `Dữ liệu cá nhân được thu thập và sử dụng cho các mục đích sau:<br/>
 - Xác thực người dùng và cung cấp dịch vụ<br/>
 - Xử lý thanh toán và hỗ trợ hoàn tiền<br/>
 - Hỗ trợ khách hàng và gửi thông báo<br/>
-- Ngăn chặn gian lận và lạm dụng hệ thống,
+- Ngăn chặn gian lận và lạm dụng hệ thống`,
       },
       article3: {
         title: "Điều 3 (Thời gian Lưu trữ)",
-        desc: - Dữ liệu sẽ được xóa khi tài khoản bị hủy, trừ trường hợp luật pháp yêu cầu khác.<br/>
-- Một số dữ liệu có thể được lưu trữ trong thời gian bắt buộc theo quy định pháp luật (vd. quy định thương mại điện tử).,
+        desc: `- Dữ liệu sẽ được xóa khi tài khoản bị hủy, trừ trường hợp luật pháp yêu cầu khác.<br/>
+- Một số dữ liệu có thể được lưu trữ trong thời gian bắt buộc theo quy định pháp luật (vd. quy định thương mại điện tử).`,
       },
       article4: {
         title: "Điều 4 (Cung cấp cho bên thứ ba)",
-        desc: Chúng tôi không chia sẻ dữ liệu cá nhân với bên thứ ba, trừ:<br/>
+        desc: `Chúng tôi không chia sẻ dữ liệu cá nhân với bên thứ ba, trừ:<br/>
 - Khi có sự đồng ý trước của bạn<br/>
-- Khi được yêu cầu bởi pháp luật hoặc quy trình pháp lý,
+- Khi được yêu cầu bởi pháp luật hoặc quy trình pháp lý`,
       },
       article5: {
         title: "Điều 5 (Hủy Dữ liệu Cá nhân)",
-        desc: Dữ liệu cá nhân sẽ được hủy an toàn sau khi hết thời gian lưu trữ:<br/>
+        desc: `Dữ liệu cá nhân sẽ được hủy an toàn sau khi hết thời gian lưu trữ:<br/>
 - Tệp kỹ thuật số: xóa vĩnh viễn<br/>
-- Tài liệu giấy: cắt vụn hoặc đốt,
+- Tài liệu giấy: cắt vụn hoặc đốt`,
       },
       article6: {
         title: "Điều 6 (Quyền của Người dùng)",
-        desc: Bạn có thể yêu cầu xem, sửa đổi, xóa hoặc hạn chế xử lý dữ liệu cá nhân của mình bất cứ lúc nào.,
+        desc: `Bạn có thể yêu cầu xem, sửa đổi, xóa hoặc hạn chế xử lý dữ liệu cá nhân của mình bất cứ lúc nào.`,
       },
       article7: {
         title: "Điều 7 (Nhân viên Bảo vệ Dữ liệu)",
-        desc: - Phụ trách: JongHwan Kim<br/>
-- Email: support@dlas.io,
+        desc: `- Phụ trách: JongHwan Kim<br/>
+- Email: support@dlas.io`,
       },
       effectiveDate: "Ngày có hiệu lực: 29/4/2025",
     },
@@ -2629,7 +2629,7 @@ of your personal data at any time.,
       gameChangerTitle: "ผู้พลิกโฉมทางทันตกรรมดิจิทัล",
       gameChangerDesc:
         "DLAS ไม่ใช่แค่ซอฟต์แวร์ แต่เป็นการปฏิวัติการทำงาน CAD ทางทันตกรรม ช่วยลดขั้นตอนที่ซับซ้อนและเพิ่มประสิทธิภาพในการทำงาน",
-      gameChangerQuote: "อนาคตของระบบอัตโนมัติทางทันตกรรมอยู่ที่นี่",
+      gameChangerQuote: `"อนาคตของระบบอัตโนมัติทางทันตกรรมอยู่ที่นี่"`,
     },
     download: {
       title: "ดาวน์โหลดซอฟต์แวร์",
@@ -2660,89 +2660,89 @@ of your personal data at any time.,
       headingTerms: "[ข้อกำหนดในการให้บริการ]",
       article1: {
         title: "ข้อ 1 (วัตถุประสงค์)",
-        desc: ข้อกำหนดการให้บริการ (“ข้อกำหนด”) นี้ควบคุมการใช้ซอฟต์แวร์และบริการที่เกี่ยวข้อง (“บริการ”) ที่ให้ผ่านเว็บไซต์ซึ่งดำเนินการโดย DLAS (“บริษัท”),
+        desc: `ข้อกำหนดการให้บริการ (“ข้อกำหนด”) นี้ควบคุมการใช้ซอฟต์แวร์และบริการที่เกี่ยวข้อง (“บริการ”) ที่ให้ผ่านเว็บไซต์ซึ่งดำเนินการโดย DLAS (“บริษัท”)`,
       },
       article2: {
         title: "ข้อ 2 (คำจำกัดความ)",
-        desc: 1. “ผู้ใช้” หมายถึงบุคคลใด ๆ ที่ยอมรับข้อกำหนดนี้และใช้บริการ<br/>
-2. “ผลิตภัณฑ์” หมายถึงซอฟต์แวร์ โมดูล หรือโปรแกรมใด ๆ ที่ใช้ AI ซึ่งบริษัทจัดหาให้,
+        desc: `1. “ผู้ใช้” หมายถึงบุคคลใด ๆ ที่ยอมรับข้อกำหนดนี้และใช้บริการ<br/>
+2. “ผลิตภัณฑ์” หมายถึงซอฟต์แวร์ โมดูล หรือโปรแกรมใด ๆ ที่ใช้ AI ซึ่งบริษัทจัดหาให้`,
       },
       article3: {
         title: "ข้อ 3 (ผลบังคับใช้และการแก้ไข)",
-        desc: 1. ข้อกำหนดนี้มีผลบังคับใช้ทันทีเมื่อมีการเผยแพร่บนเว็บไซต์<br/>
-2. บริษัทอาจแก้ไขข้อกำหนดนี้ตามกฎหมายที่เกี่ยวข้อง และจะแจ้งให้ผู้ใช้ทราบล่วงหน้า,
+        desc: `1. ข้อกำหนดนี้มีผลบังคับใช้ทันทีเมื่อมีการเผยแพร่บนเว็บไซต์<br/>
+2. บริษัทอาจแก้ไขข้อกำหนดนี้ตามกฎหมายที่เกี่ยวข้อง และจะแจ้งให้ผู้ใช้ทราบล่วงหน้า`,
       },
       article4: {
         title: "ข้อ 4 (การให้บริการ)",
-        desc: บริษัทให้บริการต่อไปนี้:<br/>
+        desc: `บริษัทให้บริการต่อไปนี้:<br/>
 - ซอฟต์แวร์ทันตกรรม AI ที่ดาวน์โหลดได้<br/>
 - การซื้อและการเปิดใช้งานโมดูลแบบชำระเงิน<br/>
-- บริการอื่น ๆ ที่บริษัทกำหนด,
+- บริการอื่น ๆ ที่บริษัทกำหนด`,
       },
       article5: {
         title: "ข้อ 5 (การชำระเงินและการคืนเงิน)",
-        desc: 1. ผู้ใช้สามารถซื้อผลิตภัณฑ์ได้โดยใช้วิธีการชำระเงินที่บริษัทกำหนด<br/>
-2. เนื่องจากเป็นผลิตภัณฑ์ดิจิทัล จึงไม่สามารถขอคืนเงินได้หลังดาวน์โหลดหรือเปิดใช้งาน ยกเว้นกรณีที่กฎหมายกำหนด,
+        desc: `1. ผู้ใช้สามารถซื้อผลิตภัณฑ์ได้โดยใช้วิธีการชำระเงินที่บริษัทกำหนด<br/>
+2. เนื่องจากเป็นผลิตภัณฑ์ดิจิทัล จึงไม่สามารถขอคืนเงินได้หลังดาวน์โหลดหรือเปิดใช้งาน ยกเว้นกรณีที่กฎหมายกำหนด`,
       },
       article6: {
         title: "ข้อ 6 (ทรัพย์สินทางปัญญา)",
-        desc: 1. เนื้อหาและซอฟต์แวร์ทั้งหมดบนเว็บไซต์ได้รับความคุ้มครองตามกฎหมายลิขสิทธิ์ และเป็นของบริษัท<br/>
-2. การคัดลอก เผยแพร่ หรือทำวิศวกรรมย้อนกลับโดยไม่ได้รับอนุญาตเป็นสิ่งต้องห้าม และอาจนำไปสู่การดำเนินคดีทางกฎหมาย,
+        desc: `1. เนื้อหาและซอฟต์แวร์ทั้งหมดบนเว็บไซต์ได้รับความคุ้มครองตามกฎหมายลิขสิทธิ์ และเป็นของบริษัท<br/>
+2. การคัดลอก เผยแพร่ หรือทำวิศวกรรมย้อนกลับโดยไม่ได้รับอนุญาตเป็นสิ่งต้องห้าม และอาจนำไปสู่การดำเนินคดีทางกฎหมาย`,
       },
       article7: {
         title: "ข้อ 7 (ข้อจำกัดความรับผิด)",
-        desc: 1. บริษัทจะไม่รับผิดชอบต่อความล้มเหลวของบริการที่เกิดจากเหตุสุดวิสัย เช่น ภัยธรรมชาติ การโจมตีทางไซเบอร์ หรือข้อขัดข้องของระบบ<br/>
-2. บริษัทไม่รับผิดชอบต่อความเสียหายที่เกิดจากความประมาทของผู้ใช้,
+        desc: `1. บริษัทจะไม่รับผิดชอบต่อความล้มเหลวของบริการที่เกิดจากเหตุสุดวิสัย เช่น ภัยธรรมชาติ การโจมตีทางไซเบอร์ หรือข้อขัดข้องของระบบ<br/>
+2. บริษัทไม่รับผิดชอบต่อความเสียหายที่เกิดจากความประมาทของผู้ใช้`,
       },
       article8: {
         title: "ข้อ 8 (กฎหมายที่ใช้บังคับและเขตอำนาจ)",
-        desc: ข้อพิพาทใด ๆ ที่เกิดจากข้อกำหนดนี้ จะอยู่ภายใต้กฎหมายของสาธารณรัฐเกาหลี และศาลที่มีเขตอำนาจเหนือที่ตั้งสำนักงานใหญ่ของบริษัทจะเป็นศาลระดับต้น,
+        desc: `ข้อพิพาทใด ๆ ที่เกิดจากข้อกำหนดนี้ จะอยู่ภายใต้กฎหมายของสาธารณรัฐเกาหลี และศาลที่มีเขตอำนาจเหนือที่ตั้งสำนักงานใหญ่ของบริษัทจะเป็นศาลระดับต้น`,
       },
       effectiveDate: "วันที่มีผลบังคับใช้: 29 เมษายน 2025",
     },
     privacy: {
       headingPrivacy: "[นโยบายความเป็นส่วนตัว]",
-      intro: DLAS ("บริษัท") เคารพความเป็นส่วนตัวของคุณและปฏิบัติต่อข้อมูลส่วนบุคคลของคุณตามกฎหมายที่เกี่ยวข้อง รวมถึงกฎหมายคุ้มครองข้อมูลส่วนบุคคล,
+      intro: `DLAS ("บริษัท") เคารพความเป็นส่วนตัวของคุณและปฏิบัติต่อข้อมูลส่วนบุคคลของคุณตามกฎหมายที่เกี่ยวข้อง รวมถึงกฎหมายคุ้มครองข้อมูลส่วนบุคคล`,
       article1: {
         title: "ข้อ 1 (ข้อมูลที่รวบรวม)",
-        desc: เราอาจรวบรวมข้อมูลดังต่อไปนี้:<br/>
+        desc: `เราอาจรวบรวมข้อมูลดังต่อไปนี้:<br/>
 - ที่อยู่อีเมลและรหัสผ่าน (เมื่อลงทะเบียน)<br/>
 - ชื่อและรายละเอียดการชำระเงิน (สำหรับบริการแบบชำระเงิน)<br/>
-- บันทึกการเข้าใช้งาน ที่อยู่ IP และประวัติการใช้งาน (เพื่อคุณภาพและความปลอดภัยของบริการ),
+- บันทึกการเข้าใช้งาน ที่อยู่ IP และประวัติการใช้งาน (เพื่อคุณภาพและความปลอดภัยของบริการ)`,
       },
       article2: {
         title: "ข้อ 2 (วัตถุประสงค์ในการรวบรวม)",
-        desc: ข้อมูลส่วนบุคคลจะถูกรวบรวมและใช้งานเพื่อวัตถุประสงค์ดังต่อไปนี้:<br/>
+        desc: `ข้อมูลส่วนบุคคลจะถูกรวบรวมและใช้งานเพื่อวัตถุประสงค์ดังต่อไปนี้:<br/>
 - การยืนยันตัวตนของผู้ใช้และการให้บริการ<br/>
 - การดำเนินการชำระเงินและการสนับสนุนการคืนเงิน<br/>
 - การสนับสนุนลูกค้าและการแจ้งเตือนต่าง ๆ<br/>
-- การป้องกันการฉ้อโกงและการใช้งานระบบในทางที่ผิด,
+- การป้องกันการฉ้อโกงและการใช้งานระบบในทางที่ผิด`,
       },
       article3: {
         title: "ข้อ 3 (ระยะเวลาการเก็บรักษา)",
-        desc: - ข้อมูลจะถูกลบเมื่อบัญชีถูกยกเลิก เว้นแต่กฎหมายจะกำหนดเป็นอย่างอื่น<br/>
-- ข้อมูลบางส่วนอาจถูกเก็บไว้ตามระยะเวลาที่กฎหมายกำหนด (เช่น ตามข้อบังคับอีคอมเมิร์ซ),
+        desc: `- ข้อมูลจะถูกลบเมื่อบัญชีถูกยกเลิก เว้นแต่กฎหมายจะกำหนดเป็นอย่างอื่น<br/>
+- ข้อมูลบางส่วนอาจถูกเก็บไว้ตามระยะเวลาที่กฎหมายกำหนด (เช่น ตามข้อบังคับอีคอมเมิร์ซ)`,
       },
       article4: {
         title: "ข้อ 4 (การเปิดเผยข้อมูลต่อบุคคลที่สาม)",
-        desc: เราจะไม่แบ่งปันข้อมูลส่วนบุคคลกับบุคคลที่สาม ยกเว้นกรณี:<br/>
+        desc: `เราจะไม่แบ่งปันข้อมูลส่วนบุคคลกับบุคคลที่สาม ยกเว้นกรณี:<br/>
 - ได้รับความยินยอมล่วงหน้าจากคุณ<br/>
-- กฎหมายหรือกระบวนการทางกฎหมายกำหนด,
+- กฎหมายหรือกระบวนการทางกฎหมายกำหนด`,
       },
       article5: {
         title: "ข้อ 5 (การทำลายข้อมูลส่วนบุคคล)",
-        desc: หลังจากสิ้นสุดระยะเวลาการเก็บรักษา ข้อมูลส่วนบุคคลจะถูกทำลายอย่างปลอดภัย:<br/>
+        desc: `หลังจากสิ้นสุดระยะเวลาการเก็บรักษา ข้อมูลส่วนบุคคลจะถูกทำลายอย่างปลอดภัย:<br/>
 - ไฟล์ดิจิทัล: ลบถาวร<br/>
-- เอกสารกระดาษ: ทำลายหรือเผา,
+- เอกสารกระดาษ: ทำลายหรือเผา`,
       },
       article6: {
         title: "ข้อ 6 (สิทธิของผู้ใช้)",
-        desc: คุณสามารถขอเข้าถึง แก้ไข ลบ หรือจำกัดการประมวลผลข้อมูลส่วนบุคคลของคุณได้ทุกเมื่อ,
+        desc: `คุณสามารถขอเข้าถึง แก้ไข ลบ หรือจำกัดการประมวลผลข้อมูลส่วนบุคคลของคุณได้ทุกเมื่อ`,
       },
       article7: {
         title: "ข้อ 7 (เจ้าหน้าที่คุ้มครองข้อมูล)",
-        desc: - เจ้าหน้าที่: JongHwan Kim<br/>
-- อีเมล: support@dlas.io,
+        desc: `- เจ้าหน้าที่: JongHwan Kim<br/>
+- อีเมล: support@dlas.io`,
       },
       effectiveDate: "วันที่มีผลบังคับใช้: 29 เมษายน 2025",
     },
@@ -2829,7 +2829,7 @@ of your personal data at any time.,
       gameChangerTitle: "Perubahan Besar dalam Kedokteran Gigi Digital",
       gameChangerDesc:
         "DLAS bukan sekadar perangkat lunak, tetapi revolusi dalam otomatisasi CAD gigi, menyederhanakan alur kerja yang kompleks dan meningkatkan produktivitas.",
-      gameChangerQuote: "Masa depan otomasi kedokteran gigi ada di sini",
+      gameChangerQuote: `"Masa depan otomasi kedokteran gigi ada di sini"`,
     },
     download: {
       title: "Unduh Perangkat Lunak",
@@ -2860,89 +2860,89 @@ of your personal data at any time.,
       headingTerms: "[Syarat Layanan]",
       article1: {
         title: "Pasal 1 (Tujuan)",
-        desc: Syarat Layanan ("Syarat") ini mengatur penggunaan perangkat lunak dan layanan terkait ("Layanan") yang disediakan melalui situs web yang dikelola oleh DLAS ("Perusahaan").,
+        desc: `Syarat Layanan ("Syarat") ini mengatur penggunaan perangkat lunak dan layanan terkait ("Layanan") yang disediakan melalui situs web yang dikelola oleh DLAS ("Perusahaan").`,
       },
       article2: {
         title: "Pasal 2 (Definisi)",
-        desc: 1. "Pengguna" mengacu pada setiap individu yang menyetujui Syarat ini dan menggunakan Layanan.<br/>
-2. "Produk" mengacu pada perangkat lunak, modul, atau program berbasis AI yang disediakan oleh Perusahaan.,
+        desc: `1. "Pengguna" mengacu pada setiap individu yang menyetujui Syarat ini dan menggunakan Layanan.<br/>
+2. "Produk" mengacu pada perangkat lunak, modul, atau program berbasis AI yang disediakan oleh Perusahaan.`,
       },
       article3: {
         title: "Pasal 3 (Efek dan Perubahan Syarat)",
-        desc: 1. Syarat ini berlaku efektif segera setelah diposting di situs web.<br/>
-2. Perusahaan dapat merevisi Syarat ini sesuai dengan hukum yang berlaku dan akan memberi tahu pengguna sebelumnya.,
+        desc: `1. Syarat ini berlaku efektif segera setelah diposting di situs web.<br/>
+2. Perusahaan dapat merevisi Syarat ini sesuai dengan hukum yang berlaku dan akan memberi tahu pengguna sebelumnya.`,
       },
       article4: {
         title: "Pasal 4 (Penyediaan Layanan)",
-        desc: Perusahaan menyediakan layanan berikut:<br/>
+        desc: `Perusahaan menyediakan layanan berikut:<br/>
 - Perangkat lunak kedokteran gigi berbasis AI yang dapat diunduh<br/>
 - Pembelian dan aktivasi modul berbayar<br/>
-- Layanan lain yang ditentukan oleh Perusahaan,
+- Layanan lain yang ditentukan oleh Perusahaan`,
       },
       article5: {
         title: "Pasal 5 (Pembayaran dan Pengembalian Dana)",
-        desc: 1. Pengguna dapat membeli Produk dengan metode pembayaran yang ditentukan oleh Perusahaan.<br/>
-2. Karena sifat produk digital, tidak ada pengembalian dana setelah diunduh atau diaktifkan, kecuali jika diwajibkan oleh hukum.,
+        desc: `1. Pengguna dapat membeli Produk dengan metode pembayaran yang ditentukan oleh Perusahaan.<br/>
+2. Karena sifat produk digital, tidak ada pengembalian dana setelah diunduh atau diaktifkan, kecuali jika diwajibkan oleh hukum.`,
       },
       article6: {
         title: "Pasal 6 (Kekayaan Intelektual)",
-        desc: 1. Semua konten dan perangkat lunak yang disediakan di situs web dilindungi hak cipta dan dimiliki oleh Perusahaan.<br/>
-2. Penyalinan, redistribusi, atau rekayasa balik tanpa izin dilarang dan dapat mengakibatkan konsekuensi hukum.,
+        desc: `1. Semua konten dan perangkat lunak yang disediakan di situs web dilindungi hak cipta dan dimiliki oleh Perusahaan.<br/>
+2. Penyalinan, redistribusi, atau rekayasa balik tanpa izin dilarang dan dapat mengakibatkan konsekuensi hukum.`,
       },
       article7: {
         title: "Pasal 7 (Penafian)",
-        desc: 1. Perusahaan tidak bertanggung jawab atas kegagalan layanan yang disebabkan oleh peristiwa force majeure, seperti bencana alam, serangan siber, atau kegagalan sistem.<br/>
-2. Perusahaan tidak bertanggung jawab atas kerusakan yang disebabkan oleh kelalaian pengguna.,
+        desc: `1. Perusahaan tidak bertanggung jawab atas kegagalan layanan yang disebabkan oleh peristiwa force majeure, seperti bencana alam, serangan siber, atau kegagalan sistem.<br/>
+2. Perusahaan tidak bertanggung jawab atas kerusakan yang disebabkan oleh kelalaian pengguna.`,
       },
       article8: {
         title: "Pasal 8 (Hukum yang Berlaku dan Yurisdiksi)",
-        desc: Setiap perselisihan yang timbul dari Syarat ini akan diatur oleh hukum Republik Korea, dengan pengadilan yang memiliki yurisdiksi di kantor pusat Perusahaan sebagai pengadilan tingkat pertama.,
+        desc: `Setiap perselisihan yang timbul dari Syarat ini akan diatur oleh hukum Republik Korea, dengan pengadilan yang memiliki yurisdiksi di kantor pusat Perusahaan sebagai pengadilan tingkat pertama.`,
       },
       effectiveDate: "Tanggal Berlaku: 29 April 2025",
     },
     privacy: {
       headingPrivacy: "[Kebijakan Privasi]",
-      intro: DLAS ("Perusahaan") menghormati privasi Anda dan memproses data pribadi Anda sesuai dengan hukum yang berlaku, termasuk Undang-Undang Perlindungan Data Pribadi.,
+      intro: `DLAS ("Perusahaan") menghormati privasi Anda dan memproses data pribadi Anda sesuai dengan hukum yang berlaku, termasuk Undang-Undang Perlindungan Data Pribadi.`,
       article1: {
         title: "Pasal 1 (Data yang Dikumpulkan)",
-        desc: Kami dapat mengumpulkan jenis data berikut:<br/>
+        desc: `Kami dapat mengumpulkan jenis data berikut:<br/>
 - Alamat email dan kata sandi (saat mendaftar)<br/>
 - Nama dan detail pembayaran (untuk layanan berbayar)<br/>
-- Log akses, alamat IP, riwayat penggunaan (untuk kualitas dan keamanan layanan),
+- Log akses, alamat IP, riwayat penggunaan (untuk kualitas dan keamanan layanan)`,
       },
       article2: {
         title: "Pasal 2 (Tujuan Pengumpulan)",
-        desc: Data pribadi dikumpulkan dan digunakan untuk tujuan berikut:<br/>
+        desc: `Data pribadi dikumpulkan dan digunakan untuk tujuan berikut:<br/>
 - Otentikasi pengguna dan penyediaan layanan<br/>
 - Pemrosesan pembayaran dan dukungan pengembalian dana<br/>
 - Dukungan pelanggan dan pengiriman notifikasi<br/>
-- Pencegahan penipuan dan penyalahgunaan sistem,
+- Pencegahan penipuan dan penyalahgunaan sistem`,
       },
       article3: {
         title: "Pasal 3 (Periode Penyimpanan)",
-        desc: - Data dihapus setelah akun dihentikan, kecuali jika diwajibkan oleh hukum.<br/>
-- Beberapa data dapat disimpan untuk jangka waktu tertentu yang diwajibkan oleh hukum (misalnya, peraturan e-commerce).,
+        desc: `- Data dihapus setelah akun dihentikan, kecuali jika diwajibkan oleh hukum.<br/>
+- Beberapa data dapat disimpan untuk jangka waktu tertentu yang diwajibkan oleh hukum (misalnya, peraturan e-commerce).`,
       },
       article4: {
         title: "Pasal 4 (Pengungkapan ke Pihak Ketiga)",
-        desc: Kami tidak membagikan data pribadi dengan pihak ketiga, kecuali:<br/>
+        desc: `Kami tidak membagikan data pribadi dengan pihak ketiga, kecuali:<br/>
 - Dengan persetujuan Anda sebelumnya<br/>
-- Ketika diwajibkan oleh hukum atau proses hukum,
+- Ketika diwajibkan oleh hukum atau proses hukum`,
       },
       article5: {
         title: "Pasal 5 (Penghancuran Data Pribadi)",
-        desc: Data pribadi akan dihancurkan secara aman setelah periode penyimpanan berakhir:<br/>
+        desc: `Data pribadi akan dihancurkan secara aman setelah periode penyimpanan berakhir:<br/>
 - File digital: dihapus secara permanen<br/>
-- Dokumen kertas: dihancurkan atau dibakar,
+- Dokumen kertas: dihancurkan atau dibakar`,
       },
       article6: {
         title: "Pasal 6 (Hak Pengguna)",
-        desc: Anda dapat meminta untuk melihat, memodifikasi, menghapus, atau membatasi pemrosesan data pribadi Anda kapan saja.,
+        desc: `Anda dapat meminta untuk melihat, memodifikasi, menghapus, atau membatasi pemrosesan data pribadi Anda kapan saja.`,
       },
       article7: {
         title: "Pasal 7 (Petugas Perlindungan Data)",
-        desc: - Petugas: JongHwan Kim<br/>
-- Email: support@dlas.io,
+        desc: `- Petugas: JongHwan Kim<br/>
+- Email: support@dlas.io`,
       },
       effectiveDate: "Tanggal Berlaku: 29 April 2025",
     },
