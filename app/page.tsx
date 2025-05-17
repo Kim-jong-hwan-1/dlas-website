@@ -31,7 +31,6 @@ export default function Page() {
 
   // (2) 로그아웃 함수
   const handleLogout = () => {
-    // 로그인 관련 로컬스토리지 값들을 제거
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("loginExpireTime");
     localStorage.removeItem("userID");
@@ -50,7 +49,7 @@ export default function Page() {
     licenseStatus?: string;
   }>({});
 
-  // ✅ 수정된 fetchUserInfo: admin 엔드포인트 사용 + email 매개변수
+  // admin 엔드포인트 사용, email 매개변수로 유저정보 받기
   const fetchUserInfo = async (email: string) => {
     try {
       const res = await fetch(
@@ -79,7 +78,7 @@ export default function Page() {
     }
   };
 
-  // ✅ 수정된 useEffect: localStorage fallback 적용
+  // MY 모달 표시될 때 Local Storage fallback
   useEffect(() => {
     if (showMyModal) {
       const storedID = userID || localStorage.getItem("userID");
@@ -89,7 +88,6 @@ export default function Page() {
       }
     }
   }, [showMyModal]);
-  // ▲▲▲ MY 모달 끝 ▲▲▲
 
   // --- 회원가입 로직 관련 상태 ---
   const [idForSignup, setIdForSignup] = useState(""); // (원래 email이었지만, ID로 사용)
@@ -106,28 +104,25 @@ export default function Page() {
 
   // 패밀리 라이선스 모달
   const [showFamilyModal, setShowFamilyModal] = useState(false);
-
-  // ** 새로 추가: 무료 라이선스 안내 화면 전환용 상태
+  // 무료 라이선스 안내
   const [showFreeLicenseGuide, setShowFreeLicenseGuide] = useState(false);
+  // 결제 진행(모듈 상태 안내) 단계
+  const [showPaymentProceed, setShowPaymentProceed] = useState(false);
 
   // 회원가입 폼 제출 처리
   const handleSignupSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // 비밀번호 확인
     if (password !== confirmPassword) {
       setPasswordError("Passwords do not match.");
       return;
     }
-    // 필수 약관 미동의 시 막기
     if (!termsAgree) {
       setPasswordError("You must agree to the required terms.");
       return;
     }
 
     setPasswordError("");
-
-    // 회원가입 요청할 데이터 생성
     const requestData = {
       email: idForSignup,
       password,
@@ -163,7 +158,6 @@ export default function Page() {
         }
 
         alert(`Sign up completed: ${data.message}`);
-        // 회원가입 완료 후 모달 닫기
         document.getElementById("signup-modal")?.classList.add("hidden");
       } catch (e) {
         console.error("JSON parse failed", text);
@@ -182,7 +176,6 @@ export default function Page() {
   const handleLoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // 로그인 요청할 데이터
     const requestData = {
       email: idForLogin,
       password: loginPassword,
@@ -205,28 +198,22 @@ export default function Page() {
         const message =
           typeof errorData.detail === "object"
             ? JSON.stringify(errorData.detail)
-            : errorData.detail ||
-              errorData.message ||
-              "Unknown error";
+            : errorData.detail || errorData.message || "Unknown error";
 
         alert(`Login error: ${message}`);
         return;
       }
 
-      // (로그인 성공)
       alert("Login success!");
       setIsLoggedIn(true);
 
-      // (3) 로그인 시 한 시간 뒤 만료 시간을 Local Storage에 저장
       const oneHourLater = Date.now() + 60 * 60 * 1000; // 1시간
       localStorage.setItem("isLoggedIn", "true");
       localStorage.setItem("loginExpireTime", oneHourLater.toString());
 
-      // userID 저장
       localStorage.setItem("userID", idForLogin);
       setUserID(idForLogin);
 
-      // 모달 닫기
       document.getElementById("login-modal")!.classList.add("hidden");
     } catch (error) {
       console.error("Error during login:", error);
@@ -508,7 +495,12 @@ export default function Page() {
           </p>
           <h1 className="text-6xl font-bold mb-8">{t("home.title")}</h1>
           <button
-            onClick={() => setShowFamilyModal(true)}
+            onClick={() => {
+              setShowFamilyModal(true);
+              // 혹시 이전에 열려있던 다른 화면을 초기화
+              setShowFreeLicenseGuide(false);
+              setShowPaymentProceed(false);
+            }}
             className="text-2xl font-bold cursor-pointer mt-6 bg-black text-white px-10 py-6 rounded hover:bg-gray-800 transition"
           >
             {t("home.cta")} {t("home.price")}
@@ -550,13 +542,14 @@ export default function Page() {
             {t("buy.title")}
           </h1>
 
-          {/* 
-              패밀리 라이선스 카드
-              - "가려줘, 없애진 말고 띄우지만 말아줘" => hidden 클래스 추가
-          */}
+          {/* 패밀리 라이선스 카드(현재는 hidden 처리) */}
           <div
             className="hidden mb-12 w-[28rem] h-[36rem] border p-10 rounded-lg shadow hover:shadow-lg transition flex flex-col items-center mx-auto cursor-pointer"
-            onClick={() => setShowFamilyModal(true)}
+            onClick={() => {
+              setShowFamilyModal(true);
+              setShowFreeLicenseGuide(false);
+              setShowPaymentProceed(false);
+            }}
           >
             <div className="w-[28rem] h-[28rem] bg-gray-100 mb-6 px-8 flex items-center justify-center">
               <span className="text-gray-400">{t("buy.familyGifPlaceholder")}</span>
@@ -748,94 +741,79 @@ export default function Page() {
                 <button
                   onClick={() => {
                     setShowFamilyModal(false);
-                    // 혹시나 가이드 화면에서 닫을 때도 초기화
+                    // 모달 닫을 때 2가지 화면 상태 초기화
                     setShowFreeLicenseGuide(false);
+                    setShowPaymentProceed(false);
                   }}
                   className="absolute top-4 right-4 text-gray-400 hover:text-black text-2xl"
                 >
                   ×
                 </button>
 
-                {!showFreeLicenseGuide ? (
-                  <>
-                    <h2 className="text-3xl font-bold mb-4 text-center">
-                      {t("family.modalTitle")}
+                {/* 3단 분기: 1) 결제 진행 화면 2) 무료 라이선스 3) 기본 화면 */}
+                {showPaymentProceed ? (
+                  /* --- 결제 진행 화면 (모듈 상태 안내) --- */
+                  <div>
+                    <h2 className="text-xl font-bold mb-4 text-center">
+                      Family License Payment
                     </h2>
 
-                    <div className="text-gray-700 text-sm leading-relaxed space-y-2 mb-6">
-                      <p>{t("family.desc1")}</p>
-                      <p>{t("family.desc2")}</p>
-                      <p>{t("family.desc3")}</p>
-                      <p>{t("family.desc4")}</p>
-                      <p>{t("family.desc5")}</p>
-                    </div>
-
-                    {/* 강조문구 + 버튼 */}
-                    <div className="my-4 text-center">
-                      <p className="font-bold text-red-600 mb-2">
-                        We recommend using the free license first before purchasing.
+                    <div className="text-sm text-gray-700 leading-relaxed space-y-3">
+                      <p className="font-bold text-red-600">
+                        Please check the current module status before purchasing.
                       </p>
-                      <button
-                        onClick={() => setShowFreeLicenseGuide(true)}
-                        className="underline text-blue-600 cursor-pointer"
-                      >
-                        (How to get the free license)
-                      </button>
-                    </div>
 
-                    <table className="w-full text-sm border border-gray-300 mb-4 whitespace-nowrap">
-                      <thead>
-                        <tr className="bg-gray-100">
-                          <th className="p-2 border text-left">Module</th>
-                          <th className="p-2 border text-center">
-                            General User
+                      <div className="border rounded p-4 bg-gray-50">
+                        <p className="font-semibold mb-2">
+                          --- Current Module Status ---
+                        </p>
+                        <ul className="list-disc list-inside space-y-1">
+                          <li>Only "Transfer Jig Maker" is currently enabled.</li>
+                          <li>Shrink, exocad, and 3Shape are all supported.</li>
+                          <li>Inner-only is exocad only.</li>
+                          <li>
+                            Inner+hole is possible with exocad & 3Shape, 
+                            but 3Shape requires shrink processing.
+                          </li>
+                          <li>
+                            You must download Blender if you want to use inner+hole:
                             <br />
-                            <span className="text-xs text-gray-600">
-                              After v2.0.0 Release
-                            </span>
-                          </th>
-                          <th className="p-2 border text-center">
-                            Family
-                            <br />
-                            <span className="text-xs text-orange-600 font-bold">
-                              ONLY before v2.0.0
-                            </span>
-                          </th>
-                          <th className="p-2 border text-left">Description</th>
-                        </tr>
-                      </thead>
-                      <tbody className="text-xs">
-                        {familyTableData.map(
-                          ([title, price1, price2, desc], idx) => (
-                            <tr key={idx}>
-                              <td className="p-2 border">{title}</td>
-                              <td className="p-2 border text-center">
-                                {price1}
-                              </td>
-                              <td className="p-2 border text-center">
-                                {price2}
-                              </td>
-                              <td className="p-2 border">{desc}</td>
-                            </tr>
-                          )
-                        )}
-                      </tbody>
-                    </table>
-                    <p className="text-xs text-gray-500 text-right mt-2">
-                      {t("family.tableNote")}
-                    </p>
+                            <a
+                              className="underline text-blue-600"
+                              href="https://download.blender.org/release/Blender4.1/blender-4.1.1-windows-x64.zip"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              Download Blender
+                            </a>
+                          </li>
+                          <li>
+                            Some features may not run depending on your computer environment.
+                          </li>
+                        </ul>
+                      </div>
+                      <p>
+                        By clicking “I agree,” you confirm you understand the current status
+                        and wish to purchase the license.
+                      </p>
+                    </div>
 
                     <div className="text-center mt-6">
                       <button
                         className="bg-black text-white px-8 py-3 rounded hover:bg-gray-800 transition"
-                        onClick={() => alert(t("family.paymentMsg"))}
+                        onClick={() => {
+                          // 안내 후 결제 전 문의
+                          alert(
+                            "We are preparing a payment gateway.\nIf you want to purchase right now, please contact support@dlas.io."
+                          );
+                        }}
                       >
-                        {t("family.paymentBtn")}
+                        I agree
                       </button>
                     </div>
-                  </>
-                ) : (
-                  // 여기부터 무료 라이선스 획득 방법 화면
+                  </div>
+                ) : showFreeLicenseGuide ? (
+                  /* --- 무료 라이선스 획득 방법 화면 --- */
                   <div className="mt-6">
                     <button
                       onClick={() => setShowFreeLicenseGuide(false)}
@@ -893,12 +871,12 @@ export default function Page() {
                         and take a screenshot.
                       </p>
                       <p>
-                        3) Take a screenshot so that your Instagram ID is clearly visible.
+                        3) Make sure your Instagram ID is clearly visible in your screenshot.
                       </p>
                       <p>
                         Then send all the screenshots to{" "}
-                        <strong>support@dlas.io</strong> with the email
-                        subject line format: <strong>dlas (your dlas ID)</strong>.
+                        <strong>support@dlas.io</strong> with the email subject line{" "}
+                        <strong>dlas (your dlas ID)</strong>.
                       </p>
                       <p>
                         Our AI will review your screenshots and respond within
@@ -907,17 +885,90 @@ export default function Page() {
                       <hr className="my-3" />
                       <div className="font-bold text-gray-900 space-y-1">
                         <p>- Each verified Instagram account grants 3 hours of free license.</p>
-                        <p>- One DLAS ID can redeem multiple times by using different Instagram accounts.</p>
-                        <p>- One Instagram account cannot be reused or verified again for another DLAS ID.</p>
+                        <p>- One DLAS ID can redeem multiple times with different Instagram accounts.</p>
+                        <p>- One Instagram account cannot be reused for another DLAS ID.</p>
                       </div>
                     </div>
                   </div>
+                ) : (
+                  /* --- 기본 패밀리 라이선스 안내 화면 --- */
+                  <>
+                    <h2 className="text-3xl font-bold mb-4 text-center">
+                      {t("family.modalTitle")}
+                    </h2>
+
+                    <div className="text-gray-700 text-sm leading-relaxed space-y-2 mb-6">
+                      <p>{t("family.desc1")}</p>
+                      <p>{t("family.desc2")}</p>
+                      <p>{t("family.desc3")}</p>
+                      <p>{t("family.desc4")}</p>
+                      <p>{t("family.desc5")}</p>
+                    </div>
+
+                    {/* 강조문구 + 버튼 */}
+                    <div className="my-4 text-center">
+                      <p className="font-bold text-red-600 mb-2">
+                        We recommend using the free license first before purchasing.
+                      </p>
+                      <button
+                        onClick={() => setShowFreeLicenseGuide(true)}
+                        className="underline text-blue-600 cursor-pointer"
+                      >
+                        (How to get the free license)
+                      </button>
+                    </div>
+
+                    <table className="w-full text-sm border border-gray-300 mb-4 whitespace-nowrap">
+                      <thead>
+                        <tr className="bg-gray-100">
+                          <th className="p-2 border text-left">Module</th>
+                          <th className="p-2 border text-center">
+                            General User
+                            <br />
+                            <span className="text-xs text-gray-600">
+                              After v2.0.0 Release
+                            </span>
+                          </th>
+                          <th className="p-2 border text-center">
+                            Family
+                            <br />
+                            <span className="text-xs text-orange-600 font-bold">
+                              ONLY before v2.0.0
+                            </span>
+                          </th>
+                          <th className="p-2 border text-left">Description</th>
+                        </tr>
+                      </thead>
+                      <tbody className="text-xs">
+                        {familyTableData.map(([title, price1, price2, desc], idx) => (
+                          <tr key={idx}>
+                            <td className="p-2 border">{title}</td>
+                            <td className="p-2 border text-center">{price1}</td>
+                            <td className="p-2 border text-center">{price2}</td>
+                            <td className="p-2 border">{desc}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                    <p className="text-xs text-gray-500 text-right mt-2">
+                      {t("family.tableNote")}
+                    </p>
+
+                    <div className="text-center mt-6">
+                      {/* 이 부분을 "Proceed to payment" 단계로 변경 */}
+                      <button
+                        className="bg-black text-white px-8 py-3 rounded hover:bg-gray-800 transition"
+                        onClick={() => setShowPaymentProceed(true)}
+                      >
+                        Proceed to payment
+                      </button>
+                    </div>
+                  </>
                 )}
               </div>
             </div>
           </div>
         )}
-
       </main>
 
       {/* 로그인 모달 */}
@@ -1060,7 +1111,7 @@ export default function Page() {
               required
             />
 
-            {/* 약관 동의 체크박스 구간 */}
+            {/* 약관 동의 체크박스 */}
             <div className="text-sm text-gray-600 mt-4 space-y-2">
               <label className="flex items-center">
                 <input
