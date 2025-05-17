@@ -54,7 +54,7 @@ export default function Page() {
   const fetchUserInfo = async (email: string) => {
     try {
       const res = await fetch(
-        https://license-server-697p.onrender.com/admin/userinfo?email=${email}
+        `https://license-server-697p.onrender.com/admin/userinfo?email=${email}`
       );
       if (!res.ok) throw new Error("Failed to fetch user info");
       const data = await res.json();
@@ -158,11 +158,11 @@ export default function Page() {
             typeof data.detail === "object"
               ? JSON.stringify(data.detail)
               : data.detail || "Unknown error";
-          alert(Sign up failed: ${message});
+          alert(`Sign up failed: ${message}`);
           return;
         }
 
-        alert(Sign up completed: ${data.message});
+        alert(`Sign up completed: ${data.message}`);
         // 회원가입 완료 후 모달 닫기
         document.getElementById("signup-modal")?.classList.add("hidden");
       } catch (e) {
@@ -209,7 +209,7 @@ export default function Page() {
               errorData.message ||
               "Unknown error";
 
-        alert(Login error: ${message});
+        alert(`Login error: ${message}`);
         return;
       }
 
@@ -231,7 +231,7 @@ export default function Page() {
     } catch (error) {
       console.error("Error during login:", error);
       if (error instanceof Error) {
-        alert(Error during login: ${error.message});
+        alert(`Error during login: ${error.message}`);
       } else {
         alert("An unknown error occurred while logging in.");
       }
@@ -292,7 +292,7 @@ export default function Page() {
   const scrollToSection = (id: string) => {
     if (id === "home") {
       window.scrollTo({ top: 0, behavior: "smooth" });
-      window.history.replaceState(null, "", /?tab=${id});
+      window.history.replaceState(null, "", `/?tab=${id}`);
       return;
     }
     const el = document.getElementById(id);
@@ -301,7 +301,7 @@ export default function Page() {
         top: el.offsetTop - 160,
         behavior: "smooth",
       });
-      window.history.replaceState(null, "", /?tab=${id});
+      window.history.replaceState(null, "", `/?tab=${id}`);
     }
   };
 
@@ -433,7 +433,7 @@ export default function Page() {
                            border-b-2 border-transparent hover:border-black 
                            text-gray-700 hover:text-black"
               >
-                {t(nav.${tab})}
+                {t(`nav.${tab}`)}
               </button>
             ))}
 
@@ -550,16 +550,15 @@ export default function Page() {
             {t("buy.title")}
           </h1>
 
-          {/* 
-              패밀리 라이선스 카드
-              - "가려줘, 없애진 말고 띄우지만 말아줘" => hidden 클래스 추가
-          */}
+          {/* 패밀리 라이선스 카드 (현재 hidden 처리) */}
           <div
             className="hidden mb-12 w-[28rem] h-[36rem] border p-10 rounded-lg shadow hover:shadow-lg transition flex flex-col items-center mx-auto cursor-pointer"
             onClick={() => setShowFamilyModal(true)}
           >
             <div className="w-[28rem] h-[28rem] bg-gray-100 mb-6 px-8 flex items-center justify-center">
-              <span className="text-gray-400">{t("buy.familyGifPlaceholder")}</span>
+              <span className="text-gray-400">
+                {t("buy.familyGifPlaceholder")}
+              </span>
             </div>
             <div className="text-lg font-semibold text-center text-gray-800">
               {t("buy.familyLicense")}
@@ -576,7 +575,7 @@ export default function Page() {
                   {mod === "Transfer Jig Maker" ? (
                     <Image
                       src="/gifs/transfer_jig.gif"
-                      alt={${mod} gif}
+                      alt={`${mod} gif`}
                       width={200}
                       height={200}
                       className="object-contain"
@@ -692,43 +691,57 @@ export default function Page() {
             </h3>
             <p className="mb-4">{t("privacy.intro")}</p>
 
-            <h4 className="font-semibold mb-1">{t("privacy.article1.title")}</h4>
+            <h4 className="font-semibold mb-1">
+              {t("privacy.article1.title")}
+            </h4>
             <p
               className="mb-4"
               dangerouslySetInnerHTML={{ __html: t("privacy.article1.desc") }}
             />
 
-            <h4 className="font-semibold mb-1">{t("privacy.article2.title")}</h4>
+            <h4 className="font-semibold mb-1">
+              {t("privacy.article2.title")}
+            </h4>
             <p
               className="mb-4"
               dangerouslySetInnerHTML={{ __html: t("privacy.article2.desc") }}
             />
 
-            <h4 className="font-semibold mb-1">{t("privacy.article3.title")}</h4>
+            <h4 className="font-semibold mb-1">
+              {t("privacy.article3.title")}
+            </h4>
             <p
               className="mb-4"
               dangerouslySetInnerHTML={{ __html: t("privacy.article3.desc") }}
             />
 
-            <h4 className="font-semibold mb-1">{t("privacy.article4.title")}</h4>
+            <h4 className="font-semibold mb-1">
+              {t("privacy.article4.title")}
+            </h4>
             <p
               className="mb-4"
               dangerouslySetInnerHTML={{ __html: t("privacy.article4.desc") }}
             />
 
-            <h4 className="font-semibold mb-1">{t("privacy.article5.title")}</h4>
+            <h4 className="font-semibold mb-1">
+              {t("privacy.article5.title")}
+            </h4>
             <p
               className="mb-4"
               dangerouslySetInnerHTML={{ __html: t("privacy.article5.desc") }}
             />
 
-            <h4 className="font-semibold mb-1">{t("privacy.article6.title")}</h4>
+            <h4 className="font-semibold mb-1">
+              {t("privacy.article6.title")}
+            </h4>
             <p
               className="mb-4"
               dangerouslySetInnerHTML={{ __html: t("privacy.article6.desc") }}
             />
 
-            <h4 className="font-semibold mb-1">{t("privacy.article7.title")}</h4>
+            <h4 className="font-semibold mb-1">
+              {t("privacy.article7.title")}
+            </h4>
             <p
               className="mb-4"
               dangerouslySetInnerHTML={{ __html: t("privacy.article7.desc") }}
@@ -748,8 +761,7 @@ export default function Page() {
                 <button
                   onClick={() => {
                     setShowFamilyModal(false);
-                    // 혹시나 가이드 화면에서 닫을 때도 초기화
-                    setShowFreeLicenseGuide(false);
+                    setShowFreeLicenseGuide(false); // 가이드 화면에서 닫을 때도 초기화
                   }}
                   className="absolute top-4 right-4 text-gray-400 hover:text-black text-2xl"
                 >
@@ -805,20 +817,14 @@ export default function Page() {
                         </tr>
                       </thead>
                       <tbody className="text-xs">
-                        {familyTableData.map(
-                          ([title, price1, price2, desc], idx) => (
-                            <tr key={idx}>
-                              <td className="p-2 border">{title}</td>
-                              <td className="p-2 border text-center">
-                                {price1}
-                              </td>
-                              <td className="p-2 border text-center">
-                                {price2}
-                              </td>
-                              <td className="p-2 border">{desc}</td>
-                            </tr>
-                          )
-                        )}
+                        {familyTableData.map(([title, price1, price2, desc], idx) => (
+                          <tr key={idx}>
+                            <td className="p-2 border">{title}</td>
+                            <td className="p-2 border text-center">{price1}</td>
+                            <td className="p-2 border text-center">{price2}</td>
+                            <td className="p-2 border">{desc}</td>
+                          </tr>
+                        ))}
                       </tbody>
                     </table>
                     <p className="text-xs text-gray-500 text-right mt-2">
@@ -847,7 +853,6 @@ export default function Page() {
                       How to get the free license
                     </h3>
 
-                    {/* 실제 이미지 3장으로 대체 */}
                     <div className="flex flex-row items-start justify-center space-x-4">
                       <img
                         src="/free_liecense/1.png"
@@ -866,7 +871,6 @@ export default function Page() {
                       />
                     </div>
 
-                    {/* 설명 */}
                     <div className="text-sm text-gray-700 mt-4 leading-6 space-y-2">
                       <p>
                         1) Follow us on Instagram:{" "}
@@ -917,7 +921,6 @@ export default function Page() {
             </div>
           </div>
         )}
-
       </main>
 
       {/* 로그인 모달 */}
@@ -1036,7 +1039,9 @@ export default function Page() {
               className="w-full p-3 border border-gray-300 rounded"
               required
             >
-              <option value="">{t("signup.form.countryPlaceholder")}</option>
+              <option value="">
+                {t("signup.form.countryPlaceholder")}
+              </option>
               {countries.map((country, index) => (
                 <option key={index} value={country}>
                   {country}
@@ -1069,7 +1074,9 @@ export default function Page() {
                   onChange={(e) => setTermsAgree(e.target.checked)}
                   className="form-checkbox h-5 w-5 text-black"
                 />
-                <span className="ml-2">{t("signup.form.agreeRequired")}</span>
+                <span className="ml-2">
+                  {t("signup.form.agreeRequired")}
+                </span>
               </label>
               <label className="flex items-center">
                 <input
