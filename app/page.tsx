@@ -775,10 +775,7 @@ export default function Page() {
                           --- Current Module Status ---
                         </p>
                         <ul className="list-disc list-inside space-y-1">
-                          <li>Only "Transfer Jig Maker" is currently enabled.</li>
-                          <li>
-                            FAST IMAGE CONVERTER is also available (quickly converts STL to images).
-                          </li>
+                          <li>Transfer Jig Maker is currently enabled.</li>
                           <li>Shrink, exocad, and 3Shape are all supported.</li>
                           <li>Inner-only is exocad only.</li>
                           <li>
@@ -796,6 +793,9 @@ export default function Page() {
                             >
                               Download Blender
                             </a>
+                          </li>
+                          <li>
+                            FAST IMAGE CONVERTER is also available (quickly converts STL to images).
                           </li>
                           <li>
                             Some features may not run depending on your computer environment.
@@ -1264,7 +1264,7 @@ export default function Page() {
 
           {/* 두 번째 줄: 사업자 정보 (왼쪽 정렬) */}
           <div className="mt-6 text-sm text-white leading-snug">
-            <p>DLAS (Sole Proprietorship)</p>
+            <p>DLAS</p>
             <p>Owner: Jonghwan Kim</p>
             <p>Business Registration No.: 753-06-03175</p>
             <p>Tel: +82-10-9756-1992 (Republic of Korea)</p>
