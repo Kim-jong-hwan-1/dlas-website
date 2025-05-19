@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useLang } from "@/components/LanguageWrapper";
+const { t, lang } = useLang();
 
 export default function Page() {
   const { t } = useLang();
@@ -759,66 +760,89 @@ export default function Page() {
 
                 {/* 3단 분기: 1) 결제 진행 화면 2) 무료 라이선스 3) 기본 화면 */}
                 {showPaymentProceed ? (
-                  /* --- 결제 진행 화면 (모듈 상태 안내) --- */
-                  <div>
-                    <h2 className="text-xl font-bold mb-4 text-center">
-                      Family License Payment
-                    </h2>
+  <div>
+    <h2 className="text-xl font-bold mb-4 text-center">
+      {lang === "ko" ? "패밀리 라이선스 결제" : "Family License Payment"}
+    </h2>
 
-                    <div className="text-sm text-gray-700 leading-relaxed space-y-3">
-                      <p className="font-bold text-red-600">
-                        Please check the current module status before purchasing.
-                      </p>
+    <div className="text-sm text-gray-700 leading-relaxed space-y-3">
+      <p className="font-bold text-red-600">
+        {lang === "ko"
+          ? "구매 전, 현재 모듈 상태를 꼭 확인하세요."
+          : "Please check the current module status before purchasing."}
+      </p>
 
-                      <div className="border rounded p-4 bg-gray-50">
-                        <p className="font-semibold mb-2">
-                          --- Current Module Status ---
-                        </p>
-                        <ul className="list-disc list-inside space-y-1">
-                          <li>Transfer Jig Maker is currently enabled.</li>
-                          <li>Shrink, exocad, and 3Shape are all supported.</li>
-                          <li>Inner-only is exocad only.</li>
-                          <li>
-                            Inner+hole is possible with exocad & 3Shape,
-                            but 3Shape requires shrink processing.
-                          </li>
-                          <li>
-                            You must download Blender if you want to use inner+hole:
-                            <br />
-                            <a
-                              className="underline text-blue-600"
-                              href="https://download.blender.org/release/Blender4.1/blender-4.1.1-windows-x64.zip"
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              Download Blender
-                            </a>
-                          </li>
-                          <li>
-                            FAST IMAGE CONVERTER is also available (quickly converts STL to images).
-                          </li>
-                          <li>
-                            Some features may not run depending on your computer environment.
-                          </li>
-                        </ul>
-                      </div>
-                      <p>
-                        By clicking “I agree,” you confirm you understand the current status
-                        and wish to purchase the license.
-                      </p>
-                    </div>
+      <div className="border rounded p-4 bg-gray-50">
+        <p className="font-semibold mb-2">
+          {lang === "ko" ? "--- 현재 모듈 상태 ---" : "--- Current Module Status ---"}
+        </p>
+        <ul className="list-disc list-inside space-y-1">
+          <li>
+            {lang === "ko"
+              ? "Transfer Jig Maker는 현재 사용 가능합니다."
+              : "Transfer Jig Maker is currently enabled."}
+          </li>
+          <li>
+            {lang === "ko"
+              ? "Shrink, exocad, 3Shape 모두 지원됩니다."
+              : "Shrink, exocad, and 3Shape are all supported."}
+          </li>
+          <li>
+            {lang === "ko"
+              ? "Inner-only는 exocad 전용입니다."
+              : "Inner-only is exocad only."}
+          </li>
+          <li>
+            {lang === "ko"
+              ? "Inner+hole은 exocad와 3Shape에서 모두 사용 가능하지만, 3Shape에서는 수축 보정이 필요합니다."
+              : "Inner+hole is possible with exocad & 3Shape, but 3Shape requires shrink processing."}
+          </li>
+          <li>
+            {lang === "ko"
+              ? "Inner+hole 기능을 사용하려면 Blender를 설치해야 합니다:"
+              : "You must download Blender if you want to use inner+hole:"}
+            <br />
+            <a
+              className="underline text-blue-600"
+              href="https://download.blender.org/release/Blender4.1/blender-4.1.1-windows-x64.zip"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Download Blender
+            </a>
+          </li>
+          <li>
+            {lang === "ko"
+              ? "FAST IMAGE CONVERTER도 제공됩니다 (STL을 이미지로 빠르게 변환)."
+              : "FAST IMAGE CONVERTER is also available (quickly converts STL to images)."}
+          </li>
+          <li>
+            {lang === "ko"
+              ? "일부 기능은 컴퓨터 환경에 따라 작동하지 않을 수 있습니다."
+              : "Some features may not run depending on your computer environment."}
+          </li>
+        </ul>
+      </div>
 
-                    <div className="text-center mt-6">
-                      <button
-                        className="bg-black text-white px-8 py-3 rounded hover:bg-gray-800 transition"
-                        onClick={() => {
-                          setShowPaymentSupportModal(true);
-                        }}
-                      >
-                        I agree
-                      </button>
-                    </div>
-                  </div>
+      <p>
+        {lang === "ko"
+          ? "“동의합니다”를 클릭하면, 현재 상태를 이해하고 라이선스를 구매하겠다는 뜻으로 간주합니다."
+          : 'By clicking “I agree,” you confirm you understand the current status and wish to purchase the license.'}
+      </p>
+    </div>
+
+    <div className="text-center mt-6">
+      <button
+        className="bg-black text-white px-8 py-3 rounded hover:bg-gray-800 transition"
+        onClick={() => {
+          setShowPaymentSupportModal(true);
+        }}
+      >
+        {lang === "ko" ? "동의합니다" : "I agree"}
+      </button>
+    </div>
+  </div>
+ 
                 ) : showFreeLicenseGuide ? (
                   /* --- 무료 라이선스 획득 방법 화면 --- */
                   <div className="mt-6">
@@ -979,43 +1003,43 @@ export default function Page() {
 
         {/* 결제 문의 (이메일 안내) 모달 */}
         {showPaymentSupportModal && (
-          <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center px-4">
-            <div className="bg-white w-full max-w-md p-8 rounded-lg shadow-xl relative">
-              <button
-                className="absolute top-2 right-3 text-gray-500 hover:text-black text-2xl"
-                onClick={() => setShowPaymentSupportModal(false)}
-              >
-                ×
-              </button>
-              <h2 className="text-2xl font-bold mb-4 text-center">
-                Purchase Inquiry
-              </h2>
-              <p className="text-sm text-gray-700 leading-relaxed mb-4">
-                We are preparing a payment gateway. If you want to purchase right now,
-                please contact:
-              </p>
-              <div className="flex items-center justify-between gap-2 bg-gray-100 rounded p-2 mb-4">
-                <span className="text-black text-sm font-bold">
-                  support@dlas.io
-                </span>
-                <button
-                  onClick={handleCopyEmail}
-                  className="bg-gray-300 text-black px-3 py-1 rounded hover:bg-gray-400 transition text-sm"
-                >
-                  Copy
-                </button>
-              </div>
-              <div className="text-center">
-                <button
-                  className="bg-black text-white px-8 py-3 rounded hover:bg-gray-800 transition"
-                  onClick={() => setShowPaymentSupportModal(false)}
-                >
-                  Close
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
+  <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center px-4">
+    <div className="bg-white w-full max-w-md p-8 rounded-lg shadow-xl relative">
+      <button
+        className="absolute top-2 right-3 text-gray-500 hover:text-black text-2xl"
+        onClick={() => setShowPaymentSupportModal(false)}
+      >
+        ×
+      </button>
+      <h2 className="text-2xl font-bold mb-4 text-center">
+        {lang === "ko" ? "결제 문의" : "Purchase Inquiry"}
+      </h2>
+      <p className="text-sm text-gray-700 leading-relaxed mb-4">
+        {lang === "ko"
+          ? "결제 게이트웨이를 준비 중입니다. 지금 바로 구매를 원하시면 아래 이메일로 연락주세요:"
+          : "We are preparing a payment gateway. If you want to purchase right now, please contact:"}
+      </p>
+      <div className="flex items-center justify-between gap-2 bg-gray-100 rounded p-2 mb-4">
+        <span className="text-black text-sm font-bold">support@dlas.io</span>
+        <button
+          onClick={handleCopyEmail}
+          className="bg-gray-300 text-black px-3 py-1 rounded hover:bg-gray-400 transition text-sm"
+        >
+          {lang === "ko" ? "복사" : "Copy"}
+        </button>
+      </div>
+      <div className="text-center">
+        <button
+          className="bg-black text-white px-8 py-3 rounded hover:bg-gray-800 transition"
+          onClick={() => setShowPaymentSupportModal(false)}
+        >
+          {lang === "ko" ? "닫기" : "Close"}
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
       </main>
 
       {/* 로그인 모달 */}
