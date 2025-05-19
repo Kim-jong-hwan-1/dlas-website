@@ -3,7 +3,40 @@ export const translations = {
   // 1. 영어 (en)
   /////////////////////////////////////////////////////////////////////
   en: {
-    nav: {
+    family: {
+      modalTitle: "Family License Introduction",
+      desc1: "Use DLAS modules for life without extra fees.",
+      desc2: "You can access all listed modules permanently.",
+      desc3: "Even new modules will be free if released before v2.0.0.",
+      desc4: "After v2.0.0, regular license fees will apply.",
+      desc5: "This is a one-time offer only available now.",
+      tableNote: "Details may change without notice.",
+    },
+    payment: {
+      title: "Family License Payment",
+      warning: "Please check the current module status before purchasing.",
+      agree: "I agree",
+      statusHeader: "--- Current Module Status ---",
+      items: [
+        "Transfer Jig Maker is currently enabled.",
+        "Shrink, exocad, and 3Shape are all supported.",
+        "Inner-only is exocad only.",
+        "Inner+hole is possible with exocad & 3Shape, but 3Shape requires shrink processing.",
+        "You must download Blender if you want to use inner+hole:",
+        "FAST IMAGE CONVERTER is also available (quickly converts STL to images).",
+        "Some features may not run depending on your computer environment.",
+      ],
+      footer: "By clicking “I agree,” you confirm you understand the current status and wish to purchase the license.",
+    },
+    purchase: {
+      title: "Purchase Inquiry",
+      desc: "We are preparing a payment gateway. If you want to purchase right now, please contact:",
+      copy: "Copy",
+      close: "Close",
+    }
+  },    
+
+nav: {
       home: "Home",
       download: "Download",
       buy: "Buy",
@@ -1411,6 +1444,38 @@ of your personal data at any time.`,
   // 8. 한국어 (ko)
   /////////////////////////////////////////////////////////////////////
   ko: {
+     family: {
+      modalTitle: "패밀리 라이선스 안내",
+      desc1: "추가 요금 없이 평생 DLAS 모듈을 사용하세요.",
+      desc2: "리스트에 있는 모든 모듈을 영구적으로 사용할 수 있습니다.",
+      desc3: "v2.0.0 출시 전 공개되는 신규 모듈도 모두 무료입니다.",
+      desc4: "v2.0.0 이후에는 일반 유료 라이선스로 전환됩니다.",
+      desc5: "지금만 제공되는 일회성 프로모션입니다.",
+      tableNote: "상세 내용은 예고 없이 변경될 수 있습니다.",
+    },
+    payment: {
+      title: "패밀리 라이선스 결제",
+      warning: "구매 전, 현재 모듈 상태를 꼭 확인하세요.",
+      agree: "동의합니다",
+      statusHeader: "--- 현재 모듈 상태 ---",
+      items: [
+        "Transfer Jig Maker는 현재 사용 가능합니다.",
+        "Shrink, exocad, 3Shape 모두 지원됩니다.",
+        "Inner-only는 exocad 전용입니다.",
+        "Inner+hole은 exocad와 3Shape에서 모두 사용 가능하지만, 3Shape에서는 수축 보정이 필요합니다.",
+        "Inner+hole 기능을 사용하려면 Blender를 설치해야 합니다:",
+        "FAST IMAGE CONVERTER도 제공됩니다 (STL을 이미지로 빠르게 변환).",
+        "일부 기능은 컴퓨터 환경에 따라 작동하지 않을 수 있습니다.",
+      ],
+      footer: "“동의합니다”를 클릭하면, 현재 상태를 이해하고 라이선스를 구매하겠다는 뜻으로 간주합니다.",
+    },
+    purchase: {
+      title: "결제 문의",
+      desc: "결제 게이트웨이를 준비 중입니다. 지금 바로 구매를 원하시면 아래 이메일로 연락주세요:",
+      copy: "복사",
+      close: "닫기",
+    }
+  }
     nav: {
       home: "홈",
       download: "다운로드",
