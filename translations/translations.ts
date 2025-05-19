@@ -2,84 +2,87 @@ export const translations = {
   /////////////////////////////////////////////////////////////////////
   // 1. 영어 (en)
   /////////////////////////////////////////////////////////////////////
-  en: {
-    family: {
-      modalTitle: "Family License Introduction",
-      desc1: "Use DLAS modules for life without extra fees.",
-      desc2: "You can access all listed modules permanently.",
-      desc3: "Even new modules will be free if released before v2.0.0.",
-      desc4: "After v2.0.0, regular license fees will apply.",
-      desc5: "This is a one-time offer only available now.",
-      tableNote: "Details may change without notice.",
+en: {
+  family: {
+    modalTitle: "Family License Introduction",
+    desc1: "Use DLAS modules for life without extra fees.",
+    desc2: "You can access all listed modules permanently.",
+    desc3: "Even new modules will be free if released before v2.0.0.",
+    desc4: "After v2.0.0, regular license fees will apply.",
+    desc5: "This is a one-time offer only available now.",
+    tableNote: "Details may change without notice.",
+    paymentBtn: "Proceed to payment",
+    paymentMsg: "Payment integration coming soon.",
+  },
+  payment: {
+    title: "Family License Payment",
+    warning: "Please check the current module status before purchasing.",
+    agree: "I agree",
+    statusHeader: "--- Current Module Status ---",
+    items: [
+      "Transfer Jig Maker is currently enabled.",
+      "Shrink, exocad, and 3Shape are all supported.",
+      "Inner-only is exocad only.",
+      "Inner+hole is possible with exocad & 3Shape, but 3Shape requires shrink processing.",
+      "You must download Blender if you want to use inner+hole:",
+      "FAST IMAGE CONVERTER is also available (quickly converts STL to images).",
+      "Some features may not run depending on your computer environment.",
+    ],
+    footer:
+      "By clicking \u201cI agree,\u201d you confirm you understand the current status and wish to purchase the license.",
+  },
+  purchase: {
+    title: "Purchase Inquiry",
+    desc: "We are preparing a payment gateway. If you want to purchase right now, please contact:",
+    copy: "Copy",
+    close: "Close",
+  },
+  nav: {
+    home: "Home",
+    download: "Download",
+    buy: "Buy",
+    contact: "Contact",
+    terms: "Terms & Privacy",
+    family: "Family",
+    login: "Login",
+    signup: "Sign Up",
+  },
+  home: {
+    subtitle: "Maximize Productivity with Just One Click",
+    title: "From Hours to Seconds",
+    cta: "Join the DLAS Family – only",
+    price: "$390",
+    gameChangerTitle: "Game Changer in Digital Dentistry",
+    gameChangerDesc:
+      "DLAS is more than just a software. It is a revolution in dental CAD automation, designed to empower dental professionals with cutting-edge tools that simplify complex workflows, reduce manual labor, and maximize productivity.",
+    gameChangerQuote: `\"The future of dental automation is here\"`,
+  },
+  download: {
+    title: "Download Software",
+    desc: "Click below to download the latest version of DLAS CAD Software.",
+    button: "Download Now",
+  },
+  buy: {
+    title: "Buy License",
+    familyGifPlaceholder: "Family License GIF Placeholder",
+    familyLicense: "Family License",
+    moduleGif: "GIF Placeholder",
+  },
+  contact: {
+    title: "Contact Us",
+    info1: "support@dlas.io",
+    info2: "63, Dunsan-ro, Seo-gu, Daejeon, Republic of Korea 403-817 (DLAS)",
+    form: {
+      firstName: "First name",
+      lastName: "Last name",
+      email: "Email address",
+      phone: "Phone number",
+      message: "Message",
+      submit: "Inquire Now",
     },
-    payment: {
-      title: "Family License Payment",
-      warning: "Please check the current module status before purchasing.",
-      agree: "I agree",
-      statusHeader: "--- Current Module Status ---",
-      items: [
-        "Transfer Jig Maker is currently enabled.",
-        "Shrink, exocad, and 3Shape are all supported.",
-        "Inner-only is exocad only.",
-        "Inner+hole is possible with exocad & 3Shape, but 3Shape requires shrink processing.",
-        "You must download Blender if you want to use inner+hole:",
-        "FAST IMAGE CONVERTER is also available (quickly converts STL to images).",
-        "Some features may not run depending on your computer environment.",
-      ],
-      footer: "By clicking “I agree,” you confirm you understand the current status and wish to purchase the license.",
-    },
-    purchase: {
-      title: "Purchase Inquiry",
-      desc: "We are preparing a payment gateway. If you want to purchase right now, please contact:",
-      copy: "Copy",
-      close: "Close",
-    }
-  },    
+  },
+}
 
-nav: {
-      home: "Home",
-      download: "Download",
-      buy: "Buy",
-      contact: "Contact",
-      terms: "Terms & Privacy",
-      family: "Family",
-      login: "Login",
-      signup: "Sign Up",
-    },
-    home: {
-      subtitle: "Maximize Productivity with Just One Click",
-      title: "From Hours to Seconds",
-      cta: "Join the DLAS Family – only",
-      price: "$390",
-      gameChangerTitle: "Game Changer in Digital Dentistry",
-      gameChangerDesc:
-        "DLAS is more than just a software. It is a revolution in dental CAD automation, designed to empower dental professionals with cutting-edge tools that simplify complex workflows, reduce manual labor, and maximize productivity.",
-      gameChangerQuote: `"The future of dental automation is here"`,
-    },
-    download: {
-      title: "Download Software",
-      desc: "Click below to download the latest version of DLAS CAD Software.",
-      button: "Download Now",
-    },
-    buy: {
-      title: "Buy License",
-      familyGifPlaceholder: "Family License GIF Placeholder",
-      familyLicense: "Family License",
-      moduleGif: "GIF Placeholder",
-    },
-    contact: {
-      title: "Contact Us",
-      info1: "support@dlas.io",
-      info2: "63, Dunsan-ro, Seo-gu, Daejeon, Republic of Korea 403-817 (DLAS)",
-      form: {
-        firstName: "First name",
-        lastName: "Last name",
-        email: "Email address",
-        phone: "Phone number",
-        message: "Message",
-        submit: "Inquire Now",
-      },
-    },
     terms: {
       title: "Terms & Privacy",
       headingTerms: "[Terms of Service]",
@@ -1444,82 +1447,90 @@ of your personal data at any time.`,
   // 8. 한국어 (ko)
   /////////////////////////////////////////////////////////////////////
   ko: {
-     family: {
-      modalTitle: "패밀리 라이선스 안내",
-      desc1: "추가 요금 없이 평생 DLAS 모듈을 사용하세요.",
-      desc2: "리스트에 있는 모든 모듈을 영구적으로 사용할 수 있습니다.",
-      desc3: "v2.0.0 출시 전 공개되는 신규 모듈도 모두 무료입니다.",
-      desc4: "v2.0.0 이후에는 일반 유료 라이선스로 전환됩니다.",
-      desc5: "지금만 제공되는 일회성 프로모션입니다.",
-      tableNote: "상세 내용은 예고 없이 변경될 수 있습니다.",
+    ko: {
+  nav: {
+    home: "홈",
+    download: "다운로드",
+    buy: "구매",
+    contact: "문의",
+    terms: "이용약관/개인정보",
+    family: "패밀리",
+    login: "로그인",
+    signup: "회원가입",
+  },
+  home: {
+    subtitle: "원클릭으로 생산성 극대화",
+    title: "수 시간의 작업을 몇 초로 단축",
+    cta: "DLAS 패밀리에 합류하세요 – 단",
+    price: "390달러",
+    gameChangerTitle: "디지털 덴티스트리의 게임 체인저",
+    gameChangerDesc:
+      "DLAS는 단순한 소프트웨어가 아니라, 치과 CAD 자동화의 혁신으로 복잡한 워크플로우를 단순화하고 생산성을 높여줍니다.",
+    gameChangerQuote: `"치과 자동화의 미래가 여기 있습니다"`,
+  },
+  download: {
+    title: "소프트웨어 다운로드",
+    desc: "아래 버튼을 클릭하여 DLAS CAD 소프트웨어의 최신 버전을 다운로드하세요.",
+    button: "지금 다운로드",
+  },
+  buy: {
+    title: "라이선스 구매",
+    familyGifPlaceholder: "패밀리 라이선스 GIF 자리",
+    familyLicense: "패밀리 라이선스",
+    moduleGif: "GIF 자리",
+  },
+  contact: {
+    title: "문의하기",
+    info1: "support@dlas.io",
+    info2: "대한민국 대전광역시 서구 둔산로 63, 403-817 (DLAS)",
+    form: {
+      firstName: "이름",
+      lastName: "성",
+      email: "이메일 주소",
+      phone: "전화번호",
+      message: "문의 내용",
+      submit: "문의하기",
     },
-    payment: {
-      title: "패밀리 라이선스 결제",
-      warning: "구매 전, 현재 모듈 상태를 꼭 확인하세요.",
-      agree: "동의합니다",
-      statusHeader: "--- 현재 모듈 상태 ---",
-      items: [
-        "Transfer Jig Maker는 현재 사용 가능합니다.",
-        "Shrink, exocad, 3Shape 모두 지원됩니다.",
-        "Inner-only는 exocad 전용입니다.",
-        "Inner+hole은 exocad와 3Shape에서 모두 사용 가능하지만, 3Shape에서는 수축 보정이 필요합니다.",
-        "Inner+hole 기능을 사용하려면 Blender를 설치해야 합니다:",
-        "FAST IMAGE CONVERTER도 제공됩니다 (STL을 이미지로 빠르게 변환).",
-        "일부 기능은 컴퓨터 환경에 따라 작동하지 않을 수 있습니다.",
-      ],
-      footer: "“동의합니다”를 클릭하면, 현재 상태를 이해하고 라이선스를 구매하겠다는 뜻으로 간주합니다.",
-    },
-    purchase: {
-      title: "결제 문의",
-      desc: "결제 게이트웨이를 준비 중입니다. 지금 바로 구매를 원하시면 아래 이메일로 연락주세요:",
-      copy: "복사",
-      close: "닫기",
-    }
+  },
+  family: {
+    modalTitle: "패밀리 라이선스 안내",
+    desc1:
+      "DLAS와 함께 성장할 파트너를 찾고 있습니다. 디지털 혁신을 주도하는 치과 랩만 참여하세요.",
+    desc2:
+      "혁신이 무엇인지 이해하지 못하거나, 초보 혹은 경험이 없는 경우에는 가입을 자제해 주세요.",
+    desc3:
+      "자동화 프로그램은 컴퓨터 환경에 따라 버그가 있을 수 있습니다. 보고해주시면 개선하겠습니다.",
+    desc4: "구매 전에 무료 라이선스를 먼저 사용하는 것을 권장합니다.",
+    desc5:
+      "v2.0.0 이후에는 패밀리 라이선스 가치가 높아질 수 있습니다. 한 사람이 여러 개를 구매할 수 있으며, 재판매도 허용합니다.",
+    tableNote: "※ 계획은 사전 통지 없이 변경될 수 있습니다.",
+    paymentBtn: "결제 진행 (준비 중)",
+    paymentMsg: "결제 기능이 곧 추가될 예정입니다.",
+  },
+  payment: {
+    title: "패밀리 라이선스 결제",
+    warning: "구매 전, 현재 모듈 상태를 꼭 확인하세요.",
+    agree: "동의합니다",
+    statusHeader: "--- 현재 모듈 상태 ---",
+    items: [
+      "Transfer Jig Maker는 현재 사용 가능합니다.",
+      "Shrink, exocad, 3Shape 모두 지원됩니다.",
+      "Inner-only는 exocad 전용입니다.",
+      "Inner+hole은 exocad와 3Shape에서 모두 사용 가능하지만, 3Shape에서는 수축 보정이 필요합니다.",
+      "Inner+hole 기능을 사용하려면 Blender를 설치해야 합니다:",
+      "FAST IMAGE CONVERTER도 제공됩니다 (STL을 이미지로 빠르게 변환).",
+      "일부 기능은 컴퓨터 환경에 따라 작동하지 않을 수 있습니다.",
+    ],
+    footer:
+      "“동의합니다”를 클릭하면, 현재 상태를 이해하고 라이선스를 구매하겠다는 뜻으로 간주합니다.",
+  },
+  purchase: {
+    title: "결제 문의",
+    desc: "결제 게이트웨이를 준비 중입니다. 지금 바로 구매를 원하시면 아래 이메일로 연락주세요:",
+    copy: "복사",
+    close: "닫기",
   }
-    nav: {
-      home: "홈",
-      download: "다운로드",
-      buy: "구매",
-      contact: "문의",
-      terms: "이용약관/개인정보",
-      family: "패밀리",
-      login: "로그인",
-      signup: "회원가입",
-    },
-    home: {
-      subtitle: "원클릭으로 생산성 극대화",
-      title: "수 시간의 작업을 몇 초로 단축",
-      cta: "DLAS 패밀리에 합류하세요 – 단",
-      price: "390달러",
-      gameChangerTitle: "디지털 덴티스트리의 게임 체인저",
-      gameChangerDesc:
-        "DLAS는 단순한 소프트웨어가 아니라, 치과 CAD 자동화의 혁신으로 복잡한 워크플로우를 단순화하고 생산성을 높여줍니다.",
-      gameChangerQuote: `"치과 자동화의 미래가 여기 있습니다"`,
-    },
-    download: {
-      title: "소프트웨어 다운로드",
-      desc: "아래 버튼을 클릭하여 DLAS CAD 소프트웨어의 최신 버전을 다운로드하세요.",
-      button: "지금 다운로드",
-    },
-    buy: {
-      title: "라이선스 구매",
-      familyGifPlaceholder: "패밀리 라이선스 GIF 자리",
-      familyLicense: "패밀리 라이선스",
-      moduleGif: "GIF 자리",
-    },
-    contact: {
-      title: "문의하기",
-      info1: "support@dlas.io",
-      info2: "대한민국 대전광역시 서구 둔산로 63, 403-817 (DLAS)",
-      form: {
-        firstName: "이름",
-        lastName: "성",
-        email: "이메일 주소",
-        phone: "전화번호",
-        message: "문의 내용",
-        submit: "문의하기",
-      },
-    },
+}
     terms: {
       title: "이용약관 & 개인정보처리방침",
       headingTerms: "[이용약관]",
