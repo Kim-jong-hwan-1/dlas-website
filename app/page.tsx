@@ -6,7 +6,6 @@ import { useLang } from "@/components/LanguageWrapper";
 
 export default function Page() {
   const { t } = useLang();
-  const items = t("payment.items") as unknown as string[];
   // --- 로그인 상태 관리 ---
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -775,10 +774,15 @@ export default function Page() {
       {t("payment.statusHeader")}
     </p>
     <ul className="list-disc list-inside space-y-1">
-  {items.map((line, idx) => (
-    <li key={idx}>{line}</li>
-  ))}
+  <li>{t("payment.items.0")}</li>
+  <li>{t("payment.items.1")}</li>
+  <li>{t("payment.items.2")}</li>
+  <li>{t("payment.items.3")}</li>
+  <li>{t("payment.items.4")}</li>
+  <li>{t("payment.items.5")}</li>
+  <li>{t("payment.items.6")}</li>
 </ul>
+
   </div>
 
   <p>{t("payment.footer")}</p>
