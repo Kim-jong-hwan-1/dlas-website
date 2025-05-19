@@ -1605,7 +1605,6 @@ export const translations = {
     },
   },
 
-export const translations = {
   ko: {
     nav: {
       home: "홈",
