@@ -183,6 +183,188 @@ export const translations = {
         email: "Email",
         password: "Password",
         submit: "Login",
+export const translations = {
+  en: {
+    family: {
+      modalTitle: "Family License Information",
+      desc1:
+        "Use DLAS modules for life without extra fees. We are looking for partners to grow with DLAS. Only those leading digital innovation in dental labs should join.",
+      desc2:
+        "You can access all listed modules permanently. If you don’t understand what innovation is, or you're a beginner or inexperienced, please do not sign up.",
+      desc3:
+        "Even new modules will be free if released before v2.0.0. Our automation programs may have bugs depending on your computer environment. Report them, and we’ll improve.",
+      desc4:
+        "After v2.0.0, regular license fees will apply. We recommend using the free license first before purchasing.",
+      desc5:
+        "This is a one-time offer only available now. The family license will likely increase in value. One user can own multiple licenses, and reselling is allowed.",
+      tableNote: "※ Details may change without notice.",
+      paymentBtn: "Proceed to Payment (Coming Soon)",
+      paymentMsg: "Payment integration coming soon.",
+    },
+    payment: {
+      title: "Family License Payment",
+      warning: "Please check the current module status before purchasing.",
+      agree: "I agree",
+      statusHeader: "--- Current Module Status ---",
+      items: [
+        "Transfer Jig Maker is currently enabled.",
+        "Shrink, exocad, and 3Shape are all supported.",
+        "Inner-only is exocad only.",
+        "Inner+hole is possible with exocad & 3Shape, but 3Shape requires shrink processing.",
+        "You must download Blender if you want to use inner+hole:",
+        "FAST IMAGE CONVERTER is also available (quickly converts STL to images).",
+        "Some features may not run depending on your computer environment.",
+      ],
+      footer:
+        "By clicking \u201cI agree,\u201d you confirm you understand the current status and wish to purchase the license.",
+    },
+    purchase: {
+      title: "Purchase Inquiry",
+      desc: "We are preparing a payment gateway. If you want to purchase right now, please contact:",
+      copy: "Copy",
+      close: "Close",
+    },
+    nav: {
+      home: "Home",
+      download: "Download",
+      buy: "Buy",
+      contact: "Contact",
+      terms: "Terms & Privacy",
+      family: "Family",
+      login: "Login",
+      signup: "Sign Up",
+    },
+    home: {
+      subtitle: "Maximize Productivity with Just One Click",
+      title: "From Hours to Seconds",
+      cta: "Join the DLAS Family – only",
+      price: "$390",
+      gameChangerTitle: "Game Changer in Digital Dentistry",
+      gameChangerDesc:
+        "DLAS is more than just a software. It is a revolution in dental CAD automation, designed to empower dental professionals with cutting-edge tools that simplify complex workflows, reduce manual labor, and maximize productivity.",
+      gameChangerQuote: `"The future of dental automation is here"`,
+    },
+    download: {
+      title: "Download Software",
+      desc: "Click below to download the latest version of DLAS CAD Software.",
+      button: "Download Now",
+    },
+    buy: {
+      title: "Buy License",
+      familyGifPlaceholder: "Family License GIF Placeholder",
+      familyLicense: "Family License",
+      moduleGif: "GIF Placeholder",
+    },
+    contact: {
+      title: "Contact Us",
+      info1: "support@dlas.io",
+      info2: "63, Dunsan-ro, Seo-gu, Daejeon, Republic of Korea 403-817 (DLAS)",
+      form: {
+        firstName: "First name",
+        lastName: "Last name",
+        email: "Email address",
+        phone: "Phone number",
+        message: "Message",
+        submit: "Inquire Now",
+      },
+    },
+    terms: {
+      title: "Terms & Privacy",
+      headingTerms: "[Terms of Service]",
+      article1: {
+        title: "Article 1 (Purpose)",
+        desc: `These Terms of Service ("Terms") govern the use of software and related services ("Services") provided through the website operated by DLAS ("Company").`,
+      },
+      article2: {
+        title: "Article 2 (Definitions)",
+        desc: `1. "User" refers to any individual who agrees to these Terms and uses the Services.<br/>
+2. "Product" refers to any AI-based software, modules, or programs provided by the Company.`,
+      },
+      article3: {
+        title: "Article 3 (Effect and Modification of Terms)",
+        desc: `1. These Terms become effective upon posting on the website.<br/>
+2. The Company may revise these Terms in compliance with applicable laws and will notify users in advance.`,
+      },
+      article4: {
+        title: "Article 4 (Provision of Services)",
+        desc: `The Company provides the following services:<br/>
+- Downloadable AI-based dental software<br/>
+- Purchase and activation of paid modules<br/>
+- Other services designated by the Company`,
+      },
+      article5: {
+        title: "Article 5 (Payment and Refunds)",
+        desc: `1. Users may purchase products using payment methods designated by the Company.<br/>
+2. Due to the nature of digital products, refunds are not available after download or activation, except where required by law.`,
+      },
+      article6: {
+        title: "Article 6 (Intellectual Property)",
+        desc: `1. All content and software provided on the website are protected under copyright and belong to the Company.<br/>
+2. Unauthorized duplication, redistribution, or reverse engineering is prohibited and may lead to legal consequences.`,
+      },
+      article7: {
+        title: "Article 7 (Disclaimer)",
+        desc: `1. The Company shall not be liable for service failures caused by force majeure events such as natural disasters, cyberattacks, or system failures.<br/>
+2. The Company is not responsible for damages caused by the user's negligence.`,
+      },
+      article8: {
+        title: "Article 8 (Governing Law and Jurisdiction)",
+        desc: `Any disputes arising from these Terms shall be governed by the laws of the Republic of Korea, with the court having jurisdiction over the Company's headquarters as the court of first instance.`,
+      },
+      effectiveDate: "Effective Date: April 29, 2025",
+    },
+    privacy: {
+      headingPrivacy: "[Privacy Policy]",
+      intro: `DLAS ("Company") respects your privacy and handles your personal data in accordance with applicable laws including the Personal Information Protection Act.`,
+      article1: {
+        title: "Article 1 (Collected Information)",
+        desc: `We may collect the following types of information:<br/>
+- Email address and password (when registering)<br/>
+- Name and payment details (for paid services)<br/>
+- Access logs, IP address, usage history (for service quality and security)`,
+      },
+      article2: {
+        title: "Article 2 (Purpose of Collection)",
+        desc: `Personal data is collected and used for the following purposes:<br/>
+- User authentication and service provision<br/>
+- Payment processing and refund support<br/>
+- Customer support and notification delivery<br/>
+- Prevention of fraud and system abuse`,
+      },
+      article3: {
+        title: "Article 3 (Retention Period)",
+        desc: `- Data is deleted upon account termination unless otherwise required by law.<br/>
+- Certain data may be retained for a legally mandated period (e.g., under e-commerce regulations).`,
+      },
+      article4: {
+        title: "Article 4 (Third-party Disclosure)",
+        desc: `We do not share personal data with third parties except:<br/>
+- With your prior consent<br/>
+- When required by law or legal proceedings`,
+      },
+      article5: {
+        title: "Article 5 (Destruction of Personal Data)",
+        desc: `Personal data will be securely destroyed after the retention period.<br/>
+- Digital files: permanently deleted<br/>
+- Paper documents: shredded or incinerated`,
+      },
+      article6: {
+        title: "Article 6 (User Rights)",
+        desc: `You may request to view, modify, delete, or restrict the processing of your personal data at any time.`,
+      },
+      article7: {
+        title: "Article 7 (Data Protection Officer)",
+        desc: `- Officer: JongHwan Kim<br/>
+- Email: support@dlas.io`,
+      },
+      effectiveDate: "Effective Date: April 29, 2025",
+    },
+    login: {
+      title: "Login to DLAS",
+      form: {
+        email: "Email",
+        password: "Password",
+        submit: "Login",
         noAccount: "Don’t have an account?",
         signupNow: "Sign up",
       },
@@ -221,6 +403,7 @@ export const translations = {
     },
   },
 };
+
 
   /////////////////////////////////////////////////////////////////////
   // 2. 중국어 (zh)
@@ -1422,93 +1605,90 @@ export const translations = {
     },
   },
 
-  /////////////////////////////////////////////////////////////////////
-  // 8. 한국어 (ko)
-  /////////////////////////////////////////////////////////////////////
- ko: {
-  nav: {
-    home: "홈",
-    download: "다운로드",
-    buy: "구매",
-    contact: "문의",
-    terms: "이용약관/개인정보",
-    family: "패밀리",
-    login: "로그인",
-    signup: "회원가입",
-  },
-  home: {
-    subtitle: "원클릭으로 생산성 극대화",
-    title: "수 시간의 작업을 몇 초로 단축",
-    cta: "DLAS 패밀리에 합류하세요 – 단",
-    price: "390달러",
-    gameChangerTitle: "디지털 덴티스트리의 게임 체인저",
-    gameChangerDesc:
-      "DLAS는 단순한 소프트웨어가 아니라, 치과 CAD 자동화의 혁신으로 복잡한 워크플로우를 단순화하고 생산성을 높여줍니다.",
-    gameChangerQuote: `"치과 자동화의 미래가 여기 있습니다"`,
-  },
-  download: {
-    title: "소프트웨어 다운로드",
-    desc: "아래 버튼을 클릭하여 DLAS CAD 소프트웨어의 최신 버전을 다운로드하세요.",
-    button: "지금 다운로드",
-  },
-  buy: {
-    title: "라이선스 구매",
-    familyGifPlaceholder: "패밀리 라이선스 GIF 자리",
-    familyLicense: "패밀리 라이선스",
-    moduleGif: "GIF 자리",
-  },
-  contact: {
-    title: "문의하기",
-    info1: "support@dlas.io",
-    info2: "대한민국 대전광역시 서구 둔산로 63, 403-817 (DLAS)",
-    form: {
-      firstName: "이름",
-      lastName: "성",
-      email: "이메일 주소",
-      phone: "전화번호",
-      message: "문의 내용",
-      submit: "문의하기",
+export const translations = {
+  ko: {
+    nav: {
+      home: "홈",
+      download: "다운로드",
+      buy: "구매",
+      contact: "문의",
+      terms: "이용약관/개인정보",
+      family: "패밀리",
+      login: "로그인",
+      signup: "회원가입",
     },
-  },
-  family: {
-    modalTitle: "패밀리 라이선스 안내",
-    desc1:
-      "DLAS와 함께 성장할 파트너를 찾고 있습니다. 디지털 혁신을 주도하는 치과 랩만 참여하세요.",
-    desc2:
-      "혁신이 무엇인지 이해하지 못하거나, 초보 혹은 경험이 없는 경우에는 가입을 자제해 주세요.",
-    desc3:
-      "자동화 프로그램은 컴퓨터 환경에 따라 버그가 있을 수 있습니다. 보고해주시면 개선하겠습니다.",
-    desc4: "구매 전에 무료 라이선스를 먼저 사용하는 것을 권장합니다.",
-    desc5:
-      "v2.0.0 이후에는 패밀리 라이선스 가치가 높아질 수 있습니다. 한 사람이 여러 개를 구매할 수 있으며, 재판매도 허용합니다.",
-    tableNote: "※ 계획은 사전 통지 없이 변경될 수 있습니다.",
-    paymentBtn: "결제 진행 (준비 중)",
-    paymentMsg: "결제 기능이 곧 추가될 예정입니다.",
-  },
-  payment: {
-    title: "패밀리 라이선스 결제",
-    warning: "구매 전, 현재 모듈 상태를 꼭 확인하세요.",
-    agree: "동의합니다",
-    statusHeader: "--- 현재 모듈 상태 ---",
-    items: [
-      "Transfer Jig Maker는 현재 사용 가능합니다.",
-      "Shrink, exocad, 3Shape 모두 지원됩니다.",
-      "Inner-only는 exocad 전용입니다.",
-      "Inner+hole은 exocad와 3Shape에서 모두 사용 가능하지만, 3Shape에서는 수축 보정이 필요합니다.",
-      "Inner+hole 기능을 사용하려면 Blender를 설치해야 합니다:",
-      "FAST IMAGE CONVERTER도 제공됩니다 (STL을 이미지로 빠르게 변환).",
-      "일부 기능은 컴퓨터 환경에 따라 작동하지 않을 수 있습니다.",
-    ],
-    footer:
-      "“동의합니다”를 클릭하면, 현재 상태를 이해하고 라이선스를 구매하겠다는 뜻으로 간주합니다.",
-  },
-  purchase: {
-    title: "결제 문의",
-    desc: "결제 게이트웨이를 준비 중입니다. 지금 바로 구매를 원하시면 아래 이메일로 연락주세요:",
-    copy: "복사",
-    close: "닫기",
-  }
-}
+    home: {
+      subtitle: "원클릭으로 생산성 극대화",
+      title: "수 시간의 작업을 몇 초로 단축",
+      cta: "DLAS 패밀리에 합류하세요 – 단",
+      price: "390달러",
+      gameChangerTitle: "디지털 덴티스트리의 게임 체인저",
+      gameChangerDesc:
+        "DLAS는 단순한 소프트웨어가 아니라, 치과 CAD 자동화의 혁신으로 복잡한 워크플로우를 단순화하고 생산성을 높여줍니다.",
+      gameChangerQuote: `"치과 자동화의 미래가 여기 있습니다"`,
+    },
+    download: {
+      title: "소프트웨어 다운로드",
+      desc: "아래 버튼을 클릭하여 DLAS CAD 소프트웨어의 최신 버전을 다운로드하세요.",
+      button: "지금 다운로드",
+    },
+    buy: {
+      title: "라이선스 구매",
+      familyGifPlaceholder: "패밀리 라이선스 GIF 자리",
+      familyLicense: "패밀리 라이선스",
+      moduleGif: "GIF 자리",
+    },
+    contact: {
+      title: "문의하기",
+      info1: "support@dlas.io",
+      info2: "대한민국 대전광역시 서구 둔산로 63, 403-817 (DLAS)",
+      form: {
+        firstName: "이름",
+        lastName: "성",
+        email: "이메일 주소",
+        phone: "전화번호",
+        message: "문의 내용",
+        submit: "문의하기",
+      },
+    },
+    family: {
+      modalTitle: "패밀리 라이선스 안내",
+      desc1:
+        "DLAS와 함께 성장할 파트너를 찾고 있습니다. 디지털 혁신을 주도하는 치과 랩만 참여하세요.",
+      desc2:
+        "혁신이 무엇인지 이해하지 못하거나, 초보 혹은 경험이 없는 경우에는 가입을 자제해 주세요.",
+      desc3:
+        "자동화 프로그램은 컴퓨터 환경에 따라 버그가 있을 수 있습니다. 보고해주시면 개선하겠습니다.",
+      desc4: "구매 전에 무료 라이선스를 먼저 사용하는 것을 권장합니다.",
+      desc5:
+        "v2.0.0 이후에는 패밀리 라이선스 가치가 높아질 수 있습니다. 한 사람이 여러 개를 구매할 수 있으며, 재판매도 허용합니다.",
+      tableNote: "※ 계획은 사전 통지 없이 변경될 수 있습니다.",
+      paymentBtn: "결제 진행 (준비 중)",
+      paymentMsg: "결제 기능이 곧 추가될 예정입니다.",
+    },
+    payment: {
+      title: "패밀리 라이선스 결제",
+      warning: "구매 전, 현재 모듈 상태를 꼭 확인하세요.",
+      agree: "동의합니다",
+      statusHeader: "--- 현재 모듈 상태 ---",
+      items: [
+        "Transfer Jig Maker는 현재 사용 가능합니다.",
+        "Shrink, exocad, 3Shape 모두 지원됩니다.",
+        "Inner-only는 exocad 전용입니다.",
+        "Inner+hole은 exocad와 3Shape에서 모두 사용 가능하지만, 3Shape에서는 수축 보정이 필요합니다.",
+        "Inner+hole 기능을 사용하려면 Blender를 설치해야 합니다:",
+        "FAST IMAGE CONVERTER도 제공됩니다 (STL을 이미지로 빠르게 변환).",
+        "일부 기능은 컴퓨터 환경에 따라 작동하지 않을 수 있습니다.",
+      ],
+      footer:
+        "“동의합니다”를 클릭하면, 현재 상태를 이해하고 라이선스를 구매하겠다는 뜻으로 간주합니다.",
+    },
+    purchase: {
+      title: "결제 문의",
+      desc: "결제 게이트웨이를 준비 중입니다. 지금 바로 구매를 원하시면 아래 이메일로 연락주세요:",
+      copy: "복사",
+      close: "닫기",
+    },
     terms: {
       title: "이용약관 & 개인정보처리방침",
       headingTerms: "[이용약관]",
@@ -1624,11 +1804,9 @@ export const translations = {
         password: "비밀번호",
         confirmPassword: "비밀번호 확인",
         countryPlaceholder: "국가 선택",
-        // ---------------- [추가/수정된 부분] ----------------
         id: "ID",
         workplaceName: "전화번호 (비밀번호 찾기 용)",
         workplaceAddress: "이메일 (비밀번호 찾기 용)",
-        // --------------------------------------------------
         agreeRequired: "이용약관에 동의합니다(필수)",
         agreeMarketing: "마케팅 이메일 수신에 동의합니다(선택)",
         submit: "계정 생성",
@@ -1644,22 +1822,9 @@ export const translations = {
       youtube: "유튜브",
       instagram: "인스타그램",
     },
-    family: {
-      modalTitle: "패밀리 라이선스 안내",
-      desc1:
-        "DLAS와 함께 성장할 파트너를 찾고 있습니다. 디지털 혁신을 주도하는 치과 랩만 참여하세요.",
-      desc2:
-        "혁신이 무엇인지 이해하지 못하거나, 초보 혹은 경험이 없는 경우에는 가입을 자제해 주세요.",
-      desc3:
-        "자동화 프로그램은 컴퓨터 환경에 따라 버그가 있을 수 있습니다. 보고해주시면 개선하겠습니다.",
-      desc4: "구매 전에 무료 라이선스를 먼저 사용하는 것을 권장합니다.",
-      desc5:
-        "v2.0.0 이후에는 패밀리 라이선스 가치가 높아질 수 있습니다. 한 사람이 여러 개를 구매할 수 있으며, 재판매도 허용합니다.",
-      tableNote: "※ 계획은 사전 통지 없이 변경될 수 있습니다.",
-      paymentBtn: "결제 진행 (준비 중)",
-      paymentMsg: "결제 기능이 곧 추가될 예정입니다.",
-    },
   },
+};
+
 
   /////////////////////////////////////////////////////////////////////
   // 9. 러시아어 (ru)
