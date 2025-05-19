@@ -6,7 +6,7 @@ import { useLang } from "@/components/LanguageWrapper";
 
 export default function Page() {
   const { t } = useLang();
-
+  const items = t("payment.items") as unknown as string[];
   // --- 로그인 상태 관리 ---
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -762,62 +762,37 @@ export default function Page() {
                   /* --- 결제 진행 화면 (모듈 상태 안내) --- */
                   <div>
                     <h2 className="text-xl font-bold mb-4 text-center">
-                      Family License Payment
-                    </h2>
+  {t("payment.title")}
+</h2>
 
-                    <div className="text-sm text-gray-700 leading-relaxed space-y-3">
-                      <p className="font-bold text-red-600">
-                        Please check the current module status before purchasing.
-                      </p>
+<div className="text-sm text-gray-700 leading-relaxed space-y-3">
+  <p className="font-bold text-red-600">
+    {t("payment.warning")}
+  </p>
 
-                      <div className="border rounded p-4 bg-gray-50">
-                        <p className="font-semibold mb-2">
-                          --- Current Module Status ---
-                        </p>
-                        <ul className="list-disc list-inside space-y-1">
-                          <li>Transfer Jig Maker is currently enabled.</li>
-                          <li>Shrink, exocad, and 3Shape are all supported.</li>
-                          <li>Inner-only is exocad only.</li>
-                          <li>
-                            Inner+hole is possible with exocad & 3Shape,
-                            but 3Shape requires shrink processing.
-                          </li>
-                          <li>
-                            You must download Blender if you want to use inner+hole:
-                            <br />
-                            <a
-                              className="underline text-blue-600"
-                              href="https://download.blender.org/release/Blender4.1/blender-4.1.1-windows-x64.zip"
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              Download Blender
-                            </a>
-                          </li>
-                          <li>
-                            FAST IMAGE CONVERTER is also available (quickly converts STL to images).
-                          </li>
-                          <li>
-                            Some features may not run depending on your computer environment.
-                          </li>
-                        </ul>
-                      </div>
-                      <p>
-                        By clicking “I agree,” you confirm you understand the current status
-                        and wish to purchase the license.
-                      </p>
-                    </div>
+  <div className="border rounded p-4 bg-gray-50">
+    <p className="font-semibold mb-2">
+      {t("payment.statusHeader")}
+    </p>
+    <ul className="list-disc list-inside space-y-1">
+  {items.map((line, idx) => (
+    <li key={idx}>{line}</li>
+  ))}
+</ul>
+  </div>
 
-                    <div className="text-center mt-6">
-                      <button
-                        className="bg-black text-white px-8 py-3 rounded hover:bg-gray-800 transition"
-                        onClick={() => {
-                          setShowPaymentSupportModal(true);
-                        }}
-                      >
-                        I agree
-                      </button>
-                    </div>
+  <p>{t("payment.footer")}</p>
+</div>
+
+<div className="text-center mt-6">
+  <button
+    className="bg-black text-white px-8 py-3 rounded hover:bg-gray-800 transition"
+    onClick={() => setShowPaymentSupportModal(true)}
+  >
+    {t("payment.agree")}
+  </button>
+</div>
+
                   </div>
                 ) : showFreeLicenseGuide ? (
                   /* --- 무료 라이선스 획득 방법 화면 --- */
@@ -988,31 +963,29 @@ export default function Page() {
                 ×
               </button>
               <h2 className="text-2xl font-bold mb-4 text-center">
-                Purchase Inquiry
-              </h2>
-              <p className="text-sm text-gray-700 leading-relaxed mb-4">
-                We are preparing a payment gateway. If you want to purchase right now,
-                please contact:
-              </p>
-              <div className="flex items-center justify-between gap-2 bg-gray-100 rounded p-2 mb-4">
-                <span className="text-black text-sm font-bold">
-                  support@dlas.io
-                </span>
-                <button
-                  onClick={handleCopyEmail}
-                  className="bg-gray-300 text-black px-3 py-1 rounded hover:bg-gray-400 transition text-sm"
-                >
-                  Copy
-                </button>
-              </div>
-              <div className="text-center">
-                <button
-                  className="bg-black text-white px-8 py-3 rounded hover:bg-gray-800 transition"
-                  onClick={() => setShowPaymentSupportModal(false)}
-                >
-                  Close
-                </button>
-              </div>
+  {t("purchase.title")}
+</h2>
+<p className="text-sm text-gray-700 leading-relaxed mb-4">
+  {t("purchase.desc")}
+</p>
+<div className="flex items-center justify-between gap-2 bg-gray-100 rounded p-2 mb-4">
+  <span className="text-black text-sm font-bold">support@dlas.io</span>
+  <button
+    onClick={handleCopyEmail}
+    className="bg-gray-300 text-black px-3 py-1 rounded hover:bg-gray-400 transition text-sm"
+  >
+    {t("purchase.copy")}
+  </button>
+</div>
+<div className="text-center">
+  <button
+    className="bg-black text-white px-8 py-3 rounded hover:bg-gray-800 transition"
+    onClick={() => setShowPaymentSupportModal(false)}
+  >
+    {t("purchase.close")}
+  </button>
+</div>
+
             </div>
           </div>
         )}
