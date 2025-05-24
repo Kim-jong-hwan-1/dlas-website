@@ -393,6 +393,17 @@ export default function Page() {
     navigator.clipboard.writeText("support@dlas.io");
   };
 
+  // [추가] 다운로드 모달 띄우기
+  const [showDownloadModal, setShowDownloadModal] = useState(false);
+
+  // 실제 다운로드 실행 함수
+  const handleDownloadConfirm = () => {
+    setShowDownloadModal(false);
+    // 다운로드 시작
+    window.location.href =
+      "https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v1.1.7/DLAS_Installer.exe";
+  };
+
   return (
     <div className="min-h-screen bg-white text-black relative">
       {/* 왼쪽 상단 로고 (PC에서만) */}
@@ -465,7 +476,9 @@ export default function Page() {
             </button>
             <button
               onClick={() =>
-                document.getElementById("signup-modal")!.classList.remove("hidden")
+                document
+                  .getElementById("signup-modal")!
+                  .classList.remove("hidden")
               }
               className="text-sm font-medium border border-gray-300 px-4 py-2 rounded hover:bg-gray-100 transition"
             >
@@ -524,27 +537,30 @@ export default function Page() {
           </div>
         </section>
 
+        {/* 다운로드 섹션 */}
         <section
-  id="download"
-  className="scroll-mt-[180px] text-center py-20 bg-gray-100"
->
-  <h2 className="text-4xl font-bold mb-4">{t("download.title")}</h2>
-  <p className="text-lg text-gray-500 max-w-3xl mx-auto mt-2">
-    Windows 전용 설치 파일입니다.<br />
-    압축을 풀 필요 없이 바로 실행하세요. (Mac 미지원)<br /><br />
-    Windows installer (.exe).<br />
-    Just run the file. (Not available for Mac.)
-  </p>
-  <a
-    href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v1.1.7/DLAS_Installer.exe"
-    className="inline-block mt-6 bg-black text-white px-8 py-4 rounded hover:bg-gray-800 transition"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    Download DLAS for Windows (.exe)
-  </a>
-</section>
-
+          id="download"
+          className="scroll-mt-[180px] text-center py-20 bg-gray-100"
+        >
+          <h2 className="text-4xl font-bold mb-4">{t("download.title")}</h2>
+          <p className="text-lg text-gray-500 max-w-3xl mx-auto mt-2">
+            Windows 전용 설치 파일입니다.
+            <br />
+            압축을 풀 필요 없이 바로 실행하세요. (Mac 미지원)
+            <br />
+            <br />
+            Windows installer (.exe).
+            <br />
+            Just run the file. (Not available for Mac.)
+          </p>
+          {/* 기존 링크 대신 버튼을 사용 */}
+          <button
+            onClick={() => setShowDownloadModal(true)}
+            className="inline-block mt-6 bg-black text-white px-8 py-4 rounded hover:bg-gray-800 transition"
+          >
+            Download DLAS for Windows (.exe)
+          </button>
+        </section>
 
         {/* 구매 섹션 */}
         <section id="buy" className="scroll-mt-[180px] py-20 px-10 bg-white">
@@ -765,42 +781,40 @@ export default function Page() {
                   /* --- 결제 진행 화면 (모듈 상태 안내) --- */
                   <div>
                     <h2 className="text-xl font-bold mb-4 text-center">
-  {t("payment.title")}
-</h2>
+                      {t("payment.title")}
+                    </h2>
 
-<div className="text-sm text-gray-700 leading-relaxed space-y-3">
-  <p className="font-bold text-red-600">
-    {t("payment.warning")}
-  </p>
+                    <div className="text-sm text-gray-700 leading-relaxed space-y-3">
+                      <p className="font-bold text-red-600">
+                        {t("payment.warning")}
+                      </p>
 
-  <div className="border rounded p-4 bg-gray-50">
-    <p className="font-semibold mb-2">
-      {t("payment.statusHeader")}
-    </p>
-    <ul className="list-disc list-inside space-y-1">
-  <li>{t("payment.items.0")}</li>
-  <li>{t("payment.items.1")}</li>
-  <li>{t("payment.items.2")}</li>
-  <li>{t("payment.items.3")}</li>
-  <li>{t("payment.items.4")}</li>
-  <li>{t("payment.items.5")}</li>
-  <li>{t("payment.items.6")}</li>
-</ul>
+                      <div className="border rounded p-4 bg-gray-50">
+                        <p className="font-semibold mb-2">
+                          {t("payment.statusHeader")}
+                        </p>
+                        <ul className="list-disc list-inside space-y-1">
+                          <li>{t("payment.items.0")}</li>
+                          <li>{t("payment.items.1")}</li>
+                          <li>{t("payment.items.2")}</li>
+                          <li>{t("payment.items.3")}</li>
+                          <li>{t("payment.items.4")}</li>
+                          <li>{t("payment.items.5")}</li>
+                          <li>{t("payment.items.6")}</li>
+                        </ul>
+                      </div>
 
-  </div>
+                      <p>{t("payment.footer")}</p>
+                    </div>
 
-  <p>{t("payment.footer")}</p>
-</div>
-
-<div className="text-center mt-6">
-  <button
-    className="bg-black text-white px-8 py-3 rounded hover:bg-gray-800 transition"
-    onClick={() => setShowPaymentSupportModal(true)}
-  >
-    {t("payment.agree")}
-  </button>
-</div>
-
+                    <div className="text-center mt-6">
+                      <button
+                        className="bg-black text-white px-8 py-3 rounded hover:bg-gray-800 transition"
+                        onClick={() => setShowPaymentSupportModal(true)}
+                      >
+                        {t("payment.agree")}
+                      </button>
+                    </div>
                   </div>
                 ) : showFreeLicenseGuide ? (
                   /* --- 무료 라이선스 획득 방법 화면 --- */
@@ -861,7 +875,8 @@ export default function Page() {
                         and take a screenshot.
                       </p>
                       <p>
-                        3) Make sure your Instagram ID is clearly visible in your screenshot.
+                        3) Make sure your Instagram ID is clearly visible in your
+                        screenshot.
                       </p>
                       <p>
                         Then send all the screenshots to{" "}
@@ -874,9 +889,18 @@ export default function Page() {
                       </p>
                       <hr className="my-3" />
                       <div className="font-bold text-gray-900 space-y-1">
-                        <p>- Each verified Instagram account grants 3 hours of free license.</p>
-                        <p>- One DLAS ID can redeem multiple times with different Instagram accounts.</p>
-                        <p>- One Instagram account cannot be reused for another DLAS ID.</p>
+                        <p>
+                          - Each verified Instagram account grants 3 hours of free
+                          license.
+                        </p>
+                        <p>
+                          - One DLAS ID can redeem multiple times with different
+                          Instagram accounts.
+                        </p>
+                        <p>
+                          - One Instagram account cannot be reused for another DLAS
+                          ID.
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -971,33 +995,99 @@ export default function Page() {
                 ×
               </button>
               <h2 className="text-2xl font-bold mb-4 text-center">
-  {t("purchase.title")}
-</h2>
-<p className="text-sm text-gray-700 leading-relaxed mb-4">
-  {t("purchase.desc")}
-</p>
-<div className="flex items-center justify-between gap-2 bg-gray-100 rounded p-2 mb-4">
-  <span className="text-black text-sm font-bold">support@dlas.io</span>
-  <button
-    onClick={handleCopyEmail}
-    className="bg-gray-300 text-black px-3 py-1 rounded hover:bg-gray-400 transition text-sm"
-  >
-    {t("purchase.copy")}
-  </button>
-</div>
-<div className="text-center">
-  <button
-    className="bg-black text-white px-8 py-3 rounded hover:bg-gray-800 transition"
-    onClick={() => setShowPaymentSupportModal(false)}
-  >
-    {t("purchase.close")}
-  </button>
-</div>
-
+                {t("purchase.title")}
+              </h2>
+              <p className="text-sm text-gray-700 leading-relaxed mb-4">
+                {t("purchase.desc")}
+              </p>
+              <div className="flex items-center justify-between gap-2 bg-gray-100 rounded p-2 mb-4">
+                <span className="text-black text-sm font-bold">support@dlas.io</span>
+                <button
+                  onClick={handleCopyEmail}
+                  className="bg-gray-300 text-black px-3 py-1 rounded hover:bg-gray-400 transition text-sm"
+                >
+                  {t("purchase.copy")}
+                </button>
+              </div>
+              <div className="text-center">
+                <button
+                  className="bg-black text-white px-8 py-3 rounded hover:bg-gray-800 transition"
+                  onClick={() => setShowPaymentSupportModal(false)}
+                >
+                  {t("purchase.close")}
+                </button>
+              </div>
             </div>
           </div>
         )}
       </main>
+
+      {/* [추가] 다운로드 안내 모달 */}
+      {showDownloadModal && (
+        <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center px-4">
+          <div className="bg-white w-full max-w-lg p-6 rounded-lg shadow-xl relative">
+            {/* 닫기 버튼 */}
+            <button
+              className="absolute top-2 right-3 text-gray-500 hover:text-black text-2xl"
+              onClick={() => setShowDownloadModal(false)}
+            >
+              ×
+            </button>
+
+            <h2 className="text-xl font-bold mb-3">※ Notice</h2>
+            <ul className="text-sm text-gray-700 list-disc pl-5 mb-6 space-y-2">
+              <li>
+                You may see a message like{" "}
+                <em>"This file isn't commonly downloaded."</em>
+              </li>
+              <li>
+                This installer is distributed only through the official DLAS website
+                and is safe to use.
+              </li>
+              <li>
+                If you see a warning, please click "Keep" or "Continue" to proceed with
+                the installation.
+              </li>
+              <li>
+                A digitally signed (code-signed) version will be provided soon.
+              </li>
+              <li>
+                For any questions, please contact <strong>support@dlas.io</strong>.
+              </li>
+            </ul>
+
+            <h2 className="text-xl font-bold mb-3">※ 안내</h2>
+            <ul className="text-sm text-gray-700 list-disc pl-5 mb-6 space-y-2">
+              <li>
+                "이 파일은 일반적으로 다운로드되지 않습니다"라는 메시지가 보일 수 있습니다.
+              </li>
+              <li>
+                본 설치 파일은 DLAS 공식 홈페이지에서만 배포하며, 안전하게 사용하실 수
+                있습니다.
+              </li>
+              <li>
+                다운로드 경고가 나오더라도 '계속' 또는 '유지' 버튼을 눌러 설치를
+                진행해 주세요.
+              </li>
+              <li>
+                정식 코드서명(디지털 인증서)이 적용된 버전은 곧 제공될 예정입니다.
+              </li>
+              <li>
+                궁금한 점은 <strong>support@dlas.io</strong>로 문의해 주세요.
+              </li>
+            </ul>
+
+            <div className="text-center mt-4">
+              <button
+                onClick={handleDownloadConfirm}
+                className="bg-black text-white px-6 py-2 rounded hover:bg-gray-800 transition"
+              >
+                확인
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* 로그인 모달 */}
       <div
