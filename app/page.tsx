@@ -591,8 +591,7 @@ export default function Page() {
                 key={i}
                 className="w-[28rem] h-[36rem] border p-10 rounded-lg shadow hover:shadow-lg transition flex flex-col items-center"
               >
-                <div className="w-[28rem] h-[28rem] bg-gray-200 mb-6 px-8 flex items-center justify-center relative">
-
+                <div className="w-[28rem] h-[28rem] bg-gray-200 mb-6 relative overflow-hidden">
                 {mod === "Transfer Jig Maker" ? (
                     <Image
                       src="/gifs/transfer_jig.gif"
@@ -602,11 +601,11 @@ export default function Page() {
                     />
                   ) : mod === "Image Converter" ? (
                     <Image
-                      src="/gifs/fast_image_converter.gif"
-                      alt={`${mod} gif`}
-                      fill
-                      className="object-cover w-full h-full"
-                    />
+                    src="/gifs/fast_image_converter.gif"
+                    alt={`${mod} gif`}
+                    fill
+                    className="object-cover"
+                  />
                   ) : (
                     <span className="text-gray-400 text-2xl font-bold">
                       Coming Soon
