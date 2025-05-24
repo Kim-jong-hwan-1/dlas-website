@@ -596,17 +596,15 @@ export default function Page() {
                     <Image
                       src="/gifs/transfer_jig.gif"
                       alt={`${mod} gif`}
-                      width={200}
-                      height={200}
-                      className="object-contain"
+                      fill
+                      className="object-cover w-full h-full"
                     />
                   ) : mod === "Image Converter" ? (
                     <Image
                       src="/gifs/fast_image_converter.gif"
                       alt={`${mod} gif`}
-                      width={200}
-                      height={200}
-                      className="object-contain"
+                      fill
+                      className="object-cover w-full h-full"
                     />
                   ) : (
                     <span className="text-gray-400 text-2xl font-bold">
