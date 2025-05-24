@@ -526,21 +526,24 @@ export default function Page() {
 
         {/* 다운로드 섹션 */}
         <section
-          id="download"
-          className="scroll-mt-[180px] text-center py-20 bg-gray-100"
-        >
-          <h2 className="text-4xl font-bold mb-4">{t("download.title")}</h2>
-          <p className="text-lg text-gray-500 max-w-3xl mx-auto mt-2">
-            {t("download.desc")}
-          </p>
-          <a
-            href="/downloads/DLAS_Setup.exe"
-            download
-            className="inline-block mt-6 bg-black text-white px-8 py-4 rounded hover:bg-gray-800 transition"
-          >
-            {t("download.button")}
-          </a>
-        </section>
+  id="download"
+  className="scroll-mt-[180px] text-center py-20 bg-gray-100"
+>
+  <h2 className="text-4xl font-bold mb-4">{t("download.title")}</h2>
+  <p className="text-lg text-gray-500 max-w-3xl mx-auto mt-2">
+    Windows 전용 설치 프로그램입니다.<br />
+    압축을 풀고 실행하세요. (Mac 사용자는 지원하지 않습니다.)
+    <br /><br />
+    This is a Windows installer. Please extract the ZIP file and run the installer.<br />
+    (Not available for Mac.)
+  </p>
+  <a
+    href="https://github.com/kim-jong-hwan-1/dlas-website/releases/download/v1.1.7/DLAS_Installer_v1.1.7.zip"
+    className="inline-block mt-6 bg-black text-white px-8 py-4 rounded hover:bg-gray-800 transition"
+  >
+    Download DLAS for Windows (.zip)
+  </a>
+</section>
 
         {/* 구매 섹션 */}
         <section id="buy" className="scroll-mt-[180px] py-20 px-10 bg-white">
