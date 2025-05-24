@@ -1045,7 +1045,7 @@ export default function Page() {
                 and is safe to use.
               </li>
               <li>
-                If you see a warning, please click "Keep" or "Continue" to proceed with
+                If you see a warning, please click "additional information" or "Continue" to proceed with
                 the installation.
               </li>
               <li>
@@ -1066,7 +1066,7 @@ export default function Page() {
                 있습니다.
               </li>
               <li>
-                다운로드 경고가 나오더라도 '계속' 또는 '유지' 버튼을 눌러 설치를
+                다운로드 경고가 나오더라도 '계속' 또는 '추가정보' 버튼을 눌러 설치를
                 진행해 주세요.
               </li>
               <li>
