@@ -536,7 +536,7 @@ export default function Page() {
     Just run the file. (Not available for Mac.)
   </p>
   <a
-    href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/untagged-5349d55e5b5f6753733c/DLAS_Installer.exe"
+    href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v1.1.7/DLAS_Installer.exe"
     className="inline-block mt-6 bg-black text-white px-8 py-4 rounded hover:bg-gray-800 transition"
     target="_blank"
     rel="noopener noreferrer"
