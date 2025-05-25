@@ -594,10 +594,10 @@ export default function Page() {
                 <div className="w-[28rem] h-[28rem] bg-gray-200 mb-6 relative overflow-hidden">
                 {mod === "Transfer Jig Maker" ? (
                     <Image
-                      src="/gifs/transfer_jig.gif"
+                      src="/gifs/fast_transfer_jig_maker.gif"
                       alt={`${mod} gif`}
-                      fill
-                      className="object-cover w-full h-full"
+                    fill
+                    className="object-cover"
                     />
                   ) : mod === "Image Converter" ? (
                     <Image
