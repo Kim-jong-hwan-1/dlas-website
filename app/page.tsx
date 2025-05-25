@@ -833,7 +833,7 @@ export default function Page() {
                       ← Back
                     </button>
                     <h3 className="text-2xl font-bold mb-4 text-center">
-                      How to get the free license
+                      {t("freeLicense.title")}
                     </h3>
 
                     {/* 실제 이미지 3장으로 대체 */}
@@ -857,43 +857,17 @@ export default function Page() {
 
                     {/* 설명 */}
                     <div className="text-sm text-gray-700 mt-4 leading-6 space-y-2">
-                      <p>
-                        1) Follow us on Instagram:{" "}
-                        <a
-                          href="https://www.instagram.com/dlas_official_"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-blue-600 underline"
-                        >
-                          here
-                        </a>{" "}
-                        and take a screenshot.
-                      </p>
-                      <p>
-                        2) Like our post:{" "}
-                        <a
-                          href="https://www.instagram.com/p/CokRraVPEi1/"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-blue-600 underline"
-                        >
-                          here
-                        </a>{" "}
-                        and take a screenshot.
-                      </p>
-                      <p>
-                        3) Make sure your Instagram ID is clearly visible in your
-                        screenshot.
-                      </p>
-                      <p>
-                        Then send all the screenshots to{" "}
-                        <strong>support@dlas.io</strong> with the email subject line{" "}
-                        <strong>dlas (your dlas ID) / ex: dlas KimJongHwan</strong>.
-                      </p>
-                      <p>
-                        Our AI will review your screenshots and respond within
-                        10 minutes.
-                      </p>
+                    <p dangerouslySetInnerHTML={{ __html: t("freeLicense.step1") }} />
+                    <p dangerouslySetInnerHTML={{ __html: t("freeLicense.step2") }} />
+                    <p>{t("freeLicense.step3")}</p>
+                    <p dangerouslySetInnerHTML={{ __html: t("freeLicense.send") }} />
+                    <p>{t("freeLicense.aiReview")}</p>
+                    <hr className="my-3" />
+                    <div className="font-bold text-gray-900 space-y-1">
+                      <p>{t("freeLicense.note1")}</p>
+                      <p>{t("freeLicense.note2")}</p>
+                      <p>{t("freeLicense.note3")}</p>
+                    </div>
                       <hr className="my-3" />
                       <div className="font-bold text-gray-900 space-y-1">
                         <p>
