@@ -888,7 +888,7 @@ export default function Page() {
                       <p>
                         Then send all the screenshots to{" "}
                         <strong>support@dlas.io</strong> with the email subject line{" "}
-                        <strong>dlas (your dlas ID)</strong>.
+                        <strong>dlas (your dlas ID) / ex: dlas KimJongHwan</strong>.
                       </p>
                       <p>
                         Our AI will review your screenshots and respond within
