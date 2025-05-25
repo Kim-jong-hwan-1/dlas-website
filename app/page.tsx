@@ -807,7 +807,6 @@ export default function Page() {
                           <li>{t("payment.items.3")}</li>
                           <li>{t("payment.items.4")}</li>
                           <li>{t("payment.items.5")}</li>
-                          <li>{t("payment.items.6")}</li>
                         </ul>
                       </div>
 
