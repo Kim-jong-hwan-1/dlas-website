@@ -928,15 +928,16 @@ export default function Page() {
 
                     {/* 강조문구 + 버튼 */}
                     <div className="my-4 text-center">
-                      <p className="font-bold text-red-600 mb-2">
-                        We recommend using the free license first before purchasing.
+                    <p className="font-bold text-red-600 mb-2">
+                        {t("family.recommendFree")}
                       </p>
                       <button
                         onClick={() => setShowFreeLicenseGuide(true)}
                         className="underline text-blue-600 cursor-pointer"
                       >
-                        (How to get the free license)
+                        {t("family.howToGetFree")}
                       </button>
+
                     </div>
 
                     <table className="w-full text-sm border border-gray-300 mb-4 whitespace-nowrap">

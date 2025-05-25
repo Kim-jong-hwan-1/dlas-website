@@ -35,6 +35,8 @@ export const translations = {
       tableNote: "※ Details may change without notice.",
       paymentBtn: "Proceed to Payment (Coming Soon)",
       paymentMsg: "Payment integration coming soon.",
+      recommendFree: "We recommend using the free license first before purchasing.",
+      howToGetFree: "(How to get the free license)",
     },
     payment: {
       title: "Family License Payment",
@@ -1379,6 +1381,8 @@ export const translations = {
       tableNote: "※ 계획은 사전 통지 없이 변경될 수 있습니다.",
       paymentBtn: "결제 진행 (준비 중)",
       paymentMsg: "결제 기능이 곧 추가될 예정입니다.",
+      recommendFree: "구매 전에 먼저 무료 라이선스를 사용하는 것을 권장합니다.",
+      howToGetFree: "(무료 라이선스 받는 방법)",
     },
     payment: {
       title: "패밀리 라이선스 결제",
