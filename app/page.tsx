@@ -319,7 +319,7 @@ export default function Page() {
       "$390",
       "Free for life",
       "Convert STL to image quickly",
-    ],   
+    ],
     [
       "STL Classifier (Expected June 2025)",
       "$590",
@@ -593,26 +593,25 @@ export default function Page() {
                 className="w-[28rem] h-[36rem] border p-10 rounded-lg shadow hover:shadow-lg transition flex flex-col items-center"
               >
                 <div className="w-[28rem] h-[28rem] bg-gray-200 mb-6 relative overflow-hidden">
-                {mod === "Transfer Jig Maker" ? (
+                  {mod === "Transfer Jig Maker" ? (
                     <Image
                       src="/gifs/fast_transfer_jig_maker.gif"
                       alt={`${mod} gif`}
-                    fill
-                    className="object-cover"
+                      fill
+                      className="object-cover"
                     />
                   ) : mod === "Image Converter" ? (
                     <Image
-                    src="/gifs/fast_image_converter.gif"
-                    alt={`${mod} gif`}
-                    fill
-                    className="object-cover"
-                  />
+                      src="/gifs/fast_image_converter.gif"
+                      alt={`${mod} gif`}
+                      fill
+                      className="object-cover"
+                    />
                   ) : (
                     <span className="text-gray-400 text-2xl font-bold">
                       Coming Soon
                     </span>
                   )}
-
                 </div>
                 <div className="text-xl font-semibold text-center text-gray-800">
                   {mod}
@@ -635,7 +634,7 @@ export default function Page() {
             <br />
             Phone (Korea): +82-10-9756-1992
             <br />
-            Kakao: messso
+            Kakao: Dlas_official
             <br />
             WhatsApp:{" "}
             <a
@@ -858,17 +857,23 @@ export default function Page() {
 
                     {/* 설명 */}
                     <div className="text-sm text-gray-700 mt-4 leading-6 space-y-2">
-                    <p dangerouslySetInnerHTML={{ __html: t("freeLicense.step1") }} />
-                    <p dangerouslySetInnerHTML={{ __html: t("freeLicense.step2") }} />
-                    <p>{t("freeLicense.step3")}</p>
-                    <p dangerouslySetInnerHTML={{ __html: t("freeLicense.send") }} />
-                    <p>{t("freeLicense.aiReview")}</p>
-                    <hr className="my-3" />
-                    <div className="font-bold text-gray-900 space-y-1">
-                      <p>{t("freeLicense.note1")}</p>
-                      <p>{t("freeLicense.note2")}</p>
-                      <p>{t("freeLicense.note3")}</p>
-                    </div>
+                      <p
+                        dangerouslySetInnerHTML={{ __html: t("freeLicense.step1") }}
+                      />
+                      <p
+                        dangerouslySetInnerHTML={{ __html: t("freeLicense.step2") }}
+                      />
+                      <p>{t("freeLicense.step3")}</p>
+                      <p
+                        dangerouslySetInnerHTML={{ __html: t("freeLicense.send") }}
+                      />
+                      <p>{t("freeLicense.aiReview")}</p>
+                      <hr className="my-3" />
+                      <div className="font-bold text-gray-900 space-y-1">
+                        <p>{t("freeLicense.note1")}</p>
+                        <p>{t("freeLicense.note2")}</p>
+                        <p>{t("freeLicense.note3")}</p>
+                      </div>
                       <hr className="my-3" />
                       <div className="font-bold text-gray-900 space-y-1">
                         <p>
@@ -903,7 +908,7 @@ export default function Page() {
 
                     {/* 강조문구 + 버튼 */}
                     <div className="my-4 text-center">
-                    <p className="font-bold text-red-600 mb-2">
+                      <p className="font-bold text-red-600 mb-2">
                         {t("family.recommendFree")}
                       </p>
                       <button
@@ -912,7 +917,6 @@ export default function Page() {
                       >
                         {t("family.howToGetFree")}
                       </button>
-
                     </div>
 
                     <table className="w-full text-sm border border-gray-300 mb-4 whitespace-nowrap">
@@ -952,10 +956,18 @@ export default function Page() {
                     </p>
 
                     <div className="text-center mt-6">
-                      {/* 이 부분을 "Proceed to payment" 단계로 변경 */}
+                      {/* 여기 onClick에 로그인 상태 체크 조건을 추가했습니다 */}
                       <button
                         className="bg-black text-white px-8 py-3 rounded hover:bg-gray-800 transition"
-                        onClick={() => setShowPaymentProceed(true)}
+                        onClick={() => {
+                          if (!isLoggedIn) {
+                            document
+                              .getElementById("login-modal")!
+                              .classList.remove("hidden");
+                          } else {
+                            setShowPaymentProceed(true);
+                          }
+                        }}
                       >
                         Proceed to payment
                       </button>
