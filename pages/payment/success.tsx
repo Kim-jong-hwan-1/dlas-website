@@ -12,18 +12,21 @@ export default function PaymentSuccess() {
 
     const confirmPayment = async () => {
       const parsedAmount = Array.isArray(amount) ? Number(amount[0]) : Number(amount);
+      const payload = {
+        paymentKey,
+        orderId,
+        amount: parsedAmount,
+        userID,
+      };
+      console.log("🚀 Payment confirm payload", payload);
+
       try {
         const res = await fetch("https://license-server-697p.onrender.com/payment/confirm", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({
-            paymentKey,
-            orderId,
-            amount: parsedAmount, // ✅ 중복 쿼리 방지 + 숫자 변환
-            userID,
-          }),
+          body: JSON.stringify(payload),
         });
 
         const data = await res.json();
