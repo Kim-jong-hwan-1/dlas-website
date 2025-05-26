@@ -62,13 +62,16 @@ export default function Page() {
   // ▼▼▼ MY 모달 관련 상태들 ▼▼▼
   const [showMyModal, setShowMyModal] = useState(false);
   const [userID, setUserID] = useState("");
+  // ---------------------------------------------
+  // userInfo에 licenseStatus = "normal" | "family"
+  // ---------------------------------------------
   const [userInfo, setUserInfo] = useState<{
     name?: string;
     id?: string;
     country?: string;
     phone?: string;
     email?: string;
-    licenseStatus?: string;
+    licenseStatus?: string; // "normal" or "family"
   }>({});
 
   // admin 엔드포인트 사용, email 매개변수로 유저정보 받기
@@ -85,7 +88,7 @@ export default function Page() {
         country: data.country,
         phone: data.phone,
         email: data.email,
-        licenseStatus: data.licenseStatus,
+        licenseStatus: data.licenseStatus, 
       });
     } catch (error) {
       console.error(error);
@@ -431,12 +434,18 @@ export default function Page() {
   // (기존) 결제 확인 함수는 삭제하고, Toss 위젯 실행 함수로 대체
   // -----------------------------
   const handleTossRequest = () => {
+    // 먼저 family인지 확인
+    if (userInfo.licenseStatus === "family") {
+      alert("이미 패밀리유저입니다. 결제를 진행할 수 없습니다.");
+      return;
+    }
+
     if (typeof window === "undefined" || !window.TossPayments) {
       alert("결제 모듈이 아직 로드되지 않았습니다.");
       return;
     }
 
-    // test용 클라이언트 키 (테스트용)
+    // test용 클라이언트 키 (테스트용) 
     const tossPayments = window.TossPayments("live_gck_ALnQvDd2VJYekz4OEqbb3Mj7X41m");// ✅ 일반 결제 클라이언트 키
 
     const orderId = `DLAS-${Date.now()}`;
@@ -1056,7 +1065,7 @@ export default function Page() {
                       </p>
 
                       <div className="text-center mt-6">
-                        {/* 여기 onClick에 로그인 상태 체크 조건을 추가 */}
+                        {/* 여기 onClick에 로그인 상태 & licenseStatus 체크 추가 */}
                         <button
                           className="bg-black text-white px-8 py-3 rounded hover:bg-gray-800 transition"
                           onClick={() => {
@@ -1065,6 +1074,11 @@ export default function Page() {
                                 .getElementById("login-modal")!
                                 .classList.remove("hidden");
                             } else {
+                              // 라이선스가 이미 family인지 확인
+                              if (userInfo.licenseStatus === "family") {
+                                alert("이미 패밀리유저입니다. 결제를 진행할 수 없습니다.");
+                                return;
+                              }
                               setShowPaymentProceed(true);
                             }
                           }}
@@ -1400,9 +1414,17 @@ export default function Page() {
                 <p>
                   <strong>이메일:</strong> {userInfo.email ?? "-"}
                 </p>
+                {/* 
+                  서버에서 "family"면 패밀리, 아니면 "normal"로 표시
+                  (만약 서버에서 이미 "normal" or "family"로 주면 그대로 표시)
+                */}
                 <p>
                   <strong>라이선스 상태:</strong>{" "}
-                  {userInfo.licenseStatus ?? "Loading..."}
+                  {userInfo.licenseStatus === "family"
+                    ? "family"
+                    : userInfo.licenseStatus === "normal"
+                    ? "normal"
+                    : userInfo.licenseStatus ?? "Loading..."}
                 </p>
               </div>
             </div>
