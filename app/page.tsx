@@ -960,18 +960,6 @@ export default function Page() {
                         </div>
                         <hr className="my-3" />
                         <div className="font-bold text-gray-900 space-y-1">
-                          <p>
-                            - Each verified Instagram account grants 3 hours of
-                            free license.
-                          </p>
-                          <p>
-                            - One DLAS ID can redeem multiple times with
-                            different Instagram accounts.
-                          </p>
-                          <p>
-                            - One Instagram account cannot be reused for another
-                            DLAS ID.
-                          </p>
                         </div>
                       </div>
                     </div>
