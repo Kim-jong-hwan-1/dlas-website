@@ -882,9 +882,6 @@ export default function Page() {
                             <li>{t("payment.items.3")}</li>
                             <li>{t("payment.items.4")}</li>
                             <li>{t("payment.items.5")}</li>
-                            <li className="bg-red-100 border-l-4 border-red-500 text-red-700 font-bold p-3 rounded shadow flex items-center">
-                              ⚠️ {t("payment.items.6")}
-                            </li>
                           </ul>
                         </div>
 
