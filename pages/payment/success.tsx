@@ -17,7 +17,12 @@ export default function PaymentSuccess() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ paymentKey, orderId, amount, userID }),
+          body: JSON.stringify({
+            paymentKey,
+            orderId,
+            amount: Number(amount),  // ✅ 여기 수정됨
+            userID,
+          }),
         });
 
         const data = await res.json();
