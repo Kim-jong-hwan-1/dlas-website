@@ -440,7 +440,7 @@ export default function Page() {
     const tossPayments = window.TossPayments("test_ck_Gv6LjeKD8aKa5DKW6yzNVwYxAdXy"); // ✅ 일반 결제 클라이언트 키
 
     const orderId = `DLAS-${Date.now()}`;
-    const amount = 39000;
+    const amount = 585860;
     const userID = localStorage.getItem("userID");
 
     // 실제로는 서버에서 결제키/주문정보를 받아와야 하지만 예시이므로 직접 진행
