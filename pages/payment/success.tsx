@@ -11,6 +11,7 @@ export default function PaymentSuccess() {
     if (!userID) return;
 
     const confirmPayment = async () => {
+      const parsedAmount = Array.isArray(amount) ? Number(amount[0]) : Number(amount);
       try {
         const res = await fetch("https://license-server-697p.onrender.com/payment/confirm", {
           method: "POST",
@@ -20,7 +21,7 @@ export default function PaymentSuccess() {
           body: JSON.stringify({
             paymentKey,
             orderId,
-            amount: Number(amount),  // ✅ 여기 수정됨
+            amount: parsedAmount, // ✅ 중복 쿼리 방지 + 숫자 변환
             userID,
           }),
         });
