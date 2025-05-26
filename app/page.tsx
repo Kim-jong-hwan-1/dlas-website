@@ -647,6 +647,7 @@ export default function Page() {
                   className="w-[28rem] h-[36rem] border p-10 rounded-lg shadow hover:shadow-lg transition flex flex-col items-center"
                 >
                   <div className="w-[28rem] h-[28rem] bg-gray-200 mb-6 relative overflow-hidden">
+                    {/* ↓↓↓ 해당 부분에서 모듈에 맞게 gif 추가 ↓↓↓ */}
                     {mod === "Transfer Jig Maker" ? (
                       <Image
                         src="/gifs/fast_transfer_jig_maker.gif"
@@ -657,6 +658,20 @@ export default function Page() {
                     ) : mod === "Image Converter" ? (
                       <Image
                         src="/gifs/fast_image_converter.gif"
+                        alt={`${mod} gif`}
+                        fill
+                        className="object-cover"
+                      />
+                    ) : mod === "Crown Cad" ? (
+                      <Image
+                        src="/gifs/crown_cad.gif"
+                        alt={`${mod} gif`}
+                        fill
+                        className="object-cover"
+                      />
+                    ) : mod === "Denture Cad" ? (
+                      <Image
+                        src="/gifs/denture_cad.gif"
                         alt={`${mod} gif`}
                         fill
                         className="object-cover"
@@ -876,8 +891,8 @@ export default function Page() {
                             <li>{t("payment.items.4")}</li>
                             <li>{t("payment.items.5")}</li>
                             <li className="bg-red-100 border-l-4 border-red-500 text-red-700 font-bold p-3 rounded shadow flex items-center">
-  ⚠️ {t("payment.items.6")}
-</li>
+                              ⚠️ {t("payment.items.6")}
+                            </li>
                           </ul>
                         </div>
 
@@ -929,14 +944,20 @@ export default function Page() {
                       {/* 설명 */}
                       <div className="text-sm text-gray-700 mt-4 leading-6 space-y-2">
                         <p
-                          dangerouslySetInnerHTML={{ __html: t("freeLicense.step1") }}
+                          dangerouslySetInnerHTML={{
+                            __html: t("freeLicense.step1"),
+                          }}
                         />
                         <p
-                          dangerouslySetInnerHTML={{ __html: t("freeLicense.step2") }}
+                          dangerouslySetInnerHTML={{
+                            __html: t("freeLicense.step2"),
+                          }}
                         />
                         <p>{t("freeLicense.step3")}</p>
                         <p
-                          dangerouslySetInnerHTML={{ __html: t("freeLicense.send") }}
+                          dangerouslySetInnerHTML={{
+                            __html: t("freeLicense.send"),
+                          }}
                         />
                         <p>{t("freeLicense.aiReview")}</p>
                         <hr className="my-3" />
@@ -948,16 +969,16 @@ export default function Page() {
                         <hr className="my-3" />
                         <div className="font-bold text-gray-900 space-y-1">
                           <p>
-                            - Each verified Instagram account grants 3 hours of free
-                            license.
+                            - Each verified Instagram account grants 3 hours of
+                            free license.
                           </p>
                           <p>
-                            - One DLAS ID can redeem multiple times with different
-                            Instagram accounts.
+                            - One DLAS ID can redeem multiple times with
+                            different Instagram accounts.
                           </p>
                           <p>
-                            - One Instagram account cannot be reused for another DLAS
-                            ID.
+                            - One Instagram account cannot be reused for another
+                            DLAS ID.
                           </p>
                         </div>
                       </div>
@@ -1008,18 +1029,26 @@ export default function Page() {
                                 ONLY before v2.0.0
                               </span>
                             </th>
-                            <th className="p-2 border text-left">Description</th>
+                            <th className="p-2 border text-left">
+                              Description
+                            </th>
                           </tr>
                         </thead>
                         <tbody className="text-xs">
-                          {familyTableData.map(([title, price1, price2, desc], idx) => (
-                            <tr key={idx}>
-                              <td className="p-2 border">{title}</td>
-                              <td className="p-2 border text-center">{price1}</td>
-                              <td className="p-2 border text-center">{price2}</td>
-                              <td className="p-2 border">{desc}</td>
-                            </tr>
-                          ))}
+                          {familyTableData.map(
+                            ([title, price1, price2, desc], idx) => (
+                              <tr key={idx}>
+                                <td className="p-2 border">{title}</td>
+                                <td className="p-2 border text-center">
+                                  {price1}
+                                </td>
+                                <td className="p-2 border text-center">
+                                  {price2}
+                                </td>
+                                <td className="p-2 border">{desc}</td>
+                              </tr>
+                            )
+                          )}
                         </tbody>
                       </table>
                       <p className="text-xs text-gray-500 text-right mt-2">
@@ -1067,7 +1096,9 @@ export default function Page() {
                   {t("purchase.desc")}
                 </p>
                 <div className="flex items-center justify-between gap-2 bg-gray-100 rounded p-2 mb-4">
-                  <span className="text-black text-sm font-bold">support@dlas.io</span>
+                  <span className="text-black text-sm font-bold">
+                    support@dlas.io
+                  </span>
                   <button
                     onClick={handleCopyEmail}
                     className="bg-gray-300 text-black px-3 py-1 rounded hover:bg-gray-400 transition text-sm"
@@ -1106,37 +1137,40 @@ export default function Page() {
                   <em>"This file isn't commonly downloaded."</em>
                 </li>
                 <li>
-                  This installer is distributed only through the official DLAS website
-                  and is safe to use.
+                  This installer is distributed only through the official DLAS
+                  website and is safe to use.
                 </li>
                 <li>
                   If you see a warning, please click "additional information" or
                   "Continue" to proceed with the installation.
                 </li>
                 <li>
-                  A digitally signed (code-signed) version will be provided soon.
+                  A digitally signed (code-signed) version will be provided
+                  soon.
                 </li>
                 <li>
-                  For any questions, please contact <strong>support@dlas.io</strong>.
+                  For any questions, please contact{" "}
+                  <strong>support@dlas.io</strong>.
                 </li>
               </ul>
 
               <h2 className="text-xl font-bold mb-3">※ 안내</h2>
               <ul className="text-sm text-gray-700 list-disc pl-5 mb-6 space-y-2">
                 <li>
-                  "이 파일은 일반적으로 다운로드되지 않습니다"라는 메시지가 보일 수
-                  있습니다.
+                  "이 파일은 일반적으로 다운로드되지 않습니다"라는 메시지가
+                  보일 수 있습니다.
                 </li>
                 <li>
-                  본 설치 파일은 DLAS 공식 홈페이지에서만 배포하며, 안전하게 사용하실
-                  수 있습니다.
+                  본 설치 파일은 DLAS 공식 홈페이지에서만 배포하며, 안전하게
+                  사용하실 수 있습니다.
                 </li>
                 <li>
-                  다운로드 경고가 나오더라도 '계속' 또는 '추가정보' 버튼을 눌러 설치를
-                  진행해 주세요.
+                  다운로드 경고가 나오더라도 '계속' 또는 '추가정보' 버튼을 눌러
+                  설치를 진행해 주세요.
                 </li>
                 <li>
-                  정식 코드서명(디지털 인증서)이 적용된 버전은 곧 제공될 예정입니다.
+                  정식 코드서명(디지털 인증서)이 적용된 버전은 곧 제공될
+                  예정입니다.
                 </li>
                 <li>
                   궁금한 점은 <strong>support@dlas.io</strong>로 문의해 주세요.
@@ -1271,7 +1305,9 @@ export default function Page() {
                 className="w-full p-3 border border-gray-300 rounded"
                 required
               >
-                <option value="">{t("signup.form.countryPlaceholder")}</option>
+                <option value="">
+                  {t("signup.form.countryPlaceholder")}
+                </option>
                 {countries.map((country, index) => (
                   <option key={index} value={country}>
                     {country}
@@ -1304,7 +1340,9 @@ export default function Page() {
                     onChange={(e) => setTermsAgree(e.target.checked)}
                     className="form-checkbox h-5 w-5 text-black"
                   />
-                  <span className="ml-2">{t("signup.form.agreeRequired")}</span>
+                  <span className="ml-2">
+                    {t("signup.form.agreeRequired")}
+                  </span>
                 </label>
                 <label className="flex items-center">
                   <input
@@ -1313,7 +1351,9 @@ export default function Page() {
                     onChange={(e) => setMarketingAgree(e.target.checked)}
                     className="form-checkbox h-5 w-5 text-black"
                   />
-                  <span className="ml-2">{t("signup.form.agreeMarketing")}</span>
+                  <span className="ml-2">
+                    {t("signup.form.agreeMarketing")}
+                  </span>
                 </label>
               </div>
 
