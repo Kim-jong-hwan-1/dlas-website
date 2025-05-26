@@ -333,74 +333,74 @@ export default function Page() {
   const familyTableData = [
     [
       "Transfer Jig Maker",
-      "$790",
-      "Free for life",
+      "$790/year",
+      "Free",
       "Automated jig generation software",
     ],
     [
       "Image Converter ",
-      "$390",
-      "Free for life",
+      "$390/year",
+      "Free",
       "Convert STL to image quickly",
     ],
     [
       "STL Classifier (Expected June 2025)",
-      "$590",
-      "Free for life",
+      "$590/year",
+      "Free",
       "Classify STL by color and height",
     ],
     [
       "HTML Viewer Converter (Expected June 2025)",
-      "$390",
-      "Free for life",
+      "$390/year",
+      "Free",
       "Convert STL to HTML viewer",
     ],
     [
       "Printing Model Maker (Expected July 2025)",
-      "$590",
-      "Free for life",
+      "$590/year",
+      "Free",
       "Lightweight model creator",
     ],
     [
       "Bite Finder (Expected July 2025)",
-      "$1,090",
-      "Free for life",
+      "$1,090/year",
+      "Free",
       "Revolutionary bite locator for model-less workflows",
     ],
     [
       "Fast & Easy Modifier (Expected July 2025)",
-      "$590",
-      "Free for life",
+      "$590/year",
+      "Free",
       "Quick modifier (hook, hole, attachment)",
     ],
     [
       "Denture CAD (Expected 2025)",
-      "$790",
-      "Free for life",
+      "$790/year",
+      "Free",
       "Arrangement library, labial facing, custom tray",
     ],
     [
       "Crown CAD (Expected 2025)",
-      "$790",
-      "Free for life",
+      "$790/year",
+      "Free",
       "Integrated crown CAD with the best features",
     ],
     [
       "...new module 1 (Coming Soon)",
-      "$790",
-      "Free for life",
+      "$790/year",
+      "Free",
       "",
     ],
     [
       "...new module 2 (Coming Soon)",
-      "$790",
-      "Free for life",
+      "$790/year",
+      "Free",
       "",
     ],
     [
       "...new module 3 (Coming Soon)",
-      "$790",
-      "Free for life",
+      "$790/year",
+      "Free",
       "",
     ],
     [
@@ -875,6 +875,9 @@ export default function Page() {
                             <li>{t("payment.items.3")}</li>
                             <li>{t("payment.items.4")}</li>
                             <li>{t("payment.items.5")}</li>
+                            <li className="bg-red-100 border-l-4 border-red-500 text-red-700 font-bold p-3 rounded shadow flex items-center">
+  ⚠️ {t("payment.items.6")}
+</li>
                           </ul>
                         </div>
 

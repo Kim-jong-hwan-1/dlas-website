@@ -61,6 +61,7 @@ export const translations = {
   "OpenSCAD path configuration may be required.",
   "FAST IMAGE CONVERTER is also available. (Quickly converts STL to images.)",
   "Some features may not work depending on your system environment.",
+  "You will be charged once a year for this plan. Payment integration is in progress. For immediate purchase, feel free to reach out to us at support@dlas.io.",
       ],
       footer: "By clicking “I agree,” you confirm you understand the current status and wish to purchase the license.",
     },
@@ -1417,6 +1418,7 @@ export const translations = {
         "OpenSCAD 패스 설정이 필요할 수 있습니다.",
         "FAST IMAGE CONVERTER도 제공됩니다. (STL을 이미지로 빠르게 변환합니다.)",
         "일부 기능은 컴퓨터 환경에 따라 작동하지 않을 수 있습니다.",
+        "해당 요금제는 연 1회 결제로 진행됩니다. 결제 연동이 진행 중입니다. 바로 구매를 원하시는 경우 support@dlas.io로 연락주세요.",
       ],
       footer:
         "“동의합니다”를 클릭하면, 현재 상태를 이해하고 라이선스를 구매하겠다는 뜻으로 간주합니다.",
