@@ -10,16 +10,18 @@ export default function PaymentSuccess() {
     const userID = localStorage.getItem("userID");
     if (!userID) return;
 
-    const confirmPayment = async () => {
-      const parsedAmount = Array.isArray(amount) ? Number(amount[0]) : Number(amount);
-      const payload = {
-        paymentKey,
-        orderId,
-        amount: parsedAmount,
-        userID,
-      };
-      console.log("🚀 Payment confirm payload", payload);
+    const parsedAmount = Array.isArray(amount) ? Number(amount[0]) : Number(amount);
+    const parsedOrderId = Array.isArray(orderId) ? orderId[0] : orderId;
 
+    const payload = {
+      paymentKey,
+      orderId: parsedOrderId,
+      amount: parsedAmount,
+      userID,
+    };
+    console.log("🚀 Payment confirm payload", payload);
+
+    const confirmPayment = async () => {
       try {
         const res = await fetch("https://license-server-697p.onrender.com/payment/confirm", {
           method: "POST",
