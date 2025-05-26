@@ -437,7 +437,8 @@ export default function Page() {
     }
 
     // test용 클라이언트 키 (테스트용)
-    const tossPayments = window.TossPayments("test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm");
+    const tossPayments = window.TossPayments("test_ck_Gv6LjeKD8aKa5DKW6yzNVwYxAdXy"); // ✅ 일반 결제 클라이언트 키
+
     const orderId = `DLAS-${Date.now()}`;
     const amount = 39000;
     const userID = localStorage.getItem("userID");
