@@ -450,7 +450,7 @@ export default function Page() {
     const tossPayments = window.TossPayments("live_gck_ALnQvDd2VJYekz4OEqbb3Mj7X41m");
 
     const orderId = `DLAS-${Date.now()}`;
-    const amount = 585860; // 예시 결제 금액
+    const amount = 550000; // 예시 결제 금액
     const userID = localStorage.getItem("userID") || "";
 
     tossPayments.requestPayment("카드", {
