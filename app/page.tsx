@@ -88,7 +88,7 @@ export default function Page() {
         country: data.country,
         phone: data.phone,
         email: data.email,
-        licenseStatus: data.licenseStatus, 
+        licenseStatus: data.licenseStatus,
       });
     } catch (error) {
       console.error(error);
@@ -431,33 +431,33 @@ export default function Page() {
   };
 
   // -----------------------------
-  // (기존) 결제 확인 함수는 삭제하고, Toss 위젯 실행 함수로 대체
+  // (기존) 결제 확인 함수 -> Toss 위젯 실행 함수로 수정
   // -----------------------------
   const handleTossRequest = () => {
-    // 먼저 family인지 확인
+    // (1) 패밀리 유저라면 결제창 차단 (영어 메세지)
     if (userInfo.licenseStatus === "family") {
-      alert("이미 패밀리유저입니다. 결제를 진행할 수 없습니다.");
+      alert("You are already a Family user. Payment is not possible.");
       return;
     }
 
     if (typeof window === "undefined" || !window.TossPayments) {
-      alert("결제 모듈이 아직 로드되지 않았습니다.");
+      alert("The payment module has not been loaded yet.");
       return;
     }
 
-    // test용 클라이언트 키 (테스트용) 
-    const tossPayments = window.TossPayments("live_gck_ALnQvDd2VJYekz4OEqbb3Mj7X41m");// ✅ 일반 결제 클라이언트 키
+    // 실제 사용 시에는 서버에서 clientKey나 주문정보 등을 받아오는 흐름을 구현하셔야 합니다.
+    // 현재는 데모용 clientKey와 금액 정보를 바로 사용
+    const tossPayments = window.TossPayments("live_gck_ALnQvDd2VJYekz4OEqbb3Mj7X41m");
 
     const orderId = `DLAS-${Date.now()}`;
-    const amount = 585860;
-    const userID = localStorage.getItem("userID");
+    const amount = 585860; // 예시 결제 금액
+    const userID = localStorage.getItem("userID") || "";
 
-    // 실제로는 서버에서 결제키/주문정보를 받아와야 하지만 예시이므로 직접 진행
     tossPayments.requestPayment("카드", {
       amount,
       orderId,
       orderName: "DLAS Family License",
-      customerEmail: userID || "", // Toss 쪽에 필요한 값
+      customerEmail: userID, // Toss 쪽에 필요한 값
       successUrl: `https://www.dlas.io/payment/success?orderId=${orderId}&amount=${amount}`,
       failUrl: `https://www.dlas.io/payment/fail`,
     });
@@ -631,23 +631,6 @@ export default function Page() {
             <h1 className="text-4xl font-bold mb-6 text-center">
               {t("buy.title")}
             </h1>
-
-            {/* 패밀리 라이선스 카드(현재는 hidden 처리) */}
-            <div
-              className="hidden mb-12 w-[28rem] h-[36rem] border p-10 rounded-lg shadow hover:shadow-lg transition flex flex-col items-center mx-auto cursor-pointer"
-              onClick={() => {
-                setShowFamilyModal(true);
-                setShowFreeLicenseGuide(false);
-                setShowPaymentProceed(false);
-              }}
-            >
-              <div className="w-[28rem] h-[28rem] bg-gray-100 mb-6 px-8 flex items-center justify-center">
-                <span className="text-gray-400">{t("buy.familyGifPlaceholder")}</span>
-              </div>
-              <div className="text-lg font-semibold text-center text-gray-800">
-                {t("buy.familyLicense")}
-              </div>
-            </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-items-center">
               {modules.map((mod, i) => (
@@ -1074,9 +1057,9 @@ export default function Page() {
                                 .getElementById("login-modal")!
                                 .classList.remove("hidden");
                             } else {
-                              // 라이선스가 이미 family인지 확인
+                              // (2) 패밀리 유저라면 여기서도 막기
                               if (userInfo.licenseStatus === "family") {
-                                alert("이미 패밀리유저입니다. 결제를 진행할 수 없습니다.");
+                                alert("You are already a Family user. Payment is not possible.");
                                 return;
                               }
                               setShowPaymentProceed(true);
@@ -1414,10 +1397,6 @@ export default function Page() {
                 <p>
                   <strong>이메일:</strong> {userInfo.email ?? "-"}
                 </p>
-                {/* 
-                  서버에서 "family"면 패밀리, 아니면 "normal"로 표시
-                  (만약 서버에서 이미 "normal" or "family"로 주면 그대로 표시)
-                */}
                 <p>
                   <strong>라이선스 상태:</strong>{" "}
                   {userInfo.licenseStatus === "family"
