@@ -333,73 +333,73 @@ export default function Page() {
   const familyTableData = [
     [
       "Transfer Jig Maker",
-      "$790/year",
+      "$790",
       "Free",
       "Automated jig generation software",
     ],
     [
       "Image Converter ",
-      "$390/year",
+      "$390",
       "Free",
       "Convert STL to image quickly",
     ],
     [
       "STL Classifier (Expected June 2025)",
-      "$590/year",
+      "$590",
       "Free",
       "Classify STL by color and height",
     ],
     [
       "HTML Viewer Converter (Expected June 2025)",
-      "$390/year",
+      "$390",
       "Free",
       "Convert STL to HTML viewer",
     ],
     [
       "Printing Model Maker (Expected July 2025)",
-      "$590/year",
+      "$590",
       "Free",
       "Lightweight model creator",
     ],
     [
       "Bite Finder (Expected July 2025)",
-      "$1,090/year",
+      "$1,090",
       "Free",
       "Revolutionary bite locator for model-less workflows",
     ],
     [
       "Fast & Easy Modifier (Expected July 2025)",
-      "$590/year",
+      "$590",
       "Free",
       "Quick modifier (hook, hole, attachment)",
     ],
     [
       "Denture CAD (Expected 2025)",
-      "$790/year",
+      "$790",
       "Free",
       "Arrangement library, labial facing, custom tray",
     ],
     [
       "Crown CAD (Expected 2025)",
-      "$790/year",
+      "$790",
       "Free",
       "Integrated crown CAD with the best features",
     ],
     [
       "...new module 1 (Coming Soon)",
-      "$790/year",
+      "$790",
       "Free",
       "",
     ],
     [
       "...new module 2 (Coming Soon)",
-      "$790/year",
+      "$790",
       "Free",
       "",
     ],
     [
       "...new module 3 (Coming Soon)",
-      "$790/year",
+      "$790",
       "Free",
       "",
     ],
@@ -437,7 +437,7 @@ export default function Page() {
     }
 
     // test용 클라이언트 키 (테스트용)
-    const tossPayments = window.TossPayments("test_ck_Gv6LjeKD8aKa5DKW6yzNVwYxAdXy"); // ✅ 일반 결제 클라이언트 키
+    const tossPayments = window.TossPayments("live_gck_ALnQvDd2VJYekz4OEqbb3Mj7X41m");// ✅ 일반 결제 클라이언트 키
 
     const orderId = `DLAS-${Date.now()}`;
     const amount = 585860;
