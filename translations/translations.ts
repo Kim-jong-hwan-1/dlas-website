@@ -62,6 +62,7 @@ export const translations = {
   "FAST IMAGE CONVERTER is also available. (Quickly converts STL to images.)",
   "Some features may not work depending on your system environment.",
   "The final payment amount may vary depending on the tax laws and regulations of your country.This is a one-time payment and will not be automatically renewed.",
+  "The payment system is currently being prepared. For immediate purchase, please contact us at support@dlas.io.",
       ],
       footer: "By clicking “I agree,” you confirm you understand the current status and wish to purchase the license.",
     },
@@ -1419,6 +1420,7 @@ export const translations = {
         "FAST IMAGE CONVERTER도 제공됩니다. (STL을 이미지로 빠르게 변환합니다.)",
         "일부 기능은 컴퓨터 환경에 따라 작동하지 않을 수 있습니다.",
         "구매 금액은 고객이 거주하는 국가의 세법 및 조세 정책에 따라 달라질 수 있습니다. 대한민국 고객의 경우, 결제 금액은 환율과 관계없이 원화 기준으로 500,000원으로 고정되며, 부가가치세(VAT)는 별도입니다. 총 결제 금액: 550,000원 (VAT 포함). 본 결제는 1회성 결제로, 자동 갱신되지 않습니다.",
+        "현재 결제 시스템 준비 중입니다. 즉시 결제를 원하시는 경우 support@dlas.io로 문의해 주시기 바랍니다.",
       ],
       footer:
         "“동의합니다”를 클릭하면, 현재 상태를 이해하고 라이선스를 구매하겠다는 뜻으로 간주합니다.",
