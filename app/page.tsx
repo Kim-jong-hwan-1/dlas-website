@@ -885,9 +885,9 @@ export default function Page() {
                             <li className="bg-red-100 border-l-4 border-red-500 text-red-700 font-bold p-3 rounded shadow flex items-center">
                               ⚠️ {t("payment.items.6")}
                             </li>
-                            <li className="bg-red-100 border-l-4 border-red-500 text-red-700 font-bold p-3 rounded shadow flex items-center">
-                              ⚠️ {t("payment.items.6")}
-                            </li>                            
+                            <li className="bg-yellow-50 border-l-4 border-yellow-400 text-yellow-700 p-3 rounded shadow flex items-start">
+                              ℹ️ <span className="ml-2 font-medium">{t("payment.items.7")}</span>
+                            </li>                          
                           </ul>
                         </div>
 
