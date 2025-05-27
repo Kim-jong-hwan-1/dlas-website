@@ -41,7 +41,7 @@ export const translations = {
    freeLicense: {
     title: "How to get the free license",
     step1: `1) Follow us on Instagram: <a href="https://www.instagram.com/dlas_official_" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">here</a> and take a screenshot.`,
-    step2: `2) Like our post: <a href="https://www.instagram.com/reel/DKJhleuh154/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA%3D%3D" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">here</a> and take a screenshot.`,
+    step2: `2) Like our post: <a href="https://www.instagram.com/p/DKJhleuh154/" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">here</a> and take a screenshot.`,
     step3: "3) Make sure your Instagram ID is clearly visible in your screenshot.",
     send: `Then send all the screenshots to <strong>support@dlas.io</strong> with the email subject line <strong>dlas (your dlas ID), ex : dlas kimjonghwan</strong>.`,
     aiReview: "Our AI will review your screenshots and respond within 10 minutes.",
@@ -1399,7 +1399,7 @@ export const translations = {
    freeLicense: {
     title: "무료 라이선스 받는 방법",
     step1: `1) 인스타그램 <a href="https://www.instagram.com/dlas_official_" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">팔로우</a> 후 스크린샷을 찍어주세요.`,
-    step2: `2) 게시글에 <a href="https://www.instagram.com/reel/DKJhleuh154/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA%3D%3D" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">좋아요</a>를 누른 후 스크린샷을 찍어주세요.`,
+    step2: `2) 게시글에 <a href="https://www.instagram.com/p/DKJhleuh154/" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">좋아요</a>를 누른 후 스크린샷을 찍어주세요.`,
     step3: "3) 인스타그램 아이디가 스크린샷에 잘 보이도록 찍어주세요.",
     send: `<strong>support@dlas.io</strong>로 모든 스크린샷을 보내주세요. 이메일 제목은 <strong>dlas (본인의 dlas ID)  ex : dlas kimjonghwan</strong> 형식으로 작성해주세요.`,
     aiReview: "AI가 확인 후 10분 이내로 답변드립니다.",
