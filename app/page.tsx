@@ -19,16 +19,29 @@ declare global {
         }
       ) => Promise<void>;
     };
+    Paddle?: {
+      Setup: (config: { vendor: number }) => void;
+      Checkout: {
+        open: (opts: {
+          product: string; // ✅ 문자열 Product ID 사용 가능
+          email?: string;
+          passthrough?: string;
+          successCallback?: () => void;
+          closeCallback?: () => void;
+        }) => void;
+      };
+    };
   }
 }
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useLang } from "@/components/LanguageWrapper";
-import Script from "next/script"; // 1) Toss SDK를 로드하기 위해 import
+import Script from "next/script"; // 1) Toss & Paddle SDK 로드 위해 import
 
 export default function Page() {
   const { t } = useLang();
+
   // --- 로그인 상태 관리 ---
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -133,7 +146,7 @@ export default function Page() {
   const [showFreeLicenseGuide, setShowFreeLicenseGuide] = useState(false);
   // 결제 진행(모듈 상태 안내) 단계
   const [showPaymentProceed, setShowPaymentProceed] = useState(false);
-  // 결제 문의 모달
+  // 결제 문의 모달 (아직 사용 중지 상태로 보임)
   const [showPaymentSupportModal, setShowPaymentSupportModal] = useState(false);
 
   // 회원가입 폼 제출 처리
@@ -431,8 +444,10 @@ export default function Page() {
   };
 
   // -----------------------------
-  // (기존) 결제 확인 함수 -> Toss 위젯 실행 함수로 수정
+  // (기존) 결제 로직: TossPayments / Paddle
   // -----------------------------
+
+  // 1) TossPayments 결제 로직
   const handleTossRequest = () => {
     // (1) 패밀리 유저라면 결제창 차단 (영어 메세지)
     if (userInfo.licenseStatus === "family") {
@@ -463,9 +478,69 @@ export default function Page() {
     });
   };
 
+  // 2) Paddle 결제 로직
+  const handlePaddleCheckout = () => {
+    if (typeof window === "undefined" || !window.Paddle) {
+      alert("Paddle SDK is not loaded yet.");
+      return;
+    }
+  
+    window.Paddle.Setup({
+      vendor: 230320, // ✅ 실제 Vendor ID
+    });
+  
+    window.Paddle.Checkout.open({
+      product: "pro_01jwbwc35nj83aynhrvrd06zcm", // ✅ 실제 Product ID
+      email: userID,
+      passthrough: JSON.stringify({
+        userID,
+        licenseType: "family",
+      }),
+      successCallback: async () => {
+        alert("✅ Payment successful!");
+        const userID = localStorage.getItem("userID");
+        if (userID) {
+          await fetch("https://license-server-697p.onrender.com/admin/grant-family-license", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email: userID }),
+          });
+        }
+      },
+      closeCallback: () => {
+        console.log("Checkout closed.");
+      },
+    });
+  };
+  
+
+  // **사용자가 최종 "가족 라이선스 결제"를 진행하는 함수**
+  const handleFamilyLicensePayment = () => {
+    // 이미 family 상태인지 확인
+    if (userInfo.licenseStatus === "family") {
+      alert("You are already a Family user. Payment is not possible.");
+      return;
+    }
+    // 국가별 분기
+    const countryLower = userInfo.country?.toLowerCase() || "";
+    if (
+      countryLower.includes("korea") // south korea, korea 등
+    ) {
+      // TossPayments 사용
+      handleTossRequest();
+    } else {
+      // Paddle 사용
+      handlePaddleCheckout();
+    }
+  };
+
   return (
     <>
-      {/* 2) Toss SDK 로딩 (strategy="beforeInteractive") */}
+      {/* Paddle SDK (strategy="beforeInteractive") */}
+      <Script src="https://cdn.paddle.com/paddle/paddle.js" strategy="beforeInteractive" />
+      {/* TossPayments SDK (strategy="beforeInteractive") */}
       <Script src="https://js.tosspayments.com/v1" strategy="beforeInteractive" />
 
       <div className="min-h-screen bg-white text-black relative">
@@ -887,7 +962,7 @@ export default function Page() {
                             </li>
                             <li className="bg-yellow-50 border-l-4 border-yellow-400 text-yellow-700 p-3 rounded shadow flex items-start">
                               ℹ️ <span className="ml-2 font-medium">{t("payment.items.7")}</span>
-                            </li>                          
+                            </li>
                           </ul>
                         </div>
 
@@ -895,10 +970,10 @@ export default function Page() {
                       </div>
 
                       <div className="text-center mt-6">
-                        {/* 2) "I agree" 버튼 → Toss 위젯 실행 */}
+                        {/* 2) "I agree" 버튼 → 국가별 분기 (Toss/Paddle) */}
                         <button
                           className="bg-black text-white px-8 py-3 rounded hover:bg-gray-800 transition"
-                          onClick={handleTossRequest}
+                          onClick={handleFamilyLicensePayment}
                         >
                           {t("payment.agree")}
                         </button>
@@ -962,8 +1037,7 @@ export default function Page() {
                           <p>{t("freeLicense.note3")}</p>
                         </div>
                         <hr className="my-3" />
-                        <div className="font-bold text-gray-900 space-y-1">
-                        </div>
+                        <div className="font-bold text-gray-900 space-y-1"></div>
                       </div>
                     </div>
                   ) : (
@@ -1039,7 +1113,7 @@ export default function Page() {
                       </p>
 
                       <div className="text-center mt-6">
-                        {/* 여기 onClick에 로그인 상태 & licenseStatus 체크 추가 */}
+                        {/* 2) "Proceed to payment" 버튼 */}
                         <button
                           className="bg-black text-white px-8 py-3 rounded hover:bg-gray-800 transition"
                           onClick={() => {
@@ -1225,7 +1299,9 @@ export default function Page() {
                 className="text-blue-600 hover:underline"
                 onClick={(e) => {
                   e.preventDefault();
-                  document.getElementById("login-modal")!.classList.add("hidden");
+                  document
+                    .getElementById("login-modal")!
+                    .classList.add("hidden");
                   document
                     .getElementById("signup-modal")!
                     .classList.remove("hidden");
