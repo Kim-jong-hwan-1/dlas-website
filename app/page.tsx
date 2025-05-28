@@ -490,20 +490,7 @@ export default function Page() {
       product: "pro_01jwbwc35nj83aynhrvrd06zcm",
       email: userID,
       passthrough: JSON.stringify({ userID, licenseType: "family" }),
-      successCallback: async () => {
-        // Paddle 결제 성공 후 실행: 여기서 서버에 라이선스 부여 요청!
-        try {
-          await fetch("https://license-server-697p.onrender.com/admin/grant-family-license", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email: userID }),
-          });
-          alert("✅ Payment completed and Family license granted!");
-          // 필요시 유저 정보 새로고침 등 추가
-        } catch (e) {
-          alert("Payment succeeded but license activation failed.");
-        }
-      },
+      // successCallback 제거! (라이선스 부여는 웹훅에서 처리)
       closeCallback: () => {
         console.log("Checkout closed.");
       }
