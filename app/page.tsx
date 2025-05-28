@@ -480,14 +480,34 @@ export default function Page() {
 
   // 2) Paddle 결제 로직
   const handlePaddleCheckout = () => {
-    const sellerID = 230320;
-    const productID = "pro_01jwbwc35nj83aynhrvrd06zcm";
+    if (typeof window === "undefined" || !window.Paddle) {
+      alert("Paddle SDK is not loaded yet.");
+      return;
+    }
+    window.Paddle.Setup({ vendor: 230320 });
   
-    // 이메일 붙여서 보내고 싶다면 아래와 같이 query 파라미터로 넘길 수 있음
-    const userID = localStorage.getItem("userID") || "";
-    const url = `https://checkout.paddle.com/checkout/product/${productID}?seller=${sellerID}&email=${encodeURIComponent(userID)}`;
-  
-    window.location.href = url;
+    window.Paddle.Checkout.open({
+      product: "pro_01jwbwc35nj83aynhrvrd06zcm",
+      email: userID,
+      passthrough: JSON.stringify({ userID, licenseType: "family" }),
+      successCallback: async () => {
+        // Paddle 결제 성공 후 실행: 여기서 서버에 라이선스 부여 요청!
+        try {
+          await fetch("https://license-server-697p.onrender.com/admin/grant-family-license", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email: userID }),
+          });
+          alert("✅ Payment completed and Family license granted!");
+          // 필요시 유저 정보 새로고침 등 추가
+        } catch (e) {
+          alert("Payment succeeded but license activation failed.");
+        }
+      },
+      closeCallback: () => {
+        console.log("Checkout closed.");
+      }
+    });
   };
   
   
