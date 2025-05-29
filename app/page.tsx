@@ -92,6 +92,8 @@ export default function Page() {
     localStorage.removeItem("loginExpireTime");
     localStorage.removeItem("userID");
     setIsLoggedIn(false);
+    // 로그아웃 시 userInfo도 초기화 (권장)
+    setUserInfo({});
   };
 
   // ▼▼▼ MY 모달 관련 상태들 ▼▼▼
@@ -107,9 +109,13 @@ export default function Page() {
     licenseStatus?: string; // "normal" or "family"
   }>({});
 
+  // **로딩 상태** 추가
+  const [isUserInfoLoading, setIsUserInfoLoading] = useState(false);
+
   // admin 엔드포인트 사용, email 매개변수로 유저정보 받기
   const fetchUserInfo = async (email: string) => {
     try {
+      setIsUserInfoLoading(true); // 로딩 시작
       const res = await fetch(
         `https://license-server-697p.onrender.com/admin/userinfo?email=${email}`
       );
@@ -133,19 +139,10 @@ export default function Page() {
         email: "-",
         licenseStatus: "Error fetching license",
       });
+    } finally {
+      setIsUserInfoLoading(false); // 로딩 완료
     }
   };
-
-  // MY 모달 표시될 때 Local Storage fallback
-  useEffect(() => {
-    if (showMyModal) {
-      const storedID = userID || localStorage.getItem("userID");
-      if (storedID) {
-        setUserID(storedID);
-        fetchUserInfo(storedID);
-      }
-    }
-  }, [showMyModal]);
 
   // --- 회원가입 로직 관련 상태 ---
   const [idForSignup, setIdForSignup] = useState(""); // (원래 email이었지만, ID로 사용)
@@ -188,6 +185,7 @@ export default function Page() {
       password,
       name,
       country,
+      // **workplace_name, workplace_address는 빈칸이어도 전송** 가능
       workplace_name: workplaceName,
       workplace_address: workplaceAddress,
       marketing_agree: marketingAgree,
@@ -273,6 +271,9 @@ export default function Page() {
       localStorage.setItem("userID", idForLogin);
       setUserID(idForLogin);
 
+      // 여기서 로그인 성공 시, 유저 정보를 곧바로 fetch
+      fetchUserInfo(idForLogin);
+
       document.getElementById("login-modal")!.classList.add("hidden");
     } catch (error) {
       console.error("Error during login:", error);
@@ -283,6 +284,30 @@ export default function Page() {
       }
     }
   };
+
+  // 사용자가 새로고침하거나, 로그인 상태로 접속 시에도 userInfo를 불러오기
+  useEffect(() => {
+    if (isLoggedIn) {
+      const storedID = localStorage.getItem("userID");
+      if (storedID) {
+        if (!userInfo.id) {
+          fetchUserInfo(storedID);
+        }
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoggedIn]);
+
+  // MY 모달 표시될 때 Local Storage fallback
+  useEffect(() => {
+    if (showMyModal) {
+      const storedID = userID || localStorage.getItem("userID");
+      if (storedID) {
+        setUserID(storedID);
+        fetchUserInfo(storedID);
+      }
+    }
+  }, [showMyModal]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // 국가 목록
   const countries = [
@@ -476,7 +501,6 @@ export default function Page() {
     }
 
     // 실제 사용 시에는 서버에서 clientKey나 주문정보 등을 받아오는 흐름을 구현하셔야 합니다.
-    // 현재는 데모용 clientKey와 금액 정보를 바로 사용
     const tossPayments = window.TossPayments(
       "live_gck_ALnQvDd2VJYekz4OEqbb3Mj7X41m"
     );
@@ -495,8 +519,7 @@ export default function Page() {
     });
   };
 
-  // **★ 여기만 수정됨: Paddle 결제 로직 ★**
-  // "로그인 되어있는데도 'Please log in first.' 뜨는" 문제 해결
+  // Paddle 결제 로직
   const handlePaddleCheckout = () => {
     if (!window.Paddle) {
       alert("Paddle SDK is not ready.");
@@ -518,8 +541,14 @@ export default function Page() {
     });
   };
 
-  // **사용자가 최종 "가족 라이선스 결제"를 진행하는 함수**
+  // "가족 라이선스 결제" 버튼 클릭 -> 국가별 결제
   const handleFamilyLicensePayment = () => {
+    // **로딩 중이면 막기** (핵심!)
+    if (isUserInfoLoading) {
+      alert("Loading your information... Please wait a moment.");
+      return;
+    }
+
     // 이미 family 상태인지 확인
     if (userInfo.licenseStatus === "family") {
       alert("You are already a Family user. Payment is not possible.");
@@ -543,19 +572,16 @@ export default function Page() {
         src="https://cdn.paddle.com/paddle/paddle.js"
         strategy="beforeInteractive"
         onLoad={() => {
-          // 스크립트가 실제로 로드된 뒤 한 번만 초기화
           if (window.Paddle) {
             window.Paddle.Initialize({
               token: process.env.NEXT_PUBLIC_PADDLE_TOKEN!,
               checkout: { settings: { displayMode: "overlay", locale: "ko" } },
             });
-
-            // 개발 단계라면 ↓ 한 줄 추가 (필요시)
-            // window.Paddle.Environment.set("sandbox");
+            // window.Paddle.Environment.set("sandbox"); // 필요 시 활성
           }
         }}
       />
-      {/* TossPayments SDK (strategy="beforeInteractive") */}
+      {/* TossPayments SDK */}
       <Script src="https://js.tosspayments.com/v1" strategy="beforeInteractive" />
 
       <div className="min-h-screen bg-white text-black relative">
@@ -866,7 +892,9 @@ export default function Page() {
               </h4>
               <p
                 className="mb-4"
-                dangerouslySetInnerHTML={{ __html: t("privacy.article1.desc") }}
+                dangerouslySetInnerHTML={{
+                  __html: t("privacy.article1.desc"),
+                }}
               />
 
               <h4 className="font-semibold mb-1">
@@ -874,7 +902,9 @@ export default function Page() {
               </h4>
               <p
                 className="mb-4"
-                dangerouslySetInnerHTML={{ __html: t("privacy.article2.desc") }}
+                dangerouslySetInnerHTML={{
+                  __html: t("privacy.article2.desc"),
+                }}
               />
 
               <h4 className="font-semibold mb-1">
@@ -882,7 +912,9 @@ export default function Page() {
               </h4>
               <p
                 className="mb-4"
-                dangerouslySetInnerHTML={{ __html: t("privacy.article3.desc") }}
+                dangerouslySetInnerHTML={{
+                  __html: t("privacy.article3.desc"),
+                }}
               />
 
               <h4 className="font-semibold mb-1">
@@ -890,7 +922,9 @@ export default function Page() {
               </h4>
               <p
                 className="mb-4"
-                dangerouslySetInnerHTML={{ __html: t("privacy.article4.desc") }}
+                dangerouslySetInnerHTML={{
+                  __html: t("privacy.article4.desc"),
+                }}
               />
 
               <h4 className="font-semibold mb-1">
@@ -898,7 +932,9 @@ export default function Page() {
               </h4>
               <p
                 className="mb-4"
-                dangerouslySetInnerHTML={{ __html: t("privacy.article5.desc") }}
+                dangerouslySetInnerHTML={{
+                  __html: t("privacy.article5.desc"),
+                }}
               />
 
               <h4 className="font-semibold mb-1">
@@ -906,7 +942,9 @@ export default function Page() {
               </h4>
               <p
                 className="mb-4"
-                dangerouslySetInnerHTML={{ __html: t("privacy.article6.desc") }}
+                dangerouslySetInnerHTML={{
+                  __html: t("privacy.article6.desc"),
+                }}
               />
 
               <h4 className="font-semibold mb-1">
@@ -914,7 +952,9 @@ export default function Page() {
               </h4>
               <p
                 className="mb-4"
-                dangerouslySetInnerHTML={{ __html: t("privacy.article7.desc") }}
+                dangerouslySetInnerHTML={{
+                  __html: t("privacy.article7.desc"),
+                }}
               />
 
               <p className="mb-4">
@@ -1191,8 +1231,7 @@ export default function Page() {
               <h2 className="text-xl font-bold mb-3">※ Notice</h2>
               <ul className="text-sm text-gray-700 list-disc pl-5 mb-6 space-y-2">
                 <li>
-                  You may see a message like{" "}
-                  <em>"This file isn't commonly downloaded."</em>
+                  You may see a message like <em>"This file isn't commonly downloaded."</em>
                 </li>
                 <li>
                   This installer is distributed only through the official DLAS
@@ -1215,8 +1254,8 @@ export default function Page() {
               <h2 className="text-xl font-bold mb-3">※ 안내</h2>
               <ul className="text-sm text-gray-700 list-disc pl-5 mb-6 space-y-2">
                 <li>
-                  "이 파일은 일반적으로 다운로드되지 않습니다"라는 메시지가
-                  보일 수 있습니다.
+                  "이 파일은 일반적으로 다운로드되지 않습니다"라는 메시지가 보일 수
+                  있습니다.
                 </li>
                 <li>
                   본 설치 파일은 DLAS 공식 홈페이지에서만 배포하며, 안전하게
@@ -1372,21 +1411,23 @@ export default function Page() {
                   </option>
                 ))}
               </select>
+
+              {/* 1) workplaceName: `required` 제거 */}
               <input
                 type="text"
                 placeholder={t("signup.form.workplaceName")}
                 value={workplaceName}
                 onChange={(e) => setWorkplaceName(e.target.value)}
                 className="w-full p-3 border border-gray-300 rounded"
-                required
               />
+
+              {/* 2) workplaceAddress: `required` 제거 */}
               <input
                 type="text"
                 placeholder={t("signup.form.workplaceAddress")}
                 value={workplaceAddress}
                 onChange={(e) => setWorkplaceAddress(e.target.value)}
                 className="w-full p-3 border border-gray-300 rounded"
-                required
               />
 
               <div className="text-sm text-gray-600 mt-4 space-y-2">
