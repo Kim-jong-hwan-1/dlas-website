@@ -1,6 +1,5 @@
 "use client";
 
-
 declare global {
   interface Window {
     // TossPayments 타입 (전체)
@@ -56,7 +55,6 @@ declare global {
 }
 
 export {}; // 타입 선언 파일에서는 필요 (중복 선언 방지)
-
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
@@ -464,7 +462,6 @@ export default function Page() {
       "https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v1.1.7/DLAS_Installer.exe";
   };
 
-
   // 1) TossPayments 결제 로직
   const handleTossRequest = () => {
     // (1) 패밀리 유저라면 결제창 차단 (영어 메세지)
@@ -498,24 +495,28 @@ export default function Page() {
     });
   };
 
-  // 2) Paddle Billing v2 결제 로직
+  // **★ 여기만 수정됨: Paddle 결제 로직 ★**
+  // "로그인 되어있는데도 'Please log in first.' 뜨는" 문제 해결
   const handlePaddleCheckout = () => {
     if (!window.Paddle) {
-      alert("Paddle SDK is not ready."); return;
+      alert("Paddle SDK is not ready.");
+      return;
     }
-    if (!userID) {
-      alert("Please log in first."); return;
+    // localStorage에 있는 유저 ID도 확인하여 사용
+    const storedId = localStorage.getItem("userID") || userID;
+    if (!storedId) {
+      alert("Please log in first.");
+      return;
     }
-  
+
     window.Paddle.Checkout.open({
       priceId: "pri_01jwbwfkfptaj84k8whj2j0mya",
       quantity: 1,
-      customer: { email: userID },
-      customData: { userID, licenseType: "family" },
+      customer: { email: storedId },
+      customData: { userID: storedId, licenseType: "family" },
       closeCallback: () => console.log("Checkout closed"),
     });
   };
-  
 
   // **사용자가 최종 "가족 라이선스 결제"를 진행하는 함수**
   const handleFamilyLicensePayment = () => {
@@ -537,23 +538,23 @@ export default function Page() {
 
   return (
     <>
-      {/* Paddle SDK */ }
-<Script
-  src="https://cdn.paddle.com/paddle/paddle.js"
-  strategy="beforeInteractive"
-  onLoad={() => {
-    // 스크립트가 실제로 로드된 뒤 한 번만 초기화
-    if (window.Paddle) {
-      window.Paddle.Initialize({
-        token: process.env.NEXT_PUBLIC_PADDLE_TOKEN!,
-        checkout: { settings: { displayMode: "overlay", locale: "ko" } },
-      });
+      {/* Paddle SDK */}
+      <Script
+        src="https://cdn.paddle.com/paddle/paddle.js"
+        strategy="beforeInteractive"
+        onLoad={() => {
+          // 스크립트가 실제로 로드된 뒤 한 번만 초기화
+          if (window.Paddle) {
+            window.Paddle.Initialize({
+              token: process.env.NEXT_PUBLIC_PADDLE_TOKEN!,
+              checkout: { settings: { displayMode: "overlay", locale: "ko" } },
+            });
 
-      // 개발 단계라면 ↓ 한 줄 추가
-      // window.Paddle.Environment.set("sandbox");
-    }
-  }}
-/>
+            // 개발 단계라면 ↓ 한 줄 추가 (필요시)
+            // window.Paddle.Environment.set("sandbox");
+          }
+        }}
+      />
       {/* TossPayments SDK (strategy="beforeInteractive") */}
       <Script src="https://js.tosspayments.com/v1" strategy="beforeInteractive" />
 
@@ -1190,7 +1191,8 @@ export default function Page() {
               <h2 className="text-xl font-bold mb-3">※ Notice</h2>
               <ul className="text-sm text-gray-700 list-disc pl-5 mb-6 space-y-2">
                 <li>
-                  You may see a message like <em>"This file isn't commonly downloaded."</em>
+                  You may see a message like{" "}
+                  <em>"This file isn't commonly downloaded."</em>
                 </li>
                 <li>
                   This installer is distributed only through the official DLAS
@@ -1201,10 +1203,12 @@ export default function Page() {
                   "Continue" to proceed with the installation.
                 </li>
                 <li>
-                  A digitally signed (code-signed) version will be provided soon.
+                  A digitally signed (code-signed) version will be provided
+                  soon.
                 </li>
                 <li>
-                  For any questions, please contact <strong>support@dlas.io</strong>.
+                  For any questions, please contact{" "}
+                  <strong>support@dlas.io</strong>.
                 </li>
               </ul>
 
@@ -1223,7 +1227,8 @@ export default function Page() {
                   설치를 진행해 주세요.
                 </li>
                 <li>
-                  정식 코드서명(디지털 인증서)이 적용된 버전은 곧 제공될 예정입니다.
+                  정식 코드서명(디지털 인증서)이 적용된 버전은 곧 제공될
+                  예정입니다.
                 </li>
                 <li>
                   궁금한 점은 <strong>support@dlas.io</strong>로 문의해 주세요.
@@ -1290,9 +1295,7 @@ export default function Page() {
                 className="text-blue-600 hover:underline"
                 onClick={(e) => {
                   e.preventDefault();
-                  document
-                    .getElementById("login-modal")!
-                    .classList.add("hidden");
+                  document.getElementById("login-modal")!.classList.add("hidden");
                   document
                     .getElementById("signup-modal")!
                     .classList.remove("hidden");
