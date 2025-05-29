@@ -62,7 +62,7 @@ export const translations = {
   "FAST IMAGE CONVERTER is also available. (Quickly converts STL to images.)",
   "Some features may not work depending on your system environment.",
   "The final payment amount may vary depending on the tax laws and regulations of your country.This is a one-time payment and will not be automatically renewed.",
-  "support@dlas.io.",
+  "We are currently preparing our payment system. If you wish to make an immediate purchase, please contact us at support@dlas.io.",
       ],
       footer: "By clicking “I agree,” you confirm you understand the current status and wish to purchase the license.",
     },
