@@ -1,9 +1,9 @@
 "use client";
 
-// ----- 전역 타입 선언 수정 -----
+
 declare global {
   interface Window {
-    // Toss 관련(기존 그대로)
+    // TossPayments 타입 (전체)
     TossPayments?: (
       clientKey: string
     ) => {
@@ -32,19 +32,31 @@ declare global {
         };
       }) => void;
       Checkout: {
-        open: (opts: {
-          items: { priceId: string; quantity?: number }[];
-          customer: { email: string };
-          customData?: {
-            userID?: string;
-            licenseType?: string;
-          };
-          closeCallback?: () => void;
-        }) => void;
+        open: (
+          opts:
+            | {
+                // ✅ 단일 priceId 방식 (최신 공식 권장)
+                priceId: string;
+                quantity?: number;
+                customer: { email: string };
+                customData?: { [key: string]: any };
+                closeCallback?: () => void;
+              }
+            | {
+                // ✅ items 배열 방식 (구방식/복수 결제)
+                items: { priceId: string; quantity?: number }[];
+                customer: { email: string };
+                customData?: { [key: string]: any };
+                closeCallback?: () => void;
+              }
+        ) => void;
       };
     };
   }
 }
+
+export {}; // 타입 선언 파일에서는 필요 (중복 선언 방지)
+
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
@@ -489,21 +501,21 @@ export default function Page() {
   // 2) Paddle Billing v2 결제 로직
   const handlePaddleCheckout = () => {
     if (!window.Paddle) {
-      alert("Paddle SDK is not ready.");
-      return;
+      alert("Paddle SDK is not ready."); return;
     }
     if (!userID) {
-      alert("Please log in first.");
-      return;
+      alert("Please log in first."); return;
     }
   
     window.Paddle.Checkout.open({
-      items: [{ priceId: "pri_01jwbwfkfptaj84k8whj2j0mya", quantity: 1 }],
+      priceId: "pri_01jwbwfkfptaj84k8whj2j0mya",
+      quantity: 1,
       customer: { email: userID },
       customData: { userID, licenseType: "family" },
-      closeCallback: () => console.log("Checkout closed."),
+      closeCallback: () => console.log("Checkout closed"),
     });
   };
+  
 
   // **사용자가 최종 "가족 라이선스 결제"를 진행하는 함수**
   const handleFamilyLicensePayment = () => {
