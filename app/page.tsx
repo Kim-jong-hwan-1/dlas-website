@@ -531,7 +531,10 @@ export default function Page() {
       alert("Please log in first.");
       return;
     }
-
+    console.log("🔔 Paddle Checkout OPEN:", {
+      priceId: "pri_01jwbwfkfptaj84k8whj2j0mya",
+      storedId,
+    });
     window.Paddle.Checkout.open({
       priceId: "pri_01jwbwfkfptaj84k8whj2j0mya",
       quantity: 1,
