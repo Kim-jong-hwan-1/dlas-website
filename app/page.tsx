@@ -487,7 +487,7 @@ export default function Page() {
     window.Paddle.Setup({ vendor: 230320 });
   
     window.Paddle.Checkout.open({
-      product: "pro_01jwbwc35nj83aynhrvrd06zcm",
+      product: "pri_01jwbwfkfptaj84k8whj2j0mya",
       email: userID,
       passthrough: JSON.stringify({ userID, licenseType: "family" }),
       // successCallback 제거! (라이선스 부여는 웹훅에서 처리)
