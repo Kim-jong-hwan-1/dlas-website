@@ -576,6 +576,7 @@ export default function Page() {
         strategy="beforeInteractive"
         onLoad={() => {
           if (window.Paddle) {
+            window.Paddle.Setup && window.Paddle.Setup({ vendor: 230320 }); 
             window.Paddle.Initialize({
               token: process.env.NEXT_PUBLIC_PADDLE_TOKEN!,
               checkout: { settings: { displayMode: "overlay", locale: "ko" } },
