@@ -1,9 +1,9 @@
 "use client";
 
-// 우선 전역 타입 선언 추가
+// ----- 전역 타입 선언 수정 -----
 declare global {
   interface Window {
-    // clientKey(문자열)을 인자로 받아서 결제 요청 메서드(requestPayment)를 가진 객체를 반환
+    // Toss 관련(기존 그대로)
     TossPayments?: (
       clientKey: string
     ) => {
@@ -19,14 +19,26 @@ declare global {
         }
       ) => Promise<void>;
     };
+
+    // Paddle Billing v2용 타입
     Paddle?: {
-      Setup: (config: { vendor: number }) => void;
+      Initialize: (config: {
+        token: string;
+        checkout?: {
+          settings?: {
+            displayMode?: string;
+            locale?: string;
+          };
+        };
+      }) => void;
       Checkout: {
         open: (opts: {
-          product: string; // ✅ 문자열 Product ID 사용 가능
-          email?: string;
-          passthrough?: string;
-          successCallback?: () => void;
+          items: { priceId: string; quantity?: number }[];
+          customer: { email: string };
+          customData?: {
+            userID?: string;
+            licenseType?: string;
+          };
           closeCallback?: () => void;
         }) => void;
       };
@@ -75,9 +87,7 @@ export default function Page() {
   // ▼▼▼ MY 모달 관련 상태들 ▼▼▼
   const [showMyModal, setShowMyModal] = useState(false);
   const [userID, setUserID] = useState("");
-  // ---------------------------------------------
-  // userInfo에 licenseStatus = "normal" | "family"
-  // ---------------------------------------------
+
   const [userInfo, setUserInfo] = useState<{
     name?: string;
     id?: string;
@@ -250,7 +260,6 @@ export default function Page() {
       const oneHourLater = Date.now() + 60 * 60 * 1000; // 1시간
       localStorage.setItem("isLoggedIn", "true");
       localStorage.setItem("loginExpireTime", oneHourLater.toString());
-
       localStorage.setItem("userID", idForLogin);
       setUserID(idForLogin);
 
@@ -443,9 +452,6 @@ export default function Page() {
       "https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v1.1.7/DLAS_Installer.exe";
   };
 
-  // -----------------------------
-  // (기존) 결제 로직: TossPayments / Paddle
-  // -----------------------------
 
   // 1) TossPayments 결제 로직
   const handleTossRequest = () => {
@@ -462,7 +468,9 @@ export default function Page() {
 
     // 실제 사용 시에는 서버에서 clientKey나 주문정보 등을 받아오는 흐름을 구현하셔야 합니다.
     // 현재는 데모용 clientKey와 금액 정보를 바로 사용
-    const tossPayments = window.TossPayments("live_gck_ALnQvDd2VJYekz4OEqbb3Mj7X41m");
+    const tossPayments = window.TossPayments(
+      "live_gck_ALnQvDd2VJYekz4OEqbb3Mj7X41m"
+    );
 
     const orderId = `DLAS-${Date.now()}`;
     const amount = 550000; // 예시 결제 금액
@@ -478,26 +486,24 @@ export default function Page() {
     });
   };
 
-  // 2) Paddle 결제 로직
+  // 2) Paddle Billing v2 결제 로직
   const handlePaddleCheckout = () => {
-    if (typeof window === "undefined" || !window.Paddle) {
-      alert("Paddle SDK is not loaded yet.");
+    if (!window.Paddle) {
+      alert("Paddle SDK is not ready.");
       return;
     }
-    window.Paddle.Setup({ vendor: 230320 });
+    if (!userID) {
+      alert("Please log in first.");
+      return;
+    }
   
     window.Paddle.Checkout.open({
-      product: "pri_01jwbwfkfptaj84k8whj2j0mya",
-      email: userID,
-      passthrough: JSON.stringify({ userID, licenseType: "family" }),
-      // successCallback 제거! (라이선스 부여는 웹훅에서 처리)
-      closeCallback: () => {
-        console.log("Checkout closed.");
-      }
+      items: [{ priceId: "pri_01jwbwfkfptaj84k8whj2j0mya", quantity: 1 }],
+      customer: { email: userID },
+      customData: { userID, licenseType: "family" },
+      closeCallback: () => console.log("Checkout closed."),
     });
   };
-  
-  
 
   // **사용자가 최종 "가족 라이선스 결제"를 진행하는 함수**
   const handleFamilyLicensePayment = () => {
@@ -508,9 +514,7 @@ export default function Page() {
     }
     // 국가별 분기
     const countryLower = userInfo.country?.toLowerCase() || "";
-    if (
-      countryLower.includes("korea") // south korea, korea 등
-    ) {
+    if (countryLower.includes("korea")) {
       // TossPayments 사용
       handleTossRequest();
     } else {
@@ -521,8 +525,23 @@ export default function Page() {
 
   return (
     <>
-      {/* Paddle SDK (strategy="beforeInteractive") */}
-      <Script src="https://cdn.paddle.com/paddle/paddle.js" strategy="beforeInteractive" />
+      {/* Paddle SDK */ }
+<Script
+  src="https://cdn.paddle.com/paddle/paddle.js"
+  strategy="beforeInteractive"
+  onLoad={() => {
+    // 스크립트가 실제로 로드된 뒤 한 번만 초기화
+    if (window.Paddle) {
+      window.Paddle.Initialize({
+        token: process.env.NEXT_PUBLIC_PADDLE_TOKEN!,
+        checkout: { settings: { displayMode: "overlay", locale: "ko" } },
+      });
+
+      // 개발 단계라면 ↓ 한 줄 추가
+      // window.Paddle.Environment.set("sandbox");
+    }
+  }}
+/>
       {/* TossPayments SDK (strategy="beforeInteractive") */}
       <Script src="https://js.tosspayments.com/v1" strategy="beforeInteractive" />
 
@@ -539,7 +558,6 @@ export default function Page() {
         {/* 상단 네비게이션 */}
         <nav className="fixed top-0 left-0 w-full bg-white py-4 px-8 shadow-lg z-40">
           <div className="flex justify-center items-center relative">
-            {/* 로고: 모바일에서 상단 여백을 80px로 조정, PC에서는 0 */}
             <Image
               src="/logo.png"
               alt="DLAS Logo"
@@ -548,7 +566,6 @@ export default function Page() {
               className="object-contain max-w-full sm:max-w-[600px] mx-auto mt-[80px] sm:mt-0 mb-0 sm:mb-0"
               priority
             />
-            {/* 네비게이션 메뉴 - 모바일에서는 hidden, sm이상에서는 flex */}
             <div className="absolute bottom-2 right-4 sm:right-8 hidden sm:flex flex-wrap items-center gap-x-4 gap-y-2">
               {["home", "download", "buy", "contact"].map((tab) => (
                 <button
@@ -562,7 +579,6 @@ export default function Page() {
                 </button>
               ))}
 
-              {/* Terms & Privacy 버튼 */}
               <button
                 onClick={() => scrollToSection("terms-privacy")}
                 className="relative pb-2 transition-colors duration-200 cursor-pointer
@@ -586,7 +602,6 @@ export default function Page() {
         >
           {!isLoggedIn ? (
             <>
-              {/* 로그인 & 회원가입 버튼 */}
               <button
                 onClick={() =>
                   document
@@ -610,7 +625,6 @@ export default function Page() {
             </>
           ) : (
             <>
-              {/* MY & Logout 버튼 */}
               <button
                 onClick={() => setShowMyModal(true)}
                 className="text-sm font-medium border border-gray-300 px-4 py-2 rounded hover:bg-gray-100 transition"
@@ -639,7 +653,6 @@ export default function Page() {
             <button
               onClick={() => {
                 setShowFamilyModal(true);
-                // 혹시 이전에 열려있던 다른 화면을 초기화
                 setShowFreeLicenseGuide(false);
                 setShowPaymentProceed(false);
               }}
@@ -697,7 +710,6 @@ export default function Page() {
                   className="w-[28rem] h-[36rem] border p-10 rounded-lg shadow hover:shadow-lg transition flex flex-col items-center"
                 >
                   <div className="w-[28rem] h-[28rem] bg-gray-200 mb-6 relative overflow-hidden">
-                    {/* ↓↓↓ 해당 부분에서 모듈에 맞게 gif 추가 ↓↓↓ */}
                     {mod === "Transfer Jig Maker" ? (
                       <Image
                         src="/gifs/fast_transfer_jig_maker.gif"
@@ -779,7 +791,6 @@ export default function Page() {
               <h3 className="text-2xl font-bold mb-4">
                 {t("terms.headingTerms")}
               </h3>
-
               <h4 className="font-semibold mb-1">{t("terms.article1.title")}</h4>
               <p
                 className="mb-4"
@@ -907,7 +918,6 @@ export default function Page() {
                   <button
                     onClick={() => {
                       setShowFamilyModal(false);
-                      // 모달 닫을 때 2가지 화면 상태 초기화
                       setShowFreeLicenseGuide(false);
                       setShowPaymentProceed(false);
                     }}
@@ -916,19 +926,16 @@ export default function Page() {
                     ×
                   </button>
 
-                  {/* 3단 분기: 1) 결제 진행 화면 2) 무료 라이선스 3) 기본 화면 */}
                   {showPaymentProceed ? (
-                    /* --- 결제 진행 화면 (모듈 상태 안내) --- */
+                    /* --- 결제 진행 화면 --- */
                     <div>
                       <h2 className="text-xl font-bold mb-4 text-center">
                         {t("payment.title")}
                       </h2>
-
                       <div className="text-sm text-gray-700 leading-relaxed space-y-3">
                         <p className="font-bold text-red-600">
                           {t("payment.warning")}
                         </p>
-
                         <div className="border rounded p-4 bg-gray-50">
                           <p className="font-semibold mb-2">
                             {t("payment.statusHeader")}
@@ -944,16 +951,16 @@ export default function Page() {
                               ⚠️ {t("payment.items.6")}
                             </li>
                             <li className="bg-yellow-50 border-l-4 border-yellow-400 text-yellow-700 p-3 rounded shadow flex items-start">
-                              ℹ️ <span className="ml-2 font-medium">{t("payment.items.7")}</span>
+                              ℹ️{" "}
+                              <span className="ml-2 font-medium">
+                                {t("payment.items.7")}
+                              </span>
                             </li>
                           </ul>
                         </div>
-
                         <p>{t("payment.footer")}</p>
                       </div>
-
                       <div className="text-center mt-6">
-                        {/* 2) "I agree" 버튼 → 국가별 분기 (Toss/Paddle) */}
                         <button
                           className="bg-black text-white px-8 py-3 rounded hover:bg-gray-800 transition"
                           onClick={handleFamilyLicensePayment}
@@ -963,7 +970,7 @@ export default function Page() {
                       </div>
                     </div>
                   ) : showFreeLicenseGuide ? (
-                    /* --- 무료 라이선스 획득 방법 화면 --- */
+                    /* --- 무료 라이선스 안내 화면 --- */
                     <div className="mt-6">
                       <button
                         onClick={() => setShowFreeLicenseGuide(false)}
@@ -975,7 +982,6 @@ export default function Page() {
                         {t("freeLicense.title")}
                       </h3>
 
-                      {/* 실제 이미지 3장으로 대체 */}
                       <div className="flex flex-row items-start justify-center space-x-4">
                         <img
                           src="/free_liecense/1.png"
@@ -994,7 +1000,6 @@ export default function Page() {
                         />
                       </div>
 
-                      {/* 설명 */}
                       <div className="text-sm text-gray-700 mt-4 leading-6 space-y-2">
                         <p
                           dangerouslySetInnerHTML={{
@@ -1019,12 +1024,10 @@ export default function Page() {
                           <p>{t("freeLicense.note2")}</p>
                           <p>{t("freeLicense.note3")}</p>
                         </div>
-                        <hr className="my-3" />
-                        <div className="font-bold text-gray-900 space-y-1"></div>
                       </div>
                     </div>
                   ) : (
-                    /* --- 기본 패밀리 라이선스 안내 화면 --- */
+                    /* --- 패밀리 라이선스 안내 기본 화면 --- */
                     <>
                       <h2 className="text-3xl font-bold mb-4 text-center">
                         {t("family.modalTitle")}
@@ -1038,7 +1041,6 @@ export default function Page() {
                         <p>{t("family.desc5")}</p>
                       </div>
 
-                      {/* 강조문구 + 버튼 */}
                       <div className="my-4 text-center">
                         <p className="font-bold text-red-600 mb-2">
                           {t("family.recommendFree")}
@@ -1069,9 +1071,7 @@ export default function Page() {
                                 ONLY before v2.0.0
                               </span>
                             </th>
-                            <th className="p-2 border text-left">
-                              Description
-                            </th>
+                            <th className="p-2 border text-left">Description</th>
                           </tr>
                         </thead>
                         <tbody className="text-xs">
@@ -1096,7 +1096,6 @@ export default function Page() {
                       </p>
 
                       <div className="text-center mt-6">
-                        {/* 2) "Proceed to payment" 버튼 */}
                         <button
                           className="bg-black text-white px-8 py-3 rounded hover:bg-gray-800 transition"
                           onClick={() => {
@@ -1105,9 +1104,10 @@ export default function Page() {
                                 .getElementById("login-modal")!
                                 .classList.remove("hidden");
                             } else {
-                              // (2) 패밀리 유저라면 여기서도 막기
                               if (userInfo.licenseStatus === "family") {
-                                alert("You are already a Family user. Payment is not possible.");
+                                alert(
+                                  "You are already a Family user. Payment is not possible."
+                                );
                                 return;
                               }
                               setShowPaymentProceed(true);
@@ -1164,7 +1164,7 @@ export default function Page() {
           )}
         </main>
 
-        {/* [추가] 다운로드 안내 모달 */}
+        {/* 다운로드 안내 모달 */}
         {showDownloadModal && (
           <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center px-4">
             <div className="bg-white w-full max-w-lg p-6 rounded-lg shadow-xl relative">
@@ -1178,8 +1178,7 @@ export default function Page() {
               <h2 className="text-xl font-bold mb-3">※ Notice</h2>
               <ul className="text-sm text-gray-700 list-disc pl-5 mb-6 space-y-2">
                 <li>
-                  You may see a message like{" "}
-                  <em>"This file isn't commonly downloaded."</em>
+                  You may see a message like <em>"This file isn't commonly downloaded."</em>
                 </li>
                 <li>
                   This installer is distributed only through the official DLAS
@@ -1190,12 +1189,10 @@ export default function Page() {
                   "Continue" to proceed with the installation.
                 </li>
                 <li>
-                  A digitally signed (code-signed) version will be provided
-                  soon.
+                  A digitally signed (code-signed) version will be provided soon.
                 </li>
                 <li>
-                  For any questions, please contact{" "}
-                  <strong>support@dlas.io</strong>.
+                  For any questions, please contact <strong>support@dlas.io</strong>.
                 </li>
               </ul>
 
@@ -1214,8 +1211,7 @@ export default function Page() {
                   설치를 진행해 주세요.
                 </li>
                 <li>
-                  정식 코드서명(디지털 인증서)이 적용된 버전은 곧 제공될
-                  예정입니다.
+                  정식 코드서명(디지털 인증서)이 적용된 버전은 곧 제공될 예정입니다.
                 </li>
                 <li>
                   궁금한 점은 <strong>support@dlas.io</strong>로 문의해 주세요.
@@ -1378,7 +1374,6 @@ export default function Page() {
                 required
               />
 
-              {/* 약관 동의 체크박스 */}
               <div className="text-sm text-gray-600 mt-4 space-y-2">
                 <label className="flex items-center">
                   <input
@@ -1420,9 +1415,7 @@ export default function Page() {
 
         {/* MY 모달 */}
         {showMyModal && (
-          <div
-            className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center"
-          >
+          <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
             <div className="bg-white w-full max-w-md p-8 rounded-lg shadow-xl relative">
               <button
                 className="absolute top-2 right-3 text-gray-500 hover:text-black text-2xl"
@@ -1463,7 +1456,6 @@ export default function Page() {
         {/* Footer */}
         <footer className="bg-black text-white py-10 px-6 mt-20">
           <div className="max-w-5xl mx-auto">
-            {/* 첫 번째 줄: 저작권, 소셜 링크 */}
             <div className="flex flex-col md:flex-row items-center md:items-start justify-between gap-4">
               <div className="text-sm">
                 © {new Date().getFullYear()} DLAS. {t("footer.rights")}
@@ -1488,7 +1480,6 @@ export default function Page() {
               </div>
             </div>
 
-            {/* 두 번째 줄: 사업자 정보 (왼쪽 정렬) */}
             <div className="mt-6 text-sm text-white leading-snug">
               <p>DLAS</p>
               <p>Owner: Jonghwan Kim</p>
