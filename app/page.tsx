@@ -21,6 +21,7 @@ declare global {
 
     // Paddle Billing v2용 타입
     Paddle?: {
+      Setup?: (config: { vendor: number }) => void;
       Initialize: (config: {
         token: string;
         checkout?: {
