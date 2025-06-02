@@ -694,19 +694,8 @@ export default function Page() {
               </span>
             </p>
             <h1 className="text-6xl font-bold mb-8">{t("home.title")}</h1>
-            {/* "join the dlas family -only $390" 버튼 */}
-            <button
-              onClick={() => {
-                setShowFamilyModal(true);
-                setShowFreeLicenseGuide(false);
-                setShowPaymentProceed(false);
-              }}
-              className="text-2xl font-bold cursor-pointer mt-6 bg-black text-white px-10 py-6 rounded hover:bg-gray-800 transition"
-            >
-              {t("home.cta")} {t("home.price")}
-            </button>
 
-            {/* 추가: "Get the free license!" 버튼 (화려하게) */}
+            {/* 1) "Get the free license!" 버튼 (위에) */}
             <button
               onClick={() => {
                 setShowFamilyModal(true);
@@ -714,17 +703,31 @@ export default function Page() {
                 setShowPaymentProceed(false);
               }}
               className="
-                mt-4 
-                px-8 py-4 
+                text-2xl font-bold 
+                cursor-pointer
                 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500
-                text-white font-semibold text-xl
-                rounded-lg shadow-lg
-                animate-pulse
+                text-white
+                px-10 py-6
+                rounded
                 hover:opacity-90 
                 transition
+                animate-pulse
+                mb-5 
               "
             >
               Get the free license!
+            </button>
+
+            {/* 2) "join the dlas family -only $390" 버튼 (아래쪽, 20px 간격) */}
+            <button
+              onClick={() => {
+                setShowFamilyModal(true);
+                setShowFreeLicenseGuide(false);
+                setShowPaymentProceed(false);
+              }}
+              className="text-2xl font-bold cursor-pointer bg-black text-white px-10 py-6 rounded hover:bg-gray-800 transition"
+            >
+              {t("home.cta")} {t("home.price")}
             </button>
 
             <div className="mt-16 px-6 max-w-4xl mx-auto text-center">
