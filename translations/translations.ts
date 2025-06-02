@@ -41,7 +41,7 @@ export const translations = {
    freeLicense: {
     title: "How to get the free license",
     step1: `1) Follow us on Instagram: <a href="https://www.instagram.com/dlas_official_" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">here</a> and take a screenshot.`,
-    step2: `2) Like our post: <a href="https://www.instagram.com/p/DKJhleuh154/" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">here</a> and take a screenshot.`,
+    step2: `2) Like our post: <a href="https://www.instagram.com/reel/DKOFtNABCgr/?utm_source=ig_web_copy_link/" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">here</a> and take a screenshot.`,
     step3: "3) Make sure your Instagram ID is clearly visible in your screenshot.",
     send: `Then send all the screenshots to <strong>support@dlas.io</strong> with the email subject line <strong>dlas (your dlas ID), ex : dlas kimjonghwan</strong>.`,
     aiReview: "Our AI will review your screenshots and respond within 10 minutes.",
@@ -197,7 +197,7 @@ export const translations = {
   freeLicense: {
     title: "如何获取免费许可",
     step1: `1) 在Instagram上关注我们：<a href="https://www.instagram.com/dlas_official_" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">点击这里</a>并截图。`,
-    step2: `2) 点赞我们的帖子：<a href="https://www.instagram.com/p/DKJhleuh154/" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">点击这里</a>并截图。`,
+    step2: `2) 点赞我们的帖子：<a href="https://www.instagram.com/reel/DKOFtNABCgr/?utm_source=ig_web_copy_link/" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">点击这里</a>并截图。`,
     step3: "3) 请确保截图中清晰显示您的Instagram账号。",
     send: `然后将所有截图发送至 <strong>support@dlas.io</strong>，邮件主题请写 <strong>dlas (您的dlas ID)，例如：dlas kimjonghwan</strong>。`,
     aiReview: "我们的AI将在10分钟内审核并回复您的截图。",
@@ -361,7 +361,7 @@ export const translations = {
     freeLicense: {
       title: "無料ライセンスの取得方法",
       step1: `1) Instagramでフォローしてください：<a href="https://www.instagram.com/dlas_official_" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">こちら</a>のページのスクリーンショットを撮影してください。`,
-      step2: `2) 投稿に「いいね！」してください：<a href="https://www.instagram.com/p/DKJhleuh154/" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">こちら</a>の投稿のスクリーンショットを撮影してください。`,
+      step2: `2) 投稿に「いいね！」してください：<a href="https://www.instagram.com/reel/DKOFtNABCgr/?utm_source=ig_web_copy_link/" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">こちら</a>の投稿のスクリーンショットを撮影してください。`,
       step3: "3) InstagramのIDがはっきりと見えるようにしてください。",
       send: `すべてのスクリーンショットを<strong>support@dlas.io</strong>に件名を<strong>dlas (あなたのdlas ID)、例：dlas kimjonghwan</strong>として送信してください。`,
       aiReview: "AIが10分以内にスクリーンショットを審査し、返信します。",
@@ -525,7 +525,7 @@ export const translations = {
     freeLicense: {
       title: "So erhalten Sie die kostenlose Lizenz",
       step1: `1) Folgen Sie uns auf Instagram: <a href="https://www.instagram.com/dlas_official_" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">hier</a> und machen Sie einen Screenshot.`,
-      step2: `2) Liken Sie unseren Beitrag: <a href="https://www.instagram.com/p/DKJhleuh154/" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">hier</a> und machen Sie einen Screenshot.`,
+      step2: `2) Liken Sie unseren Beitrag: <a href="https://www.instagram.com/reel/DKOFtNABCgr/?utm_source=ig_web_copy_link/" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">hier</a> und machen Sie einen Screenshot.`,
       step3: "3) Stellen Sie sicher, dass Ihre Instagram-ID auf dem Screenshot klar sichtbar ist.",
       send: `Senden Sie dann alle Screenshots an <strong>support@dlas.io</strong> mit dem Betreff <strong>dlas (Ihre dlas ID), z.B.: dlas kimjonghwan</strong>.`,
       aiReview: "Unsere KI überprüft Ihre Screenshots und antwortet innerhalb von 10 Minuten.",
@@ -689,7 +689,7 @@ export const translations = {
     freeLicense: {
       title: "मुफ्त लाइसेंस कैसे प्राप्त करें",
       step1: `1) Instagram पर हमें फ़ॉलो करें: <a href="https://www.instagram.com/dlas_official_" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">यहाँ</a> और स्क्रीनशॉट लें।`,
-      step2: `2) हमारी पोस्ट को लाइक करें: <a href="https://www.instagram.com/p/DKJhleuh154/" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">यहाँ</a> और स्क्रीनशॉट लें।`,
+      step2: `2) हमारी पोस्ट को लाइक करें: <a href="https://www.instagram.com/reel/DKOFtNABCgr/?utm_source=ig_web_copy_link/" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">यहाँ</a> और स्क्रीनशॉट लें।`,
       step3: "3) सुनिश्चित करें कि आपकी Instagram आईडी आपके स्क्रीनशॉट में स्पष्ट रूप से दिखाई दे।",
       send: `फिर सभी स्क्रीनशॉट्स <strong>support@dlas.io</strong> पर इस विषय के साथ भेजें: <strong>dlas (आपका dlas ID), उदाहरण: dlas kimjonghwan</strong>.`,
       aiReview: "हमारा AI आपके स्क्रीनशॉट की समीक्षा करेगा और 10 मिनट के अंदर जवाब देगा।",
@@ -853,7 +853,7 @@ export const translations = {
     freeLicense: {
       title: "Como obter a licença gratuita",
       step1: `1) Siga-nos no Instagram: <a href="https://www.instagram.com/dlas_official_" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">aqui</a> e tire uma captura de tela.`,
-      step2: `2) Curta nossa postagem: <a href="https://www.instagram.com/p/DKJhleuh154/" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">aqui</a> e tire uma captura de tela.`,
+      step2: `2) Curta nossa postagem: <a href="https://www.instagram.com/reel/DKOFtNABCgr/?utm_source=ig_web_copy_link/" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">aqui</a> e tire uma captura de tela.`,
       step3: "3) Certifique-se de que seu ID do Instagram esteja claramente visível na captura de tela.",
       send: `Então envie todas as capturas para <strong>support@dlas.io</strong> com o assunto <strong>dlas (seu ID dlas), ex: dlas kimjonghwan</strong>.`,
       aiReview: "Nossa IA revisará suas capturas e responderá em até 10 minutos.",
@@ -1019,7 +1019,7 @@ export const translations = {
    freeLicense: {
     title: "무료 라이선스 받는 방법",
     step1: `1) 인스타그램 <a href="https://www.instagram.com/dlas_official_" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">팔로우</a> 후 스크린샷을 찍어주세요.`,
-    step2: `2) 게시글에 <a href="https://www.instagram.com/p/DKJhleuh154/" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">좋아요</a>를 누른 후 스크린샷을 찍어주세요.`,
+    step2: `2) 게시글에 <a href="https://www.instagram.com/reel/DKOFtNABCgr/?utm_source=ig_web_copy_link/" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">좋아요</a>를 누른 후 스크린샷을 찍어주세요.`,
     step3: "3) 인스타그램 아이디가 스크린샷에 잘 보이도록 찍어주세요.",
     send: `<strong>support@dlas.io</strong>로 모든 스크린샷을 보내주세요. 이메일 제목은 <strong>dlas (본인의 dlas ID)  ex : dlas kimjonghwan</strong> 형식으로 작성해주세요.`,
     aiReview: "AI가 확인 후 10분 이내로 답변드립니다.",
@@ -1251,7 +1251,7 @@ export const translations = {
     freeLicense: {
       title: "Как получить бесплатную лицензию",
       step1: `1) Подпишитесь на нас в Instagram: <a href="https://www.instagram.com/dlas_official_" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">здесь</a> и сделайте скриншот.`,
-      step2: `2) Поставьте лайк нашей публикации: <a href="https://www.instagram.com/p/DKJhleuh154/" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">здесь</a> и сделайте скриншот.`,
+      step2: `2) Поставьте лайк нашей публикации: <a href="https://www.instagram.com/reel/DKOFtNABCgr/?utm_source=ig_web_copy_link/" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">здесь</a> и сделайте скриншот.`,
       step3: "3) Убедитесь, что ваш Instagram ID чётко виден на скриншоте.",
       send: `Затем отправьте все скриншоты на <strong>support@dlas.io</strong> с темой письма <strong>dlas (ваш dlas ID), например: dlas kimjonghwan</strong>.`,
       aiReview: "Наш ИИ проверит ваши скриншоты и ответит в течение 10 минут.",
@@ -1415,7 +1415,7 @@ export const translations = {
     freeLicense: {
       title: "Cómo obtener la licencia gratuita",
       step1: `1) Síguenos en Instagram: <a href="https://www.instagram.com/dlas_official_" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">aquí</a> y toma una captura de pantalla.`,
-      step2: `2) Dale "Me gusta" a nuestra publicación: <a href="https://www.instagram.com/p/DKJhleuh154/" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">aquí</a> y toma una captura de pantalla.`,
+      step2: `2) Dale "Me gusta" a nuestra publicación: <a href="https://www.instagram.com/reel/DKOFtNABCgr/?utm_source=ig_web_copy_link/" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">aquí</a> y toma una captura de pantalla.`,
       step3: "3) Asegúrate de que tu ID de Instagram sea claramente visible en la captura.",
       send: `Luego envía todas las capturas a <strong>support@dlas.io</strong> con el asunto <strong>dlas (tu ID dlas), ej.: dlas kimjonghwan</strong>.`,
       aiReview: "Nuestro AI revisará tus capturas y responderá en 10 minutos.",
@@ -1579,7 +1579,7 @@ export const translations = {
     freeLicense: {
       title: "كيفية الحصول على الترخيص المجاني",
       step1: `1) تابعنا على إنستجرام: <a href="https://www.instagram.com/dlas_official_" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">هنا</a> والتقط لقطة شاشة.`,
-      step2: `2) أُعجب بمنشورنا: <a href="https://www.instagram.com/p/DKJhleuh154/" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">هنا</a> والتقط لقطة شاشة.`,
+      step2: `2) أُعجب بمنشورنا: <a href="https://www.instagram.com/reel/DKOFtNABCgr/?utm_source=ig_web_copy_link/" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">هنا</a> والتقط لقطة شاشة.`,
       step3: "3) تأكد من أن معرف إنستجرام الخاص بك واضح في لقطة الشاشة.",
       send: `ثم أرسل كل لقطات الشاشة إلى <strong>support@dlas.io</strong> مع عنوان البريد الإلكتروني <strong>dlas (معرف dlas الخاص بك)، مثال: dlas kimjonghwan</strong>.`,
       aiReview: "سيقوم الذكاء الاصطناعي لدينا بمراجعة لقطات الشاشة والرد خلال 10 دقائق.",
@@ -1743,7 +1743,7 @@ export const translations = {
     freeLicense: {
       title: "Ücretsiz lisans nasıl alınır",
       step1: `1) Instagram’da bizi takip edin: <a href="https://www.instagram.com/dlas_official_" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">buradan</a> ekran görüntüsü alın.`,
-      step2: `2) Gönderimizi beğenin: <a href="https://www.instagram.com/p/DKJhleuh154/" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">buradan</a> ekran görüntüsü alın.`,
+      step2: `2) Gönderimizi beğenin: <a href="https://www.instagram.com/reel/DKOFtNABCgr/?utm_source=ig_web_copy_link/" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">buradan</a> ekran görüntüsü alın.`,
       step3: "3) Instagram ID’nizin ekran görüntüsünde net olarak göründüğünden emin olun.",
       send: `Ardından tüm ekran görüntülerini <strong>support@dlas.io</strong> adresine, konu olarak <strong>dlas (dlas ID’niz), örn: dlas kimjonghwan</strong> yazıp gönderin.`,
       aiReview: "Yapay zekamız ekran görüntülerinizi inceleyecek ve 10 dakika içinde yanıt verecektir.",
@@ -1907,7 +1907,7 @@ export const translations = {
     freeLicense: {
       title: "Cách nhận giấy phép miễn phí",
       step1: `1) Theo dõi chúng tôi trên Instagram: <a href="https://www.instagram.com/dlas_official_" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">tại đây</a> và chụp ảnh màn hình.`,
-      step2: `2) Thích bài đăng của chúng tôi: <a href="https://www.instagram.com/p/DKJhleuh154/" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">tại đây</a> và chụp ảnh màn hình.`,
+      step2: `2) Thích bài đăng của chúng tôi: <a href="https://www.instagram.com/reel/DKOFtNABCgr/?utm_source=ig_web_copy_link/" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">tại đây</a> và chụp ảnh màn hình.`,
       step3: "3) Đảm bảo ID Instagram của bạn hiển thị rõ ràng trong ảnh chụp màn hình.",
       send: `Sau đó gửi tất cả ảnh chụp màn hình đến <strong>support@dlas.io</strong> với tiêu đề email là <strong>dlas (ID dlas của bạn), ví dụ: dlas kimjonghwan</strong>.`,
       aiReview: "AI của chúng tôi sẽ xem xét ảnh chụp màn hình và phản hồi trong vòng 10 phút.",
@@ -2070,7 +2070,7 @@ export const translations = {
     freeLicense: {
       title: "วิธีรับใบอนุญาตฟรี",
       step1: `1) ติดตามเราใน Instagram: <a href="https://www.instagram.com/dlas_official_" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">ที่นี่</a> และถ่ายภาพหน้าจอ`,
-      step2: `2) กดไลค์โพสต์ของเรา: <a href="https://www.instagram.com/p/DKJhleuh154/" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">ที่นี่</a> และถ่ายภาพหน้าจอ`,
+      step2: `2) กดไลค์โพสต์ของเรา: <a href="https://www.instagram.com/reel/DKOFtNABCgr/?utm_source=ig_web_copy_link/" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">ที่นี่</a> และถ่ายภาพหน้าจอ`,
       step3: "3) ตรวจสอบให้แน่ใจว่า Instagram ID ของคุณมองเห็นได้ชัดเจนในภาพหน้าจอ",
       send: `แล้วส่งภาพหน้าจอทั้งหมดไปที่ <strong>support@dlas.io</strong> โดยใช้หัวข้ออีเมลว่า <strong>dlas (ID dlas ของคุณ), เช่น: dlas kimjonghwan</strong>`,
       aiReview: "ระบบ AI ของเราจะตรวจสอบภาพหน้าจอและตอบกลับภายใน 10 นาที",
@@ -2234,7 +2234,7 @@ export const translations = {
     freeLicense: {
       title: "Cara mendapatkan lisensi gratis",
       step1: `1) Ikuti kami di Instagram: <a href="https://www.instagram.com/dlas_official_" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">di sini</a> dan ambil tangkapan layar.`,
-      step2: `2) Sukai postingan kami: <a href="https://www.instagram.com/p/DKJhleuh154/" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">di sini</a> dan ambil tangkapan layar.`,
+      step2: `2) Sukai postingan kami: <a href="https://www.instagram.com/reel/DKOFtNABCgr/?utm_source=ig_web_copy_link/" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">di sini</a> dan ambil tangkapan layar.`,
       step3: "3) Pastikan ID Instagram Anda terlihat jelas di tangkapan layar.",
       send: `Kemudian kirim semua tangkapan layar ke <strong>support@dlas.io</strong> dengan subjek email <strong>dlas (ID dlas Anda), contoh: dlas kimjonghwan</strong>.`,
       aiReview: "AI kami akan meninjau tangkapan layar Anda dan merespon dalam 10 menit.",
