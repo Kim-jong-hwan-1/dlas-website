@@ -164,7 +164,7 @@ export default function Page() {
   const [showFreeLicenseGuide, setShowFreeLicenseGuide] = useState(false);
   // 결제 진행(모듈 상태 안내) 단계
   const [showPaymentProceed, setShowPaymentProceed] = useState(false);
-  // 결제 문의 모달 (아직 사용 중지 상태로 보임)
+  // 결제 문의 모달
   const [showPaymentSupportModal, setShowPaymentSupportModal] = useState(false);
 
   // 회원가입 폼 제출 처리
@@ -186,7 +186,6 @@ export default function Page() {
       password,
       name,
       country,
-      // **workplace_name, workplace_address는 빈칸이어도 전송** 가능
       workplace_name: workplaceName,
       workplace_address: workplaceAddress,
       marketing_agree: marketingAgree,
@@ -272,7 +271,7 @@ export default function Page() {
       localStorage.setItem("userID", idForLogin);
       setUserID(idForLogin);
 
-      // 여기서 로그인 성공 시, 유저 정보를 곧바로 fetch
+      // 로그인 성공 후 유저 정보 fetch
       fetchUserInfo(idForLogin);
 
       document.getElementById("login-modal")!.classList.add("hidden");
@@ -286,7 +285,7 @@ export default function Page() {
     }
   };
 
-  // 사용자가 새로고침하거나, 로그인 상태로 접속 시에도 userInfo를 불러오기
+  // 로그인 상태면 userInfo 불러오기
   useEffect(() => {
     if (isLoggedIn) {
       const storedID = localStorage.getItem("userID");
@@ -299,7 +298,7 @@ export default function Page() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoggedIn]);
 
-  // MY 모달 표시될 때 Local Storage fallback
+  // MY 모달 열릴 때 Local Storage fallback
   useEffect(() => {
     if (showMyModal) {
       const storedID = userID || localStorage.getItem("userID");
@@ -501,7 +500,6 @@ export default function Page() {
       return;
     }
 
-    // 실제 사용 시에는 서버에서 clientKey나 주문정보 등을 받아오는 흐름을 구현하셔야 합니다.
     const tossPayments = window.TossPayments(
       "live_gck_ALnQvDd2VJYekz4OEqbb3Mj7X41m"
     );
@@ -514,7 +512,7 @@ export default function Page() {
       amount,
       orderId,
       orderName: "DLAS Family License",
-      customerEmail: userID, // Toss 쪽에 필요한 값
+      customerEmail: userID,
       successUrl: `https://www.dlas.io/payment/success?orderId=${orderId}&amount=${amount}`,
       failUrl: `https://www.dlas.io/payment/fail`,
     });
@@ -526,16 +524,11 @@ export default function Page() {
       alert("Paddle SDK is not ready.");
       return;
     }
-    // localStorage에 있는 유저 ID도 확인하여 사용
     const storedId = localStorage.getItem("userID") || userID;
     if (!storedId) {
       alert("Please log in first.");
       return;
     }
-    console.log("🔔 Paddle Checkout OPEN:", {
-      priceId: "pri_01jwbwfkfptaj84k8whj2j0mya",
-      storedId,
-    });
     window.Paddle.Checkout.open({
       priceId: "pri_01jwbwfkfptaj84k8whj2j0mya",
       quantity: 1,
@@ -547,24 +540,21 @@ export default function Page() {
 
   // "가족 라이선스 결제" 버튼 클릭 -> 국가별 결제
   const handleFamilyLicensePayment = () => {
-    // **로딩 중이면 막기** (핵심!)
     if (isUserInfoLoading) {
       alert("Loading your information... Please wait a moment.");
       return;
     }
 
-    // 이미 family 상태인지 확인
     if (userInfo.licenseStatus === "family") {
       alert("You are already a Family user. Payment is not possible.");
       return;
     }
-    // 국가별 분기
     const countryLower = userInfo.country?.toLowerCase() || "";
     if (countryLower.includes("korea")) {
-      // TossPayments 사용
+      // TossPayments
       handleTossRequest();
     } else {
-      // Paddle 사용
+      // Paddle
       handlePaddleCheckout();
     }
   };
@@ -582,7 +572,6 @@ export default function Page() {
               token: process.env.NEXT_PUBLIC_PADDLE_TOKEN!,
               checkout: { settings: { displayMode: "overlay", locale: "ko" } },
             });
-            // window.Paddle.Environment.set("sandbox"); // 필요 시 활성
           }
         }}
       />
@@ -695,40 +684,46 @@ export default function Page() {
             </p>
             <h1 className="text-6xl font-bold mb-8">{t("home.title")}</h1>
 
-            {/* (위쪽) "Get the free license!" 버튼 */}
-            <button
-              onClick={() => {
-                setShowFamilyModal(true);
-                setShowFreeLicenseGuide(true); // 바로 'How to get the free license' 화면으로
-                setShowPaymentProceed(false);
-              }}
-              className="
-                text-2xl font-bold 
-                cursor-pointer
-                bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500
-                text-white
-                px-10 py-6
-                rounded
-                hover:opacity-90 
-                transition
-                animate-pulse
-                mb-10    /* 여기를 조금 늘려서 간격을 띄웁니다 */
-              "
-            >
-              Get the free license!
-            </button>
+            {/* 
+                flex-col를 사용해 두 버튼을 PC 화면에서도 
+                세로로 쌓이도록 강제합니다.
+            */}
+            <div className="flex flex-col items-center">
+              {/* (위쪽) "Get the free license!" 버튼 */}
+              <button
+                onClick={() => {
+                  setShowFamilyModal(true);
+                  setShowFreeLicenseGuide(true);
+                  setShowPaymentProceed(false);
+                }}
+                className="
+                  text-2xl font-bold 
+                  cursor-pointer
+                  bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500
+                  text-white
+                  px-10 py-6
+                  rounded
+                  hover:opacity-90 
+                  transition
+                  animate-pulse
+                  mb-10
+                "
+              >
+                Get the free license!
+              </button>
 
-            {/* (아래쪽) "join the dlas family -only $390" 버튼 */}
-            <button
-              onClick={() => {
-                setShowFamilyModal(true);
-                setShowFreeLicenseGuide(false);
-                setShowPaymentProceed(false);
-              }}
-              className="text-2xl font-bold cursor-pointer bg-black text-white px-10 py-6 rounded hover:bg-gray-800 transition"
-            >
-              {t("home.cta")} {t("home.price")}
-            </button>
+              {/* (아래쪽) "join the dlas family -only $390" 버튼 */}
+              <button
+                onClick={() => {
+                  setShowFamilyModal(true);
+                  setShowFreeLicenseGuide(false);
+                  setShowPaymentProceed(false);
+                }}
+                className="text-2xl font-bold cursor-pointer bg-black text-white px-10 py-6 rounded hover:bg-gray-800 transition"
+              >
+                {t("home.cta")} {t("home.price")}
+              </button>
+            </div>
 
             <div className="mt-16 px-6 max-w-4xl mx-auto text-center">
               <h2 className="text-3xl font-semibold mb-4 text-gray-900">
@@ -1262,7 +1257,8 @@ export default function Page() {
               <h2 className="text-xl font-bold mb-3">※ Notice</h2>
               <ul className="text-sm text-gray-700 list-disc pl-5 mb-6 space-y-2">
                 <li>
-                  You may see a message like <em>"This file isn't commonly downloaded."</em>
+                  You may see a message like{" "}
+                  <em>"This file isn't commonly downloaded."</em>
                 </li>
                 <li>
                   This installer is distributed only through the official DLAS
@@ -1445,7 +1441,7 @@ export default function Page() {
                 ))}
               </select>
 
-              {/* 1) workplaceName: `required` 제거 */}
+              {/* workplaceName: `required` 제거 */}
               <input
                 type="text"
                 placeholder={t("signup.form.workplaceName")}
@@ -1454,7 +1450,7 @@ export default function Page() {
                 className="w-full p-3 border border-gray-300 rounded"
               />
 
-              {/* 2) workplaceAddress: `required` 제거 */}
+              {/* workplaceAddress: `required` 제거 */}
               <input
                 type="text"
                 placeholder={t("signup.form.workplaceAddress")}
