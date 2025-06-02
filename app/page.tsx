@@ -489,7 +489,7 @@ export default function Page() {
 
   // 1) TossPayments 결제 로직
   const handleTossRequest = () => {
-    // (1) 패밀리 유저라면 결제창 차단 (영어 메세지)
+    // (1) 패밀리 유저라면 결제창 차단
     if (userInfo.licenseStatus === "family") {
       alert("You are already a Family user. Payment is not possible.");
       return;
@@ -551,10 +551,8 @@ export default function Page() {
     }
     const countryLower = userInfo.country?.toLowerCase() || "";
     if (countryLower.includes("korea")) {
-      // TossPayments
       handleTossRequest();
     } else {
-      // Paddle
       handlePaddleCheckout();
     }
   };
@@ -1059,21 +1057,25 @@ export default function Page() {
                       {t("freeLicense.title")}
                     </h3>
 
-                    <div className="flex flex-row items-start justify-center space-x-4">
+                    {/* 
+                      이미지들이 잘리는 문제를 해결하기 위해
+                      flex + overflow-x-auto 적용.
+                    */}
+                    <div className="flex flex-nowrap gap-4 overflow-x-auto">
                       <img
                         src="/free_liecense/1.png"
                         alt="Step 1"
-                        className="w-60 h-auto"
+                        className="w-60 h-auto flex-shrink-0"
                       />
                       <img
                         src="/free_liecense/2.png"
                         alt="Step 2"
-                        className="w-60 h-auto"
+                        className="w-60 h-auto flex-shrink-0"
                       />
                       <img
                         src="/free_liecense/3.png"
                         alt="Step 3"
-                        className="w-60 h-auto"
+                        className="w-60 h-auto flex-shrink-0"
                       />
                     </div>
 
