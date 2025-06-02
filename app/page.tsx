@@ -695,7 +695,7 @@ export default function Page() {
             </p>
             <h1 className="text-6xl font-bold mb-8">{t("home.title")}</h1>
 
-            {/* 1) "Get the free license!" 버튼 (위에) */}
+            {/* (위쪽) "Get the free license!" 버튼 */}
             <button
               onClick={() => {
                 setShowFamilyModal(true);
@@ -712,13 +712,13 @@ export default function Page() {
                 hover:opacity-90 
                 transition
                 animate-pulse
-                mb-5 
+                mb-10    /* 여기를 조금 늘려서 간격을 띄웁니다 */
               "
             >
               Get the free license!
             </button>
 
-            {/* 2) "join the dlas family -only $390" 버튼 (아래쪽, 20px 간격) */}
+            {/* (아래쪽) "join the dlas family -only $390" 버튼 */}
             <button
               onClick={() => {
                 setShowFamilyModal(true);
