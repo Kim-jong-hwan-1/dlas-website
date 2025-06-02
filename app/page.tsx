@@ -577,7 +577,7 @@ export default function Page() {
         strategy="beforeInteractive"
         onLoad={() => {
           if (window.Paddle) {
-            window.Paddle.Setup && window.Paddle.Setup({ vendor: 230320 }); 
+            window.Paddle.Setup && window.Paddle.Setup({ vendor: 230320 });
             window.Paddle.Initialize({
               token: process.env.NEXT_PUBLIC_PADDLE_TOKEN!,
               checkout: { settings: { displayMode: "overlay", locale: "ko" } },
@@ -694,6 +694,7 @@ export default function Page() {
               </span>
             </p>
             <h1 className="text-6xl font-bold mb-8">{t("home.title")}</h1>
+            {/* "join the dlas family -only $390" 버튼 */}
             <button
               onClick={() => {
                 setShowFamilyModal(true);
@@ -704,6 +705,28 @@ export default function Page() {
             >
               {t("home.cta")} {t("home.price")}
             </button>
+
+            {/* 추가: "Get the free license!" 버튼 (화려하게) */}
+            <button
+              onClick={() => {
+                setShowFamilyModal(true);
+                setShowFreeLicenseGuide(true); // 바로 'How to get the free license' 화면으로
+                setShowPaymentProceed(false);
+              }}
+              className="
+                mt-4 
+                px-8 py-4 
+                bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500
+                text-white font-semibold text-xl
+                rounded-lg shadow-lg
+                animate-pulse
+                hover:opacity-90 
+                transition
+              "
+            >
+              Get the free license!
+            </button>
+
             <div className="mt-16 px-6 max-w-4xl mx-auto text-center">
               <h2 className="text-3xl font-semibold mb-4 text-gray-900">
                 {t("home.gameChangerTitle")}
@@ -1339,7 +1362,9 @@ export default function Page() {
                 className="text-blue-600 hover:underline"
                 onClick={(e) => {
                   e.preventDefault();
-                  document.getElementById("login-modal")!.classList.add("hidden");
+                  document
+                    .getElementById("login-modal")!
+                    .classList.add("hidden");
                   document
                     .getElementById("signup-modal")!
                     .classList.remove("hidden");
