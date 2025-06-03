@@ -93,7 +93,7 @@ export default function Page() {
     localStorage.removeItem("loginExpireTime");
     localStorage.removeItem("userID");
     setIsLoggedIn(false);
-    // 로그아웃 시 userInfo도 초기화
+    // 로그아웃 시 userInfo도 초기화 (권장)
     setUserInfo({});
   };
 
@@ -166,6 +166,9 @@ export default function Page() {
   const [showPaymentProceed, setShowPaymentProceed] = useState(false);
   // 결제 문의 모달
   const [showPaymentSupportModal, setShowPaymentSupportModal] = useState(false);
+
+  // ★★★ (1) 'How to get the free license' 접근 경로 추적용 state 추가 ★★★
+  const [freeLicenseGuideOrigin, setFreeLicenseGuideOrigin] = useState<"home" | "familyInfo" | null>(null);
 
   // 회원가입 폼 제출 처리
   const handleSignupSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -489,7 +492,7 @@ export default function Page() {
 
   // 1) TossPayments 결제 로직
   const handleTossRequest = () => {
-    // (1) 패밀리 유저라면 결제창 차단
+    // (1) 패밀리 유저라면 결제창 차단 (영어 메세지)
     if (userInfo.licenseStatus === "family") {
       alert("You are already a Family user. Payment is not possible.");
       return;
@@ -551,8 +554,10 @@ export default function Page() {
     }
     const countryLower = userInfo.country?.toLowerCase() || "";
     if (countryLower.includes("korea")) {
+      // TossPayments
       handleTossRequest();
     } else {
+      // Paddle
       handlePaddleCheckout();
     }
   };
@@ -682,7 +687,6 @@ export default function Page() {
             </p>
             <h1 className="text-6xl font-bold mb-8">{t("home.title")}</h1>
 
-            {/* 2개 버튼을 세로로 배치 */}
             <div className="flex flex-col items-center">
               {/* (위쪽) "Get the free license!" 버튼 */}
               <button
@@ -690,6 +694,8 @@ export default function Page() {
                   setShowFamilyModal(true);
                   setShowFreeLicenseGuide(true);
                   setShowPaymentProceed(false);
+                  // ★★★ '홈'에서 들어왔음을 저장 ★★★
+                  setFreeLicenseGuideOrigin("home");
                 }}
                 className="
                   text-2xl font-bold 
@@ -986,218 +992,238 @@ export default function Page() {
 
           {/* 패밀리 라이선스 모달 */}
           {showFamilyModal && (
-            // 전체화면으로 띄우도록 수정
-            <div className="fixed inset-0 z-50 bg-black bg-opacity-50">
-              {/* 화면 전체를 덮으면서 세로 스크롤만 가능하도록 설정 */}
-              <div className="w-full h-full bg-white p-6 sm:p-8 overflow-y-auto relative">
-                <button
-                  onClick={() => {
-                    setShowFamilyModal(false);
-                    setShowFreeLicenseGuide(false);
-                    setShowPaymentProceed(false);
-                  }}
-                  className="absolute top-4 right-4 text-gray-400 hover:text-black text-2xl"
-                >
-                  ×
-                </button>
+            <div className="fixed inset-0 z-50 bg-black bg-opacity-50 overflow-auto">
+              <div className="flex min-h-full items-start justify-center px-6 py-10">
+                <div className="bg-white p-8 rounded-xl shadow-xl w-full max-w-[1100px] relative overflow-x-auto">
+                  <button
+                    onClick={() => {
+                      setShowFamilyModal(false);
+                      setShowFreeLicenseGuide(false);
+                      setShowPaymentProceed(false);
+                    }}
+                    className="absolute top-4 right-4 text-gray-400 hover:text-black text-2xl"
+                  >
+                    ×
+                  </button>
 
-                {showPaymentProceed ? (
-                  /* --- 결제 진행 화면 --- */
-                  <div className="pt-8">
-                    <h2 className="text-xl font-bold mb-4 text-center">
-                      {t("payment.title")}
-                    </h2>
-                    <div className="text-sm text-gray-700 leading-relaxed space-y-3">
-                      <p className="font-bold text-red-600">
-                        {t("payment.warning")}
-                      </p>
-                      <div className="border rounded p-4 bg-gray-50">
-                        <p className="font-semibold mb-2">
-                          {t("payment.statusHeader")}
+                  {showPaymentProceed ? (
+                    /* --- 결제 진행 화면 --- */
+                    <div>
+                      <h2 className="text-xl font-bold mb-4 text-center">
+                        {t("payment.title")}
+                      </h2>
+                      <div className="text-sm text-gray-700 leading-relaxed space-y-3">
+                        <p className="font-bold text-red-600">
+                          {t("payment.warning")}
                         </p>
-                        <ul className="list-disc list-inside space-y-1">
-                          <li>{t("payment.items.0")}</li>
-                          <li>{t("payment.items.1")}</li>
-                          <li>{t("payment.items.2")}</li>
-                          <li>{t("payment.items.3")}</li>
-                          <li>{t("payment.items.4")}</li>
-                          <li>{t("payment.items.5")}</li>
-                          <li className="bg-red-100 border-l-4 border-red-500 text-red-700 font-bold p-3 rounded shadow flex items-center">
-                            ⚠️ {t("payment.items.6")}
-                          </li>
-                          <li className="bg-yellow-50 border-l-4 border-yellow-400 text-yellow-700 p-3 rounded shadow flex items-start">
-                            ℹ️{" "}
-                            <span className="ml-2 font-medium">
-                              {t("payment.items.7")}
-                            </span>
-                          </li>
-                        </ul>
+                        <div className="border rounded p-4 bg-gray-50">
+                          <p className="font-semibold mb-2">
+                            {t("payment.statusHeader")}
+                          </p>
+                          <ul className="list-disc list-inside space-y-1">
+                            <li>{t("payment.items.0")}</li>
+                            <li>{t("payment.items.1")}</li>
+                            <li>{t("payment.items.2")}</li>
+                            <li>{t("payment.items.3")}</li>
+                            <li>{t("payment.items.4")}</li>
+                            <li>{t("payment.items.5")}</li>
+                            <li className="bg-red-100 border-l-4 border-red-500 text-red-700 font-bold p-3 rounded shadow flex items-center">
+                              ⚠️ {t("payment.items.6")}
+                            </li>
+                            <li className="bg-yellow-50 border-l-4 border-yellow-400 text-yellow-700 p-3 rounded shadow flex items-start">
+                              ℹ️{" "}
+                              <span className="ml-2 font-medium">
+                                {t("payment.items.7")}
+                              </span>
+                            </li>
+                          </ul>
+                        </div>
+                        <p>{t("payment.footer")}</p>
                       </div>
-                      <p>{t("payment.footer")}</p>
-                    </div>
-                    <div className="text-center mt-6">
-                      <button
-                        className="bg-black text-white px-8 py-3 rounded hover:bg-gray-800 transition"
-                        onClick={handleFamilyLicensePayment}
-                      >
-                        {t("payment.agree")}
-                      </button>
-                    </div>
-                  </div>
-                ) : showFreeLicenseGuide ? (
-                  /* --- 무료 라이선스 안내 화면 --- */
-                  <div className="pt-8">
-                    <button
-                      onClick={() => setShowFreeLicenseGuide(false)}
-                      className="underline text-blue-600 mb-4"
-                    >
-                      ← Back
-                    </button>
-                    <h3 className="text-2xl font-bold mb-4 text-center">
-                      {t("freeLicense.title")}
-                    </h3>
-
-                    {/* 
-                      이미지들이 잘리는 문제를 해결하기 위해
-                      flex + overflow-x-auto 적용.
-                    */}
-                    <div className="flex flex-nowrap gap-4 overflow-x-auto">
-                      <img
-                        src="/free_liecense/1.png"
-                        alt="Step 1"
-                        className="w-60 h-auto flex-shrink-0"
-                      />
-                      <img
-                        src="/free_liecense/2.png"
-                        alt="Step 2"
-                        className="w-60 h-auto flex-shrink-0"
-                      />
-                      <img
-                        src="/free_liecense/3.png"
-                        alt="Step 3"
-                        className="w-60 h-auto flex-shrink-0"
-                      />
-                    </div>
-
-                    <div className="text-sm text-gray-700 mt-4 leading-6 space-y-2">
-                      <p
-                        dangerouslySetInnerHTML={{
-                          __html: t("freeLicense.step1"),
-                        }}
-                      />
-                      <p
-                        dangerouslySetInnerHTML={{
-                          __html: t("freeLicense.step2"),
-                        }}
-                      />
-                      <p>{t("freeLicense.step3")}</p>
-                      <p
-                        dangerouslySetInnerHTML={{
-                          __html: t("freeLicense.send"),
-                        }}
-                      />
-                      <p>{t("freeLicense.aiReview")}</p>
-                      <hr className="my-3" />
-                      <div className="font-bold text-gray-900 space-y-1">
-                        <p>{t("freeLicense.note1")}</p>
-                        <p>{t("freeLicense.note2")}</p>
-                        <p>{t("freeLicense.note3")}</p>
+                      <div className="text-center mt-6">
+                        <button
+                          className="bg-black text-white px-8 py-3 rounded hover:bg-gray-800 transition"
+                          onClick={handleFamilyLicensePayment}
+                        >
+                          {t("payment.agree")}
+                        </button>
                       </div>
                     </div>
-                  </div>
-                ) : (
-                  /* --- 패밀리 라이선스 안내 기본 화면 --- */
-                  <div className="pt-8">
-                    <h2 className="text-3xl font-bold mb-4 text-center">
-                      {t("family.modalTitle")}
-                    </h2>
-
-                    <div className="text-gray-700 text-sm leading-relaxed space-y-2 mb-6">
-                      <p>{t("family.desc1")}</p>
-                      <p>{t("family.desc2")}</p>
-                      <p>{t("family.desc3")}</p>
-                      <p>{t("family.desc4")}</p>
-                      <p>{t("family.desc5")}</p>
-                    </div>
-
-                    <div className="my-4 text-center">
-                      <p className="font-bold text-red-600 mb-2">
-                        {t("family.recommendFree")}
-                      </p>
+                  ) : showFreeLicenseGuide ? (
+                    /* --- 무료 라이선스 안내 화면 --- */
+                    <div className="mt-6">
                       <button
-                        onClick={() => setShowFreeLicenseGuide(true)}
-                        className="underline text-blue-600 cursor-pointer"
-                      >
-                        {t("family.howToGetFree")}
-                      </button>
-                    </div>
-
-                    <table className="w-full text-sm border border-gray-300 mb-4 whitespace-nowrap">
-                      <thead>
-                        <tr className="bg-gray-100">
-                          <th className="p-2 border text-left">Module</th>
-                          <th className="p-2 border text-center">
-                            General User
-                            <br />
-                            <span className="text-xs text-gray-600">
-                              After v2.0.0 Release
-                            </span>
-                          </th>
-                          <th className="p-2 border text-center">
-                            Family
-                            <br />
-                            <span className="text-xs text-orange-600 font-bold">
-                              ONLY before v2.0.0
-                            </span>
-                          </th>
-                          <th className="p-2 border text-left">Description</th>
-                        </tr>
-                      </thead>
-                      <tbody className="text-xs">
-                        {familyTableData.map(
-                          ([title, price1, price2, desc], idx) => (
-                            <tr key={idx}>
-                              <td className="p-2 border">{title}</td>
-                              <td className="p-2 border text-center">
-                                {price1}
-                              </td>
-                              <td className="p-2 border text-center">
-                                {price2}
-                              </td>
-                              <td className="p-2 border">{desc}</td>
-                            </tr>
-                          )
-                        )}
-                      </tbody>
-                    </table>
-                    <p className="text-xs text-gray-500 text-right mt-2">
-                      {t("family.tableNote")}
-                    </p>
-
-                    <div className="text-center mt-6">
-                      <button
-                        className="bg-black text-white px-8 py-3 rounded hover:bg-gray-800 transition"
                         onClick={() => {
-                          if (!isLoggedIn) {
-                            document
-                              .getElementById("login-modal")!
-                              .classList.remove("hidden");
+                          // ★★★ freeLicenseGuideOrigin에 따라 뒤로가기 동작 분기 ★★★
+                          if (freeLicenseGuideOrigin === "home") {
+                            // 홈에서 바로 들어온 경우 모달 완전히 닫기
+                            setShowFreeLicenseGuide(false);
+                            setShowFamilyModal(false);
                           } else {
-                            if (userInfo.licenseStatus === "family") {
-                              alert(
-                                "You are already a Family user. Payment is not possible."
-                              );
-                              return;
-                            }
-                            setShowPaymentProceed(true);
+                            // familyInfo에서 클릭해 들어온 경우, 무료 안내만 닫고 familyInfo로 돌아감
+                            setShowFreeLicenseGuide(false);
                           }
                         }}
+                        className="underline text-blue-600 mb-4"
                       >
-                        Proceed to payment
+                        ← Back
                       </button>
+                      <h3 className="text-2xl font-bold mb-4 text-center">
+                        {t("freeLicense.title")}
+                      </h3>
+
+                      <div className="flex flex-row items-start justify-center space-x-4">
+                        <img
+                          src="/free_liecense/1.png"
+                          alt="Step 1"
+                          className="w-60 h-auto"
+                        />
+                        <img
+                          src="/free_liecense/2.png"
+                          alt="Step 2"
+                          className="w-60 h-auto"
+                        />
+                        <img
+                          src="/free_liecense/3.png"
+                          alt="Step 3"
+                          className="w-60 h-auto"
+                        />
+                      </div>
+
+                      <div className="text-sm text-gray-700 mt-4 leading-6 space-y-2">
+                        <p
+                          dangerouslySetInnerHTML={{
+                            __html: t("freeLicense.step1"),
+                          }}
+                        />
+                        <p
+                          dangerouslySetInnerHTML={{
+                            __html: t("freeLicense.step2"),
+                          }}
+                        />
+                        <p>{t("freeLicense.step3")}</p>
+                        <p
+                          dangerouslySetInnerHTML={{
+                            __html: t("freeLicense.send"),
+                          }}
+                        />
+                        <p>{t("freeLicense.aiReview")}</p>
+                        <hr className="my-3" />
+                        <div className="font-bold text-gray-900 space-y-1">
+                          <p>{t("freeLicense.note1")}</p>
+                          <p>{t("freeLicense.note2")}</p>
+                          <p>{t("freeLicense.note3")}</p>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                )}
+                  ) : (
+                    /* --- 패밀리 라이선스 안내 기본 화면 --- */
+                    <>
+                      {/* 여기 '← Back' 버튼 (Family License Info 자체를 벗어나는 버튼) */}
+                      <div className="mt-6">
+                        <button
+                          onClick={() => setShowFamilyModal(false)}
+                          className="underline text-blue-600 mb-4"
+                        >
+                          ← Back
+                        </button>
+                      </div>
+
+                      <h2 className="text-3xl font-bold mb-4 text-center">
+                        {t("family.modalTitle")}
+                      </h2>
+
+                      <div className="text-gray-700 text-sm leading-relaxed space-y-2 mb-6">
+                        <p>{t("family.desc1")}</p>
+                        <p>{t("family.desc2")}</p>
+                        <p>{t("family.desc3")}</p>
+                        <p>{t("family.desc4")}</p>
+                        <p>{t("family.desc5")}</p>
+                      </div>
+
+                      <div className="my-4 text-center">
+                        <p className="font-bold text-red-600 mb-2">
+                          {t("family.recommendFree")}
+                        </p>
+                        <button
+                          onClick={() => {
+                            setShowFreeLicenseGuide(true);
+                            // ★★★ familyInfo에서 들어왔다고 세팅 ★★★
+                            setFreeLicenseGuideOrigin("familyInfo");
+                          }}
+                          className="underline text-blue-600 cursor-pointer"
+                        >
+                          {t("family.howToGetFree")}
+                        </button>
+                      </div>
+
+                      <table className="w-full text-sm border border-gray-300 mb-4 whitespace-nowrap">
+                        <thead>
+                          <tr className="bg-gray-100">
+                            <th className="p-2 border text-left">Module</th>
+                            <th className="p-2 border text-center">
+                              General User
+                              <br />
+                              <span className="text-xs text-gray-600">
+                                After v2.0.0 Release
+                              </span>
+                            </th>
+                            <th className="p-2 border text-center">
+                              Family
+                              <br />
+                              <span className="text-xs text-orange-600 font-bold">
+                                ONLY before v2.0.0
+                              </span>
+                            </th>
+                            <th className="p-2 border text-left">Description</th>
+                          </tr>
+                        </thead>
+                        <tbody className="text-xs">
+                          {familyTableData.map(
+                            ([title, price1, price2, desc], idx) => (
+                              <tr key={idx}>
+                                <td className="p-2 border">{title}</td>
+                                <td className="p-2 border text-center">
+                                  {price1}
+                                </td>
+                                <td className="p-2 border text-center">
+                                  {price2}
+                                </td>
+                                <td className="p-2 border">{desc}</td>
+                              </tr>
+                            )
+                          )}
+                        </tbody>
+                      </table>
+                      <p className="text-xs text-gray-500 text-right mt-2">
+                        {t("family.tableNote")}
+                      </p>
+
+                      <div className="text-center mt-6">
+                        <button
+                          className="bg-black text-white px-8 py-3 rounded hover:bg-gray-800 transition"
+                          onClick={() => {
+                            if (!isLoggedIn) {
+                              document
+                                .getElementById("login-modal")!
+                                .classList.remove("hidden");
+                            } else {
+                              if (userInfo.licenseStatus === "family") {
+                                alert(
+                                  "You are already a Family user. Payment is not possible."
+                                );
+                                return;
+                              }
+                              setShowPaymentProceed(true);
+                            }
+                          }}
+                        >
+                          Proceed to payment
+                        </button>
+                      </div>
+                    </>
+                  )}
+                </div>
               </div>
             </div>
           )}
