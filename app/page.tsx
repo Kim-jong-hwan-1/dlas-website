@@ -517,7 +517,7 @@ export default function Page() {
       orderName: "DLAS Family License",
       customerEmail: userID,
       successUrl: `https://www.dlas.io/payment/success?orderId=${orderId}&amount=${amount}`,
-      failUrl: `https://www.dlas.io/payment/fail`,
+      failUrl: "https://www.dlas.io/payment/fail",
     });
   };
 
@@ -562,6 +562,11 @@ export default function Page() {
     }
   };
 
+  // -------------------
+  //  팝업(초기 진입 시) 처리
+  // -------------------
+  const [showEarlyBirdPopup, setShowEarlyBirdPopup] = useState(true);
+
   return (
     <>
       {/* Paddle SDK */}
@@ -580,6 +585,85 @@ export default function Page() {
       />
       {/* TossPayments SDK */}
       <Script src="https://js.tosspayments.com/v1" strategy="beforeInteractive" />
+
+      {/* 🌟 초기 팝업 (Early Bird Special) */}
+      {showEarlyBirdPopup && (
+  <div className="fixed inset-0 z-50 bg-black bg-opacity-60 flex items-center justify-center px-4">
+    <div
+      className="relative bg-white w-full max-w-3xl p-12 rounded-3xl shadow-2xl animate-fadeInUp"
+      style={{
+        boxShadow: "0 10px 40px rgba(0,0,0,0.20), 0 2px 8px rgba(0,0,0,0.10)",
+        minHeight: "530px",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+      }}
+    >
+      <button
+        className="absolute top-5 right-7 text-gray-400 hover:text-black text-3xl cursor-pointer"
+        onClick={() => setShowEarlyBirdPopup(false)}
+        aria-label="Close popup"
+      >
+        ×
+      </button>
+      <div className="flex flex-col items-center gap-4">
+        <div className="text-center mb-2">
+          <span className="inline-block text-4xl sm:text-5xl font-extrabold text-black tracking-tight animate-pulse">
+            DLAS Family License
+          </span>
+        </div>
+        <div className="flex flex-row items-center justify-center gap-4 mb-3">
+          <span className="text-gray-400 text-5xl font-bold line-through">$6,010</span>
+          <span className="text-4xl font-extrabold text-gray-400 mx-1">→</span>
+          <span className="text-green-400 text-9xl font-extrabold drop-shadow">$390</span>
+        </div>
+        <div className="text-center">
+          <span className="inline-block px-4 py-1 rounded-full bg-yellow-200 text-yellow-900 font-semibold text-base mb-2">
+            Pre-launch special · Only before v2.0.0!
+          </span>
+        </div>
+        <div className="my-3 text-lg sm:text-xl font-medium text-gray-700">
+          <strong className="text-black">Lifetime license</strong> to <span className="font-bold text-pink-500">all DLAS modules</span> at an exclusive price.<br />
+          <span className="text-red-500 font-semibold">Save 90%+</span> compared to the official release price!
+        </div>
+        <ul className="mt-4 mb-3 space-y-1 text-gray-700 text-base font-medium text-left max-w-lg mx-auto">
+          <li>✔️ <span className="font-bold text-gray-900">One-time payment</span>, no hidden fees</li>
+          <li>✔️ Free updates for every new module (includes all upcoming modules 2025~2026)</li>
+          <li>✔️ <span className="font-bold">Use for commercial work</span></li>
+        </ul>
+        <div className="bg-yellow-50 border-l-4 border-yellow-400 px-5 py-3 my-4 rounded-md text-yellow-900 font-semibold text-base text-left shadow w-full text-center">
+          <span>
+            🚨 <strong>After version 2.0.0</strong>, <span className="text-red-500 font-bold">no new Family License signups will be possible.</span>
+          </span>
+        </div>
+        <div className="text-center font-bold text-lg sm:text-xl text-gray-900 mt-2 mb-0">
+          <span>Don’t miss your last chance.<br />Secure your lifetime benefits today!</span>
+        </div>
+      </div>
+      <div className="flex flex-row gap-4 mt-8 justify-center">
+        <button
+          onClick={() => {
+            setShowEarlyBirdPopup(false);
+            setShowFamilyModal(true);
+            setShowFreeLicenseGuide(false);
+            setShowPaymentProceed(false);
+            setFreeLicenseGuideOrigin("home");
+          }}
+          className="bg-gradient-to-r from-pink-500 to-yellow-400 text-white text-lg font-bold rounded-full px-8 py-3 shadow hover:opacity-90 transition cursor-pointer"
+        >
+          Learn More
+        </button>
+        <button
+          onClick={() => setShowEarlyBirdPopup(false)}
+          className="border border-gray-400 text-gray-800 text-lg font-semibold rounded-full px-8 py-3 bg-white hover:bg-gray-100 transition cursor-pointer"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
 
       <div className="min-h-screen bg-white text-black relative">
         {/* 왼쪽 상단 로고 (PC에서만) */}
@@ -687,44 +771,91 @@ export default function Page() {
             </p>
             <h1 className="text-6xl font-bold mb-8">{t("home.title")}</h1>
 
-            <div className="flex flex-col items-center">
-              {/* (위쪽) "Get the free license!" 버튼 */}
-              <button
-                onClick={() => {
-                  setShowFamilyModal(true);
-                  setShowFreeLicenseGuide(true);
-                  setShowPaymentProceed(false);
-                  // ★★★ '홈'에서 들어왔음을 저장 ★★★
-                  setFreeLicenseGuideOrigin("home");
-                }}
-                className="
-                  text-2xl font-bold 
-                  cursor-pointer
-                  bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500
-                  text-white
-                  px-10 py-6
-                  rounded
-                  hover:opacity-90 
-                  transition
-                  animate-pulse
-                  mb-10
-                "
-              >
-                Get the free license!
-              </button>
+            {/* 배경 강조 영역 */}
+            <div className="flex flex-col items-center justify-center" style={{ marginTop: "60px" }}>
+  {/* 상단: Get the free license! 버튼 (배경 없음, 그림자 없음) */}
+  <button
+    onClick={() => {
+      setShowFamilyModal(true);
+      setShowFreeLicenseGuide(true);
+      setShowPaymentProceed(false);
+      setFreeLicenseGuideOrigin("home");
+    }}
+    style={{
+      background: "linear-gradient(90deg, #ff74b1 0%, #ffd86f 100%)",
+      color: "#fff",
+      fontWeight: 700,
+      fontSize: "1.6rem",
+      border: "none",
+      borderRadius: "8px",
+      padding: "22px 50px",
+      marginBottom: "42px",
+      cursor: "pointer",
+      boxShadow: "none",
+      outline: "none",
+    }}
+  >
+    Get the free license!
+  </button>
 
-              {/* (아래쪽) "join the dlas family -only $390" 버튼 */}
-              <button
-                onClick={() => {
-                  setShowFamilyModal(true);
-                  setShowFreeLicenseGuide(false);
-                  setShowPaymentProceed(false);
-                }}
-                className="text-2xl font-bold cursor-pointer bg-black text-white px-10 py-6 rounded hover:bg-gray-800 transition"
-              >
-                {t("home.cta")} {t("home.price")}
-              </button>
-            </div>
+  {/* 하단: 라이선스 정보 박스 (연한 그라데이션) */}
+  <div
+  style={{
+    background: "#111",        // 진한 검정
+    color: "#fff",             // 흰색 글자
+    borderRadius: "8px",
+    display: "inline-block",
+    padding: "26px 44px",
+    fontSize: "2rem",
+    fontWeight: 700,
+    textAlign: "center",
+    cursor: "pointer",
+    margin: "40px auto 0 auto",
+    boxShadow: "0 2px 12px 0 rgba(0,0,0,0.10)",
+    userSelect: "none",
+    transition: "background 0.15s, opacity 0.15s, box-shadow 0.15s",
+  }}
+  onClick={() => {
+    setShowFamilyModal(true);
+    setShowFreeLicenseGuide(false);
+    setShowPaymentProceed(false);
+  }}
+  onMouseDown={e => {
+    e.currentTarget.style.opacity = "0.84";
+  }}
+  onMouseUp={e => {
+    e.currentTarget.style.opacity = "1";
+  }}
+  onMouseLeave={e => {
+    e.currentTarget.style.opacity = "1";
+  }}
+>
+  DLAS Family License – Lifetime Access&nbsp;
+  <span style={{
+    color: "#ff5252",
+    textDecoration: "line-through",
+    fontWeight: 700,
+    marginRight: "10px",
+    fontSize: "1.3em",
+    verticalAlign: "middle",
+  }}>$6,010</span>
+  <span style={{
+    color: "#fff",
+    fontWeight: 700,
+    fontSize: "1em",
+    verticalAlign: "middle",
+    margin: "0 8px",
+  }}>→</span>
+  <span style={{
+    color: "#00e676",
+    fontWeight: 700,
+    fontSize: "2em",
+    verticalAlign: "middle",
+  }}>$390</span>
+</div>
+
+</div>
+
 
             <div className="mt-16 px-6 max-w-4xl mx-auto text-center">
               <h2 className="text-3xl font-semibold mb-4 text-gray-900">
@@ -1466,7 +1597,7 @@ export default function Page() {
                 ))}
               </select>
 
-              {/* workplaceName: `required` 제거 */}
+              {/* workplaceName: required 제거 */}
               <input
                 type="text"
                 placeholder={t("signup.form.workplaceName")}
@@ -1475,7 +1606,7 @@ export default function Page() {
                 className="w-full p-3 border border-gray-300 rounded"
               />
 
-              {/* workplaceAddress: `required` 제거 */}
+              {/* workplaceAddress: required 제거 */}
               <input
                 type="text"
                 placeholder={t("signup.form.workplaceAddress")}
