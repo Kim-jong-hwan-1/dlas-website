@@ -21,8 +21,9 @@ declare global {
 
     // Paddle Billing v2용 타입
     Paddle?: {
-      // Setup?: (config: { vendor: number }) => void; // (이제 사용X)
-      // Environment?: { set: (env: string) => void }; // (샌드박스 필요시)
+      Environment?: {
+        set: (env: string) => void;
+      };
       Initialize: (config: {
         token: string;
         checkout?: {
@@ -36,20 +37,21 @@ declare global {
         open: (
           opts:
             | {
-                // ✅ 단일 priceId  (옛날 방식)
+                // ✅ (단일 priceId 방식)
                 priceId: string;
                 quantity?: number;
                 customer: { email: string };
                 customData?: { [key: string]: any };
                 closeCallback?: () => void;
+                // 필요시 successCallback?: () => void; 등 추가 가능
               }
             | {
-                // ✅ items 배열 (신규 방식/Billing v2)
+                // ✅ (items 배열 방식: 여러 priceId)
                 items: { priceId: string; quantity?: number }[];
                 customer: { email: string };
                 customData?: { [key: string]: any };
                 closeCallback?: () => void;
-                successCallback?: (data: any) => void;
+                // 필요시 successCallback?: () => void; 등 추가 가능
               }
         ) => void;
       };
@@ -62,7 +64,21 @@ export {}; // 타입 선언 파일에서는 필요 (중복 선언 방지)
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useLang } from "@/components/LanguageWrapper";
-import Script from "next/script"; // 1) Toss & Paddle SDK 로드 위해 import
+import Script from "next/script";
+
+// --------------------------------
+// ✅ 1) Paddle 환경/토큰/priceId 상수 정의
+// --------------------------------
+const isSandbox = process.env.NEXT_PUBLIC_PADDLE_ENV === "sandbox";
+
+// Sandbox / Live 구분하여 환경 변수 세팅
+const PADDLE_TOKEN = isSandbox
+  ? process.env.NEXT_PUBLIC_PADDLE_TOKEN_SB!
+  : process.env.NEXT_PUBLIC_PADDLE_TOKEN!;
+
+const PADDLE_PRICE_ID = isSandbox
+  ? process.env.NEXT_PUBLIC_PADDLE_PRICE_ID_SB!
+  : process.env.NEXT_PUBLIC_PADDLE_PRICE_ID!;
 
 export default function Page() {
   const { t } = useLang();
@@ -95,7 +111,6 @@ export default function Page() {
     localStorage.removeItem("loginExpireTime");
     localStorage.removeItem("userID");
     setIsLoggedIn(false);
-    // 로그아웃 시 userInfo도 초기화 (권장)
     setUserInfo({});
   };
 
@@ -118,7 +133,7 @@ export default function Page() {
   // admin 엔드포인트 사용, email 매개변수로 유저정보 받기
   const fetchUserInfo = async (email: string) => {
     try {
-      setIsUserInfoLoading(true); // 로딩 시작
+      setIsUserInfoLoading(true);
       const res = await fetch(
         `https://license-server-697p.onrender.com/admin/userinfo?email=${email}`
       );
@@ -143,7 +158,7 @@ export default function Page() {
         licenseStatus: "Error fetching license",
       });
     } finally {
-      setIsUserInfoLoading(false); // 로딩 완료
+      setIsUserInfoLoading(false);
     }
   };
 
@@ -169,7 +184,7 @@ export default function Page() {
   // 결제 문의 모달
   const [showPaymentSupportModal, setShowPaymentSupportModal] = useState(false);
 
-  // ★★★ (1) 'How to get the free license' 접근 경로 추적용 state 추가 ★★★
+  // 'How to get the free license' 접근 경로 추적용 state
   const [freeLicenseGuideOrigin, setFreeLicenseGuideOrigin] = useState<
     "home" | "familyInfo" | null
   >(null);
@@ -264,7 +279,6 @@ export default function Page() {
           typeof errorData.detail === "object"
             ? JSON.stringify(errorData.detail)
             : errorData.detail || errorData.message || "Unknown error";
-
         alert(`Login error: ${message}`);
         return;
       }
@@ -494,9 +508,31 @@ export default function Page() {
       "https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v1.1.7/DLAS_Installer.exe";
   };
 
+  // ------------------
+  // ✅ 2) Paddle 결제 로직 (Initialize는 onLoad에서 1회만)
+  // ------------------
+  const handlePaddleCheckout = () => {
+    if (!window.Paddle) {
+      alert("Paddle SDK is not ready.");
+      return;
+    }
+    const storedId = localStorage.getItem("userID") || userID;
+    if (!storedId) {
+      alert("Please log in first.");
+      return;
+    }
+
+    window.Paddle.Checkout.open({
+      items: [{ priceId: PADDLE_PRICE_ID, quantity: 1 }],
+      customer: { email: storedId },
+      customData: { userID: storedId, licenseType: "family" },
+      closeCallback: () => console.log("Checkout closed"),
+      // 필요 시 successCallback 등 추가 가능
+    });
+  };
+
   // 1) TossPayments 결제 로직
   const handleTossRequest = () => {
-    // (1) 패밀리 유저라면 결제창 차단 (영어 메세지)
     if (userInfo.licenseStatus === "family") {
       alert("You are already a Family user. Payment is not possible.");
       return;
@@ -524,50 +560,22 @@ export default function Page() {
     });
   };
 
-  // 2) Paddle 결제 로직 (Billing v2)
-  const handlePaddleCheckout = () => {
-    if (!window.Paddle) {
-      alert("Paddle SDK is not ready.");
-      return;
-    }
-    const storedId = localStorage.getItem("userID") || userID;
-    if (!storedId) {
-      alert("Please log in first.");
-      return;
-    }
-
-    // ✅ items 배열 활용 (Billing v2)
-    window.Paddle.Checkout.open({
-      items: [
-        {
-          priceId: "pri_01jwbwfkfptaj84k8whj2j0mya", // 예시 priceId
-          quantity: 1,
-        },
-      ],
-      customer: { email: storedId }, // (선택) 이메일 프리필
-      customData: { userID: storedId, licenseType: "family" }, // (선택)
-      closeCallback: () => console.log("Checkout closed"),
-      successCallback: (data) => console.log("Checkout success:", data),
-    });
-  };
-
   // "가족 라이선스 결제" 버튼 클릭 -> 국가별 결제
   const handleFamilyLicensePayment = () => {
     if (isUserInfoLoading) {
       alert("Loading your information... Please wait a moment.");
       return;
     }
-
     if (userInfo.licenseStatus === "family") {
       alert("You are already a Family user. Payment is not possible.");
       return;
     }
     const countryLower = userInfo.country?.toLowerCase() || "";
     if (countryLower.includes("korea")) {
-      // TossPayments
+      // (한국) TossPayments
       handleTossRequest();
     } else {
-      // Paddle
+      // (그 외) Paddle
       handlePaddleCheckout();
     }
   };
@@ -579,27 +587,28 @@ export default function Page() {
 
   return (
     <>
-      {/* Paddle SDK */}
+      {/* 
+        1회 로딩 시 Paddle 초기화 
+        — Environment.set("sandbox") → Initialize() 순서 
+      */}
       <Script
         src="https://cdn.paddle.com/paddle/paddle.js"
-        strategy="beforeInteractive"
+        strategy="afterInteractive"
         onLoad={() => {
           if (window.Paddle) {
-            // Billing v2 방식 (Setup은 제거하거나 주석 처리)
-            // window.Paddle.Setup({ vendor: 230320 });
-
-            // (샌드박스 테스트 필요시)
-            // window.Paddle.Environment.set("sandbox");
-
+            if (isSandbox && window.Paddle.Environment) {
+              window.Paddle.Environment.set("sandbox");
+            }
             window.Paddle.Initialize({
-              token: process.env.NEXT_PUBLIC_PADDLE_TOKEN!, // 벤더 퍼블릭 토큰
+              token: PADDLE_TOKEN,
               checkout: { settings: { displayMode: "overlay", locale: "ko" } },
             });
           }
         }}
       />
+
       {/* TossPayments SDK */}
-      <Script src="https://js.tosspayments.com/v1" strategy="beforeInteractive" />
+      <Script src="https://js.tosspayments.com/v1" strategy="afterInteractive" />
 
       {/* 🌟 초기 팝업 (Early Bird Special) */}
       {showEarlyBirdPopup && (
@@ -816,7 +825,7 @@ export default function Page() {
 
             {/* 배경 강조 영역 */}
             <div className="flex flex-col items-center justify-center" style={{ marginTop: "60px" }}>
-              {/* 상단: 'Get the free license!' 버튼 (모바일에서 크기 축소) */}
+              {/* 상단: 'Get the free license!' 버튼 */}
               <button
                 onClick={() => {
                   setShowFamilyModal(true);
@@ -840,7 +849,7 @@ export default function Page() {
                 Get the free license!
               </button>
 
-              {/* 하단: 라이선스 정보 박스 (모바일에서 크기 축소) */}
+              {/* 하단: 라이선스 정보 박스 */}
               <div
                 className="
                   bg-black text-white 
@@ -1204,13 +1213,10 @@ export default function Page() {
                     <div className="mt-6">
                       <button
                         onClick={() => {
-                          // ★★★ freeLicenseGuideOrigin에 따라 뒤로가기 동작 분기 ★★★
                           if (freeLicenseGuideOrigin === "home") {
-                            // 홈에서 바로 들어온 경우 모달 완전히 닫기
                             setShowFreeLicenseGuide(false);
                             setShowFamilyModal(false);
                           } else {
-                            // familyInfo에서 클릭해 들어온 경우, 무료 안내만 닫고 familyInfo로 돌아감
                             setShowFreeLicenseGuide(false);
                           }
                         }}
@@ -1269,7 +1275,6 @@ export default function Page() {
                   ) : (
                     /* --- 패밀리 라이선스 안내 기본 화면 --- */
                     <>
-                      {/* 여기 '← Back' 버튼 (Family License Info 자체를 벗어나는 버튼) */}
                       <div className="mt-6">
                         <button
                           onClick={() => setShowFamilyModal(false)}
@@ -1298,7 +1303,6 @@ export default function Page() {
                         <button
                           onClick={() => {
                             setShowFreeLicenseGuide(true);
-                            // ★★★ familyInfo에서 들어왔다고 세팅 ★★★
                             setFreeLicenseGuideOrigin("familyInfo");
                           }}
                           className="underline text-blue-600 cursor-pointer"
@@ -1447,14 +1451,16 @@ export default function Page() {
                   soon.
                 </li>
                 <li>
-                  For any questions, please contact <strong>support@dlas.io</strong>.
+                  For any questions, please contact{" "}
+                  <strong>support@dlas.io</strong>.
                 </li>
               </ul>
 
               <h2 className="text-xl font-bold mb-3">※ 안내</h2>
               <ul className="text-sm text-gray-700 list-disc pl-5 mb-6 space-y-2">
                 <li>
-                  "이 파일은 일반적으로 다운로드되지 않습니다"라는 메시지가 보일 수 있습니다.
+                  "이 파일은 일반적으로 다운로드되지 않습니다"라는 메시지가 보일 수
+                  있습니다.
                 </li>
                 <li>
                   본 설치 파일은 DLAS 공식 홈페이지에서만 배포하며, 안전하게
@@ -1613,7 +1619,6 @@ export default function Page() {
                 ))}
               </select>
 
-              {/* workplaceName: required 제거 */}
               <input
                 type="text"
                 placeholder={t("signup.form.workplaceName")}
@@ -1622,7 +1627,6 @@ export default function Page() {
                 className="w-full p-3 border border-gray-300 rounded"
               />
 
-              {/* workplaceAddress: required 제거 */}
               <input
                 type="text"
                 placeholder={t("signup.form.workplaceAddress")}
