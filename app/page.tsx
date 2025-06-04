@@ -509,13 +509,26 @@ export default function Page() {
   };
 
   // ------------------
-  // ✅ 2) Paddle 결제 로직 (Initialize는 onLoad에서 1회만)
+  // ✅ 2) Paddle 결제 로직
+  // ★ 핵심: paddleReady 상태로 "Paddle is not defined" 에러 예방
   // ------------------
+
+  // Paddle 준비 여부
+  const [paddleReady, setPaddleReady] = useState(false);
+
+  // Paddle Checkout 열기
   const handlePaddleCheckout = () => {
-    if (!window.Paddle) {
-      alert("Paddle SDK is not ready.");
+    // 1) 스크립트 / Initialize 완료 확인
+    if (!paddleReady) {
+      alert("Paddle is not ready yet. Please wait or refresh the page.");
       return;
     }
+    // 2) 실제 window.Paddle 객체 검사
+    if (!window.Paddle) {
+      alert("Paddle object is missing. (Check ad-blocker or domain settings)");
+      return;
+    }
+
     const storedId = localStorage.getItem("userID") || userID;
     if (!storedId) {
       alert("Please log in first.");
@@ -589,7 +602,8 @@ export default function Page() {
     <>
       {/* 
         1회 로딩 시 Paddle 초기화 
-        — Environment.set("sandbox") → Initialize() 순서 
+        - Environment.set("sandbox") → Initialize() 순서 
+        - onLoad 콜백에서 setPaddleReady(true)
       */}
       <Script
         src="https://cdn.paddle.com/paddle/paddle.js"
@@ -603,6 +617,7 @@ export default function Page() {
               token: PADDLE_TOKEN,
               checkout: { settings: { displayMode: "overlay", locale: "ko" } },
             });
+            setPaddleReady(true); // Paddle 준비됨
           }
         }}
       />
@@ -627,7 +642,8 @@ export default function Page() {
               max-h-[calc(100vh-2rem)]
             "
             style={{
-              boxShadow: "0 10px 40px rgba(0,0,0,0.20), 0 2px 8px rgba(0,0,0,0.10)",
+              boxShadow:
+                "0 10px 40px rgba(0,0,0,0.20), 0 2px 8px rgba(0,0,0,0.10)",
               minHeight: "530px",
               display: "flex",
               flexDirection: "column",
@@ -648,9 +664,15 @@ export default function Page() {
                 </span>
               </div>
               <div className="flex flex-row items-center justify-center gap-4 mb-3">
-                <span className="text-gray-400 text-5xl font-bold line-through">$6,010</span>
-                <span className="text-4xl font-extrabold text-gray-400 mx-1">→</span>
-                <span className="text-green-400 text-9xl font-extrabold drop-shadow">$390</span>
+                <span className="text-gray-400 text-5xl font-bold line-through">
+                  $6,010
+                </span>
+                <span className="text-4xl font-extrabold text-gray-400 mx-1">
+                  →
+                </span>
+                <span className="text-green-400 text-9xl font-extrabold drop-shadow">
+                  $390
+                </span>
               </div>
               <div className="text-center">
                 <span className="inline-block px-4 py-1 rounded-full bg-yellow-200 text-yellow-900 font-semibold text-base mb-2">
@@ -659,24 +681,44 @@ export default function Page() {
               </div>
               <div className="my-3 text-lg sm:text-xl font-medium text-gray-700">
                 <strong className="text-black">Lifetime license</strong> to{" "}
-                <span className="font-bold text-pink-500">all DLAS modules</span>{" "}
+                <span className="font-bold text-pink-500">
+                  all DLAS modules
+                </span>{" "}
                 at an exclusive price.
                 <br />
-                <span className="text-red-500 font-semibold">Save 90%+</span> compared to the official release price!
+                <span className="text-red-500 font-semibold">Save 90%+</span>{" "}
+                compared to the official release price!
               </div>
               <ul className="mt-4 mb-3 space-y-1 text-gray-700 text-base font-medium text-left max-w-lg mx-auto">
-                <li>✔️ <span className="font-bold text-gray-900">One-time payment</span>, no hidden fees</li>
-                <li>✔️ Free updates for every new module (includes all upcoming modules 2025~2026)</li>
-                <li>✔️ <span className="font-bold">Use for commercial work</span></li>
+                <li>
+                  ✔️{" "}
+                  <span className="font-bold text-gray-900">
+                    One-time payment
+                  </span>
+                  , no hidden fees
+                </li>
+                <li>
+                  ✔️ Free updates for every new module (includes all upcoming
+                  modules 2025~2026)
+                </li>
+                <li>
+                  ✔️ <span className="font-bold">Use for commercial work</span>
+                </li>
               </ul>
               <div className="bg-yellow-50 border-l-4 border-yellow-400 px-5 py-3 my-4 rounded-md text-yellow-900 font-semibold text-base text-left shadow w-full text-center">
                 <span>
                   🚨 <strong>After version 2.0.0</strong>,{" "}
-                  <span className="text-red-500 font-bold">no new Family License signups will be possible.</span>
+                  <span className="text-red-500 font-bold">
+                    no new Family License signups will be possible.
+                  </span>
                 </span>
               </div>
               <div className="text-center font-bold text-lg sm:text-xl text-gray-900 mt-2 mb-0">
-                <span>Don’t miss your last chance.<br />Secure your lifetime benefits today!</span>
+                <span>
+                  Don’t miss your last chance.
+                  <br />
+                  Secure your lifetime benefits today!
+                </span>
               </div>
             </div>
             <div className="flex flex-row gap-4 mt-8 justify-center">
@@ -824,7 +866,10 @@ export default function Page() {
             <h1 className="text-6xl font-bold mb-8">{t("home.title")}</h1>
 
             {/* 배경 강조 영역 */}
-            <div className="flex flex-col items-center justify-center" style={{ marginTop: "60px" }}>
+            <div
+              className="flex flex-col items-center justify-center"
+              style={{ marginTop: "60px" }}
+            >
               {/* 상단: 'Get the free license!' 버튼 */}
               <button
                 onClick={() => {
@@ -1019,49 +1064,79 @@ export default function Page() {
               <h4 className="font-semibold mb-1">{t("terms.article1.title")}</h4>
               <p
                 className="mb-4"
-                dangerouslySetInnerHTML={{ __html: t("terms.article1.desc") }}
+                dangerouslySetInnerHTML={{
+                  __html: t("terms.article1.desc"),
+                }}
               />
 
-              <h4 className="font-semibold mb-1">{t("terms.article2.title")}</h4>
+              <h4 className="font-semibold mb-1">
+                {t("terms.article2.title")}
+              </h4>
               <p
                 className="mb-4"
-                dangerouslySetInnerHTML={{ __html: t("terms.article2.desc") }}
+                dangerouslySetInnerHTML={{
+                  __html: t("terms.article2.desc"),
+                }}
               />
 
-              <h4 className="font-semibold mb-1">{t("terms.article3.title")}</h4>
+              <h4 className="font-semibold mb-1">
+                {t("terms.article3.title")}
+              </h4>
               <p
                 className="mb-4"
-                dangerouslySetInnerHTML={{ __html: t("terms.article3.desc") }}
+                dangerouslySetInnerHTML={{
+                  __html: t("terms.article3.desc"),
+                }}
               />
 
-              <h4 className="font-semibold mb-1">{t("terms.article4.title")}</h4>
+              <h4 className="font-semibold mb-1">
+                {t("terms.article4.title")}
+              </h4>
               <p
                 className="mb-4"
-                dangerouslySetInnerHTML={{ __html: t("terms.article4.desc") }}
+                dangerouslySetInnerHTML={{
+                  __html: t("terms.article4.desc"),
+                }}
               />
 
-              <h4 className="font-semibold mb-1">{t("terms.article5.title")}</h4>
+              <h4 className="font-semibold mb-1">
+                {t("terms.article5.title")}
+              </h4>
               <p
                 className="mb-4"
-                dangerouslySetInnerHTML={{ __html: t("terms.article5.desc") }}
+                dangerouslySetInnerHTML={{
+                  __html: t("terms.article5.desc"),
+                }}
               />
 
-              <h4 className="font-semibold mb-1">{t("terms.article6.title")}</h4>
+              <h4 className="font-semibold mb-1">
+                {t("terms.article6.title")}
+              </h4>
               <p
                 className="mb-4"
-                dangerouslySetInnerHTML={{ __html: t("terms.article6.desc") }}
+                dangerouslySetInnerHTML={{
+                  __html: t("terms.article6.desc"),
+                }}
               />
 
-              <h4 className="font-semibold mb-1">{t("terms.article7.title")}</h4>
+              <h4 className="font-semibold mb-1">
+                {t("terms.article7.title")}
+              </h4>
               <p
                 className="mb-4"
-                dangerouslySetInnerHTML={{ __html: t("terms.article7.desc") }}
+                dangerouslySetInnerHTML={{
+                  __html: t("terms.article7.desc"),
+                }}
               />
 
-              <h4 className="font-semibold mb-1">{t("terms.article8.title")}</h4>
+              <h4 className="font-semibold mb-1">
+                {t("terms.article8.title")}
+              </h4>
               <p
                 className="mb-4"
-                dangerouslySetInnerHTML={{ __html: t("terms.article8.desc") }}
+                dangerouslySetInnerHTML={{
+                  __html: t("terms.article8.desc"),
+                }}
               />
 
               <p className="mb-12">
@@ -1436,7 +1511,8 @@ export default function Page() {
               <h2 className="text-xl font-bold mb-3">※ Notice</h2>
               <ul className="text-sm text-gray-700 list-disc pl-5 mb-6 space-y-2">
                 <li>
-                  You may see a message like <em>"This file isn't commonly downloaded."</em>
+                  You may see a message like{" "}
+                  <em>"This file isn't commonly downloaded."</em>
                 </li>
                 <li>
                   This installer is distributed only through the official DLAS
