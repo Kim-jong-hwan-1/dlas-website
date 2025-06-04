@@ -503,9 +503,9 @@ export default function Page() {
       return;
     }
 
-    const tossPayments = window.TossPayments(
-      "live_gck_ALnQvDd2VJYekz4OEqbb3Mj7X41m"
-    );
+    const tossClientKey = process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY!;
+const tossPayments = window.TossPayments(tossClientKey); // 👈 환경변수 사용
+
 
     const orderId = `DLAS-${Date.now()}`;
     const amount = 550000; // 예시 결제 금액
