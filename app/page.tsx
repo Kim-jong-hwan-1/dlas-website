@@ -21,7 +21,8 @@ declare global {
 
     // Paddle Billing v2용 타입
     Paddle?: {
-      Setup?: (config: { vendor: number }) => void;
+      // Setup?: (config: { vendor: number }) => void; // (이제 사용X)
+      // Environment?: { set: (env: string) => void }; // (샌드박스 필요시)
       Initialize: (config: {
         token: string;
         checkout?: {
@@ -35,7 +36,7 @@ declare global {
         open: (
           opts:
             | {
-                // ✅ 단일 priceId 방식 (최신 공식 권장)
+                // ✅ 단일 priceId  (옛날 방식)
                 priceId: string;
                 quantity?: number;
                 customer: { email: string };
@@ -43,11 +44,12 @@ declare global {
                 closeCallback?: () => void;
               }
             | {
-                // ✅ items 배열 방식 (구방식/복수 결제)
+                // ✅ items 배열 (신규 방식/Billing v2)
                 items: { priceId: string; quantity?: number }[];
                 customer: { email: string };
                 customData?: { [key: string]: any };
                 closeCallback?: () => void;
+                successCallback?: (data: any) => void;
               }
         ) => void;
       };
@@ -522,7 +524,7 @@ export default function Page() {
     });
   };
 
-  // Paddle 결제 로직
+  // 2) Paddle 결제 로직 (Billing v2)
   const handlePaddleCheckout = () => {
     if (!window.Paddle) {
       alert("Paddle SDK is not ready.");
@@ -533,14 +535,19 @@ export default function Page() {
       alert("Please log in first.");
       return;
     }
-    const priceId = "pri_01jwbwfkfptaj84k8whj2j0mya";
-    console.log(">>> Paddle Checkout Call", { priceId, storedId });
+
+    // ✅ items 배열 활용 (Billing v2)
     window.Paddle.Checkout.open({
-      priceId,
-      quantity: 1,
-      customer: { email: storedId },
-      customData: { userID: storedId, licenseType: "family" },
+      items: [
+        {
+          priceId: "pri_01jwbwfkfptaj84k8whj2j0mya", // 예시 priceId
+          quantity: 1,
+        },
+      ],
+      customer: { email: storedId }, // (선택) 이메일 프리필
+      customData: { userID: storedId, licenseType: "family" }, // (선택)
       closeCallback: () => console.log("Checkout closed"),
+      successCallback: (data) => console.log("Checkout success:", data),
     });
   };
 
@@ -578,9 +585,14 @@ export default function Page() {
         strategy="beforeInteractive"
         onLoad={() => {
           if (window.Paddle) {
-            window.Paddle.Setup && window.Paddle.Setup({ vendor: 230320 });
+            // Billing v2 방식 (Setup은 제거하거나 주석 처리)
+            // window.Paddle.Setup({ vendor: 230320 });
+
+            // (샌드박스 테스트 필요시)
+            // window.Paddle.Environment.set("sandbox");
+
             window.Paddle.Initialize({
-              token: process.env.NEXT_PUBLIC_PADDLE_TOKEN!,
+              token: process.env.NEXT_PUBLIC_PADDLE_TOKEN!, // 벤더 퍼블릭 토큰
               checkout: { settings: { displayMode: "overlay", locale: "ko" } },
             });
           }
@@ -1420,8 +1432,7 @@ export default function Page() {
               <h2 className="text-xl font-bold mb-3">※ Notice</h2>
               <ul className="text-sm text-gray-700 list-disc pl-5 mb-6 space-y-2">
                 <li>
-                  You may see a message like{" "}
-                  <em>"This file isn't commonly downloaded."</em>
+                  You may see a message like <em>"This file isn't commonly downloaded."</em>
                 </li>
                 <li>
                   This installer is distributed only through the official DLAS
@@ -1436,16 +1447,14 @@ export default function Page() {
                   soon.
                 </li>
                 <li>
-                  For any questions, please contact{" "}
-                  <strong>support@dlas.io</strong>.
+                  For any questions, please contact <strong>support@dlas.io</strong>.
                 </li>
               </ul>
 
               <h2 className="text-xl font-bold mb-3">※ 안내</h2>
               <ul className="text-sm text-gray-700 list-disc pl-5 mb-6 space-y-2">
                 <li>
-                  "이 파일은 일반적으로 다운로드되지 않습니다"라는 메시지가 보일 수
-                  있습니다.
+                  "이 파일은 일반적으로 다운로드되지 않습니다"라는 메시지가 보일 수 있습니다.
                 </li>
                 <li>
                   본 설치 파일은 DLAS 공식 홈페이지에서만 배포하며, 안전하게
