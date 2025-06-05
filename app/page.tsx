@@ -622,13 +622,6 @@ export default function Page() {
         window.Paddle.Environment.set("sandbox");
       }
 
-      // (Initialize)
-      console.log("Initializing Paddle with token:", PADDLE_TOKEN);
-      window.Paddle.Initialize({
-        token: PADDLE_TOKEN,
-        checkout: { settings: { displayMode: "overlay", locale: "ko" } },
-      });
-
       // ✅ Paddle 준비됐음
       setPaddleReady(true);
       console.log("Paddle is now ready.");
@@ -638,6 +631,7 @@ export default function Page() {
     }
   }}
 />
+
 
 
       {/* TossPayments SDK */}
