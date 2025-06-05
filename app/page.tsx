@@ -618,7 +618,7 @@ export default function Page() {
   src="https://cdn.paddle.com/paddle/v2/paddle.js"  // Billing v2 SDK
   strategy="afterInteractive"
   onLoad={() => {
-    console.log("🚀 [Paddle] onLoad fired");        // ① 시작 로그
+   
 
     try {
       /* ───────── 1) 전역 객체 확인 ───────── */
@@ -629,19 +629,19 @@ export default function Page() {
 
       /* ───────── 2) Sandbox 설정 ───────── */
       if (isSandbox && window.Paddle.Environment) {
-        console.log("🔧 Sandbox 모드 활성화");
+       
         window.Paddle.Environment.set("sandbox");
       }
 
       /* ───────── 3) Initialize 호출 ───────── */
-      console.log("🔑 Initialize with token:", PADDLE_TOKEN);
+      
       window.Paddle.Initialize({
         token: PADDLE_TOKEN,
         checkout: { settings: { displayMode: "overlay", locale: "ko" } },
       });
 
       /* ───────── 4) 준비 완료 ───────── */
-      console.log("✅ Paddle init success  →  setPaddleReady(true)");
+      
       setPaddleReady(true);
 
     } catch (err) {
