@@ -607,7 +607,7 @@ export default function Page() {
         - onLoad 콜백에서 setPaddleReady(true)
       */}
 <Script
-  src="https://cdn.paddle.com/paddle/paddle.js"
+  src="https://cdn.paddle.com/paddle/billing.js"  // Billing v2 SDK
   strategy="afterInteractive"
   onLoad={() => {
     console.log("🚀 [Paddle] onLoad fired");        // ① 시작 로그
