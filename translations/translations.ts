@@ -15,7 +15,15 @@ export const translations = {
       gameChangerDesc: "DLAS is more than just a software. It is a revolution in dental CAD automation, designed to empower dental professionals with cutting-edge tools that simplify complex workflows, reduce manual labor, and maximize productivity.",
       gameChangerQuote: `"The future of dental automation is here"`,
     },
-    download: { title: "Download Software", desc: "Click below to download the latest version of DLAS CAD Software.", button: "Download Now" },
+    download: { 
+      title: "Download Software", 
+      desc: {
+    
+        line3: "Windows installer (.exe).",
+        line4: "Just run the file. (Not available for Mac.)"
+      },
+      button: "Download DLAS for Windows (.exe)"
+    },
     buy: { title: "Buy License", familyGifPlaceholder: "Family License GIF Placeholder", familyLicense: "Family License", moduleGif: "GIF Placeholder" },
     contact: {
       title: "Contact Us",
@@ -25,6 +33,7 @@ export const translations = {
         firstName: "First name", lastName: "Last name", email: "Email address", phone: "Phone number", message: "Message", submit: "Inquire Now"
       }
     },
+    
     family: {
       modalTitle: "Family License Information",
       desc1: "Use DLAS modules for life without extra fees. We are looking for partners to grow with DLAS. Only those leading digital innovation in dental labs should join.",
@@ -975,10 +984,13 @@ export const translations = {
         "DLAS는 단순한 소프트웨어가 아니라, 치과 CAD 자동화의 혁신으로 복잡한 워크플로우를 단순화하고 생산성을 높여줍니다.",
       gameChangerQuote: `"치과 자동화의 미래가 여기 있습니다"`,
     },
-    download: {
+    download: { 
       title: "소프트웨어 다운로드",
-      desc: "아래 버튼을 클릭하여 DLAS CAD 소프트웨어의 최신 버전을 다운로드하세요.",
-      button: "지금 다운로드",
+      desc: {
+            line3: "Windows 설치 파일 (.exe)",
+        line4: "파일을 바로 실행하세요. (Mac에서는 사용 불가)"
+      },
+      button: "Windows용 DLAS 다운로드 (.exe)"
     },
     buy: {
       title: "라이선스 구매",

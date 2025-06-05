@@ -950,19 +950,14 @@ export default function Page() {
           </section>
 
           {/* 다운로드 섹션 */}
-          // (중간 생략)
-// 다운로드 섹션
+
 <section
   id="download"
   className="scroll-mt-[180px] text-center py-20 bg-gray-100"
 >
   <h2 className="text-4xl font-bold mb-4">{t("download.title")}</h2>
   <p className="text-lg text-gray-500 max-w-3xl mx-auto mt-2">
-    {t("download.desc.line1")}
-    <br />
-    {t("download.desc.line2")}
-    <br />
-    <br />
+     <br />
     {t("download.desc.line3")}
     <br />
     {t("download.desc.line4")}
