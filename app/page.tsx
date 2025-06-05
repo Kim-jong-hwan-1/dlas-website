@@ -605,22 +605,40 @@ export default function Page() {
         - Environment.set("sandbox") → Initialize() 순서 
         - onLoad 콜백에서 setPaddleReady(true)
       */}
-      <Script
-        src="https://cdn.paddle.com/paddle/paddle.js"
-        strategy="afterInteractive"
-        onLoad={() => {
-          if (window.Paddle) {
-            if (isSandbox && window.Paddle.Environment) {
-              window.Paddle.Environment.set("sandbox");
-            }
-            window.Paddle.Initialize({
-              token: PADDLE_TOKEN,
-              checkout: { settings: { displayMode: "overlay", locale: "ko" } },
-            });
-            setPaddleReady(true); // Paddle 준비됨
-          }
-        }}
-      />
+<Script
+  src="https://cdn.paddle.com/paddle/paddle.js"
+  strategy="afterInteractive"
+  onLoad={() => {
+    console.log("[Paddle Script] onLoad callback called.");
+    try {
+      if (!window.Paddle) {
+        console.error("window.Paddle is undefined. Check if script was blocked.");
+        return;
+      }
+
+      // (Sandbox/Live 설정)
+      if (isSandbox && window.Paddle.Environment) {
+        console.log("Setting Paddle Environment to sandbox");
+        window.Paddle.Environment.set("sandbox");
+      }
+
+      // (Initialize)
+      console.log("Initializing Paddle with token:", PADDLE_TOKEN);
+      window.Paddle.Initialize({
+        token: PADDLE_TOKEN,
+        checkout: { settings: { displayMode: "overlay", locale: "ko" } },
+      });
+
+      // ✅ Paddle 준비됐음
+      setPaddleReady(true);
+      console.log("Paddle is now ready.");
+
+    } catch (err) {
+      console.error("Error in Paddle onLoad callback:", err);
+    }
+  }}
+/>
+
 
       {/* TossPayments SDK */}
       <Script src="https://js.tosspayments.com/v1" strategy="afterInteractive" />
