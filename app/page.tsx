@@ -950,28 +950,31 @@ export default function Page() {
           </section>
 
           {/* 다운로드 섹션 */}
-          <section
-            id="download"
-            className="scroll-mt-[180px] text-center py-20 bg-gray-100"
-          >
-            <h2 className="text-4xl font-bold mb-4">{t("download.title")}</h2>
-            <p className="text-lg text-gray-500 max-w-3xl mx-auto mt-2">
-              Windows 전용 설치 파일입니다.
-              <br />
-              압축을 풀 필요 없이 바로 실행하세요. (Mac 미지원)
-              <br />
-              <br />
-              Windows installer (.exe).
-              <br />
-              Just run the file. (Not available for Mac.)
-            </p>
-            <button
-              onClick={() => setShowDownloadModal(true)}
-              className="inline-block mt-6 bg-black text-white px-8 py-4 rounded hover:bg-gray-800 transition"
-            >
-              Download DLAS for Windows (.exe)
-            </button>
-          </section>
+          // (중간 생략)
+// 다운로드 섹션
+<section
+  id="download"
+  className="scroll-mt-[180px] text-center py-20 bg-gray-100"
+>
+  <h2 className="text-4xl font-bold mb-4">{t("download.title")}</h2>
+  <p className="text-lg text-gray-500 max-w-3xl mx-auto mt-2">
+    {t("download.desc.line1")}
+    <br />
+    {t("download.desc.line2")}
+    <br />
+    <br />
+    {t("download.desc.line3")}
+    <br />
+    {t("download.desc.line4")}
+  </p>
+  <button
+    onClick={() => setShowDownloadModal(true)}
+    className="inline-block mt-6 bg-black text-white px-8 py-4 rounded hover:bg-gray-800 transition"
+  >
+    {t("download.button")}
+  </button>
+</section>
+
 
           {/* 구매 섹션 */}
           <section id="buy" className="scroll-mt-[180px] py-20 px-10 bg-white">
