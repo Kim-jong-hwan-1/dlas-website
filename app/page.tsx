@@ -592,15 +592,10 @@ export default function Page() {
       alert("You are already a Family user. Payment is not possible.");
       return;
     }
-    const countryLower = userInfo.country?.toLowerCase() || "";
-    if (countryLower.includes("korea")) {
-      // (한국) TossPayments
-      handleTossRequest();
-    } else {
-      // (그 외) Paddle
-      handlePaddleCheckout();
-    }
+    // 국적 상관없이 모두 Paddle
+    handlePaddleCheckout();
   };
+  
 
   // -------------------
   //  팝업(초기 진입 시) 처리
@@ -660,27 +655,26 @@ export default function Page() {
       {showEarlyBirdPopup && (
         <div className="fixed inset-0 z-50 bg-black bg-opacity-60 flex items-center justify-center px-4">
           <div
-            className="
-              relative 
-              bg-white 
-              w-full 
-              max-w-3xl 
-              md:p-12 p-6 
-              rounded-3xl 
-              shadow-2xl 
-              animate-fadeInUp 
-              overflow-auto 
-              max-h-[calc(100vh-2rem)]
-            "
-            style={{
-              boxShadow:
-                "0 10px 40px rgba(0,0,0,0.20), 0 2px 8px rgba(0,0,0,0.10)",
-              minHeight: "530px",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-between",
-            }}
-          >
+  className="
+    relative 
+    bg-white 
+    w-full 
+    max-w-[98vw] sm:max-w-lg md:max-w-2xl lg:max-w-3xl
+    p-4 sm:p-6 md:p-12
+    rounded-3xl 
+    shadow-2xl 
+    animate-fadeInUp 
+    overflow-auto 
+    max-h-[calc(100vh-2rem)]
+  "
+  style={{
+    boxShadow: "0 10px 40px rgba(0,0,0,0.20), 0 2px 8px rgba(0,0,0,0.10)",
+    minHeight: "auto", // 모바일에서 고정 minHeight 없애기
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+  }}
+>
             <button
               className="absolute top-5 right-7 text-gray-400 hover:text-black text-3xl cursor-pointer"
               onClick={() => setShowEarlyBirdPopup(false)}
