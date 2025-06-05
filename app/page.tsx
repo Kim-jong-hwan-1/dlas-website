@@ -536,11 +536,12 @@ export default function Page() {
     }
 
     window.Paddle.Checkout.open({
-      items: [{ priceId: PADDLE_PRICE_ID, quantity: 1 }],
-      customer: { email: storedId },
+      /* ✅ 단일 priceId 방식 */
+      priceId : PADDLE_PRICE_ID,
+      quantity: 1,
+      customer : { email: storedId },
       customData: { userID: storedId, licenseType: "family" },
       closeCallback: () => console.log("Checkout closed"),
-      // 필요 시 successCallback 등 추가 가능
     });
   };
 
@@ -621,6 +622,12 @@ export default function Page() {
         console.log("Setting Paddle Environment to sandbox");
         window.Paddle.Environment.set("sandbox");
       }
+      
+      /* ⭐ 필수 초기화 – 토큰 주입 */
+      window.Paddle.Initialize({
+        token: PADDLE_TOKEN,
+        checkout: { settings: { displayMode: "overlay", locale: "ko" } },
+      });
 
       // ✅ Paddle 준비됐음
       setPaddleReady(true);
