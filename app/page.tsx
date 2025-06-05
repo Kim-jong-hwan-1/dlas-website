@@ -610,34 +610,38 @@ export default function Page() {
   src="https://cdn.paddle.com/paddle/paddle.js"
   strategy="afterInteractive"
   onLoad={() => {
-    console.log("[Paddle Script] onLoad callback called.");
+    console.log("🚀 [Paddle] onLoad fired");        // ① 시작 로그
+
     try {
+      /* ───────── 1) 전역 객체 확인 ───────── */
       if (!window.Paddle) {
-        console.error("window.Paddle is undefined. Check if script was blocked.");
+        console.error("❌ window.Paddle undefined ― 스크립트 차단 여부 확인");
         return;
       }
 
-      // (Sandbox/Live 설정)
+      /* ───────── 2) Sandbox 설정 ───────── */
       if (isSandbox && window.Paddle.Environment) {
-        console.log("Setting Paddle Environment to sandbox");
+        console.log("🔧 Sandbox 모드 활성화");
         window.Paddle.Environment.set("sandbox");
       }
-      
-      /* ⭐ 필수 초기화 – 토큰 주입 */
+
+      /* ───────── 3) Initialize 호출 ───────── */
+      console.log("🔑 Initialize with token:", PADDLE_TOKEN);
       window.Paddle.Initialize({
         token: PADDLE_TOKEN,
         checkout: { settings: { displayMode: "overlay", locale: "ko" } },
       });
 
-      // ✅ Paddle 준비됐음
+      /* ───────── 4) 준비 완료 ───────── */
+      console.log("✅ Paddle init success  →  setPaddleReady(true)");
       setPaddleReady(true);
-      console.log("Paddle is now ready.");
 
     } catch (err) {
-      console.error("Error in Paddle onLoad callback:", err);
+      console.error("🔥 Paddle init 실패:", err);    // ② 예외 로그
     }
   }}
 />
+
 
 
 
