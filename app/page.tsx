@@ -536,13 +536,16 @@ export default function Page() {
     }
 
     window.Paddle.Checkout.open({
-      // 단일 priceId 방식 (Billing v2 권장)
-      priceId : PADDLE_PRICE_ID,
-      quantity: 1,
-      customer : { email: storedId },
-      customData: { userID: storedId, licenseType: "family" },
+      priceId : PADDLE_PRICE_ID,                      // 필수
+      customer: { email: storedId },                  // 필수
+      /* customData는 key:value 문자열만 권장 */
+      customData: { userID: storedId },
       closeCallback: () => console.log("Checkout closed"),
+      /* (선택) 성공·에러 콜백 추가하면 콘솔로 바로 확인 가능 */
+      /* successCallback: (d) => console.log("Paddle success", d), */
+      /* errorCallback  : (e) => console.error("Paddle error", e), */
     });
+    
     
   };
 
