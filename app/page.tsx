@@ -536,13 +536,14 @@ export default function Page() {
     }
 
     window.Paddle.Checkout.open({
-      /* ✅ 단일 priceId 방식 */
+      // 단일 priceId 방식 (Billing v2 권장)
       priceId : PADDLE_PRICE_ID,
       quantity: 1,
       customer : { email: storedId },
       customData: { userID: storedId, licenseType: "family" },
       closeCallback: () => console.log("Checkout closed"),
     });
+    
   };
 
   // 1) TossPayments 결제 로직
