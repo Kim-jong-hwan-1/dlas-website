@@ -168,9 +168,13 @@ export const translations = {
   },
   download: {
     title: "软件下载",
-    desc: "点击下面下载最新版本的DLAS CAD软件。",
-    button: "立即下载"
-  },
+    desc: {
+      line3: "Windows 安装文件 (.exe)",
+      line4: "请直接运行文件。（Mac 不支持）"
+    },
+    button: "下载适用于 Windows 的 DLAS (.exe)"
+  }
+  ,
   buy: {
     title: "购买许可证",
     familyGifPlaceholder: "家庭许可证GIF占位符",
@@ -237,6 +241,7 @@ export const translations = {
     copy: "复制",
     close: "关闭"
   },
+  
   terms: {
     title: "条款与隐私",
     headingTerms: "[服务条款]",
@@ -250,6 +255,7 @@ export const translations = {
     article8: { title: "第八条（适用法律及管辖）", desc: `因本条款引起的纠纷适用韩国法律，法院管辖为公司总部所在地法院。` },
     effectiveDate: "生效日期：2025年4月29日"
   },
+  
   privacy: {
     headingPrivacy: "[隐私政策]",
     intro: `DLAS（以下简称“公司”）尊重您的隐私，依据包括《个人信息保护法》在内的相关法律规范处理您的个人数据。`,
@@ -331,10 +337,14 @@ export const translations = {
       gameChangerQuote: `"歯科自動化の未来がここに"`
     },
     download: {
-      title: "ソフトウェアダウンロード",
-      desc: "以下をクリックして最新のDLAS CADソフトウェアをダウンロードしてください。",
-      button: "今すぐダウンロード"
+      title: "ソフトウェアのダウンロード",
+      desc: {
+        line3: "Windows インストーラー (.exe)",
+        line4: "ファイルを直接実行してください。（Mac では利用できません）"
+      },
+      button: "Windows 用 DLAS をダウンロード (.exe)"
     },
+    
     buy: {
       title: "ライセンス購入",
       familyGifPlaceholder: "ファミリーライセンスGIFプレースホルダー",
@@ -496,9 +506,13 @@ export const translations = {
     },
     download: {
       title: "Software herunterladen",
-      desc: "Klicken Sie unten, um die neueste Version der DLAS CAD-Software herunterzuladen.",
-      button: "Jetzt herunterladen"
-    },
+      desc: {
+        line3: "Windows-Installationsdatei (.exe)",
+        line4: "Datei direkt ausführen. (Für Mac nicht verfügbar)"
+      },
+      button: "DLAS für Windows herunterladen (.exe)"
+    }
+    ,
     buy: {
       title: "Lizenz kaufen",
       familyGifPlaceholder: "Familienlizenz GIF-Platzhalter",
@@ -633,6 +647,205 @@ export const translations = {
       instagram: "Instagram"
     },
   },
+  fr: {
+    nav: {
+      home: "Accueil",
+      download: "Télécharger",
+      buy: "Acheter",
+      contact: "Contact",
+      terms: "Conditions & Confidentialité",
+      family: "Famille",
+      login: "Connexion",
+      signup: "S’inscrire"
+    },
+    home: {
+      subtitle: "Maximisez votre productivité en un seul clic",
+      title: "Des heures réduites à quelques secondes",
+      cta: "Rejoignez la famille DLAS – seulement",
+      price: "390 $",
+      gameChangerTitle: "Une révolution dans la dentisterie numérique",
+      gameChangerDesc: "DLAS n’est pas qu’un simple logiciel. C’est une révolution dans l’automatisation du CAD dentaire, conçue pour fournir aux professionnels du secteur dentaire des outils de pointe simplifiant les flux de travail complexes, réduisant le travail manuel et maximisant la productivité.",
+      gameChangerQuote: `"L’avenir de l’automatisation dentaire est déjà là"`,
+    },
+    download: {
+      title: "Télécharger le logiciel",
+      desc: {
+        line3: "Fichier d’installation Windows (.exe).",
+        line4: "Exécutez simplement le fichier. (Non disponible sur Mac.)"
+      },
+      button: "Télécharger DLAS pour Windows (.exe)"
+    },
+    buy: {
+      title: "Acheter une licence",
+      familyGifPlaceholder: "Espace réservé GIF Licence Famille",
+      familyLicense: "Licence Famille",
+      moduleGif: "Espace réservé GIF"
+    },
+    contact: {
+      title: "Nous contacter",
+      info1: "support@dlas.io",
+      info2: "63, Dunsan-ro, Seo-gu, Daejeon, République de Corée 403-817 (DLAS)",
+      form: {
+        firstName: "Prénom",
+        lastName: "Nom",
+        email: "Adresse email",
+        phone: "Numéro de téléphone",
+        message: "Message",
+        submit: "Envoyer la demande"
+      }
+    },
+    family: {
+      modalTitle: "Informations sur la Licence Famille",
+      desc1: "Utilisez les modules DLAS à vie sans frais supplémentaires. Nous recherchons des partenaires pour grandir avec DLAS. Seuls les laboratoires dentaires innovants et à la pointe du numérique devraient postuler.",
+      desc2: "Vous pouvez accéder à tous les modules listés de façon permanente. Si vous ne comprenez pas ce qu’est l’innovation, ou si vous êtes débutant ou inexpérimenté, veuillez ne pas vous inscrire.",
+      desc3: "Même les nouveaux modules seront gratuits s’ils sont publiés avant la version v2.0.0. Nos programmes d’automatisation peuvent présenter des bugs selon votre environnement informatique. Signalez-les, nous les corrigerons.",
+      desc4: "Après la version v2.0.0, des frais de licence réguliers s’appliqueront. Nous vous recommandons d’utiliser d’abord la licence gratuite avant d’acheter.",
+      desc5: "Il s’agit d’une offre unique, disponible uniquement maintenant. La valeur de la licence famille augmentera probablement. Un utilisateur peut posséder plusieurs licences et la revente est autorisée.",
+      tableNote: "※ Les détails peuvent changer sans préavis.",
+      paymentBtn: "Procéder au paiement (Bientôt disponible)",
+      paymentMsg: "Intégration du paiement bientôt disponible.",
+      recommendFree: "Nous vous recommandons d’essayer la licence gratuite avant d’acheter.",
+      howToGetFree: "(Comment obtenir la licence gratuite)",
+    },
+    freeLicense: {
+      title: "Comment obtenir la licence gratuite",
+      step1: `1) Suivez-nous sur Instagram : <a href="https://www.instagram.com/dlas_official_" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">ici</a> et faites une capture d’écran.`,
+      step2: `2) Aimez notre publication : <a href="https://www.instagram.com/reel/DKOFtNABCgr/?utm_source=ig_web_copy_link/" target="_blank" rel="noopener noreferrer" class="text-blue-600 underline">ici</a> et faites une capture d’écran.`,
+      step3: "3) Assurez-vous que votre identifiant Instagram est bien visible sur la capture d’écran.",
+      send: `Envoyez ensuite toutes les captures d’écran à <strong>support@dlas.io</strong> avec pour objet <strong>dlas (votre identifiant dlas), ex : dlas kimjonghwan</strong>.`,
+      aiReview: "Notre IA examinera vos captures d’écran et répondra sous 10 minutes.",
+      note1: "- Chaque compte Instagram vérifié donne droit à 3 heures de licence gratuite.",
+      note2: "- Un identifiant DLAS peut obtenir plusieurs licences avec différents comptes Instagram.",
+      note3: "- Un même compte Instagram ne peut pas être utilisé pour plusieurs identifiants DLAS.",
+    },
+    payment: {
+      title: "Paiement de la Licence Famille",
+      warning: "Veuillez vérifier l’état actuel des modules avant d’acheter.",
+      agree: "J’accepte",
+      statusHeader: "--- État actuel des modules ---",
+      items: [
+        "Transfer Jig Maker est actuellement disponible.",
+        "Il existe un bug où le mode Inner (exo) s’exécute deux fois.",
+        "En mode Inner+Hole (exo), l’espace pour le ciment est appliqué deux fois sur la surface interne. Veuillez saisir la moitié de la valeur souhaitée.",
+        "La configuration du chemin OpenSCAD peut être requise.",
+        "FAST IMAGE CONVERTER est également disponible. (Convertit rapidement STL en images.)",
+        "Certaines fonctionnalités peuvent ne pas fonctionner selon votre environnement système.",
+        "Le montant final à payer peut varier selon la législation fiscale de votre pays. Ce paiement est unique et ne sera pas renouvelé automatiquement.",
+        "Nous préparons actuellement notre système de paiement. Si vous souhaitez acheter immédiatement, veuillez nous contacter à support@dlas.io."
+      ],
+      footer: "En cliquant sur « J’accepte », vous confirmez avoir compris l’état actuel et souhaitez acheter la licence."
+    },
+    purchase: {
+      title: "Demande d’achat",
+      desc: "Nous préparons une passerelle de paiement. Si vous souhaitez acheter immédiatement, veuillez contacter :",
+      copy: "Copier",
+      close: "Fermer",
+    },
+    terms: {
+      title: "Conditions & Confidentialité",
+      headingTerms: "[Conditions d’utilisation]",
+      article1: {
+        title: "Article 1 (Objet)",
+        desc: `Les présentes conditions d’utilisation (« Conditions ») régissent l’utilisation du logiciel et des services associés (« Services ») fournis via le site Web exploité par DLAS (« Société »).`
+      },
+      article2: {
+        title: "Article 2 (Définitions)",
+        desc: `1. « Utilisateur » désigne toute personne qui accepte ces Conditions et utilise les Services.<br/>2. « Produit » désigne tout logiciel, module ou programme basé sur l’IA fourni par la Société.`
+      },
+      article3: {
+        title: "Article 3 (Effet et modification des Conditions)",
+        desc: `1. Ces Conditions prennent effet dès leur publication sur le site Web.<br/>2. La Société peut réviser ces Conditions conformément à la législation applicable et en informera les utilisateurs à l’avance.`
+      },
+      article4: {
+        title: "Article 4 (Fourniture des Services)",
+        desc: `La Société fournit les services suivants :<br/>- Logiciel dentaire basé sur l’IA téléchargeable<br/>- Achat et activation de modules payants<br/>- Autres services désignés par la Société`
+      },
+      article5: {
+        title: "Article 5 (Paiement et remboursement)",
+        desc: `1. Les utilisateurs peuvent acheter des produits via les moyens de paiement désignés par la Société.<br/>2. En raison de la nature des produits numériques, aucun remboursement n’est possible après téléchargement ou activation, sauf si la loi l’exige.`
+      },
+      article6: {
+        title: "Article 6 (Propriété intellectuelle)",
+        desc: `1. Tous les contenus et logiciels fournis sur le site Web sont protégés par le droit d’auteur et appartiennent à la Société.<br/>2. La duplication, la redistribution ou l’ingénierie inverse non autorisée sont interdites et peuvent entraîner des poursuites judiciaires.`
+      },
+      article7: {
+        title: "Article 7 (Clause de non-responsabilité)",
+        desc: `1. La Société ne saurait être tenue responsable des défaillances de service dues à des cas de force majeure tels que catastrophes naturelles, cyberattaques ou pannes système.<br/>2. La Société n’est pas responsable des dommages causés par la négligence de l’utilisateur.`
+      },
+      article8: {
+        title: "Article 8 (Loi applicable et juridiction)",
+        desc: `Tout litige découlant des présentes Conditions sera régi par les lois de la République de Corée, avec le tribunal du siège de la Société comme première juridiction.`
+      },
+      effectiveDate: "Date d’entrée en vigueur : 29 avril 2025",
+    },
+    privacy: {
+      headingPrivacy: "[Politique de confidentialité]",
+      intro: `DLAS (« Société ») respecte votre vie privée et traite vos données personnelles conformément à la législation applicable, y compris la Loi sur la protection des informations personnelles.`,
+      article1: {
+        title: "Article 1 (Informations collectées)",
+        desc: `Nous pouvons collecter les informations suivantes :<br/>- Adresse email et mot de passe (lors de l’inscription)<br/>- Nom et coordonnées de paiement (pour les services payants)<br/>- Journaux d’accès, adresse IP, historique d’utilisation (pour la qualité du service et la sécurité)`
+      },
+      article2: {
+        title: "Article 2 (But de la collecte)",
+        desc: `Les données personnelles sont collectées et utilisées pour les finalités suivantes :<br/>- Authentification de l’utilisateur et fourniture de service<br/>- Traitement des paiements et support de remboursement<br/>- Support client et notifications<br/>- Prévention de la fraude et abus du système`
+      },
+      article3: {
+        title: "Article 3 (Durée de conservation)",
+        desc: `- Les données sont supprimées lors de la résiliation du compte sauf obligation légale contraire.<br/>- Certaines données peuvent être conservées pour une période légale obligatoire (ex : selon la réglementation du commerce électronique).`
+      },
+      article4: {
+        title: "Article 4 (Divulgation à des tiers)",
+        desc: `Nous ne partageons pas de données personnelles avec des tiers sauf :<br/>- Avec votre consentement préalable<br/>- Lorsque la loi ou une procédure légale l’exige`
+      },
+      article5: {
+        title: "Article 5 (Destruction des données personnelles)",
+        desc: `Les données personnelles seront détruites de manière sécurisée après la période de conservation.<br/>- Fichiers numériques : suppression définitive<br/>- Documents papier : déchiquetés ou incinérés`
+      },
+      article6: {
+        title: "Article 6 (Droits de l’utilisateur)",
+        desc: `Vous pouvez demander à consulter, modifier, supprimer ou limiter le traitement de vos données personnelles à tout moment.`
+      },
+      article7: {
+        title: "Article 7 (Délégué à la protection des données)",
+        desc: `- Responsable : JongHwan Kim<br/>- Email : support@dlas.io`
+      },
+      effectiveDate: "Date d’entrée en vigueur : 29 avril 2025",
+    },
+    login: {
+      title: "Connexion à DLAS",
+      form: {
+        email: "Email",
+        password: "Mot de passe",
+        submit: "Connexion",
+        noAccount: "Vous n’avez pas de compte ?",
+        signupNow: "S’inscrire",
+      },
+    },
+    signup: {
+      title: "Créer un compte DLAS",
+      success: "Inscription réussie !",
+      marketingLabel: "Accord de marketing",
+      error: {
+        notMatch: "Les mots de passe ne correspondent pas.",
+        mustAgree: "Vous devez accepter les conditions requises.",
+      },
+      form: {
+        name: "Nom",
+        email: "Email",
+        password: "Mot de passe",
+        confirmPassword: "Confirmer le mot de passe",
+        countryPlaceholder: "Sélectionner un pays",
+        id: "Identifiant",
+        workplaceName: "Numéro de téléphone (pour récupération du mot de passe)",
+        workplaceAddress: "Email (pour récupération du mot de passe)",
+        agreeRequired: "J’accepte les conditions générales (obligatoire)",
+        agreeMarketing: "J’accepte de recevoir des emails marketing (optionnel)",
+        submit: "Créer un compte",
+      },
+    },
+    common: { yes: "Oui", no: "Non", ok: "OK" },
+    footer: { rights: "Tous droits réservés.", youtube: "YouTube", instagram: "Instagram" }
+  },
   
 
   /////////////////////////////////////////////////////////////////////
@@ -659,10 +872,14 @@ export const translations = {
       gameChangerQuote: `"डेंटल ऑटोमेशन का भविष्य यहाँ है"`
     },
     download: {
-      title: "सॉफ्टवेयर डाउनलोड करें",
-      desc: "नीचे क्लिक करके DLAS CAD सॉफ्टवेयर का नवीनतम संस्करण डाउनलोड करें।",
-      button: "अभी डाउनलोड करें"
-    },
+      title: "सॉफ़्टवेयर डाउनलोड करें",
+      desc: {
+        line3: "Windows इंस्टॉलेशन फ़ाइल (.exe)",
+        line4: "फ़ाइल को सीधे चलाएँ। (Mac पर उपलब्ध नहीं)"
+      },
+      button: "Windows के लिए DLAS डाउनलोड करें (.exe)"
+    }
+    ,
     buy: {
       title: "लाइसेंस खरीदें",
       familyGifPlaceholder: "परिवार लाइसेंस GIF प्लेसहोल्डर",
@@ -823,10 +1040,14 @@ export const translations = {
       gameChangerQuote: `"O futuro da automação odontológica está aqui"`
     },
     download: {
-      title: "Baixar software",
-      desc: "Clique abaixo para baixar a versão mais recente do software DLAS CAD.",
-      button: "Baixar agora"
-    },
+      title: "Baixar Software",
+      desc: {
+        line3: "Arquivo de instalação do Windows (.exe)",
+        line4: "Execute o arquivo diretamente. (Não disponível para Mac)"
+      },
+      button: "Baixar DLAS para Windows (.exe)"
+    }
+    ,
     buy: {
       title: "Comprar licença",
       familyGifPlaceholder: "Placeholder do GIF da licença família",
@@ -1224,10 +1445,14 @@ export const translations = {
       gameChangerQuote: `"Будущее стоматологической автоматизации уже здесь"`
     },
     download: {
-      title: "Скачать ПО",
-      desc: "Нажмите ниже, чтобы скачать последнюю версию DLAS CAD Software.",
-      button: "Скачать сейчас"
-    },
+      title: "Скачать программное обеспечение",
+      desc: {
+        line3: "Файл установки для Windows (.exe)",
+        line4: "Запустите файл напрямую. (Недоступно для Mac)"
+      },
+      button: "Скачать DLAS для Windows (.exe)"
+    }
+    ,
     buy: {
       title: "Купить лицензию",
       familyGifPlaceholder: "Заполнитель GIF для семейной лицензии",
@@ -1389,9 +1614,13 @@ export const translations = {
     },
     download: {
       title: "Descargar software",
-      desc: "Haz clic abajo para descargar la última versión del software DLAS CAD.",
-      button: "Descargar ahora"
-    },
+      desc: {
+        line3: "Archivo de instalación de Windows (.exe)",
+        line4: "Ejecute el archivo directamente. (No disponible para Mac)"
+      },
+      button: "Descargar DLAS para Windows (.exe)"
+    }
+    ,
     buy: {
       title: "Comprar licencia",
       familyGifPlaceholder: "Espacio reservado para GIF de licencia familiar",
@@ -1552,10 +1781,14 @@ export const translations = {
       gameChangerQuote: `"مستقبل أتمتة طب الأسنان هنا"`
     },
     download: {
-      title: "تحميل البرنامج",
-      desc: "انقر أدناه لتحميل أحدث إصدار من برنامج DLAS CAD.",
-      button: "تحميل الآن"
-    },
+      title: "تنزيل البرنامج",
+      desc: {
+        line3: "ملف تثبيت ويندوز (.exe)",
+        line4: "شغّل الملف مباشرةً. (غير متوفر لماك)"
+      },
+      button: "تنزيل DLAS لنظام ويندوز (.exe)"
+    }
+    ,
     buy: {
       title: "شراء الترخيص",
       familyGifPlaceholder: "مكان لصورة GIF لترخيص العائلة",
@@ -1717,9 +1950,13 @@ export const translations = {
     },
     download: {
       title: "Yazılımı İndir",
-      desc: "DLAS CAD Yazılımının en son sürümünü indirmek için aşağıya tıklayın.",
-      button: "Şimdi İndir"
-    },
+      desc: {
+        line3: "Windows kurulum dosyası (.exe)",
+        line4: "Dosyayı doğrudan çalıştırın. (Mac için uygun değildir)"
+      },
+      button: "Windows için DLAS İndir (.exe)"
+    }
+    ,
     buy: {
       title: "Lisans Satın Al",
       familyGifPlaceholder: "Aile Lisansı GIF Yer Tutucu",
@@ -1880,10 +2117,14 @@ export const translations = {
       gameChangerQuote: `"Tương lai của tự động hóa nha khoa đã đến"`
     },
     download: {
-      title: "Tải Phần Mềm",
-      desc: "Nhấp vào bên dưới để tải phiên bản mới nhất của phần mềm DLAS CAD.",
-      button: "Tải Ngay"
-    },
+      title: "Tải phần mềm",
+      desc: {
+        line3: "Tệp cài đặt Windows (.exe)",
+        line4: "Chạy tệp trực tiếp. (Không hỗ trợ Mac)"
+      },
+      button: "Tải DLAS cho Windows (.exe)"
+    }
+    ,
     buy: {
       title: "Mua Giấy Phép",
       familyGifPlaceholder: "Chỗ Để GIF Giấy Phép Gia Đình",
@@ -2044,9 +2285,13 @@ export const translations = {
     },
     download: {
       title: "ดาวน์โหลดซอฟต์แวร์",
-      desc: "คลิกด้านล่างเพื่อดาวน์โหลดเวอร์ชันล่าสุดของ DLAS CAD Software",
-      button: "ดาวน์โหลดทันที"
-    },
+      desc: {
+        line3: "ไฟล์ติดตั้ง Windows (.exe)",
+        line4: "เรียกใช้ไฟล์ได้ทันที (ไม่รองรับ Mac)"
+      },
+      button: "ดาวน์โหลด DLAS สำหรับ Windows (.exe)"
+    }
+    ,
     buy: {
       title: "ซื้อใบอนุญาต",
       familyGifPlaceholder: "พื้นที่ว่างสำหรับ GIF ใบอนุญาตครอบครัว",
@@ -2208,9 +2453,13 @@ export const translations = {
     },
     download: {
       title: "Unduh Perangkat Lunak",
-      desc: "Klik di bawah untuk mengunduh versi terbaru dari perangkat lunak DLAS CAD.",
-      button: "Unduh Sekarang"
-    },
+      desc: {
+        line3: "File instalasi Windows (.exe)",
+        line4: "Jalankan file secara langsung. (Tidak tersedia untuk Mac)"
+      },
+      button: "Unduh DLAS untuk Windows (.exe)"
+    }
+    ,
     buy: {
       title: "Beli Lisensi",
       familyGifPlaceholder: "Tempat GIF Lisensi Keluarga",
