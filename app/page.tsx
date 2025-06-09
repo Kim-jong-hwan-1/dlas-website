@@ -42,16 +42,16 @@ declare global {
                 quantity?: number;
                 customer: { email: string };
                 customData?: { [key: string]: any };
+                discountCode?: string; // 할인 코드 필드
                 closeCallback?: () => void;
-                // 필요시 successCallback?: () => void; 등 추가 가능
               }
             | {
                 // ✅ (items 배열 방식: 여러 priceId)
                 items: { priceId: string; quantity?: number }[];
                 customer: { email: string };
                 customData?: { [key: string]: any };
+                discountCode?: string; // 할인 코드 필드
                 closeCallback?: () => void;
-                // 필요시 successCallback?: () => void; 등 추가 가능
               }
         ) => void;
       };
@@ -510,11 +510,13 @@ export default function Page() {
 
   // ------------------
   // ✅ 2) Paddle 결제 로직
-  // ★ 핵심: paddleReady 상태로 "Paddle is not defined" 에러 예방
   // ------------------
 
   // Paddle 준비 여부
   const [paddleReady, setPaddleReady] = useState(false);
+
+  // ** 1) 할인코드 State 추가 **
+  const [couponCode, setCouponCode] = useState("");
 
   // Paddle Checkout 열기
   const handlePaddleCheckout = () => {
@@ -535,22 +537,19 @@ export default function Page() {
       return;
     }
 
+    // ✅ 할인 코드(couponCode.trim()) 적용
     window.Paddle.Checkout.open({
       items: [
         {
-          priceId: PADDLE_PRICE_ID,    // ✅ 타입 정의와 일치
-          quantity: 1
-        }
+          priceId: PADDLE_PRICE_ID, 
+          quantity: 1,
+        },
       ],
-      customer: { email: storedId },   // 필수
-      customData: { userID: storedId },// 문자열 값만 권장
+      customer: { email: storedId },
+      customData: { userID: storedId },
+      discountCode: couponCode.trim(), // ★ 추가 부분
       closeCallback: () => console.log("Checkout closed"),
-      /* successCallback: (d) => console.log("Paddle success", d), */
-      /* errorCallback : (e) => console.error("Paddle error", e),  */
     });
-    
-    
-    
   };
 
   // 1) TossPayments 결제 로직
@@ -595,7 +594,6 @@ export default function Page() {
     // 국적 상관없이 모두 Paddle
     handlePaddleCheckout();
   };
-  
 
   // -------------------
   //  팝업(초기 진입 시) 처리
@@ -605,48 +603,35 @@ export default function Page() {
   return (
     <>
       {/* 
-        1회 로딩 시 Paddle 초기화 
-        - Environment.set("sandbox") → Initialize() 순서 
+        Paddle Billing v2 SDK 
         - onLoad 콜백에서 setPaddleReady(true)
       */}
-<Script
-  src="https://cdn.paddle.com/paddle/v2/paddle.js"  // Billing v2 SDK
-  strategy="afterInteractive"
-  onLoad={() => {
-   
-
-    try {
-      /* ───────── 1) 전역 객체 확인 ───────── */
-      if (!window.Paddle) {
-        console.error("❌ window.Paddle undefined ― 스크립트 차단 여부 확인");
-        return;
-      }
-
-      /* ───────── 2) Sandbox 설정 ───────── */
-      if (isSandbox && window.Paddle.Environment) {
-       
-        window.Paddle.Environment.set("sandbox");
-      }
-
-      /* ───────── 3) Initialize 호출 ───────── */
-      
-      window.Paddle.Initialize({
-        token: PADDLE_TOKEN,
-        checkout: { settings: { displayMode: "overlay", locale: "ko" } },
-      });
-
-      /* ───────── 4) 준비 완료 ───────── */
-      
-      setPaddleReady(true);
-
-    } catch (err) {
-      console.error("🔥 Paddle init 실패:", err);    // ② 예외 로그
-    }
-  }}
-/>
-
-
-
+      <Script
+        src="https://cdn.paddle.com/paddle/v2/paddle.js"
+        strategy="afterInteractive"
+        onLoad={() => {
+          try {
+            // 1) 전역 객체 확인
+            if (!window.Paddle) {
+              console.error("❌ window.Paddle undefined ― 스크립트 차단 여부 확인");
+              return;
+            }
+            // 2) Sandbox 설정
+            if (isSandbox && window.Paddle.Environment) {
+              window.Paddle.Environment.set("sandbox");
+            }
+            // 3) Initialize 호출
+            window.Paddle.Initialize({
+              token: PADDLE_TOKEN,
+              checkout: { settings: { displayMode: "overlay", locale: "ko" } },
+            });
+            // 4) 준비 완료
+            setPaddleReady(true);
+          } catch (err) {
+            console.error("🔥 Paddle init 실패:", err);
+          }
+        }}
+      />
 
       {/* TossPayments SDK */}
       <Script src="https://js.tosspayments.com/v1" strategy="afterInteractive" />
@@ -655,113 +640,119 @@ export default function Page() {
       {showEarlyBirdPopup && (
         <div className="fixed inset-0 z-50 bg-black bg-opacity-60 flex items-center justify-center px-4">
           <div
-  className={`
-    relative bg-white w-full
-    max-w-[95vw] sm:max-w-lg md:max-w-2xl lg:max-w-3xl
-    p-2 sm:p-6 md:p-12
-    rounded-2xl shadow-2xl animate-fadeInUp overflow-auto
-    max-h-[90vh]
-    flex flex-col justify-between
-  `}
-  style={{
-    boxShadow: "0 6px 18px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.07)",
-    fontSize: "0.93rem",
-  }}
->
-  <button
-    className="
-      absolute top-2 right-3 text-gray-400 hover:text-black text-2xl sm:text-3xl cursor-pointer
-    "
-    onClick={() => setShowEarlyBirdPopup(false)}
-    aria-label="Close popup"
-  >
-    ×
-  </button>
-  <div className="flex flex-col items-center gap-2 sm:gap-4">
-    <div className="text-center mb-1 sm:mb-2">
-      <span className="inline-block text-2xl sm:text-4xl font-extrabold text-black tracking-tight animate-pulse">
-        DLAS Family License
-      </span>
-    </div>
-    <div className="flex flex-row items-center justify-center gap-2 sm:gap-4 mb-2 sm:mb-3">
-      <span className="text-gray-400 text-2xl sm:text-5xl font-bold line-through">
-        $6,010
-      </span>
-      <span className="text-xl sm:text-4xl font-extrabold text-gray-400 mx-1">→</span>
-      <span className="text-green-400 text-4xl sm:text-9xl font-extrabold drop-shadow">
-        $390
-      </span>
-    </div>
-    <div className="text-center">
-      <span className="inline-block px-2 sm:px-4 py-1 rounded-full bg-yellow-200 text-yellow-900 font-semibold text-xs sm:text-base mb-1 sm:mb-2">
-        Pre-launch special · Only before v2.0.0!
-      </span>
-    </div>
-    <div className="my-1 sm:my-3 text-xs sm:text-lg font-medium text-gray-700">
-      <strong className="text-black">Lifetime license</strong> to{" "}
-      <span className="font-bold text-pink-500">all DLAS modules</span> at an exclusive price.<br />
-      <span className="text-red-500 font-semibold">Save 90%+</span> compared to the official release price!
-    </div>
-    <ul className="mt-2 sm:mt-4 mb-1 sm:mb-3 space-y-1 text-gray-700 text-xs sm:text-base font-medium text-left max-w-xs sm:max-w-lg mx-auto">
-      <li>
-        ✔️ <span className="font-bold text-gray-900">One-time payment</span>, no hidden fees
-      </li>
-      <li>
-        ✔️ Free updates for every new module (includes all upcoming modules 2025~2026)
-      </li>
-      <li>
-        ✔️ <span className="font-bold">Use for commercial work</span>
-      </li>
-    </ul>
-    <div className="bg-yellow-50 border-l-4 border-yellow-400 px-2 sm:px-5 py-1 sm:py-3 my-2 sm:my-4 rounded-md text-yellow-900 font-semibold text-xs sm:text-base text-left shadow w-full text-center">
-      🚨 <strong>After version 2.0.0</strong>,{" "}
-      <span className="text-red-500 font-bold">
-        no new Family License signups will be possible.
-      </span>
-    </div>
-    <div className="text-center font-bold text-xs sm:text-lg sm:text-xl text-gray-900 mt-2 mb-0">
-      <span>
-        Don’t miss your last chance.<br />
-        Secure your lifetime benefits today!
-      </span>
-    </div>
-  </div>
-  <div className="flex flex-row gap-2 sm:gap-4 mt-4 sm:mt-8 justify-center">
-    <button
-      onClick={() => {
-        setShowEarlyBirdPopup(false);
-        setShowFamilyModal(true);
-        setShowFreeLicenseGuide(false);
-        setShowPaymentProceed(false);
-        setFreeLicenseGuideOrigin("home");
-      }}
-      className="
-        bg-gradient-to-r from-pink-500 to-yellow-400 
-        text-white text-sm sm:text-lg font-bold 
-        rounded-full px-6 sm:px-8 py-2 sm:py-3 
-        shadow 
-        hover:opacity-90 
-        transition 
-        cursor-pointer
-      "
-    >
-      Learn More
-    </button>
-    <button
-      onClick={() => setShowEarlyBirdPopup(false)}
-      className="
-        border border-gray-400 
-        text-gray-800 text-sm sm:text-lg font-semibold 
-        rounded-full px-6 sm:px-8 py-2 sm:py-3 
-        bg-white hover:bg-gray-100 transition 
-        cursor-pointer
-      "
-    >
-      Close
-    </button>
-  </div>
-</div>
-
+            className="
+              relative bg-white w-full
+              max-w-[95vw] sm:max-w-lg md:max-w-2xl lg:max-w-3xl
+              p-2 sm:p-6 md:p-12
+              rounded-2xl shadow-2xl animate-fadeInUp overflow-auto
+              max-h-[90vh]
+              flex flex-col justify-between
+            "
+            style={{
+              boxShadow:
+                "0 6px 18px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.07)",
+              fontSize: "0.93rem",
+            }}
+          >
+            <button
+              className="
+                absolute top-2 right-3 text-gray-400 hover:text-black text-2xl sm:text-3xl cursor-pointer
+              "
+              onClick={() => setShowEarlyBirdPopup(false)}
+              aria-label="Close popup"
+            >
+              ×
+            </button>
+            <div className="flex flex-col items-center gap-2 sm:gap-4">
+              <div className="text-center mb-1 sm:mb-2">
+                <span className="inline-block text-2xl sm:text-4xl font-extrabold text-black tracking-tight animate-pulse">
+                  DLAS Family License
+                </span>
+              </div>
+              <div className="flex flex-row items-center justify-center gap-2 sm:gap-4 mb-2 sm:mb-3">
+                <span className="text-gray-400 text-2xl sm:text-5xl font-bold line-through">
+                  $6,010
+                </span>
+                <span className="text-xl sm:text-4xl font-extrabold text-gray-400 mx-1">
+                  →
+                </span>
+                <span className="text-green-400 text-4xl sm:text-9xl font-extrabold drop-shadow">
+                  $390
+                </span>
+              </div>
+              <div className="text-center">
+                <span className="inline-block px-2 sm:px-4 py-1 rounded-full bg-yellow-200 text-yellow-900 font-semibold text-xs sm:text-base mb-1 sm:mb-2">
+                  Pre-launch special · Only before v2.0.0!
+                </span>
+              </div>
+              <div className="my-1 sm:my-3 text-xs sm:text-lg font-medium text-gray-700">
+                <strong className="text-black">Lifetime license</strong> to{" "}
+                <span className="font-bold text-pink-500">all DLAS modules</span>{" "}
+                at an exclusive price.
+                <br />
+                <span className="text-red-500 font-semibold">Save 90%+</span>{" "}
+                compared to the official release price!
+              </div>
+              <ul className="mt-2 sm:mt-4 mb-1 sm:mb-3 space-y-1 text-gray-700 text-xs sm:text-base font-medium text-left max-w-xs sm:max-w-lg mx-auto">
+                <li>
+                  ✔️ <span className="font-bold text-gray-900">One-time payment</span>, no hidden fees
+                </li>
+                <li>
+                  ✔️ Free updates for every new module (includes all upcoming modules 2025~2026)
+                </li>
+                <li>
+                  ✔️ <span className="font-bold">Use for commercial work</span>
+                </li>
+              </ul>
+              <div className="bg-yellow-50 border-l-4 border-yellow-400 px-2 sm:px-5 py-1 sm:py-3 my-2 sm:my-4 rounded-md text-yellow-900 font-semibold text-xs sm:text-base text-left shadow w-full text-center">
+                🚨 <strong>After version 2.0.0</strong>,{" "}
+                <span className="text-red-500 font-bold">
+                  no new Family License signups will be possible.
+                </span>
+              </div>
+              <div className="text-center font-bold text-xs sm:text-lg sm:text-xl text-gray-900 mt-2 mb-0">
+                <span>
+                  Don’t miss your last chance.
+                  <br />
+                  Secure your lifetime benefits today!
+                </span>
+              </div>
+            </div>
+            <div className="flex flex-row gap-2 sm:gap-4 mt-4 sm:mt-8 justify-center">
+              <button
+                onClick={() => {
+                  setShowEarlyBirdPopup(false);
+                  setShowFamilyModal(true);
+                  setShowFreeLicenseGuide(false);
+                  setShowPaymentProceed(false);
+                  setFreeLicenseGuideOrigin("home");
+                }}
+                className="
+                  bg-gradient-to-r from-pink-500 to-yellow-400 
+                  text-white text-sm sm:text-lg font-bold 
+                  rounded-full px-6 sm:px-8 py-2 sm:py-3 
+                  shadow 
+                  hover:opacity-90 
+                  transition 
+                  cursor-pointer
+                "
+              >
+                Learn More
+              </button>
+              <button
+                onClick={() => setShowEarlyBirdPopup(false)}
+                className="
+                  border border-gray-400 
+                  text-gray-800 text-sm sm:text-lg font-semibold 
+                  rounded-full px-6 sm:px-8 py-2 sm:py-3 
+                  bg-white hover:bg-gray-100 transition 
+                  cursor-pointer
+                "
+              >
+                Close
+              </button>
+            </div>
+          </div>
         </div>
       )}
 
@@ -934,6 +925,23 @@ export default function Page() {
                   $390
                 </span>
               </div>
+
+              {/* (추가) 할인 코드 입력 UI - 예시로 여기 둠 */}
+              <div className="mt-4 text-center">
+  <input
+    type="text"
+    value={couponCode}
+    onChange={(e) => setCouponCode(e.target.value)}
+    placeholder="Enter coupon code"
+    className="px-4 py-2 border rounded-md w-60 text-sm"
+  />
+  <p className={`text-sm mt-1 ${couponCode.trim() ? "text-green-600" : "text-gray-400"}`}>
+    {couponCode.trim()
+      ? `Coupon "${couponCode.trim()}" will be applied at checkout.`
+      : "Enter a coupon code to apply discount."}
+  </p>
+</div>
+
             </div>
 
             <div className="mt-16 px-6 max-w-4xl mx-auto text-center">
@@ -950,26 +958,24 @@ export default function Page() {
           </section>
 
           {/* 다운로드 섹션 */}
-
-<section
-  id="download"
-  className="scroll-mt-[180px] text-center py-20 bg-gray-100"
->
-  <h2 className="text-4xl font-bold mb-4">{t("download.title")}</h2>
-  <p className="text-lg text-gray-500 max-w-3xl mx-auto mt-2">
-     <br />
-    {t("download.desc.line3")}
-    <br />
-    {t("download.desc.line4")}
-  </p>
-  <button
-    onClick={() => setShowDownloadModal(true)}
-    className="inline-block mt-6 bg-black text-white px-8 py-4 rounded hover:bg-gray-800 transition"
-  >
-    {t("download.button")}
-  </button>
-</section>
-
+          <section
+            id="download"
+            className="scroll-mt-[180px] text-center py-20 bg-gray-100"
+          >
+            <h2 className="text-4xl font-bold mb-4">{t("download.title")}</h2>
+            <p className="text-lg text-gray-500 max-w-3xl mx-auto mt-2">
+              <br />
+              {t("download.desc.line3")}
+              <br />
+              {t("download.desc.line4")}
+            </p>
+            <button
+              onClick={() => setShowDownloadModal(true)}
+              className="inline-block mt-6 bg-black text-white px-8 py-4 rounded hover:bg-gray-800 transition"
+            >
+              {t("download.button")}
+            </button>
+          </section>
 
           {/* 구매 섹션 */}
           <section id="buy" className="scroll-mt-[180px] py-20 px-10 bg-white">
@@ -1268,7 +1274,6 @@ export default function Page() {
                             <li className="bg-red-100 border-l-4 border-red-500 text-red-700 font-bold p-3 rounded shadow flex items-center">
                               ⚠️ {t("payment.items.6")}
                             </li>
-
                           </ul>
                         </div>
                         <p>{t("payment.footer")}</p>
