@@ -61,6 +61,7 @@ declare global {
 
 export {}; // 타입 선언 파일에서는 필요 (중복 선언 방지)
 
+import Head from "next/head";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useLang } from "@/components/LanguageWrapper";
@@ -602,6 +603,20 @@ export default function Page() {
 
   return (
     <>
+      {/* ✅ Head 영역 추가 */}
+      <Head>
+        <title>DLAS - Dental Lab Automation Solution</title>
+        <meta
+          name="description"
+          content="DLAS is an advanced dental CAD automation software. It supports automatic crown design, screw hole insertion, and gingiva bar separation."
+        />
+        <meta
+          name="keywords"
+          content="DLAS, Dental CAD, dental automation, digital dentistry, screw hole automation"
+        />
+        <link rel="canonical" href="https://www.dlas.io/" />
+      </Head>
+
       {/* 
         Paddle Billing v2 SDK 
         - onLoad 콜백에서 setPaddleReady(true)
@@ -928,20 +943,23 @@ export default function Page() {
 
               {/* (추가) 할인 코드 입력 UI - 예시로 여기 둠 */}
               <div className="mt-4 text-center">
-  <input
-    type="text"
-    value={couponCode}
-    onChange={(e) => setCouponCode(e.target.value)}
-    placeholder="Enter coupon code"
-    className="px-4 py-2 border rounded-md w-60 text-sm"
-  />
-  <p className={`text-sm mt-1 ${couponCode.trim() ? "text-green-600" : "text-gray-400"}`}>
-    {couponCode.trim()
-      ? `Coupon "${couponCode.trim()}" will be applied at checkout.`
-      : "Enter a coupon code to apply discount."}
-  </p>
-</div>
-
+                <input
+                  type="text"
+                  value={couponCode}
+                  onChange={(e) => setCouponCode(e.target.value)}
+                  placeholder="Enter coupon code"
+                  className="px-4 py-2 border rounded-md w-60 text-sm"
+                />
+                <p
+                  className={`text-sm mt-1 ${
+                    couponCode.trim() ? "text-green-600" : "text-gray-400"
+                  }`}
+                >
+                  {couponCode.trim()
+                    ? `Coupon "${couponCode.trim()}" will be applied at checkout.`
+                    : "Enter a coupon code to apply discount."}
+                </p>
+              </div>
             </div>
 
             <div className="mt-16 px-6 max-w-4xl mx-auto text-center">
@@ -1515,8 +1533,7 @@ export default function Page() {
               <h2 className="text-xl font-bold mb-3">※ Notice</h2>
               <ul className="text-sm text-gray-700 list-disc pl-5 mb-6 space-y-2">
                 <li>
-                  You may see a message like{" "}
-                  <em>"This file isn't commonly downloaded."</em>
+                  You may see a message like <em>"This file isn't commonly downloaded."</em>
                 </li>
                 <li>
                   This installer is distributed only through the official DLAS
