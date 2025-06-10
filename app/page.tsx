@@ -977,23 +977,34 @@ export default function Page() {
 
           {/* 다운로드 섹션 */}
           <section
-            id="download"
-            className="scroll-mt-[180px] text-center py-20 bg-gray-100"
-          >
-            <h2 className="text-4xl font-bold mb-4">{t("download.title")}</h2>
-            <p className="text-lg text-gray-500 max-w-3xl mx-auto mt-2">
-              <br />
-              {t("download.desc.line3")}
-              <br />
-              {t("download.desc.line4")}
-            </p>
-            <button
-              onClick={() => setShowDownloadModal(true)}
-              className="inline-block mt-6 bg-black text-white px-8 py-4 rounded hover:bg-gray-800 transition"
-            >
-              {t("download.button")}
-            </button>
-          </section>
+  id="download"
+  className="scroll-mt-[180px] text-center py-20 bg-gray-100"
+>
+  <h2 className="text-4xl font-bold mb-4">{t("download.title")}</h2>
+  <p className="text-lg text-gray-500 max-w-3xl mx-auto mt-2">
+    <br />
+    {t("download.desc.line3")}
+    <br />
+    {t("download.desc.line4")}
+  </p>
+
+  {/* ✅ 추가된 버전별 다운로드 버튼들 (세로 정렬) */}
+  <div className="mt-8 flex flex-col items-center space-y-4">
+    <a
+      href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v.1.2.0/DLAS_Installer.exe"
+      className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition"
+    >
+      Download v1.2.0 
+    </a>
+    <a
+      href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v1.1.7/DLAS_Installer.exe"
+      className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition"
+    >
+      Download v1.1.7 
+    </a>
+  </div>
+</section>
+
 
           {/* 구매 섹션 */}
           <section id="buy" className="scroll-mt-[180px] py-20 px-10 bg-white">

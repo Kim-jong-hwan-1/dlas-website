@@ -64,11 +64,11 @@ export const translations = {
       agree: "I agree",
       statusHeader: "--- Current Module Status ---",
       items: [
-         "Transfer Jig Maker is currently available.",
-  "There is a bug where the Inner (exo) mode runs twice.",
-  "In Inner+Hole (exo) mode, the cement gap is applied twice to the internal surface. Please enter half the intended value.",
-  "OpenSCAD path configuration may be required.",
-  "FAST IMAGE CONVERTER is also available. (Quickly converts STL to images.)",
+         "FAST Transfer Jig Maker is available.",
+  "-There is a bug where the Inner (exo) mode runs twice.",
+  "-In Inner+Hole (exo) mode, the cement gap is applied twice to the internal surface. Please enter half the intended value.",
+  "FAST Denture Booleaner is available.",
+  "FAST Image Converter is available.",
   "Some features may not work depending on your system environment.",
   "The final payment amount may vary depending on the tax laws and regulations of your country.This is a one-time payment and will not be automatically renewed.",
   "We are currently preparing our payment system. If you wish to make an immediate purchase, please contact us at support@dlas.io.",
@@ -224,14 +224,14 @@ export const translations = {
     agree: "我同意",
     statusHeader: "--- 当前模块状态 ---",
     items: [
-      "传输夹具制造器当前可用。",
-      "内面 (exo) 模式存在运行两次的错误。",
-      "内面+孔 (exo) 模式中，水泥间隙被内部表面计算了两次。请输入预期值的一半。",
-      "可能需要配置OpenSCAD路径。",
-      "快速图像转换器也可用。（快速将STL转换为图像）",
-      "部分功能可能因系统环境不同无法正常工作。",
-      "最终支付金额可能因您所在国家税法政策不同而有所变化。此为一次性支付，不会自动续费。",
-      "联系邮箱：support@dlas.io。"
+      "FAST Transfer Jig Maker 可用。",
+  "Inner (exo) 模式存在运行两次的错误。",
+  "在 Inner+Hole (exo) 模式下，水泥间隙会在内表面被应用两次。请填写目标值的一半。",
+  "FAST Denture Booleaner 可用。",
+  "FAST Image Converter 可用。",
+  "某些功能可能会因您的系统环境而无法正常运行。",
+  "最终支付金额可能会因您所在国家/地区的税收法律法规而有所不同。这是一笔一次性付款，不会自动续费。",
+  "我们正在准备支付系统。如果您希望立即购买，请联系 support@dlas.io。"
     ],
     footer: "点击“我同意”即表示您已了解当前状态并希望购买许可。"
   },
@@ -394,14 +394,14 @@ export const translations = {
       agree: "同意します",
       statusHeader: "--- 現在のモジュール状況 ---",
       items: [
-        "トランスファージグメーカーは現在利用可能です。",
-        "Inner (exo) モードが2回動作する不具合があります。",
-        "Inner+Hole (exo) モードでは、セメントギャップが内部表面に2回適用されます。入力値は意図した値の半分にしてください。",
-        "OpenSCADのパス設定が必要な場合があります。",
-        "高速イメージコンバーターも利用可能です。（STLを画像に素早く変換）",
-        "環境によっては一部機能が正常に動作しない場合があります。",
-        "最終支払額はお客様の国の税法により異なる場合があります。これは一回限りの支払いで、自動更新はありません。",
-        "お問い合わせ：support@dlas.io"
+        "FAST Transfer Jig Maker は利用可能です。",
+  "Inner (exo) モードが 2 回実行されるバグがあります。",
+  "Inner+Hole (exo) モードでは、セメントギャップが内面に 2 回適用されます。意図する値の半分を入力してください。",
+  "FAST Denture Booleaner は利用可能です。",
+  "FAST Image Converter は利用可能です。",
+  "一部の機能はご使用のシステム環境によっては動作しない場合があります。",
+  "最終的なお支払い金額は、お住まいの国の税法・規制により変動する場合があります。本購入は一度きりの支払いで、自動更新されません。",
+  "現在、決済システムを準備中です。すぐにご購入を希望される場合は support@dlas.io までご連絡ください。"
       ],
       footer: "「同意します」をクリックすると、現在の状況を理解し、ライセンスの購入を希望することを確認したことになります。"
     },
@@ -562,14 +562,14 @@ export const translations = {
       agree: "Ich stimme zu",
       statusHeader: "--- Aktueller Modulstatus ---",
       items: [
-        "Transfer Jig Maker ist derzeit verfügbar.",
-        "Im Inner (exo) Modus läuft die Funktion zweimal, was ein Bug ist.",
-        "Im Inner+Hole (exo) Modus wird der Zementspalt zweimal auf die Innenfläche angewendet. Bitte geben Sie den halben Wert ein.",
-        "OpenSCAD-Pfad-Konfiguration kann erforderlich sein.",
-        "FAST IMAGE CONVERTER ist ebenfalls verfügbar. (Konvertiert STL schnell in Bilder.)",
-        "Einige Funktionen funktionieren je nach Systemumgebung möglicherweise nicht.",
-        "Der endgültige Zahlungsbetrag kann je nach den Steuergesetzen Ihres Landes variieren. Dies ist eine Einmalzahlung ohne automatische Verlängerung.",
-        "Kontakt: support@dlas.io."
+        "FAST Transfer Jig Maker ist verfügbar.",
+  "Es gibt einen Fehler, bei dem der Inner-(exo)-Modus zweimal ausgeführt wird.",
+  "Im Inner+Hole-(exo)-Modus wird der Zementspalt zweimal auf die Innenfläche angewendet. Bitte geben Sie die Hälfte des gewünschten Wertes ein.",
+  "FAST Denture Booleaner ist verfügbar.",
+  "FAST Image Converter ist verfügbar.",
+  "Einige Funktionen können je nach Systemumgebung nicht ordnungsgemäß funktionieren.",
+  "Der endgültige Zahlungsbetrag kann je nach Steuergesetzen und -vorschriften Ihres Landes variieren. Dies ist eine Einmalzahlung und wird nicht automatisch verlängert.",
+  "Wir bereiten derzeit unser Zahlungssystem vor. Wenn Sie sofort kaufen möchten, kontaktieren Sie uns bitte unter support@dlas.io."
       ],
       footer: "Mit dem Klick auf „Ich stimme zu“ bestätigen Sie, dass Sie den aktuellen Status verstanden haben und die Lizenz erwerben möchten."
     },
@@ -724,14 +724,14 @@ export const translations = {
       agree: "J’accepte",
       statusHeader: "--- État actuel des modules ---",
       items: [
-        "Transfer Jig Maker est actuellement disponible.",
-        "Il existe un bug où le mode Inner (exo) s’exécute deux fois.",
-        "En mode Inner+Hole (exo), l’espace pour le ciment est appliqué deux fois sur la surface interne. Veuillez saisir la moitié de la valeur souhaitée.",
-        "La configuration du chemin OpenSCAD peut être requise.",
-        "FAST IMAGE CONVERTER est également disponible. (Convertit rapidement STL en images.)",
-        "Certaines fonctionnalités peuvent ne pas fonctionner selon votre environnement système.",
-        "Le montant final à payer peut varier selon la législation fiscale de votre pays. Ce paiement est unique et ne sera pas renouvelé automatiquement.",
-        "Nous préparons actuellement notre système de paiement. Si vous souhaitez acheter immédiatement, veuillez nous contacter à support@dlas.io."
+       "FAST Transfer Jig Maker está disponible.",
+  "Existe un error donde el modo Inner (exo) se ejecuta dos veces.",
+  "En el modo Inner+Hole (exo), la holgura de cemento se aplica dos veces a la superficie interna. Por favor, ingresa la mitad del valor deseado.",
+  "FAST Denture Booleaner está disponible.",
+  "FAST Image Converter está disponible.",
+  "Algunas funciones pueden no funcionar dependiendo de tu entorno de sistema.",
+  "El monto final del pago puede variar según las leyes y regulaciones fiscales de tu país. Este es un pago único y no se renovará automáticamente.",
+  "Estamos preparando nuestro sistema de pago. Si deseas comprar de inmediato, contáctanos en support@dlas.io."
       ],
       footer: "En cliquant sur « J’accepte », vous confirmez avoir compris l’état actuel et souhaitez acheter la licence."
     },
@@ -929,14 +929,14 @@ export const translations = {
       agree: "मैं सहमत हूँ",
       statusHeader: "--- वर्तमान मॉड्यूल स्थिति ---",
       items: [
-        "ट्रांसफर जिग मेकर वर्तमान में उपलब्ध है।",
-        "Inner (exo) मोड में एक बग है जहाँ यह दो बार चलता है।",
-        "Inner+Hole (exo) मोड में, सीमेंट गैप आंतरिक सतह पर दो बार लागू होता है। कृपया इच्छित मूल्य का आधा दर्ज करें।",
-        "OpenSCAD पाथ कॉन्फ़िगरेशन की आवश्यकता हो सकती है।",
-        "FAST IMAGE CONVERTER भी उपलब्ध है। (STL को छवियों में जल्दी बदलता है।)",
-        "कुछ फीचर्स आपके सिस्टम वातावरण पर निर्भर करते हुए काम नहीं कर सकते।",
-        "आपके देश के कर कानूनों के अनुसार अंतिम भुगतान राशि भिन्न हो सकती है। यह एक एकमुश्त भुगतान है और स्वतः नवीनीकृत नहीं होगा।",
-        "संपर्क करें: support@dlas.io।"
+        "FAST Transfer Jig Maker उपलब्ध है।",
+  "Inner (exo) मोड दो बार चलने की बग है।",
+  "Inner+Hole (exo) मोड में सीमेंट गैप आंतरिक सतह पर दो बार लागू होता है। कृपया इच्छित मान का आधा दर्ज करें।",
+  "FAST Denture Booleaner उपलब्ध है।",
+  "FAST Image Converter उपलब्ध है।",
+  "कुछ फीचर आपके सिस्टम पर्यावरण के अनुसार काम नहीं कर सकते हैं।",
+  "अंतिम भुगतान राशि आपके देश के कर कानूनों और नियमों के अनुसार बदल सकती है। यह एक बार का भुगतान है और स्वतः नवीनीकृत नहीं होगा।",
+  "हम वर्तमान में अपने भुगतान सिस्टम की तैयारी कर रहे हैं। तत्काल खरीद के लिए support@dlas.io पर संपर्क करें।"
       ],
       footer: "“मैं सहमत हूँ” पर क्लिक करने से आप वर्तमान स्थिति को समझने और लाइसेंस खरीदने की इच्छा की पुष्टि करते हैं।"
     },
@@ -1266,14 +1266,15 @@ export const translations = {
       agree: "동의합니다",
       statusHeader: "--- 현재 모듈 상태 ---",
       items: [
-        "Transfer Jig Maker는 현재 사용 가능합니다.",
-        "Inner(exo) 두 번의 프로세싱이 진행되는 버그가 있습니다.",
-        "Inner+hole(exo) 모드에서는 2배의 세멘 값이 내면에 적용되는 버그가 있습니다. 절반의 양을 입력해 주세요.",
-        "OpenSCAD 패스 설정이 필요할 수 있습니다.",
-        "FAST IMAGE CONVERTER도 제공됩니다. (STL을 이미지로 빠르게 변환합니다.)",
-        "일부 기능은 컴퓨터 환경에 따라 작동하지 않을 수 있습니다.",
-        "구매 금액은 고객이 거주하는 국가의 세법 및 조세 정책에 따라 달라질 수 있습니다. 본 결제는 1회성 결제로, 자동 갱신되지 않습니다.",
-        "현재 결제 시스템 준비 중입니다. 즉시 결제를 원하시는 경우 support@dlas.io로 문의해 주시기 바랍니다.",
+        "FAST Transfer Jig Maker를 사용할 수 있습니다.",
+        "Inner (exo) 모드가 두 번 실행되는 버그가 있습니다.",
+        "Inner+Hole (exo) 모드에서는 세멘 간극이 내면에 두 번 적용됩니다. 의도한 값의 절반을 입력해 주세요.",
+        "FAST Denture Booleaner를 사용할 수 있습니다.",
+        "FAST Image Converter를 사용할 수 있습니다.",
+        "일부 기능은 시스템 환경에 따라 작동하지 않을 수 있습니다.",
+        "최종 결제 금액은 국가별 세법 및 규정에 따라 달라질 수 있습니다. 본 결제는 1회성이며 자동 갱신되지 않습니다.",
+        "현재 결제 시스템을 준비 중입니다. 즉시 구매를 원하시면 support@dlas.io로 연락해 주세요."
+    
       ],
       footer:
         "“동의합니다”를 클릭하면, 현재 상태를 이해하고 라이선스를 구매하겠다는 뜻으로 간주합니다.",
@@ -1502,14 +1503,15 @@ export const translations = {
       agree: "Я согласен",
       statusHeader: "--- Текущий статус модуля ---",
       items: [
-        "Transfer Jig Maker в настоящее время доступен.",
-        "В режиме Inner (exo) есть ошибка — он запускается дважды.",
-        "В режиме Inner+Hole (exo) цементный зазор применяется дважды к внутренней поверхности. Пожалуйста, введите половину желаемого значения.",
-        "Может потребоваться настройка пути OpenSCAD.",
-        "Также доступен FAST IMAGE CONVERTER. (Быстро конвертирует STL в изображения.)",
-        "Некоторые функции могут не работать в зависимости от вашей системы.",
-        "Итоговая сумма платежа может варьироваться в зависимости от налогового законодательства вашей страны. Это единовременный платеж, автоматическое продление отсутствует.",
-        "support@dlas.io."
+        "FAST Transfer Jig Maker доступен.",
+  "Существует ошибка, из-за которой режим Inner (exo) запускается дважды.",
+  "В режиме Inner+Hole (exo) цементный зазор применяется к внутренней поверхности дважды. Пожалуйста, введите половину требуемого значения.",
+  "FAST Denture Booleaner доступен.",
+  "FAST Image Converter доступен.",
+  "Некоторые функции могут не работать в зависимости от вашей системной среды.",
+  "Итоговая сумма платежа может изменяться в зависимости от налогового законодательства вашей страны. Это разовый платеж, он не будет продлён автоматически.",
+  "Мы готовим платёжную систему. Для немедленной покупки свяжитесь с нами по адресу support@dlas.io."
+
       ],
       footer: "Нажимая «Я согласен», вы подтверждаете, что понимаете текущий статус и желаете приобрести лицензию."
     },
@@ -1670,14 +1672,14 @@ export const translations = {
       agree: "Estoy de acuerdo",
       statusHeader: "--- Estado actual del módulo ---",
       items: [
-        "Transfer Jig Maker está disponible actualmente.",
-        "Hay un error donde el modo Inner (exo) se ejecuta dos veces.",
-        "En el modo Inner+Hole (exo), la holgura para cemento se aplica dos veces en la superficie interna. Por favor, ingresa la mitad del valor deseado.",
-        "Puede ser necesaria la configuración de la ruta de OpenSCAD.",
-        "FAST IMAGE CONVERTER también está disponible. (Convierte STL rápidamente en imágenes.)",
-        "Algunas funciones pueden no funcionar dependiendo del entorno del sistema.",
-        "El monto final puede variar según las leyes fiscales de tu país. Este es un pago único y no se renovará automáticamente.",
-        "support@dlas.io."
+        "FAST Transfer Jig Maker está disponível.",
+  "Há um bug em que o modo Inner (exo) é executado duas vezes.",
+  "No modo Inner+Hole (exo), o espaço para cimento é aplicado duas vezes na superfície interna. Por favor, insira metade do valor desejado.",
+  "FAST Denture Booleaner está disponível.",
+  "FAST Image Converter está disponível.",
+  "Algumas funções podem não funcionar dependendo do seu ambiente de sistema.",
+  "O valor final do pagamento pode variar de acordo com as leis e regulamentos fiscais do seu país. Este é um pagamento único e não será renovado automaticamente.",
+  "Estamos preparando nosso sistema de pagamento. Para comprar imediatamente, entre em contato em support@dlas.io."
       ],
       footer: "Al hacer clic en “Estoy de acuerdo”, confirmas que entiendes el estado actual y deseas comprar la licencia."
     },
@@ -1838,14 +1840,15 @@ export const translations = {
       agree: "أوافق",
       statusHeader: "--- حالة الوحدة الحالية ---",
       items: [
-        "صانع جِزَاف النقل متاح حاليًا.",
+        "أداة FAST Transfer Jig Maker متاحة.",
         "هناك خلل حيث يعمل وضع Inner (exo) مرتين.",
-        "في وضع Inner+Hole (exo)، يتم تطبيق فجوة الأسمنت مرتين على السطح الداخلي. يرجى إدخال نصف القيمة المطلوبة.",
-        "قد يكون من الضروري تكوين مسار OpenSCAD.",
-        "محول الصور السريع متوفر أيضًا. (يحول ملفات STL إلى صور بسرعة.)",
-        "قد لا تعمل بعض الميزات حسب بيئة النظام لديك.",
-        "قد يختلف المبلغ النهائي للدفع حسب قوانين الضرائب في بلدك. هذا دفع لمرة واحدة ولن يتم تجديده تلقائيًا.",
-        "support@dlas.io."
+        "في وضع Inner+Hole (exo) يتم تطبيق فجوة الإسمنت مرتين على السطح الداخلي. يرجى إدخال نصف القيمة المطلوبة.",
+        "أداة FAST Denture Booleaner متاحة.",
+        "أداة FAST Image Converter متاحة.",
+        "قد لا تعمل بعض الميزات حسب بيئة نظامك.",
+        "قد يختلف المبلغ النهائي للدفع وفقًا لقوانين وأنظمة الضرائب في بلدك. هذه دفعة لمرة واحدة ولن تُجدد تلقائيًا.",
+        "نحن نقوم حاليًا بإعداد نظام الدفع. إذا كنت ترغب في الشراء فورًا، يرجى التواصل عبر support@dlas.io."
+      
       ],
       footer: "بالنقر على “أوافق”، تؤكد فهمك للحالة الحالية ورغبتك في شراء الترخيص."
     },
@@ -2006,14 +2009,15 @@ export const translations = {
       agree: "Kabul Ediyorum",
       statusHeader: "--- Mevcut Modül Durumu ---",
       items: [
-        "Transfer Jig Maker şu anda kullanılabilir.",
-        "Inner (exo) modunda çift çalışma hatası vardır.",
-        "Inner+Hole (exo) modunda, çimento boşluğu iç yüzeye iki kez uygulanmaktadır. Lütfen istenen değerin yarısını girin.",
-        "OpenSCAD yol ayarı gerekebilir.",
-        "FAST IMAGE CONVERTER de kullanılabilir. (STL’yi hızla görüntüye dönüştürür.)",
+        "FAST Transfer Jig Maker kullanılabilir.",
+        "Inner (exo) modunun iki kez çalışmasına neden olan bir hata var.",
+        "Inner+Hole (exo) modunda çimento boşluğu iç yüzeye iki kez uygulanıyor. Lütfen hedef değerin yarısını girin.",
+        "FAST Denture Booleaner kullanılabilir.",
+        "FAST Image Converter kullanılabilir.",
         "Bazı özellikler sistem ortamınıza bağlı olarak çalışmayabilir.",
-        "Ülkenizin vergi yasalarına göre nihai ödeme tutarı değişebilir. Bu tek seferlik bir ödemedir ve otomatik yenilenmez.",
-        "support@dlas.io."
+        "Nihai ödeme tutarı ülkenizin vergi kanun ve düzenlemelerine göre değişebilir. Bu tek seferlik bir ödemedir ve otomatik olarak yenilenmez.",
+        "Ödeme sistemimizi hazırlıyoruz. Hemen satın almak isterseniz support@dlas.io adresinden iletişime geçin."
+    
       ],
       footer: "“Kabul Ediyorum”a tıklayarak mevcut durumu anladığınızı ve lisans satın almak istediğinizi onaylamış olursunuz."
     },
@@ -2174,14 +2178,15 @@ export const translations = {
       agree: "Tôi đồng ý",
       statusHeader: "--- Trạng Thái Module Hiện Tại ---",
       items: [
-        "Transfer Jig Maker hiện có sẵn.",
-        "Có lỗi chạy chế độ Inner (exo) hai lần.",
-        "Chế độ Inner+Hole (exo) áp dụng khoảng trống xi măng hai lần trên bề mặt trong. Vui lòng nhập một nửa giá trị mong muốn.",
-        "Có thể cần cấu hình đường dẫn OpenSCAD.",
-        "FAST IMAGE CONVERTER cũng có sẵn. (Chuyển đổi STL nhanh sang hình ảnh.)",
-        "Một số tính năng có thể không hoạt động tùy theo môi trường hệ thống.",
-        "Số tiền thanh toán cuối cùng có thể khác nhau tùy theo luật thuế của quốc gia bạn. Đây là thanh toán một lần và không tự động gia hạn.",
-        "support@dlas.io."
+        "FAST Transfer Jig Maker đã có sẵn.",
+  "Có lỗi khiến chế độ Inner (exo) chạy hai lần.",
+  "Ở chế độ Inner+Hole (exo), khe hở xi măng được áp dụng hai lần lên bề mặt trong. Vui lòng nhập một nửa giá trị mong muốn.",
+  "FAST Denture Booleaner đã có sẵn.",
+  "FAST Image Converter đã có sẵn.",
+  "Một số tính năng có thể không hoạt động tùy thuộc vào môi trường hệ thống của bạn.",
+  "Số tiền thanh toán cuối cùng có thể thay đổi tùy theo luật thuế và quy định của quốc gia bạn. Đây là khoản thanh toán một lần và sẽ không tự động gia hạn.",
+  "Chúng tôi đang chuẩn bị hệ thống thanh toán. Nếu bạn muốn mua ngay, vui lòng liên hệ support@dlas.io."
+
       ],
       footer: "Bằng cách nhấp “Tôi đồng ý”, bạn xác nhận hiểu trạng thái hiện tại và muốn mua giấy phép."
     },
@@ -2341,14 +2346,15 @@ export const translations = {
       agree: "ฉันยอมรับ",
       statusHeader: "--- สถานะโมดูลปัจจุบัน ---",
       items: [
-        "Transfer Jig Maker พร้อมใช้งานในขณะนี้",
-        "มีบั๊กที่โหมด Inner (exo) ทำงานสองครั้ง",
-        "ในโหมด Inner+Hole (exo) ช่องว่างซีเมนต์ถูกใช้สองครั้งกับพื้นผิวด้านใน กรุณาใส่ค่าครึ่งหนึ่งของค่าที่ต้องการ",
-        "อาจต้องตั้งค่าเส้นทาง OpenSCAD",
-        "FAST IMAGE CONVERTER ก็พร้อมใช้งาน (แปลง STL เป็นภาพได้อย่างรวดเร็ว)",
-        "บางฟีเจอร์อาจไม่ทำงานขึ้นอยู่กับสภาพแวดล้อมระบบของคุณ",
-        "จำนวนเงินชำระสุดท้ายอาจแตกต่างกันตามกฎหมายภาษีของประเทศคุณ นี่คือการชำระเงินครั้งเดียวและจะไม่ต่ออายุอัตโนมัติ",
-        "support@dlas.io"
+        "FAST Transfer Jig Maker พร้อมใช้งานแล้ว",
+        "มีบั๊กที่โหมด Inner (exo) ทำงานซ้ำสองครั้ง",
+        "ในโหมด Inner+Hole (exo) ช่องว่างซีเมนต์ถูกใช้กับพื้นผิวด้านในสองครั้ง กรุณากรอกค่าครึ่งหนึ่งของค่าที่ต้องการ",
+        "FAST Denture Booleaner พร้อมใช้งานแล้ว",
+        "FAST Image Converter พร้อมใช้งานแล้ว",
+        "ฟีเจอร์บางอย่างอาจทำงานไม่ถูกต้องขึ้นอยู่กับสภาพแวดล้อมของระบบคุณ",
+        "จำนวนเงินชำระสุดท้ายอาจแตกต่างกันตามกฎหมายและข้อบังคับด้านภาษีของประเทศคุณ การชำระเงินนี้เป็นแบบครั้งเดียวและจะไม่ต่ออายุอัตโนมัติ",
+        "เรากำลังเตรียมระบบการชำระเงิน หากต้องการซื้อทันที กรุณาติดต่อ support@dlas.io"
+      
       ],
       footer: "การคลิก “ฉันยอมรับ” เป็นการยืนยันว่าคุณเข้าใจสถานะปัจจุบันและต้องการซื้อใบอนุญาต"
     },
@@ -2509,14 +2515,14 @@ export const translations = {
       agree: "Saya setuju",
       statusHeader: "--- Status Modul Saat Ini ---",
       items: [
-        "Transfer Jig Maker saat ini tersedia.",
-        "Ada bug di mana mode Inner (exo) berjalan dua kali.",
-        "Dalam mode Inner+Hole (exo), celah semen diterapkan dua kali pada permukaan dalam. Harap masukkan setengah dari nilai yang diinginkan.",
-        "Konfigurasi jalur OpenSCAD mungkin diperlukan.",
-        "FAST IMAGE CONVERTER juga tersedia. (Mengonversi STL ke gambar dengan cepat.)",
-        "Beberapa fitur mungkin tidak berfungsi tergantung pada lingkungan sistem Anda.",
-        "Jumlah pembayaran akhir dapat bervariasi sesuai hukum pajak di negara Anda. Ini adalah pembayaran satu kali dan tidak akan diperpanjang secara otomatis.",
-        "support@dlas.io."
+        "FAST Transfer Jig Maker sudah tersedia.",
+  "Ada bug di mana mode Inner (exo) berjalan dua kali.",
+  "Dalam mode Inner+Hole (exo), celah semen diterapkan dua kali pada permukaan dalam. Silakan masukkan setengah dari nilai yang diinginkan.",
+  "FAST Denture Booleaner sudah tersedia.",
+  "FAST Image Converter sudah tersedia.",
+  "Beberapa fitur mungkin tidak berfungsi tergantung pada lingkungan sistem Anda.",
+  "Jumlah pembayaran akhir dapat bervariasi sesuai hukum dan peraturan pajak di negara Anda. Ini adalah pembayaran satu kali dan tidak akan diperpanjang secara otomatis.",
+  "Kami sedang menyiapkan sistem pembayaran kami. Jika Anda ingin membeli segera, silakan hubungi support@dlas.io."
       ],
       footer: "Dengan mengklik “Saya setuju,” Anda mengonfirmasi bahwa Anda memahami status saat ini dan ingin membeli lisensi."
     },
