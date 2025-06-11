@@ -653,123 +653,56 @@ export default function Page() {
 
       {/* 🌟 초기 팝업 (Early Bird Special) */}
       {showEarlyBirdPopup && (
-        <div className="fixed inset-0 z-50 bg-black bg-opacity-60 flex items-center justify-center px-4">
-          <div
-            className="
-              relative bg-white w-full
-              max-w-[95vw] sm:max-w-lg md:max-w-2xl lg:max-w-3xl
-              p-2 sm:p-6 md:p-12
-              rounded-2xl shadow-2xl animate-fadeInUp overflow-auto
-              max-h-[90vh]
-              flex flex-col justify-between
-            "
-            style={{
-              boxShadow:
-                "0 6px 18px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.07)",
-              fontSize: "0.93rem",
+  <div className="fixed inset-0 z-50 bg-black bg-opacity-60 flex items-center justify-center px-4">
+    <div
+      className="relative bg-white w-full max-w-[95vw] sm:max-w-lg md:max-w-2xl lg:max-w-3xl p-2 sm:p-6 md:p-12 rounded-2xl shadow-2xl animate-fadeInUp overflow-auto max-h-[90vh] flex flex-col justify-between"
+      style={{
+        boxShadow:
+          "0 6px 18px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.07)",
+      }}
+    >
+      <button
+        className="absolute top-2 right-3 text-gray-400 hover:text-black text-2xl sm:text-3xl cursor-pointer"
+        onClick={() => setShowEarlyBirdPopup(false)}
+        aria-label="Close popup"
+      >
+        ×
+      </button>
+
+      {/* ✅ 이미지로만 구성 */}
+      <div className="flex flex-col items-center gap-4">
+        <img
+          src="/dlas_family/1.jpg"
+          alt="DLAS Family License Promo"
+          className="max-w-full w-full h-auto rounded-lg shadow"
+        />
+
+        {/* 기존 버튼 유지 */}
+        <div className="flex flex-row gap-2 sm:gap-4 mt-4 sm:mt-8 justify-center">
+          <button
+            onClick={() => {
+              setShowEarlyBirdPopup(false);
+              setShowFamilyModal(true);
+              setShowFreeLicenseGuide(false);
+              setShowPaymentProceed(false);
+              setFreeLicenseGuideOrigin("home");
             }}
+            className="bg-gradient-to-r from-pink-500 to-yellow-400 text-white text-sm sm:text-lg font-bold rounded-full px-6 sm:px-8 py-2 sm:py-3 shadow hover:opacity-90 transition cursor-pointer"
           >
-            <button
-              className="
-                absolute top-2 right-3 text-gray-400 hover:text-black text-2xl sm:text-3xl cursor-pointer
-              "
-              onClick={() => setShowEarlyBirdPopup(false)}
-              aria-label="Close popup"
-            >
-              ×
-            </button>
-            <div className="flex flex-col items-center gap-2 sm:gap-4">
-              <div className="text-center mb-1 sm:mb-2">
-                <span className="inline-block text-2xl sm:text-4xl font-extrabold text-black tracking-tight animate-pulse">
-                  DLAS Family License
-                </span>
-              </div>
-              <div className="flex flex-row items-center justify-center gap-2 sm:gap-4 mb-2 sm:mb-3">
-                <span className="text-gray-400 text-2xl sm:text-5xl font-bold line-through">
-                  $6,010
-                </span>
-                <span className="text-xl sm:text-4xl font-extrabold text-gray-400 mx-1">
-                  →
-                </span>
-                <span className="text-green-400 text-4xl sm:text-9xl font-extrabold drop-shadow">
-                  $390
-                </span>
-              </div>
-              <div className="text-center">
-                <span className="inline-block px-2 sm:px-4 py-1 rounded-full bg-yellow-200 text-yellow-900 font-semibold text-xs sm:text-base mb-1 sm:mb-2">
-                  Pre-launch special · Only before v2.0.0!
-                </span>
-              </div>
-              <div className="my-1 sm:my-3 text-xs sm:text-lg font-medium text-gray-700">
-                <strong className="text-black">Lifetime license</strong> to{" "}
-                <span className="font-bold text-pink-500">all DLAS modules</span>{" "}
-                at an exclusive price.
-                <br />
-                <span className="text-red-500 font-semibold">Save 90%+</span>{" "}
-                compared to the official release price!
-              </div>
-              <ul className="mt-2 sm:mt-4 mb-1 sm:mb-3 space-y-1 text-gray-700 text-xs sm:text-base font-medium text-left max-w-xs sm:max-w-lg mx-auto">
-                <li>
-                  ✔️ <span className="font-bold text-gray-900">One-time payment</span>, no hidden fees
-                </li>
-                <li>
-                  ✔️ Free updates for every new module (includes all upcoming modules 2025~2026)
-                </li>
-                <li>
-                  ✔️ <span className="font-bold">Use for commercial work</span>
-                </li>
-              </ul>
-              <div className="bg-yellow-50 border-l-4 border-yellow-400 px-2 sm:px-5 py-1 sm:py-3 my-2 sm:my-4 rounded-md text-yellow-900 font-semibold text-xs sm:text-base text-left shadow w-full text-center">
-                🚨 <strong>After version 2.0.0</strong>,{" "}
-                <span className="text-red-500 font-bold">
-                  no new Family License signups will be possible.
-                </span>
-              </div>
-              <div className="text-center font-bold text-xs sm:text-lg sm:text-xl text-gray-900 mt-2 mb-0">
-                <span>
-                  Don’t miss your last chance.
-                  <br />
-                  Secure your lifetime benefits today!
-                </span>
-              </div>
-            </div>
-            <div className="flex flex-row gap-2 sm:gap-4 mt-4 sm:mt-8 justify-center">
-              <button
-                onClick={() => {
-                  setShowEarlyBirdPopup(false);
-                  setShowFamilyModal(true);
-                  setShowFreeLicenseGuide(false);
-                  setShowPaymentProceed(false);
-                  setFreeLicenseGuideOrigin("home");
-                }}
-                className="
-                  bg-gradient-to-r from-pink-500 to-yellow-400 
-                  text-white text-sm sm:text-lg font-bold 
-                  rounded-full px-6 sm:px-8 py-2 sm:py-3 
-                  shadow 
-                  hover:opacity-90 
-                  transition 
-                  cursor-pointer
-                "
-              >
-                Learn More
-              </button>
-              <button
-                onClick={() => setShowEarlyBirdPopup(false)}
-                className="
-                  border border-gray-400 
-                  text-gray-800 text-sm sm:text-lg font-semibold 
-                  rounded-full px-6 sm:px-8 py-2 sm:py-3 
-                  bg-white hover:bg-gray-100 transition 
-                  cursor-pointer
-                "
-              >
-                Close
-              </button>
-            </div>
-          </div>
+            Learn More
+          </button>
+          <button
+            onClick={() => setShowEarlyBirdPopup(false)}
+            className="border border-gray-400 text-gray-800 text-sm sm:text-lg font-semibold rounded-full px-6 sm:px-8 py-2 sm:py-3 bg-white hover:bg-gray-100 transition cursor-pointer"
+          >
+            Close
+          </button>
         </div>
-      )}
+      </div>
+    </div>
+  </div>
+)}
+
 
       <div className="min-h-screen bg-white text-black relative">
         {/* 왼쪽 상단 로고 (PC에서만) */}
