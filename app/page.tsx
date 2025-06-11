@@ -402,7 +402,7 @@ export default function Page() {
   const modules = [
     "Bite Finder",
     "Transfer Jig Maker",
-    "Fast & Easy Modifier",
+    "Denture Booleaner",
     "Printing Model maker",
     "Image Converter",
     "HTML Viewer Converter",
@@ -426,7 +426,7 @@ export default function Page() {
       "Convert STL to image quickly",
     ],
     [
-      "STL Classifier (Expected June 2025)",
+      "Denture Booleaner",
       "$590",
       "Free",
       "Classify STL by color and height",
@@ -450,7 +450,7 @@ export default function Page() {
       "Revolutionary bite locator for model-less workflows",
     ],
     [
-      "Fast & Easy Modifier (Expected July 2025)",
+      "STL Classifier (Expected July 2025)",
       "$590",
       "Free",
       "Quick modifier (hook, hole, attachment)",
