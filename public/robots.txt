@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.dlas.io
+
+# Sitemaps
+Sitemap: https://www.dlas.io/sitemap.xml
