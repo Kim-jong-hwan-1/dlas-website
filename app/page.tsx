@@ -429,7 +429,7 @@ export default function Page() {
       "Denture Booleaner",
       "$590",
       "Free",
-      "Classify STL by color and height",
+      "Denture teeth & gingiva Booleaner",
     ],
     [
       "HTML Viewer Converter (Expected June 2025)",
@@ -453,7 +453,7 @@ export default function Page() {
       "STL Classifier (Expected July 2025)",
       "$590",
       "Free",
-      "Quick modifier (hook, hole, attachment)",
+      "Classify STL by color and height",
     ],
     [
       "Denture CAD (Expected 2025)",
