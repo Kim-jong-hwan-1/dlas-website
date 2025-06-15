@@ -518,6 +518,13 @@ export default function Page() {
 
   // ** 1) 할인코드 State 추가 **
   const [couponCode, setCouponCode] = useState("");
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const coupon = urlParams.get("coupon");
+    if (coupon) {
+      setCouponCode(coupon);
+    }
+  }, []);
 
   // Paddle Checkout 열기
   const handlePaddleCheckout = () => {
@@ -876,6 +883,7 @@ export default function Page() {
                   $390
                 </span>
               </div>
+              
 
               {/* (추가) 할인 코드 입력 UI - 예시로 여기 둠 */}
               <div className="mt-4 text-center">
@@ -886,6 +894,12 @@ export default function Page() {
                   placeholder="Enter coupon code"
                   className="px-4 py-2 border rounded-md w-60 text-sm"
                 />
+                {/* ✅ 안내 문구 자동 노출 (원하면 제거 가능) */}
+                {couponCode === "ddu29" && (
+                  <p className="text-green-600 text-sm mt-1">
+                    Ambassador code "ddu29" has been automatically applied!
+                  </p>
+                )}
                 <p
                   className={`text-sm mt-1 ${
                     couponCode.trim() ? "text-green-600" : "text-gray-400"
