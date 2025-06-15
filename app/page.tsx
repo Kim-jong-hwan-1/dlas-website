@@ -751,54 +751,57 @@ export default function Page() {
         </nav>
 
         {/* 로그인 & 사인업 버튼 */}
-        <div
-          className="
-            fixed 
-            top-6 left-6
-            sm:top-6 sm:right-6 sm:left-auto
-            flex gap-2 z-50
-          "
+        {!showEarlyBirdPopup && (
+  <div
+    className="
+      fixed 
+      top-6 left-6
+      sm:top-6 sm:right-6 sm:left-auto
+      flex gap-2 z-50
+    "
+  >
+    {!isLoggedIn ? (
+      <>
+        <button
+          onClick={() =>
+            document
+              .getElementById("login-modal")!
+              .classList.remove("hidden")
+          }
+          className="text-sm font-medium border border-gray-300 px-4 py-2 rounded hover:bg-gray-100 transition"
         >
-          {!isLoggedIn ? (
-            <>
-              <button
-                onClick={() =>
-                  document
-                    .getElementById("login-modal")!
-                    .classList.remove("hidden")
-                }
-                className="text-sm font-medium border border-gray-300 px-4 py-2 rounded hover:bg-gray-100 transition"
-              >
-                {t("nav.login")}
-              </button>
-              <button
-                onClick={() =>
-                  document
-                    .getElementById("signup-modal")!
-                    .classList.remove("hidden")
-                }
-                className="text-sm font-medium border border-gray-300 px-4 py-2 rounded hover:bg-gray-100 transition"
-              >
-                {t("nav.signup")}
-              </button>
-            </>
-          ) : (
-            <>
-              <button
-                onClick={() => setShowMyModal(true)}
-                className="text-sm font-medium border border-gray-300 px-4 py-2 rounded hover:bg-gray-100 transition"
-              >
-                MY
-              </button>
-              <button
-                onClick={handleLogout}
-                className="text-sm font-medium border border-gray-300 px-4 py-2 rounded hover:bg-gray-100 transition"
-              >
-                Logout
-              </button>
-            </>
-          )}
-        </div>
+          {t("nav.login")}
+        </button>
+        <button
+          onClick={() =>
+            document
+              .getElementById("signup-modal")!
+              .classList.remove("hidden")
+          }
+          className="text-sm font-medium border border-gray-300 px-4 py-2 rounded hover:bg-gray-100 transition"
+        >
+          {t("nav.signup")}
+        </button>
+      </>
+    ) : (
+      <>
+        <button
+          onClick={() => setShowMyModal(true)}
+          className="text-sm font-medium border border-gray-300 px-4 py-2 rounded hover:bg-gray-100 transition"
+        >
+          MY
+        </button>
+        <button
+          onClick={handleLogout}
+          className="text-sm font-medium border border-gray-300 px-4 py-2 rounded hover:bg-gray-100 transition"
+        >
+          Logout
+        </button>
+      </>
+    )}
+  </div>
+)}
+
 
         <main className="pt-[180px]">
           {/* 홈 섹션 */}
