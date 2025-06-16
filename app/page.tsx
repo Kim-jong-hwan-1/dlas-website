@@ -940,6 +940,12 @@ export default function Page() {
 
   {/* ✅ 추가된 버전별 다운로드 버튼들 (세로 정렬) */}
   <div className="mt-8 flex flex-col items-center space-y-4">
+  <a
+      href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v1.3.0/DLAS_Installer.exe"
+      className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition"
+    >
+      Download v1.3.0 
+    </a>
     <a
       href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v.1.2.0/DLAS_Installer.exe"
       className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition"
