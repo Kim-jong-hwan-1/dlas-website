@@ -894,10 +894,10 @@ export default function Page() {
                   placeholder="Enter coupon code"
                   className="px-4 py-2 border rounded-md w-60 text-sm"
                 />
-                {/* ✅ 안내 문구 자동 노출 (원하면 제거 가능) */}
-                {couponCode === "ddu29" && (
+                {/* ✅ 안내 문구 자동 노출 (복수 코드 지원) */}
+                {(couponCode === "ddu29" || couponCode === "yoonfal29") && (
                   <p className="text-green-600 text-sm mt-1">
-                    Ambassador code "ddu29" has been automatically applied!
+                    Ambassador code "{couponCode}" has been automatically applied!
                   </p>
                 )}
                 <p
