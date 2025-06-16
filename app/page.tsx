@@ -402,7 +402,7 @@ export default function Page() {
   const modules = [
     "Bite Finder",
     "Transfer Jig Maker",
-    "Denture Booleaner",
+    "Booleaner",
     "Printing Model maker",
     "Image Converter",
     "HTML Viewer Converter",
@@ -426,10 +426,10 @@ export default function Page() {
       "Convert STL to image quickly",
     ],
     [
-      "Denture Booleaner",
+      "Booleaner",
       "$590",
       "Free",
-      "Denture teeth & gingiva Booleaner",
+      "Fast automaitc Booleaner",
     ],
     [
       "HTML Viewer Converter (Expected June 2025)",
@@ -940,7 +940,7 @@ export default function Page() {
 
   {/* ✅ 추가된 버전별 다운로드 버튼들 (세로 정렬) */}
   <div className="mt-8 flex flex-col items-center space-y-4">
-  <a
+    <a
       href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v1.3.0/DLAS_Installer.exe"
       className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition"
     >
@@ -1003,7 +1003,7 @@ export default function Page() {
     fill
     className="object-cover"
   />
-) : mod === "Denture Booleaner" ? (
+) : mod === "Booleaner" ? (
   <Image
     src="/gifs/denture_booleaner.gif"
     alt={`${mod} gif`}
