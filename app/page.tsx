@@ -88,7 +88,7 @@ export default function Page() {
     if (e) e.preventDefault();
     alert("Temporary error, download is currently unavailable.");
   };
-  
+
   const { t } = useLang();
 
   // --- 로그인 상태 관리 ---
@@ -948,7 +948,7 @@ export default function Page() {
   {/* ✅ 추가된 버전별 다운로드 버튼들 (세로 정렬) */}
 
 
-// (2) 버튼 형태로 모두 교체
+
 <div className="mt-8 flex flex-col items-center space-y-4 w-full">
   <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 w-full max-w-md">
     {/* DLAS 1.3.2 */}
