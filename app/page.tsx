@@ -944,7 +944,7 @@ export default function Page() {
       href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v1.3.1/DLAS_Installer.exe"
       className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition"
     >
-      Download v1.3.0 
+      Download v1.3.1
     </a>
     <a
       href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v1.3.0/DLAS_Installer.exe"
