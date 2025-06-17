@@ -1,6 +1,4 @@
 "use client";
-  // (1) 컴포넌트 최상단(함수 내부) 추가
-
 
 declare global {
   interface Window {
@@ -84,11 +82,6 @@ const PADDLE_PRICE_ID = isSandbox
   : process.env.NEXT_PUBLIC_PADDLE_PRICE_ID!;
 
 export default function Page() {
-  const handleDownloadUnavailable = (e?: React.MouseEvent) => {
-    if (e) e.preventDefault();
-    alert("Temporary error, download is currently unavailable.");
-  };
-  
   const { t } = useLang();
 
   // --- 로그인 상태 관리 ---
@@ -946,59 +939,59 @@ export default function Page() {
   </p>
 
   {/* ✅ 추가된 버전별 다운로드 버튼들 (세로 정렬) */}
-
-
-// (2) 버튼 형태로 모두 교체
 <div className="mt-8 flex flex-col items-center space-y-4 w-full">
+
+  {/* ── v1.3.2 + MeshFix ── */}
   <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 w-full max-w-md">
     {/* DLAS 1.3.2 */}
-    <button
-      onClick={handleDownloadUnavailable}
-      className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition w-full sm:w-auto"
+    
+    <a
+      href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v1.3.2/DLAS_Installer.exe"
+      className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition"
     >
       Download&nbsp;v1.3.2
-    </button>
+    </a>
 
     {/* MeshFix + 라이선스 고지 */}
     <div className="flex flex-col items-start sm:items-end">
-      <button
-        onClick={handleDownloadUnavailable}
-        className="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 transition w-full sm:w-auto"
+      <a
+        href="https://github.com/MarcoAttene/MeshFix-V2.1/releases/download/v2.1.0/meshfix.exe"
+        className="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 transition"
+        target="_blank"
+        rel="noopener noreferrer"
       >
         MeshFix&nbsp;2.1.0&nbsp;(Win&nbsp;x64)
-      </button>
+      </a>
       <span className="text-[10px] text-gray-600 mt-1 sm:text-right leading-tight">
         MeshFix&nbsp;(GPL&nbsp;v3 – commercial&nbsp;use requires a separate license from&nbsp;IMATI-CNR)
       </span>
     </div>
   </div>
-  {/* 나머지도 모두 동일하게 교체 */}
-  <button
-    onClick={handleDownloadUnavailable}
-    className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition"
-  >
-    Download v1.3.1
-  </button>
-  <button
-    onClick={handleDownloadUnavailable}
-    className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition"
-  >
-    Download v1.3.0 
-  </button>
-  <button
-    onClick={handleDownloadUnavailable}
-    className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition"
-  >
-    Download v1.2.0 
-  </button>
-  <button
-    onClick={handleDownloadUnavailable}
-    className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition"
-  >
-    Download v1.1.7 
-  </button>
-</div>
-
+    <a
+      href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v1.3.1/DLAS_Installer.exe"
+      className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition"
+    >
+      Download v1.3.1
+    </a>
+    <a
+      href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v1.3.0/DLAS_Installer.exe"
+      className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition"
+    >
+      Download v1.3.0 
+    </a>
+    <a
+      href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v.1.2.0/DLAS_Installer.exe"
+      className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition"
+    >
+      Download v1.2.0 
+    </a>
+    <a
+      href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v1.1.7/DLAS_Installer.exe"
+      className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition"
+    >
+      Download v1.1.7 
+    </a>
+  </div>
 </section>
 
 
