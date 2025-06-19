@@ -932,7 +932,6 @@ export default function Page() {
             </div>
           </section>
 
-          {/* 다운로드 섹션 */}
           <section
   id="download"
   className="scroll-mt-[180px] text-center py-20 bg-gray-100"
@@ -945,61 +944,70 @@ export default function Page() {
     {t("download.desc.line4")}
   </p>
 
-  {/* ✅ 추가된 버전별 다운로드 버튼들 (세로 정렬) */}
+  {/* ✅ 1.3.3버전과 메시픽스 버튼을 한 줄에 배치, 나머지는 비활성화 상태로 유지 */}
+  <div className="mt-8 flex flex-col items-center space-y-4 w-full">
+    {/* 1.3.3 & MeshFix 버튼 한줄 */}
+    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 w-full max-w-md">
+      {/* DLAS 1.3.3 */}
+      <a
+        href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v1.3.3/DLAS_Installer.exe"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition w-full sm:w-auto text-center"
+      >
+        Download&nbsp;v1.3.3
+      </a>
 
+      {/* MeshFix + 라이선스 고지 (다운로드 가능, 실제 링크로 변경) */}
+      <div className="flex flex-col items-start sm:items-end">
+        <a
+          href="https://github.com/MarcoAttene/MeshFix-V2.1/archive/refs/heads/master.zip"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 transition w-full sm:w-auto text-center"
+        >
+          MeshFix&nbsp;2.1.0&nbsp;(Source)
+        </a>
+        <span className="text-[10px] text-gray-600 mt-1 sm:text-right leading-tight">
+          MeshFix (GPL v3 – commercial use requires a separate license from IMATI-CNR)
+        </span>
+      </div>
 
-
-<div className="mt-8 flex flex-col items-center space-y-4 w-full">
-  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 w-full max-w-md">
-    {/* DLAS 1.3.2 */}
+    </div>
+    {/* ▼▼ 나머지 버튼은 그대로 다운불가 상태 유지 ▼▼ */}
     <button
       onClick={handleDownloadUnavailable}
-      className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition w-full sm:w-auto"
+      className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition"
     >
-      Download&nbsp;v1.3.2
+      Download v1.3.2
     </button>
-
-    {/* MeshFix + 라이선스 고지 */}
-    <div className="flex flex-col items-start sm:items-end">
-      <button
-        onClick={handleDownloadUnavailable}
-        className="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 transition w-full sm:w-auto"
-      >
-        MeshFix&nbsp;2.1.0&nbsp;(Win&nbsp;x64)
-      </button>
-      <span className="text-[10px] text-gray-600 mt-1 sm:text-right leading-tight">
-        MeshFix&nbsp;(GPL&nbsp;v3 – commercial&nbsp;use requires a separate license from&nbsp;IMATI-CNR)
-      </span>
-    </div>
+    <button
+      onClick={handleDownloadUnavailable}
+      className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition"
+    >
+      Download v1.3.1
+    </button>
+    <button
+      onClick={handleDownloadUnavailable}
+      className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition"
+    >
+      Download v1.3.0 
+    </button>
+    <button
+      onClick={handleDownloadUnavailable}
+      className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition"
+    >
+      Download v1.2.0 
+    </button>
+    <button
+      onClick={handleDownloadUnavailable}
+      className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition"
+    >
+      Download v1.1.7 
+    </button>
   </div>
-  {/* 나머지도 모두 동일하게 교체 */}
-  <button
-    onClick={handleDownloadUnavailable}
-    className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition"
-  >
-    Download v1.3.1
-  </button>
-  <button
-    onClick={handleDownloadUnavailable}
-    className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition"
-  >
-    Download v1.3.0 
-  </button>
-  <button
-    onClick={handleDownloadUnavailable}
-    className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition"
-  >
-    Download v1.2.0 
-  </button>
-  <button
-    onClick={handleDownloadUnavailable}
-    className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition"
-  >
-    Download v1.1.7 
-  </button>
-</div>
-
 </section>
+
 
 
           {/* 구매 섹션 */}
