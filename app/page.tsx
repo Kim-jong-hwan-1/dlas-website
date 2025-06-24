@@ -946,6 +946,16 @@ export default function Page() {
 
   {/* ✅ 1.3.3버전과 메시픽스 버튼을 한 줄에 배치, 나머지는 비활성화 상태로 유지 */}
   <div className="mt-8 flex flex-col items-center space-y-4 w-full">
+    {/* 1.4.0 단독 다운로드 버튼 (최상단) */}
+    <a
+      href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v1.4.0/DLAS_Installer.exe"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition w-full sm:w-auto text-center"
+    >
+      Download&nbsp;v1.4.0
+    </a>
+
     {/* 1.3.3 & MeshFix 버튼 한줄 */}
     <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 w-full max-w-md">
       {/* DLAS 1.3.3 */}
@@ -957,8 +967,7 @@ export default function Page() {
       >
         Download&nbsp;v1.3.3
       </a>
-
-      {/* MeshFix + 라이선스 고지 (다운로드 가능, 실제 링크로 변경) */}
+      {/* MeshFix + 라이선스 고지 */}
       <div className="flex flex-col items-start sm:items-end">
         <a
           href="https://github.com/MarcoAttene/MeshFix-V2.1/archive/refs/heads/master.zip"
@@ -972,7 +981,6 @@ export default function Page() {
           MeshFix (GPL v3 – commercial use requires a separate license from IMATI-CNR)
         </span>
       </div>
-
     </div>
     {/* ▼▼ 나머지 버튼은 그대로 다운불가 상태 유지 ▼▼ */}
     <button
@@ -1006,15 +1014,7 @@ export default function Page() {
       Download v1.1.7 
     </button>
   </div>
-</section>
 
-
-
-          {/* 구매 섹션 */}
-          <section id="buy" className="scroll-mt-[180px] py-20 px-10 bg-white">
-            <h1 className="text-4xl font-bold mb-6 text-center">
-              {t("buy.title")}
-            </h1>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-items-center">
               {modules.map((mod, i) => (
