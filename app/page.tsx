@@ -957,7 +957,6 @@ export default function Page() {
     >
       Download&nbsp;v1.4.0
     </a>
-    {/* MeshFix + 라이선스 고지 */}
     <div className="flex flex-col items-start sm:items-end">
       <a
         href="https://github.com/MarcoAttene/MeshFix-V2.1/archive/refs/heads/master.zip"
@@ -972,49 +971,47 @@ export default function Page() {
       </span>
     </div>
   </div>
-  {/* 1.3.3만 단독 한줄 */}
-  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 w-full max-w-md">
-    <a
-      href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v1.3.3/DLAS_Installer.exe"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition w-full sm:w-auto text-center"
-    >
-      Download&nbsp;v1.3.3
-    </a>
-  </div>
-  {/* ▼▼ 나머지 버튼은 그대로 다운불가 상태 유지 ▼▼ */}
+  {/* ▼▼ 모든 다운로드 버튼 한 줄씩 세로로 정렬 ▼▼ */}
+  <a
+    href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v1.3.3/DLAS_Installer.exe"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition w-full sm:w-auto text-center"
+  >
+    Download&nbsp;v1.3.3
+  </a>
   <button
     onClick={handleDownloadUnavailable}
-    className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition"
+    className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition w-full sm:w-auto text-center"
   >
     Download v1.3.2
   </button>
   <button
     onClick={handleDownloadUnavailable}
-    className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition"
+    className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition w-full sm:w-auto text-center"
   >
     Download v1.3.1
   </button>
   <button
     onClick={handleDownloadUnavailable}
-    className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition"
+    className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition w-full sm:w-auto text-center"
   >
-    Download v1.3.0 
+    Download v1.3.0
   </button>
   <button
     onClick={handleDownloadUnavailable}
-    className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition"
+    className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition w-full sm:w-auto text-center"
   >
-    Download v1.2.0 
+    Download v1.2.0
   </button>
   <button
     onClick={handleDownloadUnavailable}
-    className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition"
+    className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition w-full sm:w-auto text-center"
   >
-    Download v1.1.7 
+    Download v1.1.7
   </button>
 </div>
+
 
 
 
