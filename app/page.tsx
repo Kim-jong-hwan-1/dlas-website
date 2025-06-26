@@ -1021,59 +1021,34 @@ export default function Page() {
 
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-items-center">
-              {modules.map((mod, i) => (
-                <div
-                  key={i}
-                  className="w-[28rem] h-[36rem] border p-10 rounded-lg shadow hover:shadow-lg transition flex flex-col items-center"
-                >
-                  <div className="w-[28rem] h-[28rem] bg-gray-200 mb-6 relative overflow-hidden">
-                  {mod === "Transfer Jig Maker" ? (
-  <Image
-    src="/gifs/fast_transfer_jig_maker.gif"
-    alt={`${mod} gif`}
-    fill
-    className="object-cover"
-  />
-) : mod === "Image Converter" ? (
-  <Image
-    src="/gifs/fast_image_converter.gif"
-    alt={`${mod} gif`}
-    fill
-    className="object-cover"
-  />
-) : mod === "Crown Cad" ? (
-  <Image
-    src="/gifs/crown_cad.gif"
-    alt={`${mod} gif`}
-    fill
-    className="object-cover"
-  />
-) : mod === "Denture Cad" ? (
-  <Image
-    src="/gifs/denture_cad.gif"
-    alt={`${mod} gif`}
-    fill
-    className="object-cover"
-  />
-) : mod === "Booleaner" ? (
-  <Image
-    src="/gifs/denture_booleaner.gif"
-    alt={`${mod} gif`}
-    fill
-    className="object-cover"
-  />
-) : (
-  <span className="text-gray-400 text-2xl font-bold">
-    Coming Soon
-  </span>
-)}
+            {modules.map((mod, i) => (
+  <div
+    key={i}
+    className="w-[28rem] h-[36rem] border p-10 rounded-lg shadow hover:shadow-lg transition flex flex-col items-center"
+  >
+    <div className="w-[28rem] h-[28rem] bg-gray-200 mb-6 relative overflow-hidden">
+      {mod === "Transfer Jig Maker" ? (
+        <Image src="/gifs/fast_transfer_jig_maker.gif" alt={`${mod} gif`} fill className="object-cover" />
+      ) : mod === "Image Converter" ? (
+        <Image src="/gifs/fast_image_converter.gif" alt={`${mod} gif`} fill className="object-cover" />
+      ) : mod === "Crown Cad" ? (
+        <Image src="/gifs/crown_cad.gif" alt={`${mod} gif`} fill className="object-cover" />
+      ) : mod === "Denture Cad" ? (
+        <Image src="/gifs/denture_cad.gif" alt={`${mod} gif`} fill className="object-cover" />
+      ) : mod === "Booleaner" ? (
+        <Image src="/gifs/denture_booleaner.gif" alt={`${mod} gif`} fill className="object-cover" />
+      ) : mod === "HTML Viewer Converter" ? (
+        <Image src="/gifs/html_viewer_converter.gif" alt={`${mod} gif`} fill className="object-cover" />
+      ) : (
+        <span className="text-gray-400 text-2xl font-bold">Coming Soon</span>
+      )}
+    </div>
+    <div className="text-xl font-semibold text-center text-gray-800">
+      {mod}
+    </div>
+  </div>
+))}
 
-                  </div>
-                  <div className="text-xl font-semibold text-center text-gray-800">
-                    {mod}
-                  </div>
-                </div>
-              ))}
             </div>
           </section>
 
