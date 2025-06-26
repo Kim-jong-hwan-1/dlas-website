@@ -950,13 +950,18 @@ export default function Page() {
   <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 w-full max-w-md">
     {/* DLAS 1.4.0 */}
     <a
-      href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v1.4.0/DLAS_Installer.exe"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition w-full sm:w-auto text-center"
-    >
-      Download&nbsp;v1.4.0
-    </a>
+  href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v1.4.0/DLAS_Installer.exe"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition w-full sm:w-auto text-center"
+  onClick={(e) => {
+    e.preventDefault();
+    setShowDownloadModal(true);
+  }}
+>
+  Download&nbsp;v1.4.0
+</a>
+
     <div className="flex flex-col items-start sm:items-end">
       <a
         href="https://github.com/MarcoAttene/MeshFix-V2.1/archive/refs/heads/master.zip"
