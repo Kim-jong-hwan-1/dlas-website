@@ -667,39 +667,25 @@ export default function Page() {
 
       {/* 🌟 초기 팝업 (Early Bird Special) */}
       {showEarlyBirdPopup && (
-  <div className="fixed inset-0 z-50 bg-black bg-opacity-60 flex items-center justify-center px-4">
+  <div className="fixed inset-0 z-50 bg-black bg-opacity-60 flex items-center justify-center px-2">
     <div
-      className="relative bg-white w-full max-w-[95vw] sm:max-w-3xl md:max-w-5xl lg:max-w-7xl p-6 sm:p-20 md:p-28 rounded-2xl shadow-2xl animate-fadeInUp overflow-auto max-h-[90vh] flex flex-col justify-between"
+      className="bg-white rounded-xl shadow-2xl animate-fadeInUp p-0 flex flex-col items-center justify-center max-w-full"
       style={{
-        boxShadow:
-          "0 6px 18px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.07)",
+        boxShadow: "0 6px 18px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.07)",
       }}
+      onClick={() => setShowEarlyBirdPopup(false)} // 이미지를 클릭하면 닫기
     >
-      <button
-        className="absolute top-4 right-6 text-gray-400 hover:text-black text-4xl sm:text-5xl cursor-pointer"
-        onClick={() => setShowEarlyBirdPopup(false)}
-        aria-label="Close popup"
-      >
-        ×
-      </button>
-      <div className="flex flex-col items-center gap-8">
-        <img
-          src="/dlas_family/1.jpg"
-          alt="DLAS Family License Promo"
-          className="max-w-full w-full h-auto max-h-[1050px] rounded-xl shadow"
-        />
-        <div className="flex flex-row gap-8 mt-14 justify-center">
-          <button
-            onClick={() => setShowEarlyBirdPopup(false)}
-            className="border border-gray-400 text-gray-800 text-2xl sm:text-3xl font-semibold rounded-full px-16 sm:px-20 py-6 sm:py-8 bg-white hover:bg-gray-100 transition cursor-pointer"
-          >
-            Close
-          </button>
-        </div>
-      </div>
+      <img
+        src="/dlas_family/1.jpg"
+        alt="DLAS Family License Promo"
+        className="max-w-[98vw] w-full h-auto max-h-[98vh] rounded-xl cursor-pointer"
+        draggable={false}
+      />
+      {/* 필요시 안내 문구 아주 간단하게 추가 가능 */}
     </div>
   </div>
 )}
+
 
 
 
