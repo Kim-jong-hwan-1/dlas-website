@@ -669,45 +669,29 @@ export default function Page() {
       {showEarlyBirdPopup && (
   <div className="fixed inset-0 z-50 bg-black bg-opacity-60 flex items-center justify-center px-4">
     <div
-      className="relative bg-white w-full max-w-[95vw] sm:max-w-2xl md:max-w-4xl lg:max-w-6xl p-4 sm:p-12 md:p-24 rounded-2xl shadow-2xl animate-fadeInUp overflow-auto max-h-[90vh] flex flex-col justify-between"
+      className="relative bg-white w-full max-w-[95vw] sm:max-w-3xl md:max-w-5xl lg:max-w-7xl p-6 sm:p-20 md:p-28 rounded-2xl shadow-2xl animate-fadeInUp overflow-auto max-h-[90vh] flex flex-col justify-between"
       style={{
         boxShadow:
           "0 6px 18px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.07)",
       }}
     >
       <button
-        className="absolute top-2 right-3 text-gray-400 hover:text-black text-2xl sm:text-3xl cursor-pointer"
+        className="absolute top-4 right-6 text-gray-400 hover:text-black text-4xl sm:text-5xl cursor-pointer"
         onClick={() => setShowEarlyBirdPopup(false)}
         aria-label="Close popup"
       >
         ×
       </button>
-
-      {/* ✅ 이미지로만 구성 */}
-      <div className="flex flex-col items-center gap-4">
+      <div className="flex flex-col items-center gap-8">
         <img
           src="/dlas_family/1.jpg"
           alt="DLAS Family License Promo"
-          className="max-w-full w-full h-auto rounded-lg shadow"
+          className="max-w-full w-full h-auto max-h-[1050px] rounded-xl shadow"
         />
-
-        {/* 기존 버튼 유지 */}
-        <div className="flex flex-row gap-2 sm:gap-4 mt-4 sm:mt-8 justify-center">
-          <button
-            onClick={() => {
-              setShowEarlyBirdPopup(false);
-              setShowFamilyModal(true);
-              setShowFreeLicenseGuide(false);
-              setShowPaymentProceed(false);
-              setFreeLicenseGuideOrigin("home");
-            }}
-            className="bg-gradient-to-r from-pink-500 to-yellow-400 text-white text-sm sm:text-lg font-bold rounded-full px-6 sm:px-8 py-2 sm:py-3 shadow hover:opacity-90 transition cursor-pointer"
-          >
-            Learn More
-          </button>
+        <div className="flex flex-row gap-8 mt-14 justify-center">
           <button
             onClick={() => setShowEarlyBirdPopup(false)}
-            className="border border-gray-400 text-gray-800 text-sm sm:text-lg font-semibold rounded-full px-6 sm:px-8 py-2 sm:py-3 bg-white hover:bg-gray-100 transition cursor-pointer"
+            className="border border-gray-400 text-gray-800 text-2xl sm:text-3xl font-semibold rounded-full px-16 sm:px-20 py-6 sm:py-8 bg-white hover:bg-gray-100 transition cursor-pointer"
           >
             Close
           </button>
@@ -716,6 +700,7 @@ export default function Page() {
     </div>
   </div>
 )}
+
 
 
       <div className="min-h-screen bg-white text-black relative">
