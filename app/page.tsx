@@ -513,7 +513,7 @@ export default function Page() {
     setShowDownloadModal(false);
     // 다운로드 시작
     window.location.href =
-      "https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v1.1.7/DLAS_Installer.exe";
+      "https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v1.4.0/DLAS_Installer.exe";
   };
 
   // ------------------
@@ -669,7 +669,7 @@ export default function Page() {
       {showEarlyBirdPopup && (
   <div className="fixed inset-0 z-50 bg-black bg-opacity-60 flex items-center justify-center px-4">
     <div
-      className="relative bg-white w-full max-w-[95vw] sm:max-w-lg md:max-w-2xl lg:max-w-3xl p-2 sm:p-6 md:p-12 rounded-2xl shadow-2xl animate-fadeInUp overflow-auto max-h-[90vh] flex flex-col justify-between"
+      className="relative bg-white w-full max-w-[95vw] sm:max-w-2xl md:max-w-4xl lg:max-w-6xl p-4 sm:p-12 md:p-24 rounded-2xl shadow-2xl animate-fadeInUp overflow-auto max-h-[90vh] flex flex-col justify-between"
       style={{
         boxShadow:
           "0 6px 18px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.07)",
