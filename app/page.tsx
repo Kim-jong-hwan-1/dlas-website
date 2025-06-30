@@ -439,7 +439,7 @@ export default function Page() {
       "Fast automaitc Booleaner",
     ],
     [
-      "HTML Viewer Converter (Expected June 2025)",
+      "HTML Viewer Converter ",
       "$390",
       "Free",
       "Convert STL to HTML viewer",
