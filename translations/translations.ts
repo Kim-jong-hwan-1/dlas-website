@@ -1196,13 +1196,13 @@ export const translations = {
       signup: "회원가입",
     },
     home: {
-      subtitle: "원클릭으로 생산성 극대화",
-      title: "수 시간의 작업을 몇 초로 단축",
+      subtitle: "한 번의 클릭으로 작업을 완료하세요",
+      title: "몇 시간 걸리던 일이 단 몇 초 만에 끝납니다",
       cta: "DLAS 패밀리에 합류하세요 – 단",
       price: "390달러",
       gameChangerTitle: "디지털 덴티스트리의 게임 체인저",
       gameChangerDesc:
-        "DLAS는 단순한 소프트웨어가 아니라, 치과 CAD 자동화의 혁신으로 복잡한 워크플로우를 단순화하고 생산성을 높여줍니다.",
+        "DLAS는 단순한 소프트웨어가 아니라, 치과 CAD 자동화의 혁신으로 복잡한, 워크플로우를 단순화하고 생산성을 높여줍니다.",
       gameChangerQuote: `"치과 자동화의 미래가 여기 있습니다"`,
     },
     download: { 
