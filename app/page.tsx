@@ -1,6 +1,4 @@
 "use client";
-  // (1) 컴포넌트 최상단(함수 내부) 추가
-
 
 declare global {
   interface Window {
@@ -610,11 +608,6 @@ export default function Page() {
     handlePaddleCheckout();
   };
 
-  // -------------------
-  //  팝업(초기 진입 시) 처리
-  // -------------------
-  const [showEarlyBirdPopup, setShowEarlyBirdPopup] = useState(true);
-
   return (
     <>
       {/* ✅ Head 영역 추가 */}
@@ -665,30 +658,6 @@ export default function Page() {
       {/* TossPayments SDK */}
       <Script src="https://js.tosspayments.com/v1" strategy="afterInteractive" />
 
-      {/* 🌟 초기 팝업 (Early Bird Special) */}
-      {showEarlyBirdPopup && (
-  <div className="fixed inset-0 z-50 bg-black bg-opacity-60 flex items-center justify-center px-2">
-    <div
-      className="bg-white rounded-xl shadow-2xl animate-fadeInUp p-0 flex flex-col items-center justify-center max-w-full"
-      style={{
-        boxShadow: "0 6px 18px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.07)",
-      }}
-      onClick={() => setShowEarlyBirdPopup(false)} // 이미지를 클릭하면 닫기
-    >
-      <img
-        src="/dlas_family/1.jpg"
-        alt="DLAS Family License Promo"
-        className="max-w-[98vw] w-full h-auto max-h-[98vh] rounded-xl cursor-pointer"
-        draggable={false}
-      />
-      {/* 필요시 안내 문구 아주 간단하게 추가 가능 */}
-    </div>
-  </div>
-)}
-
-
-
-
       <div className="min-h-screen bg-white text-black relative">
         {/* 왼쪽 상단 로고 (PC에서만) */}
         <Image
@@ -736,57 +705,54 @@ export default function Page() {
         </nav>
 
         {/* 로그인 & 사인업 버튼 */}
-        {!showEarlyBirdPopup && (
-  <div
-    className="
-      fixed 
-      top-6 left-6
-      sm:top-6 sm:right-6 sm:left-auto
-      flex gap-2 z-50
-    "
-  >
-    {!isLoggedIn ? (
-      <>
-        <button
-          onClick={() =>
-            document
-              .getElementById("login-modal")!
-              .classList.remove("hidden")
-          }
-          className="text-sm font-medium border border-gray-300 px-4 py-2 rounded hover:bg-gray-100 transition"
+        <div
+          className="
+            fixed 
+            top-6 left-6
+            sm:top-6 sm:right-6 sm:left-auto
+            flex gap-2 z-50
+          "
         >
-          {t("nav.login")}
-        </button>
-        <button
-          onClick={() =>
-            document
-              .getElementById("signup-modal")!
-              .classList.remove("hidden")
-          }
-          className="text-sm font-medium border border-gray-300 px-4 py-2 rounded hover:bg-gray-100 transition"
-        >
-          {t("nav.signup")}
-        </button>
-      </>
-    ) : (
-      <>
-        <button
-          onClick={() => setShowMyModal(true)}
-          className="text-sm font-medium border border-gray-300 px-4 py-2 rounded hover:bg-gray-100 transition"
-        >
-          MY
-        </button>
-        <button
-          onClick={handleLogout}
-          className="text-sm font-medium border border-gray-300 px-4 py-2 rounded hover:bg-gray-100 transition"
-        >
-          Logout
-        </button>
-      </>
-    )}
-  </div>
-)}
-
+          {!isLoggedIn ? (
+            <>
+              <button
+                onClick={() =>
+                  document
+                    .getElementById("login-modal")!
+                    .classList.remove("hidden")
+                }
+                className="text-sm font-medium border border-gray-300 px-4 py-2 rounded hover:bg-gray-100 transition"
+              >
+                {t("nav.login")}
+              </button>
+              <button
+                onClick={() =>
+                  document
+                    .getElementById("signup-modal")!
+                    .classList.remove("hidden")
+                }
+                className="text-sm font-medium border border-gray-300 px-4 py-2 rounded hover:bg-gray-100 transition"
+              >
+                {t("nav.signup")}
+              </button>
+            </>
+          ) : (
+            <>
+              <button
+                onClick={() => setShowMyModal(true)}
+                className="text-sm font-medium border border-gray-300 px-4 py-2 rounded hover:bg-gray-100 transition"
+              >
+                MY
+              </button>
+              <button
+                onClick={handleLogout}
+                className="text-sm font-medium border border-gray-300 px-4 py-2 rounded hover:bg-gray-100 transition"
+              >
+                Logout
+              </button>
+            </>
+          )}
+        </div>
 
         <main className="pt-[180px]">
           {/* 홈 섹션 */}
