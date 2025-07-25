@@ -124,3 +124,21 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* ────────────────────────────────────────────────
+   네비게이션(nav) 영역 LanguageSelector 숨김(1차)
+   ──────────────────────────────────────────────── */
+nav .language-selector,
+nav button.language-selector,
+nav [data-language-selector],
+nav button[aria-label="Change language"],
+nav select[aria-label="Change language"] {
+  display: none !important;
+}
+
+/* ────────────────────────────────────────────────
+   우측 LanguageSelector 컨테이너 통째로 숨김(최종)
+   ──────────────────────────────────────────────── */
+.fixed.top-4.right-4.sm\:right-\[220px\].z-50 {
+  display: none !important;
+}

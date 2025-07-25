@@ -65,6 +65,7 @@ import Head from "next/head";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useLang } from "@/components/LanguageWrapper";
+import LanguageSelector from "@/components/LanguageSelector";
 import Script from "next/script";
 
 // --------------------------------
@@ -188,7 +189,8 @@ export default function Page() {
   // 결제 진행(모듈 상태 안내) 단계
   const [showPaymentProceed, setShowPaymentProceed] = useState(false);
   // 결제 문의 모달
-  const [showPaymentSupportModal, setShowPaymentSupportModal] = useState(false);
+  const [showPaymentSupportModal, setShowPaymentSupportModal] =
+    useState(false);
 
   // 'How to get the free license' 접근 경로 추적용 state
   const [freeLicenseGuideOrigin, setFreeLicenseGuideOrigin] = useState<
@@ -338,36 +340,201 @@ export default function Page() {
 
   // 국가 목록
   const countries = [
-    "Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda",
-    "Argentina","Armenia","Australia","Austria","Azerbaijan","Bahamas","Bahrain",
-    "Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bhutan","Bolivia",
-    "Bosnia and Herzegovina","Botswana","Brazil","Brunei","Bulgaria","Burkina Faso",
-    "Burundi","Cabo Verde","Cambodia","Cameroon","Canada","Central African Republic",
-    "Chad","Chile","China","Colombia","Comoros","Congo (Brazzaville)","Congo (Kinshasa)",
-    "Costa Rica","Croatia","Cuba","Cyprus","Czech Republic","Denmark","Djibouti",
-    "Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea",
-    "Eritrea","Estonia","Eswatini","Ethiopia","Fiji","Finland","France","Gabon",
-    "Gambia","Georgia","Germany","Ghana","Greece","Grenada","Guatemala","Guinea",
-    "Guinea-Bissau","Guyana","Haiti","Honduras","Hungary","Iceland","India","Indonesia",
-    "Iran","Iraq","Ireland","Israel","Italy","Jamaica","Japan","Jordan","Kazakhstan",
-    "Kenya","Kiribati","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho",
-    "Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Madagascar","Malawi",
-    "Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius",
-    "Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Morocco",
-    "Mozambique","Myanmar","Namibia","Nauru","Nepal","Netherlands","New Zealand",
-    "Nicaragua","Niger","Nigeria","North Korea","North Macedonia","Norway","Oman",
-    "Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru",
-    "Philippines","Poland","Portugal","Qatar","Romania","Russia","Rwanda",
-    "Saint Kitts and Nevis","Saint Lucia","Saint Vincent and the Grenadines",
-    "Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal",
-    "Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia",
-    "Solomon Islands","Somalia","South Africa","South Korea","South Sudan",
-    "Spain","Sri Lanka","Sudan","Suriname","Sweden","Switzerland","Syria",
-    "Taiwan","Tajikistan","Tanzania","Thailand","Timor-Leste","Togo","Tonga",
-    "Trinidad and Tobago","Tunisia","Turkey","Turkmenistan","Tuvalu","Uganda",
-    "Ukraine","United Arab Emirates","United Kingdom","United States","Uruguay",
-    "Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Yemen",
-    "Zambia","Zimbabwe"
+    "Afghanistan",
+    "Albania",
+    "Algeria",
+    "Andorra",
+    "Angola",
+    "Antigua and Barbuda",
+    "Argentina",
+    "Armenia",
+    "Australia",
+    "Austria",
+    "Azerbaijan",
+    "Bahamas",
+    "Bahrain",
+    "Bangladesh",
+    "Barbados",
+    "Belarus",
+    "Belgium",
+    "Belize",
+    "Benin",
+    "Bhutan",
+    "Bolivia",
+    "Bosnia and Herzegovina",
+    "Botswana",
+    "Brazil",
+    "Brunei",
+    "Bulgaria",
+    "Burkina Faso",
+    "Burundi",
+    "Cabo Verde",
+    "Cambodia",
+    "Cameroon",
+    "Canada",
+    "Central African Republic",
+    "Chad",
+    "Chile",
+    "China",
+    "Colombia",
+    "Comoros",
+    "Congo (Brazzaville)",
+    "Congo (Kinshasa)",
+    "Costa Rica",
+    "Croatia",
+    "Cuba",
+    "Cyprus",
+    "Czech Republic",
+    "Denmark",
+    "Djibouti",
+    "Dominica",
+    "Dominican Republic",
+    "Ecuador",
+    "Egypt",
+    "El Salvador",
+    "Equatorial Guinea",
+    "Eritrea",
+    "Estonia",
+    "Eswatini",
+    "Ethiopia",
+    "Fiji",
+    "Finland",
+    "France",
+    "Gabon",
+    "Gambia",
+    "Georgia",
+    "Germany",
+    "Ghana",
+    "Greece",
+    "Grenada",
+    "Guatemala",
+    "Guinea",
+    "Guinea-Bissau",
+    "Guyana",
+    "Haiti",
+    "Honduras",
+    "Hungary",
+    "Iceland",
+    "India",
+    "Indonesia",
+    "Iran",
+    "Iraq",
+    "Ireland",
+    "Israel",
+    "Italy",
+    "Jamaica",
+    "Japan",
+    "Jordan",
+    "Kazakhstan",
+    "Kenya",
+    "Kiribati",
+    "Kuwait",
+    "Kyrgyzstan",
+    "Laos",
+    "Latvia",
+    "Lebanon",
+    "Lesotho",
+    "Liberia",
+    "Libya",
+    "Liechtenstein",
+    "Lithuania",
+    "Luxembourg",
+    "Madagascar",
+    "Malawi",
+    "Malaysia",
+    "Maldives",
+    "Mali",
+    "Malta",
+    "Marshall Islands",
+    "Mauritania",
+    "Mauritius",
+    "Mexico",
+    "Micronesia",
+    "Moldova",
+    "Monaco",
+    "Mongolia",
+    "Montenegro",
+    "Morocco",
+    "Mozambique",
+    "Myanmar",
+    "Namibia",
+    "Nauru",
+    "Nepal",
+    "Netherlands",
+    "New Zealand",
+    "Nicaragua",
+    "Niger",
+    "Nigeria",
+    "North Korea",
+    "North Macedonia",
+    "Norway",
+    "Oman",
+    "Pakistan",
+    "Palau",
+    "Palestine",
+    "Panama",
+    "Papua New Guinea",
+    "Paraguay",
+    "Peru",
+    "Philippines",
+    "Poland",
+    "Portugal",
+    "Qatar",
+    "Romania",
+    "Russia",
+    "Rwanda",
+    "Saint Kitts and Nevis",
+    "Saint Lucia",
+    "Saint Vincent and the Grenadines",
+    "Samoa",
+    "San Marino",
+    "Sao Tome and Principe",
+    "Saudi Arabia",
+    "Senegal",
+    "Serbia",
+    "Seychelles",
+    "Sierra Leone",
+    "Singapore",
+    "Slovakia",
+    "Slovenia",
+    "Solomon Islands",
+    "Somalia",
+    "South Africa",
+    "South Korea",
+    "South Sudan",
+    "Spain",
+    "Sri Lanka",
+    "Sudan",
+    "Suriname",
+    "Sweden",
+    "Switzerland",
+    "Syria",
+    "Taiwan",
+    "Tajikistan",
+    "Tanzania",
+    "Thailand",
+    "Timor-Leste",
+    "Togo",
+    "Tonga",
+    "Trinidad and Tobago",
+    "Tunisia",
+    "Turkey",
+    "Turkmenistan",
+    "Tuvalu",
+    "Uganda",
+    "Ukraine",
+    "United Arab Emirates",
+    "United Kingdom",
+    "United States",
+    "Uruguay",
+    "Uzbekistan",
+    "Vanuatu",
+    "Vatican City",
+    "Venezuela",
+    "Vietnam",
+    "Yemen",
+    "Zambia",
+    "Zimbabwe",
   ];
 
   // 탭 이동(스크롤) 로직
@@ -418,30 +585,10 @@ export default function Page() {
 
   // 패밀리 라이선스 테이블용 데이터
   const familyTableData = [
-    [
-      "Transfer Jig Maker",
-      "$790",
-      "Free",
-      "Automated jig generation software",
-    ],
-    [
-      "Image Converter ",
-      "$390",
-      "Free",
-      "Convert STL to image quickly",
-    ],
-    [
-      "Booleaner",
-      "$590",
-      "Free",
-      "Fast automaitc Booleaner",
-    ],
-    [
-      "HTML Viewer Converter ",
-      "$390",
-      "Free",
-      "Convert STL to HTML viewer",
-    ],
+    ["Transfer Jig Maker", "$790", "Free", "Automated jig generation software"],
+    ["Image Converter ", "$390", "Free", "Convert STL to image quickly"],
+    ["Booleaner", "$590", "Free", "Fast automaitc Booleaner"],
+    ["HTML Viewer Converter ", "$390", "Free", "Convert STL to HTML viewer"],
     [
       "Printing Model Maker (Expected July 2025)",
       "$590",
@@ -472,30 +619,10 @@ export default function Page() {
       "Free",
       "Integrated crown CAD with the best features",
     ],
-    [
-      "...new module 1 (Coming Soon)",
-      "$790",
-      "Free",
-      "",
-    ],
-    [
-      "...new module 2 (Coming Soon)",
-      "$790",
-      "Free",
-      "",
-    ],
-    [
-      "...new module 3 (Coming Soon)",
-      "$790",
-      "Free",
-      "",
-    ],
-    [
-      "AI DLAS CAD (Expected 2026)",
-      "$59/month",
-      "$5.9/month",
-      "",
-    ],
+    ["...new module 1 (Coming Soon)", "$790", "Free", ""],
+    ["...new module 2 (Coming Soon)", "$790", "Free", ""],
+    ["...new module 3 (Coming Soon)", "$790", "Free", ""],
+    ["AI DLAS CAD (Expected 2026)", "$59/month", "$5.9/month", ""],
   ];
 
   // 이메일 복사 함수
@@ -554,7 +681,7 @@ export default function Page() {
     window.Paddle.Checkout.open({
       items: [
         {
-          priceId: PADDLE_PRICE_ID, 
+          priceId: PADDLE_PRICE_ID,
           quantity: 1,
         },
       ],
@@ -624,8 +751,8 @@ export default function Page() {
         <link rel="canonical" href="https://www.dlas.io/" />
       </Head>
 
-      {/* 
-        Paddle Billing v2 SDK 
+      {/*
+        Paddle Billing v2 SDK
         - onLoad 콜백에서 setPaddleReady(true)
       */}
       <Script
@@ -635,7 +762,9 @@ export default function Page() {
           try {
             // 1) 전역 객체 확인
             if (!window.Paddle) {
-              console.error("❌ window.Paddle undefined ― 스크립트 차단 여부 확인");
+              console.error(
+                "❌ window.Paddle undefined ― 스크립트 차단 여부 확인"
+              );
               return;
             }
             // 2) Sandbox 설정
@@ -659,14 +788,25 @@ export default function Page() {
       <Script src="https://js.tosspayments.com/v1" strategy="afterInteractive" />
 
       <div className="min-h-screen bg-white text-black relative">
-        {/* 왼쪽 상단 로고 (PC에서만) */}
-        <Image
-          src="/left-up.png"
-          alt="Top Left Logo"
-          width={120}
-          height={120}
-          className="fixed top-4 left-4 z-50 hidden sm:block"
-        />
+        {/* ▲ 왼쪽 위: 로고 + (보여지는) 언어 선택 ------------------------- */}
+        <div
+          className="
+            fixed top-4 left-4 z-50
+            flex items-center space-x-3
+            hidden sm:flex
+          "
+        >
+          <Image
+            src="/left-up.png"
+            alt="DLAS Mini Logo"
+            width={120}
+            height={120}
+            className="object-contain"
+            priority
+          />
+          {/* 보이는 LanguageSelector (왼쪽) */}
+          <LanguageSelector />
+        </div>
 
         {/* 상단 네비게이션 */}
         <nav className="fixed top-0 left-0 w-full bg-white py-4 px-8 shadow-lg z-40">
@@ -679,13 +819,14 @@ export default function Page() {
               className="object-contain max-w-full sm:max-w-[600px] mx-auto mt-[80px] sm:mt-0 mb-0 sm:mb-0"
               priority
             />
+            {/* ▼ 네비게이션 버튼 그룹 (오른쪽) ― LanguageSelector 제거됨 */}
             <div className="absolute bottom-2 right-4 sm:right-8 hidden sm:flex flex-wrap items-center gap-x-4 gap-y-2">
               {["home", "download", "buy", "contact"].map((tab) => (
                 <button
                   key={tab}
                   onClick={() => scrollToSection(tab)}
                   className="relative pb-2 transition-colors duration-200 cursor-pointer
-                             border-b-2 border-transparent hover:border-black 
+                             border-b-2 border-transparent hover:border-black
                              text-gray-700 hover:text-black"
                 >
                   {t(`nav.${tab}`)}
@@ -707,7 +848,7 @@ export default function Page() {
         {/* 로그인 & 사인업 버튼 */}
         <div
           className="
-            fixed 
+            fixed
             top-6 left-6
             sm:top-6 sm:right-6 sm:left-auto
             flex gap-2 z-50
@@ -778,14 +919,14 @@ export default function Page() {
                   setFreeLicenseGuideOrigin("home");
                 }}
                 className="
-                  bg-gradient-to-r from-pink-500 to-yellow-400 
-                  text-white 
-                  font-bold 
-                  rounded-md 
+                  bg-gradient-to-r from-pink-500 to-yellow-400
+                  text-white
+                  font-bold
+                  rounded-md
                   text-lg md:text-xl
-                  px-6 md:px-12 
+                  px-6 md:px-12
                   py-3 md:py-4
-                  mb-10 
+                  mb-10
                   cursor-pointer
                   transition
                 "
@@ -796,14 +937,14 @@ export default function Page() {
               {/* 하단: 라이선스 정보 박스 */}
               <div
                 className="
-                  bg-black text-white 
-                  rounded-md 
-                  inline-block 
-                  text-center 
+                  bg-black text-white
+                  rounded-md
+                  inline-block
+                  text-center
                   font-bold
                   mt-4
-                  px-6 md:px-10 
-                  py-4 md:py-5 
+                  px-6 md:px-10
+                  py-4 md:py-5
                   text-xl md:text-2xl
                   cursor-pointer
                   shadow
@@ -820,16 +961,13 @@ export default function Page() {
                 <span className="text-red-500 font-bold line-through text-lg md:text-xl mr-1 align-middle">
                   $6,010
                 </span>
-                <span className="font-bold text-white mx-1 align-middle">
-                  →
-                </span>
+                <span className="font-bold text-white mx-1 align-middle">→</span>
                 <span className="text-green-400 font-bold text-2xl md:text-3xl align-middle">
                   $390
                 </span>
               </div>
-              
 
-              {/* (추가) 할인 코드 입력 UI - 예시로 여기 둠 */}
+              {/* (추가) 할인 코드 입력 UI */}
               <div className="mt-4 text-center">
                 <input
                   type="text"
@@ -838,10 +976,10 @@ export default function Page() {
                   placeholder="Enter coupon code"
                   className="px-4 py-2 border rounded-md w-60 text-sm"
                 />
-                {/* ✅ 안내 문구 자동 노출 (복수 코드 지원) */}
                 {(couponCode === "ddu29" || couponCode === "yoonfal29") && (
                   <p className="text-green-600 text-sm mt-1">
-                    Ambassador code "{couponCode}" has been automatically applied!
+                    Ambassador code "{couponCode}" has been automatically
+                    applied!
                   </p>
                 )}
                 <p
@@ -869,123 +1007,139 @@ export default function Page() {
             </div>
           </section>
 
+          {/* 다운로드 섹션 */}
           <section
-  id="download"
-  className="scroll-mt-[180px] text-center py-20 bg-gray-100"
->
-  <h2 className="text-4xl font-bold mb-4">{t("download.title")}</h2>
-  <p className="text-lg text-gray-500 max-w-3xl mx-auto mt-2">
-    <br />
-    {t("download.desc.line3")}
-    <br />
-    {t("download.desc.line4")}
-  </p>
+            id="download"
+            className="scroll-mt-[180px] text-center py-20 bg-gray-100"
+          >
+            <h2 className="text-4xl font-bold mb-4">{t("download.title")}</h2>
+            <p className="text-lg text-gray-500 max-w-3xl mx-auto mt-2">
+              <br />
+              {t("download.desc.line3")}
+              <br />
+              {t("download.desc.line4")}
+            </p>
 
-  {/* ✅ 1.3.3버전과 메시픽스 버튼을 한 줄에 배치, 나머지는 비활성화 상태로 유지 */}
-  <div className="mt-8 flex flex-col items-center space-y-4 w-full">
-  {/* 1.4.0 & MeshFix 한 줄 (최상단) */}
-  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 w-full max-w-md">
-    {/* DLAS 1.4.0 */}
-    <a
-  href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v1.4.0/DLAS_Installer.exe"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition w-full sm:w-auto text-center"
-  onClick={(e) => {
-    e.preventDefault();
-    setShowDownloadModal(true);
-  }}
->
-  Download&nbsp;v1.4.0
-</a>
+            {/* ✅ 1.4.0 & MeshFix 버튼을 한 줄에 배치, 나머지는 비활성화 상태로 유지 */}
+            <div className="mt-8 flex flex-col items-center space-y-4 w-full">
+              {/* 1.4.0 & MeshFix 한 줄 (최상단) */}
+              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 w-full max-w-md">
+                {/* DLAS 1.4.0 */}
+                <a
+                  href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v1.4.0/DLAS_Installer.exe"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition w-full sm:w-auto text-center"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setShowDownloadModal(true);
+                  }}
+                >
+                  Download&nbsp;v1.4.0
+                </a>
 
-    <div className="flex flex-col items-start sm:items-end">
-      <a
-        href="https://github.com/MarcoAttene/MeshFix-V2.1/archive/refs/heads/master.zip"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 transition w-full sm:w-auto text-center"
-      >
-        MeshFix&nbsp;2.1.0&nbsp;(Source)
-      </a>
-      <span className="text-[10px] text-gray-600 mt-1 sm:text-right leading-tight">
-        MeshFix (GPL v3 – commercial use requires a separate license from IMATI-CNR)
-      </span>
-    </div>
-  </div>
-  {/* ▼▼ 모든 다운로드 버튼 한 줄씩 세로로 정렬 ▼▼ */}
-  <a
-    href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v1.3.3/DLAS_Installer.exe"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition w-full sm:w-auto text-center"
-  >
-    Download&nbsp;v1.3.3
-  </a>
-  <button
-    onClick={handleDownloadUnavailable}
-    className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition w-full sm:w-auto text-center"
-  >
-    Download v1.3.2
-  </button>
-  <button
-    onClick={handleDownloadUnavailable}
-    className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition w-full sm:w-auto text-center"
-  >
-    Download v1.3.1
-  </button>
-  <button
-    onClick={handleDownloadUnavailable}
-    className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition w-full sm:w-auto text-center"
-  >
-    Download v1.3.0
-  </button>
-  <button
-    onClick={handleDownloadUnavailable}
-    className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition w-full sm:w-auto text-center"
-  >
-    Download v1.2.0
-  </button>
-  <button
-    onClick={handleDownloadUnavailable}
-    className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition w-full sm:w-auto text-center"
-  >
-    Download v1.1.7
-  </button>
-</div>
+                <div className="flex flex-col items-start sm:items-end">
+                  <a
+                    href="https://github.com/MarcoAttene/MeshFix-V2.1/archive/refs/heads/master.zip"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 transition w-full sm:w-auto text-center"
+                  >
+                    MeshFix&nbsp;2.1.0&nbsp;(Source)
+                  </a>
+                  <span className="text-[10px] text-gray-600 mt-1 sm:text-right leading-tight">
+                    MeshFix (GPL v3 – commercial use requires a separate license
+                    from IMATI-CNR)
+                  </span>
+                </div>
+              </div>
 
-
-
+              {/* ▼▼ 모든 다운로드 버튼 한 줄씩 세로로 정렬 ▼▼ */}
+              <a
+                href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v1.3.3/DLAS_Installer.exe"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition w-full sm:w-auto text-center"
+              >
+                Download&nbsp;v1.3.3
+              </a>
+              {[
+                "v1.3.2",
+                "v1.3.1",
+                "v1.3.0",
+                "v1.2.0",
+                "v1.1.7",
+              ].map((v) => (
+                <button
+                  key={v}
+                  onClick={handleDownloadUnavailable}
+                  className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition w-full sm:w-auto text-center"
+                >
+                  Download {v}
+                </button>
+              ))}
+            </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-items-center">
-            {modules.map((mod, i) => (
-  <div
-    key={i}
-    className="w-[28rem] h-[36rem] border p-10 rounded-lg shadow hover:shadow-lg transition flex flex-col items-center"
-  >
-    <div className="w-[28rem] h-[28rem] bg-gray-200 mb-6 relative overflow-hidden">
-      {mod === "Transfer Jig Maker" ? (
-        <Image src="/gifs/fast_transfer_jig_maker.gif" alt={`${mod} gif`} fill className="object-cover" />
-      ) : mod === "Image Converter" ? (
-        <Image src="/gifs/fast_image_converter.gif" alt={`${mod} gif`} fill className="object-cover" />
-      ) : mod === "Crown Cad" ? (
-        <Image src="/gifs/crown_cad.gif" alt={`${mod} gif`} fill className="object-cover" />
-      ) : mod === "Denture Cad" ? (
-        <Image src="/gifs/denture_cad.gif" alt={`${mod} gif`} fill className="object-cover" />
-      ) : mod === "Booleaner" ? (
-        <Image src="/gifs/denture_booleaner.gif" alt={`${mod} gif`} fill className="object-cover" />
-      ) : mod === "HTML Viewer Converter" ? (
-        <Image src="/gifs/html_viewer_converter.gif" alt={`${mod} gif`} fill className="object-cover" />
-      ) : (
-        <span className="text-gray-400 text-2xl font-bold">Coming Soon</span>
-      )}
-    </div>
-    <div className="text-xl font-semibold text-center text-gray-800">
-      {mod}
-    </div>
-  </div>
-))}
-
+              {modules.map((mod, i) => (
+                <div
+                  key={i}
+                  className="w-[28rem] h-[36rem] border p-10 rounded-lg shadow hover:shadow-lg transition flex flex-col items-center"
+                >
+                  <div className="w-[28rem] h-[28rem] bg-gray-200 mb-6 relative overflow-hidden">
+                    {mod === "Transfer Jig Maker" ? (
+                      <Image
+                        src="/gifs/fast_transfer_jig_maker.gif"
+                        alt={`${mod} gif`}
+                        fill
+                        className="object-cover"
+                      />
+                    ) : mod === "Image Converter" ? (
+                      <Image
+                        src="/gifs/fast_image_converter.gif"
+                        alt={`${mod} gif`}
+                        fill
+                        className="object-cover"
+                      />
+                    ) : mod === "Crown Cad" ? (
+                      <Image
+                        src="/gifs/crown_cad.gif"
+                        alt={`${mod} gif`}
+                        fill
+                        className="object-cover"
+                      />
+                    ) : mod === "Denture Cad" ? (
+                      <Image
+                        src="/gifs/denture_cad.gif"
+                        alt={`${mod} gif`}
+                        fill
+                        className="object-cover"
+                      />
+                    ) : mod === "Booleaner" ? (
+                      <Image
+                        src="/gifs/denture_booleaner.gif"
+                        alt={`${mod} gif`}
+                        fill
+                        className="object-cover"
+                      />
+                    ) : mod === "HTML Viewer Converter" ? (
+                      <Image
+                        src="/gifs/html_viewer_converter.gif"
+                        alt={`${mod} gif`}
+                        fill
+                        className="object-cover"
+                      />
+                    ) : (
+                      <span className="text-gray-400 text-2xl font-bold">
+                        Coming Soon
+                      </span>
+                    )}
+                  </div>
+                  <div className="text-xl font-semibold text-center text-gray-800">
+                    {mod}
+                  </div>
+                </div>
+              ))}
             </div>
           </section>
 
@@ -1025,439 +1179,335 @@ export default function Page() {
                 {t("terms.title")}
               </h2>
 
+              {/* (약관 및 개인정보처리방침 내용은 동일) */}
+              {/* --------------------------------------------------- */}
+              {/* --- 이용약관 --- */}
               <h3 className="text-2xl font-bold mb-4">
                 {t("terms.headingTerms")}
               </h3>
-              <h4 className="font-semibold mb-1">{t("terms.article1.title")}</h4>
-              <p
-                className="mb-4"
-                dangerouslySetInnerHTML={{
-                  __html: t("terms.article1.desc"),
-                }}
-              />
-
-              <h4 className="font-semibold mb-1">
-                {t("terms.article2.title")}
-              </h4>
-              <p
-                className="mb-4"
-                dangerouslySetInnerHTML={{
-                  __html: t("terms.article2.desc"),
-                }}
-              />
-
-              <h4 className="font-semibold mb-1">
-                {t("terms.article3.title")}
-              </h4>
-              <p
-                className="mb-4"
-                dangerouslySetInnerHTML={{
-                  __html: t("terms.article3.desc"),
-                }}
-              />
-
-              <h4 className="font-semibold mb-1">
-                {t("terms.article4.title")}
-              </h4>
-              <p
-                className="mb-4"
-                dangerouslySetInnerHTML={{
-                  __html: t("terms.article4.desc"),
-                }}
-              />
-
-              <h4 className="font-semibold mb-1">
-                {t("terms.article5.title")}
-              </h4>
-              <p
-                className="mb-4"
-                dangerouslySetInnerHTML={{
-                  __html: t("terms.article5.desc"),
-                }}
-              />
-
-              <h4 className="font-semibold mb-1">
-                {t("terms.article6.title")}
-              </h4>
-              <p
-                className="mb-4"
-                dangerouslySetInnerHTML={{
-                  __html: t("terms.article6.desc"),
-                }}
-              />
-
-              <h4 className="font-semibold mb-1">
-                {t("terms.article7.title")}
-              </h4>
-              <p
-                className="mb-4"
-                dangerouslySetInnerHTML={{
-                  __html: t("terms.article7.desc"),
-                }}
-              />
-
-              <h4 className="font-semibold mb-1">
-                {t("terms.article8.title")}
-              </h4>
-              <p
-                className="mb-4"
-                dangerouslySetInnerHTML={{
-                  __html: t("terms.article8.desc"),
-                }}
-              />
-
+              {[
+                "article1",
+                "article2",
+                "article3",
+                "article4",
+                "article5",
+                "article6",
+                "article7",
+                "article8",
+              ].map((a) => (
+                <div key={a}>
+                  <h4 className="font-semibold mb-1">
+                    {t(`terms.${a}.title`)}
+                  </h4>
+                  <p
+                    className="mb-4"
+                    dangerouslySetInnerHTML={{
+                      __html: t(`terms.${a}.desc`),
+                    }}
+                  />
+                </div>
+              ))}
               <p className="mb-12">
                 <strong>{t("terms.effectiveDate")}</strong>
               </p>
 
+              {/* --- 개인정보처리방침 --- */}
               <h3 className="text-2xl font-bold mb-4">
                 {t("privacy.headingPrivacy")}
               </h3>
               <p className="mb-4">{t("privacy.intro")}</p>
-
-              <h4 className="font-semibold mb-1">
-                {t("privacy.article1.title")}
-              </h4>
-              <p
-                className="mb-4"
-                dangerouslySetInnerHTML={{
-                  __html: t("privacy.article1.desc"),
-                }}
-              />
-
-              <h4 className="font-semibold mb-1">
-                {t("privacy.article2.title")}
-              </h4>
-              <p
-                className="mb-4"
-                dangerouslySetInnerHTML={{
-                  __html: t("privacy.article2.desc"),
-                }}
-              />
-
-              <h4 className="font-semibold mb-1">
-                {t("privacy.article3.title")}
-              </h4>
-              <p
-                className="mb-4"
-                dangerouslySetInnerHTML={{
-                  __html: t("privacy.article3.desc"),
-                }}
-              />
-
-              <h4 className="font-semibold mb-1">
-                {t("privacy.article4.title")}
-              </h4>
-              <p
-                className="mb-4"
-                dangerouslySetInnerHTML={{
-                  __html: t("privacy.article4.desc"),
-                }}
-              />
-
-              <h4 className="font-semibold mb-1">
-                {t("privacy.article5.title")}
-              </h4>
-              <p
-                className="mb-4"
-                dangerouslySetInnerHTML={{
-                  __html: t("privacy.article5.desc"),
-                }}
-              />
-
-              <h4 className="font-semibold mb-1">
-                {t("privacy.article6.title")}
-              </h4>
-              <p
-                className="mb-4"
-                dangerouslySetInnerHTML={{
-                  __html: t("privacy.article6.desc"),
-                }}
-              />
-
-              <h4 className="font-semibold mb-1">
-                {t("privacy.article7.title")}
-              </h4>
-              <p
-                className="mb-4"
-                dangerouslySetInnerHTML={{
-                  __html: t("privacy.article7.desc"),
-                }}
-              />
-
+              {[
+                "article1",
+                "article2",
+                "article3",
+                "article4",
+                "article5",
+                "article6",
+                "article7",
+              ].map((a) => (
+                <div key={a}>
+                  <h4 className="font-semibold mb-1">
+                    {t(`privacy.${a}.title`)}
+                  </h4>
+                  <p
+                    className="mb-4"
+                    dangerouslySetInnerHTML={{
+                      __html: t(`privacy.${a}.desc`),
+                    }}
+                  />
+                </div>
+              ))}
               <p className="mb-4">
                 <strong>{t("privacy.effectiveDate")}</strong>
               </p>
-              
             </div>
           </section>
+        </main>
 
-          {/* 패밀리 라이선스 모달 */}
-          {showFamilyModal && (
-            <div className="fixed inset-0 z-50 bg-black bg-opacity-50 overflow-auto">
-              <div className="flex min-h-full items-start justify-center px-6 py-10">
-                <div className="bg-white p-8 rounded-xl shadow-xl w-full max-w-[1100px] relative overflow-x-auto">
-                  <button
-                    onClick={() => {
-                      setShowFamilyModal(false);
-                      setShowFreeLicenseGuide(false);
-                      setShowPaymentProceed(false);
-                    }}
-                    className="absolute top-4 right-4 text-gray-400 hover:text-black text-2xl"
-                  >
-                    ×
-                  </button>
+        {/* ------------------------- */}
+        {/*          모달 영역         */}
+        {/* ------------------------- */}
 
-                  {showPaymentProceed ? (
-                    /* --- 결제 진행 화면 --- */
-                    <div>
-                      <h2 className="text-xl font-bold mb-4 text-center">
-                        {t("payment.title")}
-                      </h2>
-                      <div className="text-sm text-gray-700 leading-relaxed space-y-3">
-                        <p className="font-bold text-red-600">
-                          {t("payment.warning")}
+        {/* 패밀리 라이선스 모달 */}
+        {showFamilyModal && (
+          <div className="fixed inset-0 z-50 bg-black bg-opacity-50 overflow-auto">
+            <div className="flex min-h-full items-start justify-center px-6 py-10">
+              <div className="bg-white p-8 rounded-xl shadow-xl w-full max-w-[1100px] relative overflow-x-auto">
+                <button
+                  onClick={() => {
+                    setShowFamilyModal(false);
+                    setShowFreeLicenseGuide(false);
+                    setShowPaymentProceed(false);
+                  }}
+                  className="absolute top-4 right-4 text-gray-400 hover:text-black text-2xl"
+                >
+                  ×
+                </button>
+
+                {showPaymentProceed ? (
+                  /* --- 결제 진행 화면 --- */
+                  <div>
+                    <h2 className="text-xl font-bold mb-4 text-center">
+                      {t("payment.title")}
+                    </h2>
+                    <div className="text-sm text-gray-700 leading-relaxed space-y-3">
+                      <p className="font-bold text-red-600">
+                        {t("payment.warning")}
+                      </p>
+                      <div className="border rounded p-4 bg-gray-50">
+                        <p className="font-semibold mb-2">
+                          {t("payment.statusHeader")}
                         </p>
-                        <div className="border rounded p-4 bg-gray-50">
-                          <p className="font-semibold mb-2">
-                            {t("payment.statusHeader")}
-                          </p>
-                          <ul className="list-disc list-inside space-y-1">
-                            <li>{t("payment.items.0")}</li>
-                            <li>{t("payment.items.1")}</li>
-                            <li>{t("payment.items.2")}</li>
-                            <li>{t("payment.items.3")}</li>
-                            <li>{t("payment.items.4")}</li>
-                            <li>{t("payment.items.5")}</li>
-                            <li className="bg-red-100 border-l-4 border-red-500 text-red-700 font-bold p-3 rounded shadow flex items-center">
-                              ⚠️ {t("payment.items.6")}
+                        <ul className="list-disc list-inside space-y-1">
+                          {Array.from({ length: 7 }, (_, i) => (
+                            <li
+                              key={i}
+                              className={
+                                i === 6
+                                  ? "bg-red-100 border-l-4 border-red-500 text-red-700 font-bold p-3 rounded shadow flex items-center"
+                                  : ""
+                              }
+                            >
+                              {i === 6 && "⚠️ "}
+                              {t(`payment.items.${i}`)}
                             </li>
-                          </ul>
-                        </div>
-                        <p>{t("payment.footer")}</p>
+                          ))}
+                        </ul>
                       </div>
-                      <div className="text-center mt-6">
-                        <button
-                          className="bg-black text-white px-8 py-3 rounded hover:bg-gray-800 transition"
-                          onClick={handleFamilyLicensePayment}
-                        >
-                          {t("payment.agree")}
-                        </button>
+                      <p>{t("payment.footer")}</p>
+                    </div>
+                    <div className="text-center mt-6">
+                      <button
+                        className="bg-black text-white px-8 py-3 rounded hover:bg-gray-800 transition"
+                        onClick={handleFamilyLicensePayment}
+                      >
+                        {t("payment.agree")}
+                      </button>
+                    </div>
+                  </div>
+                ) : showFreeLicenseGuide ? (
+                  /* --- 무료 라이선스 안내 화면 --- */
+                  <div className="mt-6">
+                    <button
+                      onClick={() => {
+                        if (freeLicenseGuideOrigin === "home") {
+                          setShowFreeLicenseGuide(false);
+                          setShowFamilyModal(false);
+                        } else {
+                          setShowFreeLicenseGuide(false);
+                        }
+                      }}
+                      className="underline text-blue-600 mb-4"
+                    >
+                      ← Back
+                    </button>
+                    <h3 className="text-2xl font-bold mb-4 text-center">
+                      {t("freeLicense.title")}
+                    </h3>
+
+                    <div className="flex flex-row items-start justify-center space-x-4">
+                      {[1, 2, 3].map((n) => (
+                        <img
+                          key={n}
+                          src={`/free_liecense/${n}.png`}
+                          alt={`Step ${n}`}
+                          className="w-60 h-auto"
+                        />
+                      ))}
+                    </div>
+
+                    <div className="text-sm text-gray-700 mt-4 leading-6 space-y-2">
+                      <p
+                        dangerouslySetInnerHTML={{
+                          __html: t("freeLicense.step1"),
+                        }}
+                      />
+                      <p
+                        dangerouslySetInnerHTML={{
+                          __html: t("freeLicense.step2"),
+                        }}
+                      />
+                      <p>{t("freeLicense.step3")}</p>
+                      <p
+                        dangerouslySetInnerHTML={{
+                          __html: t("freeLicense.send"),
+                        }}
+                      />
+                      <p>{t("freeLicense.aiReview")}</p>
+                      <hr className="my-3" />
+                      <div className="font-bold text-gray-900 space-y-1">
+                        {[1, 2, 3].map((n) => (
+                          <p key={n}>{t(`freeLicense.note${n}`)}</p>
+                        ))}
                       </div>
                     </div>
-                  ) : showFreeLicenseGuide ? (
-                    /* --- 무료 라이선스 안내 화면 --- */
+                  </div>
+                ) : (
+                  /* --- 패밀리 라이선스 안내 기본 화면 --- */
+                  <>
                     <div className="mt-6">
                       <button
-                        onClick={() => {
-                          if (freeLicenseGuideOrigin === "home") {
-                            setShowFreeLicenseGuide(false);
-                            setShowFamilyModal(false);
-                          } else {
-                            setShowFreeLicenseGuide(false);
-                          }
-                        }}
+                        onClick={() => setShowFamilyModal(false)}
                         className="underline text-blue-600 mb-4"
                       >
                         ← Back
                       </button>
-                      <h3 className="text-2xl font-bold mb-4 text-center">
-                        {t("freeLicense.title")}
-                      </h3>
-
-                      <div className="flex flex-row items-start justify-center space-x-4">
-                        <img
-                          src="/free_liecense/1.png"
-                          alt="Step 1"
-                          className="w-60 h-auto"
-                        />
-                        <img
-                          src="/free_liecense/2.png"
-                          alt="Step 2"
-                          className="w-60 h-auto"
-                        />
-                        <img
-                          src="/free_liecense/3.png"
-                          alt="Step 3"
-                          className="w-60 h-auto"
-                        />
-                      </div>
-
-                      <div className="text-sm text-gray-700 mt-4 leading-6 space-y-2">
-                        <p
-                          dangerouslySetInnerHTML={{
-                            __html: t("freeLicense.step1"),
-                          }}
-                        />
-                        <p
-                          dangerouslySetInnerHTML={{
-                            __html: t("freeLicense.step2"),
-                          }}
-                        />
-                        <p>{t("freeLicense.step3")}</p>
-                        <p
-                          dangerouslySetInnerHTML={{
-                            __html: t("freeLicense.send"),
-                          }}
-                        />
-                        <p>{t("freeLicense.aiReview")}</p>
-                        <hr className="my-3" />
-                        <div className="font-bold text-gray-900 space-y-1">
-                          <p>{t("freeLicense.note1")}</p>
-                          <p>{t("freeLicense.note2")}</p>
-                          <p>{t("freeLicense.note3")}</p>
-                        </div>
-                      </div>
                     </div>
-                  ) : (
-                    /* --- 패밀리 라이선스 안내 기본 화면 --- */
-                    <>
-                      <div className="mt-6">
-                        <button
-                          onClick={() => setShowFamilyModal(false)}
-                          className="underline text-blue-600 mb-4"
-                        >
-                          ← Back
-                        </button>
-                      </div>
 
-                      <h2 className="text-3xl font-bold mb-4 text-center">
-                        {t("family.modalTitle")}
-                      </h2>
+                    <h2 className="text-3xl font-bold mb-4 text-center">
+                      {t("family.modalTitle")}
+                    </h2>
 
-                      <div className="text-gray-700 text-sm leading-relaxed space-y-2 mb-6">
-                        <p>{t("family.desc1")}</p>
-                        <p>{t("family.desc2")}</p>
-                        <p>{t("family.desc3")}</p>
-                        <p>{t("family.desc4")}</p>
-                        <p>{t("family.desc5")}</p>
-                      </div>
+                    <div className="text-gray-700 text-sm leading-relaxed space-y-2 mb-6">
+                      {[1, 2, 3, 4, 5].map((n) => (
+                        <p key={n}>{t(`family.desc${n}`)}</p>
+                      ))}
+                    </div>
 
-                      <div className="my-4 text-center">
-                        <p className="font-bold text-red-600 mb-2">
-                          {t("family.recommendFree")}
-                        </p>
-                        <button
-                          onClick={() => {
-                            setShowFreeLicenseGuide(true);
-                            setFreeLicenseGuideOrigin("familyInfo");
-                          }}
-                          className="underline text-blue-600 cursor-pointer"
-                        >
-                          {t("family.howToGetFree")}
-                        </button>
-                      </div>
-
-                      <table className="w-full text-sm border border-gray-300 mb-4 whitespace-nowrap">
-                        <thead>
-                          <tr className="bg-gray-100">
-                            <th className="p-2 border text-left">Module</th>
-                            <th className="p-2 border text-center">
-                              General User
-                              <br />
-                              <span className="text-xs text-gray-600">
-                                After v2.0.0 Release
-                              </span>
-                            </th>
-                            <th className="p-2 border text-center">
-                              Family
-                              <br />
-                              <span className="text-xs text-orange-600 font-bold">
-                                ONLY before v2.0.0
-                              </span>
-                            </th>
-                            <th className="p-2 border text-left">Description</th>
-                          </tr>
-                        </thead>
-                        <tbody className="text-xs">
-                          {familyTableData.map(
-                            ([title, price1, price2, desc], idx) => (
-                              <tr key={idx}>
-                                <td className="p-2 border">{title}</td>
-                                <td className="p-2 border text-center">
-                                  {price1}
-                                </td>
-                                <td className="p-2 border text-center">
-                                  {price2}
-                                </td>
-                                <td className="p-2 border">{desc}</td>
-                              </tr>
-                            )
-                          )}
-                        </tbody>
-                      </table>
-                      <p className="text-xs text-gray-500 text-right mt-2">
-                        {t("family.tableNote")}
+                    <div className="my-4 text-center">
+                      <p className="font-bold text-red-600 mb-2">
+                        {t("family.recommendFree")}
                       </p>
+                      <button
+                        onClick={() => {
+                          setShowFreeLicenseGuide(true);
+                          setFreeLicenseGuideOrigin("familyInfo");
+                        }}
+                        className="underline text-blue-600 cursor-pointer"
+                      >
+                        {t("family.howToGetFree")}
+                      </button>
+                    </div>
 
-                      <div className="text-center mt-6">
-                        <button
-                          className="bg-black text-white px-8 py-3 rounded hover:bg-gray-800 transition"
-                          onClick={() => {
-                            if (!isLoggedIn) {
-                              document
-                                .getElementById("login-modal")!
-                                .classList.remove("hidden");
-                            } else {
-                              if (userInfo.licenseStatus === "family") {
-                                alert(
-                                  "You are already a Family user. Payment is not possible."
-                                );
-                                return;
-                              }
-                              setShowPaymentProceed(true);
+                    <table className="w-full text-sm border border-gray-300 mb-4 whitespace-nowrap">
+                      <thead>
+                        <tr className="bg-gray-100">
+                          <th className="p-2 border text-left">Module</th>
+                          <th className="p-2 border text-center">
+                            General User
+                            <br />
+                            <span className="text-xs text-gray-600">
+                              After v2.0.0 Release
+                            </span>
+                          </th>
+                          <th className="p-2 border text-center">
+                            Family
+                            <br />
+                            <span className="text-xs text-orange-600 font-bold">
+                              ONLY before v2.0.0
+                            </span>
+                          </th>
+                          <th className="p-2 border text-left">Description</th>
+                        </tr>
+                      </thead>
+                      <tbody className="text-xs">
+                        {familyTableData.map(
+                          ([title, price1, price2, desc], idx) => (
+                            <tr key={idx}>
+                              <td className="p-2 border">{title}</td>
+                              <td className="p-2 border text-center">
+                                {price1}
+                              </td>
+                              <td className="p-2 border text-center">
+                                {price2}
+                              </td>
+                              <td className="p-2 border">{desc}</td>
+                            </tr>
+                          )
+                        )}
+                      </tbody>
+                    </table>
+                    <p className="text-xs text-gray-500 text-right mt-2">
+                      {t("family.tableNote")}
+                    </p>
+
+                    <div className="text-center mt-6">
+                      <button
+                        className="bg-black text-white px-8 py-3 rounded hover:bg-gray-800 transition"
+                        onClick={() => {
+                          if (!isLoggedIn) {
+                            document
+                              .getElementById("login-modal")!
+                              .classList.remove("hidden");
+                          } else {
+                            if (userInfo.licenseStatus === "family") {
+                              alert(
+                                "You are already a Family user. Payment is not possible."
+                              );
+                              return;
                             }
-                          }}
-                        >
-                          Proceed to payment
-                        </button>
-                      </div>
-                    </>
-                  )}
-                </div>
+                            setShowPaymentProceed(true);
+                          }
+                        }}
+                      >
+                        Proceed to payment
+                      </button>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
-          )}
+          </div>
+        )}
 
-          {/* 결제 문의 (이메일 안내) 모달 */}
-          {showPaymentSupportModal && (
-            <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center px-4">
-              <div className="bg-white w-full max-w-md p-8 rounded-lg shadow-xl relative">
+        {/* 결제 문의 (이메일 안내) 모달 */}
+        {showPaymentSupportModal && (
+          <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center px-4">
+            <div className="bg-white w-full max-w-md p-8 rounded-lg shadow-xl relative">
+              <button
+                className="absolute top-2 right-3 text-gray-500 hover:text-black text-2xl"
+                onClick={() => setShowPaymentSupportModal(false)}
+              >
+                ×
+              </button>
+              <h2 className="text-2xl font-bold mb-4 text-center">
+                {t("purchase.title")}
+              </h2>
+              <p className="text-sm text-gray-700 leading-relaxed mb-4">
+                {t("purchase.desc")}
+              </p>
+              <div className="flex items-center justify-between gap-2 bg-gray-100 rounded p-2 mb-4">
+                <span className="text-black text-sm font-bold">
+                  support@dlas.io
+                </span>
                 <button
-                  className="absolute top-2 right-3 text-gray-500 hover:text-black text-2xl"
+                  onClick={handleCopyEmail}
+                  className="bg-gray-300 text-black px-3 py-1 rounded hover:bg-gray-400 transition text-sm"
+                >
+                  {t("purchase.copy")}
+                </button>
+              </div>
+              <div className="text-center">
+                <button
+                  className="bg-black text-white px-8 py-3 rounded hover:bg-gray-800 transition"
                   onClick={() => setShowPaymentSupportModal(false)}
                 >
-                  ×
+                  {t("purchase.close")}
                 </button>
-                <h2 className="text-2xl font-bold mb-4 text-center">
-                  {t("purchase.title")}
-                </h2>
-                <p className="text-sm text-gray-700 leading-relaxed mb-4">
-                  {t("purchase.desc")}
-                </p>
-                <div className="flex items-center justify-between gap-2 bg-gray-100 rounded p-2 mb-4">
-                  <span className="text-black text-sm font-bold">
-                    support@dlas.io
-                  </span>
-                  <button
-                    onClick={handleCopyEmail}
-                    className="bg-gray-300 text-black px-3 py-1 rounded hover:bg-gray-400 transition text-sm"
-                  >
-                    {t("purchase.copy")}
-                  </button>
-                </div>
-                <div className="text-center">
-                  <button
-                    className="bg-black text-white px-8 py-3 rounded hover:bg-gray-800 transition"
-                    onClick={() => setShowPaymentSupportModal(false)}
-                  >
-                    {t("purchase.close")}
-                  </button>
-                </div>
               </div>
             </div>
-          )}
-        </main>
+          </div>
+        )}
 
         {/* 다운로드 안내 모달 */}
         {showDownloadModal && (
@@ -1473,7 +1523,8 @@ export default function Page() {
               <h2 className="text-xl font-bold mb-3">※ Notice</h2>
               <ul className="text-sm text-gray-700 list-disc pl-5 mb-6 space-y-2">
                 <li>
-                  You may see a message like <em>"This file isn't commonly downloaded."</em>
+                  You may see a message like{" "}
+                  <em>"This file isn't commonly downloaded."</em>
                 </li>
                 <li>
                   This installer is distributed only through the official DLAS
@@ -1496,8 +1547,8 @@ export default function Page() {
               <h2 className="text-xl font-bold mb-3">※ 안내</h2>
               <ul className="text-sm text-gray-700 list-disc pl-5 mb-6 space-y-2">
                 <li>
-                  "이 파일은 일반적으로 다운로드되지 않습니다"라는 메시지가 보일 수
-                  있습니다.
+                  "이 파일은 일반적으로 다운로드되지 않습니다"라는 메시지가 보일
+                  수 있습니다.
                 </li>
                 <li>
                   본 설치 파일은 DLAS 공식 홈페이지에서만 배포하며, 안전하게
@@ -1751,7 +1802,9 @@ export default function Page() {
           </div>
         )}
 
-        {/* Footer */}
+        {/* ------------------------- */}
+        {/*           Footer          */}
+        {/* ------------------------- */}
         <footer className="bg-black text-white py-10 px-6 mt-20">
           <div className="max-w-5xl mx-auto">
             <div className="flex flex-col md:flex-row items-center md:items-start justify-between gap-4">
