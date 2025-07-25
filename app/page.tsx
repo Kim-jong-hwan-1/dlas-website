@@ -808,6 +808,11 @@ export default function Page() {
           <LanguageSelector />
         </div>
 
+        {/* ▼ 모바일 전용 LanguageSelector ― 데스크탑에서는 숨김 */}
+        <div className="fixed top-4 right-4 z-50 flex items-center sm:hidden">
+          <LanguageSelector />
+        </div>
+
         {/* 상단 네비게이션 */}
         <nav className="fixed top-0 left-0 w-full bg-white py-4 px-8 shadow-lg z-40">
           <div className="flex justify-center items-center relative">
