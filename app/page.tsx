@@ -570,17 +570,12 @@ export default function Page() {
     }
   };
 
-  // 모듈 목록
+  // 모듈 목록 (필요한 4개만 남김)
   const modules = [
-    "Bite Finder",
-    "Transfer Jig Maker",
-    "Booleaner",
-    "Printing Model maker",
-    "Image Converter",
-    "HTML Viewer Converter",
     "STL Classifier",
-    "Crown Cad",
-    "Denture Cad",
+    "HTML Viewer Converter",
+    "Image Converter",
+    "Booleaner",
   ];
 
   // 패밀리 라이선스 테이블용 데이터
@@ -648,7 +643,7 @@ export default function Page() {
   // Paddle 준비 여부
   const [paddleReady, setPaddleReady] = useState(false);
 
-  // ** 1) 할인코드 State 추가 **
+  // ** 1) 할인코드 State 추가 **  (UI 삭제됨 – 로직은 유지)
   const [couponCode, setCouponCode] = useState("");
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -677,7 +672,6 @@ export default function Page() {
       return;
     }
 
-    // ✅ 할인 코드(couponCode.trim()) 적용
     window.Paddle.Checkout.open({
       items: [
         {
@@ -687,7 +681,7 @@ export default function Page() {
       ],
       customer: { email: storedId },
       customData: { userID: storedId },
-      discountCode: couponCode.trim(), // ★ 추가 부분
+      discountCode: couponCode.trim(),
       closeCallback: () => console.log("Checkout closed"),
     });
   };
@@ -910,12 +904,9 @@ export default function Page() {
             </p>
             <h1 className="text-6xl font-bold mb-8">{t("home.title")}</h1>
 
-            {/* 배경 강조 영역 */}
-            <div
-              className="flex flex-col items-center justify-center"
-              style={{ marginTop: "60px" }}
-            >
-              {/* 상단: 'Get the free license!' 버튼 */}
+            {/* --- 강조 영역 (라이선스 배너 제거, 버튼만 유지) --- */}
+            <div className="flex flex-col items-center justify-center">
+              {/* 상단: 'Get the free license!' 버튼 (검정색으로 변경) */}
               <button
                 onClick={() => {
                   setShowFamilyModal(true);
@@ -924,8 +915,7 @@ export default function Page() {
                   setFreeLicenseGuideOrigin("home");
                 }}
                 className="
-                  bg-gradient-to-r from-pink-500 to-yellow-400
-                  text-white
+                  bg-black text-white
                   font-bold
                   rounded-md
                   text-lg md:text-xl
@@ -934,72 +924,15 @@ export default function Page() {
                   mb-10
                   cursor-pointer
                   transition
+                  hover:bg-gray-800
                 "
               >
                 Get the free license!
               </button>
-
-              {/* 하단: 라이선스 정보 박스 */}
-              <div
-                className="
-                  bg-black text-white
-                  rounded-md
-                  inline-block
-                  text-center
-                  font-bold
-                  mt-4
-                  px-6 md:px-10
-                  py-4 md:py-5
-                  text-xl md:text-2xl
-                  cursor-pointer
-                  shadow
-                  transition
-                  hover:opacity-90
-                "
-                onClick={() => {
-                  setShowFamilyModal(true);
-                  setShowFreeLicenseGuide(false);
-                  setShowPaymentProceed(false);
-                }}
-              >
-                DLAS Family License – Lifetime Access&nbsp;
-                <span className="text-red-500 font-bold line-through text-lg md:text-xl mr-1 align-middle">
-                  $6,010
-                </span>
-                <span className="font-bold text-white mx-1 align-middle">→</span>
-                <span className="text-green-400 font-bold text-2xl md:text-3xl align-middle">
-                  $390
-                </span>
-              </div>
-
-              {/* (추가) 할인 코드 입력 UI */}
-              <div className="mt-4 text-center">
-                <input
-                  type="text"
-                  value={couponCode}
-                  onChange={(e) => setCouponCode(e.target.value)}
-                  placeholder="Enter coupon code"
-                  className="px-4 py-2 border rounded-md w-60 text-sm"
-                />
-                {(couponCode === "ddu29" || couponCode === "yoonfal29") && (
-                  <p className="text-green-600 text-sm mt-1">
-                    Ambassador code "{couponCode}" has been automatically
-                    applied!
-                  </p>
-                )}
-                <p
-                  className={`text-sm mt-1 ${
-                    couponCode.trim() ? "text-green-600" : "text-gray-400"
-                  }`}
-                >
-                  {couponCode.trim()
-                    ? `Coupon "${couponCode.trim()}" will be applied at checkout.`
-                    : "Enter a coupon code to apply discount."}
-                </p>
-              </div>
             </div>
 
-            <div className="mt-16 px-6 max-w-4xl mx-auto text-center">
+            {/* ↓ 바로 'Game Changer' 문구가 이어지도록 배너·쿠폰 UI 삭제 */}
+            <div className="mt-10 px-6 max-w-4xl mx-auto text-center">
               <h2 className="text-3xl font-semibold mb-4 text-gray-900">
                 {t("home.gameChangerTitle")}
               </h2>
@@ -1084,68 +1017,163 @@ export default function Page() {
                 </button>
               ))}
             </div>
+       
+<section
+  id="buy"
+  className="scroll-mt-[180px] text-center py-20 bg-white"
+>
+  {/* ── BUY 제목 ── */}
+  <h2 className="text-4xl font-bold mb-8">{t("nav.buy")}</h2>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-items-center">
-              {modules.map((mod, i) => (
-                <div
-                  key={i}
-                  className="w-[28rem] h-[36rem] border p-10 rounded-lg shadow hover:shadow-lg transition flex flex-col items-center"
-                >
-                  <div className="w-[28rem] h-[28rem] bg-gray-200 mb-6 relative overflow-hidden">
-                    {mod === "Transfer Jig Maker" ? (
-                      <Image
-                        src="/gifs/fast_transfer_jig_maker.gif"
-                        alt={`${mod} gif`}
-                        fill
-                        className="object-cover"
-                      />
-                    ) : mod === "Image Converter" ? (
-                      <Image
-                        src="/gifs/fast_image_converter.gif"
-                        alt={`${mod} gif`}
-                        fill
-                        className="object-cover"
-                      />
-                    ) : mod === "Crown Cad" ? (
-                      <Image
-                        src="/gifs/crown_cad.gif"
-                        alt={`${mod} gif`}
-                        fill
-                        className="object-cover"
-                      />
-                    ) : mod === "Denture Cad" ? (
-                      <Image
-                        src="/gifs/denture_cad.gif"
-                        alt={`${mod} gif`}
-                        fill
-                        className="object-cover"
-                      />
-                    ) : mod === "Booleaner" ? (
-                      <Image
-                        src="/gifs/denture_booleaner.gif"
-                        alt={`${mod} gif`}
-                        fill
-                        className="object-cover"
-                      />
-                    ) : mod === "HTML Viewer Converter" ? (
-                      <Image
-                        src="/gifs/html_viewer_converter.gif"
-                        alt={`${mod} gif`}
-                        fill
-                        className="object-cover"
-                      />
-                    ) : (
-                      <span className="text-gray-400 text-2xl font-bold">
-                        Coming Soon
-                      </span>
-                    )}
-                  </div>
-                  <div className="text-xl font-semibold text-center text-gray-800">
-                    {mod}
-                  </div>
-                </div>
-              ))}
+  {/* ── 모듈 카드 집합 ── */}
+  <div className="grid grid-cols-1 gap-24 justify-items-center">
+    {modules.map((mod) => {
+      /* 모듈별 GIF / YouTube ID 매핑 */
+      const map = {
+        "Image Converter": {
+          gif: "/gifs/fast_image_converter.gif",
+          youtube: "agm47qKzw1Q",
+        },
+        Booleaner: {
+          gif: "/gifs/denture_booleaner.gif",
+          youtube: "f5DBv8m-iJU",
+        },
+        "HTML Viewer Converter": {
+          gif: "/gifs/html_viewer_converter.gif",
+          youtube: "IGOFiLchblo",
+        },
+      } as Record<string, { gif: string | null; youtube: string | null }>;
+
+      const { gif, youtube } =
+        map[mod] || ({} as { gif: null; youtube: null });
+
+      return (
+        <div
+          key={mod}
+          className="flex flex-row items-center gap-8 overflow-x-auto"
+        >
+          {/* ① 이름 네모 (28 rem × 28 rem) */}
+          <div className="w-[28rem] h-[28rem] border rounded-lg bg-gray-100 flex items-center justify-center">
+            <span className="text-3xl font-bold px-4 break-words">
+              {mod}
+            </span>
+          </div>
+
+          {/* ② GIF 네모 (28 rem × 28 rem) */}
+          <div className="w-[28rem] h-[28rem] border rounded-lg bg-gray-100 overflow-hidden relative flex items-center justify-center">
+            {gif ? (
+              <Image
+                src={gif}
+                alt={`${mod} gif`}
+                fill
+                className="object-cover"
+              />
+            ) : (
+              <span className="text-gray-400 text-2xl font-bold">
+                Coming&nbsp;Soon
+              </span>
+            )}
+          </div>
+
+          {/* ③ 영상 네모 (높이 28 rem, 폭 49.78 rem = 16:9) */}
+          <div
+            className="h-[28rem] border rounded-lg bg-gray-100 overflow-hidden"
+            style={{ width: "49.78rem" }} /* 28 rem × 16 / 9 */
+          >
+            {youtube ? (
+              <iframe
+                className="w-full h-full"
+                src={`https://www.youtube.com/embed/${youtube}`}
+                title={`${mod} demo`}
+                frameBorder={0}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center">
+                <span className="text-gray-400 text-2xl font-bold">
+                  Coming&nbsp;Soon
+                </span>
+              </div>
+            )}
+          </div>
+        </div>
+      );
+    })}
+  </div>
+</section>
+
+            {/* --- 모듈 카드: 한 줄 세로 배열 & 4개만 --- */}
+            <div className="grid grid-cols-1 gap-24 justify-items-center mt-16">
+  {modules.map((mod) => {
+    /* --- 모듈별 리소스 매핑 --- */
+    const info = {
+      "Image Converter": {
+        gif: "/gifs/fast_image_converter.gif",
+        youtube: "agm47qKzw1Q",
+      },
+      Booleaner: {
+        gif: "/gifs/denture_booleaner.gif",
+        youtube: "f5DBv8m-iJU",
+      },
+      "HTML Viewer Converter": {
+        gif: "/gifs/html_viewer_converter.gif",
+        youtube: "IGOFiLchblo",
+      },
+    } as Record<string, { gif: string | null; youtube: string | null }>;
+    const { gif, youtube } = info[mod] || { gif: null, youtube: null };
+
+    return (
+      <div
+        key={mod}
+        className="flex flex-row items-center gap-8 overflow-x-auto"
+      >
+        {/* ① 모듈명 ― 28×28rem 정사각 네모 */}
+        <div className="w-[28rem] h-[28rem] border rounded-lg bg-gray-100 flex items-center justify-center">
+          <span className="text-3xl font-bold text-center px-4 break-words">
+            {mod}
+          </span>
+        </div>
+
+        {/* ② GIF ― 28×28rem 정사각 네모 */}
+        <div className="w-[28rem] h-[28rem] border rounded-lg bg-gray-100 overflow-hidden relative flex items-center justify-center">
+          {gif ? (
+            <Image src={gif} alt={`${mod} gif`} fill className="object-cover" />
+          ) : (
+            <span className="text-gray-400 text-2xl font-bold">
+              Coming&nbsp;Soon
+            </span>
+          )}
+        </div>
+
+        {/* ③ YouTube ― 높이 28rem, 폭 49.78rem(16:9) */}
+        <div
+          className="h-[28rem] border rounded-lg bg-gray-100 overflow-hidden"
+          style={{ width: "49.78rem" }} /* 28rem × 16 / 9 */
+        >
+          {youtube ? (
+            <iframe
+              className="w-full h-full"
+              src={`https://www.youtube.com/embed/${youtube}`}
+              title={`${mod} demo`}
+              frameBorder={0}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center">
+              <span className="text-gray-400 text-2xl font-bold">
+                Coming&nbsp;Soon
+              </span>
             </div>
+          )}
+        </div>
+      </div>
+    );
+  })}
+</div>
+
+
           </section>
 
           {/* 연락처 섹션 */}
@@ -1249,9 +1277,8 @@ export default function Page() {
           </section>
         </main>
 
-        {/* ------------------------- */}
-        {/*          모달 영역         */}
-        {/* ------------------------- */}
+
+     
 
         {/* 패밀리 라이선스 모달 */}
         {showFamilyModal && (
