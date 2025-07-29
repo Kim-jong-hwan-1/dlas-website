@@ -670,7 +670,7 @@ export default function Page() {
     setShowDownloadModal(false);
     // 다운로드 시작
     window.location.href =
-      "https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v1.4.0/DLAS_Installer.exe";
+      "https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v1.5.0/DLAS_Installer.exe";
   };
 
   // ------------------
@@ -984,78 +984,59 @@ export default function Page() {
 
           {/* 다운로드 섹션 */}
           <section
-            id="download"
-            className="scroll-mt-[180px] text-center py-20 bg-gray-100"
-          >
-            <h2 className="text-4xl font-bold mb-4">{t("download.title")}</h2>
-            <p className="text-lg text-gray-500 max-w-3xl mx-auto mt-2">
-              <br />
-              {t("download.desc.line3")}
-              <br />
-              {t("download.desc.line4")}
-            </p>
+  id="download"
+  className="scroll-mt-[180px] text-center py-20 bg-gray-100"
+>
+  <h2 className="text-4xl font-bold mb-4">{t("download.title")}</h2>
+  <p className="text-lg text-gray-500 max-w-3xl mx-auto mt-2">
+    <br />
+    {t("download.desc.line3")}
+    <br />
+    {t("download.desc.line4")}
+  </p>
 
-            {/* ✅ 1.4.0 & MeshFix 버튼을 한 줄에 배치, 나머지는 비활성화 상태로 유지 */}
-            <div className="mt-8 flex flex-col items-center space-y-4 w-full">
-              {/* 1.4.0 & MeshFix 한 줄 (최상단) */}
-              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 w-full max-w-md">
-                {/* DLAS 1.4.0 */}
-                <a
-                  href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v1.4.0/DLAS_Installer.exe"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition w-full sm:w-auto text-center"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setShowDownloadModal(true);
-                  }}
-                >
-                  Download&nbsp;v1.4.0
-                </a>
+  {/* ✅ 1.5.0 & MeshFix 버튼만 노출 */}
+  <div className="mt-8 flex flex-col items-center space-y-4 w-full">
+    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 w-full max-w-md">
+      {/* DLAS 1.5.0 */}
+      <a
+        href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v1.5.0/DLAS_Installer.exe"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition w-full sm:w-auto text-center"
+        onClick={(e) => {
+          e.preventDefault();
+          setShowDownloadModal(true);
+        }}
+      >
+        Download&nbsp;v1.5.0
+      </a>
+      {/* MeshFix */}
+      <div className="flex flex-col items-start sm:items-end">
+        <a
+          href="https://github.com/MarcoAttene/MeshFix-V2.1/archive/refs/heads/master.zip"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 transition w-full sm:w-auto text-center"
+        >
+          MeshFix&nbsp;2.1.0&nbsp;(Source)
+        </a>
+        <span className="text-[10px] text-gray-600 mt-1 sm:text-right leading-tight">
+          MeshFix (GPL v3 – commercial use requires a separate license from IMATI-CNR)
+        </span>
+      </div>
+    </div>
 
-                <div className="flex flex-col items-start sm:items-end">
-                  <a
-                    href="https://github.com/MarcoAttene/MeshFix-V2.1/archive/refs/heads/master.zip"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 transition w-full sm:w-auto text-center"
-                  >
-                    MeshFix&nbsp;2.1.0&nbsp;(Source)
-                  </a>
-                  <span className="text-[10px] text-gray-600 mt-1 sm:text-right leading-tight">
-                    MeshFix (GPL v3 – commercial use requires a separate license
-                    from IMATI-CNR)
-                  </span>
-                </div>
-              </div>
+    {/* ▼▼ 구버전 다운로드 버튼/코드는 완전히 제거 ▼▼ */}
+    {/* 
+    <a ...>Download v1.3.3</a>
+    {[ ... ].map((v) => (
+      <button ...>Download {v}</button>
+    ))}
+    */}
+  </div>
+</section>
 
-              {/* ▼▼ 모든 다운로드 버튼 한 줄씩 세로로 정렬 ▼▼ */}
-              <a
-                href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v1.3.3/DLAS_Installer.exe"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition w-full sm:w-auto text-center"
-              >
-                Download&nbsp;v1.3.3
-              </a>
-              {[
-                "v1.3.2",
-                "v1.3.1",
-                "v1.3.0",
-                "v1.2.0",
-                "v1.1.7",
-              ].map((v) => (
-                <button
-                  key={v}
-                  onClick={handleDownloadUnavailable}
-                  className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition w-full sm:w-auto text-center"
-                >
-                  Download {v}
-                </button>
-              ))}
-            </div>
-       
-          </section>
 
 
           <section
