@@ -83,6 +83,40 @@ const PADDLE_PRICE_ID = isSandbox
   : process.env.NEXT_PUBLIC_PADDLE_PRICE_ID!;
 
 export default function Page() {
+    // buy 탭 위쪽에 선언!
+const MODULE_PRICE_IDS: Record<string, Record<string, string>> = {
+  "STL Classifier": {
+    "1DAY": "pri_01k1dhbc5qnnqeqx0xvy9ra8zq",
+    "1WEEK": "pri_01k1dhdhev3zdv3dme6veyd9ab",
+    "1MONTH": "pri_01k1dhetmhg867gkdkj75mv4pn",
+    "1YEAR": "pri_01k1dhh3b4dfm1r191y6zk1xmh",
+  },
+  "HTML Viewer Converter": {
+    "1DAY": "pri_01k1dhj3aq89kgdtxyapj10hqq",
+    "1WEEK": "pri_01k1dhm7x23g8nn3tpcmswjq14",
+    "1MONTH": "pri_01k1dhn95p99rbc3y5n4yg3ke1",
+    "1YEAR": "pri_01k1dhnxpaj49197qw7chmpe60",
+  },
+  "Image Converter": {
+    "1DAY": "pri_01k1dhrezj288s5xdmt7ck760q",
+    "1WEEK": "pri_01k1dhsg4gwyzycar6cggsm93j",
+    "1MONTH": "pri_01k1dhtxxwyaqt63bx9wfgttfa",
+    "1YEAR": "pri_01k1dhwbb0yvngp04ggzna166w",
+  },
+  "Booleaner": {
+    "1DAY": "pri_01k1dhz0scvpdgj7g010d3q8ek",
+    "1WEEK": "pri_01k1dj1fwdb7gqd7m6zcvgcqmw",
+    "1MONTH": "pri_01k1dj2gbhq3r3g26kg9sb1c4j",
+    "1YEAR": "pri_01k1dj4hm0933fgr6zn7a7yvx0",
+  },
+  "Fuser": {
+    "1DAY": "pri_01k1dj5bcrq7c3bbpknw8ysm3y",
+    "1WEEK": "pri_01k1dj6060dp3nba0x7kqxj5aj",
+    "1MONTH": "pri_01k1dj6qjawp143jjbwbac779c",
+    "1YEAR": "pri_01k1dj77nyhzgpg2terfwwd9pd",
+  },
+};
+
   const handleDownloadUnavailable = (e?: React.MouseEvent) => {
     if (e) e.preventDefault();
     alert("Temporary error, download is currently unavailable.");
@@ -593,10 +627,18 @@ export default function Page() {
     const storedId = localStorage.getItem("userID") || userID;
     if (!storedId) {
       alert("Please log in first.");
-      // 안내창 '확인' 후 로그인 모달 자동 오픈
       setTimeout(() => {
         document.getElementById("login-modal")?.classList.remove("hidden");
       }, 100);
+      return;
+    }
+    // ←★ 모듈/기간별 실제 priceId 사용
+    const priceId =
+      MODULE_PRICE_IDS[mod] && MODULE_PRICE_IDS[mod][period]
+        ? MODULE_PRICE_IDS[mod][period]
+        : "";
+    if (!priceId) {
+      alert("No priceId registered for this module/period.");
       return;
     }
     const orderName = `${mod} (${period})`;
@@ -605,7 +647,7 @@ export default function Page() {
     window.Paddle.Checkout.open({
       items: [
         {
-          priceId: PADDLE_PRICE_ID,
+          priceId,
           quantity: 1,
         },
       ],
@@ -614,6 +656,7 @@ export default function Page() {
       closeCallback: () => console.log("Checkout closed"),
     });
   };
+  
   
   // 패밀리 라이선스 테이블용 데이터
   const familyTableData = [
@@ -1037,218 +1080,209 @@ export default function Page() {
   </div>
 </section>
 
-
-
-          <section
-
- id="buy"
- className="scroll-mt-[180px] text-center py-20 bg-white"
+<section
+  id="buy"
+  className="scroll-mt-[180px] text-center py-20 bg-white"
 >
- <h2 className="text-4xl font-bold mb-12">{t("nav.buy")}</h2>
+  <h2 className="text-4xl font-bold mb-12">{t("nav.buy")}</h2>
 
- <div className="flex flex-col gap-y-16 w-full max-w-6xl mx-auto">
-   {modules.map((mod) => {
-     const info: Record<
-       string,
-       { gif: string | null; youtube: string | null; image: string | null }
-     > = {
-       "Image Converter": {
-         gif: "/gifs/fast_image_converter.gif",
-         youtube: "agm47qKzw1Q",
-         image: "/modules/fast_image_converter.png",
-       },
-       Booleaner: {
-         gif: "/gifs/denture_booleaner.gif",
-         youtube: "f5DBv8m-iJU",
-         image: "/modules/fast_denture_booleaner.png",
-       },
-       "HTML Viewer Converter": {
-         gif: "/gifs/html_viewer_converter.gif",
-         youtube: "IGOFiLchblo",
-         image: "/modules/fast_html_viewer_converter.png",
-       },
-       "STL Classifier": {
-         gif: null,
-         youtube: null,
-         image: "/modules/fast_stl_classifier.png",
-       },
-       Fuser: {
-         gif: null,
-         youtube: null,
-         image: "/modules/fast_stl_fuser.png",
-       },
-     };
-     const { gif, youtube, image } = info[mod] ?? { gif: null, youtube: null, image: null };
+  <div className="flex flex-col gap-y-16 w-full max-w-6xl mx-auto">
+    {modules.map((mod) => {
+      const info: Record<
+        string,
+        { gif: string | null; youtube: string | null; image: string | null }
+      > = {
+        "Image Converter": {
+          gif: "/gifs/fast_image_converter.gif",
+          youtube: "agm47qKzw1Q",
+          image: "/modules/fast_image_converter.png",
+        },
+        Booleaner: {
+          gif: "/gifs/denture_booleaner.gif",
+          youtube: "f5DBv8m-iJU",
+          image: "/modules/fast_denture_booleaner.png",
+        },
+        "HTML Viewer Converter": {
+          gif: "/gifs/html_viewer_converter.gif",
+          youtube: "IGOFiLchblo",
+          image: "/modules/fast_html_viewer_converter.png",
+        },
+        "STL Classifier": {
+          gif: null,
+          youtube: null,
+          image: "/modules/fast_stl_classifier.png",
+        },
+        Fuser: {
+          gif: null,
+          youtube: null,
+          image: "/modules/fast_stl_fuser.png",
+        },
+      };
+      const { gif, youtube, image } = info[mod] ?? { gif: null, youtube: null, image: null };
 
-     return (
-       <div
-         key={mod}
-         className="
-           relative
-           bg-gray-50 rounded-2xl border shadow-md px-2 py-8
-           flex flex-col sm:flex-row items-center
-           h-auto sm:h-80 sm:min-h-[320px] sm:max-h-[320px] gap-6
-         "
-       >
-         {/* 모바일 전용 */}
-         <div className="flex flex-col w-full sm:hidden items-center">
-           {/* 이름(이미지) */}
-           <div className="w-full flex items-center justify-center mb-4">
-             {image ? (
-               <Image
-                 src={image}
-                 alt={mod}
-                 width={288}
-                 height={72}
-                 className="object-contain max-h-[72px]"
-                 priority
-               />
-             ) : (
-               <span className="text-2xl font-extrabold px-4 break-words">{mod}</span>
-             )}
-           </div>
-           {/* YouTube */}
-           <div className="w-full h-56 aspect-video border rounded-2xl bg-white overflow-hidden flex items-center justify-center mb-4">
-             {youtube ? (
-               <iframe
-                 className="w-full h-full"
-                 src={`https://www.youtube.com/embed/${youtube}`}
-                 title={`${mod} demo`}
-                 frameBorder={0}
-                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                 allowFullScreen
-               />
-             ) : (
-               <span className="text-gray-400 text-2xl font-bold flex items-center justify-center w-full h-full">
-                 Coming&nbsp;Soon
-               </span>
-             )}
-           </div>
-           {/* 결제 버튼(가로 4개) */}
-           <div className="flex flex-row gap-2 w-full justify-center items-center">
-             <button
-               className="bg-black text-white rounded-lg w-1/4 h-12 text-base font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
-               onClick={() => handleModulePayment(mod, "1DAY")}
-             >
-               <span className="text-lg leading-5">1DAY</span>
-               <span className="text-xs leading-5">$3</span>
-             </button>
-             <button
-               className="bg-black text-white rounded-lg w-1/4 h-12 text-base font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
-               onClick={() => handleModulePayment(mod, "1WEEK")}
-             >
-               <span className="text-lg leading-5">1WEEK</span>
-               <span className="text-xs leading-5">$19</span>
-             </button>
-             <button
-               className="bg-black text-white rounded-lg w-1/4 h-12 text-base font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
-               onClick={() => handleModulePayment(mod, "1MONTH")}
-             >
-               <span className="text-lg leading-5">1MONTH</span>
-               <span className="text-xs leading-5">$49</span>
-             </button>
-             <button
-               className="bg-black text-white rounded-lg w-1/4 h-12 text-base font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
-               onClick={() => handleModulePayment(mod, "1YEAR")}
-             >
-               <span className="text-lg leading-5">1YEAR</span>
-               <span className="text-xs leading-5">$290</span>
-             </button>
-           </div>
-         </div>
+      return (
+        <div
+          key={mod}
+          className="
+            relative
+            bg-gray-50 rounded-2xl border shadow-md px-2 py-8
+            flex flex-col sm:flex-row items-center
+            h-auto sm:h-80 sm:min-h-[320px] sm:max-h-[320px] gap-6
+          "
+        >
+          {/* 모바일 */}
+          <div className="flex flex-col w-full sm:hidden items-center">
+            <div className="w-full flex items-center justify-center mb-4">
+              {image ? (
+                <Image
+                  src={image}
+                  alt={mod}
+                  width={288}
+                  height={72}
+                  className="object-contain max-h-[72px]"
+                  priority
+                />
+              ) : (
+                <span className="text-2xl font-extrabold px-4 break-words">{mod}</span>
+              )}
+            </div>
+            <div className="w-full h-56 aspect-video border rounded-2xl bg-white overflow-hidden flex items-center justify-center mb-4">
+              {youtube ? (
+                <iframe
+                  className="w-full h-full"
+                  src={`https://www.youtube.com/embed/${youtube}`}
+                  title={`${mod} demo`}
+                  frameBorder={0}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                />
+              ) : (
+                <span className="text-gray-400 text-2xl font-bold flex items-center justify-center w-full h-full">
+                  Coming&nbsp;Soon
+                </span>
+              )}
+            </div>
+            <div className="flex flex-row gap-2 w-full justify-center items-center">
+              <button
+                className="bg-black text-white rounded-lg w-1/4 h-12 text-base font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
+                onClick={() => handleModulePayment(mod, "1DAY")}
+              >
+                <span className="text-lg leading-5">1DAY</span>
+                <span className="text-xs leading-5">$3</span>
+              </button>
+              <button
+                className="bg-black text-white rounded-lg w-1/4 h-12 text-base font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
+                onClick={() => handleModulePayment(mod, "1WEEK")}
+              >
+                <span className="text-lg leading-5">1WEEK</span>
+                <span className="text-xs leading-5">$19</span>
+              </button>
+              <button
+                className="bg-black text-white rounded-lg w-1/4 h-12 text-base font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
+                onClick={() => handleModulePayment(mod, "1MONTH")}
+              >
+                <span className="text-lg leading-5">1MONTH</span>
+                <span className="text-xs leading-5">$49</span>
+              </button>
+              <button
+                className="bg-black text-white rounded-lg w-1/4 h-12 text-base font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
+                onClick={() => handleModulePayment(mod, "1YEAR")}
+              >
+                <span className="text-lg leading-5">1YEAR</span>
+                <span className="text-xs leading-5">$290</span>
+              </button>
+            </div>
+          </div>
 
-         {/* 데스크탑(기존) */}
-         <div className="hidden sm:flex flex-row items-center w-full h-full gap-6">
-           {/* 이름(이미지) */}
-           <div className="w-64 h-full flex-shrink-0 flex items-center justify-center">
-             {image ? (
-               <Image
-                 src={image}
-                 alt={mod}
-                 width={288}
-                 height={72}
-                 className="object-contain max-h-[72px]"
-                 priority
-               />
-             ) : (
-               <span className="text-2xl sm:text-3xl font-extrabold px-4 break-words">{mod}</span>
-             )}
-           </div>
-           {/* GIF */}
-           <div className="w-72 h-72 flex items-center justify-center flex-shrink-0">
-             <div className="w-72 h-72 flex items-center justify-center border rounded-2xl bg-white overflow-hidden">
-               {gif ? (
-                 <Image
-                   src={gif}
-                   alt={`${mod} gif`}
-                   width={288}
-                   height={288}
-                   className="object-contain w-full h-full"
-                   priority
-                 />
-               ) : (
-                 <span className="text-gray-400 text-2xl font-bold flex items-center justify-center w-full h-full">
-                   Coming&nbsp;Soon
-                 </span>
-               )}
-             </div>
-           </div>
-           {/* YouTube */}
-           <div className="flex-1 h-72 flex items-center justify-center min-w-0">
-             <div className="w-full h-72 aspect-video border rounded-2xl bg-white overflow-hidden flex items-center justify-center">
-               {youtube ? (
-                 <iframe
-                   className="w-full h-full"
-                   src={`https://www.youtube.com/embed/${youtube}`}
-                   title={`${mod} demo`}
-                   frameBorder={0}
-                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                   allowFullScreen
-                 />
-               ) : (
-                 <span className="text-gray-400 text-2xl font-bold flex items-center justify-center w-full h-full">
-                   Coming&nbsp;Soon
-                 </span>
-               )}
-             </div>
-           </div>
-           {/* 결제 버튼 그룹 - 카드 내부 오른쪽에 배치, 고정폭 */}
-           <div className="flex flex-col gap-3 w-40 flex-shrink-0 h-full justify-center items-center">
-             <button
-               className="bg-black text-white rounded-lg w-32 h-16 text-lg font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
-               onClick={() => handleModulePayment(mod, "1DAY")}
-             >
-               <span className="text-xl leading-5">1DAY</span>
-               <span className="text-base leading-5">$3</span>
-             </button>
-             <button
-               className="bg-black text-white rounded-lg w-32 h-16 text-lg font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
-               onClick={() => handleModulePayment(mod, "1WEEK")}
-             >
-               <span className="text-xl leading-5">1WEEK</span>
-               <span className="text-base leading-5">$19</span>
-             </button>
-             <button
-               className="bg-black text-white rounded-lg w-32 h-16 text-lg font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
-               onClick={() => handleModulePayment(mod, "1MONTH")}
-             >
-               <span className="text-xl leading-5">1MONTH</span>
-               <span className="text-base leading-5">$49</span>
-             </button>
-             <button
-               className="bg-black text-white rounded-lg w-32 h-16 text-lg font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
-               onClick={() => handleModulePayment(mod, "1YEAR")}
-             >
-               <span className="text-xl leading-5">1YEAR</span>
-               <span className="text-base leading-5">$290</span>
-             </button>
-           </div>
-         </div>
-       </div>
-     );
-   })}
- </div>
+          {/* 데스크탑 */}
+          <div className="hidden sm:flex flex-row items-center w-full h-full gap-6">
+            <div className="w-64 h-full flex-shrink-0 flex items-center justify-center">
+              {image ? (
+                <Image
+                  src={image}
+                  alt={mod}
+                  width={288}
+                  height={72}
+                  className="object-contain max-h-[72px]"
+                  priority
+                />
+              ) : (
+                <span className="text-2xl sm:text-3xl font-extrabold px-4 break-words">{mod}</span>
+              )}
+            </div>
+            <div className="w-72 h-72 flex items-center justify-center flex-shrink-0">
+              <div className="w-72 h-72 flex items-center justify-center border rounded-2xl bg-white overflow-hidden">
+                {gif ? (
+                  <Image
+                    src={gif}
+                    alt={`${mod} gif`}
+                    width={288}
+                    height={288}
+                    className="object-contain w-full h-full"
+                    priority
+                  />
+                ) : (
+                  <span className="text-gray-400 text-2xl font-bold flex items-center justify-center w-full h-full">
+                    Coming&nbsp;Soon
+                  </span>
+                )}
+              </div>
+            </div>
+            <div className="flex-1 h-72 flex items-center justify-center min-w-0">
+              <div className="w-full h-72 aspect-video border rounded-2xl bg-white overflow-hidden flex items-center justify-center">
+                {youtube ? (
+                  <iframe
+                    className="w-full h-full"
+                    src={`https://www.youtube.com/embed/${youtube}`}
+                    title={`${mod} demo`}
+                    frameBorder={0}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                  />
+                ) : (
+                  <span className="text-gray-400 text-2xl font-bold flex items-center justify-center w-full h-full">
+                    Coming&nbsp;Soon
+                  </span>
+                )}
+              </div>
+            </div>
+            <div className="flex flex-col gap-3 w-40 flex-shrink-0 h-full justify-center items-center">
+              <button
+                className="bg-black text-white rounded-lg w-32 h-16 text-lg font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
+                onClick={() => handleModulePayment(mod, "1DAY")}
+              >
+                <span className="text-xl leading-5">1DAY</span>
+                <span className="text-base leading-5">$3</span>
+              </button>
+              <button
+                className="bg-black text-white rounded-lg w-32 h-16 text-lg font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
+                onClick={() => handleModulePayment(mod, "1WEEK")}
+              >
+                <span className="text-xl leading-5">1WEEK</span>
+                <span className="text-base leading-5">$19</span>
+              </button>
+              <button
+                className="bg-black text-white rounded-lg w-32 h-16 text-lg font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
+                onClick={() => handleModulePayment(mod, "1MONTH")}
+              >
+                <span className="text-xl leading-5">1MONTH</span>
+                <span className="text-base leading-5">$49</span>
+              </button>
+              <button
+                className="bg-black text-white rounded-lg w-32 h-16 text-lg font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
+                onClick={() => handleModulePayment(mod, "1YEAR")}
+              >
+                <span className="text-xl leading-5">1YEAR</span>
+                <span className="text-base leading-5">$290</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      );
+    })}
+  </div>
 </section>
+
 
           {/* 연락처 섹션 */}
           <section
