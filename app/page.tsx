@@ -84,39 +84,45 @@ const PADDLE_PRICE_ID = isSandbox
 
 export default function Page() {
     // buy 탭 위쪽에 선언!
-const MODULE_PRICE_IDS: Record<string, Record<string, string>> = {
-  "STL Classifier": {
-    "1DAY": "pri_01k1dhbc5qnnqeqx0xvy9ra8zq",
-    "1WEEK": "pri_01k1dhdhev3zdv3dme6veyd9ab",
-    "1MONTH": "pri_01k1dhetmhg867gkdkj75mv4pn",
-    "1YEAR": "pri_01k1dhh3b4dfm1r191y6zk1xmh",
-  },
-  "HTML Viewer Converter": {
-    "1DAY": "pri_01k1dhj3aq89kgdtxyapj10hqq",
-    "1WEEK": "pri_01k1dhm7x23g8nn3tpcmswjq14",
-    "1MONTH": "pri_01k1dhn95p99rbc3y5n4yg3ke1",
-    "1YEAR": "pri_01k1dhnxpaj49197qw7chmpe60",
-  },
-  "Image Converter": {
-    "1DAY": "pri_01k1dhrezj288s5xdmt7ck760q",
-    "1WEEK": "pri_01k1dhsg4gwyzycar6cggsm93j",
-    "1MONTH": "pri_01k1dhtxxwyaqt63bx9wfgttfa",
-    "1YEAR": "pri_01k1dhwbb0yvngp04ggzna166w",
-  },
-  "Booleaner": {
-    "1DAY": "pri_01k1dhz0scvpdgj7g010d3q8ek",
-    "1WEEK": "pri_01k1dj1fwdb7gqd7m6zcvgcqmw",
-    "1MONTH": "pri_01k1dj2gbhq3r3g26kg9sb1c4j",
-    "1YEAR": "pri_01k1dj4hm0933fgr6zn7a7yvx0",
-  },
-  "Fuser": {
-    "1DAY": "pri_01k1dj5bcrq7c3bbpknw8ysm3y",
-    "1WEEK": "pri_01k1dj6060dp3nba0x7kqxj5aj",
-    "1MONTH": "pri_01k1dj6qjawp143jjbwbac779c",
-    "1YEAR": "pri_01k1dj77nyhzgpg2terfwwd9pd",
-  },
-};
-
+    const MODULE_PRICE_IDS: Record<string, Record<string, string>> = {
+      "Transfer Jig Maker": {
+        "1DAY": "pri_01k1jctwckah8wy2e30bmnbh19",
+        "1WEEK": "pri_01k1jcsv5cg66tjnv05qhtwknh",
+        "1MONTH": "pri_01k1jcs60js4d1khk87qsczcgh",
+        "1YEAR": "pri_01k1jcptq639s6r3npgyphtk4p",
+      },
+      "STL Classifier": {
+        "1DAY": "pri_01k1dhbc5qnnqeqx0xvy9ra8zq",
+        "1WEEK": "pri_01k1dhdhev3zdv3dme6veyd9ab",
+        "1MONTH": "pri_01k1dhetmhg867gkdkj75mv4pn",
+        "1YEAR": "pri_01k1dhh3b4dfm1r191y6zk1xmh",
+      },
+      "HTML Viewer Converter": {
+        "1DAY": "pri_01k1dhj3aq89kgdtxyapj10hqq",
+        "1WEEK": "pri_01k1dhm7x23g8nn3tpcmswjq14",
+        "1MONTH": "pri_01k1dhn95p99rbc3y5n4yg3ke1",
+        "1YEAR": "pri_01k1dhnxpaj49197qw7chmpe60",
+      },
+      "Image Converter": {
+        "1DAY": "pri_01k1dhrezj288s5xdmt7ck760q",
+        "1WEEK": "pri_01k1dhsg4gwyzycar6cggsm93j",
+        "1MONTH": "pri_01k1dhtxxwyaqt63bx9wfgttfa",
+        "1YEAR": "pri_01k1dhwbb0yvngp04ggzna166w",
+      },
+      "Booleaner": {
+        "1DAY": "pri_01k1dhz0scvpdgj7g010d3q8ek",
+        "1WEEK": "pri_01k1dj1fwdb7gqd7m6zcvgcqmw",
+        "1MONTH": "pri_01k1dj2gbhq3r3g26kg9sb1c4j",
+        "1YEAR": "pri_01k1dj4hm0933fgr6zn7a7yvx0",
+      },
+      "Fuser": {
+        "1DAY": "pri_01k1dj5bcrq7c3bbpknw8ysm3y",
+        "1WEEK": "pri_01k1dj6060dp3nba0x7kqxj5aj",
+        "1MONTH": "pri_01k1dj6qjawp143jjbwbac779c",
+        "1YEAR": "pri_01k1dj77nyhzgpg2terfwwd9pd",
+      },
+    };
+    
   const handleDownloadUnavailable = (e?: React.MouseEvent) => {
     if (e) e.preventDefault();
     alert("Temporary error, download is currently unavailable.");
@@ -606,6 +612,7 @@ const MODULE_PRICE_IDS: Record<string, Record<string, string>> = {
 
   // 모듈 목록 (필요한 4개만 남김)
   const modules = [
+    "Transfer Jig Maker",  
     "STL Classifier",
     "HTML Viewer Converter",
     "Image Converter",
@@ -1092,6 +1099,11 @@ const MODULE_PRICE_IDS: Record<string, Record<string, string>> = {
         string,
         { gif: string | null; youtube: string | null; image: string | null }
       > = {
+        "Transfer Jig Maker": {
+          gif: "/gifs/transfer_jig_maker.gif",      // 실제 경로에 맞게
+          youtube: null,                            // 있으면 유튜브 ID
+          image: "/modules/transfer_jig_maker.png", // 실제 이미지 경로에 맞게
+        },
         "Image Converter": {
           gif: "/gifs/fast_image_converter.gif",
           youtube: "agm47qKzw1Q",
