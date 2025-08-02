@@ -1,4 +1,8 @@
+
 "use client";
+
+
+
 
 declare global {
   interface Window {
@@ -83,6 +87,14 @@ const PADDLE_PRICE_ID = isSandbox
   : process.env.NEXT_PUBLIC_PADDLE_PRICE_ID!;
 
 export default function Page() {
+
+  const [token, setToken] = useState<string | null>(null);
+  useEffect(() => {
+    const stored = localStorage.getItem("DLAS_TOKEN");
+    if (stored) setToken(stored);
+  }, []);
+  
+  
     // buy 탭 위쪽에 선언!
     const MODULE_PRICE_IDS: Record<string, Record<string, string>> = {
       "Transfer Jig Maker": {
@@ -152,8 +164,9 @@ export default function Page() {
     }
   }, []);
 
-  // (2) 로그아웃 함수
   const handleLogout = () => {
+    localStorage.removeItem("DLAS_TOKEN"); // 추가
+    setToken(null);                        // 추가
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("loginExpireTime");
     localStorage.removeItem("userID");
@@ -174,6 +187,29 @@ export default function Page() {
     licenseStatus?: string; // "normal" or "family"
     module_licenses?: { [key: string]: string };  // ← 이 부분 추가!
   }>({});
+
+  const fetchLicenseInfo = async (accessToken: string) => {
+    try {
+      const res = await fetch("https://license-server-697p.onrender.com/admin/my-license", {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
+      if (!res.ok) throw new Error("Failed to fetch license info");
+      const data = await res.json();
+      setUserInfo((prev) => ({
+        ...prev,
+        licenseStatus: data.licenseStatus ?? prev.licenseStatus,
+        module_licenses: data.enabled_modules ?? data.module_licenses ?? prev.module_licenses,
+      }));
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  
+  useEffect(() => {
+    if (token) {
+      fetchLicenseInfo(token);
+    }
+  }, [token]);
 
   // **로딩 상태** 추가
   const [isUserInfoLoading, setIsUserInfoLoading] = useState(false);
@@ -330,6 +366,13 @@ export default function Page() {
             : errorData.detail || errorData.message || "Unknown error";
         alert(`Login error: ${message}`);
         return;
+      }
+
+      const data = await response.json();
+      const access_token = data.access_token;
+      if (access_token) {
+        localStorage.setItem("DLAS_TOKEN", access_token);
+        setToken(access_token);
       }
 
       alert("Login success!");
@@ -1113,7 +1156,7 @@ export default function Page() {
           > = {
             "Transfer Jig Maker": {
               gif: "/gifs/transfer_jig_maker.gif",
-              youtube: null,
+              youtube: "7-YeT3Y0KcQ",
               image: "/modules/transfer_jig_maker.png",
             },
             "Image Converter": {
