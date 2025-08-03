@@ -1188,10 +1188,17 @@ export default function Page() {
           const { gif, youtube, image } = info[mod] ?? { gif: null, youtube: null, image: null };
 
           const moduleId = MODULE_NAME_TO_ID[mod];
-          const expireUtc =
-            userInfo && userInfo.module_licenses && moduleId
-              ? userInfo.module_licenses[moduleId]
-              : null;
+          let expireUtc = null;
+          if (userInfo && userInfo.module_licenses && moduleId) {
+            const raw = userInfo.module_licenses[moduleId];
+            // 만료일(YYYY-MM-DD로 시작하는 문자열만)만 허용
+            if (typeof raw === "string" && /^\d{4}-\d{2}-\d{2}/.test(raw)) {
+              expireUtc = raw;
+            } else {
+              expireUtc = null; // 날짜가 아니면 "Not activated"
+            }
+          }
+          
 
           return (
             <div
