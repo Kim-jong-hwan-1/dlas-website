@@ -134,6 +134,34 @@ export default function Page() {
         "1YEAR": "pri_01k1dj77nyhzgpg2terfwwd9pd",
       },
     };
+/** ─────────────────────────────────────────────────
+ *  ▒  가격·통화 설정
+ *─────────────────────────────────────────────────*/
+const USD_TO_KRW = 1000;
+const MODULE_PRICES_USD: Record<string, number> = {
+  "1DAY": 3,
+  "1WEEK": 19,
+  "1MONTH": 49,
+  "1YEAR": 290,
+};
+/** 미국 달러를 원화로 환산 */
+const usdToKrw = (usd: number) => usd * USD_TO_KRW;
+
+/** 🇰🇷 사용자인지 판별 */
+const isKoreanUser = (country?: string) =>
+  country &&
+  ["korea", "south korea", "republic of korea", "대한민국", "한국"].some((kw) =>
+    country.toLowerCase().includes(kw)
+  );
+
+/** 버튼·라벨에 표시할 금액 문자열 */
+const priceLabel = (period: string, country?: string) => {
+  const usd = MODULE_PRICES_USD[period];
+  return isKoreanUser(country)
+    ? `₩${usdToKrw(usd).toLocaleString()}`
+    : `$${usd}`;
+};
+
     
   const handleDownloadUnavailable = (e?: React.MouseEvent) => {
     if (e) e.preventDefault();
@@ -671,51 +699,75 @@ export default function Page() {
     "1YEAR": 290,
   };
 
-  const handleModulePayment = (mod: string, period: string) => {
-    if (!paddleReady || !window.Paddle) {
-      alert("Paddle is not ready yet. Please wait or refresh the page.");
-      return;
-    }
-    const storedId = localStorage.getItem("userID") || userID;
-    if (!storedId) {
-      alert("Please log in first.");
-      setTimeout(() => {
-        document.getElementById("login-modal")?.classList.remove("hidden");
-      }, 100);
-      return;
-    }
-    // ←★ 모듈/기간별 실제 priceId 사용
-    const priceId =
-      MODULE_PRICE_IDS[mod] && MODULE_PRICE_IDS[mod][period]
-        ? MODULE_PRICE_IDS[mod][period]
-        : "";
-    if (!priceId) {
-      alert("No priceId registered for this module/period.");
-      return;
-    }
-    const orderName = `${mod} (${period})`;
-    const amount = MODULE_PRICES[period];
   
-    window.Paddle.Checkout.open({
-      items: [
-        {
-          priceId,
-          quantity: 1,
-        },
-      ],
-      customer: { email: storedId },
-      customData: { userID: storedId, module: mod, period, orderName, amount },
-      closeCallback: () => console.log("Checkout closed"),
+const handleModulePayment = (mod: string, period: string) => {
+  const storedId = localStorage.getItem("userID") || userID;
+  if (!storedId) {
+    alert("Please log in first.");
+    setTimeout(() => {
+      document.getElementById("login-modal")?.classList.remove("hidden");
+    }, 100);
+    return;
+  }
+
+  /* ── 🇰🇷 Korean user ⇒ TossPayments ───────────────────── */
+  if (isKoreanUser(userInfo.country)) {
+    if (typeof window === "undefined" || !window.TossPayments) {
+      alert("The payment module has not been loaded yet.");
+      return;
+    }
+    const tossClientKey = process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY!;
+    const tossPayments = window.TossPayments(tossClientKey);
+    const orderId = `DLAS-${mod}-${Date.now()}`;
+    const amount = usdToKrw(MODULE_PRICES_USD[period]);
+    const orderName = `${mod} (${period})`;
+
+    tossPayments.requestPayment("카드", {
+      amount,
+      orderId,
+      orderName,
+      customerEmail: storedId,
+      successUrl: `https://www.dlas.io/payment/success?orderId=${orderId}&amount=${amount}`,
+      failUrl: `https://www.dlas.io/payment/fail`,
     });
-  };
+    
+    return;
+  }
+
+  /* ── 그 외 국가 ⇒ Paddle ─────────────────────────────── */
+  if (!paddleReady || !window.Paddle) {
+    alert("Paddle is not ready yet. Please wait or refresh the page.");
+    return;
+  }
+
+  const priceId =
+    MODULE_PRICE_IDS[mod] && MODULE_PRICE_IDS[mod][period]
+      ? MODULE_PRICE_IDS[mod][period]
+      : "";
+  if (!priceId) {
+    alert("No priceId registered for this module/period.");
+    return;
+  }
+
+  const orderName = `${mod} (${period})`;
+  const amount = MODULE_PRICES_USD[period];
+
+  window.Paddle.Checkout.open({
+    items: [{ priceId, quantity: 1 }],
+    customer: { email: storedId },
+    customData: { userID: storedId, module: mod, period, orderName, amount },
+    closeCallback: () => console.log("Checkout closed"),
+  });
+};
+
   
   
   // 패밀리 라이선스 테이블용 데이터
   const familyTableData = [
     ["Transfer Jig Maker", "$790", "Free", "Automated jig generation software"],
-    ["Image Converter ", "$390", "Free", "Convert STL to image quickly"],
+    ["Image Converter", priceLabel("1DAY", userInfo.country), "Free", "Convert STL to image quickly"],
     ["Booleaner", "$590", "Free", "Fast automaitc Booleaner"],
-    ["HTML Viewer Converter ", "$390", "Free", "Convert STL to HTML viewer"],
+    ["HTML Viewer Converter", priceLabel("1DAY", userInfo.country), "Free", "Convert STL to HTML viewer"],
     [
       "Printing Model Maker (Expected July 2025)",
       "$590",
@@ -848,18 +900,23 @@ export default function Page() {
   };
 
   // "가족 라이선스 결제" 버튼 클릭 -> 국가별 결제
-  const handleFamilyLicensePayment = () => {
-    if (isUserInfoLoading) {
-      alert("Loading your information... Please wait a moment.");
-      return;
-    }
-    if (userInfo.licenseStatus === "family") {
-      alert("You are already a Family user. Payment is not possible.");
-      return;
-    }
-    // 국적 상관없이 모두 Paddle
+  
+const handleFamilyLicensePayment = () => {
+  if (isUserInfoLoading) {
+    alert("Loading your information... Please wait a moment.");
+    return;
+  }
+  if (userInfo.licenseStatus === "family") {
+    alert("You are already a Family user. Payment is not possible.");
+    return;
+  }
+  if (isKoreanUser(userInfo.country)) {
+    handleTossRequest();
+  } else {
     handlePaddleCheckout();
-  };
+  }
+};
+
 
   return (
     <>
@@ -1253,28 +1310,28 @@ export default function Page() {
                     onClick={() => handleModulePayment(mod, "1DAY")}
                   >
                     <span className="text-lg leading-5">1DAY</span>
-                    <span className="text-xs leading-5">$3</span>
+                    <span className="text-xs leading-5">{priceLabel("1DAY", userInfo.country)}</span>
                   </button>
                   <button
                     className="bg-black text-white rounded-lg w-1/4 h-12 text-base font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
                     onClick={() => handleModulePayment(mod, "1WEEK")}
                   >
                     <span className="text-lg leading-5">1WEEK</span>
-                    <span className="text-xs leading-5">$19</span>
+                    <span className="text-xs leading-5">{priceLabel("1WEEK", userInfo.country)}</span>
                   </button>
                   <button
                     className="bg-black text-white rounded-lg w-1/4 h-12 text-base font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
                     onClick={() => handleModulePayment(mod, "1MONTH")}
                   >
                     <span className="text-lg leading-5">1MONTH</span>
-                    <span className="text-xs leading-5">$49</span>
+                    <span className="text-xs leading-5">{priceLabel("1MONTH", userInfo.country)}</span>
                   </button>
                   <button
                     className="bg-black text-white rounded-lg w-1/4 h-12 text-base font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
                     onClick={() => handleModulePayment(mod, "1YEAR")}
                   >
                     <span className="text-lg leading-5">1YEAR</span>
-                    <span className="text-xs leading-5">$290</span>
+                    <span className="text-xs leading-5">{priceLabel("1YEAR", userInfo.country)}</span>
                   </button>
                 </div>
                 <div className="w-full text-center mt-3">
@@ -1357,28 +1414,28 @@ export default function Page() {
                   onClick={() => handleModulePayment(mod, "1DAY")}
                 >
                   <span className="text-xl leading-5">1DAY</span>
-                  <span className="text-base leading-5">$3</span>
+                  <span className="text-base leading-5">{priceLabel("1DAY", userInfo.country)}</span>
                 </button>
                 <button
                   className="bg-black text-white rounded-lg w-32 h-16 text-lg font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
                   onClick={() => handleModulePayment(mod, "1WEEK")}
                 >
                   <span className="text-xl leading-5">1WEEK</span>
-                  <span className="text-base leading-5">$19</span>
+                  <span className="text-base leading-5">{priceLabel("1WEEK", userInfo.country)}</span>
                 </button>
                 <button
                   className="bg-black text-white rounded-lg w-32 h-16 text-lg font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
                   onClick={() => handleModulePayment(mod, "1MONTH")}
                 >
                   <span className="text-xl leading-5">1MONTH</span>
-                  <span className="text-base leading-5">$49</span>
+                  <span className="text-base leading-5">{priceLabel("1MONTH", userInfo.country)}</span>
                 </button>
                 <button
                   className="bg-black text-white rounded-lg w-32 h-16 text-lg font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
                   onClick={() => handleModulePayment(mod, "1YEAR")}
                 >
                   <span className="text-xl leading-5">1YEAR</span>
-                  <span className="text-base leading-5">$290</span>
+                  <span className="text-base leading-5">{priceLabel("1YEAR", userInfo.country)}</span>
                 </button>
                 <div className="w-full text-center mt-4">
                   {isLoggedIn ? (
