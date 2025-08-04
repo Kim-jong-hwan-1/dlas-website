@@ -213,7 +213,7 @@ const priceLabel = (period: string, country?: string) => {
     phone?: string;
     email?: string;
     licenseStatus?: string; // "normal" or "family"
-    module_licenses?: { [key: string]: any };  // ← 이 부분 추가!
+    module_licenses?: { [key: string]: string };  // ← 이 부분 추가!
   }>({});
 
   const fetchLicenseInfo = async (accessToken: string) => {
@@ -226,7 +226,7 @@ const priceLabel = (period: string, country?: string) => {
       setUserInfo((prev) => ({
         ...prev,
         licenseStatus: data.licenseStatus ?? prev.licenseStatus,
-        module_licenses: data.enabled_modules ?? data.module_licenses ?? prev.module_licenses,
+      module_licenses: (data.module_licenses && typeof data.module_licenses === "object" && !Array.isArray(data.module_licenses)) ? data.module_licenses : prev.module_licenses,
       }));
     } catch (err) {
       console.error(err);
@@ -1253,8 +1253,8 @@ const handleFamilyLicensePayment = () => {
         const { gif, youtube, image } = info[mod] ?? { gif: null, youtube: null, image: null };
         const moduleId = MODULE_NAME_TO_ID[mod];
         let expireUtc = null;
-        if (userInfo && userInfo.module_licenses && moduleId) {
-          const raw: any = userInfo.module_licenses[moduleId];
+          if (userInfo && userInfo.module_licenses && typeof userInfo.module_licenses === "object" && !Array.isArray(userInfo.module_licenses) && moduleId) {
+          const raw = userInfo.module_licenses[moduleId];
           if (typeof raw === "string" && /^\d{4}-\d{2}-\d{2}/.test(raw)) {
             expireUtc = raw;
           } else {
