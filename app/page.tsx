@@ -1252,14 +1252,42 @@ const handleFamilyLicensePayment = () => {
       .map((mod) => {
         const { gif, youtube, image } = info[mod] ?? { gif: null, youtube: null, image: null };
         const moduleId = MODULE_NAME_TO_ID[mod];
-        let expireUtc = null;
-          if (userInfo && userInfo.module_licenses && typeof userInfo.module_licenses === "object" && !Array.isArray(userInfo.module_licenses) && moduleId) {
-          const raw = userInfo.module_licenses[moduleId];
-          if (typeof raw === "string" && /^\d{4}-\d{2}-\d{2}/.test(raw)) {
-            expireUtc = raw;
-          } else {
-            expireUtc = null;
-          }
+        let expireUtc: string | null = null;
+        if (
+          userInfo &&
+          userInfo.module_licenses &&
+          typeof userInfo.module_licenses === "object" &&
+          !Array.isArray(userInfo.module_licenses) &&
+          moduleId
+        ) {
+          const raw: any = userInfo.module_licenses[moduleId];
+          const extractDate = (value: any): string | null => {
+            if (!value) return null;
+            let dateStr: string | null = null;
+            if (typeof value === "string") {
+              dateStr = value;
+            } else if (typeof value === "object") {
+              dateStr =
+                value.expires_at ??
+                value.expire_date ??
+                value.expiry ??
+                value.expired_at ??
+                value.date ??
+                null;
+            }
+            if (!dateStr) return null;
+            // If already YYYY-MM-DD, use as‑is (first 10 chars)
+            if (/^\d{4}-\d{2}-\d{2}/.test(dateStr)) {
+              return dateStr.substring(0, 10);
+            }
+            const d = new Date(dateStr);
+            if (isNaN(d.getTime())) return null;
+            const y = d.getUTCFullYear();
+            const m = String(d.getUTCMonth() + 1).padStart(2, "0");
+            const day = String(d.getUTCDate()).padStart(2, "0");
+            return `${y}-${m}-${day}`;
+          };
+          expireUtc = extractDate(raw);
         }
         return (
           <div
