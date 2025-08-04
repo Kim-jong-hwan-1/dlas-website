@@ -656,7 +656,8 @@ export default function Page() {
 
   // 모듈 목록 (필요한 4개만 남김)
   const modules = [
-    "Transfer Jig Maker",  
+    "On-site Solution Service (Korea only)",
+    "Transfer Jig Maker",
     "STL Classifier",
     "HTML Viewer Converter",
     "Image Converter",
@@ -1147,86 +1148,193 @@ export default function Page() {
       "Fuser": "7",
     };
 
-    return (
-      <div className="flex flex-col gap-y-16 w-full max-w-6xl mx-auto">
-        {modules.map((mod) => {
-          const info: Record<
-            string,
-            { gif: string | null; youtube: string | null; image: string | null }
-          > = {
-            "Transfer Jig Maker": {
-              gif: "/gifs/transfer_jig_maker.gif",
-              youtube: "7-YeT3Y0KcQ",
-              image: "/modules/transfer_jig_maker.png",
-            },
-            "Image Converter": {
-              gif: "/gifs/fast_image_converter.gif",
-              youtube: "agm47qKzw1Q",
-              image: "/modules/fast_image_converter.png",
-            },
-            Booleaner: {
-              gif: "/gifs/denture_booleaner.gif",
-              youtube: "f5DBv8m-iJU",
-              image: "/modules/fast_denture_booleaner.png",
-            },
-            "HTML Viewer Converter": {
-              gif: "/gifs/html_viewer_converter.gif",
-              youtube: "IGOFiLchblo",
-              image: "/modules/fast_html_viewer_converter.png",
-            },
-            "STL Classifier": {
-              gif: null,
-              youtube: null,
-              image: "/modules/fast_stl_classifier.png",
-            },
-            Fuser: {
-              gif: null,
-              youtube: null,
-              image: "/modules/fast_stl_fuser.png",
-            },
-          };
-          const { gif, youtube, image } = info[mod] ?? { gif: null, youtube: null, image: null };
+    const info: Record<
+      string,
+      { gif: string | null; youtube: string | null; image: string | null }
+    > = {
+      "On-site Solution Service (Korea only)": {
+        gif: null,
+        youtube: null,
+        image: null,
+      },
+      "Transfer Jig Maker": {
+        gif: "/gifs/transfer_jig_maker.gif",
+        youtube: "7-YeT3Y0KcQ",
+        image: "/modules/transfer_jig_maker.png",
+      },
+      "Image Converter": {
+        gif: "/gifs/fast_image_converter.gif",
+        youtube: "agm47qKzw1Q",
+        image: "/modules/fast_image_converter.png",
+      },
+      Booleaner: {
+        gif: "/gifs/denture_booleaner.gif",
+        youtube: "f5DBv8m-iJU",
+        image: "/modules/fast_denture_booleaner.png",
+      },
+      "HTML Viewer Converter": {
+        gif: "/gifs/html_viewer_converter.gif",
+        youtube: "IGOFiLchblo",
+        image: "/modules/fast_html_viewer_converter.png",
+      },
+      "STL Classifier": {
+        gif: null,
+        youtube: null,
+        image: "/modules/fast_stl_classifier.png",
+      },
+      Fuser: {
+        gif: null,
+        youtube: null,
+        image: "/modules/fast_stl_fuser.png",
+      },
+    };
 
-          const moduleId = MODULE_NAME_TO_ID[mod];
-          let expireUtc = null;
-          if (userInfo && userInfo.module_licenses && moduleId) {
-            const raw = userInfo.module_licenses[moduleId];
-            // 만료일(YYYY-MM-DD로 시작하는 문자열만)만 허용
-            if (typeof raw === "string" && /^\d{4}-\d{2}-\d{2}/.test(raw)) {
-              expireUtc = raw;
-            } else {
-              expireUtc = null; // 날짜가 아니면 "Not activated"
-            }
+    // 1. 일반 모듈 카드들
+    const moduleCards = modules
+      .filter((mod) => mod !== "On-site Solution Service (Korea only)")
+      .map((mod) => {
+        const { gif, youtube, image } = info[mod] ?? { gif: null, youtube: null, image: null };
+        const moduleId = MODULE_NAME_TO_ID[mod];
+        let expireUtc = null;
+        if (userInfo && userInfo.module_licenses && moduleId) {
+          const raw = userInfo.module_licenses[moduleId];
+          if (typeof raw === "string" && /^\d{4}-\d{2}-\d{2}/.test(raw)) {
+            expireUtc = raw;
+          } else {
+            expireUtc = null;
           }
-          
-
-          return (
-            <div
-              key={mod}
-              className="
-                relative
-                bg-gray-50 rounded-2xl border shadow-md px-2 py-8
-                flex flex-col sm:flex-row items-center
-                h-auto sm:h-80 sm:min-h-[320px] sm:max-h-[320px] gap-6
-              "
-            >
-              {/* 모바일 버전 */}
-              <div className="flex flex-col w-full sm:hidden items-center">
-                <div className="w-full flex items-center justify-center mb-4">
-                  {image ? (
+        }
+        return (
+          <div
+            key={mod}
+            className="
+              relative
+              bg-gray-50 rounded-2xl border shadow-md px-2 py-8
+              flex flex-col sm:flex-row items-center
+              h-auto sm:h-80 sm:min-h-[320px] sm:max-h-[320px] gap-6
+            "
+          >
+            {/* 모바일 */}
+            <div className="flex flex-col w-full sm:hidden items-center">
+              <div className="w-full flex items-center justify-center mb-4">
+                {image ? (
+                  <Image
+                    src={image}
+                    alt={mod}
+                    width={288}
+                    height={72}
+                    className="object-contain max-h-[72px]"
+                    priority
+                  />
+                ) : (
+                  <span className="text-2xl font-extrabold px-4 break-words">{mod}</span>
+                )}
+              </div>
+              <div className="w-full h-56 aspect-video border rounded-2xl bg-white overflow-hidden flex items-center justify-center mb-4">
+                {youtube ? (
+                  <iframe
+                    className="w-full h-full"
+                    src={`https://www.youtube.com/embed/${youtube}`}
+                    title={`${mod} demo`}
+                    frameBorder={0}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                  />
+                ) : (
+                  <span className="text-gray-400 text-2xl font-bold flex items-center justify-center w-full h-full">
+                    Coming&nbsp;Soon
+                  </span>
+                )}
+              </div>
+              <div className="flex flex-col w-full items-center gap-2">
+                <div className="flex flex-row w-full justify-center items-center gap-2">
+                  <button
+                    className="bg-black text-white rounded-lg w-1/4 h-12 text-base font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
+                    onClick={() => handleModulePayment(mod, "1DAY")}
+                  >
+                    <span className="text-lg leading-5">1DAY</span>
+                    <span className="text-xs leading-5">$3</span>
+                  </button>
+                  <button
+                    className="bg-black text-white rounded-lg w-1/4 h-12 text-base font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
+                    onClick={() => handleModulePayment(mod, "1WEEK")}
+                  >
+                    <span className="text-lg leading-5">1WEEK</span>
+                    <span className="text-xs leading-5">$19</span>
+                  </button>
+                  <button
+                    className="bg-black text-white rounded-lg w-1/4 h-12 text-base font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
+                    onClick={() => handleModulePayment(mod, "1MONTH")}
+                  >
+                    <span className="text-lg leading-5">1MONTH</span>
+                    <span className="text-xs leading-5">$49</span>
+                  </button>
+                  <button
+                    className="bg-black text-white rounded-lg w-1/4 h-12 text-base font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
+                    onClick={() => handleModulePayment(mod, "1YEAR")}
+                  >
+                    <span className="text-lg leading-5">1YEAR</span>
+                    <span className="text-xs leading-5">$290</span>
+                  </button>
+                </div>
+                <div className="w-full text-center mt-3">
+                  {isLoggedIn ? (
+                    <span className="text-xs text-gray-600 font-mono">
+                      License expires:&nbsp;
+                      {expireUtc
+                        ? (
+                            <>
+                              <span className="text-black">{expireUtc}</span>
+                              <span className="text-xs text-gray-500">&nbsp;(UTC)</span>
+                            </>
+                          )
+                        : <span className="text-red-500">Not activated</span>
+                      }
+                    </span>
+                  ) : (
+                    <span className="text-xs text-gray-400">
+                      * Log in to check your license
+                    </span>
+                  )}
+                </div>
+              </div>
+            </div>
+            {/* 데스크탑 */}
+            <div className="hidden sm:flex flex-row items-center w-full h-full gap-6">
+              <div className="w-64 h-full flex-shrink-0 flex items-center justify-center">
+                {image ? (
+                  <Image
+                    src={image}
+                    alt={mod}
+                    width={288}
+                    height={72}
+                    className="object-contain max-h-[72px]"
+                    priority
+                  />
+                ) : (
+                  <span className="text-2xl sm:text-3xl font-extrabold px-4 break-words">{mod}</span>
+                )}
+              </div>
+              <div className="w-72 h-72 flex items-center justify-center flex-shrink-0">
+                <div className="w-72 h-72 flex items-center justify-center border rounded-2xl bg-white overflow-hidden">
+                  {gif ? (
                     <Image
-                      src={image}
-                      alt={mod}
+                      src={gif}
+                      alt={`${mod} gif`}
                       width={288}
-                      height={72}
-                      className="object-contain max-h-[72px]"
+                      height={288}
+                      className="object-contain w-full h-full"
                       priority
                     />
                   ) : (
-                    <span className="text-2xl font-extrabold px-4 break-words">{mod}</span>
+                    <span className="text-gray-400 text-2xl font-bold flex items-center justify-center w-full h-full">
+                      Coming&nbsp;Soon
+                    </span>
                   )}
                 </div>
-                <div className="w-full h-56 aspect-video border rounded-2xl bg-white overflow-hidden flex items-center justify-center mb-4">
+              </div>
+              <div className="flex-1 h-72 flex items-center justify-center min-w-0">
+                <div className="w-full h-72 aspect-video border rounded-2xl bg-white overflow-hidden flex items-center justify-center">
                   {youtube ? (
                     <iframe
                       className="w-full h-full"
@@ -1242,140 +1350,38 @@ export default function Page() {
                     </span>
                   )}
                 </div>
-                {/* 결제 버튼/만료일 (모바일: 세로) */}
-                <div className="flex flex-col w-full items-center gap-2">
-                  <div className="flex flex-row w-full justify-center items-center gap-2">
-                    <button
-                      className="bg-black text-white rounded-lg w-1/4 h-12 text-base font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
-                      onClick={() => handleModulePayment(mod, "1DAY")}
-                    >
-                      <span className="text-lg leading-5">1DAY</span>
-                      <span className="text-xs leading-5">$3</span>
-                    </button>
-                    <button
-                      className="bg-black text-white rounded-lg w-1/4 h-12 text-base font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
-                      onClick={() => handleModulePayment(mod, "1WEEK")}
-                    >
-                      <span className="text-lg leading-5">1WEEK</span>
-                      <span className="text-xs leading-5">$19</span>
-                    </button>
-                    <button
-                      className="bg-black text-white rounded-lg w-1/4 h-12 text-base font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
-                      onClick={() => handleModulePayment(mod, "1MONTH")}
-                    >
-                      <span className="text-lg leading-5">1MONTH</span>
-                      <span className="text-xs leading-5">$49</span>
-                    </button>
-                    <button
-                      className="bg-black text-white rounded-lg w-1/4 h-12 text-base font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
-                      onClick={() => handleModulePayment(mod, "1YEAR")}
-                    >
-                      <span className="text-lg leading-5">1YEAR</span>
-                      <span className="text-xs leading-5">$290</span>
-                    </button>
-                  </div>
-                  {/* 결제 버튼 아래에 만료일 (모바일) */}
-                  <div className="w-full text-center mt-3">
-                    <span className="text-xs text-gray-600 font-mono">
-                      License expires:&nbsp;
-                      {expireUtc
-                        ? (
-                            <>
-                              <span className="text-black">{expireUtc}</span>
-                              <span className="text-xs text-gray-500">&nbsp;(UTC)</span>
-                            </>
-                          )
-                        : <span className="text-red-500">Not activated</span>
-                      }
-                    </span>
-                  </div>
-                </div>
               </div>
-
-              {/* 데스크탑 버전 */}
-              <div className="hidden sm:flex flex-row items-center w-full h-full gap-6">
-                <div className="w-64 h-full flex-shrink-0 flex items-center justify-center">
-                  {image ? (
-                    <Image
-                      src={image}
-                      alt={mod}
-                      width={288}
-                      height={72}
-                      className="object-contain max-h-[72px]"
-                      priority
-                    />
-                  ) : (
-                    <span className="text-2xl sm:text-3xl font-extrabold px-4 break-words">{mod}</span>
-                  )}
-                </div>
-                <div className="w-72 h-72 flex items-center justify-center flex-shrink-0">
-                  <div className="w-72 h-72 flex items-center justify-center border rounded-2xl bg-white overflow-hidden">
-                    {gif ? (
-                      <Image
-                        src={gif}
-                        alt={`${mod} gif`}
-                        width={288}
-                        height={288}
-                        className="object-contain w-full h-full"
-                        priority
-                      />
-                    ) : (
-                      <span className="text-gray-400 text-2xl font-bold flex items-center justify-center w-full h-full">
-                        Coming&nbsp;Soon
-                      </span>
-                    )}
-                  </div>
-                </div>
-                <div className="flex-1 h-72 flex items-center justify-center min-w-0">
-                  <div className="w-full h-72 aspect-video border rounded-2xl bg-white overflow-hidden flex items-center justify-center">
-                    {youtube ? (
-                      <iframe
-                        className="w-full h-full"
-                        src={`https://www.youtube.com/embed/${youtube}`}
-                        title={`${mod} demo`}
-                        frameBorder={0}
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        allowFullScreen
-                      />
-                    ) : (
-                      <span className="text-gray-400 text-2xl font-bold flex items-center justify-center w-full h-full">
-                        Coming&nbsp;Soon
-                      </span>
-                    )}
-                  </div>
-                </div>
-                {/* 결제 버튼/만료일 (데스크탑: 세로) */}
-                <div className="flex flex-col gap-3 w-40 flex-shrink-0 h-full justify-center items-center">
-                  <button
-                    className="bg-black text-white rounded-lg w-32 h-16 text-lg font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
-                    onClick={() => handleModulePayment(mod, "1DAY")}
-                  >
-                    <span className="text-xl leading-5">1DAY</span>
-                    <span className="text-base leading-5">$3</span>
-                  </button>
-                  <button
-                    className="bg-black text-white rounded-lg w-32 h-16 text-lg font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
-                    onClick={() => handleModulePayment(mod, "1WEEK")}
-                  >
-                    <span className="text-xl leading-5">1WEEK</span>
-                    <span className="text-base leading-5">$19</span>
-                  </button>
-                  <button
-                    className="bg-black text-white rounded-lg w-32 h-16 text-lg font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
-                    onClick={() => handleModulePayment(mod, "1MONTH")}
-                  >
-                    <span className="text-xl leading-5">1MONTH</span>
-                    <span className="text-base leading-5">$49</span>
-                  </button>
-                  <button
-                    className="bg-black text-white rounded-lg w-32 h-16 text-lg font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
-                    onClick={() => handleModulePayment(mod, "1YEAR")}
-                  >
-                    <span className="text-xl leading-5">1YEAR</span>
-                    <span className="text-base leading-5">$290</span>
-                  </button>
-                  {/* 결제 버튼 아래에 만료일 (데스크탑) */}
-                  <div className="w-full text-center mt-4">
+              <div className="flex flex-col gap-3 w-40 flex-shrink-0 h-full justify-center items-center">
+                <button
+                  className="bg-black text-white rounded-lg w-32 h-16 text-lg font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
+                  onClick={() => handleModulePayment(mod, "1DAY")}
+                >
+                  <span className="text-xl leading-5">1DAY</span>
+                  <span className="text-base leading-5">$3</span>
+                </button>
+                <button
+                  className="bg-black text-white rounded-lg w-32 h-16 text-lg font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
+                  onClick={() => handleModulePayment(mod, "1WEEK")}
+                >
+                  <span className="text-xl leading-5">1WEEK</span>
+                  <span className="text-base leading-5">$19</span>
+                </button>
+                <button
+                  className="bg-black text-white rounded-lg w-32 h-16 text-lg font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
+                  onClick={() => handleModulePayment(mod, "1MONTH")}
+                >
+                  <span className="text-xl leading-5">1MONTH</span>
+                  <span className="text-base leading-5">$49</span>
+                </button>
+                <button
+                  className="bg-black text-white rounded-lg w-32 h-16 text-lg font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
+                  onClick={() => handleModulePayment(mod, "1YEAR")}
+                >
+                  <span className="text-xl leading-5">1YEAR</span>
+                  <span className="text-base leading-5">$290</span>
+                </button>
+                <div className="w-full text-center mt-4">
+                  {isLoggedIn ? (
                     <span className="text-xs text-gray-600 font-mono">
                       License expires:&nbsp;
                       {expireUtc
@@ -1388,16 +1394,106 @@ export default function Page() {
                         : <span className="text-red-500">Not activated</span>
                       }
                     </span>
-                  </div>
+                  ) : (
+                    <span className="text-xs text-gray-400">
+                      * Log in to check your license
+                    </span>
+                  )}
                 </div>
               </div>
             </div>
-          );
-        })}
+          </div>
+        );
+      });
+
+    // 2. 방문 솔루션 서비스 카드 (맨 아래, 한글→영문, 가로배치, 문의메일 강조)
+    const onsiteCard = (
+      <div
+        key="On-site Solution Service (Korea only)"
+        className="
+          relative
+          bg-gray-50 rounded-2xl border shadow-md px-2 py-8
+          flex flex-col sm:flex-row items-center
+          h-auto sm:h-80 sm:min-h-[320px] sm:max-h-[320px] gap-6
+        "
+      >
+        {/* 모바일 (세로) */}
+        <div className="flex flex-col w-full sm:hidden gap-4">
+          <div className="text-2xl font-extrabold text-left">
+            방문 솔루션 <span className="text-base text-gray-400">(한국 한정)</span>
+          </div>
+          <div className="text-gray-800 text-base font-bold">
+            직접 방문하여 기공소 내의 문제를 해결하고, 최적화된 솔루션을 제공합니다.
+          </div>
+          <div className="text-gray-700 text-base">
+            We visit your dental lab in person to solve workflow issues and provide optimized solutions.
+          </div>
+          <div className="flex flex-row justify-between items-center">
+            <span className="text-xl font-extrabold text-black whitespace-nowrap">
+              ₩550,000
+              <span className="text-xs ml-1 font-medium text-gray-500">(VAT included, 부가세 포함)</span>
+            </span>
+          </div>
+          <div className="mt-3 text-center">
+            <span className="text-base font-bold text-blue-700 block mb-1" style={{ fontSize: '1.1rem' }}>
+              문의/예약: <a href="mailto:techdev@dlas.io" className="underline">techdev@dlas.io</a>
+            </span>
+            <span className="text-xs text-gray-500 block">
+              * 본 서비스는 대한민국 기공소만 신청 가능합니다.<br />
+              * This service is only available for dental labs in South Korea.
+            </span>
+          </div>
+        </div>
+        {/* 데스크탑 (가로) */}
+        <div className="hidden sm:flex flex-row items-center w-full h-full gap-6">
+          {/* 이름 */}
+          <div className="w-80 flex flex-col items-start justify-center h-full px-8">
+            <span className="text-3xl font-extrabold text-black">
+              방문 솔루션
+            </span>
+            <span className="text-base text-gray-400 font-bold ml-1 mt-1">(한국 한정)</span>
+          </div>
+          {/* 설명 */}
+          <div className="flex-1 flex flex-col justify-center h-full px-2 text-left gap-2">
+            <div className="text-lg text-gray-800 font-bold">
+              직접 방문하여 기공소 내의 문제를 해결하고, 최적화된 솔루션을 제공합니다.
+            </div>
+            <div className="text-base text-gray-700">
+              We visit your dental lab in person to solve workflow issues and provide optimized solutions.
+            </div>
+            <div className="mt-3">
+              <span className="text-base font-bold text-blue-700" style={{ fontSize: '1.15rem' }}>
+                문의/예약: <a href="mailto:techdev@dlas.io" className="underline">techdev@dlas.io</a>
+              </span>
+              <span className="text-xs text-gray-500 block mt-1">
+                * 본 서비스는 대한민국 기공소만 신청 가능합니다.<br />
+                * This service is only available for dental labs in South Korea.
+              </span>
+            </div>
+          </div>
+          {/* 가격 */}
+          <div className="w-64 flex flex-col items-center justify-center">
+            <span className="text-3xl font-extrabold text-black">
+              ₩550,000
+            </span>
+            <span className="text-xs mt-1 font-medium text-gray-500">
+              (VAT included, 부가세 포함)
+            </span>
+          </div>
+        </div>
+      </div>
+    );
+
+    return (
+      <div className="flex flex-col gap-y-16 w-full max-w-6xl mx-auto">
+        {moduleCards}
+        {onsiteCard}
       </div>
     );
   })()}
 </section>
+
+
 
 
           {/* 연락처 섹션 */}
