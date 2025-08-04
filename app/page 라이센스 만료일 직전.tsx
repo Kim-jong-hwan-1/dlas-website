@@ -216,24 +216,22 @@ const priceLabel = (period: string, country?: string) => {
     module_licenses?: { [key: string]: string };  // ← 이 부분 추가!
   }>({});
 
-const fetchLicenseInfo = async (accessToken: string) => {
-  try {
-    const res = await fetch("https://license-server-697p.onrender.com/admin/my-license", {
-      headers: { Authorization: `Bearer ${accessToken}` },
-    });
-    if (!res.ok) throw new Error("Failed to fetch license info");
-    const data = await res.json();
-    // 🆕 Normalize server response so that module_licenses always contains an object
-    const moduleLicenses = data.module_licenses || data.enabled_modules || {};
-    setUserInfo((prev) => ({
-      ...prev,
-      licenseStatus: data.licenseStatus ?? prev.licenseStatus,
-      module_licenses: moduleLicenses,
-    }));
-  } catch (err) {
-    console.error(err);
-  }
-};
+  const fetchLicenseInfo = async (accessToken: string) => {
+    try {
+      const res = await fetch("https://license-server-697p.onrender.com/admin/my-license", {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
+      if (!res.ok) throw new Error("Failed to fetch license info");
+      const data = await res.json();
+      setUserInfo((prev) => ({
+        ...prev,
+        licenseStatus: data.licenseStatus ?? prev.licenseStatus,
+        module_licenses: data.enabled_modules ?? data.module_licenses ?? prev.module_licenses,
+      }));
+    } catch (err) {
+      console.error(err);
+    }
+  };
   
   useEffect(() => {
     if (token) {
@@ -1254,28 +1252,15 @@ const handleFamilyLicensePayment = () => {
       .map((mod) => {
         const { gif, youtube, image } = info[mod] ?? { gif: null, youtube: null, image: null };
         const moduleId = MODULE_NAME_TO_ID[mod];
-let expireUtc: string | null = null;
-if (userInfo && userInfo.module_licenses && moduleId) {
-  const raw = userInfo.module_licenses[moduleId];
-  if (raw) {
-    if (typeof raw === "string") {
-      const m = raw.match(/^\d{4}-\d{2}-\d{2}/);
-      if (m) expireUtc = m[0];
-    } else if (typeof raw === "object") {
-      const dateStr =
-        raw.expires_at ||
-        raw.expire_date ||
-        raw.expiry ||
-        raw.expired_at ||
-        raw.date ||
-        "";
-      if (typeof dateStr === "string") {
-        const m = dateStr.match(/^\d{4}-\d{2}-\d{2}/);
-        if (m) expireUtc = m[0];
-      }
-    }
-  }
-}
+        let expireUtc = null;
+        if (userInfo && userInfo.module_licenses && moduleId) {
+          const raw = userInfo.module_licenses[moduleId];
+          if (typeof raw === "string" && /^\d{4}-\d{2}-\d{2}/.test(raw)) {
+            expireUtc = raw;
+          } else {
+            expireUtc = null;
+          }
+        }
         return (
           <div
             key={mod}
