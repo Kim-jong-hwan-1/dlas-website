@@ -1420,7 +1420,7 @@ export default function Page() {
         {/* 모바일 (세로) */}
         <div className="flex flex-col w-full sm:hidden gap-4">
           <div className="text-2xl font-extrabold text-left">
-            방문 솔루션 <span className="text-base text-gray-400">(한국 한정)</span>
+            방문 솔루션 <span className="text-base text-gray-400">(한국 한정/only for kroea)</span>
           </div>
           <div className="text-gray-800 text-base font-bold">
             직접 방문하여 기공소 내의 문제를 해결하고, 최적화된 솔루션을 제공합니다.
@@ -1451,7 +1451,7 @@ export default function Page() {
             <span className="text-3xl font-extrabold text-black">
               방문 솔루션
             </span>
-            <span className="text-base text-gray-400 font-bold ml-1 mt-1">(한국 한정)</span>
+            <span className="text-base text-gray-400 font-bold ml-1 mt-1">(한국 한정/only for kroea)</span>
           </div>
           {/* 설명 */}
           <div className="flex-1 flex flex-col justify-center h-full px-2 text-left gap-2">
