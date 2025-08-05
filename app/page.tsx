@@ -1253,12 +1253,15 @@ const handleFamilyLicensePayment = () => {
         const { gif, youtube, image } = info[mod] ?? { gif: null, youtube: null, image: null };
         const moduleId = MODULE_NAME_TO_ID[mod];
         let expireUtc = null;
+        let expireDebug: string | null = null;
           if (userInfo && userInfo.module_licenses && typeof userInfo.module_licenses === "object" && !Array.isArray(userInfo.module_licenses) && moduleId) {
           const raw = userInfo.module_licenses[moduleId];
+          if (raw === undefined) expireDebug = "no license entry";
           if (typeof raw === "string" && /^\d{4}-\d{2}-\d{2}/.test(raw)) {
             expireUtc = raw;
           } else {
             expireUtc = null;
+            expireDebug = "invalid or missing date";
           }
         }
         return (
