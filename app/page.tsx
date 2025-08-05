@@ -1257,7 +1257,48 @@ const handleFamilyLicensePayment = () => {
           if (userInfo && userInfo.module_licenses && typeof userInfo.module_licenses === "object" && !Array.isArray(userInfo.module_licenses) && moduleId) {
           const raw = userInfo.module_licenses[moduleId];
           if (raw === undefined) expireDebug = "no license entry";
-          if (typeof raw === "string" && /^\d{4}-\d{2}-\d{2}/.test(raw)) {
+          let parseDateFromObj = (obj: any): string | null => {
+  if (!obj || typeof obj !== "object") return null;
+  const possibleKeys = ["expires_at", "expire_date", "expiry", "expired_at", "date"];
+  for (const k of possibleKeys) {
+    if (obj[k]) return obj[k];
+  }
+  return null;
+};
+
+if (raw === undefined) {
+  expireDebug = "no license entry";
+} else if (typeof raw === "string") {
+  if (/^\d{4}-\d{2}-\d{2}/.test(raw)) {
+    expireUtc = raw.slice(0, 10);
+  } else {
+    expireDebug = "invalid date string";
+  }
+} else if (typeof raw === "object") {
+  const extracted = parseDateFromObj(raw);
+  if (extracted && /^\d{4}-\d{2}-\d{2}/.test(extracted)) {
+    expireUtc = extracted.slice(0, 10);
+  } else if (extracted) {
+    const d = new Date(extracted);
+    if (!isNaN(d.getTime())) {
+      const y = d.getUTCFullYear();
+      const m = String(d.getUTCMonth() + 1).padStart(2, "0");
+      const day = String(d.getUTCDate()).padStart(2, "0");
+      expireUtc = `${y}-${m}-${day}`;
+    } else {
+      expireDebug = "unable to parse object date";
+    }
+  } else {
+    expireDebug = "date field missing in object";
+  }
+} else {
+  expireDebug = "unsupported license data type";
+}
+
+// Handle unlimited license represented as far future date
+if (expireUtc === "9999-12-31") {
+  expireUtc = "Unlimited";
+}-\d{2}-\d{2}/.test(raw)) {
             expireUtc = raw;
           } else {
             expireUtc = null;
