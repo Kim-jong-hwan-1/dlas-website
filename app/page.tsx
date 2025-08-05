@@ -1252,52 +1252,36 @@ const handleFamilyLicensePayment = () => {
       .map((mod) => {
         const { gif, youtube, image } = info[mod] ?? { gif: null, youtube: null, image: null };
         const moduleId = MODULE_NAME_TO_ID[mod];
+        
+let expireUtc: string | null = null;
+let unlimited = false;
+let expireDebug: string | null = null;
+const unlimitedLabel = isKoreanUser(userInfo.country) ? "무제한" : "Unlimited";
 
-        let expireUtc: string | null = null;
-        let expireDebug: string | null = null;
-
-        if (
-          userInfo &&
-          userInfo.module_licenses &&
-          typeof userInfo.module_licenses === "object" &&
-          !Array.isArray(userInfo.module_licenses) &&
-          moduleId
-        ) {
-          const raw: any = (userInfo.module_licenses as any)[moduleId];
-
-          // helper to extract date string from object
-          const extractDate = (val: any): string | null => {
-            if (!val) return null;
-            if (typeof val === "string") return val;
-            if (typeof val === "object") {
-              for (const k of ["expires_at", "expire_date", "expiry", "expired_at", "date"]) {
-                if (val[k]) return val[k];
-              }
-            }
-            return null;
-          };
-
-          const candidate = extractDate(raw);
-
-          if (candidate) {
-            if (/^\d{4}-\d{2}-\d{2}/.test(candidate)) {
-              expireUtc = candidate.slice(0, 10);
-            } else {
-              const d = new Date(candidate);
-              if (!isNaN(d.getTime())) {
-                const y = d.getUTCFullYear();
-                const m = String(d.getUTCMonth() + 1).padStart(2, "0");
-                const day = String(d.getUTCDate()).padStart(2, "0");
-                expireUtc = `${y}-${m}-${day}`;
-              }
-            }
-          } else {
-            expireDebug = raw === undefined ? "no license entry" : "invalid or missing date";
+if (
+  userInfo &&
+  userInfo.module_licenses &&
+  typeof userInfo.module_licenses === "object" &&
+  !Array.isArray(userInfo.module_licenses) &&
+  moduleId
+) {
+  const raw = userInfo.module_licenses[moduleId];
+  if (raw === undefined) {
+    expireDebug = "no license entry";
+  } else if (typeof raw === "string") {
+    if (raw.startsWith("9999-12-31")) {
+      unlimited = true;
+    } else {
+      const m = raw.match(/^(\d{4}-\d{2}-\d{2})/);
+      if (m) expireUtc = m[1];
+      else expireDebug = "unparsable";
+    }
+  } else {
+    expireDebug = "invalid or missing date";
+  }
+}
           }
         }
-
-        // Treat far‑future date as Unlimited
-        if (expireUtc === "9999-12-31") expireUtc = "Unlimited";
         return (
           <div
             key={mod}
@@ -1375,14 +1359,19 @@ const handleFamilyLicensePayment = () => {
                   {isLoggedIn ? (
                     <span className="text-xs text-gray-600 font-mono">
                       License expires:&nbsp;
-                      {expireUtc
-                        ? (
-                            <>
-                              <span className="text-black">{expireUtc}</span>
-                              <span className="text-xs text-gray-500">&nbsp;(UTC)</span>
-                            </>
-                          )
-                        <span className="text-red-500">Not activated{expireDebug ? ` (reason: ${expireDebug})` : ""}</span>
+                      
+{unlimited ? (
+  <span className="text-green-600 font-bold">{unlimitedLabel}</span>
+) : expireUtc ? (
+  <>
+    <span className="text-black">{expireUtc}</span>
+    <span className="text-xs text-gray-500">&nbsp;(UTC)</span>
+  </>
+) : (
+  <span className="text-red-500">
+    Not activated{expireDebug ? ` (reason: ${expireDebug})` : ""}
+  </span>
+)})` : ""}</span>
                       }
                     </span>
                   ) : (
@@ -1478,14 +1467,19 @@ const handleFamilyLicensePayment = () => {
                   {isLoggedIn ? (
                     <span className="text-xs text-gray-600 font-mono">
                       License expires:&nbsp;
-                      {expireUtc
-                        ? (
-                            <>
-                              <span className="text-black">{expireUtc}</span>
-                              <span className="text-xs text-gray-500">&nbsp;(UTC)</span>
-                            </>
-                          )
-                        <span className="text-red-500">Not activated{expireDebug ? ` (reason: ${expireDebug})` : ""}</span>
+                      
+{unlimited ? (
+  <span className="text-green-600 font-bold">{unlimitedLabel}</span>
+) : expireUtc ? (
+  <>
+    <span className="text-black">{expireUtc}</span>
+    <span className="text-xs text-gray-500">&nbsp;(UTC)</span>
+  </>
+) : (
+  <span className="text-red-500">
+    Not activated{expireDebug ? ` (reason: ${expireDebug})` : ""}
+  </span>
+)})` : ""}</span>
                       }
                     </span>
                   ) : (
