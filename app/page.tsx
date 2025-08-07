@@ -1252,34 +1252,13 @@ const handleFamilyLicensePayment = () => {
       .map((mod) => {
         const { gif, youtube, image } = info[mod] ?? { gif: null, youtube: null, image: null };
         const moduleId = MODULE_NAME_TO_ID[mod];
-        
-let expireUtc: string | null = null;
-let unlimited = false;
-let expireDebug: string | null = null;
-const unlimitedLabel = isKoreanUser(userInfo.country) ? "무제한" : "Unlimited";
-
-if (
-  userInfo &&
-  userInfo.module_licenses &&
-  typeof userInfo.module_licenses === "object" &&
-  !Array.isArray(userInfo.module_licenses) &&
-  moduleId
-) {
-  const raw = userInfo.module_licenses[moduleId];
-  if (raw === undefined) {
-    expireDebug = "no license entry";
-  } else if (typeof raw === "string") {
-    if (raw.startsWith("9999-12-31")) {
-      unlimited = true;
-    } else {
-      const m = raw.match(/^(\d{4}-\d{2}-\d{2})/);
-      if (m) expireUtc = m[1];
-      else expireDebug = "unparsable";
-    }
-  } else {
-    expireDebug = "invalid or missing date";
-  }
-}
+        let expireUtc = null;
+          if (userInfo && userInfo.module_licenses && typeof userInfo.module_licenses === "object" && !Array.isArray(userInfo.module_licenses) && moduleId) {
+          const raw = userInfo.module_licenses[moduleId];
+          if (typeof raw === "string" && /^\d{4}-\d{2}-\d{2}/.test(raw)) {
+            expireUtc = raw;
+          } else {
+            expireUtc = null;
           }
         }
         return (
@@ -1359,19 +1338,14 @@ if (
                   {isLoggedIn ? (
                     <span className="text-xs text-gray-600 font-mono">
                       License expires:&nbsp;
-                      
-{unlimited ? (
-  <span className="text-green-600 font-bold">{unlimitedLabel}</span>
-) : expireUtc ? (
-  <>
-    <span className="text-black">{expireUtc}</span>
-    <span className="text-xs text-gray-500">&nbsp;(UTC)</span>
-  </>
-) : (
-  <span className="text-red-500">
-    Not activated{expireDebug ? ` (reason: ${expireDebug})` : ""}
-  </span>
-)})` : ""}</span>
+                      {expireUtc
+                        ? (
+                            <>
+                              <span className="text-black">{expireUtc}</span>
+                              <span className="text-xs text-gray-500">&nbsp;(UTC)</span>
+                            </>
+                          )
+                        : <span className="text-red-500">Not activated{expireDebug ? ` (reason: ${expireDebug})` : ""}</span>
                       }
                     </span>
                   ) : (
@@ -1467,19 +1441,14 @@ if (
                   {isLoggedIn ? (
                     <span className="text-xs text-gray-600 font-mono">
                       License expires:&nbsp;
-                      
-{unlimited ? (
-  <span className="text-green-600 font-bold">{unlimitedLabel}</span>
-) : expireUtc ? (
-  <>
-    <span className="text-black">{expireUtc}</span>
-    <span className="text-xs text-gray-500">&nbsp;(UTC)</span>
-  </>
-) : (
-  <span className="text-red-500">
-    Not activated{expireDebug ? ` (reason: ${expireDebug})` : ""}
-  </span>
-)})` : ""}</span>
+                      {expireUtc
+                        ? (
+                            <>
+                              <span className="text-black">{expireUtc}</span>
+                              <span className="text-xs text-gray-500">&nbsp;(UTC)</span>
+                            </>
+                          )
+                        : <span className="text-red-500">Not activated{expireDebug ? ` (reason: ${expireDebug})` : ""}</span>
                       }
                     </span>
                   ) : (
