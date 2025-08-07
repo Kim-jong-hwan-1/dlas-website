@@ -72,6 +72,29 @@ import { useLang } from "@/components/LanguageWrapper";
 import LanguageSelector from "@/components/LanguageSelector";
 import Script from "next/script";
 
+/*───────────────────────────────────────────────────
+  만료일 포매터 – 9999‑12‑31 ➜ Unlimited, 
+  날짜/시간 포함 여부 확인
+────────────────────────────────────────────────────*/
+const formatExpiration = (raw?: string) => {
+  if (!raw) return { display: null, debug: "empty" } as const;
+  if (raw.startsWith("9999-12-31")) return { display: "Unlimited", debug: null } as const;
+
+  const m = raw.match(/^(\d{4}-\d{2}-\d{2})(?:[T\s](\d{2}):(\d{2}))/);
+  if (!m) return { display: null, debug: "unrecognised format" } as const;
+
+  const [ , ymd, hh, mm ] = m;
+  if (!hh) return { display: ymd, debug: null } as const;
+
+  const d = new Date(raw);
+  if (isNaN(d.getTime())) return { display: null, debug: "invalid date" } as const;
+
+  const p = (n:number)=>`${n}`.padStart(2,"0");
+  const utc = `${d.getUTCFullYear()}-${p(d.getUTCMonth()+1)}-${p(d.getUTCDate())} ${p(d.getUTCHours())}:${p(d.getUTCMinutes())} (UTC)`;
+  return { display: utc, debug: null } as const;
+};
+
+
 // --------------------------------
 // ✅ 1) Paddle 환경/토큰/priceId 상수 정의
 // --------------------------------
@@ -1253,6 +1276,7 @@ const handleFamilyLicensePayment = () => {
         const { gif, youtube, image } = info[mod] ?? { gif: null, youtube: null, image: null };
         const moduleId = MODULE_NAME_TO_ID[mod];
         let expireUtc = null;
+        const { display: expireDisplay, debug: expireDebug } = formatExpiration(expireUtc ?? undefined);
           if (userInfo && userInfo.module_licenses && typeof userInfo.module_licenses === "object" && !Array.isArray(userInfo.module_licenses) && moduleId) {
           const raw = userInfo.module_licenses[moduleId];
           if (typeof raw === "string" && /^\d{4}-\d{2}-\d{2}/.test(raw)) {
@@ -1260,7 +1284,9 @@ const handleFamilyLicensePayment = () => {
           } else {
             expireUtc = null;
           }
-        }
+        
+        const { display: expireDisplay, debug: expireDebug } = formatExpiration(expireUtc ?? undefined);
+}
         return (
           <div
             key={mod}
@@ -1338,10 +1364,10 @@ const handleFamilyLicensePayment = () => {
                   {isLoggedIn ? (
                     <span className="text-xs text-gray-600 font-mono">
                       License expires:&nbsp;
-                      {expireUtc
+                      {expireDisplay
                         ? (
                             <>
-                              <span className="text-black">{expireUtc}</span>
+                              <span className="text-black">{expireDisplay}</span>
                               <span className="text-xs text-gray-500">&nbsp;(UTC)</span>
                             </>
                           )
@@ -1441,10 +1467,10 @@ const handleFamilyLicensePayment = () => {
                   {isLoggedIn ? (
                     <span className="text-xs text-gray-600 font-mono">
                       License expires:&nbsp;
-                      {expireUtc
+                      {expireDisplay
                         ? (
                             <>
-                              <span className="text-black">{expireUtc}</span>
+                              <span className="text-black">{expireDisplay}</span>
                               <span className="text-xs text-gray-500">&nbsp;(UTC)</span>
                             </>
                           )
