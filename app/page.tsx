@@ -246,7 +246,9 @@ const priceLabel = (period: string, country?: string) => {
       });
       if (!res.ok) throw new Error("Failed to fetch license info");
       const data = await res.json();
-      setUserInfo((prev) => ({
+      console.log("▶ FULL my-license payload:", data);
+console.log("▶ module_licenses:", data.module_licenses ?? data.moduleLicenses ?? data.modules);
+setUserInfo((prev) => ({
         ...prev,
         licenseStatus: data.licenseStatus ?? prev.licenseStatus,
       module_licenses: (data.module_licenses && typeof data.module_licenses === "object" && !Array.isArray(data.module_licenses)) ? data.module_licenses : prev.module_licenses,
