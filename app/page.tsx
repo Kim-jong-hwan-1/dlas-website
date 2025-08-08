@@ -90,7 +90,7 @@ const formatExpiration = (raw?: string) => {
   if (isNaN(d.getTime())) return { display: null, debug: "invalid date" } as const;
 
   const p = (n:number)=>`${n}`.padStart(2,"0");
-  const utc = `${d.getUTCFullYear()}-${p(d.getUTCMonth()+1)}-${p(d.getUTCDate())} ${p(d.getUTCHours())}:${p(d.getUTCMinutes())} (UTC)`;
+  const utc = `${d.getUTCFullYear()}-${p(d.getUTCMonth()+1)}-${p(d.getUTCDate())} ${p(d.getUTCHours())}:${p(d.getUTCMinutes())}`;
   return { display: utc, debug: null } as const;
 };
 
@@ -1275,18 +1275,20 @@ const handleFamilyLicensePayment = () => {
       .map((mod) => {
         const { gif, youtube, image } = info[mod] ?? { gif: null, youtube: null, image: null };
         const moduleId = MODULE_NAME_TO_ID[mod];
-        let expireUtc = null;
-        const { display: expireDisplay, debug: expireDebug } = formatExpiration(expireUtc ?? undefined);
-          if (userInfo && userInfo.module_licenses && typeof userInfo.module_licenses === "object" && !Array.isArray(userInfo.module_licenses) && moduleId) {
+        let expireUtc: string | null = null;
+        if (
+          userInfo &&
+          userInfo.module_licenses &&
+          typeof userInfo.module_licenses === "object" &&
+          !Array.isArray(userInfo.module_licenses) &&
+          moduleId
+        ) {
           const raw = userInfo.module_licenses[moduleId];
-          if (typeof raw === "string" && /^\d{4}-\d{2}-\d{2}/.test(raw)) {
+          if (typeof raw === "string" && raw.trim()) {
             expireUtc = raw;
-          } else {
-            expireUtc = null;
           }
-        
+        }
         const { display: expireDisplay, debug: expireDebug } = formatExpiration(expireUtc ?? undefined);
-}
         return (
           <div
             key={mod}
