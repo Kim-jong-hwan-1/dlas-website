@@ -246,8 +246,6 @@ const priceLabel = (period: string, country?: string) => {
       });
       if (!res.ok) throw new Error("Failed to fetch license info");
       const data = await res.json();
-      console.log("▶ FULL my-license payload:", data);
-      console.log("▶ module_licenses:", data.module_licenses ?? data.moduleLicenses ?? data.modules);
       setUserInfo((prev) => ({
         ...prev,
         licenseStatus: data.licenseStatus ?? prev.licenseStatus,
@@ -276,8 +274,6 @@ const priceLabel = (period: string, country?: string) => {
       );
       if (!res.ok) throw new Error("Failed to fetch user info");
       const data = await res.json();
-      console.log("▶ FULL my-license payload:", data);
-      console.log("▶ module_licenses:", data.module_licenses ?? data.moduleLicenses ?? data.modules);
       setUserInfo({
         name: data.name,
         id: data.id,
@@ -1372,7 +1368,7 @@ const handleFamilyLicensePayment = () => {
                         ? (
                             <>
                               <span className="text-black">{expireDisplay}</span>
-                              {expireDisplay !== "Unlimited" && expireDisplay?.includes(":") && (<span className="text-xs text-gray-500">&nbsp;(UTC)</span>)}
+                              <span className="text-xs text-gray-500">&nbsp;(UTC)</span>
                             </>
                           )
                         : <span className="text-red-500">Not activated{expireDebug ? ` (reason: ${expireDebug})` : ""}</span>
@@ -1475,7 +1471,7 @@ const handleFamilyLicensePayment = () => {
                         ? (
                             <>
                               <span className="text-black">{expireDisplay}</span>
-                              {expireDisplay !== "Unlimited" && expireDisplay?.includes(":") && (<span className="text-xs text-gray-500">&nbsp;(UTC)</span>)}
+                              <span className="text-xs text-gray-500">&nbsp;(UTC)</span>
                             </>
                           )
                         : <span className="text-red-500">Not activated{expireDebug ? ` (reason: ${expireDebug})` : ""}</span>
