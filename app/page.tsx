@@ -971,7 +971,7 @@ const handleModulePayment = (mod: string, period: string) => {
         `}</style>
       </Head>
 
-      {/* ✅ 최초 접속 시 한국어(ko) 기본 설정 + 쿠키 + 준비완료 마크 */}
+      {/* ✅ 홈페이지 진입 시 무조건 ko로 강제 설정 (저장된 값 무시) + FOUC 해제 */}
       <Script
         id="dlas-initial-lang-ko"
         strategy="beforeInteractive"
@@ -979,30 +979,20 @@ const handleModulePayment = (mod: string, period: string) => {
           __html: `
           (function () {
             try {
-              // 1) 기존 저장된 언어 확인
-              var lang =
-                localStorage.getItem('DLAS_LANG') ||
-                localStorage.getItem('lang') ||
-                localStorage.getItem('i18nLang');
-
-              // 2) 첫 방문(저장값 없음)인 경우에만 ko로 선설정
-              if (!lang) {
+              // 홈(/)에 진입하면 항상 ko로 시작
+              if (typeof location === 'undefined' || location.pathname === '/') {
                 localStorage.setItem('DLAS_LANG', 'ko');
                 localStorage.setItem('lang', 'ko');
                 localStorage.setItem('i18nLang', 'ko');
-                lang = 'ko';
+                document.cookie = 'DLAS_LANG=ko; Path=/; Max-Age=31536000; SameSite=Lax';
+                if (document && document.documentElement) {
+                  document.documentElement.setAttribute('lang', 'ko');
+                }
               }
-
-              // 3) <html lang> 확정
+              // 번역 준비 완료 표시 → FOUC 해제
               if (document && document.documentElement) {
-                document.documentElement.setAttribute('lang', lang || 'ko');
+                document.documentElement.setAttribute('data-i18n-ready', '1');
               }
-
-              // 4) 쿠키도 동기화(다른 페이지/요청에서 활용 가능)
-              document.cookie = 'DLAS_LANG=' + (lang || 'ko') + '; Path=/; Max-Age=31536000; SameSite=Lax';
-
-              // 5) 번역 준비 완료 표시 → FOUC 해제
-              document.documentElement.setAttribute('data-i18n-ready', '1');
             } catch (e) {}
           })();`,
         }}
