@@ -42,7 +42,7 @@ declare global {
                 quantity?: number;
                 customer: { email: string };
                 customData?: { [key: string]: any };
-                discountCode?: string; // 할인 코드 필드
+                discountCode?: string;
                 closeCallback?: () => void;
               }
             | {
@@ -50,7 +50,7 @@ declare global {
                 items: { priceId: string; quantity?: number }[];
                 customer: { email: string };
                 customData?: { [key: string]: any };
-                discountCode?: string; // 할인 코드 필드
+                discountCode?: string;
                 closeCallback?: () => void;
               }
         ) => void;
@@ -62,7 +62,7 @@ declare global {
 export {}; // 타입 선언 파일에서는 필요 (중복 선언 방지)
 
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import { useLang } from "@/components/LanguageWrapper";
 import LanguageSelector from "@/components/LanguageSelector";
@@ -112,7 +112,139 @@ export default function Page() {
     const stored = localStorage.getItem("DLAS_TOKEN");
     if (stored) setToken(stored);
   }, []);
-  
+
+  // ------------ [추가] Toss 성공/실패 콜백 처리용 상태 ------------
+  type TossIntentType = "module" | "family";
+  type TossStatus = "success" | "fail";
+
+  const [tossModalOpen, setTossModalOpen] = useState(false);
+  const [tossApproveState, setTossApproveState] = useState<"idle"|"requesting"|"ok"|"fail">("idle");
+  const [tossErrText, setTossErrText] = useState<string>("");
+
+  const [tossPayload, setTossPayload] = useState<{
+    status: TossStatus;
+    type: TossIntentType;
+    paymentKey: string;
+    orderId: string;
+    amount: number;
+    orderName?: string;
+    module?: string;
+    period?: string;
+    userEmail?: string;
+    code?: string;
+    message?: string;
+  } | null>(null);
+
+  // 성공/실패로 돌아왔을 때 URL 파라미터 파싱
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const p = new URLSearchParams(window.location.search);
+
+    const provider = p.get("provider");
+    const paymentKey = p.get("paymentKey"); // 성공 시 존재
+    const orderId = p.get("orderId") ?? "";
+    const amountStr = p.get("amount") ?? "";
+    const type = (p.get("type") as TossIntentType) || "module";
+    const mod = p.get("mod") ?? undefined;
+    const period = p.get("period") ?? undefined;
+    const orderName = p.get("orderName") ?? undefined;
+
+    // 실패 시 Toss가 code/message 부여
+    const failCode = p.get("code");
+    const failMsg = p.get("message");
+
+    if (provider === "toss" && (paymentKey || failCode)) {
+      if (paymentKey) {
+        setTossPayload({
+          status: "success",
+          type,
+          paymentKey,
+          orderId,
+          amount: Number(amountStr || "0"),
+          orderName,
+          module: mod,
+          period,
+          userEmail: localStorage.getItem("userID") || undefined,
+        });
+      } else {
+        setTossPayload({
+          status: "fail",
+          type,
+          paymentKey: "",
+          orderId,
+          amount: Number(amountStr || "0"),
+          module: mod,
+          period,
+          orderName,
+          code: failCode || undefined,
+          message: failMsg || undefined,
+          userEmail: localStorage.getItem("userID") || undefined,
+        });
+      }
+      setTossModalOpen(true);
+    }
+  }, []);
+
+  // 승인이 끝난 후 URL 정리
+  const clearTossQuery = () => {
+    try {
+      const url = new URL(window.location.href);
+      url.searchParams.delete("provider");
+      url.searchParams.delete("paymentKey");
+      url.searchParams.delete("orderId");
+      url.searchParams.delete("amount");
+      url.searchParams.delete("type");
+      url.searchParams.delete("mod");
+      url.searchParams.delete("period");
+      url.searchParams.delete("orderName");
+      url.searchParams.delete("code");
+      url.searchParams.delete("message");
+      window.history.replaceState({}, "", url.toString());
+    } catch {}
+  };
+
+  // 승인요청(서버 confirm 호출) – 실제 비밀키는 서버에 있으므로 여기서는 요청만
+  const requestServerApproval = async () => {
+    if (!tossPayload || tossPayload.status !== "success") return;
+    setTossApproveState("requesting");
+    setTossErrText("");
+    try {
+      const body = {
+        provider: "toss",
+        paymentKey: tossPayload.paymentKey,
+        orderId: tossPayload.orderId,
+        amount: tossPayload.amount,
+        type: tossPayload.type,
+        module: tossPayload.module,
+        period: tossPayload.period,
+        orderName: tossPayload.orderName,
+        userEmail: tossPayload.userEmail,
+      };
+
+      // ⚠️ 예시 엔드포인트 (서버에서 Toss 승인 API 호출)
+      const res = await fetch("https://license-server-697p.onrender.com/payments/toss/confirm", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
+        body: JSON.stringify(body),
+      });
+
+      if (!res.ok) {
+        const text = await res.text();
+        throw new Error(text || "Server approval failed");
+      }
+
+      setTossApproveState("ok");
+      // 라이선스 정보 갱신
+      if (token) await fetchLicenseInfo(token);
+    } catch (err: any) {
+      setTossApproveState("fail");
+      setTossErrText(err?.message || String(err));
+    }
+  };
+
   // buy 탭 위쪽에 선언!
   const MODULE_PRICE_IDS: Record<string, Record<string, string>> = {
     "Transfer Jig Maker": {
@@ -486,201 +618,7 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
 
   // 국가 목록
   const countries = [
-    "Afghanistan",
-    "Albania",
-    "Algeria",
-    "Andorra",
-    "Angola",
-    "Antigua and Barbuda",
-    "Argentina",
-    "Armenia",
-    "Australia",
-    "Austria",
-    "Azerbaijan",
-    "Bahamas",
-    "Bahrain",
-    "Bangladesh",
-    "Barbados",
-    "Belarus",
-    "Belgium",
-    "Belize",
-    "Benin",
-    "Bhutan",
-    "Bolivia",
-    "Bosnia and Herzegovina",
-    "Botswana",
-    "Brazil",
-    "Brunei",
-    "Bulgaria",
-    "Burkina Faso",
-    "Burundi",
-    "Cabo Verde",
-    "Cambodia",
-    "Cameroon",
-    "Canada",
-    "Central African Republic",
-    "Chad",
-    "Chile",
-    "China",
-    "Colombia",
-    "Comoros",
-    "Congo (Brazzaville)",
-    "Congo (Kinshasa)",
-    "Costa Rica",
-    "Croatia",
-    "Cuba",
-    "Cyprus",
-    "Czech Republic",
-    "Denmark",
-    "Djibouti",
-    "Dominica",
-    "Dominican Republic",
-    "Ecuador",
-    "Egypt",
-    "El Salvador",
-    "Equatorial Guinea",
-    "Eritrea",
-    "Estonia",
-    "Eswatini",
-    "Ethiopia",
-    "Fiji",
-    "Finland",
-    "France",
-    "Gabon",
-    "Gambia",
-    "Georgia",
-    "Germany",
-    "Ghana",
-    "Greece",
-    "Grenada",
-    "Guatemala",
-    "Guinea",
-    "Guinea-Bissau",
-    "Guyana",
-    "Haiti",
-    "Honduras",
-    "Hungary",
-    "Iceland",
-    "India",
-    "Indonesia",
-    "Iran",
-    "Iraq",
-    "Ireland",
-    "Israel",
-    "Italy",
-    "Jamaica",
-    "Japan",
-    "Jordan",
-    "Kazakhstan",
-    "Kenya",
-    "Kiribati",
-    "Kuwait",
-    "Kyrgyzstan",
-    "Laos",
-    "Latvia",
-    "Lebanon",
-    "Lesotho",
-    "Liberia",
-    "Libya",
-    "Liechtenstein",
-    "Lithuania",
-    "Luxembourg",
-    "Madagascar",
-    "Malawi",
-    "Malaysia",
-    "Maldives",
-    "Mali",
-    "Malta",
-    "Marshall Islands",
-    "Mauritania",
-    "Mauritius",
-    "Mexico",
-    "Micronesia",
-    "Moldova",
-    "Monaco",
-    "Mongolia",
-    "Montenegro",
-    "Morocco",
-    "Mozambique",
-    "Myanmar",
-    "Namibia",
-    "Nauru",
-    "Nepal",
-    "Netherlands",
-    "New Zealand",
-    "Nicaragua",
-    "Niger",
-    "Nigeria",
-    "North Korea",
-    "North Macedonia",
-    "Norway",
-    "Oman",
-    "Pakistan",
-    "Palau",
-    "Palestine",
-    "Panama",
-    "Papua New Guinea",
-    "Paraguay",
-    "Peru",
-    "Philippines",
-    "Poland",
-    "Portugal",
-    "Qatar",
-    "Romania",
-    "Russia",
-    "Rwanda",
-    "Saint Kitts and Nevis",
-    "Saint Lucia",
-    "Saint Vincent and the Grenadines",
-    "Samoa",
-    "San Marino",
-    "Sao Tome and Principe",
-    "Saudi Arabia",
-    "Senegal",
-    "Serbia",
-    "Seychelles",
-    "Sierra Leone",
-    "Singapore",
-    "Slovakia",
-    "Slovenia",
-    "Solomon Islands",
-    "Somalia",
-    "South Africa",
-    "South Korea",
-    "South Sudan",
-    "Spain",
-    "Sri Lanka",
-    "Sudan",
-    "Suriname",
-    "Sweden",
-    "Switzerland",
-    "Syria",
-    "Taiwan",
-    "Tajikistan",
-    "Tanzania",
-    "Thailand",
-    "Timor-Leste",
-    "Togo",
-    "Tonga",
-    "Trinidad and Tobago",
-    "Tunisia",
-    "Turkey",
-    "Turkmenistan",
-    "Tuvalu",
-    "Uganda",
-    "Ukraine",
-    "United Arab Emirates",
-    "United Kingdom",
-    "United States",
-    "Uruguay",
-    "Uzbekistan",
-    "Vanuatu",
-    "Vatican City",
-    "Venezuela",
-    "Vietnam",
-    "Yemen",
-    "Zambia",
-    "Zimbabwe",
+    "Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda","Argentina","Armenia","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana","Brazil","Brunei","Bulgaria","Burkina Faso","Burundi","Cabo Verde","Cambodia","Cameroon","Canada","Central African Republic","Chad","Chile","China","Colombia","Comoros","Congo (Brazzaville)","Congo (Kinshasa)","Costa Rica","Croatia","Cuba","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Eswatini","Ethiopia","Fiji","Finland","France","Gabon","Gambia","Georgia","Germany","Ghana","Greece","Grenada","Guatemala","Guinea","Guinea-Bissau","Guyana","Haiti","Honduras","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Israel","Italy","Jamaica","Japan","Jordan","Kazakhstan","Kenya","Kiribati","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Morocco","Mozambique","Myanmar","Namibia","Nauru","Nepal","Netherlands","New Zealand","Nicaragua","Niger","Nigeria","North Korea","North Macedonia","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Qatar","Romania","Russia","Rwanda","Saint Kitts and Nevis","Saint Lucia","Saint Vincent and the Grenadines","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","Sudan","Suriname","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor-Leste","Togo","Tonga","Trinidad and Tobago","Tunisia","Turkey","Turkmenistan","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Yemen","Zambia","Zimbabwe",
   ];
 
   // 탭 이동(스크롤) 로직
@@ -733,69 +671,85 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
     "1YEAR": 290,
   };
 
-  
-const handleModulePayment = (mod: string, period: string) => {
-  const storedId = localStorage.getItem("userID") || userID;
-  if (!storedId) {
-    alert("Please log in first.");
-    setTimeout(() => {
-      document.getElementById("login-modal")?.classList.remove("hidden");
-    }, 100);
-    return;
-  }
+  // 현재 페이지 origin
+  const currentOrigin = useMemo(() => {
+    if (typeof window === "undefined") return "https://www.dlas.io";
+    return window.location.origin;
+  }, []);
 
-  /* ── 🇰🇷 Korean user ⇒ TossPayments ───────────────────── */
-  if (isKoreanUser(userInfo.country)) {
-    if (typeof window === "undefined" || !window.TossPayments) {
-      alert("The payment module has not been loaded yet.");
+  // ─────────────────────────────────────────────────────
+  // 🇰🇷 한국 사용자 → TossPayments
+  // 🇺🇸 그 외 → Paddle
+  // ─────────────────────────────────────────────────────
+  const handleModulePayment = (mod: string, period: string) => {
+    const storedId = localStorage.getItem("userID") || userID;
+    if (!storedId) {
+      alert("Please log in first.");
+      setTimeout(() => {
+        document.getElementById("login-modal")?.classList.remove("hidden");
+      }, 100);
       return;
     }
-    const tossClientKey = process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY!;
-    const tossPayments = window.TossPayments(tossClientKey);
-    const orderId = `DLAS-${mod}-${Date.now()}`;
-    const amount = usdToKrw(MODULE_PRICES_USD[period]);
+
+    /* ── 🇰🇷 Korean user ⇒ TossPayments ───────────────────── */
+    if (isKoreanUser(userInfo.country)) {
+      if (typeof window === "undefined" || !window.TossPayments) {
+        alert("The payment module has not been loaded yet.");
+        return;
+      }
+      const tossClientKey = process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY!;
+      const tossPayments = window.TossPayments(tossClientKey);
+      const orderId = `DLAS-${mod}-${period}-${Date.now()}`;
+
+      // USD -> KRW 환산(표시와 동일)
+      const amount = usdToKrw(MODULE_PRICES_USD[period]);
+      const orderName = `${mod} (${period})`;
+
+      // 성공/실패 URL을 현재 페이지로 고정 (승인직전 단계까지)
+      const successUrl =
+        `${currentOrigin}/?provider=toss&type=module&mod=${encodeURIComponent(mod)}&period=${encodeURIComponent(period)}` +
+        `&orderName=${encodeURIComponent(orderName)}&orderId=${encodeURIComponent(orderId)}&amount=${encodeURIComponent(String(amount))}`;
+      const failUrl =
+        `${currentOrigin}/?provider=toss&type=module&mod=${encodeURIComponent(mod)}&period=${encodeURIComponent(period)}`;
+
+      tossPayments.requestPayment("카드", {
+        amount,
+        orderId,
+        orderName,
+        customerEmail: storedId,
+        successUrl,
+        failUrl,
+      });
+
+      return;
+    }
+
+    /* ── 그 외 국가 ⇒ Paddle ─────────────────────────────── */
+    if (!paddleReady || !window.Paddle) {
+      alert("Paddle is not ready yet. Please wait or refresh the page.");
+      return;
+    }
+
+    const priceId =
+      MODULE_PRICE_IDS[mod] && MODULE_PRICE_IDS[mod][period]
+        ? MODULE_PRICE_IDS[mod][period]
+        : "";
+    if (!priceId) {
+      alert("No priceId registered for this module/period.");
+      return;
+    }
+
     const orderName = `${mod} (${period})`;
+    const amount = MODULE_PRICES_USD[period];
 
-    tossPayments.requestPayment("카드", {
-      amount,
-      orderId,
-      orderName,
-      customerEmail: storedId,
-      successUrl: `https://www.dlas.io/payment/success?orderId=${orderId}&amount=${amount}`,
-      failUrl: `https://www.dlas.io/payment/fail`,
+    window.Paddle.Checkout.open({
+      items: [{ priceId, quantity: 1 }],
+      customer: { email: storedId },
+      customData: { userID: storedId, module: mod, period, orderName, amount },
+      closeCallback: () => console.log("Checkout closed"),
     });
-    
-    return;
-  }
+  };
 
-  /* ── 그 외 국가 ⇒ Paddle ─────────────────────────────── */
-  if (!paddleReady || !window.Paddle) {
-    alert("Paddle is not ready yet. Please wait or refresh the page.");
-    return;
-  }
-
-  const priceId =
-    MODULE_PRICE_IDS[mod] && MODULE_PRICE_IDS[mod][period]
-      ? MODULE_PRICE_IDS[mod][period]
-      : "";
-  if (!priceId) {
-    alert("No priceId registered for this module/period.");
-    return;
-  }
-
-  const orderName = `${mod} (${period})`;
-  const amount = MODULE_PRICES_USD[period];
-
-  window.Paddle.Checkout.open({
-    items: [{ priceId, quantity: 1 }],
-    customer: { email: storedId },
-    customData: { userID: storedId, module: mod, period, orderName, amount },
-    closeCallback: () => console.log("Checkout closed"),
-  });
-};
-
-  
-  
   // ✅ 패밀리 라이선스 테이블 데이터 (표시 통화 자동 전환)
   const familyTableData = [
     ["Transfer Jig Maker", asDisplayPrice(790, userInfo.country), "Free", "Automated jig generation software"],
@@ -861,7 +815,7 @@ const handleModulePayment = (mod: string, period: string) => {
   // Paddle 준비 여부
   const [paddleReady, setPaddleReady] = useState(false);
 
-  // ** 1) 할인코드 State 추가 **  (UI 삭제됨 – 로직은 유지)
+  // ** 1) 할인코드 State **
   const [couponCode, setCouponCode] = useState("");
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -904,7 +858,9 @@ const handleModulePayment = (mod: string, period: string) => {
     });
   };
 
-  // 1) TossPayments 결제 로직
+  // ─────────────────────────────────────
+  // 🇰🇷 Family 라이선스 → Toss 결제 유도
+  // ─────────────────────────────────────
   const handleTossRequest = () => {
     if (userInfo.licenseStatus === "family") {
       alert("You are already a Family user. Payment is not possible.");
@@ -919,17 +875,25 @@ const handleModulePayment = (mod: string, period: string) => {
     const tossClientKey = process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY!;
     const tossPayments = window.TossPayments(tossClientKey);
 
-    const orderId = `DLAS-${Date.now()}`;
-    const amount = 550000; // 예시 결제 금액
+    const orderId = `DLAS-FAMILY-${Date.now()}`;
+    const amount = 550000; // Family 고정가
     const userID = localStorage.getItem("userID") || "";
+
+    const orderName = "DLAS Family License";
+
+    const successUrl =
+      `${currentOrigin}/?provider=toss&type=family&orderName=${encodeURIComponent(orderName)}` +
+      `&orderId=${encodeURIComponent(orderId)}&amount=${encodeURIComponent(String(amount))}`;
+    const failUrl =
+      `${currentOrigin}/?provider=toss&type=family`;
 
     tossPayments.requestPayment("카드", {
       amount,
       orderId,
-      orderName: "DLAS Family License",
+      orderName,
       customerEmail: userID,
-      successUrl: `https://www.dlas.io/payment/success?orderId=${orderId}&amount=${amount}`,
-      failUrl: "https://www.dlas.io/payment/fail",
+      successUrl,
+      failUrl,
     });
   };
 
@@ -998,32 +962,23 @@ const handleModulePayment = (mod: string, period: string) => {
         }}
       />
 
-      {/*
-        Paddle Billing v2 SDK
-        - onLoad 콜백에서 setPaddleReady(true)
-      */}
+      {/* Paddle Billing v2 SDK */}
       <Script
         src="https://cdn.paddle.com/paddle/v2/paddle.js"
         strategy="afterInteractive"
         onLoad={() => {
           try {
-            // 1) 전역 객체 확인
             if (!window.Paddle) {
-              console.error(
-                "❌ window.Paddle undefined ― 스크립트 차단 여부 확인"
-              );
+              console.error("❌ window.Paddle undefined ― 스크립트 차단 여부 확인");
               return;
             }
-            // 2) Sandbox 설정
             if (isSandbox && window.Paddle.Environment) {
               window.Paddle.Environment.set("sandbox");
             }
-            // 3) Initialize 호출 (locale: "ko"로 고정 시작)
             window.Paddle.Initialize({
               token: PADDLE_TOKEN,
               checkout: { settings: { displayMode: "overlay", locale: "ko" } },
             });
-            // 4) 준비 완료
             setPaddleReady(true);
           } catch (err) {
             console.error("🔥 Paddle init 실패:", err);
@@ -1071,7 +1026,7 @@ const handleModulePayment = (mod: string, period: string) => {
               className="object-contain max-w-full sm:max-w-[600px] mx-auto mt-[80px] sm:mt-0 mb-0 sm:mb-0"
               priority
             />
-            {/* ▼ 네비게이션 버튼 그룹 (오른쪽) ― LanguageSelector 제거됨 */}
+            {/* ▼ 네비게이션 버튼 그룹 (오른쪽) */}
             <div className="absolute bottom-2 right-4 sm:right-8 hidden sm:flex flex-wrap items-center gap-x-4 gap-y-2">
               {["home", "download", "buy", "contact"].map((tab) => (
                 <button
@@ -1159,7 +1114,6 @@ const handleModulePayment = (mod: string, period: string) => {
 
             {/* --- 강조 영역 (라이선스 배너 제거, 버튼만 유지) --- */}
             <div className="flex flex-col items-center justify-center">
-              {/* 상단: 'Get the free license!' 버튼 (검정색으로 변경) */}
               <button
                 onClick={() => {
                   setShowFamilyModal(true);
@@ -1184,7 +1138,6 @@ const handleModulePayment = (mod: string, period: string) => {
               </button>
             </div>
 
-            {/* ↓ 바로 'Game Changer' 문구가 이어지도록 배너·쿠폰 UI 삭제 */}
             <div className="mt-10 px-6 max-w-4xl mx-auto text-center">
               <h2 className="text-3xl font-semibold mb-4 text-gray-900">
                 {t("home.gameChangerTitle")}
@@ -1219,7 +1172,7 @@ const handleModulePayment = (mod: string, period: string) => {
                   href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v1.5.0/DLAS_Installer.exe"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition w-full sm:w-auto text-center"
+                  className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition w/full sm:w-auto text-center"
                   onClick={(e) => {
                     e.preventDefault();
                     setShowDownloadModal(true);
@@ -1525,7 +1478,7 @@ const handleModulePayment = (mod: string, period: string) => {
                   );
                 });
 
-              // 2. 방문 솔루션 서비스 카드 (기존)
+              // 2. 방문 솔루션 서비스 카드
               const onsiteCard = (
                 <div
                   key="On-site Solution Service (Korea only)"
@@ -1565,14 +1518,12 @@ const handleModulePayment = (mod: string, period: string) => {
                   </div>
                   {/* 데스크탑 (가로) */}
                   <div className="hidden sm:flex flex-row items-center w-full h-full gap-6">
-                    {/* 이름 */}
                     <div className="w-80 flex flex-col items-start justify-center h-full px-8">
                       <span className="text-3xl font-extrabold text-black">
                         방문 솔루션
                       </span>
                       <span className="text-base text-gray-400 font-bold ml-1 mt-1">(한국 한정/only for korea)</span>
                     </div>
-                    {/* 설명 */}
                     <div className="flex-1 flex flex-col justify-center h-full px-2 text-left gap-2">
                       <div className="text-lg text-gray-800 font-bold">
                         직접 방문하여 기공소 내의 문제를 해결하고, 최적화된 솔루션을 제공합니다.
@@ -1590,7 +1541,6 @@ const handleModulePayment = (mod: string, period: string) => {
                         </span>
                       </div>
                     </div>
-                    {/* 가격 */}
                     <div className="w-64 flex flex-col items-center justify-center">
                       <span className="text-3xl font-extrabold text-black">
                         ₩550,000
@@ -1603,7 +1553,7 @@ const handleModulePayment = (mod: string, period: string) => {
                 </div>
               );
 
-              // 3. 맞춤 코딩 서비스 카드 (신규 추가)
+              // 3. 맞춤 코딩 서비스 카드
               const customCodingCard = (
                 <div
                   key="Custom Coding Service (Korea only)"
@@ -1643,14 +1593,12 @@ const handleModulePayment = (mod: string, period: string) => {
                   </div>
                   {/* 데스크탑 (가로) */}
                   <div className="hidden sm:flex flex-row items-center w-full h-full gap-6">
-                    {/* 이름 */}
                     <div className="w-80 flex flex-col items-start justify-center h-full px-8">
                       <span className="text-3xl font-extrabold text-black">
                         맞춤 코딩
                       </span>
                       <span className="text-base text-gray-400 font-bold ml-1 mt-1">(한국 한정/only for korea)</span>
                     </div>
-                    {/* 설명 */}
                     <div className="flex-1 flex flex-col justify-center h-full px-2 text-left gap-2">
                       <div className="text-lg text-gray-800 font-bold">
                         직접 방문하여 기공소 내의 문제를 해결하고, 최적화된 코딩으로 자동화 소프트웨어를 제작해 드립니다.
@@ -1668,7 +1616,6 @@ const handleModulePayment = (mod: string, period: string) => {
                         </span>
                       </div>
                     </div>
-                    {/* 가격 */}
                     <div className="w-64 flex flex-col items-center justify-center">
                       <span className="text-3xl font-extrabold text-black">
                         ₩3,300,000
@@ -1728,8 +1675,6 @@ const handleModulePayment = (mod: string, period: string) => {
               </h2>
 
               {/* (약관 및 개인정보처리방침 내용은 동일) */}
-              {/* --------------------------------------------------- */}
-              {/* --- 이용약관 --- */}
               <h3 className="text-2xl font-bold mb-4">
                 {t("terms.headingTerms")}
               </h3>
@@ -1759,7 +1704,6 @@ const handleModulePayment = (mod: string, period: string) => {
                 <strong>{t("terms.effectiveDate")}</strong>
               </p>
 
-              {/* --- 개인정보처리방침 --- */}
               <h3 className="text-2xl font-bold mb-4">
                 {t("privacy.headingPrivacy")}
               </h3>
@@ -1792,7 +1736,98 @@ const handleModulePayment = (mod: string, period: string) => {
           </section>
         </main>
 
+        {/* ─────────────────────────────────────────────────────────── */}
+        {/*      Toss 결제 결과 & 승인요청 모달 (승인 직전 단계)       */}
+        {/* ─────────────────────────────────────────────────────────── */}
+        {tossModalOpen && tossPayload && (
+          <div className="fixed inset-0 z-50 bg-black bg-opacity-50 overflow-auto">
+            <div className="flex min-h-full items-start justify-center px-6 py-10">
+              <div className="bg-white p-6 rounded-xl shadow-xl w-full max-w-[760px] relative">
+                <button
+                  onClick={() => {
+                    setTossModalOpen(false);
+                    clearTossQuery();
+                  }}
+                  className="absolute top-3 right-4 text-gray-400 hover:text-black text-2xl"
+                >
+                  ×
+                </button>
 
+                {tossPayload.status === "success" ? (
+                  <>
+                    <h3 className="text-2xl font-bold mb-2">Toss 결제 성공 (승인 전)</h3>
+                    <p className="text-sm text-gray-600 mb-4">
+                      결제 정보가 수신되었습니다. 아래 <b>승인요청</b>을 누르면 서버가 Toss에 결제 승인을 요청합니다.
+                    </p>
+
+                    <div className="bg-gray-50 border rounded p-4 text-sm mb-4">
+                      <div className="grid grid-cols-2 gap-x-4 gap-y-2">
+                        <div><b>Status</b></div><div>success (승인 전)</div>
+                        <div><b>Type</b></div><div>{tossPayload.type}</div>
+                        {tossPayload.module && (<><div><b>Module</b></div><div>{tossPayload.module}</div></>)}
+                        {tossPayload.period && (<><div><b>Period</b></div><div>{tossPayload.period}</div></>)}
+                        {tossPayload.orderName && (<><div><b>OrderName</b></div><div>{tossPayload.orderName}</div></>)}
+                        <div><b>OrderId</b></div><div className="break-all">{tossPayload.orderId}</div>
+                        <div><b>PaymentKey</b></div><div className="break-all">{tossPayload.paymentKey}</div>
+                        <div><b>Amount</b></div><div>{tossPayload.amount.toLocaleString()}원</div>
+                        {tossPayload.userEmail && (<><div><b>User</b></div><div>{tossPayload.userEmail}</div></>)}
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <button
+                        className="bg-black text-white px-6 py-2 rounded hover:bg-gray-800 transition disabled:opacity-50"
+                        disabled={tossApproveState === "requesting"}
+                        onClick={requestServerApproval}
+                      >
+                        {tossApproveState === "requesting" ? "승인 요청 중..." :
+                         tossApproveState === "ok" ? "승인 완료" :
+                         tossApproveState === "fail" ? "승인 실패. 재시도" : "서버에 승인요청"}
+                      </button>
+                      <button
+                        className="px-4 py-2 border rounded hover:bg-gray-50"
+                        onClick={() => {
+                          try {
+                            const payload = JSON.stringify(tossPayload, null, 2);
+                            navigator.clipboard.writeText(payload);
+                            alert("결제 데이터가 복사되었습니다.");
+                          } catch {}
+                        }}
+                      >
+                        데이터 복사
+                      </button>
+                    </div>
+
+                    {tossApproveState === "ok" && (
+                      <p className="mt-3 text-green-700 text-sm">
+                        서버 승인 성공. 잠시 후 MY 정보/라이선스가 갱신됩니다.
+                      </p>
+                    )}
+                    {tossApproveState === "fail" && (
+                      <p className="mt-3 text-red-600 text-sm break-words">
+                        서버 승인 실패: {tossErrText}
+                      </p>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    <h3 className="text-2xl font-bold mb-2">Toss 결제 실패</h3>
+                    <div className="bg-gray-50 border rounded p-4 text-sm mb-4">
+                      <div className="grid grid-cols-2 gap-x-4 gap-y-2">
+                        <div><b>Status</b></div><div>fail</div>
+                        {tossPayload.code && (<><div><b>Code</b></div><div>{tossPayload.code}</div></>)}
+                        {tossPayload.message && (<><div><b>Message</b></div><div className="break-all">{tossPayload.message}</div></>)}
+                        <div><b>OrderId</b></div><div className="break-all">{tossPayload.orderId || "-"}</div>
+                        <div><b>Amount</b></div><div>{(tossPayload.amount||0).toLocaleString()}원</div>
+                      </div>
+                    </div>
+                    <p className="text-sm text-gray-600">원인 확인 후 다시 시도해 주세요.</p>
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* 패밀리 라이선스 모달 */}
         {showFamilyModal && (
@@ -2348,9 +2383,7 @@ const handleModulePayment = (mod: string, period: string) => {
           </div>
         )}
 
-        {/* ------------------------- */}
-        {/*           Footer          */}
-        {/* ------------------------- */}
+        {/* Footer */}
         <footer className="bg-black text-white py-10 px-6 mt-20">
           <div className="max-w-5xl mx-auto">
             <div className="flex flex-col md:flex-row items-center md:items-start justify-between gap-4">
