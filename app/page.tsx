@@ -2372,12 +2372,12 @@ const handleModulePayment = (mod: string, period: string) => {
             </div>
 
             <div className="mt-6 text-sm text-white leading-snug">
-              <p>DLAS</p>
-              <p>Owner: Jonghwan Kim</p>
-              <p>Business Registration No.: 753-06-03175</p>
-              <p>Online Business Registration No.: 2025-대전서구-1033</p>
-              <p>B403-817, 63 Dunsan-ro, Seo-gu, Daejeon, Republic of Korea</p>
-              <p>+82-10-9756-1992 (Republic of Korea)</p>
+                <p>DLAS</p>
+                <p>대표 : 김종환</p>
+                <p>사업자 등록번호 : 753-06-03175</p>
+                <p>통신판매업 신고번호 : 2025-대전서구-1033</p>
+                <p>주소 : 대전광역시 유성구 테크노4로 17 대덕비즈센터 C307호, 대한민국</p>
+                <p>전화 : +82-10-9756-1992 (대한민국)</p>
             </div>
           </div>
         </footer>
