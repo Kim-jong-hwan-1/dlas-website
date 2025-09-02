@@ -113,46 +113,46 @@ export default function Page() {
     if (stored) setToken(stored);
   }, []);
   
-  
-    // buy 탭 위쪽에 선언!
-    const MODULE_PRICE_IDS: Record<string, Record<string, string>> = {
-      "Transfer Jig Maker": {
-        "1DAY": "pri_01k1jctwckah8wy2e30bmnbh19",
-        "1WEEK": "pri_01k1jcsv5cg66tjnv05qhtwknh",
-        "1MONTH": "pri_01k1jcs60js4d1khk87qsczcgh",
-        "1YEAR": "pri_01k1jcptq639s6r3npgyphtk4p",
-      },
-      "STL Classifier": {
-        "1DAY": "pri_01k1dhbc5qnnqeqx0xvy9ra8zq",
-        "1WEEK": "pri_01k1dhdhev3zdv3dme6veyd9ab",
-        "1MONTH": "pri_01k1dhetmhg867gkdkj75mv4pn",
-        "1YEAR": "pri_01k1dhh3b4dfm1r191y6zk1xmh",
-      },
-      "HTML Viewer Converter": {
-        "1DAY": "pri_01k1dhj3aq89kgdtxyapj10hqq",
-        "1WEEK": "pri_01k1dhm7x23g8nn3tpcmswjq14",
-        "1MONTH": "pri_01k1dhn95p99rbc3y5n4yg3ke1",
-        "1YEAR": "pri_01k1dhnxpaj49197qw7chmpe60",
-      },
-      "Image Converter": {
-        "1DAY": "pri_01k1dhrezj288s5xdmt7ck760q",
-        "1WEEK": "pri_01k1dhsg4gwyzycar6cggsm93j",
-        "1MONTH": "pri_01k1dhtxxwyaqt63bx9wfgttfa",
-        "1YEAR": "pri_01k1dhwbb0yvngp04ggzna166w",
-      },
-      "Booleaner": {
-        "1DAY": "pri_01k1dhz0scvpdgj7g010d3q8ek",
-        "1WEEK": "pri_01k1dj1fwdb7gqd7m6zcvgcqmw",
-        "1MONTH": "pri_01k1dj2gbhq3r3g26kg9sb1c4j",
-        "1YEAR": "pri_01k1dj4hm0933fgr6zn7a7yvx0",
-      },
-      "Fuser": {
-        "1DAY": "pri_01k1dj5bcrq7c3bbpknw8ysm3y",
-        "1WEEK": "pri_01k1dj6060dp3nba0x7kqxj5aj",
-        "1MONTH": "pri_01k1dj6qjawp143jjbwbac779c",
-        "1YEAR": "pri_01k1dj77nyhzgpg2terfwwd9pd",
-      },
-    };
+  // buy 탭 위쪽에 선언!
+  const MODULE_PRICE_IDS: Record<string, Record<string, string>> = {
+    "Transfer Jig Maker": {
+      "1DAY": "pri_01k1jctwckah8wy2e30bmnbh19",
+      "1WEEK": "pri_01k1jcsv5cg66tjnv05qhtwknh",
+      "1MONTH": "pri_01k1jcs60js4d1khk87qsczcgh",
+      "1YEAR": "pri_01k1jcptq639s6r3npgyphtk4p",
+    },
+    "STL Classifier": {
+      "1DAY": "pri_01k1dhbc5qnnqeqx0xvy9ra8zq",
+      "1WEEK": "pri_01k1dhdhev3zdv3dme6veyd9ab",
+      "1MONTH": "pri_01k1dhetmhg867gkdkj75mv4pn",
+      "1YEAR": "pri_01k1dhh3b4dfm1r191y6zk1xmh",
+    },
+    "HTML Viewer Converter": {
+      "1DAY": "pri_01k1dhj3aq89kgdtxyapj10hqq",
+      "1WEEK": "pri_01k1dhm7x23g8nn3tpcmswjq14",
+      "1MONTH": "pri_01k1dhn95p99rbc3y5n4yg3ke1",
+      "1YEAR": "pri_01k1dhnxpaj49197qw7chmpe60",
+    },
+    "Image Converter": {
+      "1DAY": "pri_01k1dhrezj288s5xdmt7ck760q",
+      "1WEEK": "pri_01k1dhsg4gwyzycar6cggsm93j",
+      "1MONTH": "pri_01k1dhtxxwyaqt63bx9wfgttfa",
+      "1YEAR": "pri_01k1dhwbb0yvngp04ggzna166w",
+    },
+    "Booleaner": {
+      "1DAY": "pri_01k1dhz0scvpdgj7g010d3q8ek",
+      "1WEEK": "pri_01k1dj1fwdb7gqd7m6zcvgcqmw",
+      "1MONTH": "pri_01k1dj2gbhq3r3g26kg9sb1c4j",
+      "1YEAR": "pri_01k1dj4hm0933fgr6zn7a7yvx0",
+    },
+    "Fuser": {
+      "1DAY": "pri_01k1dj5bcrq7c3bbpknw8ysm3y",
+      "1WEEK": "pri_01k1dj6060dp3nba0x7kqxj5aj",
+      "1MONTH": "pri_01k1dj6qjawp143jjbwbac779c",
+      "1YEAR": "pri_01k1dj77nyhzgpg2terfwwd9pd",
+    },
+  };
+
 /** ─────────────────────────────────────────────────
  *  ▒  가격·통화 설정
  *─────────────────────────────────────────────────*/
@@ -173,12 +173,22 @@ const isKoreanUser = (country?: string) =>
     country.toLowerCase().includes(kw)
   );
 
-/** 버튼·라벨에 표시할 금액 문자열 */
+/** 버튼·라벨에 표시할 금액 문자열 (🇰🇷 기본 원화, 🇺🇸 비한국 로그인 시 달러) */
 const priceLabel = (period: string, country?: string) => {
   const usd = MODULE_PRICES_USD[period];
-  return isKoreanUser(country)
-    ? `₩${usdToKrw(usd).toLocaleString()}`
-    : `$${usd}`;
+  const krwStr = `₩${usdToKrw(usd).toLocaleString()}`;
+
+  // ✅ 기본값: KRW
+  // ✅ 로그인 후 country가 한국이 아니면 USD
+  if (!country || isKoreanUser(country)) return krwStr;
+  return `$${usd}`;
+};
+
+/** 일반 USD 금액(정수/소수)을 표시용 문자열로 변환: 🇰🇷 기본 KRW, 🇺🇸 비한국 로그인 시 USD */
+const asDisplayPrice = (usdNumber: number, country?: string) => {
+  const krwStr = `₩${Math.round(usdToKrw(usdNumber)).toLocaleString()}`;
+  if (!country || isKoreanUser(country)) return krwStr;
+  return `$${usdNumber.toLocaleString()}`;
 };
 
     
@@ -245,7 +255,12 @@ const priceLabel = (period: string, country?: string) => {
       setUserInfo((prev) => ({
         ...prev,
         licenseStatus: data.licenseStatus ?? prev.licenseStatus,
-      module_licenses: (data.module_licenses && typeof data.module_licenses === "object" && !Array.isArray(data.module_licenses)) ? data.module_licenses : prev.module_licenses,
+        module_licenses:
+          (data.module_licenses &&
+            typeof data.module_licenses === "object" &&
+            !Array.isArray(data.module_licenses))
+            ? data.module_licenses
+            : prev.module_licenses,
       }));
     } catch (err) {
       console.error(err);
@@ -701,7 +716,7 @@ const priceLabel = (period: string, country?: string) => {
     }
   };
 
-  // 모듈 목록 (필요한 4개만 남김)
+  // 모듈 목록
   const modules = [
     "On-site Solution Service (Korea only)",
     "Transfer Jig Maker",
@@ -781,46 +796,46 @@ const handleModulePayment = (mod: string, period: string) => {
 
   
   
-  // 패밀리 라이선스 테이블용 데이터
+  // ✅ 패밀리 라이선스 테이블 데이터 (표시 통화 자동 전환)
   const familyTableData = [
-    ["Transfer Jig Maker", "$790", "Free", "Automated jig generation software"],
+    ["Transfer Jig Maker", asDisplayPrice(790, userInfo.country), "Free", "Automated jig generation software"],
     ["Image Converter", priceLabel("1DAY", userInfo.country), "Free", "Convert STL to image quickly"],
-    ["Booleaner", "$590", "Free", "Fast automaitc Booleaner"],
+    ["Booleaner", asDisplayPrice(590, userInfo.country), "Free", "Fast automaitc Booleaner"],
     ["HTML Viewer Converter", priceLabel("1DAY", userInfo.country), "Free", "Convert STL to HTML viewer"],
     [
       "Printing Model Maker (Expected July 2025)",
-      "$590",
+      asDisplayPrice(590, userInfo.country),
       "Free",
       "Lightweight model creator",
     ],
     [
       "Bite Finder (Expected July 2025)",
-      "$1,090",
+      asDisplayPrice(1090, userInfo.country),
       "Free",
       "Revolutionary bite locator for model-less workflows",
     ],
     [
       "STL Classifier (Expected July 2025)",
-      "$590",
+      asDisplayPrice(590, userInfo.country),
       "Free",
       "Classify STL by color and height",
     ],
     [
       "Denture CAD (Expected 2025)",
-      "$790",
+      asDisplayPrice(790, userInfo.country),
       "Free",
       "Arrangement library, labial facing, custom tray",
     ],
     [
       "Crown CAD (Expected 2025)",
-      "$790",
+      asDisplayPrice(790, userInfo.country),
       "Free",
       "Integrated crown CAD with the best features",
     ],
-    ["...new module 1 (Coming Soon)", "$790", "Free", ""],
-    ["...new module 2 (Coming Soon)", "$790", "Free", ""],
-    ["...new module 3 (Coming Soon)", "$790", "Free", ""],
-    ["AI DLAS CAD (Expected 2026)", "$59/month", "$5.9/month", ""],
+    ["...new module 1 (Coming Soon)", asDisplayPrice(790, userInfo.country), "Free", ""],
+    ["...new module 2 (Coming Soon)", asDisplayPrice(790, userInfo.country), "Free", ""],
+    ["...new module 3 (Coming Soon)", asDisplayPrice(790, userInfo.country), "Free", ""],
+    ["AI DLAS CAD (Expected 2026)", `${asDisplayPrice(59, userInfo.country)}/month`, `${asDisplayPrice(5.9, userInfo.country)}/month`, ""],
   ];
 
   // 이메일 복사 함수
@@ -918,23 +933,22 @@ const handleModulePayment = (mod: string, period: string) => {
     });
   };
 
-  // "가족 라이선스 결제" 버튼 클릭 -> 국가별 결제
-  
-const handleFamilyLicensePayment = () => {
-  if (isUserInfoLoading) {
-    alert("Loading your information... Please wait a moment.");
-    return;
-  }
-  if (userInfo.licenseStatus === "family") {
-    alert("You are already a Family user. Payment is not possible.");
-    return;
-  }
-  if (isKoreanUser(userInfo.country)) {
-    handleTossRequest();
-  } else {
-    handlePaddleCheckout();
-  }
-};
+  // "가족 라이선스 결제" 버튼 클릭 -> 국가별 결제수단 분기
+  const handleFamilyLicensePayment = () => {
+    if (isUserInfoLoading) {
+      alert("Loading your information... Please wait a moment.");
+      return;
+    }
+    if (userInfo.licenseStatus === "family") {
+      alert("You are already a Family user. Payment is not possible.");
+      return;
+    }
+    if (isKoreanUser(userInfo.country)) {
+      handleTossRequest();
+    } else {
+      handlePaddleCheckout();
+    }
+  };
 
 
   return (
@@ -1180,506 +1194,496 @@ const handleFamilyLicensePayment = () => {
 
           {/* 다운로드 섹션 */}
           <section
-  id="download"
-  className="scroll-mt-[180px] text-center py-20 bg-gray-100"
->
-  <h2 className="text-4xl font-bold mb-4">{t("download.title")}</h2>
-  <p className="text-lg text-gray-500 max-w-3xl mx-auto mt-2">
-    <br />
-    {t("download.desc.line3")}
-    <br />
-    {t("download.desc.line4")}
-  </p>
-
-  {/* ✅ 1.5.0 & MeshFix 버튼만 노출 */}
-  <div className="mt-8 flex flex-col items-center space-y-4 w-full">
-    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 w-full max-w-md">
-      {/* DLAS 1.5.0 */}
-      <a
-        href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v1.5.0/DLAS_Installer.exe"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition w-full sm:w-auto text-center"
-        onClick={(e) => {
-          e.preventDefault();
-          setShowDownloadModal(true);
-        }}
-      >
-        Download&nbsp;v1.5.0
-      </a>
-      {/* MeshFix */}
-      <div className="flex flex-col items-start sm:items-end">
-        <a
-          href="https://github.com/MarcoAttene/MeshFix-V2.1/archive/refs/heads/master.zip"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 transition w-full sm:w-auto text-center"
-        >
-          MeshFix&nbsp;2.1.0&nbsp;(Source)
-        </a>
-        <span className="text-[10px] text-gray-600 mt-1 sm:text-right leading-tight">
-          MeshFix (GPL v3 – commercial use requires a separate license from IMATI-CNR)
-        </span>
-      </div>
-    </div>
-
-    {/* ▼▼ 구버전 다운로드 버튼/코드는 완전히 제거 ▼▼ */}
-    {/* 
-    <a ...>Download v1.3.3</a>
-    {[ ... ].map((v) => (
-      <button ...>Download {v}</button>
-    ))}
-    */}
-  </div>
-</section>
-
-<section
-  id="buy"
-  className="scroll-mt-[180px] text-center py-20 bg-white"
->
-  <h2 className="text-4xl font-bold mb-12">{t("nav.buy")}</h2>
-
-  {(() => {
-    const MODULE_NAME_TO_ID: Record<string, string> = {
-      "Transfer Jig Maker": "9",
-      "STL Classifier": "2",
-      "HTML Viewer Converter": "5",
-      "Image Converter": "6",
-      "Booleaner": "4",
-      "Fuser": "7",
-    };
-
-    const info: Record<
-      string,
-      { gif: string | null; youtube: string | null; image: string | null }
-    > = {
-      "On-site Solution Service (Korea only)": {
-        gif: null,
-        youtube: null,
-        image: null,
-      },
-      "Transfer Jig Maker": {
-        gif: "/gifs/transfer_jig_maker.gif",
-        youtube: "7-YeT3Y0KcQ",
-        image: "/modules/transfer_jig_maker.png",
-      },
-      "Image Converter": {
-        gif: "/gifs/fast_image_converter.gif",
-        youtube: "agm47qKzw1Q",
-        image: "/modules/fast_image_converter.png",
-      },
-      Booleaner: {
-        gif: "/gifs/denture_booleaner.gif",
-        youtube: "f5DBv8m-iJU",
-        image: "/modules/fast_denture_booleaner.png",
-      },
-      "HTML Viewer Converter": {
-        gif: "/gifs/html_viewer_converter.gif",
-        youtube: "IGOFiLchblo",
-        image: "/modules/fast_html_viewer_converter.png",
-      },
-      "STL Classifier": {
-        gif: "/gifs/classifier.gif",
-        youtube: null,
-        image: "/modules/fast_stl_classifier.png",
-      },
-      Fuser: {
-        gif: "/gifs/fuser.gif",
-        youtube: null,
-        image: "/modules/fast_stl_fuser.png",
-      },
-    };
-
-    // 1. 일반 모듈 카드들
-    const moduleCards = modules
-      .filter((mod) => mod !== "On-site Solution Service (Korea only)")
-      .map((mod) => {
-        const { gif, youtube, image } = info[mod] ?? { gif: null, youtube: null, image: null };
-        const moduleId = MODULE_NAME_TO_ID[mod];
-        let expireUtc: string | null = null;
-        if (
-          userInfo &&
-          userInfo.module_licenses &&
-          typeof userInfo.module_licenses === "object" &&
-          !Array.isArray(userInfo.module_licenses) &&
-          moduleId
-        ) {
-          const raw = userInfo.module_licenses[moduleId];
-          if (typeof raw === "string" && raw.trim()) {
-            expireUtc = raw;
-          }
-        }
-        const { display: expireDisplay, debug: expireDebug } = formatExpiration(expireUtc ?? undefined);
-        return (
-          <div
-            key={mod}
-            className="
-              relative
-              bg-gray-50 rounded-2xl border shadow-md px-2 py-8
-              flex flex-col sm:flex-row items-center
-              h-auto sm:h-80 sm:min-h-[320px] sm:max-h-[320px] gap-6
-            "
+            id="download"
+            className="scroll-mt-[180px] text-center py-20 bg-gray-100"
           >
-            {/* 모바일 */}
-            <div className="flex flex-col w-full sm:hidden items-center">
-              <div className="w-full flex items-center justify-center mb-4">
-                {image ? (
-                  <Image
-                    src={image}
-                    alt={mod}
-                    width={288}
-                    height={72}
-                    className="object-contain max-h-[72px]"
-                    priority
-                  />
-                ) : (
-                  <span className="text-2xl font-extrabold px-4 break-words">{mod}</span>
-                )}
-              </div>
-              <div className="w-full h-56 aspect-video border rounded-2xl bg-white overflow-hidden flex items-center justify-center mb-4">
-                {youtube ? (
-                  <iframe
-                    className="w-full h-full"
-                    src={`https://www.youtube.com/embed/${youtube}`}
-                    title={`${mod} demo`}
-                    frameBorder={0}
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowFullScreen
-                  />
-                ) : (
-                  <span className="text-gray-400 text-2xl font-bold flex items-center justify-center w-full h-full">
-                    Coming&nbsp;Soon
+            <h2 className="text-4xl font-bold mb-4">{t("download.title")}</h2>
+            <p className="text-lg text-gray-500 max-w-3xl mx-auto mt-2">
+              <br />
+              {t("download.desc.line3")}
+              <br />
+              {t("download.desc.line4")}
+            </p>
+
+            {/* ✅ 1.5.0 & MeshFix 버튼만 노출 */}
+            <div className="mt-8 flex flex-col items-center space-y-4 w-full">
+              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 w-full max-w-md">
+                {/* DLAS 1.5.0 */}
+                <a
+                  href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v1.5.0/DLAS_Installer.exe"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition w-full sm:w-auto text-center"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setShowDownloadModal(true);
+                  }}
+                >
+                  Download&nbsp;v1.5.0
+                </a>
+                {/* MeshFix */}
+                <div className="flex flex-col items-start sm:items-end">
+                  <a
+                    href="https://github.com/MarcoAttene/MeshFix-V2.1/archive/refs/heads/master.zip"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 transition w-full sm:w-auto text-center"
+                  >
+                    MeshFix&nbsp;2.1.0&nbsp;(Source)
+                  </a>
+                  <span className="text-[10px] text-gray-600 mt-1 sm:text-right leading-tight">
+                    MeshFix (GPL v3 – commercial use requires a separate license from IMATI-CNR)
                   </span>
-                )}
-              </div>
-              <div className="flex flex-col w-full items-center gap-2">
-                <div className="flex flex-row w-full justify-center items-center gap-2">
-                  <button
-                    className="bg-black text-white rounded-lg w-1/4 h-12 text-base font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
-                    onClick={() => handleModulePayment(mod, "1DAY")}
-                  >
-                    <span className="text-lg leading-5">1DAY</span>
-                    <span className="text-xs leading-5">{priceLabel("1DAY", userInfo.country)}</span>
-                  </button>
-                  <button
-                    className="bg-black text-white rounded-lg w-1/4 h-12 text-base font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
-                    onClick={() => handleModulePayment(mod, "1WEEK")}
-                  >
-                    <span className="text-lg leading-5">1WEEK</span>
-                    <span className="text-xs leading-5">{priceLabel("1WEEK", userInfo.country)}</span>
-                  </button>
-                  <button
-                    className="bg-black text-white rounded-lg w-1/4 h-12 text-base font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
-                    onClick={() => handleModulePayment(mod, "1MONTH")}
-                  >
-                    <span className="text-lg leading-5">1MONTH</span>
-                    <span className="text-xs leading-5">{priceLabel("1MONTH", userInfo.country)}</span>
-                  </button>
-                  <button
-                    className="bg-black text-white rounded-lg w-1/4 h-12 text-base font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
-                    onClick={() => handleModulePayment(mod, "1YEAR")}
-                  >
-                    <span className="text-lg leading-5">1YEAR</span>
-                    <span className="text-xs leading-5">{priceLabel("1YEAR", userInfo.country)}</span>
-                  </button>
-                </div>
-                <div className="w-full text-center mt-3">
-                  {isLoggedIn ? (
-                    <span className="text-xs text-gray-600 font-mono">
-                      License expires:&nbsp;
-                      {expireDisplay
-                        ? (
-                            <>
-                              <span className="text-black">{expireDisplay}</span>
-                              <span className="text-xs text-gray-500">&nbsp;(UTC)</span>
-                            </>
-                          )
-                        : <span className="text-red-500">Not activated{expireDebug ? ` (reason: ${expireDebug})` : ""}</span>
-                      }
-                    </span>
-                  ) : (
-                    <span className="text-xs text-gray-400">
-                      * Log in to check your license
-                    </span>
-                  )}
                 </div>
               </div>
             </div>
-            {/* 데스크탑 */}
-            <div className="hidden sm:flex flex-row items-center w-full h-full gap-6">
-              <div className="w-64 h-full flex-shrink-0 flex items-center justify-center">
-                {image ? (
-                  <Image
-                    src={image}
-                    alt={mod}
-                    width={288}
-                    height={72}
-                    className="object-contain max-h-[72px]"
-                    priority
-                  />
-                ) : (
-                  <span className="text-2xl sm:text-3xl font-extrabold px-4 break-words">{mod}</span>
-                )}
-              </div>
-              <div className="w-72 h-72 flex items-center justify-center flex-shrink-0">
-                <div className="w-72 h-72 flex items-center justify-center border rounded-2xl bg-white overflow-hidden">
-                  {gif ? (
-                    <Image
-                      src={gif}
-                      alt={`${mod} gif`}
-                      width={288}
-                      height={288}
-                      className="object-contain w-full h-full"
-                      priority
-                    />
-                  ) : (
-                    <span className="text-gray-400 text-2xl font-bold flex items-center justify-center w-full h-full">
-                      Coming&nbsp;Soon
-                    </span>
-                  )}
-                </div>
-              </div>
-              <div className="flex-1 h-72 flex items-center justify-center min-w-0">
-                <div className="w-full h-72 aspect-video border rounded-2xl bg-white overflow-hidden flex items-center justify-center">
-                  {youtube ? (
-                    <iframe
-                      className="w-full h-full"
-                      src={`https://www.youtube.com/embed/${youtube}`}
-                      title={`${mod} demo`}
-                      frameBorder={0}
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      allowFullScreen
-                    />
-                  ) : (
-                    <span className="text-gray-400 text-2xl font-bold flex items-center justify-center w-full h-full">
-                      Coming&nbsp;Soon
-                    </span>
-                  )}
-                </div>
-              </div>
-              <div className="flex flex-col gap-3 w-40 flex-shrink-0 h-full justify-center items-center">
-                <button
-                  className="bg-black text-white rounded-lg w-32 h-16 text-lg font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
-                  onClick={() => handleModulePayment(mod, "1DAY")}
+          </section>
+
+          {/* 구매 섹션 */}
+          <section
+            id="buy"
+            className="scroll-mt-[180px] text-center py-20 bg-white"
+          >
+            <h2 className="text-4xl font-bold mb-12">{t("nav.buy")}</h2>
+
+            {(() => {
+              const MODULE_NAME_TO_ID: Record<string, string> = {
+                "Transfer Jig Maker": "9",
+                "STL Classifier": "2",
+                "HTML Viewer Converter": "5",
+                "Image Converter": "6",
+                "Booleaner": "4",
+                "Fuser": "7",
+              };
+
+              const info: Record<
+                string,
+                { gif: string | null; youtube: string | null; image: string | null }
+              > = {
+                "On-site Solution Service (Korea only)": {
+                  gif: null,
+                  youtube: null,
+                  image: null,
+                },
+                "Transfer Jig Maker": {
+                  gif: "/gifs/transfer_jig_maker.gif",
+                  youtube: "7-YeT3Y0KcQ",
+                  image: "/modules/transfer_jig_maker.png",
+                },
+                "Image Converter": {
+                  gif: "/gifs/fast_image_converter.gif",
+                  youtube: "agm47qKzw1Q",
+                  image: "/modules/fast_image_converter.png",
+                },
+                Booleaner: {
+                  gif: "/gifs/denture_booleaner.gif",
+                  youtube: "f5DBv8m-iJU",
+                  image: "/modules/fast_denture_booleaner.png",
+                },
+                "HTML Viewer Converter": {
+                  gif: "/gifs/html_viewer_converter.gif",
+                  youtube: "IGOFiLchblo",
+                  image: "/modules/fast_html_viewer_converter.png",
+                },
+                "STL Classifier": {
+                  gif: "/gifs/classifier.gif",
+                  youtube: null,
+                  image: "/modules/fast_stl_classifier.png",
+                },
+                Fuser: {
+                  gif: "/gifs/fuser.gif",
+                  youtube: null,
+                  image: "/modules/fast_stl_fuser.png",
+                },
+              };
+
+              // 1. 일반 모듈 카드들
+              const moduleCards = modules
+                .filter((mod) => mod !== "On-site Solution Service (Korea only)")
+                .map((mod) => {
+                  const { gif, youtube, image } = info[mod] ?? { gif: null, youtube: null, image: null };
+                  const moduleId = MODULE_NAME_TO_ID[mod];
+                  let expireUtc: string | null = null;
+                  if (
+                    userInfo &&
+                    userInfo.module_licenses &&
+                    typeof userInfo.module_licenses === "object" &&
+                    !Array.isArray(userInfo.module_licenses) &&
+                    moduleId
+                  ) {
+                    const raw = userInfo.module_licenses[moduleId];
+                    if (typeof raw === "string" && raw.trim()) {
+                      expireUtc = raw;
+                    }
+                  }
+                  const { display: expireDisplay, debug: expireDebug } = formatExpiration(expireUtc ?? undefined);
+                  return (
+                    <div
+                      key={mod}
+                      className="
+                        relative
+                        bg-gray-50 rounded-2xl border shadow-md px-2 py-8
+                        flex flex-col sm:flex-row items-center
+                        h-auto sm:h-80 sm:min-h-[320px] sm:max-h-[320px] gap-6
+                      "
+                    >
+                      {/* 모바일 */}
+                      <div className="flex flex-col w-full sm:hidden items-center">
+                        <div className="w-full flex items-center justify-center mb-4">
+                          {image ? (
+                            <Image
+                              src={image}
+                              alt={mod}
+                              width={288}
+                              height={72}
+                              className="object-contain max-h-[72px]"
+                              priority
+                            />
+                          ) : (
+                            <span className="text-2xl font-extrabold px-4 break-words">{mod}</span>
+                          )}
+                        </div>
+                        <div className="w-full h-56 aspect-video border rounded-2xl bg-white overflow-hidden flex items-center justify-center mb-4">
+                          {youtube ? (
+                            <iframe
+                              className="w-full h-full"
+                              src={`https://www.youtube.com/embed/${youtube}`}
+                              title={`${mod} demo`}
+                              frameBorder={0}
+                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                              allowFullScreen
+                            />
+                          ) : (
+                            <span className="text-gray-400 text-2xl font-bold flex items-center justify-center w-full h-full">
+                              Coming&nbsp;Soon
+                            </span>
+                          )}
+                        </div>
+                        <div className="flex flex-col w-full items-center gap-2">
+                          <div className="flex flex-row w-full justify-center items-center gap-2">
+                            <button
+                              className="bg-black text-white rounded-lg w-1/4 h-12 text-base font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
+                              onClick={() => handleModulePayment(mod, "1DAY")}
+                            >
+                              <span className="text-lg leading-5">1DAY</span>
+                              <span className="text-xs leading-5">{priceLabel("1DAY", userInfo.country)}</span>
+                            </button>
+                            <button
+                              className="bg-black text-white rounded-lg w-1/4 h-12 text-base font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
+                              onClick={() => handleModulePayment(mod, "1WEEK")}
+                            >
+                              <span className="text-lg leading-5">1WEEK</span>
+                              <span className="text-xs leading-5">{priceLabel("1WEEK", userInfo.country)}</span>
+                            </button>
+                            <button
+                              className="bg-black text-white rounded-lg w-1/4 h-12 text-base font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
+                              onClick={() => handleModulePayment(mod, "1MONTH")}
+                            >
+                              <span className="text-lg leading-5">1MONTH</span>
+                              <span className="text-xs leading-5">{priceLabel("1MONTH", userInfo.country)}</span>
+                            </button>
+                            <button
+                              className="bg-black text-white rounded-lg w-1/4 h-12 text-base font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
+                              onClick={() => handleModulePayment(mod, "1YEAR")}
+                            >
+                              <span className="text-lg leading-5">1YEAR</span>
+                              <span className="text-xs leading-5">{priceLabel("1YEAR", userInfo.country)}</span>
+                            </button>
+                          </div>
+                          <div className="w-full text-center mt-3">
+                            {isLoggedIn ? (
+                              <span className="text-xs text-gray-600 font-mono">
+                                License expires:&nbsp;
+                                {expireDisplay
+                                  ? (
+                                      <>
+                                        <span className="text-black">{expireDisplay}</span>
+                                        <span className="text-xs text-gray-500">&nbsp;(UTC)</span>
+                                      </>
+                                    )
+                                  : <span className="text-red-500">Not activated{expireDebug ? ` (reason: ${expireDebug})` : ""}</span>
+                                }
+                              </span>
+                            ) : (
+                              <span className="text-xs text-gray-400">
+                                * Log in to check your license
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                      {/* 데스크탑 */}
+                      <div className="hidden sm:flex flex-row items-center w-full h-full gap-6">
+                        <div className="w-64 h-full flex-shrink-0 flex items-center justify-center">
+                          {image ? (
+                            <Image
+                              src={image}
+                              alt={mod}
+                              width={288}
+                              height={72}
+                              className="object-contain max-h-[72px]"
+                              priority
+                            />
+                          ) : (
+                            <span className="text-2xl sm:text-3xl font-extrabold px-4 break-words">{mod}</span>
+                          )}
+                        </div>
+                        <div className="w-72 h-72 flex items-center justify-center flex-shrink-0">
+                          <div className="w-72 h-72 flex items-center justify-center border rounded-2xl bg-white overflow-hidden">
+                            {gif ? (
+                              <Image
+                                src={gif}
+                                alt={`${mod} gif`}
+                                width={288}
+                                height={288}
+                                className="object-contain w-full h-full"
+                                priority
+                              />
+                            ) : (
+                              <span className="text-gray-400 text-2xl font-bold flex items-center justify-center w-full h-full">
+                                Coming&nbsp;Soon
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                        <div className="flex-1 h-72 flex items-center justify-center min-w-0">
+                          <div className="w-full h-72 aspect-video border rounded-2xl bg-white overflow-hidden flex items-center justify-center">
+                            {youtube ? (
+                              <iframe
+                                className="w-full h-full"
+                                src={`https://www.youtube.com/embed/${youtube}`}
+                                title={`${mod} demo`}
+                                frameBorder={0}
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowFullScreen
+                              />
+                            ) : (
+                              <span className="text-gray-400 text-2xl font-bold flex items-center justify-center w-full h-full">
+                                Coming&nbsp;Soon
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                        <div className="flex flex-col gap-3 w-40 flex-shrink-0 h-full justify-center items-center">
+                          <button
+                            className="bg-black text-white rounded-lg w-32 h-16 text-lg font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
+                            onClick={() => handleModulePayment(mod, "1DAY")}
+                          >
+                            <span className="text-xl leading-5">1DAY</span>
+                            <span className="text-base leading-5">{priceLabel("1DAY", userInfo.country)}</span>
+                          </button>
+                          <button
+                            className="bg-black text-white rounded-lg w-32 h-16 text-lg font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
+                            onClick={() => handleModulePayment(mod, "1WEEK")}
+                          >
+                            <span className="text-xl leading-5">1WEEK</span>
+                            <span className="text-base leading-5">{priceLabel("1WEEK", userInfo.country)}</span>
+                          </button>
+                          <button
+                            className="bg-black text-white rounded-lg w-32 h-16 text-lg font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
+                            onClick={() => handleModulePayment(mod, "1MONTH")}
+                          >
+                            <span className="text-xl leading-5">1MONTH</span>
+                            <span className="text-base leading-5">{priceLabel("1MONTH", userInfo.country)}</span>
+                          </button>
+                          <button
+                            className="bg-black text-white rounded-lg w-32 h-16 text-lg font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
+                            onClick={() => handleModulePayment(mod, "1YEAR")}
+                          >
+                            <span className="text-xl leading-5">1YEAR</span>
+                            <span className="text-base leading-5">{priceLabel("1YEAR", userInfo.country)}</span>
+                          </button>
+                          <div className="w-full text-center mt-4">
+                            {isLoggedIn ? (
+                              <span className="text-xs text-gray-600 font-mono">
+                                License expires:&nbsp;
+                                {expireDisplay
+                                  ? (
+                                      <>
+                                        <span className="text-black">{expireDisplay}</span>
+                                        <span className="text-xs text-gray-500">&nbsp;(UTC)</span>
+                                      </>
+                                    )
+                                  : <span className="text-red-500">Not activated{expireDebug ? ` (reason: ${expireDebug})` : ""}</span>
+                                }
+                              </span>
+                            ) : (
+                              <span className="text-xs text-gray-400">
+                                * Log in to check your license
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                });
+
+              // 2. 방문 솔루션 서비스 카드 (기존)
+              const onsiteCard = (
+                <div
+                  key="On-site Solution Service (Korea only)"
+                  className="
+                    relative
+                    bg-gray-50 rounded-2xl border shadow-md px-2 py-8
+                    flex flex-col sm:flex-row items-center
+                    h-auto sm:h-80 sm:min-h-[320px] sm:max-h-[320px] gap-6
+                  "
                 >
-                  <span className="text-xl leading-5">1DAY</span>
-                  <span className="text-base leading-5">{priceLabel("1DAY", userInfo.country)}</span>
-                </button>
-                <button
-                  className="bg-black text-white rounded-lg w-32 h-16 text-lg font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
-                  onClick={() => handleModulePayment(mod, "1WEEK")}
-                >
-                  <span className="text-xl leading-5">1WEEK</span>
-                  <span className="text-base leading-5">{priceLabel("1WEEK", userInfo.country)}</span>
-                </button>
-                <button
-                  className="bg-black text-white rounded-lg w-32 h-16 text-lg font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
-                  onClick={() => handleModulePayment(mod, "1MONTH")}
-                >
-                  <span className="text-xl leading-5">1MONTH</span>
-                  <span className="text-base leading-5">{priceLabel("1MONTH", userInfo.country)}</span>
-                </button>
-                <button
-                  className="bg-black text-white rounded-lg w-32 h-16 text-lg font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
-                  onClick={() => handleModulePayment(mod, "1YEAR")}
-                >
-                  <span className="text-xl leading-5">1YEAR</span>
-                  <span className="text-base leading-5">{priceLabel("1YEAR", userInfo.country)}</span>
-                </button>
-                <div className="w-full text-center mt-4">
-                  {isLoggedIn ? (
-                    <span className="text-xs text-gray-600 font-mono">
-                      License expires:&nbsp;
-                      {expireDisplay
-                        ? (
-                            <>
-                              <span className="text-black">{expireDisplay}</span>
-                              <span className="text-xs text-gray-500">&nbsp;(UTC)</span>
-                            </>
-                          )
-                        : <span className="text-red-500">Not activated{expireDebug ? ` (reason: ${expireDebug})` : ""}</span>
-                      }
-                    </span>
-                  ) : (
-                    <span className="text-xs text-gray-400">
-                      * Log in to check your license
-                    </span>
-                  )}
+                  {/* 모바일 (세로) */}
+                  <div className="flex flex-col w-full sm:hidden gap-4">
+                    <div className="text-2xl font-extrabold text-left">
+                      방문 솔루션 <span className="text-base text-gray-400">(한국 한정/only for korea)</span>
+                    </div>
+                    <div className="text-gray-800 text-base font-bold">
+                      직접 방문하여 기공소 내의 문제를 해결하고, 최적화된 솔루션을 제공합니다.
+                    </div>
+                    <div className="text-gray-700 text-base">
+                      We visit your dental lab in person to solve workflow issues and provide optimized solutions.
+                    </div>
+                    <div className="flex flex-row justify-between items-center">
+                      <span className="text-xl font-extrabold text-black whitespace-nowrap">
+                        ₩550,000
+                        <span className="text-xs ml-1 font-medium text-gray-500">(VAT included, 부가세 포함)</span>
+                      </span>
+                    </div>
+                    <div className="mt-3 text-center">
+                      <span className="text-base font-bold text-blue-700 block mb-1" style={{ fontSize: '1.1rem' }}>
+                        문의/예약: <a href="mailto:techdev@dlas.io" className="underline">techdev@dlas.io</a>
+                      </span>
+                      <span className="text-xs text-gray-500 block">
+                        * 본 서비스는 대한민국 기공소만 신청 가능합니다.<br />
+                        * This service is only available for dental labs in South Korea.
+                      </span>
+                    </div>
+                  </div>
+                  {/* 데스크탑 (가로) */}
+                  <div className="hidden sm:flex flex-row items-center w-full h-full gap-6">
+                    {/* 이름 */}
+                    <div className="w-80 flex flex-col items-start justify-center h-full px-8">
+                      <span className="text-3xl font-extrabold text-black">
+                        방문 솔루션
+                      </span>
+                      <span className="text-base text-gray-400 font-bold ml-1 mt-1">(한국 한정/only for korea)</span>
+                    </div>
+                    {/* 설명 */}
+                    <div className="flex-1 flex flex-col justify-center h-full px-2 text-left gap-2">
+                      <div className="text-lg text-gray-800 font-bold">
+                        직접 방문하여 기공소 내의 문제를 해결하고, 최적화된 솔루션을 제공합니다.
+                      </div>
+                      <div className="text-base text-gray-700">
+                        We visit your dental lab in person to solve workflow issues and provide optimized solutions.
+                      </div>
+                      <div className="mt-3">
+                        <span className="text-base font-bold text-blue-700" style={{ fontSize: '1.15rem' }}>
+                          문의/예약: <a href="mailto:techdev@dlas.io" className="underline">techdev@dlas.io</a>
+                        </span>
+                        <span className="text-xs text-gray-500 block mt-1">
+                          * 본 서비스는 대한민국 기공소만 신청 가능합니다.<br />
+                          * This service is only available for dental labs in South Korea.
+                        </span>
+                      </div>
+                    </div>
+                    {/* 가격 */}
+                    <div className="w-64 flex flex-col items-center justify-center">
+                      <span className="text-3xl font-extrabold text-black">
+                        ₩550,000
+                      </span>
+                      <span className="text-xs mt-1 font-medium text-gray-500">
+                        (VAT included, 부가세 포함)
+                      </span>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        );
-      });
+              );
 
-    // 2. 방문 솔루션 서비스 카드 (기존)
-    const onsiteCard = (
-      <div
-        key="On-site Solution Service (Korea only)"
-        className="
-          relative
-          bg-gray-50 rounded-2xl border shadow-md px-2 py-8
-          flex flex-col sm:flex-row items-center
-          h-auto sm:h-80 sm:min-h-[320px] sm:max-h-[320px] gap-6
-        "
-      >
-        {/* 모바일 (세로) */}
-        <div className="flex flex-col w-full sm:hidden gap-4">
-          <div className="text-2xl font-extrabold text-left">
-            방문 솔루션 <span className="text-base text-gray-400">(한국 한정/only for korea)</span>
-          </div>
-          <div className="text-gray-800 text-base font-bold">
-            직접 방문하여 기공소 내의 문제를 해결하고, 최적화된 솔루션을 제공합니다.
-          </div>
-          <div className="text-gray-700 text-base">
-            We visit your dental lab in person to solve workflow issues and provide optimized solutions.
-          </div>
-          <div className="flex flex-row justify-between items-center">
-            <span className="text-xl font-extrabold text-black whitespace-nowrap">
-              ₩550,000
-              <span className="text-xs ml-1 font-medium text-gray-500">(VAT included, 부가세 포함)</span>
-            </span>
-          </div>
-          <div className="mt-3 text-center">
-            <span className="text-base font-bold text-blue-700 block mb-1" style={{ fontSize: '1.1rem' }}>
-              문의/예약: <a href="mailto:techdev@dlas.io" className="underline">techdev@dlas.io</a>
-            </span>
-            <span className="text-xs text-gray-500 block">
-              * 본 서비스는 대한민국 기공소만 신청 가능합니다.<br />
-              * This service is only available for dental labs in South Korea.
-            </span>
-          </div>
-        </div>
-        {/* 데스크탑 (가로) */}
-        <div className="hidden sm:flex flex-row items-center w-full h-full gap-6">
-          {/* 이름 */}
-          <div className="w-80 flex flex-col items-start justify-center h-full px-8">
-            <span className="text-3xl font-extrabold text-black">
-              방문 솔루션
-            </span>
-            <span className="text-base text-gray-400 font-bold ml-1 mt-1">(한국 한정/only for korea)</span>
-          </div>
-          {/* 설명 */}
-          <div className="flex-1 flex flex-col justify-center h-full px-2 text-left gap-2">
-            <div className="text-lg text-gray-800 font-bold">
-              직접 방문하여 기공소 내의 문제를 해결하고, 최적화된 솔루션을 제공합니다.
-            </div>
-            <div className="text-base text-gray-700">
-              We visit your dental lab in person to solve workflow issues and provide optimized solutions.
-            </div>
-            <div className="mt-3">
-              <span className="text-base font-bold text-blue-700" style={{ fontSize: '1.15rem' }}>
-                문의/예약: <a href="mailto:techdev@dlas.io" className="underline">techdev@dlas.io</a>
-              </span>
-              <span className="text-xs text-gray-500 block mt-1">
-                * 본 서비스는 대한민국 기공소만 신청 가능합니다.<br />
-                * This service is only available for dental labs in South Korea.
-              </span>
-            </div>
-          </div>
-          {/* 가격 */}
-          <div className="w-64 flex flex-col items-center justify-center">
-            <span className="text-3xl font-extrabold text-black">
-              ₩550,000
-            </span>
-            <span className="text-xs mt-1 font-medium text-gray-500">
-              (VAT included, 부가세 포함)
-            </span>
-          </div>
-        </div>
-      </div>
-    );
+              // 3. 맞춤 코딩 서비스 카드 (신규 추가)
+              const customCodingCard = (
+                <div
+                  key="Custom Coding Service (Korea only)"
+                  className="
+                    relative
+                    bg-gray-50 rounded-2xl border shadow-md px-2 py-8
+                    flex flex-col sm:flex-row items-center
+                    h-auto sm:h-80 sm:min-h-[320px] sm:max-h-[320px] gap-6
+                  "
+                >
+                  {/* 모바일 (세로) */}
+                  <div className="flex flex-col w-full sm:hidden gap-4">
+                    <div className="text-2xl font-extrabold text-left">
+                      맞춤 코딩 <span className="text-base text-gray-400">(한국 한정/only for korea)</span>
+                    </div>
+                    <div className="text-gray-800 text-base font-bold">
+                      직접 방문하여 기공소 내의 문제를 해결하고, 최적화된 코딩으로 자동화 소프트웨어를 제작해 드립니다.
+                    </div>
+                    <div className="text-gray-700 text-base">
+                      We visit your dental lab, resolve on-site issues, and build automation software with custom coding.
+                    </div>
+                    <div className="flex flex-row justify-between items-center">
+                      <span className="text-xl font-extrabold text-black whitespace-nowrap">
+                        ₩3,300,000
+                        <span className="text-xs ml-1 font-medium text-gray-500">(VAT included, 부가세 포함)</span>
+                      </span>
+                    </div>
+                    <div className="mt-3 text-center">
+                      <span className="text-base font-bold text-blue-700 block mb-1" style={{ fontSize: '1.1rem' }}>
+                        문의/예약: <a href="mailto:techdev@dlas.io" className="underline">techdev@dlas.io</a>
+                      </span>
+                      <span className="text-xs text-gray-500 block">
+                        * 본 서비스는 대한민국 기공소만 신청 가능합니다.<br />
+                        * This service is only available for dental labs in South Korea.
+                      </span>
+                    </div>
+                  </div>
+                  {/* 데스크탑 (가로) */}
+                  <div className="hidden sm:flex flex-row items-center w-full h-full gap-6">
+                    {/* 이름 */}
+                    <div className="w-80 flex flex-col items-start justify-center h-full px-8">
+                      <span className="text-3xl font-extrabold text-black">
+                        맞춤 코딩
+                      </span>
+                      <span className="text-base text-gray-400 font-bold ml-1 mt-1">(한국 한정/only for korea)</span>
+                    </div>
+                    {/* 설명 */}
+                    <div className="flex-1 flex flex-col justify-center h-full px-2 text-left gap-2">
+                      <div className="text-lg text-gray-800 font-bold">
+                        직접 방문하여 기공소 내의 문제를 해결하고, 최적화된 코딩으로 자동화 소프트웨어를 제작해 드립니다.
+                      </div>
+                      <div className="text-base text-gray-700">
+                        We visit your dental lab, resolve on-site issues, and build automation software with custom coding.
+                      </div>
+                      <div className="mt-3">
+                        <span className="text-base font-bold text-blue-700" style={{ fontSize: '1.15rem' }}>
+                          문의/예약: <a href="mailto:techdev@dlas.io" className="underline">techdev@dlas.io</a>
+                        </span>
+                        <span className="text-xs text-gray-500 block mt-1">
+                          * 본 서비스는 대한민국 기공소만 신청 가능합니다.<br />
+                          * This service is only available for dental labs in South Korea.
+                        </span>
+                      </div>
+                    </div>
+                    {/* 가격 */}
+                    <div className="w-64 flex flex-col items-center justify-center">
+                      <span className="text-3xl font-extrabold text-black">
+                        ₩3,300,000
+                      </span>
+                      <span className="text-xs mt-1 font-medium text-gray-500">
+                        (VAT included, 부가세 포함)
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              );
 
-    // 3. 맞춤 코딩 서비스 카드 (신규 추가)
-    const customCodingCard = (
-      <div
-        key="Custom Coding Service (Korea only)"
-        className="
-          relative
-          bg-gray-50 rounded-2xl border shadow-md px-2 py-8
-          flex flex-col sm:flex-row items-center
-          h-auto sm:h-80 sm:min-h-[320px] sm:max-h-[320px] gap-6
-        "
-      >
-        {/* 모바일 (세로) */}
-        <div className="flex flex-col w-full sm:hidden gap-4">
-          <div className="text-2xl font-extrabold text-left">
-            맞춤 코딩 <span className="text-base text-gray-400">(한국 한정/only for korea)</span>
-          </div>
-          <div className="text-gray-800 text-base font-bold">
-            직접 방문하여 기공소 내의 문제를 해결하고, 최적화된 코딩으로 자동화 소프트웨어를 제작해 드립니다.
-          </div>
-          <div className="text-gray-700 text-base">
-            We visit your dental lab, resolve on-site issues, and build automation software with custom coding.
-          </div>
-          <div className="flex flex-row justify-between items-center">
-            <span className="text-xl font-extrabold text-black whitespace-nowrap">
-              ₩3,300,000
-              <span className="text-xs ml-1 font-medium text-gray-500">(VAT included, 부가세 포함)</span>
-            </span>
-          </div>
-          <div className="mt-3 text-center">
-            <span className="text-base font-bold text-blue-700 block mb-1" style={{ fontSize: '1.1rem' }}>
-              문의/예약: <a href="mailto:techdev@dlas.io" className="underline">techdev@dlas.io</a>
-            </span>
-            <span className="text-xs text-gray-500 block">
-              * 본 서비스는 대한민국 기공소만 신청 가능합니다.<br />
-              * This service is only available for dental labs in South Korea.
-            </span>
-          </div>
-        </div>
-        {/* 데스크탑 (가로) */}
-        <div className="hidden sm:flex flex-row items-center w-full h-full gap-6">
-          {/* 이름 */}
-          <div className="w-80 flex flex-col items-start justify-center h-full px-8">
-            <span className="text-3xl font-extrabold text-black">
-              맞춤 코딩
-            </span>
-            <span className="text-base text-gray-400 font-bold ml-1 mt-1">(한국 한정/only for korea)</span>
-          </div>
-          {/* 설명 */}
-          <div className="flex-1 flex flex-col justify-center h-full px-2 text-left gap-2">
-            <div className="text-lg text-gray-800 font-bold">
-              직접 방문하여 기공소 내의 문제를 해결하고, 최적화된 코딩으로 자동화 소프트웨어를 제작해 드립니다.
-            </div>
-            <div className="text-base text-gray-700">
-              We visit your dental lab, resolve on-site issues, and build automation software with custom coding.
-            </div>
-            <div className="mt-3">
-              <span className="text-base font-bold text-blue-700" style={{ fontSize: '1.15rem' }}>
-                문의/예약: <a href="mailto:techdev@dlas.io" className="underline">techdev@dlas.io</a>
-              </span>
-              <span className="text-xs text-gray-500 block mt-1">
-                * 본 서비스는 대한민국 기공소만 신청 가능합니다.<br />
-                * This service is only available for dental labs in South Korea.
-              </span>
-            </div>
-          </div>
-          {/* 가격 */}
-          <div className="w-64 flex flex-col items-center justify-center">
-            <span className="text-3xl font-extrabold text-black">
-              ₩3,300,000
-            </span>
-            <span className="text-xs mt-1 font-medium text-gray-500">
-              (VAT included, 부가세 포함)
-            </span>
-          </div>
-        </div>
-      </div>
-    );
-
-    return (
-      <div className="flex flex-col gap-y-16 w-full max-w-6xl mx-auto">
-        {moduleCards}
-        {onsiteCard}
-        {customCodingCard}
-      </div>
-    );
-  })()}
-</section>
-
-
-
+              return (
+                <div className="flex flex-col gap-y-16 w-full max-w-6xl mx-auto">
+                  {moduleCards}
+                  {onsiteCard}
+                  {customCodingCard}
+                </div>
+              );
+            })()}
+          </section>
 
           {/* 연락처 섹션 */}
           <section
