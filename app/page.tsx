@@ -7,12 +7,13 @@ declare global {
       clientKey: string
     ) => {
       requestPayment: (
-        paymentMethod: string,
+        paymentMethod: "카드" | "CARD" | string,
         options: {
           amount: number;
           orderId: string;
           orderName: string;
-          customerEmail: string;
+          customerEmail?: string;
+          customerName?: string;
           successUrl: string;
           failUrl: string;
         }
@@ -305,6 +306,9 @@ const isKoreanUser = (country?: string) =>
     country.toLowerCase().includes(kw)
   );
 
+/** KRW 표시 여부: 로그인 전(국가 미확인)에도 KRW를 기본 표시로 간주 */
+const isKrwDisplay = (country?: string) => !country || isKoreanUser(country);
+
 /** 버튼·라벨에 표시할 금액 문자열 (🇰🇷 기본 원화, 🇺🇸 비한국 로그인 시 달러) */
 const priceLabel = (period: string, country?: string) => {
   const usd = MODULE_PRICES_USD[period];
@@ -312,14 +316,14 @@ const priceLabel = (period: string, country?: string) => {
 
   // ✅ 기본값: KRW
   // ✅ 로그인 후 country가 한국이 아니면 USD
-  if (!country || isKoreanUser(country)) return krwStr;
+  if (isKrwDisplay(country)) return krwStr;
   return `$${usd}`;
 };
 
 /** 일반 USD 금액(정수/소수)을 표시용 문자열로 변환: 🇰🇷 기본 KRW, 🇺🇸 비한국 로그인 시 USD */
 const asDisplayPrice = (usdNumber: number, country?: string) => {
   const krwStr = `₩${Math.round(usdToKrw(usdNumber)).toLocaleString()}`;
-  if (!country || isKoreanUser(country)) return krwStr;
+  if (isKrwDisplay(country)) return krwStr;
   return `$${usdNumber.toLocaleString()}`;
 };
 
@@ -691,8 +695,8 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
       return;
     }
 
-    /* ── 🇰🇷 Korean user ⇒ TossPayments ───────────────────── */
-    if (isKoreanUser(userInfo.country)) {
+    /* ── 🇰🇷 KRW 표시(한국/미확인) ⇒ TossPayments ───────────────────── */
+    if (isKrwDisplay(userInfo.country)) {
       if (typeof window === "undefined" || !window.TossPayments) {
         alert("The payment module has not been loaded yet.");
         return;
@@ -702,7 +706,7 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
       const orderId = `DLAS-${mod}-${period}-${Date.now()}`;
 
       // USD -> KRW 환산(표시와 동일)
-      const amount = usdToKrw(MODULE_PRICES_USD[period]);
+      const amount = Math.round(usdToKrw(MODULE_PRICES_USD[period]));
       const orderName = `${mod} (${period})`;
 
       // 성공/실패 URL을 현재 페이지로 고정 (승인직전 단계까지)
@@ -712,11 +716,12 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
       const failUrl =
         `${currentOrigin}/?provider=toss&type=module&mod=${encodeURIComponent(mod)}&period=${encodeURIComponent(period)}`;
 
-      tossPayments.requestPayment("카드", {
+      tossPayments.requestPayment("CARD", {
         amount,
         orderId,
         orderName,
         customerEmail: storedId,
+        customerName: (userInfo && userInfo.name) ? userInfo.name : storedId,
         successUrl,
         failUrl,
       });
@@ -887,11 +892,12 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
     const failUrl =
       `${currentOrigin}/?provider=toss&type=family`;
 
-    tossPayments.requestPayment("카드", {
+    tossPayments.requestPayment("CARD", {
       amount,
       orderId,
       orderName,
       customerEmail: userID,
+      customerName: (userInfo && userInfo.name) ? userInfo.name : userID,
       successUrl,
       failUrl,
     });
@@ -907,7 +913,7 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
       alert("You are already a Family user. Payment is not possible.");
       return;
     }
-    if (isKoreanUser(userInfo.country)) {
+    if (isKrwDisplay(userInfo.country)) {
       handleTossRequest();
     } else {
       handlePaddleCheckout();
