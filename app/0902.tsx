@@ -1,4 +1,8 @@
+
 "use client";
+
+
+
 
 declare global {
   interface Window {
@@ -939,31 +943,6 @@ const handleFamilyLicensePayment = () => {
 
   return (
     <>
-      {/* ✅ 최초 접속 시 한국어(ko) 기본 설정 */}
-      <Script
-        id="dlas-initial-lang-ko"
-        strategy="beforeInteractive"
-        dangerouslySetInnerHTML={{
-          __html: `
-          (function(){
-            try {
-              var has =
-                localStorage.getItem('DLAS_LANG') ||
-                localStorage.getItem('lang') ||
-                localStorage.getItem('i18nLang');
-              if (!has) {
-                localStorage.setItem('DLAS_LANG','ko');
-                localStorage.setItem('lang','ko');
-                localStorage.setItem('i18nLang','ko');
-              }
-              if (document && document.documentElement) {
-                document.documentElement.setAttribute('lang','ko');
-              }
-            } catch (e) {}
-          })();`
-        }}
-      />
-
       {/* ✅ Head 영역 추가 */}
       <Head>
         <title>DLAS - Dental Lab Automation Solution</title>
@@ -1512,7 +1491,7 @@ const handleFamilyLicensePayment = () => {
         );
       });
 
-    // 2. 방문 솔루션 서비스 카드 (기존)
+    // 2. 방문 솔루션 서비스 카드 (맨 아래, 한글→영문, 가로배치, 문의메일 강조)
     const onsiteCard = (
       <div
         key="On-site Solution Service (Korea only)"
@@ -1590,89 +1569,10 @@ const handleFamilyLicensePayment = () => {
       </div>
     );
 
-    // 3. 맞춤 코딩 서비스 카드 (신규 추가)
-    const customCodingCard = (
-      <div
-        key="Custom Coding Service (Korea only)"
-        className="
-          relative
-          bg-gray-50 rounded-2xl border shadow-md px-2 py-8
-          flex flex-col sm:flex-row items-center
-          h-auto sm:h-80 sm:min-h-[320px] sm:max-h-[320px] gap-6
-        "
-      >
-        {/* 모바일 (세로) */}
-        <div className="flex flex-col w-full sm:hidden gap-4">
-          <div className="text-2xl font-extrabold text-left">
-            맞춤 코딩 <span className="text-base text-gray-400">(한국 한정/only for korea)</span>
-          </div>
-          <div className="text-gray-800 text-base font-bold">
-            직접 방문하여 기공소 내의 문제를 해결하고, 최적화된 코딩으로 자동화 소프트웨어를 제작해 드립니다.
-          </div>
-          <div className="text-gray-700 text-base">
-            We visit your dental lab, resolve on-site issues, and build automation software with custom coding.
-          </div>
-          <div className="flex flex-row justify-between items-center">
-            <span className="text-xl font-extrabold text-black whitespace-nowrap">
-              ₩3,300,000
-              <span className="text-xs ml-1 font-medium text-gray-500">(VAT included, 부가세 포함)</span>
-            </span>
-          </div>
-          <div className="mt-3 text-center">
-            <span className="text-base font-bold text-blue-700 block mb-1" style={{ fontSize: '1.1rem' }}>
-              문의/예약: <a href="mailto:techdev@dlas.io" className="underline">techdev@dlas.io</a>
-            </span>
-            <span className="text-xs text-gray-500 block">
-              * 본 서비스는 대한민국 기공소만 신청 가능합니다.<br />
-              * This service is only available for dental labs in South Korea.
-            </span>
-          </div>
-        </div>
-        {/* 데스크탑 (가로) */}
-        <div className="hidden sm:flex flex-row items-center w-full h-full gap-6">
-          {/* 이름 */}
-          <div className="w-80 flex flex-col items-start justify-center h-full px-8">
-            <span className="text-3xl font-extrabold text-black">
-              맞춤 코딩
-            </span>
-            <span className="text-base text-gray-400 font-bold ml-1 mt-1">(한국 한정/only for korea)</span>
-          </div>
-          {/* 설명 */}
-          <div className="flex-1 flex flex-col justify-center h-full px-2 text-left gap-2">
-            <div className="text-lg text-gray-800 font-bold">
-              직접 방문하여 기공소 내의 문제를 해결하고, 최적화된 코딩으로 자동화 소프트웨어를 제작해 드립니다.
-            </div>
-            <div className="text-base text-gray-700">
-              We visit your dental lab, resolve on-site issues, and build automation software with custom coding.
-            </div>
-            <div className="mt-3">
-              <span className="text-base font-bold text-blue-700" style={{ fontSize: '1.15rem' }}>
-                문의/예약: <a href="mailto:techdev@dlas.io" className="underline">techdev@dlas.io</a>
-              </span>
-              <span className="text-xs text-gray-500 block mt-1">
-                * 본 서비스는 대한민국 기공소만 신청 가능합니다.<br />
-                * This service is only available for dental labs in South Korea.
-              </span>
-            </div>
-          </div>
-          {/* 가격 */}
-          <div className="w-64 flex flex-col items-center justify-center">
-            <span className="text-3xl font-extrabold text-black">
-              ₩3,300,000
-            </span>
-            <span className="text-xs mt-1 font-medium text-gray-500">
-              (VAT included, 부가세 포함)
-            </span>
-          </div>
-        </div>
-      </div>
-    );
-
     return (
       <div className="flex flex-col gap-y-16 w-full max-w-6xl mx-auto">
         {moduleCards}
         {onsiteCard}
-        {customCodingCard}
       </div>
     );
   })()}
@@ -1783,6 +1683,7 @@ const handleFamilyLicensePayment = () => {
         </main>
 
 
+     
 
         {/* 패밀리 라이선스 모달 */}
         {showFamilyModal && (
