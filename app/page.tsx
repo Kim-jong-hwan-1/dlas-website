@@ -953,32 +953,7 @@ const handleModulePayment = (mod: string, period: string) => {
 
   return (
     <>
-      {/* ✅ 최초 접속 시 한국어(ko) 기본 설정 */}
-      <Script
-        id="dlas-initial-lang-ko"
-        strategy="beforeInteractive"
-        dangerouslySetInnerHTML={{
-          __html: `
-          (function(){
-            try {
-              var has =
-                localStorage.getItem('DLAS_LANG') ||
-                localStorage.getItem('lang') ||
-                localStorage.getItem('i18nLang');
-              if (!has) {
-                localStorage.setItem('DLAS_LANG','ko');
-                localStorage.setItem('lang','ko');
-                localStorage.setItem('i18nLang','ko');
-              }
-              if (document && document.documentElement) {
-                document.documentElement.setAttribute('lang','ko');
-              }
-            } catch (e) {}
-          })();`
-        }}
-      />
-
-      {/* ✅ Head 영역 추가 */}
+      {/* ✅ FOUC 방지: 번역 준비 전(body 숨김) */}
       <Head>
         <title>DLAS - Dental Lab Automation Solution</title>
         <meta
@@ -990,7 +965,48 @@ const handleModulePayment = (mod: string, period: string) => {
           content="DLAS, Dental CAD, dental automation, digital dentistry, screw hole automation"
         />
         <link rel="canonical" href="https://www.dlas.io/" />
+        {/* ▼ data-i18n-ready 가 설정되기 전에는 body 숨김 → 한글 기본값 적용 후 노출 */}
+        <style id="hide-until-i18n">{`
+          html:not([data-i18n-ready="1"]) body { visibility: hidden; }
+        `}</style>
       </Head>
+
+      {/* ✅ 최초 접속 시 한국어(ko) 기본 설정 + 쿠키 + 준비완료 마크 */}
+      <Script
+        id="dlas-initial-lang-ko"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+          (function () {
+            try {
+              // 1) 기존 저장된 언어 확인
+              var lang =
+                localStorage.getItem('DLAS_LANG') ||
+                localStorage.getItem('lang') ||
+                localStorage.getItem('i18nLang');
+
+              // 2) 첫 방문(저장값 없음)인 경우에만 ko로 선설정
+              if (!lang) {
+                localStorage.setItem('DLAS_LANG', 'ko');
+                localStorage.setItem('lang', 'ko');
+                localStorage.setItem('i18nLang', 'ko');
+                lang = 'ko';
+              }
+
+              // 3) <html lang> 확정
+              if (document && document.documentElement) {
+                document.documentElement.setAttribute('lang', lang || 'ko');
+              }
+
+              // 4) 쿠키도 동기화(다른 페이지/요청에서 활용 가능)
+              document.cookie = 'DLAS_LANG=' + (lang || 'ko') + '; Path=/; Max-Age=31536000; SameSite=Lax';
+
+              // 5) 번역 준비 완료 표시 → FOUC 해제
+              document.documentElement.setAttribute('data-i18n-ready', '1');
+            } catch (e) {}
+          })();`,
+        }}
+      />
 
       {/*
         Paddle Billing v2 SDK
@@ -1012,7 +1028,7 @@ const handleModulePayment = (mod: string, period: string) => {
             if (isSandbox && window.Paddle.Environment) {
               window.Paddle.Environment.set("sandbox");
             }
-            // 3) Initialize 호출
+            // 3) Initialize 호출 (locale: "ko"로 고정 시작)
             window.Paddle.Initialize({
               token: PADDLE_TOKEN,
               checkout: { settings: { displayMode: "overlay", locale: "ko" } },
