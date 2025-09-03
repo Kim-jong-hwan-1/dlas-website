@@ -4,6 +4,7 @@
 
 import Head from "next/head";
 import { useEffect, useMemo, useState } from "react";
+import type React from "react";
 import Image from "next/image";
 import { useLang } from "@/components/LanguageWrapper";
 import LanguageSelector from "@/components/LanguageSelector";
@@ -35,10 +36,22 @@ type PaddleSDK = {
   }) => void;
   Checkout: {
     open: (
-      | { priceId: string; quantity?: number; customer: { email: string };
-          customData?: Record<string, any>; discountCode?: string; closeCallback?: () => void; }
-      | { items: { priceId: string; quantity?: number }[]; customer: { email: string };
-          customData?: Record<string, any>; discountCode?: string; closeCallback?: () => void; }
+      options:
+        | {
+            priceId: string;
+            quantity?: number;
+            customer: { email: string };
+            customData?: Record<string, any>;
+            discountCode?: string;
+            closeCallback?: () => void;
+          }
+        | {
+            items: { priceId: string; quantity?: number }[];
+            customer: { email: string };
+            customData?: Record<string, any>;
+            discountCode?: string;
+            closeCallback?: () => void;
+          }
     ) => void;
   };
 };
@@ -60,14 +73,14 @@ const formatExpiration = (raw?: string) => {
   const m = raw.match(/^(\d{4}-\d{2}-\d{2})(?:[T\s](\d{2}):(\d{2}))/);
   if (!m) return { display: null, debug: "unrecognised format" } as const;
 
-  const [ , ymd, hh, mm ] = m;
+  const [, ymd, hh, mm] = m;
   if (!hh) return { display: ymd, debug: null } as const;
 
   const d = new Date(raw);
   if (isNaN(d.getTime())) return { display: null, debug: "invalid date" } as const;
 
-  const p = (n:number)=>`${n}`.padStart(2,"0");
-  const utc = `${d.getUTCFullYear()}-${p(d.getUTCMonth()+1)}-${p(d.getUTCDate())} ${p(d.getUTCHours())}:${p(d.getUTCMinutes())}`;
+  const p = (n: number) => `${n}`.padStart(2, "0");
+  const utc = `${d.getUTCFullYear()}-${p(d.getUTCMonth() + 1)}-${p(d.getUTCDate())} ${p(d.getUTCHours())}:${p(d.getUTCMinutes())}`;
   return { display: utc, debug: null } as const;
 };
 
@@ -99,7 +112,7 @@ export default function Page() {
   type TossStatus = "success" | "fail";
 
   const [tossModalOpen, setTossModalOpen] = useState(false);
-  const [tossApproveState, setTossApproveState] = useState<"idle"|"requesting"|"ok"|"fail">("idle");
+  const [tossApproveState, setTossApproveState] = useState<"idle" | "requesting" | "ok" | "fail">("idle");
   const [tossErrText, setTossErrText] = useState<string>("");
 
   const [tossPayload, setTossPayload] = useState<{
@@ -594,8 +607,8 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
     if (showMyModal) {
       const storedID = userID || localStorage.getItem("userID");
       if (storedID) {
-        setUserID(storedID);
-        fetchUserInfo(storedID);
+        setUserID(storedID as string);
+        fetchUserInfo(storedID as string);
       }
     }
   }, [showMyModal]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -683,7 +696,10 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
       }
       const tossClientKey = process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY!;
       const tossInit = (window as MyWindow).TossPayments;
-      if (!tossInit) { alert("The payment module has not been loaded yet."); return; }
+      if (!tossInit) {
+        alert("The payment module has not been loaded yet.");
+        return;
+      }
       const tossPayments = tossInit(tossClientKey);
       const orderId = `DLAS-${mod}-${period}-${Date.now()}`;
 
@@ -1343,20 +1359,19 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
                             {isLoggedIn ? (
                               <span className="text-xs text-gray-600 font-mono">
                                 License expires:&nbsp;
-                                {expireDisplay
-                                  ? (
-                                      <>
-                                        <span className="text-black">{expireDisplay}</span>
-                                        <span className="text-xs text-gray-500">&nbsp;(UTC)</span>
-                                      </>
-                                    )
-                                  : <span className="text-red-500">Not activated{expireDebug ? ` (reason: ${expireDebug})` : ""}</span>
-                                }
+                                {expireDisplay ? (
+                                  <>
+                                    <span className="text-black">{expireDisplay}</span>
+                                    <span className="text-xs text-gray-500">&nbsp;(UTC)</span>
+                                  </>
+                                ) : (
+                                  <span className="text-red-500">
+                                    Not activated{expireDebug ? ` (reason: ${expireDebug})` : ""}
+                                  </span>
+                                )}
                               </span>
                             ) : (
-                              <span className="text-xs text-gray-400">
-                                * Log in to check your license
-                              </span>
+                              <span className="text-xs text-gray-400">* Log in to check your license</span>
                             )}
                           </div>
                         </div>
@@ -1446,20 +1461,19 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
                             {isLoggedIn ? (
                               <span className="text-xs text-gray-600 font-mono">
                                 License expires:&nbsp;
-                                {expireDisplay
-                                  ? (
-                                      <>
-                                        <span className="text-black">{expireDisplay}</span>
-                                        <span className="text-xs text-gray-500">&nbsp;(UTC)</span>
-                                      </>
-                                    )
-                                  : <span className="text-red-500">Not activated{expireDebug ? ` (reason: ${expireDebug})` : ""}</span>
-                                }
+                                {expireDisplay ? (
+                                  <>
+                                    <span className="text-black">{expireDisplay}</span>
+                                    <span className="text-xs text-gray-500">&nbsp;(UTC)</span>
+                                  </>
+                                ) : (
+                                  <span className="text-red-500">
+                                    Not activated{expireDebug ? ` (reason: ${expireDebug})` : ""}
+                                  </span>
+                                )}
                               </span>
                             ) : (
-                              <span className="text-xs text-gray-400">
-                                * Log in to check your license
-                              </span>
+                              <span className="text-xs text-gray-400">* Log in to check your license</span>
                             )}
                           </div>
                         </div>
@@ -1551,7 +1565,7 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
                     relative
                     bg-gray-50 rounded-2xl border shadow-md px-2 py-8
                     flex flex-col sm:flex-row items-center
-                    h-auto sm:h-80 sm:min-h-[320px] sm:max-h-[320px] gap-6
+                    h-auto sm:h-80 sm:min하-[320px] sm:max-h-[320px] gap-6
                   "
                 >
                   {/* 모바일 (세로) */}
@@ -2217,7 +2231,7 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
           id="signup-modal"
           className="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-center justify-center"
         >
-          <div className="bg-white w-full max-w-md p-8 rounded-lg shadow-xl relative">
+          <div className="bg-white w/full max-w-md p-8 rounded-lg shadow-xl relative">
             <button
               className="absolute top-2 right-3 text-gray-500 hover:text-black"
               onClick={() =>
@@ -2336,7 +2350,7 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
         {/* MY 모달 */}
         {showMyModal && (
           <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
-            <div className="bg-white w-full max-w-md p-8 rounded-lg shadow-xl relative">
+            <div className="bg-white w/full max-w-md p-8 rounded-lg shadow-xl relative">
               <button
                 className="absolute top-2 right-3 text-gray-500 hover:text-black text-2xl"
                 onClick={() => setShowMyModal(false)}
