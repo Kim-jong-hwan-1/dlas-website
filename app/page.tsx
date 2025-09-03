@@ -1,5 +1,6 @@
 "use client";
 
+ // 타입 선언 파일에서는 필요 (중복 선언 방지)
 
 import Head from "next/head";
 import { useEffect, useMemo, useState } from "react";
@@ -7,9 +8,6 @@ import Image from "next/image";
 import { useLang } from "@/components/LanguageWrapper";
 import LanguageSelector from "@/components/LanguageSelector";
 import Script from "next/script";
-
-
-
 // ---------------------------------------------
 // Local types to avoid global Window conflicts
 // ---------------------------------------------
@@ -20,10 +18,9 @@ type TossPaymentsFn = (clientKey: string) => {
       amount: number;
       orderId: string;
       orderName: string;
-      customerEmail: string; // keep required to match upstream typings
+      customerEmail: string; // required to match upstream expectations
       successUrl: string;
       failUrl: string;
-      // We still send this at runtime; allow it via optional + index signature
       customerName?: string;
       [key: string]: unknown;
     }
@@ -31,38 +28,17 @@ type TossPaymentsFn = (clientKey: string) => {
 };
 
 type PaddleSDK = {
-  Environment?: {
-    set: (env: string) => void;
-  };
+  Environment?: { set: (env: string) => void };
   Initialize: (config: {
     token: string;
-    checkout?: {
-      settings?: {
-        displayMode?: string;
-        locale?: string;
-      };
-    };
+    checkout?: { settings?: { displayMode?: string; locale?: string } };
   }) => void;
   Checkout: {
     open: (
-      opts:
-        | {
-            // single priceId
-            priceId: string;
-            quantity?: number;
-            customer: { email: string };
-            customData?: { [key: string]: any };
-            discountCode?: string;
-            closeCallback?: () => void;
-          }
-        | {
-            // multiple items
-            items: { priceId: string; quantity?: number }[];
-            customer: { email: string };
-            customData?: { [key: string]: any };
-            discountCode?: string;
-            closeCallback?: () => void;
-          }
+      | { priceId: string; quantity?: number; customer: { email: string };
+          customData?: Record<string, any>; discountCode?: string; closeCallback?: () => void; }
+      | { items: { priceId: string; quantity?: number }[]; customer: { email: string };
+          customData?: Record<string, any>; discountCode?: string; closeCallback?: () => void; }
     ) => void;
   };
 };
@@ -71,6 +47,7 @@ interface MyWindow extends Window {
   TossPayments?: TossPaymentsFn;
   Paddle?: PaddleSDK;
 }
+
 
 /*───────────────────────────────────────────────────
   만료일 포매터 – 9999‑12‑31 ➜ Unlimited, 
@@ -705,7 +682,9 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
         return;
       }
       const tossClientKey = process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY!;
-      const tossPayments = (window as MyWindow).TossPayments(tossClientKey);
+      const tossInit = (window as MyWindow).TossPayments;
+      if (!tossInit) { alert("The payment module has not been loaded yet."); return; }
+      const tossPayments = tossInit(tossClientKey);
       const orderId = `DLAS-${mod}-${period}-${Date.now()}`;
 
       // USD -> KRW 환산(표시와 동일)
@@ -750,7 +729,7 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
     const orderName = `${mod} (${period})`;
     const amount = MODULE_PRICES_USD[period];
 
-    (window as MyWindow).Paddle.Checkout.open({
+    (window as MyWindow).Paddle!.Checkout.open({
       items: [{ priceId, quantity: 1 }],
       customer: { email: storedId },
       customData: { userID: storedId, module: mod, period, orderName, amount },
@@ -840,7 +819,7 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
       alert("Paddle is not ready yet. Please wait or refresh the page.");
       return;
     }
-    // 2) 실제 (window as MyWindow).Paddle 객체 검사
+    // 2) 실제 window.Paddle 객체 검사
     if (!(window as MyWindow).Paddle) {
       alert("Paddle object is missing. (Check ad-blocker or domain settings)");
       return;
@@ -852,7 +831,7 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
       return;
     }
 
-    (window as MyWindow).Paddle.Checkout.open({
+    (window as MyWindow).Paddle!.Checkout.open({
       items: [
         {
           priceId: PADDLE_PRICE_ID,
@@ -881,7 +860,9 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
     }
 
     const tossClientKey = process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY!;
-    const tossPayments = (window as MyWindow).TossPayments(tossClientKey);
+    const tossInit = (window as MyWindow).TossPayments;
+      if (!tossInit) { alert("The payment module has not been loaded yet."); return; }
+      const tossPayments = tossInit(tossClientKey);
 
     const orderId = `DLAS-FAMILY-${Date.now()}`;
     const amount = 550000; // Family 고정가
@@ -978,13 +959,13 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
         onLoad={() => {
           try {
             if (!(window as MyWindow).Paddle) {
-              console.error("❌ (window as MyWindow).Paddle undefined ― 스크립트 차단 여부 확인");
+              console.error("❌ window.Paddle undefined ― 스크립트 차단 여부 확인");
               return;
             }
-            if (isSandbox && (window as MyWindow).Paddle.Environment) {
-              (window as MyWindow).Paddle.Environment.set("sandbox");
+            if (isSandbox && (window as MyWindow).Paddle && (window as MyWindow).Paddle!.Environment) {
+              (window as MyWindow).Paddle!.Environment!.set("sandbox");
             }
-            (window as MyWindow).Paddle.Initialize({
+            (window as MyWindow).Paddle!.Initialize({
               token: PADDLE_TOKEN,
               checkout: { settings: { displayMode: "overlay", locale: "ko" } },
             });
