@@ -2341,10 +2341,10 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
                   {/* 안내 문구 */}
                   <div className="space-y-2 text-sm leading-relaxed">
                     <div className="bg-red-50 border border-red-200 text-red-700 font-bold rounded px-3 py-2">
-                      ⚠ 경북 마감 임박
+                      ⚠⚠⚠ 경북 마감 임박 ⚠⚠⚠
                     </div>
                     <div className="bg-amber-50 border border-amber-200 text-amber-700 rounded px-3 py-2">
-                      강북 신청의 경우 <b>문의 후 진행</b>해주세요.
+                      경북 신청의 경우 <b>문의 후 진행</b>해주세요.
                     </div>
                   </div>
 
