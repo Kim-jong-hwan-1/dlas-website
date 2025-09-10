@@ -99,24 +99,6 @@ const PADDLE_PRICE_ID = isSandbox
   ? process.env.NEXT_PUBLIC_PADDLE_PRICE_ID_SB!
   : process.env.NEXT_PUBLIC_PADDLE_PRICE_ID!;
 
-// ─────────────────────────────────────────────
-// Temporary: Disable KRW (Toss) payments UI flow
-// ─────────────────────────────────────────────
-const KOREA_PAYMENT_MESSAGE = "결제준비중 빠른 결제를 원하시면, 010-9756-1992로 문의주세요";
-
-// Poster assets (in /public/posters)
-const POSTER_PATHS = [
-  "/posters/1.jpg",
-  "/posters/2.jpg",
-  "/posters/3.jpg",
-  "/posters/4.jpg",
-  "/posters/5.jpg",
-  "/posters/6.jpg",
-  "/posters/7.png",
-  "/posters/8.png",
-  "/posters/9.png",
-];
-
 export default function Page() {
 
   const [token, setToken] = useState<string | null>(null);
@@ -390,15 +372,7 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
     email?: string;
     licenseStatus?: string; // "normal" or "family"
     module_licenses?: { [key: string]: string };  // ← 이 부분 추가!
-  }>({})
-  // Seed country early from localStorage (fast display/routing before network)
-  useEffect(() => {
-    try {
-      const lc = localStorage.getItem("DLAS_USER_COUNTRY");
-      if (lc) setUserInfo((prev) => ({ ...prev, country: lc }));
-    } catch {}
-  }, []);
-;
+  }>({});
 
   const fetchLicenseInfo = async (accessToken: string) => {
     try {
@@ -704,7 +678,6 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
   // 🇰🇷 한국 사용자 → TossPayments
   // 🇺🇸 그 외 → Paddle
   // ─────────────────────────────────────────────────────
-  
   const handleModulePayment = (mod: string, period: string) => {
     const storedId = localStorage.getItem("userID") || userID;
     if (!storedId) {
@@ -715,21 +688,48 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
       return;
     }
 
-    // We must know the user's country to choose USD(Paddle) vs KRW(Toss)
-    if (!userInfo.country || userInfo.country.trim() === "") {
-      alert("국가 정보를 불러오는 중입니다. 상단 'MY'에서 확인한 뒤 다시 시도해 주세요.");
-      return;
-    }
-
-    // 🇰🇷 Korea → temporarily block KRW checkout and show 안내문
+    /* ── 🇰🇷 KRW 표시(한국/미확인) ⇒ TossPayments ───────────────────── */
     if (isKrwDisplay(userInfo.country)) {
-      alert(KOREA_PAYMENT_MESSAGE);
+      if (typeof window === "undefined" || !(window as MyWindow).TossPayments) {
+        alert("The payment module has not been loaded yet.");
+        return;
+      }
+      const tossClientKey = process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY!;
+      const tossInit = (window as MyWindow).TossPayments;
+      if (!tossInit) {
+        alert("The payment module has not been loaded yet.");
+        return;
+      }
+      const tossPayments = tossInit(tossClientKey);
+      const orderId = `DLAS-${mod}-${period}-${Date.now()}`;
+
+      // USD -> KRW 환산(표시와 동일)
+      const amount = Math.round(usdToKrw(MODULE_PRICES_USD[period]));
+      const orderName = `${mod} (${period})`;
+
+      // 성공/실패 URL을 현재 페이지로 고정 (승인직전 단계까지)
+      const successUrl =
+        `${currentOrigin}/?provider=toss&type=module&mod=${encodeURIComponent(mod)}&period=${encodeURIComponent(period)}` +
+        `&orderName=${encodeURIComponent(orderName)}&orderId=${encodeURIComponent(orderId)}&amount=${encodeURIComponent(String(amount))}`;
+      const failUrl =
+        `${currentOrigin}/?provider=toss&type=module&mod=${encodeURIComponent(mod)}&period=${encodeURIComponent(period)}`;
+
+      tossPayments.requestPayment("CARD", {
+        amount,
+        orderId,
+        orderName,
+        customerEmail: storedId,
+        customerName: (userInfo && userInfo.name) ? userInfo.name : storedId,
+        successUrl,
+        failUrl,
+      });
+
       return;
     }
 
-    // 🌎 Non‑Korea → Paddle (USD)
+    /* ── 그 외 국가 ⇒ Paddle ─────────────────────────────── */
     if (!paddleReady || !(window as MyWindow).Paddle) {
-      alert("Paddle is not ready yet. Please refresh the page or try again.");
+      alert("Paddle is not ready yet. Please wait or refresh the page.");
       return;
     }
 
@@ -752,7 +752,6 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
       closeCallback: () => console.log("Checkout closed"),
     });
   };
-
 
   // ✅ 패밀리 라이선스 테이블 데이터 (표시 통화 자동 전환)
   const familyTableData = [
@@ -803,44 +802,6 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
 
   // [추가] 다운로드 모달 띄우기
   const [showDownloadModal, setShowDownloadModal] = useState(false);
-  // ─────────────────────────────
-  // Poster modal / gallery state
-  // ─────────────────────────────
-  const [showPosterModal, setShowPosterModal] = useState(false);
-  const [posterIndex, setPosterIndex] = useState(0);
-
-  const openPosterAt = (idx: number) => {
-    setPosterIndex(idx);
-    setShowPosterModal(true);
-  };
-  const prevPoster = () => setPosterIndex((i) => (i - 1 + POSTER_PATHS.length) % POSTER_PATHS.length);
-  const nextPoster = () => setPosterIndex((i) => (i + 1) % POSTER_PATHS.length);
-
-  // Auto‑open once per day on first visit
-  useEffect(() => {
-    try {
-      const key = "DLAS_POSTER_SEEN_DATE";
-      const today = new Date().toISOString().slice(0, 10);
-      const seen = localStorage.getItem(key);
-      if (seen !== today) {
-        setShowPosterModal(true);
-        localStorage.setItem(key, today);
-      }
-    } catch {}
-  }, []);
-
-  // Esc / ← → keyboard handlers in modal
-  useEffect(() => {
-    if (!showPosterModal) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setShowPosterModal(false);
-      if (e.key === "ArrowLeft") prevPoster();
-      if (e.key === "ArrowRight") nextPoster();
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [showPosterModal]);
-
 
   // 실제 다운로드 실행 함수
   const handleDownloadConfirm = () => {
@@ -943,29 +904,21 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
   };
 
   // "가족 라이선스 결제" 버튼 클릭 -> 국가별 결제수단 분기
-  
   const handleFamilyLicensePayment = () => {
     if (isUserInfoLoading) {
-      alert("Loading your information... Please try again shortly.");
+      alert("Loading your information... Please wait a moment.");
       return;
     }
     if (userInfo.licenseStatus === "family") {
       alert("You are already a Family user. Payment is not possible.");
       return;
     }
-    if (!userInfo.country || userInfo.country.trim() === "") {
-      alert("국가 정보를 불러오는 중입니다. 상단 'MY'에서 확인한 뒤 다시 시도해 주세요.");
-      return;
-    }
-    // 🇰🇷 Korea → temporarily block KRW checkout
     if (isKrwDisplay(userInfo.country)) {
-      alert(KOREA_PAYMENT_MESSAGE);
-      return;
+      handleTossRequest();
+    } else {
+      handlePaddleCheckout();
     }
-    // 🌎 Others → Paddle family checkout
-    handlePaddleCheckout();
   };
-
 
 
   return (
@@ -1092,16 +1045,6 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
                   {t(`nav.${tab}`)}
                 </button>
               ))}
-              {/* Seminar / Posters */}
-              <button
-                onClick={() => scrollToSection("posters")}
-                className="relative pb-2 transition-colors duration-200 cursor-pointer
-                           border-b-2 border-transparent hover:border-black
-                           text-gray-700 hover:text-black"
-              >
-                세미나
-              </button>
-
 
               <button
                 onClick={() => scrollToSection("terms-privacy")}
@@ -1235,7 +1178,7 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
                   href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v1.5.0/DLAS_Installer.exe"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition w-full sm:w-auto text-center"
+                  className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition w/full sm:w-auto text-center"
                   onClick={(e) => {
                     e.preventDefault();
                     setShowDownloadModal(true);
@@ -1622,7 +1565,7 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
                     relative
                     bg-gray-50 rounded-2xl border shadow-md px-2 py-8
                     flex flex-col sm:flex-row items-center
-                    h-auto sm:h-80 sm:min-h-[320px] sm:max-h-[320px] gap-6
+                    h-auto sm:h-80 sm:min하-[320px] sm:max-h-[320px] gap-6
                   "
                 >
                   {/* 모바일 (세로) */}
@@ -1698,49 +1641,6 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
               );
             })()}
           </section>
-
-          {/* 세미나 / 포스터 섹션 */}
-          <section
-            id="posters"
-            className="scroll-mt-[180px] py-20 bg-gradient-to-b from-white to-gray-50"
-          >
-            <div className="max-w-6xl mx-auto px-6">
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-4xl font-bold">세미나 & 광고</h2>
-                <button
-                  className="border px-4 py-2 rounded hover:bg-gray-100"
-                  onClick={() => openPosterAt(0)}
-                >
-                  전체 보기
-                </button>
-              </div>
-              <p className="text-gray-600 mb-6">
-                최신 행사/세미나 정보를 한 곳에서 확인하세요. 이미지를 클릭하면 크게 볼 수 있습니다.
-              </p>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                {POSTER_PATHS.map((src, idx) => (
-                  <button
-                    key={idx}
-                    className="group relative rounded-xl overflow-hidden border bg-white shadow-sm hover:shadow-lg transition"
-                    onClick={() => openPosterAt(idx)}
-                    aria-label={`Open poster ${idx+1}`}
-                  >
-                    {/* Use native img to avoid Next<Image> domain constraints for user-provided assets */}
-                    <img
-                      src={src}
-                      alt={`poster-${idx+1}`}
-                      className="w-full h-48 object-cover group-hover:scale-[1.02] transition-transform duration-300"
-                      loading="lazy"
-                    />
-                    <span className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/60 to-transparent text-white text-xs px-2 py-1">
-                      Poster {idx + 1}
-                    </span>
-                  </button>
-                ))}
-              </div>
-            </div>
-          </section>
-
 
           {/* 연락처 섹션 */}
           <section
@@ -2264,47 +2164,6 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
           </div>
         )}
 
-        {/* Poster Modal */}}
-        {showPosterModal && (
-          <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center px-4">
-            <div className="relative bg-white rounded-xl shadow-2xl w-full max-w-5xl">
-              <button
-                className="absolute top-2 right-3 text-gray-500 hover:text-black text-2xl"
-                onClick={() => setShowPosterModal(false)}
-                aria-label="Close poster viewer"
-              >
-                ×
-              </button>
-              <div className="flex items-center justify-between px-2 py-2">
-                <button
-                  className="px-3 py-2 rounded hover:bg-gray-100"
-                  onClick={prevPoster}
-                  aria-label="Previous poster"
-                >
-                  ◀︎
-                </button>
-                <div className="flex-1 px-2 py-2 flex items-center justify-center">
-                  <img
-                    src={POSTER_PATHS[posterIndex]}
-                    alt={`poster-${posterIndex + 1}`}
-                    className="max-h-[82vh] w-auto object-contain rounded"
-                  />
-                </div>
-                <button
-                  className="px-3 py-2 rounded hover:bg-gray-100"
-                  onClick={nextPoster}
-                  aria-label="Next poster"
-                >
-                  ▶︎
-                </button>
-              </div>
-              <div className="px-4 pb-4 text-center text-sm text-gray-600">
-                {posterIndex + 1} / {POSTER_PATHS.length}
-              </div>
-            </div>
-          </div>
-        )}
-
         {/* 로그인 모달 */}
         <div
           id="login-modal"
@@ -2372,7 +2231,7 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
           id="signup-modal"
           className="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-center justify-center"
         >
-          <div className="bg-white w-full max-w-md p-8 rounded-lg shadow-xl relative">
+          <div className="bg-white w/full max-w-md p-8 rounded-lg shadow-xl relative">
             <button
               className="absolute top-2 right-3 text-gray-500 hover:text-black"
               onClick={() =>
@@ -2491,7 +2350,7 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
         {/* MY 모달 */}
         {showMyModal && (
           <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
-            <div className="bg-white w-full max-w-md p-8 rounded-lg shadow-xl relative">
+            <div className="bg-white w/full max-w-md p-8 rounded-lg shadow-xl relative">
               <button
                 className="absolute top-2 right-3 text-gray-500 hover:text-black text-2xl"
                 onClick={() => setShowMyModal(false)}
@@ -2529,17 +2388,6 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
         )}
 
         {/* Footer */}
-        
-        {/* Floating poster FAB */}
-        <button
-          onClick={() => openPosterAt(0)}
-          className="fixed bottom-6 right-6 z-40 rounded-full shadow-lg border bg-white px-4 py-3 text-sm hover:bg-gray-50"
-          aria-label="Open seminar posters"
-          title="세미나 포스터"
-        >
-          포스터
-        </button>
-
         <footer className="bg-black text-white py-10 px-6 mt-20">
           <div className="max-w-5xl mx-auto">
             <div className="flex flex-col md:flex-row items-center md:items-start justify-between gap-4">
