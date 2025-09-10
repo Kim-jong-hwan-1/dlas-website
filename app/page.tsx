@@ -86,7 +86,7 @@ const formatExpiration = (raw?: string) => {
 
 
 // --------------------------------
-// ✅ 1) Paddle 환경/토큰/priceId 상수 정의
+/** ✅ 1) Paddle 환경/토큰/priceId 상수 정의 */
 // --------------------------------
 const isSandbox = process.env.NEXT_PUBLIC_PADDLE_ENV === "sandbox";
 
@@ -816,6 +816,17 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
   const prevPoster = () => setPosterIndex((i) => (i - 1 + POSTER_PATHS.length) % POSTER_PATHS.length);
   const nextPoster = () => setPosterIndex((i) => (i + 1) % POSTER_PATHS.length);
 
+  /** ✅ 모달 이미지 영역 클릭 → 다음(오른쪽)으로 넘기기 */
+  const handlePosterAreaClick = () => nextPoster();
+  const handlePrevClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    prevPoster();
+  };
+  const handleNextClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    nextPoster();
+  };
+
   // Auto‑open once per day on first visit
   useEffect(() => {
     try {
@@ -970,7 +981,7 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
 
   return (
     <>
-      {/* ✅ FOUC 방지: 번역 준비 전(body 숨김) */}
+      {/* ✅ Hydration mismatch 방지: <html> 속성은 클라이언트에서 변경하지 않습니다. */}
       <Head>
         <title>DLAS - Dental Lab Automation Solution</title>
         <meta
@@ -982,13 +993,9 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
           content="DLAS, Dental CAD, dental automation, digital dentistry, screw hole automation"
         />
         <link rel="canonical" href="https://www.dlas.io/" />
-        {/* ▼ data-i18n-ready 가 설정되기 전에는 body 숨김 → 한글 기본값 적용 후 노출 */}
-        <style id="hide-until-i18n">{`
-          html:not([data-i18n-ready="1"]) body { visibility: hidden; }
-        `}</style>
       </Head>
 
-      {/* ✅ 홈페이지 진입 시 무조건 ko로 강제 설정 (저장된 값 무시) + FOUC 해제 */}
+      {/* ✅ 홈페이지 진입 시 ko 기본값만 로컬에 저장 (SSR 마크업과의 충돌 방지를 위해 html/data 속성은 건드리지 않음) */}
       <Script
         id="dlas-initial-lang-ko"
         strategy="beforeInteractive"
@@ -996,19 +1003,11 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
           __html: `
           (function () {
             try {
-              // 홈(/)에 진입하면 항상 ko로 시작
               if (typeof location === 'undefined' || location.pathname === '/') {
                 localStorage.setItem('DLAS_LANG', 'ko');
                 localStorage.setItem('lang', 'ko');
                 localStorage.setItem('i18nLang', 'ko');
                 document.cookie = 'DLAS_LANG=ko; Path=/; Max-Age=31536000; SameSite=Lax';
-                if (document && document.documentElement) {
-                  document.documentElement.setAttribute('lang', 'ko');
-                }
-              }
-              // 번역 준비 완료 표시 → FOUC 해제
-              if (document && document.documentElement) {
-                document.documentElement.setAttribute('data-i18n-ready', '1');
               }
             } catch (e) {}
           })();`,
@@ -1081,6 +1080,15 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
             />
             {/* ▼ 네비게이션 버튼 그룹 (오른쪽) */}
             <div className="absolute bottom-2 right-4 sm:right-8 hidden sm:flex flex-wrap items-center gap-x-4 gap-y-2">
+              {/* 세미나 탭을 최상단(첫 번째)으로 배치 */}
+              <button
+                onClick={() => scrollToSection("posters")}
+                className="relative pb-2 transition-colors duration-200 cursor-pointer
+                           border-b-2 border-transparent hover:border-black
+                           text-gray-700 hover:text-black"
+              >
+                세미나
+              </button>
               {["home", "download", "buy", "contact"].map((tab) => (
                 <button
                   key={tab}
@@ -1092,17 +1100,6 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
                   {t(`nav.${tab}`)}
                 </button>
               ))}
-              {/* Seminar / Posters */}
-              <button
-                onClick={() => scrollToSection("posters")}
-                className="relative pb-2 transition-colors duration-200 cursor-pointer
-                           border-b-2 border-transparent hover:border-black
-                           text-gray-700 hover:text-black"
-              >
-                세미나
-              </button>
-
-
               <button
                 onClick={() => scrollToSection("terms-privacy")}
                 className="relative pb-2 transition-colors duration-200 cursor-pointer
@@ -1166,6 +1163,49 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
         </div>
 
         <main className="pt-[180px]">
+          {/* ★★★ 세미나 / 포스터 섹션을 가장 위로 이동 ★★★ */}
+          <section
+            id="posters"
+            className="scroll-mt-[180px] py-20 bg-gradient-to-b from-white to-gray-50"
+          >
+            <div className="max-w-6xl mx-auto px-6">
+              <div className="flex items-center justify-between mb-6">
+                {/* "세미나 & 광고" → "세미나" 로 변경 */}
+                <h2 className="text-4xl font-bold">세미나</h2>
+                <button
+                  className="border px-4 py-2 rounded hover:bg-gray-100"
+                  onClick={() => openPosterAt(0)}
+                >
+                  전체 보기
+                </button>
+              </div>
+              <p className="text-gray-600 mb-6">
+                최신 행사/세미나 정보를 한 곳에서 확인하세요. 이미지를 클릭하면 크게 볼 수 있습니다.
+              </p>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                {POSTER_PATHS.map((src, idx) => (
+                  <button
+                    key={idx}
+                    className="group relative rounded-xl overflow-hidden border bg-white shadow-sm hover:shadow-lg transition"
+                    onClick={() => openPosterAt(idx)}
+                    aria-label={`Open poster ${idx+1}`}
+                  >
+                    {/* Use native img to avoid Next<Image> domain constraints for user-provided assets */}
+                    <img
+                      src={src}
+                      alt={`poster-${idx+1}`}
+                      className="w-full h-48 object-cover group-hover:scale-[1.02] transition-transform duration-300"
+                      loading="lazy"
+                    />
+                    <span className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/60 to-transparent text-white text-xs px-2 py-1">
+                      Poster {idx + 1}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </section>
+
           {/* 홈 섹션 */}
           <section id="home" className="scroll-mt-[180px] text-center py-20">
             <p className="text-xl text-gray-300 mb-2">
@@ -1699,49 +1739,6 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
             })()}
           </section>
 
-          {/* 세미나 / 포스터 섹션 */}
-          <section
-            id="posters"
-            className="scroll-mt-[180px] py-20 bg-gradient-to-b from-white to-gray-50"
-          >
-            <div className="max-w-6xl mx-auto px-6">
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-4xl font-bold">세미나 & 광고</h2>
-                <button
-                  className="border px-4 py-2 rounded hover:bg-gray-100"
-                  onClick={() => openPosterAt(0)}
-                >
-                  전체 보기
-                </button>
-              </div>
-              <p className="text-gray-600 mb-6">
-                최신 행사/세미나 정보를 한 곳에서 확인하세요. 이미지를 클릭하면 크게 볼 수 있습니다.
-              </p>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                {POSTER_PATHS.map((src, idx) => (
-                  <button
-                    key={idx}
-                    className="group relative rounded-xl overflow-hidden border bg-white shadow-sm hover:shadow-lg transition"
-                    onClick={() => openPosterAt(idx)}
-                    aria-label={`Open poster ${idx+1}`}
-                  >
-                    {/* Use native img to avoid Next<Image> domain constraints for user-provided assets */}
-                    <img
-                      src={src}
-                      alt={`poster-${idx+1}`}
-                      className="w-full h-48 object-cover group-hover:scale-[1.02] transition-transform duration-300"
-                      loading="lazy"
-                    />
-                    <span className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/60 to-transparent text-white text-xs px-2 py-1">
-                      Poster {idx + 1}
-                    </span>
-                  </button>
-                ))}
-              </div>
-            </div>
-          </section>
-
-
           {/* 연락처 섹션 */}
           <section
             id="contact"
@@ -2264,10 +2261,11 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
           </div>
         )}
 
-        {/* Poster Modal */}}
+        {/* Poster Modal */}
         {showPosterModal && (
           <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center px-4">
-            <div className="relative bg-white rounded-xl shadow-2xl w-full max-w-5xl">
+            <div className="relative bg-white rounded-xl shadow-2xl w-full max-w-6xl">
+              {/* 닫기 버튼 */}
               <button
                 className="absolute top-2 right-3 text-gray-500 hover:text-black text-2xl"
                 onClick={() => setShowPosterModal(false)}
@@ -2275,29 +2273,106 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
               >
                 ×
               </button>
-              <div className="flex items-center justify-between px-2 py-2">
-                <button
-                  className="px-3 py-2 rounded hover:bg-gray-100"
-                  onClick={prevPoster}
-                  aria-label="Previous poster"
+
+              {/* 본문: 이미지 영역 + 우측 신청 패널 */}
+              <div className="flex flex-col md:flex-row items-stretch">
+                {/* 이미지 영역 (클릭하면 다음으로 이동) */}
+                <div
+                  className="relative flex-1 px-2 py-2 md:px-4 md:py-4 flex items-center justify-center cursor-pointer select-none"
+                  onClick={handlePosterAreaClick}
                 >
-                  ◀︎
-                </button>
-                <div className="flex-1 px-2 py-2 flex items-center justify-center">
+                  {/* 좌우 화살표 (오버레이 / 반투명 / 사이즈 확대) */}
+                  <button
+                    className="
+                      hidden md:flex
+                      absolute left-3 top-1/2 -translate-y-1/2
+                      items-center justify-center
+                      rounded-full p-2 md:p-3
+                      text-3xl md:text-5xl
+                      text-white bg-black/30 hover:bg-black/40
+                      backdrop-blur-sm
+                      opacity-80 hover:opacity-100
+                      transition
+                    "
+                    onClick={handlePrevClick}
+                    aria-label="Previous poster"
+                    title="이전"
+                  >
+                    ◀︎
+                  </button>
+
                   <img
                     src={POSTER_PATHS[posterIndex]}
                     alt={`poster-${posterIndex + 1}`}
-                    className="max-h-[82vh] w-auto object-contain rounded"
+                    className="max-h-[78vh] w-auto object-contain rounded"
                   />
+
+                  <button
+                    className="
+                      hidden md:flex
+                      absolute right-3 top-1/2 -translate-y-1/2
+                      items-center justify-center
+                      rounded-full p-2 md:p-3
+                      text-3xl md:text-5xl
+                      text-white bg-black/30 hover:bg-black/40
+                      backdrop-blur-sm
+                      opacity-80 hover:opacity-100
+                      transition
+                    "
+                    onClick={handleNextClick}
+                    aria-label="Next poster"
+                    title="다음"
+                  >
+                    ▶︎
+                  </button>
                 </div>
-                <button
-                  className="px-3 py-2 rounded hover:bg-gray-100"
-                  onClick={nextPoster}
-                  aria-label="Next poster"
-                >
-                  ▶︎
-                </button>
+
+                {/* 우측 신청 패널 */}
+                <aside className="w-full md:w-72 border-t md:border-t-0 md:border-l px-5 py-5 bg-gray-50 flex flex-col gap-4">
+                  <a
+                    href="https://docs.google.com/forms/d/1x2C1I_Zx5QjedpJa-Y6r7HMb4cYy3O_EDVTIAmAEHMQ/edit"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full text-center font-bold rounded-lg px-5 py-3 bg-black text-white hover:bg-gray-800 transition"
+                  >
+                    신청하기
+                  </a>
+
+                  {/* 안내 문구 */}
+                  <div className="space-y-2 text-sm leading-relaxed">
+                    <div className="bg-red-50 border border-red-200 text-red-700 font-bold rounded px-3 py-2">
+                      ⚠ 경북 마감 임박
+                    </div>
+                    <div className="bg-amber-50 border border-amber-200 text-amber-700 rounded px-3 py-2">
+                      강북 신청의 경우 <b>문의 후 진행</b>해주세요.
+                    </div>
+                  </div>
+
+                  {/* 모바일 전용 간단 화살표 버튼 */}
+                  <div className="flex md:hidden justify-between pt-2">
+                    <button
+                      className="px-3 py-2 rounded bg-white border text-lg opacity-80"
+                      onClick={prevPoster}
+                      aria-label="Previous poster (mobile)"
+                    >
+                      ◀︎
+                    </button>
+                    <button
+                      className="px-3 py-2 rounded bg-white border text-lg opacity-80"
+                      onClick={nextPoster}
+                      aria-label="Next poster (mobile)"
+                    >
+                      ▶︎
+                    </button>
+                  </div>
+
+                  <div className="text-center text-xs text-gray-500 pt-2">
+                    이미지를 탭/클릭하면 다음으로 넘어갑니다.
+                  </div>
+                </aside>
               </div>
+
+              {/* 인디케이터 */}
               <div className="px-4 pb-4 text-center text-sm text-gray-600">
                 {posterIndex + 1} / {POSTER_PATHS.length}
               </div>
