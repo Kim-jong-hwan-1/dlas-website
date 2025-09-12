@@ -1,6 +1,6 @@
 "use client";
 
- // 타입 선언 파일에서는 필요 (중복 선언 방지)
+// 타입 선언 파일에서는 필요 (중복 선언 방지)
 
 import Head from "next/head";
 import { useEffect, useMemo, useState } from "react";
@@ -115,6 +115,7 @@ const POSTER_PATHS = [
   "/posters/7.png",
   "/posters/8.png",
   "/posters/9.png",
+  "/posters/10.png", // ✅ 추가
 ];
 
 export default function Page() {
@@ -338,7 +339,7 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
   return `$${usdNumber.toLocaleString()}`;
 };
 
-    
+
   const handleDownloadUnavailable = (e?: React.MouseEvent) => {
     if (e) e.preventDefault();
     alert("Temporary error, download is currently unavailable.");
@@ -1654,86 +1655,10 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
                 </div>
               );
 
-              // 3. 맞춤 코딩 서비스 카드
-              const customCodingCard = (
-                <div
-                  key="Custom Coding Service (Korea only)"
-                  className="
-                    relative
-                    bg-gray-50 rounded-2xl border shadow-md px-2 py-8
-                    flex flex-col sm:flex-row items-center
-                    h-auto sm:h-80 sm:min-h-[320px] sm:max-h-[320px] gap-6
-                  "
-                >
-                  {/* 모바일 (세로) */}
-                  <div className="flex flex-col w-full sm:hidden gap-4">
-                    <div className="text-2xl font-extrabold text-left">
-                      맞춤 코딩 <span className="text-base text-gray-400">(한국 한정/only for korea)</span>
-                    </div>
-                    <div className="text-gray-800 text-base font-bold">
-                      직접 방문하여 기공소 내의 문제를 해결하고, 최적화된 코딩으로 자동화 소프트웨어를 제작해 드립니다.
-                    </div>
-                    <div className="text-gray-700 text-base">
-                      We visit your dental lab, resolve on-site issues, and build automation software with custom coding.
-                    </div>
-                    <div className="flex flex-row justify-between items-center">
-                      <span className="text-xl font-extrabold text-black whitespace-nowrap">
-                        ₩3,300,000
-                        <span className="text-xs ml-1 font-medium text-gray-500">(VAT included, 부가세 포함)</span>
-                      </span>
-                    </div>
-                    <div className="mt-3 text-center">
-                      <span className="text-base font-bold text-blue-700 block mb-1" style={{ fontSize: '1.1rem' }}>
-                        문의/예약: <a href="mailto:techdev@dlas.io" className="underline">techdev@dlas.io</a>
-                      </span>
-                      <span className="text-xs text-gray-500 block">
-                        * 본 서비스는 대한민국 기공소만 신청 가능합니다.<br />
-                        * This service is only available for dental labs in South Korea.
-                      </span>
-                    </div>
-                  </div>
-                  {/* 데스크탑 (가로) */}
-                  <div className="hidden sm:flex flex-row items-center w-full h-full gap-6">
-                    <div className="w-80 flex flex-col items-start justify-center h-full px-8">
-                      <span className="text-3xl font-extrabold text-black">
-                        맞춤 코딩
-                      </span>
-                      <span className="text-base text-gray-400 font-bold ml-1 mt-1">(한국 한정/only for korea)</span>
-                    </div>
-                    <div className="flex-1 flex flex-col justify-center h-full px-2 text-left gap-2">
-                      <div className="text-lg text-gray-800 font-bold">
-                        직접 방문하여 기공소 내의 문제를 해결하고, 최적화된 코딩으로 자동화 소프트웨어를 제작해 드립니다.
-                      </div>
-                      <div className="text-base text-gray-700">
-                        We visit your dental lab, resolve on-site issues, and build automation software with custom coding.
-                      </div>
-                      <div className="mt-3">
-                        <span className="text-base font-bold text-blue-700" style={{ fontSize: '1.15rem' }}>
-                          문의/예약: <a href="mailto:techdev@dlas.io" className="underline">techdev@dlas.io</a>
-                        </span>
-                        <span className="text-xs text-gray-500 block mt-1">
-                          * 본 서비스는 대한민국 기공소만 신청 가능합니다.<br />
-                          * This service is only available for dental labs in South Korea.
-                        </span>
-                      </div>
-                    </div>
-                    <div className="w-64 flex flex-col items-center justify-center">
-                      <span className="text-3xl font-extrabold text-black">
-                        ₩3,300,000
-                      </span>
-                      <span className="text-xs mt-1 font-medium text-gray-500">
-                        (VAT included, 부가세 포함)
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              );
-
               return (
                 <div className="flex flex-col gap-y-16 w-full max-w-6xl mx-auto">
                   {moduleCards}
                   {onsiteCard}
-                  {customCodingCard}
                 </div>
               );
             })()}
@@ -2366,8 +2291,18 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
                     </button>
                   </div>
 
-                  <div className="text-center text-xs text-gray-500 pt-2">
+                  {/* 안내문 + 바로 아래 배지 이미지 */}
+                  <div className="text-center text-xs text-gray-500 pt-2 mb-1">
                     이미지를 탭/클릭하면 다음으로 넘어갑니다.
+                  </div>
+                  {/* 데스크톱에서만 노출(필요시 md:hidden 제거로 모바일에도 표시 가능) */}
+                  <div className="hidden md:block">
+                    <img
+                      src="/posters/10.png"
+                      alt="DLAS 풀모듈 3일 라이선스 무료 증정"
+                      className="w-full h-auto object-contain rounded-md"
+                      loading="eager"
+                    />
                   </div>
                 </aside>
               </div>
