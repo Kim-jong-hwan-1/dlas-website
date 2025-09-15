@@ -1850,6 +1850,16 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
                     <p className="text-sm text-gray-600">원인 확인 후 다시 시도해 주세요.</p>
                   </>
                 )}
+
+                {/* ✅ 모바일 하단 닫기 버튼 */}
+                <div className="mt-6 sm:hidden">
+                  <button
+                    onClick={() => { setTossModalOpen(false); clearTossQuery(); }}
+                    className="w-full bg-black text-white py-3 rounded hover:bg-gray-800 transition"
+                  >
+                    닫기
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -2072,6 +2082,20 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
                     </div>
                   </>
                 )}
+
+                {/* ✅ 모바일 하단 닫기 버튼 */}
+                <div className="mt-6 sm:hidden">
+                  <button
+                    onClick={() => {
+                      setShowFamilyModal(false);
+                      setShowFreeLicenseGuide(false);
+                      setShowPaymentProceed(false);
+                    }}
+                    className="w-full bg-black text-white py-3 rounded hover:bg-gray-800 transition"
+                  >
+                    닫기
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -2180,6 +2204,16 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
                   className="bg-black text-white px-6 py-2 rounded hover:bg-gray-800 transition"
                 >
                   확인
+                </button>
+              </div>
+
+              {/* ✅ 모바일 하단 닫기 버튼 */}
+              <div className="text-center mt-2 sm:hidden">
+                <button
+                  onClick={() => setShowDownloadModal(false)}
+                  className="w-full border px-6 py-2 rounded hover:bg-gray-50 transition"
+                >
+                  닫기
                 </button>
               </div>
             </div>
@@ -2311,6 +2345,16 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
               <div className="px-4 pb-4 text-center text-sm text-gray-600">
                 {posterIndex + 1} / {POSTER_PATHS.length}
               </div>
+
+              {/* ✅ 모바일 하단 닫기 버튼 */}
+              <div className="px-4 pb-4 sm:hidden">
+                <button
+                  onClick={() => setShowPosterModal(false)}
+                  className="w-full bg-black text-white py-3 rounded hover:bg-gray-800 transition"
+                >
+                  닫기
+                </button>
+              </div>
             </div>
           </div>
         )}
@@ -2374,6 +2418,18 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
                 {t("login.form.signupNow")}
               </a>
             </p>
+
+            {/* ✅ 모바일 하단 닫기 버튼 */}
+            <div className="mt-6 sm:hidden">
+              <button
+                className="w-full border px-6 py-3 rounded hover:bg-gray-50 transition"
+                onClick={() =>
+                  document.getElementById("login-modal")!.classList.add("hidden")
+                }
+              >
+                닫기
+              </button>
+            </div>
           </div>
         </div>
 
@@ -2495,6 +2551,18 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
                 {t("signup.form.submit")}
               </button>
             </form>
+
+            {/* ✅ 모바일 하단 닫기 버튼 */}
+            <div className="mt-6 sm:hidden">
+              <button
+                className="w-full border px-6 py-3 rounded hover:bg-gray-50 transition"
+                onClick={() =>
+                  document.getElementById("signup-modal")!.classList.add("hidden")
+                }
+              >
+                닫기
+              </button>
+            </div>
           </div>
         </div>
 
@@ -2533,6 +2601,16 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
                     ? "normal"
                     : userInfo.licenseStatus ?? "Loading..."}
                 </p>
+              </div>
+
+              {/* ✅ 모바일 하단 닫기 버튼 */}
+              <div className="mt-6 sm:hidden">
+                <button
+                  className="w-full bg-black text-white py-3 rounded hover:bg-gray-800 transition"
+                  onClick={() => setShowMyModal(false)}
+                >
+                  닫기
+                </button>
               </div>
             </div>
           </div>
