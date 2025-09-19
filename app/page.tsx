@@ -678,9 +678,8 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
     }
   };
 
-  // 모듈 목록
+  // 모듈 목록 (방문서비스 제거)
   const modules = [
-    "On-site Solution Service (Korea only)",
     "Transfer Jig Maker",
     "STL Classifier",
     "HTML Viewer Converter",
@@ -1090,7 +1089,7 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
               >
                 세미나
               </button>
-              {["home", "download", "buy", "contact"].map((tab) => (
+              {["home", "download", "buy"].map((tab) => (
                 <button
                   key={tab}
                   onClick={() => scrollToSection(tab)}
@@ -1323,11 +1322,6 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
                 string,
                 { gif: string | null; youtube: string | null; image: string | null }
               > = {
-                "On-site Solution Service (Korea only)": {
-                  gif: null,
-                  youtube: null,
-                  image: null,
-                },
                 "Transfer Jig Maker": {
                   gif: "/gifs/transfer_jig_maker.gif",
                   youtube: "7-YeT3Y0KcQ",
@@ -1362,7 +1356,6 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
 
               // 1. 일반 모듈 카드들
               const moduleCards = modules
-                .filter((mod) => mod !== "On-site Solution Service (Korea only)")
                 .map((mod) => {
                   const { gif, youtube, image } = info[mod] ?? { gif: null, youtube: null, image: null };
                   const moduleId = MODULE_NAME_TO_ID[mod];
@@ -1580,76 +1573,104 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
                   );
                 });
 
-              // 2. 방문 솔루션 서비스 카드
-              const onsiteCard = (
-                <div
-                  key="On-site Solution Service (Korea only)"
-                  className="
-                    relative
-                    bg-gray-50 rounded-2xl border shadow-md px-2 py-8
-                    flex flex-col sm:flex-row items-center
-                    h-auto sm:h-80 sm:min-h-[320px] sm:max-h-[320px] gap-6
-                  "
-                >
-                  {/* 모바일 (세로) */}
-                  <div className="flex flex-col w-full sm:hidden gap-4">
-                    <div className="text-2xl font-extrabold text-left">
-                      방문 솔루션 <span className="text-base text-gray-400">(한국 한정/only for korea)</span>
-                    </div>
-                    <div className="text-gray-800 text-base font-bold">
-                      직접 방문하여 기공소 내의 문제를 해결하고, 최적화된 솔루션을 제공합니다.
-                    </div>
-                    <div className="text-gray-700 text-base">
-                      We visit your dental lab in person to solve workflow issues and provide optimized solutions.
-                    </div>
-                    <div className="flex flex-row justify-between items-center">
-                      <span className="text-xl font-extrabold text-black whitespace-nowrap">
-                        ₩550,000
-                        <span className="text-xs ml-1 font-medium text-gray-500">(VAT included, 부가세 포함)</span>
-                      </span>
-                    </div>
-                    <div className="mt-3 text-center">
-                      <span className="text-base font-bold text-blue-700 block mb-1" style={{ fontSize: '1.1rem' }}>
-                        문의/예약: <a href="mailto:techdev@dlas.io" className="underline">techdev@dlas.io</a>
-                      </span>
-                      <span className="text-xs text-gray-500 block">
-                        * 본 서비스는 대한민국 기공소만 신청 가능합니다.<br />
-                        * This service is only available for dental labs in South Korea.
-                      </span>
+              // 2. 라이선스 패키지 카드 (D.P.L, D.F.L) — 방문서비스 카드 대체
+              const licenseCards = (
+                <div className="flex flex-col gap-10">
+                  {/* D.P.L */}
+                  <div className="relative bg-gradient-to-br from-gray-50 to-white rounded-2xl border shadow-md p-6 sm:p-10 text-left">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-3 mb-2">
+                          <span className="inline-flex items-center px-3 py-1 rounded-full border text-xs font-semibold">
+                            D.P.L
+                          </span>
+                          <h3 className="text-2xl sm:text-3xl font-bold leading-tight">
+                            DLAS Permanent License
+                          </h3>
+                        </div>
+                        <p className="text-gray-600">단발성 결제 · 부가세 포함</p>
+                        <div className="mt-4 text-3xl sm:text-4xl font-extrabold">
+                          ₩2,200,000{" "}
+                          <span className="text-sm font-medium text-gray-500 align-middle">
+                            
+                          </span>
+                        </div>
+                        <ul className="mt-6 space-y-2 text-gray-800">
+                          <li>• 모든 모듈 <b>평생 무료 라이선스</b></li>
+                          <li>• <b>업데이트</b> 및 <b>버전</b>과 상관없이 평생 무료</li>
+                        </ul>
+                      </div>
+                      <div className="w-full sm:w-56 flex sm:flex-col gap-2">
+                        <button
+                          onClick={() => setShowPaymentSupportModal(true)}
+                          className="flex-1 bg-black text-white rounded-lg px-6 py-3 font-bold hover:bg-gray-800 transition"
+                        >
+                          가입 문의
+                        </button>
+                        <a
+                          href="mailto:support@dlas.io"
+                          className="flex-1 border rounded-lg px-6 py-3 text-center hover:bg-gray-50 transition"
+                        >
+                          이메일 문의
+                        </a>
+                        <div className="hidden sm:block text-xs text-gray-500 mt-2">
+                          전화: +82-10-9756-1992 / 카카오: Dlas_official / WhatsApp: wa.me/821097561992
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  {/* 데스크탑 (가로) */}
-                  <div className="hidden sm:flex flex-row items-center w-full h-full gap-6">
-                    <div className="w-80 flex flex-col items-start justify-center h-full px-8">
-                      <span className="text-3xl font-extrabold text-black">
-                        방문 솔루션
-                      </span>
-                      <span className="text-base text-gray-400 font-bold ml-1 mt-1">(한국 한정/only for korea)</span>
-                    </div>
-                    <div className="flex-1 flex flex-col justify-center h-full px-2 text-left gap-2">
-                      <div className="text-lg text-gray-800 font-bold">
-                        직접 방문하여 기공소 내의 문제를 해결하고, 최적화된 솔루션을 제공합니다.
+
+                  {/* D.F.L */}
+                  <div className="relative bg-gradient-to-br from-amber-50 to-white rounded-2xl border shadow-md p-6 sm:p-10 text-left">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-3 mb-2">
+                          <span className="inline-flex items-center px-3 py-1 rounded-full border border-amber-300 bg-amber-100 text-amber-800 text-xs font-semibold">
+                            D.F.L
+                          </span>
+                          <h3 className="text-2xl sm:text-3xl font-bold leading-tight">
+                            DLAS Family License
+                          </h3>
+                        </div>
+                        <p className="text-gray-600">단발성 결제 · 부가세 포함</p>
+                        <div className="mt-4 text-3xl sm:text-4xl font-extrabold">
+                          ₩3,850,000{" "}
+                          <span className="text-sm font-medium text-gray-500 align-middle">
+                          
+                          </span>
+                        </div>
+
+                        <div className="mt-6 text-gray-800">
+                          <p className="font-semibold mb-2">설명</p>
+                          <ul className="space-y-1">
+                            <li>1) 모든 모듈 <b>평생 무료</b></li>
+                            <li>2) <b>라이센스 계약자 의견</b>을 반영하여 개발 및 업데이트</li>
+                            <li>3) 모든 <b>연구자료·세미나자료 공유</b></li>
+                            <li>4) 디지털 기공 과정 문제 발생 시 <b>해결책 제시 및 어시스트</b></li>
+                            <li>5) <b>치과 연계</b></li>
+                          </ul>
+                          <ul className="mt-2 ml-4 list-disc space-y-1">
+                            <li>DLAS Family의 디지털 전문성을 강조하여 영업</li>
+                            <li>단순 연결(수익 보장 아님)</li>
+                            <li>원장님의 피드백을 점수화하여 다음 연결 시 가산</li>
+                          </ul>
+                        </div>
                       </div>
-                      <div className="text-base text-gray-700">
-                        We visit your dental lab in person to solve workflow issues and provide optimized solutions.
+
+                      <div className="w-full sm:w-56 flex sm:flex-col gap-2">
+                        <button
+                          onClick={() => setShowPaymentSupportModal(true)}
+                          className="flex-1 bg-black text-white rounded-lg px-6 py-3 font-bold hover:bg-gray-800 transition"
+                        >
+                          가입 문의
+                        </button>
+                        <a
+                          href="mailto:support@dlas.io"
+                          className="flex-1 border rounded-lg px-6 py-3 text-center hover:bg-gray-50 transition"
+                        >
+                          이메일 문의
+                        </a>
                       </div>
-                      <div className="mt-3">
-                        <span className="text-base font-bold text-blue-700" style={{ fontSize: '1.15rem' }}>
-                          문의/예약: <a href="mailto:techdev@dlas.io" className="underline">techdev@dlas.io</a>
-                        </span>
-                        <span className="text-xs text-gray-500 block mt-1">
-                          * 본 서비스는 대한민국 기공소만 신청 가능합니다.<br />
-                          * This service is only available for dental labs in South Korea.
-                        </span>
-                      </div>
-                    </div>
-                    <div className="w-64 flex flex-col items-center justify-center">
-                      <span className="text-3xl font-extrabold text-black">
-                        ₩550,000
-                      </span>
-                      <span className="text-xs mt-1 font-medium text-gray-500">
-                        (VAT included, 부가세 포함)
-                      </span>
                     </div>
                   </div>
                 </div>
@@ -1658,37 +1679,13 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
               return (
                 <div className="flex flex-col gap-y-16 w-full max-w-6xl mx-auto">
                   {moduleCards}
-                  {onsiteCard}
+                  {licenseCards}
                 </div>
               );
             })()}
           </section>
 
-          {/* 연락처 섹션 */}
-          <section
-            id="contact"
-            className="scroll-mt-[180px] py-20 text-center bg-gray-100"
-          >
-            <h2 className="text-4xl font-bold">{t("contact.title")}</h2>
-            <p className="text-lg text-gray-500 max-w-3xl mx-auto mt-4">
-              {t("contact.info1")}
-              <br />
-              {t("contact.info2")}
-              <br />
-              Phone (Korea): +82-10-9756-1992
-              <br />
-              Kakao: Dlas_official
-              <br />
-              WhatsApp:{" "}
-              <a
-                href="https://wa.me/821097561992"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                wa.me/821097561992
-              </a>
-            </p>
-          </section>
+
 
           {/* --- Terms & Privacy 섹션 --- */}
           <section
@@ -2124,7 +2121,7 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
                 <button
                   onClick={handleCopyEmail}
                   className="bg-gray-300 text-black px-3 py-1 rounded hover:bg-gray-400 transition text-sm"
-                >
+                  >
                   {t("purchase.copy")}
                 </button>
               </div>
@@ -2659,7 +2656,7 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
                 <p>대표 : 김종환</p>
                 <p>사업자 등록번호 : 753-06-03175</p>
                 <p>통신판매업 신고번호 : 2025-대전서구-1033</p>
-                <p>주소 : 대전광역시 유성구 테크노4로 17 대덕비즈센터 C307호, 대한민국</p>
+                <p>주소 : 인천시 서구 청라동 202-3번지 청라더리브티아모지식산업센터 지원동 543호, 대한민국</p>
                 <p>전화 : +82-10-9756-1992 (대한민국)</p>
             </div>
           </div>
