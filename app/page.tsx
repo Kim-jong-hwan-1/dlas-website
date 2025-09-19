@@ -1685,8 +1685,6 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
             })()}
           </section>
 
-
-
           {/* --- Terms & Privacy 섹션 --- */}
           <section
             id="terms-privacy"
@@ -2121,7 +2119,7 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
                 <button
                   onClick={handleCopyEmail}
                   className="bg-gray-300 text-black px-3 py-1 rounded hover:bg-gray-400 transition text-sm"
-                  >
+                >
                   {t("purchase.copy")}
                 </button>
               </div>
@@ -2433,7 +2431,7 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
         {/* 회원가입 모달 */}
         <div
           id="signup-modal"
-          className="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-center justify-center"
+          className="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex itemscenter justify-center"
         >
           <div className="bg-white w-full max-w-md p-8 rounded-lg shadow-xl relative">
             <button
@@ -2613,8 +2611,6 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
           </div>
         )}
 
-        {/* Footer */}
-        
         {/* Floating poster FAB */}
         <button
           onClick={() => openPosterAt(0)}
@@ -2625,6 +2621,7 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
           포스터
         </button>
 
+        {/* Footer */}
         <footer className="bg-black text-white py-10 px-6 mt-20">
           <div className="max-w-5xl mx-auto">
             <div className="flex flex-col md:flex-row items-center md:items-start justify-between gap-4">
