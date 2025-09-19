@@ -1237,7 +1237,7 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
                   hover:bg-gray-800
                 "
               >
-                Get the free license!
+                무료라이센스 발급 받으세요!
               </button>
             </div>
 
