@@ -1614,7 +1614,7 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
                           이메일 문의
                         </a>
                         <div className="hidden sm:block text-xs text-gray-500 mt-2">
-                          전화: +82-10-9756-1992 / 카카오: Dlas_official / WhatsApp: wa.me/821097561992
+                      
                         </div>
                       </div>
                     </div>
