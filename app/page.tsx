@@ -1608,7 +1608,7 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
                           가입 문의
                         </button>
                         <a
-                          href="mailto:support@dlas.io"
+                          href="010-9756-1992로 연락주세요"
                           className="flex-1 border rounded-lg px-6 py-3 text-center hover:bg-gray-50 transition"
                         >
                           이메일 문의
@@ -1665,7 +1665,7 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
                           가입 문의
                         </button>
                         <a
-                          href="mailto:support@dlas.io"
+                          href="010-9756-1992로 연락주세요"
                           className="flex-1 border rounded-lg px-6 py-3 text-center hover:bg-gray-50 transition"
                         >
                           이메일 문의
