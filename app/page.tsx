@@ -1601,8 +1601,9 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
                         </ul>
                       </div>
                       <div className="w-full sm:w-56 flex sm:flex-col gap-2">
+                        {/* ▼▼▼ 변경: 버튼 클릭 시 알림 표시 ▼▼▼ */}
                         <button
-                          onClick={() => setShowPaymentSupportModal(true)}
+                          onClick={() => alert("010-9756-1992로 문자나 전화주세요")}
                           className="flex-1 bg-black text-white rounded-lg px-6 py-3 font-bold hover:bg-gray-800 transition"
                         >
                           가입 문의
@@ -1614,7 +1615,7 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
                           이메일 문의
                         </a>
                         <div className="hidden sm:block text-xs text-gray-500 mt-2">
-                      
+                          
                         </div>
                       </div>
                     </div>
@@ -1658,8 +1659,9 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
                       </div>
 
                       <div className="w-full sm:w-56 flex sm:flex-col gap-2">
+                        {/* ▼▼▼ 변경: 버튼 클릭 시 알림 표시 ▼▼▼ */}
                         <button
-                          onClick={() => setShowPaymentSupportModal(true)}
+                          onClick={() => alert("010-9756-1992로 문자나 전화주세요")}
                           className="flex-1 bg-black text-white rounded-lg px-6 py-3 font-bold hover:bg-gray-800 transition"
                         >
                           가입 문의
