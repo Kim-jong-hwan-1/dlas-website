@@ -1575,110 +1575,108 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
 
               // 2. 라이선스 패키지 카드 (D.P.L, D.F.L) — 방문서비스 카드 대체
               const licenseCards = (
-                <div className="flex flex-col gap-10">
-                  {/* D.F.L */}
-                  <div className="relative bg-gradient-to-br from-amber-50 to-white rounded-2xl border shadow-md p-6 sm:p-10 text-left">
-                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-3 mb-2">
-                          <span className="inline-flex items-center px-3 py-1 rounded-full border border-amber-300 bg-amber-100 text-amber-800 text-xs font-semibold">
-                            D.F.L.
-                          </span>
-                          <h3 className="text-2xl sm:text-3xl font-bold leading-tight">
-                            DLAS Family License
-                          </h3>
-                        </div>
-                        <p className="text-gray-600">단발성 결제 · 부가세 포함</p>
-                        <div className="mt-4 text-3xl sm:text-4xl font-extrabold">
-                          ₩3,850,000{" "}
-                          <span className="text-sm font-medium text-gray-500 align-middle">
-                          
-                          </span>
-                        </div>
+  <div className="flex flex-col gap-10">
+    {/* D.F.L */}
+    <div className="relative bg-gradient-to-br from-amber-50 to-white rounded-2xl border shadow-md p-6 sm:p-10 text-left">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+        <div className="flex-1">
+          <div className="flex items-center gap-3 mb-2">
+            <span className="inline-flex items-center px-3 py-1 rounded-full border border-amber-300 bg-amber-100 text-amber-800 text-xs font-semibold">
+              D.F.L.
+            </span>
+            <h3 className="text-2xl sm:text-3xl font-bold leading-tight">
+              DLAS Family License
+            </h3>
+          </div>
+          <p className="text-gray-600">단발성 결제 · 부가세 포함</p>
+          <div className="mt-4 text-3xl sm:text-4xl font-extrabold">
+            ₩3,850,000{" "}
+            <span className="text-sm font-medium text-gray-500 align-middle">
+            
+            </span>
+          </div>
 
-                        <div className="mt-6 text-gray-800">
-                          <p className="font-semibold mb-2">설명</p>
-                          <ul className="space-y-1">
-                            <li>1) 모든 모듈 <b>평생 무료</b></li>
-                            <li>2) <b>라이센스 계약자 의견</b>을 반영하여 개발 및 업데이트</li>
-                            <li>3) 모든 <b>연구자료·세미나자료 공유</b></li>
-                            <li>4) 디지털 기공 과정 문제 발생 시 <b>해결책 제시 및 어시스트</b></li>
-                            <li>5) <b>치과 연계</b></li>
-                          </ul>
-                          <ul className="mt-2 ml-4 list-disc space-y-1">
-                            <li>DLAS Family의 디지털 전문성을 강조하여 영업</li>
-                            <li>단순 연결(수익 보장 아님)</li>
-                            <li>원장님의 피드백을 점수화하여 다음 연결 시 가산</li>
-                          </ul>
-                        </div>
-                      </div>
+          <div className="mt-6 text-gray-800">
+            <p className="font-semibold mb-2">설명</p>
+            <ul className="space-y-1">
+              <li>1) 모든 모듈 <b>평생 무료</b></li>
+              <li>2) <b>라이센스 계약자 의견</b>을 반영하여 개발 및 업데이트</li>
+              <li>3) 모든 <b>연구자료·세미나자료 공유</b></li>
+              <li>4) 디지털 기공 과정 문제 발생 시 <b>해결책 제시 및 어시스트</b></li>
+              <li>5) <b>치과 연계</b></li>
+            </ul>
+            <ul className="mt-2 ml-4 list-disc space-y-1">
+              <li>DLAS Family의 디지털 전문성을 강조하여 영업</li>
+              <li>단순 연결(수익 보장 아님)</li>
+              <li>원장님의 피드백을 점수화하여 다음 연결 시 가산</li>
+            </ul>
+          </div>
+        </div>
 
-                      <div className="w-full sm:w-56 flex sm:flex-col gap-2">
-                        {/* ▼▼▼ 변경: 버튼 클릭 시 알림 표시 ▼▼▼ */}
-                        <button
-                          onClick={() => alert("010-9756-1992로 문자나 전화주세요")}
-                          className="flex-1 bg-black text-white rounded-lg px-6 py-3 font-bold hover:bg-gray-800 transition"
-                        >
-                          가입 문의
-                        </button>
-                        <a
-                          href="010-9756-1992로 연락주세요"
-                          className="flex-1 border rounded-lg px-6 py-3 text-center hover:bg-gray-50 transition"
-                        >
-                          이메일 문의
-                        </a>
-                      </div>
-                    </div>
-                  </div>
+        <div className="w-full sm:w-56 flex sm:flex-col gap-2">
+          {/* ▼▼▼ 변경: 버튼 클릭 시 알림 표시 ▼▼▼ */}
+          <button
+            onClick={() => alert("010-9756-1992로 문자나 전화주세요")}
+            className="flex-1 bg-black text-white rounded-lg px-6 py-3 font-bold hover:bg-gray-800 transition"
+          >
+            가입 문의
+          </button>
+          <a
+            href="010-9756-1992로 연락주세요"
+            className="flex-1 border rounded-lg px-6 py-3 text-center hover:bg-gray-50 transition"
+          >
+            이메일 문의
+          </a>
+        </div>
+      </div>
+    </div>
 
-                  {/* D.P.L */}
-                  <div className="relative bg-gradient-to-br from-gray-50 to-white rounded-2xl border shadow-md p-6 sm:p-10 text-left">
-                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-3 mb-2">
-                          <span className="inline-flex items-center px-3 py-1 rounded-full border text-xs font-semibold">
-                            D.P.L.
-                          </span>
-                          <h3 className="text-2xl sm:text-3xl font-bold leading-tight">
-                            DLAS Permanent License
-                          </h3>
-                        </div>
-                        <p className="text-gray-600">단발성 결제 · 부가세 포함</p>
-                        <div className="mt-4 text-3xl sm:text-4xl font-extrabold">
-                          ₩2,200,000{" "}
-                          <span className="text-sm font-medium text-gray-500 align-middle">
-                            
-                          </span>
-                        </div>
-                        <ul className="mt-6 space-y-2 text-gray-800">
-                          <li>• 모든 모듈 <b>평생 무료 라이선스</b></li>
-                          <li>• <b>업데이트</b> 및 <b>버전</b>과 상관없이 평생 무료</li>
-                        </ul>
-                      </div>
-                      <div className="w-full sm:w-56 flex sm:flex-col gap-2">
-                        {/* ▼▼▼ 변경: 버튼 클릭 시 알림 표시 ▼▼▼ */}
-                        <button
-                          onClick={() => alert("010-9756-1992로 문자나 전화주세요")}
-                          className="flex-1 bg-black text-white rounded-lg px-6 py-3 font-bold hover:bg-gray-800 transition"
-                        >
-                          가입 문의
-                        </button>
-                        <a
-                          href="010-9756-1992로 연락주세요"
-                          className="flex-1 border rounded-lg px-6 py-3 text-center hover:bg-gray-50 transition"
-                        >
-                          이메일 문의
-                        </a>
-                        <div className="hidden sm:block text-xs text-gray-500 mt-2">
-                          
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ););
-
-              return (
+    {/* D.P.L */}
+    <div className="relative bg-gradient-to-br from-gray-50 to-white rounded-2xl border shadow-md p-6 sm:p-10 text-left">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+        <div className="flex-1">
+          <div className="flex items-center gap-3 mb-2">
+            <span className="inline-flex items-center px-3 py-1 rounded-full border text-xs font-semibold">
+              D.P.L.
+            </span>
+            <h3 className="text-2xl sm:text-3xl font-bold leading-tight">
+              DLAS Permanent License
+            </h3>
+          </div>
+          <p className="text-gray-600">단발성 결제 · 부가세 포함</p>
+          <div className="mt-4 text-3xl sm:text-4xl font-extrabold">
+            ₩2,200,000{" "}
+            <span className="text-sm font-medium text-gray-500 align-middle">
+              
+            </span>
+          </div>
+          <ul className="mt-6 space-y-2 text-gray-800">
+            <li>• 모든 모듈 <b>평생 무료 라이선스</b></li>
+            <li>• <b>업데이트</b> 및 <b>버전</b>과 상관없이 평생 무료</li>
+          </ul>
+        </div>
+        <div className="w-full sm:w-56 flex sm:flex-col gap-2">
+          {/* ▼▼▼ 변경: 버튼 클릭 시 알림 표시 ▼▼▼ */}
+          <button
+            onClick={() => alert("010-9756-1992로 문자나 전화주세요")}
+            className="flex-1 bg-black text-white rounded-lg px-6 py-3 font-bold hover:bg-gray-800 transition"
+          >
+            가입 문의
+          </button>
+          <a
+            href="010-9756-1992로 연락주세요"
+            className="flex-1 border rounded-lg px-6 py-3 text-center hover:bg-gray-50 transition"
+          >
+            이메일 문의
+          </a>
+          <div className="hidden sm:block text-xs text-gray-500 mt-2">
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+);return (
                 <div className="flex flex-col gap-y-16 w-full max-w-6xl mx-auto">
                   {licenseCards}
                   {moduleCards}
