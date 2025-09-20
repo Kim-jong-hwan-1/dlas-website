@@ -1576,7 +1576,7 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
               // 2. 라이선스 패키지 카드 (D.P.L, D.F.L) — 방문서비스 카드 대체
               const licenseCards = (
                 <div className="flex flex-col gap-10">
-                  {/* D.F.L */}}
+                  {/* D.F.L */}
                   <div className="relative bg-gradient-to-br from-amber-50 to-white rounded-2xl border shadow-md p-6 sm:p-10 text-left">
                     <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
                       <div className="flex-1">
@@ -1631,7 +1631,7 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
                     </div>
                   </div>
 
-                  {/* D.P.L */}}
+                  {/* D.P.L */}
                   <div className="relative bg-gradient-to-br from-gray-50 to-white rounded-2xl border shadow-md p-6 sm:p-10 text-left">
                     <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
                       <div className="flex-1">
@@ -1675,10 +1675,8 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
                       </div>
                     </div>
                   </div>
-
-                  {
                 </div>
-              );
+              ););
 
               return (
                 <div className="flex flex-col gap-y-16 w-full max-w-6xl mx-auto">
