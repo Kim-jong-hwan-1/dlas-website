@@ -1582,7 +1582,7 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
                       <div className="flex-1">
                         <div className="flex items-center gap-3 mb-2">
                           <span className="inline-flex items-center px-3 py-1 rounded-full border text-xs font-semibold">
-                            D.P.L
+                            D.P.L.
                           </span>
                           <h3 className="text-2xl sm:text-3xl font-bold leading-tight">
                             DLAS Permanent License
@@ -1626,7 +1626,7 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
                       <div className="flex-1">
                         <div className="flex items-center gap-3 mb-2">
                           <span className="inline-flex items-center px-3 py-1 rounded-full border border-amber-300 bg-amber-100 text-amber-800 text-xs font-semibold">
-                            D.F.L
+                            D.F.L.
                           </span>
                           <h3 className="text-2xl sm:text-3xl font-bold leading-tight">
                             DLAS Family License
