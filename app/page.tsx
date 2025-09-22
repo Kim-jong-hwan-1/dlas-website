@@ -340,6 +340,13 @@ export default function Page() {
       "1YEAR": "pri_01k1dj77nyhzgpg2terfwwd9pd",
       "LIFETIME": "", // TODO: Paddle priceId 입력
     },
+    // 새 슬롯(추후 설정): 가격 미설정 → 결제 버튼 클릭 시 안내 표시됨
+    "New Module (TBD)": {
+      "1WEEK": "",
+      "1MONTH": "",
+      "1YEAR": "",
+      "LIFETIME": "",
+    },
   };
 
   const handleDownloadUnavailable = (e?: React.MouseEvent) => {
@@ -680,7 +687,7 @@ export default function Page() {
     }
   };
 
-  // 모듈 목록
+  // 모듈 목록 (⭐ 새 슬롯 1개 추가)
   const modules = [
     "Transfer Jig Maker",
     "STL Classifier",
@@ -688,6 +695,7 @@ export default function Page() {
     "Image Converter",
     "Booleaner",
     "Fuser",
+    "New Module (TBD)", // ← 추가된 빈 슬롯 (추후 설정)
   ];
 
   // 현재 페이지 origin
@@ -1311,6 +1319,7 @@ export default function Page() {
                 "Image Converter": "6",
                 "Booleaner": "4",
                 "Fuser": "7",
+                // 새 슬롯은 아직 라이선스 ID 미배정
               };
 
               const info: Record<
@@ -1347,6 +1356,7 @@ export default function Page() {
                   youtube: null,
                   image: "/modules/fast_stl_fuser.png",
                 },
+                // 새 슬롯용 미디어 없음 → Coming Soon
               };
 
               // 1. 일반 모듈 카드들
@@ -1411,27 +1421,27 @@ export default function Page() {
                           )}
                         </div>
                         <div className="flex flex-col w-full items-center gap-2">
-                          {/* 1DAY 제거: 1WEEK / 1MONTH / 1YEAR (1줄) */}
+                          {/* 1DAY 제거: 1주 / 1달 / 1년 (한글 표기) */}
                           <div className="flex flex-row w-full justify-center items-center gap-2">
                             <button
                               className="bg-black text-white rounded-lg w-1/3 h-12 text-base font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
                               onClick={() => handleModulePayment(mod, "1WEEK")}
                             >
-                              <span className="text-lg leading-5">1WEEK</span>
+                              <span className="text-lg leading-5">1주</span>
                               <span className="text-xs leading-5">{priceLabel("1WEEK", userInfo.country)}</span>
                             </button>
                             <button
                               className="bg-black text-white rounded-lg w-1/3 h-12 text-base font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
                               onClick={() => handleModulePayment(mod, "1MONTH")}
                             >
-                              <span className="text-lg leading-5">1MONTH</span>
+                              <span className="text-lg leading-5">1달</span>
                               <span className="text-xs leading-5">{priceLabel("1MONTH", userInfo.country)}</span>
                             </button>
                             <button
                               className="bg-black text-white rounded-lg w-1/3 h-12 text-base font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
                               onClick={() => handleModulePayment(mod, "1YEAR")}
                             >
-                              <span className="text-lg leading-5">1YEAR</span>
+                              <span className="text-lg leading-5">1년</span>
                               <span className="text-xs leading-5">{priceLabel("1YEAR", userInfo.country)}</span>
                             </button>
                           </div>
@@ -1517,26 +1527,26 @@ export default function Page() {
                           </div>
                         </div>
                         <div className="flex flex-col gap-3 w-40 flex-shrink-0 h-full justify-center items-center">
-                          {/* 1DAY 제거, 3개 + 평생이용 */}
+                          {/* 1DAY 제거, 3개 + 평생이용 (한글 표기) */}
                           <button
                             className="bg-black text-white rounded-lg w-32 h-16 text-lg font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
                             onClick={() => handleModulePayment(mod, "1WEEK")}
                           >
-                            <span className="text-xl leading-5">1WEEK</span>
+                            <span className="text-xl leading-5">1주</span>
                             <span className="text-base leading-5">{priceLabel("1WEEK", userInfo.country)}</span>
                           </button>
                           <button
                             className="bg-black text-white rounded-lg w-32 h-16 text-lg font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
                             onClick={() => handleModulePayment(mod, "1MONTH")}
                           >
-                            <span className="text-xl leading-5">1MONTH</span>
+                            <span className="text-xl leading-5">1달</span>
                             <span className="text-base leading-5">{priceLabel("1MONTH", userInfo.country)}</span>
                           </button>
                           <button
                             className="bg-black text-white rounded-lg w-32 h-16 text-lg font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
                             onClick={() => handleModulePayment(mod, "1YEAR")}
                           >
-                            <span className="text-xl leading-5">1YEAR</span>
+                            <span className="text-xl leading-5">1년</span>
                             <span className="text-base leading-5">{priceLabel("1YEAR", userInfo.country)}</span>
                           </button>
                           <button
@@ -1571,10 +1581,55 @@ export default function Page() {
                   );
                 });
 
-              // 2. 라이선스 패키지 카드 (D.P.L, D.F.L)
+              // 2. 라이선스 패키지 카드 (D.P.L, D.F.L 순서로 교체)
               const licenseCards = (
   <div className="flex flex-col gap-10">
-    {/* D.F.L */}
+    {/* D.P.L (먼저) */}
+    <div className="relative bg-gradient-to-br from-gray-50 to-white rounded-2xl border shadow-md p-6 sm:p-10 text-left">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+        <div className="flex-1">
+          <div className="flex items-center gap-3 mb-2">
+            <span className="inline-flex items-center px-3 py-1 rounded-full border text-xs font-semibold">
+              D.P.L.
+            </span>
+            <h3 className="text-2xl sm:text-3xl font-bold leading-tight">
+              DLAS Permanent License
+            </h3>
+          </div>
+          <p className="text-gray-600">단발성 결제 · 부가세 포함</p>
+          <div className="mt-4 text-3xl sm:text-4xl font-extrabold">
+            ₩2,200,000{" "}
+            <span className="text-sm font-medium text-gray-500 align-middle">
+              
+            </span>
+          </div>
+          <ul className="mt-6 space-y-2 text-gray-800">
+            <li>• 모든 모듈 <b>평생 무료 라이선스</b></li>
+            <li>• <b>업데이트</b> 및 <b>버전</b>과 상관없이 평생 무료</li>
+          </ul>
+        </div>
+        <div className="w-full sm:w-56 flex sm:flex-col gap-2">
+          {/* ▼▼▼ 변경: 버튼 클릭 시 알림 표시 ▼▼▼ */}
+          <button
+            onClick={() => alert("010-9756-1992로 문자나 전화주세요")}
+            className="flex-1 bg-black text-white rounded-lg px-6 py-3 font-bold hover:bg-gray-800 transition"
+          >
+            가입 문의
+          </button>
+          <a
+            href="010-9756-1992로 연락주세요"
+            className="flex-1 border rounded-lg px-6 py-3 text-center hover:bg-gray-50 transition"
+          >
+            이메일 문의
+          </a>
+          <div className="hidden sm:block text-xs text-gray-500 mt-2">
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* D.F.L (두 번째) */}
     <div className="relative bg-gradient-to-br from-amber-50 to-white rounded-2xl border shadow-md p-6 sm:p-10 text-left">
       <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
         <div className="flex-1">
@@ -1625,51 +1680,6 @@ export default function Page() {
           >
             이메일 문의
           </a>
-        </div>
-      </div>
-    </div>
-
-    {/* D.P.L */}
-    <div className="relative bg-gradient-to-br from-gray-50 to-white rounded-2xl border shadow-md p-6 sm:p-10 text-left">
-      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
-        <div className="flex-1">
-          <div className="flex items-center gap-3 mb-2">
-            <span className="inline-flex items-center px-3 py-1 rounded-full border text-xs font-semibold">
-              D.P.L.
-            </span>
-            <h3 className="text-2xl sm:text-3xl font-bold leading-tight">
-              DLAS Permanent License
-            </h3>
-          </div>
-          <p className="text-gray-600">단발성 결제 · 부가세 포함</p>
-          <div className="mt-4 text-3xl sm:text-4xl font-extrabold">
-            ₩2,200,000{" "}
-            <span className="text-sm font-medium text-gray-500 align-middle">
-              
-            </span>
-          </div>
-          <ul className="mt-6 space-y-2 text-gray-800">
-            <li>• 모든 모듈 <b>평생 무료 라이선스</b></li>
-            <li>• <b>업데이트</b> 및 <b>버전</b>과 상관없이 평생 무료</li>
-          </ul>
-        </div>
-        <div className="w-full sm:w-56 flex sm:flex-col gap-2">
-          {/* ▼▼▼ 변경: 버튼 클릭 시 알림 표시 ▼▼▼ */}
-          <button
-            onClick={() => alert("010-9756-1992로 문자나 전화주세요")}
-            className="flex-1 bg-black text-white rounded-lg px-6 py-3 font-bold hover:bg-gray-800 transition"
-          >
-            가입 문의
-          </button>
-          <a
-            href="010-9756-1992로 연락주세요"
-            className="flex-1 border rounded-lg px-6 py-3 text-center hover:bg-gray-50 transition"
-          >
-            이메일 문의
-          </a>
-          <div className="hidden sm:block text-xs text-gray-500 mt-2">
-            
-          </div>
         </div>
       </div>
     </div>
