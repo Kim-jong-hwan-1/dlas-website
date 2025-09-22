@@ -104,19 +104,62 @@ const PADDLE_PRICE_ID = isSandbox
 // ─────────────────────────────────────────────
 const KOREA_PAYMENT_MESSAGE = "결제준비중 빠른 결제를 원하시면, 010-9756-1992로 문의주세요";
 
-// Poster assets (in /public/posters)
+// Poster assets (in /public/posters) — 1 ~ 17까지 반영
 const POSTER_PATHS = [
   "/posters/1.jpg",
   "/posters/2.jpg",
   "/posters/3.jpg",
   "/posters/4.jpg",
-  "/posters/5.jpg",
+  "/posters/5.png",
   "/posters/6.jpg",
   "/posters/7.png",
   "/posters/8.png",
   "/posters/9.png",
-  "/posters/10.png", // ✅ 추가
+  "/posters/10.png",
+  "/posters/11.png",
+  "/posters/12.png",
+  "/posters/13.png",
+  "/posters/14.png",
+  "/posters/15.png",
+  "/posters/16.jpg",
+  "/posters/17.png",
 ];
+
+// ─────────────────────────────────────────────
+// 가격/표시 관련
+// ─────────────────────────────────────────────
+const LIFETIME_PRICE_KRW = 770_000; // 평생이용
+const USD_TO_KRW = 1000;
+const MODULE_PRICES_USD: Record<string, number> = {
+  // 1DAY 제거
+  "1WEEK": 19,
+  "1MONTH": 49,
+  "1YEAR": 290,
+};
+/** 미국 달러를 원화로 환산 */
+const usdToKrw = (usd: number) => usd * USD_TO_KRW;
+/** 🇰🇷 사용자인지 판별 */
+const isKoreanUser = (country?: string) =>
+  country &&
+  ["korea", "south korea", "republic of korea", "대한민국", "한국"].some((kw) =>
+    country.toLowerCase().includes(kw)
+  );
+/** KRW 표시 여부: 로그인 전(국가 미확인)에도 KRW를 기본 표시로 간주 */
+const isKrwDisplay = (country?: string) => !country || isKoreanUser(country);
+/** 버튼·라벨에 표시할 금액 문자열 */
+const priceLabel = (period: string, country?: string) => {
+  if (period === "LIFETIME") return `₩${LIFETIME_PRICE_KRW.toLocaleString()}`;
+  const usd = MODULE_PRICES_USD[period];
+  const krwStr = `₩${usdToKrw(usd).toLocaleString()}`;
+  if (isKrwDisplay(country)) return krwStr;
+  return `$${usd}`;
+};
+/** 일반 USD 금액 → 표시 문자열 (🇰🇷 기본 KRW, 🇺🇸 비한국 로그인 시 USD) */
+const asDisplayPrice = (usdNumber: number, country?: string) => {
+  const krwStr = `₩${Math.round(usdToKrw(usdNumber)).toLocaleString()}`;
+  if (isKrwDisplay(country)) return krwStr;
+  return `$${usdNumber.toLocaleString()}`;
+};
 
 export default function Page() {
 
@@ -260,85 +303,44 @@ export default function Page() {
 
   // buy 탭 위쪽에 선언!
   const MODULE_PRICE_IDS: Record<string, Record<string, string>> = {
+    // ⭐ 1DAY 제거, LIFETIME 추가(PriceId는 추후 운영 값으로 교체하세요)
     "Transfer Jig Maker": {
-      "1DAY": "pri_01k1jctwckah8wy2e30bmnbh19",
       "1WEEK": "pri_01k1jcsv5cg66tjnv05qhtwknh",
       "1MONTH": "pri_01k1jcs60js4d1khk87qsczcgh",
       "1YEAR": "pri_01k1jcptq639s6r3npgyphtk4p",
+      "LIFETIME": "", // TODO: Paddle priceId 입력
     },
     "STL Classifier": {
-      "1DAY": "pri_01k1dhbc5qnnqeqx0xvy9ra8zq",
       "1WEEK": "pri_01k1dhdhev3zdv3dme6veyd9ab",
       "1MONTH": "pri_01k1dhetmhg867gkdkj75mv4pn",
       "1YEAR": "pri_01k1dhh3b4dfm1r191y6zk1xmh",
+      "LIFETIME": "", // TODO: Paddle priceId 입력
     },
     "HTML Viewer Converter": {
-      "1DAY": "pri_01k1dhj3aq89kgdtxyapj10hqq",
       "1WEEK": "pri_01k1dhm7x23g8nn3tpcmswjq14",
       "1MONTH": "pri_01k1dhn95p99rbc3y5n4yg3ke1",
       "1YEAR": "pri_01k1dhnxpaj49197qw7chmpe60",
+      "LIFETIME": "", // TODO: Paddle priceId 입력
     },
     "Image Converter": {
-      "1DAY": "pri_01k1dhrezj288s5xdmt7ck760q",
       "1WEEK": "pri_01k1dhsg4gwyzycar6cggsm93j",
       "1MONTH": "pri_01k1dhtxxwyaqt63bx9wfgttfa",
       "1YEAR": "pri_01k1dhwbb0yvngp04ggzna166w",
+      "LIFETIME": "", // TODO: Paddle priceId 입력
     },
     "Booleaner": {
-      "1DAY": "pri_01k1dhz0scvpdgj7g010d3q8ek",
       "1WEEK": "pri_01k1dj1fwdb7gqd7m6zcvgcqmw",
       "1MONTH": "pri_01k1dj2gbhq3r3g26kg9sb1c4j",
       "1YEAR": "pri_01k1dj4hm0933fgr6zn7a7yvx0",
+      "LIFETIME": "", // TODO: Paddle priceId 입력
     },
     "Fuser": {
-      "1DAY": "pri_01k1dj5bcrq7c3bbpknw8ysm3y",
       "1WEEK": "pri_01k1dj6060dp3nba0x7kqxj5aj",
       "1MONTH": "pri_01k1dj6qjawp143jjbwbac779c",
       "1YEAR": "pri_01k1dj77nyhzgpg2terfwwd9pd",
+      "LIFETIME": "", // TODO: Paddle priceId 입력
     },
   };
-
-/** ─────────────────────────────────────────────────
- *  ▒  가격·통화 설정
- *─────────────────────────────────────────────────*/
-const USD_TO_KRW = 1000;
-const MODULE_PRICES_USD: Record<string, number> = {
-  "1DAY": 3,
-  "1WEEK": 19,
-  "1MONTH": 49,
-  "1YEAR": 290,
-};
-/** 미국 달러를 원화로 환산 */
-const usdToKrw = (usd: number) => usd * USD_TO_KRW;
-
-/** 🇰🇷 사용자인지 판별 */
-const isKoreanUser = (country?: string) =>
-  country &&
-  ["korea", "south korea", "republic of korea", "대한민국", "한국"].some((kw) =>
-    country.toLowerCase().includes(kw)
-  );
-
-/** KRW 표시 여부: 로그인 전(국가 미확인)에도 KRW를 기본 표시로 간주 */
-const isKrwDisplay = (country?: string) => !country || isKoreanUser(country);
-
-/** 버튼·라벨에 표시할 금액 문자열 (🇰🇷 기본 원화, 🇺🇸 비한국 로그인 시 달러) */
-const priceLabel = (period: string, country?: string) => {
-  const usd = MODULE_PRICES_USD[period];
-  const krwStr = `₩${usdToKrw(usd).toLocaleString()}`;
-
-  // ✅ 기본값: KRW
-  // ✅ 로그인 후 country가 한국이 아니면 USD
-  if (isKrwDisplay(country)) return krwStr;
-  return `$${usd}`;
-};
-
-/** 일반 USD 금액(정수/소수)을 표시용 문자열로 변환: 🇰🇷 기본 KRW, 🇺🇸 비한국 로그인 시 USD */
-const asDisplayPrice = (usdNumber: number, country?: string) => {
-  const krwStr = `₩${Math.round(usdToKrw(usdNumber)).toLocaleString()}`;
-  if (isKrwDisplay(country)) return krwStr;
-  return `$${usdNumber.toLocaleString()}`;
-};
-
 
   const handleDownloadUnavailable = (e?: React.MouseEvent) => {
     if (e) e.preventDefault();
@@ -642,7 +644,7 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
 
   // 국가 목록
   const countries = [
-    "Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda","Argentina","Armenia","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana","Brazil","Brunei","Bulgaria","Burkina Faso","Burundi","Cabo Verde","Cambodia","Cameroon","Canada","Central African Republic","Chad","Chile","China","Colombia","Comoros","Congo (Brazzaville)","Congo (Kinshasa)","Costa Rica","Croatia","Cuba","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Eswatini","Ethiopia","Fiji","Finland","France","Gabon","Gambia","Georgia","Germany","Ghana","Greece","Grenada","Guatemala","Guinea","Guinea-Bissau","Guyana","Haiti","Honduras","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Israel","Italy","Jamaica","Japan","Jordan","Kazakhstan","Kenya","Kiribati","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Morocco","Mozambique","Myanmar","Namibia","Nauru","Nepal","Netherlands","New Zealand","Nicaragua","Niger","Nigeria","North Korea","North Macedonia","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Qatar","Romania","Russia","Rwanda","Saint Kitts and Nevis","Saint Lucia","Saint Vincent and the Grenadines","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","Sudan","Suriname","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor-Leste","Togo","Tonga","Trinidad and Tobago","Tunisia","Turkey","Turkmenistan","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Yemen","Zambia","Zimbabwe",
+    "Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda","Argentina","Armenia","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana","Brazil","Brunei","Bulgaria","Burkina Faso","Burundi","Cabo Verde","Cambodia","Cameroon","Canada","Central African Republic","Chad","Chile","China","Colombia","Comoros","Congo (Brazzaville)","Congo (Kinshasa)","Costa Rica","Croatia","Cuba","Cyprus","Czech Republic","Denmark","Djibouti","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Eswatini","Ethiopia","Fiji","Finland","France","Gabon","Gambia","Georgia","Germany","Ghana","Greece","Grenada","Guatemala","Guinea","Guinea-Bissau","Guyana","Haiti","Honduras","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Israel","Italy","Jamaica","Japan","Jordan","Kazakhstan","Kenya","Kiribati","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Morocco","Mozambique","Myanmar","Namibia","Nauru","Nepal","Netherlands","New Zealand","Nicaragua","Niger","Nigeria","North Korea","North Macedonia","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Qatar","Romania","Russia","Rwanda","Saint Kitts and Nevis","Saint Lucia","Saint Vincent and the Grenadines","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","Sudan","Suriname","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor-Leste","Togo","Tonga","Trinidad and Tobago","Tunisia","Turkey","Turkmenistan","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Yemen","Zambia","Zimbabwe",
   ];
 
   // 탭 이동(스크롤) 로직
@@ -678,7 +680,7 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
     }
   };
 
-  // 모듈 목록 (방문서비스 제거)
+  // 모듈 목록
   const modules = [
     "Transfer Jig Maker",
     "STL Classifier",
@@ -687,12 +689,6 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
     "Booleaner",
     "Fuser",
   ];
-  const MODULE_PRICES: Record<string, number> = {
-    "1DAY": 3,
-    "1WEEK": 19,
-    "1MONTH": 49,
-    "1YEAR": 290,
-  };
 
   // 현재 페이지 origin
   const currentOrigin = useMemo(() => {
@@ -738,17 +734,16 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
         ? MODULE_PRICE_IDS[mod][period]
         : "";
     if (!priceId) {
-      alert("No priceId registered for this module/period.");
+      alert("Price is not configured yet. Please contact us.");
       return;
     }
 
     const orderName = `${mod} (${period})`;
-    const amount = MODULE_PRICES_USD[period];
 
     (window as MyWindow).Paddle!.Checkout.open({
       items: [{ priceId, quantity: 1 }],
       customer: { email: storedId },
-      customData: { userID: storedId, module: mod, period, orderName, amount },
+      customData: { userID: storedId, module: mod, period, orderName },
       closeCallback: () => console.log("Checkout closed"),
     });
   };
@@ -757,9 +752,9 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
   // ✅ 패밀리 라이선스 테이블 데이터 (표시 통화 자동 전환)
   const familyTableData = [
     ["Transfer Jig Maker", asDisplayPrice(790, userInfo.country), "Free", "Automated jig generation software"],
-    ["Image Converter", priceLabel("1DAY", userInfo.country), "Free", "Convert STL to image quickly"],
+    ["Image Converter", priceLabel("1MONTH", userInfo.country), "Free", "Convert STL to image quickly"],
     ["Booleaner", asDisplayPrice(590, userInfo.country), "Free", "Fast automaitc Booleaner"],
-    ["HTML Viewer Converter", priceLabel("1DAY", userInfo.country), "Free", "Convert STL to HTML viewer"],
+    ["HTML Viewer Converter", priceLabel("1MONTH", userInfo.country), "Free", "Convert STL to HTML viewer"],
     [
       "Printing Model Maker (Expected July 2025)",
       asDisplayPrice(590, userInfo.country),
@@ -1416,36 +1411,38 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
                           )}
                         </div>
                         <div className="flex flex-col w-full items-center gap-2">
+                          {/* 1DAY 제거: 1WEEK / 1MONTH / 1YEAR (1줄) */}
                           <div className="flex flex-row w-full justify-center items-center gap-2">
                             <button
-                              className="bg-black text-white rounded-lg w-1/4 h-12 text-base font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
-                              onClick={() => handleModulePayment(mod, "1DAY")}
-                            >
-                              <span className="text-lg leading-5">1DAY</span>
-                              <span className="text-xs leading-5">{priceLabel("1DAY", userInfo.country)}</span>
-                            </button>
-                            <button
-                              className="bg-black text-white rounded-lg w-1/4 h-12 text-base font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
+                              className="bg-black text-white rounded-lg w-1/3 h-12 text-base font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
                               onClick={() => handleModulePayment(mod, "1WEEK")}
                             >
                               <span className="text-lg leading-5">1WEEK</span>
                               <span className="text-xs leading-5">{priceLabel("1WEEK", userInfo.country)}</span>
                             </button>
                             <button
-                              className="bg-black text-white rounded-lg w-1/4 h-12 text-base font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
+                              className="bg-black text-white rounded-lg w-1/3 h-12 text-base font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
                               onClick={() => handleModulePayment(mod, "1MONTH")}
                             >
                               <span className="text-lg leading-5">1MONTH</span>
                               <span className="text-xs leading-5">{priceLabel("1MONTH", userInfo.country)}</span>
                             </button>
                             <button
-                              className="bg-black text-white rounded-lg w-1/4 h-12 text-base font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
+                              className="bg-black text-white rounded-lg w-1/3 h-12 text-base font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
                               onClick={() => handleModulePayment(mod, "1YEAR")}
                             >
                               <span className="text-lg leading-5">1YEAR</span>
                               <span className="text-xs leading-5">{priceLabel("1YEAR", userInfo.country)}</span>
                             </button>
                           </div>
+                          {/* 평생이용(전폭 버튼) */}
+                          <button
+                            className="bg-black text-white rounded-lg w-full h-12 text-base font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
+                            onClick={() => handleModulePayment(mod, "LIFETIME")}
+                          >
+                            <span className="text-lg leading-5">평생이용</span>
+                            <span className="text-xs leading-5">{priceLabel("LIFETIME", userInfo.country)}</span>
+                          </button>
                           <div className="w-full text-center mt-3">
                             {isLoggedIn ? (
                               <span className="text-xs text-gray-600 font-mono">
@@ -1520,13 +1517,7 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
                           </div>
                         </div>
                         <div className="flex flex-col gap-3 w-40 flex-shrink-0 h-full justify-center items-center">
-                          <button
-                            className="bg-black text-white rounded-lg w-32 h-16 text-lg font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
-                            onClick={() => handleModulePayment(mod, "1DAY")}
-                          >
-                            <span className="text-xl leading-5">1DAY</span>
-                            <span className="text-base leading-5">{priceLabel("1DAY", userInfo.country)}</span>
-                          </button>
+                          {/* 1DAY 제거, 3개 + 평생이용 */}
                           <button
                             className="bg-black text-white rounded-lg w-32 h-16 text-lg font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
                             onClick={() => handleModulePayment(mod, "1WEEK")}
@@ -1547,6 +1538,13 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
                           >
                             <span className="text-xl leading-5">1YEAR</span>
                             <span className="text-base leading-5">{priceLabel("1YEAR", userInfo.country)}</span>
+                          </button>
+                          <button
+                            className="bg-black text-white rounded-lg w-32 h-16 text-lg font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
+                            onClick={() => handleModulePayment(mod, "LIFETIME")}
+                          >
+                            <span className="text-xl leading-5">평생이용</span>
+                            <span className="text-base leading-5">{priceLabel("LIFETIME", userInfo.country)}</span>
                           </button>
                           <div className="w-full text-center mt-4">
                             {isLoggedIn ? (
@@ -1573,7 +1571,7 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
                   );
                 });
 
-              // 2. 라이선스 패키지 카드 (D.P.L, D.F.L) — 방문서비스 카드 대체
+              // 2. 라이선스 패키지 카드 (D.P.L, D.F.L)
               const licenseCards = (
   <div className="flex flex-col gap-10">
     {/* D.F.L */}
@@ -1676,10 +1674,13 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
       </div>
     </div>
   </div>
-);return (
+);
+              
+              // ✅ 모듈 카드들을 먼저, 패키지 카드는 맨 아래로 이동
+              return (
                 <div className="flex flex-col gap-y-16 w-full max-w-6xl mx-auto">
-                  {licenseCards}
                   {moduleCards}
+                  {licenseCards}
                 </div>
               );
             })()}
@@ -2235,17 +2236,17 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
                   className="relative flex-1 px-2 py-2 md:px-4 md:py-4 flex items-center justify-center cursor-pointer select-none"
                   onClick={handlePosterAreaClick}
                 >
-                  {/* 좌우 화살표 (오버레이 / 반투명 / 사이즈 확대) */}
+                  {/* 좌우 화살표 (오버레이 / 모바일에서도 표시) */}
                   <button
                     className="
-                      hidden md:flex
-                      absolute left-3 top-1/2 -translate-y-1/2
+                      flex
+                      absolute left-2 md:left-3 top-1/2 -translate-y-1/2
                       items-center justify-center
                       rounded-full p-2 md:p-3
-                      text-3xl md:text-5xl
+                      text-2xl md:text-5xl
                       text-white bg-black/30 hover:bg-black/40
                       backdrop-blur-sm
-                      opacity-80 hover:opacity-100
+                      opacity-90 hover:opacity-100
                       transition
                     "
                     onClick={handlePrevClick}
@@ -2263,14 +2264,14 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
 
                   <button
                     className="
-                      hidden md:flex
-                      absolute right-3 top-1/2 -translate-y-1/2
+                      flex
+                      absolute right-2 md:right-3 top-1/2 -translate-y-1/2
                       items-center justify-center
                       rounded-full p-2 md:p-3
-                      text-3xl md:text-5xl
+                      text-2xl md:text-5xl
                       text-white bg-black/30 hover:bg-black/40
                       backdrop-blur-sm
-                      opacity-80 hover:opacity-100
+                      opacity-90 hover:opacity-100
                       transition
                     "
                     onClick={handleNextClick}
@@ -2302,7 +2303,7 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
                     </div>
                   </div>
 
-                  {/* 모바일 전용 간단 화살표 버튼 */}
+                  {/* 모바일 전용 간단 화살표 버튼 (보조 내비게이션) */}
                   <div className="flex md:hidden justify-between pt-2">
                     <button
                       className="px-3 py-2 rounded bg-white border text-lg opacity-80"
