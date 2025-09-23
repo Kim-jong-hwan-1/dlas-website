@@ -146,7 +146,7 @@ const isKoreanUser = (country?: string) =>
   );
 /** KRW 표시 여부: 로그인 전(국가 미확인)에도 KRW를 기본 표시로 간주 */
 const isKrwDisplay = (country?: string) => !country || isKoreanUser(country);
-/** 버튼·라벨에 표시할 금액 문자열 */
+/** 버튼·라벨에 표시할 금액 문자열 (기존 기본가 표시용) */
 const priceLabel = (period: string, country?: string) => {
   if (period === "LIFETIME") return `₩${LIFETIME_PRICE_KRW.toLocaleString()}`;
   const usd = MODULE_PRICES_USD[period];
@@ -159,6 +159,63 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
   const krwStr = `₩${Math.round(usdToKrw(usdNumber)).toLocaleString()}`;
   if (isKrwDisplay(country)) return krwStr;
   return `$${usdNumber.toLocaleString()}`;
+};
+
+/* ─────────────────────────────────────────────
+   🔻 모듈별 1차/2차 할인 표시(만원단위 반올림) 지원 추가
+───────────────────────────────────────────────*/
+const DISCOUNT_FACTOR = 0.7; // ≈30% 할인
+/** 각 모듈의 할인 레벨: 0=없음, 1=1차, 2=2차 */
+const MODULE_DISCOUNT_LEVELS: Record<string, 0 | 1 | 2> = {
+  "Transfer Jig Maker": 1,
+  "STL Classifier": 1,
+  "HTML Viewer Converter": 1,
+  "Image Converter": 2,
+  "Booleaner": 2,
+  "Fuser": 2,
+  "New Module (TBD)": 0,
+};
+/** 만원 단위 반올림 */
+const roundToManWon = (krw: number) => Math.round(krw / 10_000) * 10_000;
+/** KRW 기준 1차/2차 할인 금액 계산 (만원 단위 반올림 적용) */
+const discountedKrwByLevel = (baseKrw: number, level: 0 | 1 | 2) => {
+  let v = baseKrw;
+  for (let i = 0; i < level; i++) {
+    v = roundToManWon(v * DISCOUNT_FACTOR);
+  }
+  return v;
+};
+/** 모듈+기간별 표시 가격 라벨 (할인 반영) */
+const priceLabelForModule = (mod: string, period: "1WEEK" | "1MONTH" | "1YEAR" | "LIFETIME", country?: string) => {
+  const level = MODULE_DISCOUNT_LEVELS[mod] ?? 0;
+
+  // LIFETIME은 항상 KRW로 표기(기존 정책 유지)
+  if (period === "LIFETIME") {
+    const base = LIFETIME_PRICE_KRW;
+    const finalKrw = level > 0 ? discountedKrwByLevel(base, level) : base;
+    return `₩${finalKrw.toLocaleString()}`;
+  }
+
+  const baseUsd = MODULE_PRICES_USD[period];
+  const baseKrw = usdToKrw(baseUsd);
+
+  if (isKrwDisplay(country)) {
+    const finalKrw = level > 0 ? discountedKrwByLevel(baseKrw, level) : baseKrw;
+    return `₩${finalKrw.toLocaleString()}`;
+  } else {
+    // 비한국 지역: USD 정수 달러로 1·2차 할인 적용
+    let usd = baseUsd;
+    if (level >= 1) usd = Math.round(usd * DISCOUNT_FACTOR);
+    if (level >= 2) usd = Math.round(usd * DISCOUNT_FACTOR);
+    return `$${usd.toLocaleString()}`;
+  }
+};
+/** 카드에 작은 배지로 표시할 텍스트 */
+const discountBadgeText = (mod: string) => {
+  const level = MODULE_DISCOUNT_LEVELS[mod] ?? 0;
+  if (level === 1) return "1차 할인";
+  if (level === 2) return "2차 할인";
+  return null;
 };
 
 export default function Page() {
@@ -1378,6 +1435,10 @@ export default function Page() {
                     }
                   }
                   const { display: expireDisplay, debug: expireDebug } = formatExpiration(expireUtc ?? undefined);
+
+                  // 현재 카드의 할인 배지 텍스트
+                  const badge = discountBadgeText(mod);
+
                   return (
                     <div
                       key={mod}
@@ -1421,6 +1482,12 @@ export default function Page() {
                           )}
                         </div>
                         <div className="flex flex-col w-full items-center gap-2">
+                          {/* 할인 배지 */}
+                          {badge && (
+                            <span className="inline-flex items-center px-2 py-1 rounded-full bg-red-100 text-red-700 text-xs font-semibold mb-1">
+                              {badge}
+                            </span>
+                          )}
                           {/* 1DAY 제거: 1주 / 1달 / 1년 (한글 표기) */}
                           <div className="flex flex-row w-full justify-center items-center gap-2">
                             <button
@@ -1428,21 +1495,21 @@ export default function Page() {
                               onClick={() => handleModulePayment(mod, "1WEEK")}
                             >
                               <span className="text-lg leading-5">1주</span>
-                              <span className="text-xs leading-5">{priceLabel("1WEEK", userInfo.country)}</span>
+                              <span className="text-xs leading-5">{priceLabelForModule(mod, "1WEEK", userInfo.country)}</span>
                             </button>
                             <button
                               className="bg-black text-white rounded-lg w-1/3 h-12 text-base font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
                               onClick={() => handleModulePayment(mod, "1MONTH")}
                             >
                               <span className="text-lg leading-5">1달</span>
-                              <span className="text-xs leading-5">{priceLabel("1MONTH", userInfo.country)}</span>
+                              <span className="text-xs leading-5">{priceLabelForModule(mod, "1MONTH", userInfo.country)}</span>
                             </button>
                             <button
                               className="bg-black text-white rounded-lg w-1/3 h-12 text-base font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
                               onClick={() => handleModulePayment(mod, "1YEAR")}
                             >
                               <span className="text-lg leading-5">1년</span>
-                              <span className="text-xs leading-5">{priceLabel("1YEAR", userInfo.country)}</span>
+                              <span className="text-xs leading-5">{priceLabelForModule(mod, "1YEAR", userInfo.country)}</span>
                             </button>
                           </div>
                           {/* 평생이용(전폭 버튼) */}
@@ -1451,7 +1518,7 @@ export default function Page() {
                             onClick={() => handleModulePayment(mod, "LIFETIME")}
                           >
                             <span className="text-lg leading-5">평생이용</span>
-                            <span className="text-xs leading-5">{priceLabel("LIFETIME", userInfo.country)}</span>
+                            <span className="text-xs leading-5">{priceLabelForModule(mod, "LIFETIME", userInfo.country)}</span>
                           </button>
                           <div className="w-full text-center mt-3">
                             {isLoggedIn ? (
@@ -1527,34 +1594,40 @@ export default function Page() {
                           </div>
                         </div>
                         <div className="flex flex-col gap-3 w-40 flex-shrink-0 h-full justify-center items-center">
+                          {/* 할인 배지 */}
+                          {badge && (
+                            <span className="inline-flex items-center px-2 py-1 rounded-full bg-red-100 text-red-700 text-xs font-semibold">
+                              {badge}
+                            </span>
+                          )}
                           {/* 1DAY 제거, 3개 + 평생이용 (한글 표기) */}
                           <button
                             className="bg-black text-white rounded-lg w-32 h-16 text-lg font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
                             onClick={() => handleModulePayment(mod, "1WEEK")}
                           >
                             <span className="text-xl leading-5">1주</span>
-                            <span className="text-base leading-5">{priceLabel("1WEEK", userInfo.country)}</span>
+                            <span className="text-base leading-5">{priceLabelForModule(mod, "1WEEK", userInfo.country)}</span>
                           </button>
                           <button
                             className="bg-black text-white rounded-lg w-32 h-16 text-lg font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
                             onClick={() => handleModulePayment(mod, "1MONTH")}
                           >
                             <span className="text-xl leading-5">1달</span>
-                            <span className="text-base leading-5">{priceLabel("1MONTH", userInfo.country)}</span>
+                            <span className="text-base leading-5">{priceLabelForModule(mod, "1MONTH", userInfo.country)}</span>
                           </button>
                           <button
                             className="bg-black text-white rounded-lg w-32 h-16 text-lg font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
                             onClick={() => handleModulePayment(mod, "1YEAR")}
                           >
                             <span className="text-xl leading-5">1년</span>
-                            <span className="text-base leading-5">{priceLabel("1YEAR", userInfo.country)}</span>
+                            <span className="text-base leading-5">{priceLabelForModule(mod, "1YEAR", userInfo.country)}</span>
                           </button>
                           <button
                             className="bg-black text-white rounded-lg w-32 h-16 text-lg font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
                             onClick={() => handleModulePayment(mod, "LIFETIME")}
                           >
                             <span className="text-xl leading-5">평생이용</span>
-                            <span className="text-base leading-5">{priceLabel("LIFETIME", userInfo.country)}</span>
+                            <span className="text-base leading-5">{priceLabelForModule(mod, "LIFETIME", userInfo.country)}</span>
                           </button>
                           <div className="w-full text-center mt-4">
                             {isLoggedIn ? (
