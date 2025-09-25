@@ -1,7 +1,5 @@
 "use client";
 
-// 타입 선언 파일에서는 필요 (중복 선언 방지)
-
 import Head from "next/head";
 import { useEffect, useMemo, useState } from "react";
 import type React from "react";
@@ -9,6 +7,7 @@ import Image from "next/image";
 import { useLang } from "@/components/LanguageWrapper";
 import LanguageSelector from "@/components/LanguageSelector";
 import Script from "next/script";
+
 // ---------------------------------------------
 // Local types to avoid global Window conflicts
 // ---------------------------------------------
@@ -61,14 +60,14 @@ interface MyWindow extends Window {
   Paddle?: PaddleSDK;
 }
 
-
 /*───────────────────────────────────────────────────
   만료일 포매터 – 9999‑12‑31 ➜ Unlimited, 
   날짜/시간 포함 여부 확인
 ────────────────────────────────────────────────────*/
 const formatExpiration = (raw?: string) => {
   if (!raw) return { display: null, debug: "empty" } as const;
-  if (raw.startsWith("9999-12-31")) return { display: "Unlimited", debug: null } as const;
+  if (raw.startsWith("9999-12-31"))
+    return { display: "Unlimited", debug: null } as const;
 
   const m = raw.match(/^(\d{4}-\d{2}-\d{2})(?:[T\s](\d{2}):(\d{2}))/);
   if (!m) return { display: null, debug: "unrecognised format" } as const;
@@ -80,10 +79,11 @@ const formatExpiration = (raw?: string) => {
   if (isNaN(d.getTime())) return { display: null, debug: "invalid date" } as const;
 
   const p = (n: number) => `${n}`.padStart(2, "0");
-  const utc = `${d.getUTCFullYear()}-${p(d.getUTCMonth() + 1)}-${p(d.getUTCDate())} ${p(d.getUTCHours())}:${p(d.getUTCMinutes())}`;
+  const utc = `${d.getUTCFullYear()}-${p(d.getUTCMonth() + 1)}-${p(
+    d.getUTCDate()
+  )} ${p(d.getUTCHours())}:${p(d.getUTCMinutes())}`;
   return { display: utc, debug: null } as const;
 };
-
 
 // --------------------------------
 /** ✅ 1) Paddle 환경/토큰/priceId 상수 정의 */
@@ -102,7 +102,8 @@ const PADDLE_PRICE_ID = isSandbox
 // ─────────────────────────────────────────────
 // Temporary: Disable KRW (Toss) payments UI flow
 // ─────────────────────────────────────────────
-const KOREA_PAYMENT_MESSAGE = "결제준비중 빠른 결제를 원하시면, 010-9756-1992로 문의주세요";
+const KOREA_PAYMENT_MESSAGE =
+  "결제준비중 빠른 결제를 원하시면, 010-9756-1992로 문의주세요";
 
 // Poster assets (in /public/posters) — 1 ~ 17까지 반영
 const POSTER_PATHS = [
@@ -162,7 +163,7 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
 };
 
 /* ─────────────────────────────────────────────
-   🔻 모듈별 1차/2차 할인 표시(만원단위 반올림) 지원 추가
+   🔻 (표시는 없애되 할인 로직은 유지)
 ───────────────────────────────────────────────*/
 const DISCOUNT_FACTOR = 0.7; // ≈30% 할인
 /** 각 모듈의 할인 레벨: 0=없음, 1=1차, 2=2차 */
@@ -186,7 +187,11 @@ const discountedKrwByLevel = (baseKrw: number, level: 0 | 1 | 2) => {
   return v;
 };
 /** 모듈+기간별 표시 가격 라벨 (할인 반영) */
-const priceLabelForModule = (mod: string, period: "1WEEK" | "1MONTH" | "1YEAR" | "LIFETIME", country?: string) => {
+const priceLabelForModule = (
+  mod: string,
+  period: "1WEEK" | "1MONTH" | "1YEAR" | "LIFETIME",
+  country?: string
+) => {
   const level = MODULE_DISCOUNT_LEVELS[mod] ?? 0;
 
   // LIFETIME은 항상 KRW로 표기(기존 정책 유지)
@@ -210,16 +215,8 @@ const priceLabelForModule = (mod: string, period: "1WEEK" | "1MONTH" | "1YEAR" |
     return `$${usd.toLocaleString()}`;
   }
 };
-/** 카드에 작은 배지로 표시할 텍스트 */
-const discountBadgeText = (mod: string) => {
-  const level = MODULE_DISCOUNT_LEVELS[mod] ?? 0;
-  if (level === 1) return "1차 할인";
-  if (level === 2) return "2차 할인";
-  return null;
-};
 
 export default function Page() {
-
   const [token, setToken] = useState<string | null>(null);
   useEffect(() => {
     const stored = localStorage.getItem("DLAS_TOKEN");
@@ -231,7 +228,8 @@ export default function Page() {
   type TossStatus = "success" | "fail";
 
   const [tossModalOpen, setTossModalOpen] = useState(false);
-  const [tossApproveState, setTossApproveState] = useState<"idle" | "requesting" | "ok" | "fail">("idle");
+  const [tossApproveState, setTossApproveState] =
+    useState<"idle" | "requesting" | "ok" | "fail">("idle");
   const [tossErrText, setTossErrText] = useState<string>("");
 
   const [tossPayload, setTossPayload] = useState<{
@@ -298,7 +296,7 @@ export default function Page() {
     }
   }, []);
 
-  // 승인이 끝난 후 URL 정리
+  // 승인 끝난 후 URL 정리
   const clearTossQuery = () => {
     try {
       const url = new URL(window.location.href);
@@ -316,7 +314,7 @@ export default function Page() {
     } catch {}
   };
 
-  // 승인요청(서버 confirm 호출) – 실제 비밀키는 서버에 있으므로 여기서는 요청만
+  // 승인요청(서버 confirm 호출)
   const requestServerApproval = async () => {
     if (!tossPayload || tossPayload.status !== "success") return;
     setTossApproveState("requesting");
@@ -334,15 +332,17 @@ export default function Page() {
         userEmail: tossPayload.userEmail,
       };
 
-      // ⚠️ 예시 엔드포인트 (서버에서 Toss 승인 API 호출)
-      const res = await fetch("https://license-server-697p.onrender.com/payments/toss/confirm", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          ...(token ? { Authorization: `Bearer ${token}` } : {}),
-        },
-        body: JSON.stringify(body),
-      });
+      const res = await fetch(
+        "https://license-server-697p.onrender.com/payments/toss/confirm",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
+          },
+          body: JSON.stringify(body),
+        }
+      );
 
       if (!res.ok) {
         const text = await res.text();
@@ -350,7 +350,6 @@ export default function Page() {
       }
 
       setTossApproveState("ok");
-      // 라이선스 정보 갱신
       if (token) await fetchLicenseInfo(token);
     } catch (err: any) {
       setTossApproveState("fail");
@@ -365,39 +364,38 @@ export default function Page() {
       "1WEEK": "pri_01k1jcsv5cg66tjnv05qhtwknh",
       "1MONTH": "pri_01k1jcs60js4d1khk87qsczcgh",
       "1YEAR": "pri_01k1jcptq639s6r3npgyphtk4p",
-      "LIFETIME": "", // TODO: Paddle priceId 입력
+      "LIFETIME": "",
     },
     "STL Classifier": {
       "1WEEK": "pri_01k1dhdhev3zdv3dme6veyd9ab",
       "1MONTH": "pri_01k1dhetmhg867gkdkj75mv4pn",
       "1YEAR": "pri_01k1dhh3b4dfm1r191y6zk1xmh",
-      "LIFETIME": "", // TODO: Paddle priceId 입력
+      "LIFETIME": "",
     },
     "HTML Viewer Converter": {
       "1WEEK": "pri_01k1dhm7x23g8nn3tpcmswjq14",
       "1MONTH": "pri_01k1dhn95p99rbc3y5n4yg3ke1",
       "1YEAR": "pri_01k1dhnxpaj49197qw7chmpe60",
-      "LIFETIME": "", // TODO: Paddle priceId 입력
+      "LIFETIME": "",
     },
     "Image Converter": {
       "1WEEK": "pri_01k1dhsg4gwyzycar6cggsm93j",
       "1MONTH": "pri_01k1dhtxxwyaqt63bx9wfgttfa",
       "1YEAR": "pri_01k1dhwbb0yvngp04ggzna166w",
-      "LIFETIME": "", // TODO: Paddle priceId 입력
+      "LIFETIME": "",
     },
     "Booleaner": {
       "1WEEK": "pri_01k1dj1fwdb7gqd7m6zcvgcqmw",
       "1MONTH": "pri_01k1dj2gbhq3r3g26kg9sb1c4j",
       "1YEAR": "pri_01k1dj4hm0933fgr6zn7a7yvx0",
-      "LIFETIME": "", // TODO: Paddle priceId 입력
+      "LIFETIME": "",
     },
     "Fuser": {
       "1WEEK": "pri_01k1dj6060dp3nba0x7kqxj5aj",
       "1MONTH": "pri_01k1dj6qjawp143jjbwbac779c",
       "1YEAR": "pri_01k1dj77nyhzgpg2terfwwd9pd",
-      "LIFETIME": "", // TODO: Paddle priceId 입력
+      "LIFETIME": "",
     },
-    // 새 슬롯(추후 설정): 가격 미설정 → 결제 버튼 클릭 시 안내 표시됨
     "New Module (TBD)": {
       "1WEEK": "",
       "1MONTH": "",
@@ -416,28 +414,25 @@ export default function Page() {
   // --- 로그인 상태 관리 ---
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // (1) 페이지 로드(새로고침) 시 Local Storage 확인하여 로그인 상태 복원
   useEffect(() => {
     const storedIsLoggedIn = localStorage.getItem("isLoggedIn");
     const storedExpireTime = localStorage.getItem("loginExpireTime");
 
     if (storedIsLoggedIn === "true" && storedExpireTime) {
       const expireTime = parseInt(storedExpireTime, 10);
-      // 현재 시간이 만료 시간 전이라면, 로그인 상태 유지
       if (Date.now() < expireTime) {
         setIsLoggedIn(true);
       } else {
-        // 만료되었으면 Local Storage 정리
         localStorage.removeItem("isLoggedIn");
         localStorage.removeItem("loginExpireTime");
-        localStorage.removeItem("userID"); // 만료 시 userID도 제거
+        localStorage.removeItem("userID");
       }
     }
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem("DLAS_TOKEN"); // 추가
-    setToken(null);                        // 추가
+    localStorage.removeItem("DLAS_TOKEN");
+    setToken(null);
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("loginExpireTime");
     localStorage.removeItem("userID");
@@ -456,31 +451,33 @@ export default function Page() {
     phone?: string;
     email?: string;
     licenseStatus?: string; // "normal" or "family"
-    module_licenses?: { [key: string]: string };  // ← 이 부분 추가!
-  }>({})
-  // Seed country early from localStorage (fast display/routing before network)
+    module_licenses?: { [key: string]: string };
+  }>({});
+  // Seed country early from localStorage
   useEffect(() => {
     try {
       const lc = localStorage.getItem("DLAS_USER_COUNTRY");
       if (lc) setUserInfo((prev) => ({ ...prev, country: lc }));
     } catch {}
   }, []);
-;
 
   const fetchLicenseInfo = async (accessToken: string) => {
     try {
-      const res = await fetch("https://license-server-697p.onrender.com/admin/my-license", {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      });
+      const res = await fetch(
+        "https://license-server-697p.onrender.com/admin/my-license",
+        {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        }
+      );
       if (!res.ok) throw new Error("Failed to fetch license info");
       const data = await res.json();
       setUserInfo((prev) => ({
         ...prev,
         licenseStatus: data.licenseStatus ?? prev.licenseStatus,
         module_licenses:
-          (data.module_licenses &&
-            typeof data.module_licenses === "object" &&
-            !Array.isArray(data.module_licenses))
+          data.module_licenses &&
+          typeof data.module_licenses === "object" &&
+          !Array.isArray(data.module_licenses)
             ? data.module_licenses
             : prev.module_licenses,
       }));
@@ -488,14 +485,13 @@ export default function Page() {
       console.error(err);
     }
   };
-  
+
   useEffect(() => {
     if (token) {
       fetchLicenseInfo(token);
     }
   }, [token]);
 
-  // **로딩 상태** 추가
   const [isUserInfoLoading, setIsUserInfoLoading] = useState(false);
 
   // admin 엔드포인트 사용, email 매개변수로 유저정보 받기
@@ -531,7 +527,7 @@ export default function Page() {
   };
 
   // --- 회원가입 로직 관련 상태 ---
-  const [idForSignup, setIdForSignup] = useState(""); // (원래 email이었지만, ID로 사용)
+  const [idForSignup, setIdForSignup] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
@@ -540,7 +536,6 @@ export default function Page() {
   const [workplaceName, setWorkplaceName] = useState("");
   const [workplaceAddress, setWorkplaceAddress] = useState("");
   const [marketingAgree, setMarketingAgree] = useState(false);
-  // 약관 동의 상태
   const [termsAgree, setTermsAgree] = useState(false);
 
   // 패밀리 라이선스 모달
@@ -553,7 +548,6 @@ export default function Page() {
   const [showPaymentSupportModal, setShowPaymentSupportModal] =
     useState(false);
 
-  // 'How to get the free license' 접근 경로 추적용 state
   const [freeLicenseGuideOrigin, setFreeLicenseGuideOrigin] = useState<
     "home" | "familyInfo" | null
   >(null);
@@ -668,7 +662,6 @@ export default function Page() {
       localStorage.setItem("userID", idForLogin);
       setUserID(idForLogin);
 
-      // 로그인 성공 후 유저 정보 fetch
       fetchUserInfo(idForLogin);
 
       document.getElementById("login-modal")!.classList.add("hidden");
@@ -706,9 +699,201 @@ export default function Page() {
     }
   }, [showMyModal]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // 국가 목록
   const countries = [
-    "Afghanistan","Albania","Algeria","Andorra","Angola","Antigua and Barbuda","Argentina","Armenia","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana","Brazil","Brunei","Bulgaria","Burkina Faso","Burundi","Cabo Verde","Cambodia","Cameroon","Canada","Central African Republic","Chad","Chile","China","Colombia","Comoros","Congo (Brazzaville)","Congo (Kinshasa)","Costa Rica","Croatia","Cuba","Cyprus","Czech Republic","Denmark","Djibouti","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Eswatini","Ethiopia","Fiji","Finland","France","Gabon","Gambia","Georgia","Germany","Ghana","Greece","Grenada","Guatemala","Guinea","Guinea-Bissau","Guyana","Haiti","Honduras","Hungary","Iceland","India","Indonesia","Iran","Iraq","Ireland","Israel","Italy","Jamaica","Japan","Jordan","Kazakhstan","Kenya","Kiribati","Kuwait","Kyrgyzstan","Laos","Latvia","Lebanon","Lesotho","Liberia","Libya","Liechtenstein","Lithuania","Luxembourg","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Mauritania","Mauritius","Mexico","Micronesia","Moldova","Monaco","Mongolia","Montenegro","Morocco","Mozambique","Myanmar","Namibia","Nauru","Nepal","Netherlands","New Zealand","Nicaragua","Niger","Nigeria","North Korea","North Macedonia","Norway","Oman","Pakistan","Palau","Palestine","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Poland","Portugal","Qatar","Romania","Russia","Rwanda","Saint Kitts and Nevis","Saint Lucia","Saint Vincent and the Grenadines","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Korea","South Sudan","Spain","Sri Lanka","Sudan","Suriname","Sweden","Switzerland","Syria","Taiwan","Tajikistan","Tanzania","Thailand","Timor-Leste","Togo","Tonga","Trinidad and Tobago","Tunisia","Turkey","Turkmenistan","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","Uruguay","Uzbekistan","Vanuatu","Vatican City","Venezuela","Vietnam","Yemen","Zambia","Zimbabwe",
+    "Afghanistan",
+    "Albania",
+    "Algeria",
+    "Andorra",
+    "Angola",
+    "Antigua and Barbuda",
+    "Argentina",
+    "Armenia",
+    "Australia",
+    "Austria",
+    "Azerbaijan",
+    "Bahamas",
+    "Bahrain",
+    "Bangladesh",
+    "Barbados",
+    "Belarus",
+    "Belgium",
+    "Belize",
+    "Benin",
+    "Bhutan",
+    "Bolivia",
+    "Bosnia and Herzegovina",
+    "Botswana",
+    "Brazil",
+    "Brunei",
+    "Bulgaria",
+    "Burkina Faso",
+    "Burundi",
+    "Cabo Verde",
+    "Cambodia",
+    "Cameroon",
+    "Canada",
+    "Central African Republic",
+    "Chad",
+    "Chile",
+    "China",
+    "Colombia",
+    "Comoros",
+    "Congo (Brazzaville)",
+    "Congo (Kinshasa)",
+    "Costa Rica",
+    "Croatia",
+    "Cuba",
+    "Cyprus",
+    "Czech Republic",
+    "Denmark",
+    "Djibouti",
+    "Dominican Republic",
+    "Ecuador",
+    "Egypt",
+    "El Salvador",
+    "Equatorial Guinea",
+    "Eritrea",
+    "Estonia",
+    "Eswatini",
+    "Ethiopia",
+    "Fiji",
+    "Finland",
+    "France",
+    "Gabon",
+    "Gambia",
+    "Georgia",
+    "Germany",
+    "Ghana",
+    "Greece",
+    "Grenada",
+    "Guatemala",
+    "Guinea",
+    "Guinea-Bissau",
+    "Guyana",
+    "Haiti",
+    "Honduras",
+    "Hungary",
+    "Iceland",
+    "India",
+    "Indonesia",
+    "Iran",
+    "Iraq",
+    "Ireland",
+    "Israel",
+    "Italy",
+    "Jamaica",
+    "Japan",
+    "Jordan",
+    "Kazakhstan",
+    "Kenya",
+    "Kiribati",
+    "Kuwait",
+    "Kyrgyzstan",
+    "Laos",
+    "Latvia",
+    "Lebanon",
+    "Lesotho",
+    "Liberia",
+    "Libya",
+    "Liechtenstein",
+    "Lithuania",
+    "Luxembourg",
+    "Madagascar",
+    "Malawi",
+    "Malaysia",
+    "Maldives",
+    "Mali",
+    "Malta",
+    "Marshall Islands",
+    "Mauritania",
+    "Mauritius",
+    "Mexico",
+    "Micronesia",
+    "Moldova",
+    "Monaco",
+    "Mongolia",
+    "Montenegro",
+    "Morocco",
+    "Mozambique",
+    "Myanmar",
+    "Namibia",
+    "Nauru",
+    "Nepal",
+    "Netherlands",
+    "New Zealand",
+    "Nicaragua",
+    "Niger",
+    "Nigeria",
+    "North Korea",
+    "North Macedonia",
+    "Norway",
+    "Oman",
+    "Pakistan",
+    "Palau",
+    "Palestine",
+    "Panama",
+    "Papua New Guinea",
+    "Paraguay",
+    "Peru",
+    "Philippines",
+    "Poland",
+    "Portugal",
+    "Qatar",
+    "Romania",
+    "Russia",
+    "Rwanda",
+    "Saint Kitts and Nevis",
+    "Saint Lucia",
+    "Saint Vincent and the Grenadines",
+    "Samoa",
+    "San Marino",
+    "Sao Tome and Principe",
+    "Saudi Arabia",
+    "Senegal",
+    "Serbia",
+    "Seychelles",
+    "Sierra Leone",
+    "Singapore",
+    "Slovakia",
+    "Slovenia",
+    "Solomon Islands",
+    "Somalia",
+    "South Africa",
+    "South Korea",
+    "South Sudan",
+    "Spain",
+    "Sri Lanka",
+    "Sudan",
+    "Suriname",
+    "Sweden",
+    "Switzerland",
+    "Syria",
+    "Taiwan",
+    "Tajikistan",
+    "Tanzania",
+    "Thailand",
+    "Timor-Leste",
+    "Togo",
+    "Tonga",
+    "Trinidad and Tobago",
+    "Tunisia",
+    "Turkey",
+    "Turkmenistan",
+    "Tuvalu",
+    "Uganda",
+    "Ukraine",
+    "United Arab Emirates",
+    "United Kingdom",
+    "United States",
+    "Uruguay",
+    "Uzbekistan",
+    "Vanuatu",
+    "Vatican City",
+    "Venezuela",
+    "Vietnam",
+    "Yemen",
+    "Zambia",
+    "Zimbabwe",
   ];
 
   // 탭 이동(스크롤) 로직
@@ -744,7 +929,6 @@ export default function Page() {
     }
   };
 
-  // 모듈 목록 (⭐ 새 슬롯 1개 추가)
   const modules = [
     "Transfer Jig Maker",
     "STL Classifier",
@@ -752,20 +936,15 @@ export default function Page() {
     "Image Converter",
     "Booleaner",
     "Fuser",
-    "New Module (TBD)", // ← 추가된 빈 슬롯 (추후 설정)
+    "New Module (TBD)",
   ];
 
-  // 현재 페이지 origin
   const currentOrigin = useMemo(() => {
     if (typeof window === "undefined") return "https://www.dlas.io";
     return window.location.origin;
   }, []);
 
-  // ─────────────────────────────────────────────────────
-  // 🇰🇷 한국 사용자 → TossPayments
-  // 🇺🇸 그 외 → Paddle
-  // ─────────────────────────────────────────────────────
-  
+  // 🇰🇷 Korea → TossPayments / 🌎 Others → Paddle
   const handleModulePayment = (mod: string, period: string) => {
     const storedId = localStorage.getItem("userID") || userID;
     if (!storedId) {
@@ -776,19 +955,16 @@ export default function Page() {
       return;
     }
 
-    // We must know the user's country to choose USD(Paddle) vs KRW(Toss)
     if (!userInfo.country || userInfo.country.trim() === "") {
       alert("국가 정보를 불러오는 중입니다. 상단 'MY'에서 확인한 뒤 다시 시도해 주세요.");
       return;
     }
 
-    // 🇰🇷 Korea → temporarily block KRW checkout and show 안내문
     if (isKrwDisplay(userInfo.country)) {
       alert(KOREA_PAYMENT_MESSAGE);
       return;
     }
 
-    // 🌎 Non‑Korea → Paddle (USD)
     if (!paddleReady || !(window as MyWindow).Paddle) {
       alert("Paddle is not ready yet. Please refresh the page or try again.");
       return;
@@ -813,10 +989,14 @@ export default function Page() {
     });
   };
 
-
-  // ✅ 패밀리 라이선스 테이블 데이터 (표시 통화 자동 전환)
+  // ✅ 패밀리 라이선스 테이블 데이터
   const familyTableData = [
-    ["Transfer Jig Maker", asDisplayPrice(790, userInfo.country), "Free", "Automated jig generation software"],
+    [
+      "Transfer Jig Maker",
+      asDisplayPrice(790, userInfo.country),
+      "Free",
+      "Automated jig generation software",
+    ],
     ["Image Converter", priceLabel("1MONTH", userInfo.country), "Free", "Convert STL to image quickly"],
     ["Booleaner", asDisplayPrice(590, userInfo.country), "Free", "Fast automaitc Booleaner"],
     ["HTML Viewer Converter", priceLabel("1MONTH", userInfo.country), "Free", "Convert STL to HTML viewer"],
@@ -853,70 +1033,37 @@ export default function Page() {
     ["...new module 1 (Coming Soon)", asDisplayPrice(790, userInfo.country), "Free", ""],
     ["...new module 2 (Coming Soon)", asDisplayPrice(790, userInfo.country), "Free", ""],
     ["...new module 3 (Coming Soon)", asDisplayPrice(790, userInfo.country), "Free", ""],
-    ["AI DLAS CAD (Expected 2026)", `${asDisplayPrice(59, userInfo.country)}/month`, `${asDisplayPrice(5.9, userInfo.country)}/month`, ""],
+    [
+      "AI DLAS CAD (Expected 2026)",
+      `${asDisplayPrice(59, userInfo.country)}/month`,
+      `${asDisplayPrice(5.9, userInfo.country)}/month`,
+      "",
+    ],
   ];
 
-  // 이메일 복사 함수
   const handleCopyEmail = () => {
     navigator.clipboard.writeText("support@dlas.io");
   };
 
-  // [추가] 다운로드 모달 띄우기
+  // 다운로드 모달
   const [showDownloadModal, setShowDownloadModal] = useState(false);
-  // ─────────────────────────────
-  // Poster modal / gallery state
-  // ─────────────────────────────
-  const [showPosterModal, setShowPosterModal] = useState(false);
-  const [posterIndex, setPosterIndex] = useState(0);
 
-  const openPosterAt = (idx: number) => {
-    setPosterIndex(idx);
-    setShowPosterModal(true);
-  };
-  const prevPoster = () => setPosterIndex((i) => (i - 1 + POSTER_PATHS.length) % POSTER_PATHS.length);
-  const nextPoster = () => setPosterIndex((i) => (i + 1) % POSTER_PATHS.length);
-
-  /** ✅ 모달 이미지 영역 클릭 → 다음(오른쪽)으로 넘기기 */
-  const handlePosterAreaClick = () => nextPoster();
-  const handlePrevClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    prevPoster();
-  };
-  const handleNextClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    nextPoster();
-  };
-
-  // Auto‑open once per day on first visit
+  // 🔔 공지(Notice) 모달 — /public/notice/1.png
+  const [showNoticeModal, setShowNoticeModal] = useState(false);
   useEffect(() => {
-    try {
-      const key = "DLAS_POSTER_SEEN_DATE";
-      const today = new Date().toISOString().slice(0, 10);
-      const seen = localStorage.getItem(key);
-      if (seen !== today) {
-        setShowPosterModal(true);
-        localStorage.setItem(key, today);
-      }
-    } catch {}
+    // 페이지 진입 시 자동 표시 (원하면 로컬스토리지로 1/day 제어 가능)
+    setShowNoticeModal(true);
   }, []);
 
-  // Esc / ← → keyboard handlers in modal
-  useEffect(() => {
-    if (!showPosterModal) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setShowPosterModal(false);
-      if (e.key === "ArrowLeft") prevPoster();
-      if (e.key === "ArrowRight") nextPoster();
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [showPosterModal]);
+  // 포스터: 모달 제거 → 새 탭으로 열기
+  const openPosterInNewTab = (idx: number) => {
+    const src = POSTER_PATHS[idx];
+    window.open(src, "_blank");
+  };
 
-
-  // 실제 다운로드 실행 함수
+  // 실제 다운로드 실행
   const handleDownloadConfirm = () => {
     setShowDownloadModal(false);
-    // 다운로드 시작
     window.location.href =
       "https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v1.5.0/DLAS_Installer.exe";
   };
@@ -925,7 +1072,6 @@ export default function Page() {
   // ✅ 2) Paddle 결제 로직
   // ------------------
 
-  // Paddle 준비 여부
   const [paddleReady, setPaddleReady] = useState(false);
 
   // ** 1) 할인코드 State **
@@ -938,14 +1084,11 @@ export default function Page() {
     }
   }, []);
 
-  // Paddle Checkout 열기
   const handlePaddleCheckout = () => {
-    // 1) 스크립트 / Initialize 완료 확인
     if (!paddleReady) {
       alert("Paddle is not ready yet. Please wait or refresh the page.");
       return;
     }
-    // 2) 실제 window.Paddle 객체 검사
     if (!(window as MyWindow).Paddle) {
       alert("Paddle object is missing. (Check ad-blocker or domain settings)");
       return;
@@ -971,9 +1114,7 @@ export default function Page() {
     });
   };
 
-  // ─────────────────────────────────────
   // 🇰🇷 Family 라이선스 → Toss 결제 유도
-  // ─────────────────────────────────────
   const handleTossRequest = () => {
     if (userInfo.licenseStatus === "family") {
       alert("You are already a Family user. Payment is not possible.");
@@ -987,34 +1128,37 @@ export default function Page() {
 
     const tossClientKey = process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY!;
     const tossInit = (window as MyWindow).TossPayments;
-      if (!tossInit) { alert("The payment module has not been loaded yet."); return; }
-      const tossPayments = tossInit(tossClientKey);
+    if (!tossInit) {
+      alert("The payment module has not been loaded yet.");
+      return;
+    }
+    const tossPayments = tossInit(tossClientKey);
 
     const orderId = `DLAS-FAMILY-${Date.now()}`;
-    const amount = 550000; // Family 고정가
+    const amount = 550000;
     const userID = localStorage.getItem("userID") || "";
-
     const orderName = "DLAS Family License";
 
     const successUrl =
-      `${currentOrigin}/?provider=toss&type=family&orderName=${encodeURIComponent(orderName)}` +
-      `&orderId=${encodeURIComponent(orderId)}&amount=${encodeURIComponent(String(amount))}`;
-    const failUrl =
-      `${currentOrigin}/?provider=toss&type=family`;
+      `${currentOrigin}/?provider=toss&type=family&orderName=${encodeURIComponent(
+        orderName
+      )}` +
+      `&orderId=${encodeURIComponent(orderId)}&amount=${encodeURIComponent(
+        String(amount)
+      )}`;
+    const failUrl = `${currentOrigin}/?provider=toss&type=family`;
 
     tossPayments.requestPayment("CARD", {
       amount,
       orderId,
       orderName,
       customerEmail: userID,
-      customerName: (userInfo && userInfo.name) ? userInfo.name : userID,
+      customerName: userInfo && userInfo.name ? userInfo.name : userID,
       successUrl,
       failUrl,
     });
   };
 
-  // "가족 라이선스 결제" 버튼 클릭 -> 국가별 결제수단 분기
-  
   const handleFamilyLicensePayment = () => {
     if (isUserInfoLoading) {
       alert("Loading your information... Please try again shortly.");
@@ -1028,20 +1172,15 @@ export default function Page() {
       alert("국가 정보를 불러오는 중입니다. 상단 'MY'에서 확인한 뒤 다시 시도해 주세요.");
       return;
     }
-    // 🇰🇷 Korea → temporarily block KRW checkout
     if (isKrwDisplay(userInfo.country)) {
       alert(KOREA_PAYMENT_MESSAGE);
       return;
     }
-    // 🌎 Others → Paddle family checkout
     handlePaddleCheckout();
   };
 
-
-
   return (
     <>
-      {/* ✅ Hydration mismatch 방지: <html> 속성은 클라이언트에서 변경하지 않습니다. */}
       <Head>
         <title>DLAS - Dental Lab Automation Solution</title>
         <meta
@@ -1055,7 +1194,7 @@ export default function Page() {
         <link rel="canonical" href="https://www.dlas.io/" />
       </Head>
 
-      {/* ✅ 홈페이지 진입 시 ko 기본값만 로컬에 저장 (SSR 마크업과의 충돌 방지를 위해 html/data 속성은 건드리지 않음) */}
+      {/* 기본 언어: ko */}
       <Script
         id="dlas-initial-lang-ko"
         strategy="beforeInteractive"
@@ -1102,7 +1241,7 @@ export default function Page() {
       <Script src="https://js.tosspayments.com/v1" strategy="afterInteractive" />
 
       <div className="min-h-screen bg-white text-black relative">
-        {/* ▲ 왼쪽 위: 로고 + (보여지는) 언어 선택 ------------------------- */}
+        {/* 좌측 상단 로고 + 언어 */}
         <div
           className="
             fixed top-4 left-4 z-50
@@ -1118,11 +1257,10 @@ export default function Page() {
             className="object-contain"
             priority
           />
-          {/* 보이는 LanguageSelector (왼쪽) */}
           <LanguageSelector />
         </div>
 
-        {/* ▼ 모바일 전용 LanguageSelector ― 데스크탑에서는 숨김 */}
+        {/* 모바일 전용 언어 선택기 */}
         <div className="fixed top-4 right-4 z-50 flex items-center sm:hidden">
           <LanguageSelector />
         </div>
@@ -1138,9 +1276,7 @@ export default function Page() {
               className="object-contain max-w-full sm:max-w-[600px] mx-auto mt-[80px] sm:mt-0 mb-0 sm:mb-0"
               priority
             />
-            {/* ▼ 네비게이션 버튼 그룹 (오른쪽) */}
             <div className="absolute bottom-2 right-4 sm:right-8 hidden sm:flex flex-wrap items-center gap-x-4 gap-y-2">
-              {/* 세미나 탭을 최상단(첫 번째)으로 배치 */}
               <button
                 onClick={() => scrollToSection("posters")}
                 className="relative pb-2 transition-colors duration-200 cursor-pointer
@@ -1223,37 +1359,35 @@ export default function Page() {
         </div>
 
         <main className="pt-[180px]">
-          {/* ★★★ 세미나 / 포스터 섹션을 가장 위로 이동 ★★★ */}
+          {/* ★★★ 세미나 / 포스터 섹션 ★★★ */}
           <section
             id="posters"
             className="scroll-mt-[180px] py-20 bg-gradient-to-b from-white to-gray-50"
           >
             <div className="max-w-6xl mx-auto px-6">
               <div className="flex items-center justify-between mb-6">
-                {/* "세미나 & 광고" → "세미나" 로 변경 */}
                 <h2 className="text-4xl font-bold">세미나</h2>
                 <button
                   className="border px-4 py-2 rounded hover:bg-gray-100"
-                  onClick={() => openPosterAt(0)}
+                  onClick={() => openPosterInNewTab(0)}
                 >
                   전체 보기
                 </button>
               </div>
               <p className="text-gray-600 mb-6">
-                최신 행사/세미나 정보를 한 곳에서 확인하세요. 이미지를 클릭하면 크게 볼 수 있습니다.
+                최신 행사/세미나 정보를 한 곳에서 확인하세요. 이미지를 클릭하면 새 탭으로 크게 볼 수 있습니다.
               </p>
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                 {POSTER_PATHS.map((src, idx) => (
                   <button
                     key={idx}
                     className="group relative rounded-xl overflow-hidden border bg-white shadow-sm hover:shadow-lg transition"
-                    onClick={() => openPosterAt(idx)}
-                    aria-label={`Open poster ${idx+1}`}
+                    onClick={() => openPosterInNewTab(idx)}
+                    aria-label={`Open poster ${idx + 1}`}
                   >
-                    {/* Use native img to avoid Next<Image> domain constraints for user-provided assets */}
                     <img
                       src={src}
-                      alt={`poster-${idx+1}`}
+                      alt={`poster-${idx + 1}`}
                       className="w-full h-48 object-cover group-hover:scale-[1.02] transition-transform duration-300"
                       loading="lazy"
                     />
@@ -1269,13 +1403,10 @@ export default function Page() {
           {/* 홈 섹션 */}
           <section id="home" className="scroll-mt-[180px] text-center py-20">
             <p className="text-xl text-gray-300 mb-2">
-              <span className="text-5xl font-bold block">
-                {t("home.subtitle")}
-              </span>
+              <span className="text-5xl font-bold block">{t("home.subtitle")}</span>
             </p>
             <h1 className="text-6xl font-bold mb-8">{t("home.title")}</h1>
 
-            {/* --- 강조 영역 (라이선스 배너 제거, 버튼만 유지) --- */}
             <div className="flex flex-col items-center justify-center">
               <button
                 onClick={() => {
@@ -1315,10 +1446,7 @@ export default function Page() {
           </section>
 
           {/* 다운로드 섹션 */}
-          <section
-            id="download"
-            className="scroll-mt-[180px] text-center py-20 bg-gray-100"
-          >
+          <section id="download" className="scroll-mt-[180px] text-center py-20 bg-gray-100">
             <h2 className="text-4xl font-bold mb-4">{t("download.title")}</h2>
             <p className="text-lg text-gray-500 max-w-3xl mx-auto mt-2">
               <br />
@@ -1327,10 +1455,8 @@ export default function Page() {
               {t("download.desc.line4")}
             </p>
 
-            {/* ✅ 1.5.0 & MeshFix 버튼만 노출 */}
             <div className="mt-8 flex flex-col items-center space-y-4 w-full">
               <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 w-full max-w-md">
-                {/* DLAS 1.5.0 */}
                 <a
                   href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v1.5.0/DLAS_Installer.exe"
                   target="_blank"
@@ -1343,7 +1469,6 @@ export default function Page() {
                 >
                   Download&nbsp;v1.5.0
                 </a>
-                {/* MeshFix */}
                 <div className="flex flex-col items-start sm:items-end">
                   <a
                     href="https://github.com/MarcoAttene/MeshFix-V2.1/archive/refs/heads/master.zip"
@@ -1362,10 +1487,7 @@ export default function Page() {
           </section>
 
           {/* 구매 섹션 */}
-          <section
-            id="buy"
-            className="scroll-mt-[180px] text-center py-20 bg-white"
-          >
+          <section id="buy" className="scroll-mt-[180px] text-center py-20 bg-white">
             <h2 className="text-4xl font-bold mb-12">{t("nav.buy")}</h2>
 
             {(() => {
@@ -1376,7 +1498,6 @@ export default function Page() {
                 "Image Converter": "6",
                 "Booleaner": "4",
                 "Fuser": "7",
-                // 새 슬롯은 아직 라이선스 ID 미배정
               };
 
               const info: Record<
@@ -1413,59 +1534,178 @@ export default function Page() {
                   youtube: null,
                   image: "/modules/fast_stl_fuser.png",
                 },
-                // 새 슬롯용 미디어 없음 → Coming Soon
               };
 
-              // 1. 일반 모듈 카드들
-              const moduleCards = modules
-                .map((mod) => {
-                  const { gif, youtube, image } = info[mod] ?? { gif: null, youtube: null, image: null };
-                  const moduleId = MODULE_NAME_TO_ID[mod];
-                  let expireUtc: string | null = null;
-                  if (
-                    userInfo &&
-                    userInfo.module_licenses &&
-                    typeof userInfo.module_licenses === "object" &&
-                    !Array.isArray(userInfo.module_licenses) &&
-                    moduleId
-                  ) {
-                    const raw = userInfo.module_licenses[moduleId];
-                    if (typeof raw === "string" && raw.trim()) {
-                      expireUtc = raw;
-                    }
+              const moduleCards = modules.map((mod) => {
+                const { gif, youtube, image } =
+                  info[mod] ?? { gif: null, youtube: null, image: null };
+                const moduleId = MODULE_NAME_TO_ID[mod];
+                let expireUtc: string | null = null;
+                if (
+                  userInfo &&
+                  userInfo.module_licenses &&
+                  typeof userInfo.module_licenses === "object" &&
+                  !Array.isArray(userInfo.module_licenses) &&
+                  moduleId
+                ) {
+                  const raw = userInfo.module_licenses[moduleId];
+                  if (typeof raw === "string" && raw.trim()) {
+                    expireUtc = raw;
                   }
-                  const { display: expireDisplay, debug: expireDebug } = formatExpiration(expireUtc ?? undefined);
+                }
+                const { display: expireDisplay, debug: expireDebug } = formatExpiration(
+                  expireUtc ?? undefined
+                );
 
-                  // 현재 카드의 할인 배지 텍스트
-                  const badge = discountBadgeText(mod);
-
-                  return (
-                    <div
-                      key={mod}
-                      className="
+                return (
+                  <div
+                    key={mod}
+                    className="
                         relative
                         bg-gray-50 rounded-2xl border shadow-md px-2 py-8
                         flex flex-col sm:flex-row items-center
                         h-auto sm:h-80 sm:min-h-[320px] sm:max-h-[320px] gap-6
                       "
-                    >
-                      {/* 모바일 */}
-                      <div className="flex flex-col w-full sm:hidden items-center">
-                        <div className="w-full flex items-center justify-center mb-4">
-                          {image ? (
+                  >
+                    {/* 모바일 */}
+                    <div className="flex flex-col w-full sm:hidden items-center">
+                      <div className="w-full flex items-center justify-center mb-4">
+                        {image ? (
+                          <Image
+                            src={image}
+                            alt={mod}
+                            width={288}
+                            height={72}
+                            className="object-contain max-h-[72px]"
+                            priority
+                          />
+                        ) : (
+                          <span className="text-2xl font-extrabold px-4 break-words">
+                            {mod}
+                          </span>
+                        )}
+                      </div>
+                      <div className="w-full h-56 aspect-video border rounded-2xl bg-white overflow-hidden flex items-center justify-center mb-4">
+                        {youtube ? (
+                          <iframe
+                            className="w-full h-full"
+                            src={`https://www.youtube.com/embed/${youtube}`}
+                            title={`${mod} demo`}
+                            frameBorder={0}
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowFullScreen
+                          />
+                        ) : (
+                          <span className="text-gray-400 text-2xl font-bold flex items-center justify-center w-full h-full">
+                            Coming&nbsp;Soon
+                          </span>
+                        )}
+                      </div>
+                      <div className="flex flex-col w-full items-center gap-2">
+                        {/* 할인 배지 제거 */}
+
+                        <div className="flex flex-row w-full justify-center items-center gap-2">
+                          <button
+                            className="bg-black text-white rounded-lg w-1/3 h-12 text-base font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
+                            onClick={() => handleModulePayment(mod, "1WEEK")}
+                          >
+                            <span className="text-lg leading-5">1주</span>
+                            <span className="text-xs leading-5">
+                              {priceLabelForModule(mod, "1WEEK", userInfo.country)}
+                            </span>
+                          </button>
+                          <button
+                            className="bg-black text-white rounded-lg w-1/3 h-12 text-base font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
+                            onClick={() => handleModulePayment(mod, "1MONTH")}
+                          >
+                            <span className="text-lg leading-5">1달</span>
+                            <span className="text-xs leading-5">
+                              {priceLabelForModule(mod, "1MONTH", userInfo.country)}
+                            </span>
+                          </button>
+                          <button
+                            className="bg-black text-white rounded-lg w-1/3 h-12 text-base font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
+                            onClick={() => handleModulePayment(mod, "1YEAR")}
+                          >
+                            <span className="text-lg leading-5">1년</span>
+                            <span className="text-xs leading-5">
+                              {priceLabelForModule(mod, "1YEAR", userInfo.country)}
+                            </span>
+                          </button>
+                        </div>
+                        <button
+                          className="bg-black text-white rounded-lg w-full h-12 text-base font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
+                          onClick={() => handleModulePayment(mod, "LIFETIME")}
+                        >
+                          <span className="text-lg leading-5">평생이용</span>
+                          <span className="text-xs leading-5">
+                            {priceLabelForModule(mod, "LIFETIME", userInfo.country)}
+                          </span>
+                        </button>
+                        <div className="w-full text-center mt-3">
+                          {isLoggedIn ? (
+                            <span className="text-xs text-gray-600 font-mono">
+                              License expires:&nbsp;
+                              {expireDisplay ? (
+                                <>
+                                  <span className="text-black">{expireDisplay}</span>
+                                  <span className="text-xs text-gray-500">
+                                    &nbsp;(UTC)
+                                  </span>
+                                </>
+                              ) : (
+                                <span className="text-red-500">
+                                  Not activated
+                                  {expireDebug ? ` (reason: ${expireDebug})` : ""}
+                                </span>
+                              )}
+                            </span>
+                          ) : (
+                            <span className="text-xs text-gray-400">
+                              * Log in to check your license
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                    {/* 데스크탑 */}
+                    <div className="hidden sm:flex flex-row items-center w-full h-full gap-6">
+                      <div className="w-64 h-full flex-shrink-0 flex items-center justify-center">
+                        {image ? (
+                          <Image
+                            src={image}
+                            alt={mod}
+                            width={288}
+                            height={72}
+                            className="object-contain max-h-[72px]"
+                            priority
+                          />
+                        ) : (
+                          <span className="text-2xl sm:text-3xl font-extrabold px-4 break-words">
+                            {mod}
+                          </span>
+                        )}
+                      </div>
+                      <div className="w-72 h-72 flex items-center justify-center flex-shrink-0">
+                        <div className="w-72 h-72 flex items-center justify-center border rounded-2xl bg-white overflow-hidden">
+                          {gif ? (
                             <Image
-                              src={image}
-                              alt={mod}
+                              src={gif}
+                              alt={`${mod} gif`}
                               width={288}
-                              height={72}
-                              className="object-contain max-h-[72px]"
+                              height={288}
+                              className="object-contain w-full h-full"
                               priority
                             />
                           ) : (
-                            <span className="text-2xl font-extrabold px-4 break-words">{mod}</span>
+                            <span className="text-gray-400 text-2xl font-bold flex items-center justify-center w-full h-full">
+                              Coming&nbsp;Soon
+                            </span>
                           )}
                         </div>
-                        <div className="w-full h-56 aspect-video border rounded-2xl bg-white overflow-hidden flex items-center justify-center mb-4">
+                      </div>
+                      <div className="flex-1 h-72 flex items-center justify-center min-w-0">
+                        <div className="w-full h-72 aspect-video border rounded-2xl bg-white overflow-hidden flex items-center justify-center">
                           {youtube ? (
                             <iframe
                               className="w-full h-full"
@@ -1481,285 +1721,172 @@ export default function Page() {
                             </span>
                           )}
                         </div>
-                        <div className="flex flex-col w-full items-center gap-2">
-                          {/* 할인 배지 */}
-                          {badge && (
-                            <span className="inline-flex items-center px-2 py-1 rounded-full bg-red-100 text-red-700 text-xs font-semibold mb-1">
-                              {badge}
-                            </span>
-                          )}
-                          {/* 1DAY 제거: 1주 / 1달 / 1년 (한글 표기) */}
-                          <div className="flex flex-row w-full justify-center items-center gap-2">
-                            <button
-                              className="bg-black text-white rounded-lg w-1/3 h-12 text-base font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
-                              onClick={() => handleModulePayment(mod, "1WEEK")}
-                            >
-                              <span className="text-lg leading-5">1주</span>
-                              <span className="text-xs leading-5">{priceLabelForModule(mod, "1WEEK", userInfo.country)}</span>
-                            </button>
-                            <button
-                              className="bg-black text-white rounded-lg w-1/3 h-12 text-base font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
-                              onClick={() => handleModulePayment(mod, "1MONTH")}
-                            >
-                              <span className="text-lg leading-5">1달</span>
-                              <span className="text-xs leading-5">{priceLabelForModule(mod, "1MONTH", userInfo.country)}</span>
-                            </button>
-                            <button
-                              className="bg-black text-white rounded-lg w-1/3 h-12 text-base font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
-                              onClick={() => handleModulePayment(mod, "1YEAR")}
-                            >
-                              <span className="text-lg leading-5">1년</span>
-                              <span className="text-xs leading-5">{priceLabelForModule(mod, "1YEAR", userInfo.country)}</span>
-                            </button>
-                          </div>
-                          {/* 평생이용(전폭 버튼) */}
-                          <button
-                            className="bg-black text-white rounded-lg w-full h-12 text-base font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
-                            onClick={() => handleModulePayment(mod, "LIFETIME")}
-                          >
-                            <span className="text-lg leading-5">평생이용</span>
-                            <span className="text-xs leading-5">{priceLabelForModule(mod, "LIFETIME", userInfo.country)}</span>
-                          </button>
-                          <div className="w-full text-center mt-3">
-                            {isLoggedIn ? (
-                              <span className="text-xs text-gray-600 font-mono">
-                                License expires:&nbsp;
-                                {expireDisplay ? (
-                                  <>
-                                    <span className="text-black">{expireDisplay}</span>
-                                    <span className="text-xs text-gray-500">&nbsp;(UTC)</span>
-                                  </>
-                                ) : (
-                                  <span className="text-red-500">
-                                    Not activated{expireDebug ? ` (reason: ${expireDebug})` : ""}
-                                  </span>
-                                )}
-                              </span>
-                            ) : (
-                              <span className="text-xs text-gray-400">* Log in to check your license</span>
-                            )}
-                          </div>
-                        </div>
                       </div>
-                      {/* 데스크탑 */}
-                      <div className="hidden sm:flex flex-row items-center w-full h-full gap-6">
-                        <div className="w-64 h-full flex-shrink-0 flex items-center justify-center">
-                          {image ? (
-                            <Image
-                              src={image}
-                              alt={mod}
-                              width={288}
-                              height={72}
-                              className="object-contain max-h-[72px]"
-                              priority
-                            />
+                      <div className="flex flex-col gap-3 w-40 flex-shrink-0 h-full justify-center items-center">
+                        {/* 할인 배지 제거 */}
+
+                        <button
+                          className="bg-black text-white rounded-lg w-32 h-16 text-lg font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
+                          onClick={() => handleModulePayment(mod, "1WEEK")}
+                        >
+                          <span className="text-xl leading-5">1주</span>
+                          <span className="text-base leading-5">
+                            {priceLabelForModule(mod, "1WEEK", userInfo.country)}
+                          </span>
+                        </button>
+                        <button
+                          className="bg-black text-white rounded-lg w-32 h-16 text-lg font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
+                          onClick={() => handleModulePayment(mod, "1MONTH")}
+                        >
+                          <span className="text-xl leading-5">1달</span>
+                          <span className="text-base leading-5">
+                            {priceLabelForModule(mod, "1MONTH", userInfo.country)}
+                          </span>
+                        </button>
+                        <button
+                          className="bg-black text-white rounded-lg w-32 h-16 text-lg font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
+                          onClick={() => handleModulePayment(mod, "1YEAR")}
+                        >
+                          <span className="text-xl leading-5">1년</span>
+                          <span className="text-base leading-5">
+                            {priceLabelForModule(mod, "1YEAR", userInfo.country)}
+                          </span>
+                        </button>
+                        <button
+                          className="bg-black text-white rounded-lg w-32 h-16 text-lg font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
+                          onClick={() => handleModulePayment(mod, "LIFETIME")}
+                        >
+                          <span className="text-xl leading-5">평생이용</span>
+                          <span className="text-base leading-5">
+                            {priceLabelForModule(mod, "LIFETIME", userInfo.country)}
+                          </span>
+                        </button>
+                        <div className="w-full text-center mt-4">
+                          {isLoggedIn ? (
+                            <span className="text-xs text-gray-600 font-mono">
+                              License expires:&nbsp;
+                              {expireDisplay ? (
+                                <>
+                                  <span className="text-black">{expireDisplay}</span>
+                                  <span className="text-xs text-gray-500">
+                                    &nbsp;(UTC)
+                                  </span>
+                                </>
+                              ) : (
+                                <span className="text-red-500">
+                                  Not activated
+                                  {expireDebug ? ` (reason: ${expireDebug})` : ""}
+                                </span>
+                              )}
+                            </span>
                           ) : (
-                            <span className="text-2xl sm:text-3xl font-extrabold px-4 break-words">{mod}</span>
-                          )}
-                        </div>
-                        <div className="w-72 h-72 flex items-center justify-center flex-shrink-0">
-                          <div className="w-72 h-72 flex items-center justify-center border rounded-2xl bg-white overflow-hidden">
-                            {gif ? (
-                              <Image
-                                src={gif}
-                                alt={`${mod} gif`}
-                                width={288}
-                                height={288}
-                                className="object-contain w-full h-full"
-                                priority
-                              />
-                            ) : (
-                              <span className="text-gray-400 text-2xl font-bold flex items-center justify-center w-full h-full">
-                                Coming&nbsp;Soon
-                              </span>
-                            )}
-                          </div>
-                        </div>
-                        <div className="flex-1 h-72 flex items-center justify-center min-w-0">
-                          <div className="w-full h-72 aspect-video border rounded-2xl bg-white overflow-hidden flex items-center justify-center">
-                            {youtube ? (
-                              <iframe
-                                className="w-full h-full"
-                                src={`https://www.youtube.com/embed/${youtube}`}
-                                title={`${mod} demo`}
-                                frameBorder={0}
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                allowFullScreen
-                              />
-                            ) : (
-                              <span className="text-gray-400 text-2xl font-bold flex items-center justify-center w-full h-full">
-                                Coming&nbsp;Soon
-                              </span>
-                            )}
-                          </div>
-                        </div>
-                        <div className="flex flex-col gap-3 w-40 flex-shrink-0 h-full justify-center items-center">
-                          {/* 할인 배지 */}
-                          {badge && (
-                            <span className="inline-flex items-center px-2 py-1 rounded-full bg-red-100 text-red-700 text-xs font-semibold">
-                              {badge}
+                            <span className="text-xs text-gray-400">
+                              * Log in to check your license
                             </span>
                           )}
-                          {/* 1DAY 제거, 3개 + 평생이용 (한글 표기) */}
-                          <button
-                            className="bg-black text-white rounded-lg w-32 h-16 text-lg font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
-                            onClick={() => handleModulePayment(mod, "1WEEK")}
-                          >
-                            <span className="text-xl leading-5">1주</span>
-                            <span className="text-base leading-5">{priceLabelForModule(mod, "1WEEK", userInfo.country)}</span>
-                          </button>
-                          <button
-                            className="bg-black text-white rounded-lg w-32 h-16 text-lg font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
-                            onClick={() => handleModulePayment(mod, "1MONTH")}
-                          >
-                            <span className="text-xl leading-5">1달</span>
-                            <span className="text-base leading-5">{priceLabelForModule(mod, "1MONTH", userInfo.country)}</span>
-                          </button>
-                          <button
-                            className="bg-black text-white rounded-lg w-32 h-16 text-lg font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
-                            onClick={() => handleModulePayment(mod, "1YEAR")}
-                          >
-                            <span className="text-xl leading-5">1년</span>
-                            <span className="text-base leading-5">{priceLabelForModule(mod, "1YEAR", userInfo.country)}</span>
-                          </button>
-                          <button
-                            className="bg-black text-white rounded-lg w-32 h-16 text-lg font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
-                            onClick={() => handleModulePayment(mod, "LIFETIME")}
-                          >
-                            <span className="text-xl leading-5">평생이용</span>
-                            <span className="text-base leading-5">{priceLabelForModule(mod, "LIFETIME", userInfo.country)}</span>
-                          </button>
-                          <div className="w-full text-center mt-4">
-                            {isLoggedIn ? (
-                              <span className="text-xs text-gray-600 font-mono">
-                                License expires:&nbsp;
-                                {expireDisplay ? (
-                                  <>
-                                    <span className="text-black">{expireDisplay}</span>
-                                    <span className="text-xs text-gray-500">&nbsp;(UTC)</span>
-                                  </>
-                                ) : (
-                                  <span className="text-red-500">
-                                    Not activated{expireDebug ? ` (reason: ${expireDebug})` : ""}
-                                  </span>
-                                )}
-                              </span>
-                            ) : (
-                              <span className="text-xs text-gray-400">* Log in to check your license</span>
-                            )}
-                          </div>
                         </div>
                       </div>
                     </div>
-                  );
-                });
+                  </div>
+                );
+              });
 
-              // 2. 라이선스 패키지 카드 (D.P.L, D.F.L 순서로 교체)
               const licenseCards = (
-  <div className="flex flex-col gap-10">
-    {/* D.P.L (먼저) */}
-    <div className="relative bg-gradient-to-br from-gray-50 to-white rounded-2xl border shadow-md p-6 sm:p-10 text-left">
-      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
-        <div className="flex-1">
-          <div className="flex items-center gap-3 mb-2">
-            <span className="inline-flex items-center px-3 py-1 rounded-full border text-xs font-semibold">
-              D.P.L.
-            </span>
-            <h3 className="text-2xl sm:text-3xl font-bold leading-tight">
-              DLAS Permanent License
-            </h3>
-          </div>
-          <p className="text-gray-600">단발성 결제 · 부가세 포함</p>
-          <div className="mt-4 text-3xl sm:text-4xl font-extrabold">
-            ₩2,200,000{" "}
-            <span className="text-sm font-medium text-gray-500 align-middle">
-              
-            </span>
-          </div>
-          <ul className="mt-6 space-y-2 text-gray-800">
-            <li>• 모든 모듈 <b>평생 무료 라이선스</b></li>
-            <li>• <b>업데이트</b> 및 <b>버전</b>과 상관없이 평생 무료</li>
-          </ul>
-        </div>
-        <div className="w-full sm:w-56 flex sm:flex-col gap-2">
-          {/* ▼▼▼ 변경: 버튼 클릭 시 알림 표시 ▼▼▼ */}
-          <button
-            onClick={() => alert("010-9756-1992로 문자나 전화주세요")}
-            className="flex-1 bg-black text-white rounded-lg px-6 py-3 font-bold hover:bg-gray-800 transition"
-          >
-            가입 문의
-          </button>
-          <a
-            href="010-9756-1992로 연락주세요"
-            className="flex-1 border rounded-lg px-6 py-3 text-center hover:bg-gray-50 transition"
-          >
-            이메일 문의
-          </a>
-          <div className="hidden sm:block text-xs text-gray-500 mt-2">
-            
-          </div>
-        </div>
-      </div>
-    </div>
+                <div className="flex flex-col gap-10">
+                  {/* D.P.L */}
+                  <div className="relative bg-gradient-to-br from-gray-50 to-white rounded-2xl border shadow-md p-6 sm:p-10 text-left">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-3 mb-2">
+                          <span className="inline-flex items-center px-3 py-1 rounded-full border text-xs font-semibold">
+                            D.P.L.
+                          </span>
+                          <h3 className="text-2xl sm:text-3xl font-bold leading-tight">
+                            DLAS Permanent License
+                          </h3>
+                        </div>
+                        <p className="text-gray-600">단발성 결제 · 부가세 포함</p>
+                        <div className="mt-4 text-3xl sm:text-4xl font-extrabold">
+                          ₩2,200,000{" "}
+                          <span className="text-sm font-medium text-gray-500 align-middle"></span>
+                        </div>
+                        <ul className="mt-6 space-y-2 text-gray-800">
+                          <li>• 모든 모듈 <b>평생 무료 라이선스</b></li>
+                          <li>• <b>업데이트</b> 및 <b>버전</b>과 상관없이 평생 무료</li>
+                        </ul>
+                      </div>
+                      <div className="w-full sm:w-56 flex sm:flex-col gap-2">
+                        <button
+                          onClick={() => alert("010-9756-1992로 문자나 전화주세요")}
+                          className="flex-1 bg-black text-white rounded-lg px-6 py-3 font-bold hover:bg-gray-800 transition"
+                        >
+                          가입 문의
+                        </button>
+                        <a
+                          href="010-9756-1992로 연락주세요"
+                          className="flex-1 border rounded-lg px-6 py-3 text-center hover:bg-gray-50 transition"
+                        >
+                          이메일 문의
+                        </a>
+                        <div className="hidden sm:block text-xs text-gray-500 mt-2"></div>
+                      </div>
+                    </div>
+                  </div>
 
-    {/* D.F.L (두 번째) */}
-    <div className="relative bg-gradient-to-br from-amber-50 to-white rounded-2xl border shadow-md p-6 sm:p-10 text-left">
-      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
-        <div className="flex-1">
-          <div className="flex items-center gap-3 mb-2">
-            <span className="inline-flex items-center px-3 py-1 rounded-full border border-amber-300 bg-amber-100 text-amber-800 text-xs font-semibold">
-              D.F.L.
-            </span>
-            <h3 className="text-2xl sm:text-3xl font-bold leading-tight">
-              DLAS Family License
-            </h3>
-          </div>
-          <p className="text-gray-600">단발성 결제 · 부가세 포함</p>
-          <div className="mt-4 text-3xl sm:text-4xl font-extrabold">
-            ₩3,850,000{" "}
-            <span className="text-sm font-medium text-gray-500 align-middle">
-            
-            </span>
-          </div>
+                  {/* D.F.L */}
+                  <div className="relative bg-gradient-to-br from-amber-50 to-white rounded-2xl border shadow-md p-6 sm:p-10 text-left">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-3 mb-2">
+                          <span className="inline-flex items-center px-3 py-1 rounded-full border border-amber-300 bg-amber-100 text-amber-800 text-xs font-semibold">
+                            D.F.L.
+                          </span>
+                          <h3 className="text-2xl sm:text-3xl font-bold leading-tight">
+                            DLAS Family License
+                          </h3>
+                        </div>
+                        <p className="text-gray-600">단발성 결제 · 부가세 포함</p>
+                        <div className="mt-4 text-3xl sm:text-4xl font-extrabold">
+                          ₩3,850,000{" "}
+                          <span className="text-sm font-medium text-gray-500 align-middle"></span>
+                        </div>
 
-          <div className="mt-6 text-gray-800">
-            <p className="font-semibold mb-2">설명</p>
-            <ul className="space-y-1">
-              <li>1) 모든 모듈 <b>평생 무료</b></li>
-              <li>2) <b>라이센스 계약자 의견</b>을 반영하여 개발 및 업데이트</li>
-              <li>3) 모든 <b>연구자료·세미나자료 공유</b></li>
-              <li>4) 디지털 기공 과정 문제 발생 시 <b>해결책 제시 및 어시스트</b></li>
-              <li>5) <b>치과 연계</b></li>
-            </ul>
-            <ul className="mt-2 ml-4 list-disc space-y-1">
-              <li>DLAS Family의 디지털 전문성을 강조하여 영업</li>
-              <li>단순 연결(수익 보장 아님)</li>
-              <li>원장님의 피드백을 점수화하여 다음 연결 시 가산</li>
-            </ul>
-          </div>
-        </div>
+                        <div className="mt-6 text-gray-800">
+                          <p className="font-semibold mb-2">설명</p>
+                          <ul className="space-y-1">
+                            <li>1) 모든 모듈 <b>평생 무료</b></li>
+                            <li>2) <b>라이센스 계약자 의견</b>을 반영하여 개발 및 업데이트</li>
+                            <li>3) 모든 <b>연구자료·세미나자료 공유</b></li>
+                            <li>4) 디지털 기공 과정 문제 발생 시 <b>해결책 제시 및 어시스트</b></li>
+                            <li>5) <b>치과 연계</b></li>
+                          </ul>
+                          <ul className="mt-2 ml-4 list-disc space-y-1">
+                            <li>DLAS Family의 디지털 전문성을 강조하여 영업</li>
+                            <li>단순 연결(수익 보장 아님)</li>
+                            <li>원장님의 피드백을 점수화하여 다음 연결 시 가산</li>
+                          </ul>
+                        </div>
+                      </div>
 
-        <div className="w-full sm:w-56 flex sm:flex-col gap-2">
-          {/* ▼▼▼ 변경: 버튼 클릭 시 알림 표시 ▼▼▼ */}
-          <button
-            onClick={() => alert("010-9756-1992로 문자나 전화주세요")}
-            className="flex-1 bg-black text-white rounded-lg px-6 py-3 font-bold hover:bg-gray-800 transition"
-          >
-            가입 문의
-          </button>
-          <a
-            href="010-9756-1992로 연락주세요"
-            className="flex-1 border rounded-lg px-6 py-3 text-center hover:bg-gray-50 transition"
-          >
-            이메일 문의
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-);
-              
-              // ✅ 모듈 카드들을 먼저, 패키지 카드는 맨 아래로 이동
+                      <div className="w-full sm:w-56 flex sm:flex-col gap-2">
+                        <button
+                          onClick={() => alert("010-9756-1992로 문자나 전화주세요")}
+                          className="flex-1 bg-black text-white rounded-lg px-6 py-3 font-bold hover:bg-gray-800 transition"
+                        >
+                          가입 문의
+                        </button>
+                        <a
+                          href="010-9756-1992로 연락주세요"
+                          className="flex-1 border rounded-lg px-6 py-3 text-center hover:bg-gray-50 transition"
+                        >
+                          이메일 문의
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+
               return (
                 <div className="flex flex-col gap-y-16 w-full max-w-6xl mx-auto">
                   {moduleCards}
@@ -1770,19 +1897,11 @@ export default function Page() {
           </section>
 
           {/* --- Terms & Privacy 섹션 --- */}
-          <section
-            id="terms-privacy"
-            className="scroll-mt-[180px] py-20 px-6 bg-white"
-          >
+          <section id="terms-privacy" className="scroll-mt-[180px] py-20 px-6 bg-white">
             <div className="max-w-4xl mx-auto text-left leading-7 text-gray-700">
-              <h2 className="text-4xl font-bold mb-8 text-center">
-                {t("terms.title")}
-              </h2>
+              <h2 className="text-4xl font-bold mb-8 text-center">{t("terms.title")}</h2>
 
-              {/* (약관 및 개인정보처리방침 내용은 동일) */}
-              <h3 className="text-2xl font-bold mb-4">
-                {t("terms.headingTerms")}
-              </h3>
+              <h3 className="text-2xl font-bold mb-4">{t("terms.headingTerms")}</h3>
               {[
                 "article1",
                 "article2",
@@ -1794,9 +1913,7 @@ export default function Page() {
                 "article8",
               ].map((a) => (
                 <div key={a}>
-                  <h4 className="font-semibold mb-1">
-                    {t(`terms.${a}.title`)}
-                  </h4>
+                  <h4 className="font-semibold mb-1">{t(`terms.${a}.title`)}</h4>
                   <p
                     className="mb-4"
                     dangerouslySetInnerHTML={{
@@ -1809,31 +1926,21 @@ export default function Page() {
                 <strong>{t("terms.effectiveDate")}</strong>
               </p>
 
-              <h3 className="text-2xl font-bold mb-4">
-                {t("privacy.headingPrivacy")}
-              </h3>
+              <h3 className="text-2xl font-bold mb-4">{t("privacy.headingPrivacy")}</h3>
               <p className="mb-4">{t("privacy.intro")}</p>
-              {[
-                "article1",
-                "article2",
-                "article3",
-                "article4",
-                "article5",
-                "article6",
-                "article7",
-              ].map((a) => (
-                <div key={a}>
-                  <h4 className="font-semibold mb-1">
-                    {t(`privacy.${a}.title`)}
-                  </h4>
-                  <p
-                    className="mb-4"
-                    dangerouslySetInnerHTML={{
-                      __html: t(`privacy.${a}.desc`),
-                    }}
-                  />
-                </div>
-              ))}
+              {["article1", "article2", "article3", "article4", "article5", "article6", "article7"].map(
+                (a) => (
+                  <div key={a}>
+                    <h4 className="font-semibold mb-1">{t(`privacy.${a}.title`)}</h4>
+                    <p
+                      className="mb-4"
+                      dangerouslySetInnerHTML={{
+                        __html: t(`privacy.${a}.desc`),
+                      }}
+                    />
+                  </div>
+                )
+              )}
               <p className="mb-4">
                 <strong>{t("privacy.effectiveDate")}</strong>
               </p>
@@ -1842,7 +1949,7 @@ export default function Page() {
         </main>
 
         {/* ─────────────────────────────────────────────────────────── */}
-        {/*      Toss 결제 결과 & 승인요청 모달 (승인 직전 단계)       */}
+        {/* Toss 결제 결과 & 승인요청 모달                                  */}
         {/* ─────────────────────────────────────────────────────────── */}
         {tossModalOpen && tossPayload && (
           <div className="fixed inset-0 z-50 bg-black bg-opacity-50 overflow-auto">
@@ -1867,15 +1974,54 @@ export default function Page() {
 
                     <div className="bg-gray-50 border rounded p-4 text-sm mb-4">
                       <div className="grid grid-cols-2 gap-x-4 gap-y-2">
-                        <div><b>Status</b></div><div>success (승인 전)</div>
-                        <div><b>Type</b></div><div>{tossPayload.type}</div>
-                        {tossPayload.module && (<><div><b>Module</b></div><div>{tossPayload.module}</div></>)}
-                        {tossPayload.period && (<><div><b>Period</b></div><div>{tossPayload.period}</div></>)}
-                        {tossPayload.orderName && (<><div><b>OrderName</b></div><div>{tossPayload.orderName}</div></>)}
-                        <div><b>OrderId</b></div><div className="break-all">{tossPayload.orderId}</div>
-                        <div><b>PaymentKey</b></div><div className="break-all">{tossPayload.paymentKey}</div>
-                        <div><b>Amount</b></div><div>{tossPayload.amount.toLocaleString()}원</div>
-                        {tossPayload.userEmail && (<><div><b>User</b></div><div>{tossPayload.userEmail}</div></>)}
+                        <div>
+                          <b>Status</b>
+                        </div>
+                        <div>success (승인 전)</div>
+                        {tossPayload.module && (
+                          <>
+                            <div>
+                              <b>Module</b>
+                            </div>
+                            <div>{tossPayload.module}</div>
+                          </>
+                        )}
+                        {tossPayload.period && (
+                          <>
+                            <div>
+                              <b>Period</b>
+                            </div>
+                            <div>{tossPayload.period}</div>
+                          </>
+                        )}
+                        {tossPayload.orderName && (
+                          <>
+                            <div>
+                              <b>OrderName</b>
+                            </div>
+                            <div>{tossPayload.orderName}</div>
+                          </>
+                        )}
+                        <div>
+                          <b>OrderId</b>
+                        </div>
+                        <div className="break-all">{tossPayload.orderId}</div>
+                        <div>
+                          <b>PaymentKey</b>
+                        </div>
+                        <div className="break-all">{tossPayload.paymentKey}</div>
+                        <div>
+                          <b>Amount</b>
+                        </div>
+                        <div>{tossPayload.amount.toLocaleString()}원</div>
+                        {tossPayload.userEmail && (
+                          <>
+                            <div>
+                              <b>User</b>
+                            </div>
+                            <div>{tossPayload.userEmail}</div>
+                          </>
+                        )}
                       </div>
                     </div>
 
@@ -1885,9 +2031,13 @@ export default function Page() {
                         disabled={tossApproveState === "requesting"}
                         onClick={requestServerApproval}
                       >
-                        {tossApproveState === "requesting" ? "승인 요청 중..." :
-                         tossApproveState === "ok" ? "승인 완료" :
-                         tossApproveState === "fail" ? "승인 실패. 재시도" : "서버에 승인요청"}
+                        {tossApproveState === "requesting"
+                          ? "승인 요청 중..."
+                          : tossApproveState === "ok"
+                          ? "승인 완료"
+                          : tossApproveState === "fail"
+                          ? "승인 실패. 재시도"
+                          : "서버에 승인요청"}
                       </button>
                       <button
                         className="px-4 py-2 border rounded hover:bg-gray-50"
@@ -1919,21 +2069,47 @@ export default function Page() {
                     <h3 className="text-2xl font-bold mb-2">Toss 결제 실패</h3>
                     <div className="bg-gray-50 border rounded p-4 text-sm mb-4">
                       <div className="grid grid-cols-2 gap-x-4 gap-y-2">
-                        <div><b>Status</b></div><div>fail</div>
-                        {tossPayload.code && (<><div><b>Code</b></div><div>{tossPayload.code}</div></>)}
-                        {tossPayload.message && (<><div><b>Message</b></div><div className="break-all">{tossPayload.message}</div></>)}
-                        <div><b>OrderId</b></div><div className="break-all">{tossPayload.orderId || "-"}</div>
-                        <div><b>Amount</b></div><div>{(tossPayload.amount||0).toLocaleString()}원</div>
+                        <div>
+                          <b>Status</b>
+                        </div>
+                        <div>fail</div>
+                        {tossPayload.code && (
+                          <>
+                            <div>
+                              <b>Code</b>
+                            </div>
+                            <div>{tossPayload.code}</div>
+                          </>
+                        )}
+                        {tossPayload.message && (
+                          <>
+                            <div>
+                              <b>Message</b>
+                            </div>
+                            <div className="break-all">{tossPayload.message}</div>
+                          </>
+                        )}
+                        <div>
+                          <b>OrderId</b>
+                        </div>
+                        <div className="break-all">{tossPayload.orderId || "-"}</div>
+                        <div>
+                          <b>Amount</b>
+                        </div>
+                        <div>{(tossPayload.amount || 0).toLocaleString()}원</div>
                       </div>
                     </div>
                     <p className="text-sm text-gray-600">원인 확인 후 다시 시도해 주세요.</p>
                   </>
                 )}
 
-                {/* ✅ 모바일 하단 닫기 버튼 */}
+                {/* 하단 닫기 버튼 (모바일 표시) */}
                 <div className="mt-6 sm:hidden">
                   <button
-                    onClick={() => { setTossModalOpen(false); clearTossQuery(); }}
+                    onClick={() => {
+                      setTossModalOpen(false);
+                      clearTossQuery();
+                    }}
                     className="w-full bg-black text-white py-3 rounded hover:bg-gray-800 transition"
                   >
                     닫기
@@ -1961,15 +2137,12 @@ export default function Page() {
                 </button>
 
                 {showPaymentProceed ? (
-                  /* --- 결제 진행 화면 --- */
                   <div>
                     <h2 className="text-xl font-bold mb-4 text-center">
                       {t("payment.title")}
                     </h2>
                     <div className="text-sm text-gray-700 leading-relaxed space-y-3">
-                      <p className="font-bold text-red-600">
-                        {t("payment.warning")}
-                      </p>
+                      <p className="font-bold text-red-600">{t("payment.warning")}</p>
                       <div className="border rounded p-4 bg-gray-50">
                         <p className="font-semibold mb-2">
                           {t("payment.statusHeader")}
@@ -2002,7 +2175,6 @@ export default function Page() {
                     </div>
                   </div>
                 ) : showFreeLicenseGuide ? (
-                  /* --- 무료 라이선스 안내 화면 --- */
                   <div className="mt-6">
                     <button
                       onClick={() => {
@@ -2059,7 +2231,6 @@ export default function Page() {
                     </div>
                   </div>
                 ) : (
-                  /* --- 패밀리 라이선스 안내 기본 화면 --- */
                   <>
                     <div className="mt-6">
                       <button
@@ -2117,20 +2288,14 @@ export default function Page() {
                         </tr>
                       </thead>
                       <tbody className="text-xs">
-                        {familyTableData.map(
-                          ([title, price1, price2, desc], idx) => (
-                            <tr key={idx}>
-                              <td className="p-2 border">{title}</td>
-                              <td className="p-2 border text-center">
-                                {price1}
-                              </td>
-                              <td className="p-2 border text-center">
-                                {price2}
-                              </td>
-                              <td className="p-2 border">{desc}</td>
-                            </tr>
-                          )
-                        )}
+                        {familyTableData.map(([title, price1, price2, desc], idx) => (
+                          <tr key={idx}>
+                            <td className="p-2 border">{title}</td>
+                            <td className="p-2 border text-center">{price1}</td>
+                            <td className="p-2 border text-center">{price2}</td>
+                            <td className="p-2 border">{desc}</td>
+                          </tr>
+                        ))}
                       </tbody>
                     </table>
                     <p className="text-xs text-gray-500 text-right mt-2">
@@ -2147,9 +2312,7 @@ export default function Page() {
                               .classList.remove("hidden");
                           } else {
                             if (userInfo.licenseStatus === "family") {
-                              alert(
-                                "You are already a Family user. Payment is not possible."
-                              );
+                              alert("You are already a Family user. Payment is not possible.");
                               return;
                             }
                             setShowPaymentProceed(true);
@@ -2162,7 +2325,7 @@ export default function Page() {
                   </>
                 )}
 
-                {/* ✅ 모바일 하단 닫기 버튼 */}
+                {/* 모바일 하단 닫기 버튼 */}
                 <div className="mt-6 sm:hidden">
                   <button
                     onClick={() => {
@@ -2197,9 +2360,7 @@ export default function Page() {
                 {t("purchase.desc")}
               </p>
               <div className="flex items-center justify-between gap-2 bg-gray-100 rounded p-2 mb-4">
-                <span className="text-black text-sm font-bold">
-                  support@dlas.io
-                </span>
+                <span className="text-black text-sm font-bold">support@dlas.io</span>
                 <button
                   onClick={handleCopyEmail}
                   className="bg-gray-300 text-black px-3 py-1 rounded hover:bg-gray-400 transition text-sm"
@@ -2233,45 +2394,27 @@ export default function Page() {
               <h2 className="text-xl font-bold mb-3">※ Notice</h2>
               <ul className="text-sm text-gray-700 list-disc pl-5 mb-6 space-y-2">
                 <li>
-                  You may see a message like{" "}
-                  <em>"This file isn't commonly downloaded."</em>
+                  You may see a message like <em>"This file isn't commonly downloaded."</em>
                 </li>
+                <li>This installer is distributed only through the official DLAS website and is safe to use.</li>
                 <li>
-                  This installer is distributed only through the official DLAS
-                  website and is safe to use.
+                  If you see a warning, please click "additional information" or "Continue" to proceed with the
+                  installation.
                 </li>
+                <li>A digitally signed (code-signed) version will be provided soon.</li>
                 <li>
-                  If you see a warning, please click "additional information" or
-                  "Continue" to proceed with the installation.
-                </li>
-                <li>
-                  A digitally signed (code-signed) version will be provided
-                  soon.
-                </li>
-                <li>
-                  For any questions, please contact{" "}
-                  <strong>support@dlas.io</strong>.
+                  For any questions, please contact <strong>support@dlas.io</strong>.
                 </li>
               </ul>
 
               <h2 className="text-xl font-bold mb-3">※ 안내</h2>
               <ul className="text-sm text-gray-700 list-disc pl-5 mb-6 space-y-2">
+                <li>"이 파일은 일반적으로 다운로드되지 않습니다"라는 메시지가 보일 수 있습니다.</li>
+                <li>본 설치 파일은 DLAS 공식 홈페이지에서만 배포하며, 안전하게 사용하실 수 있습니다.</li>
                 <li>
-                  "이 파일은 일반적으로 다운로드되지 않습니다"라는 메시지가 보일
-                  수 있습니다.
+                  다운로드 경고가 나오더라도 '계속' 또는 '추가정보' 버튼을 눌러 설치를 진행해 주세요.
                 </li>
-                <li>
-                  본 설치 파일은 DLAS 공식 홈페이지에서만 배포하며, 안전하게
-                  사용하실 수 있습니다.
-                </li>
-                <li>
-                  다운로드 경고가 나오더라도 '계속' 또는 '추가정보' 버튼을 눌러
-                  설치를 진행해 주세요.
-                </li>
-                <li>
-                  정식 코드서명(디지털 인증서)이 적용된 버전은 곧 제공될
-                  예정입니다.
-                </li>
+                <li>정식 코드서명(디지털 인증서)이 적용된 버전은 곧 제공될 예정입니다.</li>
                 <li>
                   궁금한 점은 <strong>support@dlas.io</strong>로 문의해 주세요.
                 </li>
@@ -2286,7 +2429,7 @@ export default function Page() {
                 </button>
               </div>
 
-              {/* ✅ 모바일 하단 닫기 버튼 */}
+              {/* 모바일 하단 닫기 버튼 */}
               <div className="text-center mt-2 sm:hidden">
                 <button
                   onClick={() => setShowDownloadModal(false)}
@@ -2299,136 +2442,31 @@ export default function Page() {
           </div>
         )}
 
-        {/* Poster Modal */}
-        {showPosterModal && (
-          <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center px-4">
-            <div className="relative bg-white rounded-xl shadow-2xl w-full max-w-6xl">
-              {/* 닫기 버튼 */}
+        {/* 🔔 Notice 모달 (공지) — /notice/1.png 사용 */}
+        {showNoticeModal && (
+          <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center px-4">
+            <div className="relative bg-white rounded-xl shadow-2xl w-full max-w-3xl p-4 sm:p-6">
+              {/* 우상단 닫기(데스크탑) */}
               <button
                 className="absolute top-2 right-3 text-gray-500 hover:text-black text-2xl"
-                onClick={() => setShowPosterModal(false)}
-                aria-label="Close poster viewer"
+                onClick={() => setShowNoticeModal(false)}
+                aria-label="Close notice"
               >
                 ×
               </button>
 
-              {/* 본문: 이미지 영역 + 우측 신청 패널 */}
-              <div className="flex flex-col md:flex-row items-stretch">
-                {/* 이미지 영역 (클릭하면 다음으로 이동) */}
-                <div
-                  className="relative flex-1 px-2 py-2 md:px-4 md:py-4 flex items-center justify-center cursor-pointer select-none"
-                  onClick={handlePosterAreaClick}
-                >
-                  {/* 좌우 화살표 (오버레이 / 모바일에서도 표시) */}
-                  <button
-                    className="
-                      flex
-                      absolute left-2 md:left-3 top-1/2 -translate-y-1/2
-                      items-center justify-center
-                      rounded-full p-2 md:p-3
-                      text-2xl md:text-5xl
-                      text-white bg-black/30 hover:bg-black/40
-                      backdrop-blur-sm
-                      opacity-90 hover:opacity-100
-                      transition
-                    "
-                    onClick={handlePrevClick}
-                    aria-label="Previous poster"
-                    title="이전"
-                  >
-                    ◀︎
-                  </button>
-
-                  <img
-                    src={POSTER_PATHS[posterIndex]}
-                    alt={`poster-${posterIndex + 1}`}
-                    className="max-h-[78vh] w-auto object-contain rounded"
-                  />
-
-                  <button
-                    className="
-                      flex
-                      absolute right-2 md:right-3 top-1/2 -translate-y-1/2
-                      items-center justify-center
-                      rounded-full p-2 md:p-3
-                      text-2xl md:text-5xl
-                      text-white bg-black/30 hover:bg-black/40
-                      backdrop-blur-sm
-                      opacity-90 hover:opacity-100
-                      transition
-                    "
-                    onClick={handleNextClick}
-                    aria-label="Next poster"
-                    title="다음"
-                  >
-                    ▶︎
-                  </button>
-                </div>
-
-                {/* 우측 신청 패널 */}
-                <aside className="w-full md:w-72 border-t md:border-t-0 md:border-l px-5 py-5 bg-gray-50 flex flex-col gap-4">
-                  <a
-                    href="https://docs.google.com/forms/d/1x2C1I_Zx5QjedpJa-Y6r7HMb4cYy3O_EDVTIAmAEHMQ/edit"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full text-center font-bold rounded-lg px-5 py-3 bg-black text-white hover:bg-gray-800 transition"
-                  >
-                    신청하기
-                  </a>
-
-                  {/* 안내 문구 */}
-                  <div className="space-y-2 text-sm leading-relaxed">
-                    <div className="bg-red-50 border border-red-200 text-red-700 font-bold rounded px-3 py-2">
-                      ⚠⚠⚠ 경북 마감 임박 ⚠⚠⚠
-                    </div>
-                    <div className="bg-amber-50 border border-amber-200 text-amber-700 rounded px-3 py-2">
-                      경북 신청의 경우 <b>문의 후 진행</b>해주세요.
-                    </div>
-                  </div>
-
-                  {/* 모바일 전용 간단 화살표 버튼 (보조 내비게이션) */}
-                  <div className="flex md:hidden justify-between pt-2">
-                    <button
-                      className="px-3 py-2 rounded bg-white border text-lg opacity-80"
-                      onClick={prevPoster}
-                      aria-label="Previous poster (mobile)"
-                    >
-                      ◀︎
-                    </button>
-                    <button
-                      className="px-3 py-2 rounded bg-white border text-lg opacity-80"
-                      onClick={nextPoster}
-                      aria-label="Next poster (mobile)"
-                    >
-                      ▶︎
-                    </button>
-                  </div>
-
-                  {/* 안내문 + 바로 아래 배지 이미지 */}
-                  <div className="text-center text-xs text-gray-500 pt-2 mb-1">
-                    이미지를 탭/클릭하면 다음으로 넘어갑니다.
-                  </div>
-                  {/* 데스크톱에서만 노출(필요시 md:hidden 제거로 모바일에도 표시 가능) */}
-                  <div className="hidden md:block">
-                    <img
-                      src="/posters/10.png"
-                      alt="DLAS 풀모듈 3일 라이선스 무료 증정"
-                      className="w-full h-auto object-contain rounded-md"
-                      loading="eager"
-                    />
-                  </div>
-                </aside>
+              <div className="w-full flex items-center justify-center">
+                <img
+                  src="/notice/1.png"
+                  alt="Notice"
+                  className="max-h-[75vh] w-auto object-contain rounded"
+                />
               </div>
 
-              {/* 인디케이터 */}
-              <div className="px-4 pb-4 text-center text-sm text-gray-600">
-                {posterIndex + 1} / {POSTER_PATHS.length}
-              </div>
-
-              {/* ✅ 모바일 하단 닫기 버튼 */}
-              <div className="px-4 pb-4 sm:hidden">
+              {/* 하단 닫기 버튼 (모바일 & 데스크탑 공통) */}
+              <div className="mt-4 text-center">
                 <button
-                  onClick={() => setShowPosterModal(false)}
+                  onClick={() => setShowNoticeModal(false)}
                   className="w-full bg-black text-white py-3 rounded hover:bg-gray-800 transition"
                 >
                   닫기
@@ -2452,9 +2490,7 @@ export default function Page() {
             >
               ×
             </button>
-            <h2 className="text-2xl font-bold mb-4 text-center">
-              {t("login.title")}
-            </h2>
+            <h2 className="text-2xl font-bold mb-4 text-center">{t("login.title")}</h2>
             <form className="space-y-4" onSubmit={handleLoginSubmit}>
               <input
                 type="text"
@@ -2472,10 +2508,7 @@ export default function Page() {
                 className="w-full p-3 border border-gray-300 rounded"
                 required
               />
-              <button
-                type="submit"
-                className="w-full bg-black text-white py-3 rounded hover:bg-gray-800"
-              >
+              <button type="submit" className="w-full bg-black text-white py-3 rounded hover:bg-gray-800">
                 {t("login.form.submit")}
               </button>
             </form>
@@ -2486,25 +2519,18 @@ export default function Page() {
                 className="text-blue-600 hover:underline"
                 onClick={(e) => {
                   e.preventDefault();
-                  document
-                    .getElementById("login-modal")!
-                    .classList.add("hidden");
-                  document
-                    .getElementById("signup-modal")!
-                    .classList.remove("hidden");
+                  document.getElementById("login-modal")!.classList.add("hidden");
+                  document.getElementById("signup-modal")!.classList.remove("hidden");
                 }}
               >
                 {t("login.form.signupNow")}
               </a>
             </p>
 
-            {/* ✅ 모바일 하단 닫기 버튼 */}
             <div className="mt-6 sm:hidden">
               <button
                 className="w-full border px-6 py-3 rounded hover:bg-gray-50 transition"
-                onClick={() =>
-                  document.getElementById("login-modal")!.classList.add("hidden")
-                }
+                onClick={() => document.getElementById("login-modal")!.classList.add("hidden")}
               >
                 닫기
               </button>
@@ -2513,22 +2539,15 @@ export default function Page() {
         </div>
 
         {/* 회원가입 모달 */}
-        <div
-          id="signup-modal"
-          className="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex itemscenter justify-center"
-        >
+        <div id="signup-modal" className="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex itemscenter justify-center">
           <div className="bg-white w-full max-w-md p-8 rounded-lg shadow-xl relative">
             <button
               className="absolute top-2 right-3 text-gray-500 hover:text-black"
-              onClick={() =>
-                document.getElementById("signup-modal")!.classList.add("hidden")
-              }
+              onClick={() => document.getElementById("signup-modal")!.classList.add("hidden")}
             >
               ×
             </button>
-            <h2 className="text-2xl font-bold mb-4 text-center">
-              {t("signup.title")}
-            </h2>
+            <h2 className="text-2xl font-bold mb-4 text-center">{t("signup.title")}</h2>
             <form className="space-y-4" onSubmit={handleSignupSubmit}>
               <input
                 type="text"
@@ -2568,9 +2587,7 @@ export default function Page() {
                 className="w-full p-3 border border-gray-300 rounded"
                 required
               >
-                <option value="">
-                  {t("signup.form.countryPlaceholder")}
-                </option>
+                <option value="">{t("signup.form.countryPlaceholder")}</option>
                 {countries.map((country, index) => (
                   <option key={index} value={country}>
                     {country}
@@ -2602,9 +2619,7 @@ export default function Page() {
                     onChange={(e) => setTermsAgree(e.target.checked)}
                     className="form-checkbox h-5 w-5 text-black"
                   />
-                  <span className="ml-2">
-                    {t("signup.form.agreeRequired")}
-                  </span>
+                  <span className="ml-2">{t("signup.form.agreeRequired")}</span>
                 </label>
                 <label className="flex items-center">
                   <input
@@ -2613,31 +2628,21 @@ export default function Page() {
                     onChange={(e) => setMarketingAgree(e.target.checked)}
                     className="form-checkbox h-5 w-5 text-black"
                   />
-                  <span className="ml-2">
-                    {t("signup.form.agreeMarketing")}
-                  </span>
+                  <span className="ml-2">{t("signup.form.agreeMarketing")}</span>
                 </label>
               </div>
 
-              {passwordError && (
-                <p className="text-red-500 text-sm">{passwordError}</p>
-              )}
+              {passwordError && <p className="text-red-500 text-sm">{passwordError}</p>}
 
-              <button
-                type="submit"
-                className="w-full bg-black text-white py-3 rounded hover:bg-gray-800"
-              >
+              <button type="submit" className="w-full bg-black text-white py-3 rounded hover:bg-gray-800">
                 {t("signup.form.submit")}
               </button>
             </form>
 
-            {/* ✅ 모바일 하단 닫기 버튼 */}
             <div className="mt-6 sm:hidden">
               <button
                 className="w-full border px-6 py-3 rounded hover:bg-gray-50 transition"
-                onClick={() =>
-                  document.getElementById("signup-modal")!.classList.add("hidden")
-                }
+                onClick={() => document.getElementById("signup-modal")!.classList.add("hidden")}
               >
                 닫기
               </button>
@@ -2682,7 +2687,6 @@ export default function Page() {
                 </p>
               </div>
 
-              {/* ✅ 모바일 하단 닫기 버튼 */}
               <div className="mt-6 sm:hidden">
                 <button
                   className="w-full bg-black text-white py-3 rounded hover:bg-gray-800 transition"
@@ -2695,23 +2699,11 @@ export default function Page() {
           </div>
         )}
 
-        {/* Floating poster FAB */}
-        <button
-          onClick={() => openPosterAt(0)}
-          className="fixed bottom-6 right-6 z-40 rounded-full shadow-lg border bg-white px-4 py-3 text-sm hover:bg-gray-50"
-          aria-label="Open seminar posters"
-          title="세미나 포스터"
-        >
-          포스터
-        </button>
-
         {/* Footer */}
         <footer className="bg-black text-white py-10 px-6 mt-20">
           <div className="max-w-5xl mx-auto">
             <div className="flex flex-col md:flex-row items-center md:items-start justify-between gap-4">
-              <div className="text-sm">
-                © {new Date().getFullYear()} DLAS. {t("footer.rights")}
-              </div>
+              <div className="text-sm">© {new Date().getFullYear()} DLAS. {t("footer.rights")}</div>
               <div className="flex gap-4">
                 <a
                   href="https://www.youtube.com/@Dlas-official-e6k"
@@ -2733,12 +2725,12 @@ export default function Page() {
             </div>
 
             <div className="mt-6 text-sm text-white leading-snug">
-                <p>DLAS</p>
-                <p>대표 : 김종환</p>
-                <p>사업자 등록번호 : 753-06-03175</p>
-                <p>통신판매업 신고번호 : 2025-대전서구-1033</p>
-                <p>주소 : 인천시 서구 청라동 202-3번지 청라더리브티아모지식산업센터 지원동 543호, 대한민국</p>
-                <p>전화 : +82-10-9756-1992 (대한민국)</p>
+              <p>DLAS</p>
+              <p>대표 : 김종환</p>
+              <p>사업자 등록번호 : 753-06-03175</p>
+              <p>통신판매업 신고번호 : 2025-대전서구-1033</p>
+              <p>주소 : 인천시 서구 청라동 202-3번지 청라더리브티아모지식산업센터 지원동 543호, 대한민국</p>
+              <p>전화 : +82-10-9756-1992 (대한민국)</p>
             </div>
           </div>
         </footer>
