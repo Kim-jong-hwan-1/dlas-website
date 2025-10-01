@@ -105,27 +105,6 @@ const PADDLE_PRICE_ID = isSandbox
 const KOREA_PAYMENT_MESSAGE =
   "결제준비중 빠른 결제를 원하시면, 010-9756-1992로 문의주세요";
 
-// Poster assets (in /public/posters) — 1 ~ 17까지 반영
-const POSTER_PATHS = [
-  "/posters/1.jpg",
-  "/posters/2.jpg",
-  "/posters/3.jpg",
-  "/posters/4.jpg",
-  "/posters/5.png",
-  "/posters/6.jpg",
-  "/posters/7.png",
-  "/posters/8.png",
-  "/posters/9.png",
-  "/posters/10.png",
-  "/posters/11.png",
-  "/posters/12.png",
-  "/posters/13.png",
-  "/posters/14.png",
-  "/posters/15.png",
-  "/posters/16.jpg",
-  "/posters/17.png",
-];
-
 // ─────────────────────────────────────────────
 // 가격/표시 관련
 // ─────────────────────────────────────────────
@@ -1062,12 +1041,6 @@ export default function Page() {
     setShowWebinaModal(true);
   }, []);
 
-  // 포스터: 모달 제거 → 새 탭으로 열기
-  const openPosterInNewTab = (idx: number) => {
-    const src = POSTER_PATHS[idx];
-    window.open(src, "_blank");
-  };
-
   // 실제 다운로드 실행
   const handleDownloadConfirm = () => {
     setShowDownloadModal(false);
@@ -1284,14 +1257,6 @@ export default function Page() {
               priority
             />
             <div className="absolute bottom-2 right-4 sm:right-8 hidden sm:flex flex-wrap items-center gap-x-4 gap-y-2">
-              <button
-                onClick={() => scrollToSection("posters")}
-                className="relative pb-2 transition-colors duration-200 cursor-pointer
-                           border-b-2 border-transparent hover:border-black
-                           text-gray-700 hover:text-black"
-              >
-                세미나
-              </button>
               {["home", "download", "buy"].map((tab) => (
                 <button
                   key={tab}
@@ -1366,46 +1331,7 @@ export default function Page() {
         </div>
 
         <main className="pt-[180px]">
-          {/* ★★★ 세미나 / 포스터 섹션 ★★★ */}
-          <section
-            id="posters"
-            className="scroll-mt-[180px] py-20 bg-gradient-to-b from-white to-gray-50"
-          >
-            <div className="max-w-6xl mx-auto px-6">
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-4xl font-bold">세미나</h2>
-                <button
-                  className="border px-4 py-2 rounded hover:bg-gray-100"
-                  onClick={() => openPosterInNewTab(0)}
-                >
-                  전체 보기
-                </button>
-              </div>
-              <p className="text-gray-600 mb-6">
-                최신 행사/세미나 정보를 한 곳에서 확인하세요. 이미지를 클릭하면 새 탭으로 크게 볼 수 있습니다.
-              </p>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                {POSTER_PATHS.map((src, idx) => (
-                  <button
-                    key={idx}
-                    className="group relative rounded-xl overflow-hidden border bg-white shadow-sm hover:shadow-lg transition"
-                    onClick={() => openPosterInNewTab(idx)}
-                    aria-label={`Open poster ${idx + 1}`}
-                  >
-                    <img
-                      src={src}
-                      alt={`poster-${idx + 1}`}
-                      className="w-full h-48 object-cover group-hover:scale-[1.02] transition-transform duration-300"
-                      loading="lazy"
-                    />
-                    <span className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/60 to-transparent text-white text-xs px-2 py-1">
-                      Poster {idx + 1}
-                    </span>
-                  </button>
-                ))}
-              </div>
-            </div>
-          </section>
+          {/* ✅ 세미나 섹션 완전 제거됨 */}
 
           {/* 홈 섹션 */}
           <section id="home" className="scroll-mt-[180px] text-center py-20">
@@ -2449,7 +2375,6 @@ export default function Page() {
           </div>
         )}
 
-        
         {/* 🆕 Webina 모달: 홈페이지 진입 시 자동 표시 (닫으면 공지 모달 이어서 열림) */}
         {showWebinaModal && (
           <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center px-4">
@@ -2490,7 +2415,7 @@ export default function Page() {
               {/* 콘텐츠 */}
               {webinaTab === "poster" ? (
                 <div className="grid grid-cols-1 lg:grid-cols-5 gap-4">
-                  {/* 좌측: 포스터 이미지 1,2 세로 배치 */}
+                  {/* 좌측: 포스터 이미지 — ✅ 1번만 표시 */}
                   <div className="lg:col-span-3 rounded-lg border bg-white overflow-auto max-h-[75vh] p-2">
                     <div className="space-y-3">
                       <img
@@ -2498,11 +2423,7 @@ export default function Page() {
                         alt="웨비나 포스터 1"
                         className="w-full h-auto object-contain"
                       />
-                      <img
-                        src="/webina/2.png"
-                        alt="웨비나 포스터 2"
-                        className="w-full h-auto object-contain"
-                      />
+                      {/* 2.png 제거됨 */}
                     </div>
                   </div>
 
@@ -2510,7 +2431,7 @@ export default function Page() {
                   <aside className="lg:col-span-2 rounded-lg border bg-white p-4 flex flex-col gap-3">
                     <div className="text-center">
                       <h3 className="text-xl font-bold mb-1">EXO CAD 실무 팁 세미나</h3>
-                      <p className="text-sm text-gray-600">좌측 포스터 이미지를 스크롤해 전체 내용을 확인하세요.</p>
+                      <p className="text-sm text-gray-600">좌측 포스터 이미지를 확인하세요.</p>
                     </div>
                     <a
                       href={WEBINA_FORM_URL}
