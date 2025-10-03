@@ -60,6 +60,39 @@ interface MyWindow extends Window {
   Paddle?: PaddleSDK;
 }
 
+/* ─────────────────────────────────────────────
+   ✅ 공통 닫기 버튼 (모바일 가시성/접근성 개선)
+   - 44×44 터치 타겟
+   - 고대비(검정 배경/흰색 아이콘)
+   - safe area 대응: env(safe-area-inset-top)
+   - focus-visible 링
+───────────────────────────────────────────────*/
+function CloseButton({
+  onClick,
+  className = "",
+  label = "닫기",
+}: {
+  onClick: () => void;
+  className?: string;
+  label?: string;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      aria-label={label}
+      className={`absolute right-3 sm:right-4 z-10 h-11 w-11 rounded-full
+                  bg-black/90 text-white shadow-lg border border-black/10
+                  flex items-center justify-center
+                  hover:bg-black active:scale-95
+                  focus:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2
+                  transition ${className}`}
+      style={{ top: "max(0.5rem, env(safe-area-inset-top))" }}
+    >
+      <span aria-hidden className="text-2xl leading-none">×</span>
+    </button>
+  );
+}
+
 /*───────────────────────────────────────────────────
   만료일 포매터 – 9999‑12‑31 ➜ Unlimited, 
   날짜/시간 포함 여부 확인
@@ -1888,15 +1921,13 @@ export default function Page() {
           <div className="fixed inset-0 z-50 bg-black bg-opacity-50 overflow-auto">
             <div className="flex min-h-full items-start justify-center px-6 py-10">
               <div className="bg-white p-6 rounded-xl shadow-xl w-full max-w-[760px] relative">
-                <button
+                <CloseButton
                   onClick={() => {
                     setTossModalOpen(false);
                     clearTossQuery();
                   }}
-                  className="absolute top-3 right-4 text-gray-400 hover:text-black text-2xl"
-                >
-                  ×
-                </button>
+                  label="Toss 결제 결과 닫기"
+                />
 
                 {tossPayload.status === "success" ? (
                   <>
@@ -2058,16 +2089,14 @@ export default function Page() {
           <div className="fixed inset-0 z-50 bg-black bg-opacity-50 overflow-auto">
             <div className="flex min-h-full items-start justify-center px-6 py-10">
               <div className="bg-white p-8 rounded-xl shadow-xl w-full max-w-[1100px] relative overflow-x-auto">
-                <button
+                <CloseButton
                   onClick={() => {
                     setShowFamilyModal(false);
                     setShowFreeLicenseGuide(false);
                     setShowPaymentProceed(false);
                   }}
-                  className="absolute top-4 right-4 text-gray-400 hover:text-black text-2xl"
-                >
-                  ×
-                </button>
+                  label="패밀리 라이선스 모달 닫기"
+                />
 
                 {showPaymentProceed ? (
                   <div>
@@ -2280,12 +2309,10 @@ export default function Page() {
         {showPaymentSupportModal && (
           <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center px-4">
             <div className="bg-white w-full max-w-md p-8 rounded-lg shadow-xl relative">
-              <button
-                className="absolute top-2 right-3 text-gray-500 hover:text-black text-2xl"
+              <CloseButton
                 onClick={() => setShowPaymentSupportModal(false)}
-              >
-                ×
-              </button>
+                label="결제 문의 모달 닫기"
+              />
               <h2 className="text-2xl font-bold mb-4 text-center">
                 {t("purchase.title")}
               </h2>
@@ -2317,12 +2344,10 @@ export default function Page() {
         {showDownloadModal && (
           <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center px-4">
             <div className="bg-white w-full max-w-lg p-6 rounded-lg shadow-xl relative">
-              <button
-                className="absolute top-2 right-3 text-gray-500 hover:text-black text-2xl"
+              <CloseButton
                 onClick={() => setShowDownloadModal(false)}
-              >
-                ×
-              </button>
+                label="다운로드 안내 닫기"
+              />
 
               <h2 className="text-xl font-bold mb-3">※ Notice</h2>
               <ul className="text-sm text-gray-700 list-disc pl-5 mb-6 space-y-2">
@@ -2379,13 +2404,10 @@ export default function Page() {
         {showWebinaModal && (
           <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center px-4">
             <div className="relative bg-white rounded-xl shadow-2xl w-full max-w-5xl p-4 sm:p-6">
-              <button
-                className="absolute top-2 right-3 text-gray-500 hover:text-black text-2xl"
+              <CloseButton
                 onClick={() => { setShowWebinaModal(false); setShowNoticeModal(true); }}
-                aria-label="Close webina modal"
-              >
-                ×
-              </button>
+                label="Webina 모달 닫기"
+              />
 
               <h2 className="text-2xl font-bold mb-4 text-center">웨비나 안내</h2>
 
@@ -2416,7 +2438,7 @@ export default function Page() {
               {webinaTab === "poster" ? (
                 <div className="grid grid-cols-1 lg:grid-cols-5 gap-4">
                   {/* 좌측: 포스터 이미지 — ✅ 1번만 표시 */}
-                  <div className="lg:col-span-3 rounded-lg border bg-white overflow-auto max-h-[75vh] p-2">
+                  <div className="lg:col-span-3 rounded-lg border bg-white overflow-auto max-h:[75vh] lg:max-h-[75vh] p-2">
                     <div className="space-y-3">
                       <img
                         src="/webina/1.png"
@@ -2503,14 +2525,10 @@ export default function Page() {
         {showNoticeModal && (
           <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center px-4">
             <div className="relative bg-white rounded-xl shadow-2xl w-full max-w-3xl p-4 sm:p-6">
-              {/* 우상단 닫기(데스크탑) */}
-              <button
-                className="absolute top-2 right-3 text-gray-500 hover:text-black text-2xl"
+              <CloseButton
                 onClick={() => setShowNoticeModal(false)}
-                aria-label="Close notice"
-              >
-                ×
-              </button>
+                label="공지 모달 닫기"
+              />
 
               <div className="w-full flex items-center justify-center">
                 <img
@@ -2539,14 +2557,12 @@ export default function Page() {
           className="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-center justify-center"
         >
           <div className="bg-white w-full max-w-md p-8 rounded-lg shadow-xl relative">
-            <button
-              className="absolute top-2 right-3 text-gray-500 hover:text-black"
+            <CloseButton
               onClick={() =>
                 document.getElementById("login-modal")!.classList.add("hidden")
               }
-            >
-              ×
-            </button>
+              label="로그인 모달 닫기"
+            />
             <h2 className="text-2xl font-bold mb-4 text-center">{t("login.title")}</h2>
             <form className="space-y-4" onSubmit={handleLoginSubmit}>
               <input
@@ -2598,12 +2614,10 @@ export default function Page() {
         {/* 회원가입 모달 */}
         <div id="signup-modal" className="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-center justify-center">
           <div className="bg-white w-full max-w-md p-8 rounded-lg shadow-xl relative">
-            <button
-              className="absolute top-2 right-3 text-gray-500 hover:text-black"
+            <CloseButton
               onClick={() => document.getElementById("signup-modal")!.classList.add("hidden")}
-            >
-              ×
-            </button>
+              label="회원가입 모달 닫기"
+            />
             <h2 className="text-2xl font-bold mb-4 text-center">{t("signup.title")}</h2>
             <form className="space-y-4" onSubmit={handleSignupSubmit}>
               <input
@@ -2711,12 +2725,10 @@ export default function Page() {
         {showMyModal && (
           <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
             <div className="bg-white w-full max-w-md p-8 rounded-lg shadow-xl relative">
-              <button
-                className="absolute top-2 right-3 text-gray-500 hover:text-black text-2xl"
+              <CloseButton
                 onClick={() => setShowMyModal(false)}
-              >
-                ×
-              </button>
+                label="My Info 모달 닫기"
+              />
               <h2 className="text-2xl font-bold mb-4 text-center">My Info</h2>
               <div className="space-y-2 text-center text-sm">
                 <p>
