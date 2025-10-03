@@ -61,11 +61,11 @@ interface MyWindow extends Window {
 }
 
 /* ─────────────────────────────────────────────
-   ✅ 공통 닫기 버튼 (모바일 가시성/접근성 개선)
-   - 44×44 터치 타겟
-   - 고대비(검정 배경/흰색 아이콘)
-   - safe area 대응: env(safe-area-inset-top)
-   - focus-visible 링
+   ✅ 공통 닫기 버튼 (모바일 가시성/접근성 대폭 개선)
+   - viewport 기준 'fixed'로 변경 (상위 레이어 위에 항상 노출)
+   - 44×44 터치 타깃, safe-area 대응
+   - 초고 z-index, pointer-events 보장
+   - ESC 지원은 전역 useEffect에서 처리
 ───────────────────────────────────────────────*/
 function CloseButton({
   onClick,
@@ -80,13 +80,18 @@ function CloseButton({
     <button
       onClick={onClick}
       aria-label={label}
-      className={`absolute right-3 sm:right-4 z-10 h-11 w-11 rounded-full
+      title={label}
+      className={`fixed right-3 sm:right-4 z-[9999] h-11 w-11 rounded-full
                   bg-black/90 text-white shadow-lg border border-black/10
                   flex items-center justify-center
                   hover:bg-black active:scale-95
                   focus:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2
-                  transition ${className}`}
-      style={{ top: "max(0.5rem, env(safe-area-inset-top))" }}
+                  transition pointer-events-auto ${className}`}
+      style={{
+        top: "max(0.5rem, env(safe-area-inset-top))",
+        WebkitTapHighlightColor: "transparent",
+        touchAction: "manipulation",
+      }}
     >
       <span aria-hidden className="text-2xl leading-none">×</span>
     </button>
@@ -1074,6 +1079,76 @@ export default function Page() {
     setShowWebinaModal(true);
   }, []);
 
+  // ✅ 공통: 모달 열릴 때 스크롤 잠금 + ESC 닫기
+  const anyModalOpen =
+    tossModalOpen ||
+    showFamilyModal ||
+    showPaymentSupportModal ||
+    showDownloadModal ||
+    showWebinaModal ||
+    showNoticeModal ||
+    showMyModal;
+
+  useEffect(() => {
+    if (!anyModalOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        if (analysisPreview) {
+          setAnalysisPreview(null);
+          return;
+        }
+        if (tossModalOpen) {
+          setTossModalOpen(false);
+          clearTossQuery();
+          return;
+        }
+        if (showWebinaModal) {
+          setShowWebinaModal(false);
+          return;
+        }
+        if (showNoticeModal) {
+          setShowNoticeModal(false);
+          return;
+        }
+        if (showDownloadModal) {
+          setShowDownloadModal(false);
+          return;
+        }
+        if (showPaymentSupportModal) {
+          setShowPaymentSupportModal(false);
+          return;
+        }
+        if (showFamilyModal) {
+          setShowFamilyModal(false);
+          setShowFreeLicenseGuide(false);
+          setShowPaymentProceed(false);
+          return;
+        }
+        if (showMyModal) {
+          setShowMyModal(false);
+          return;
+        }
+      }
+    };
+    document.addEventListener("keydown", onKeyDown);
+    const prevOverflow = document.documentElement.style.overflow;
+    document.documentElement.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.documentElement.style.overflow = prevOverflow;
+    };
+  }, [
+    anyModalOpen,
+    analysisPreview,
+    tossModalOpen,
+    showWebinaModal,
+    showNoticeModal,
+    showDownloadModal,
+    showPaymentSupportModal,
+    showFamilyModal,
+    showMyModal,
+  ]);
+
   // 실제 다운로드 실행
   const handleDownloadConfirm = () => {
     setShowDownloadModal(false);
@@ -1273,8 +1348,8 @@ export default function Page() {
           <LanguageSelector />
         </div>
 
-        {/* 모바일 전용 언어 선택기 */}
-        <div className="fixed top-4 right-4 z-50 flex items-center sm:hidden">
+        {/* 모바일 전용 언어 선택기 — z-index 하향(모달보다 아래) */}
+        <div className="fixed top-4 right-4 z-30 flex items-center sm:hidden">
           <LanguageSelector />
         </div>
 
@@ -1313,13 +1388,13 @@ export default function Page() {
           </div>
         </nav>
 
-        {/* 로그인 & 사인업 버튼 */}
+        {/* 로그인 & 사인업 버튼 — z-index 하향(모달보다 아래) */}
         <div
           className="
             fixed
             top-6 left-6
             sm:top-6 sm:right-6 sm:left-auto
-            flex gap-2 z-50
+            flex gap-2 z-30
           "
         >
           {!isLoggedIn ? (
@@ -1427,7 +1502,7 @@ export default function Page() {
                   href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v1.5.0/DLAS_Installer.exe"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition w-full sm:w-auto text-center"
+                  className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition w/full sm:w-auto text-center"
                   onClick={(e) => {
                     e.preventDefault();
                     setShowDownloadModal(true);
@@ -1682,7 +1757,7 @@ export default function Page() {
                               allowFullScreen
                             />
                           ) : (
-                            <span className="text-gray-400 text-2xl font-bold flex items-center justify-center w-full h-full">
+                            <span className="text-gray-400 text-2xl font-bold flex items-center justify-center w/full h-full">
                               Coming&nbsp;Soon
                             </span>
                           )}
@@ -1918,9 +1993,22 @@ export default function Page() {
         {/* Toss 결제 결과 & 승인요청 모달                                  */}
         {/* ─────────────────────────────────────────────────────────── */}
         {tossModalOpen && tossPayload && (
-          <div className="fixed inset-0 z-50 bg-black bg-opacity-50 overflow-auto">
+          <div
+            className="fixed inset-0 z-[200] bg-black/50 overflow-auto"
+            onClick={(e) => {
+              if (e.target === e.currentTarget) {
+                setTossModalOpen(false);
+                clearTossQuery();
+              }
+            }}
+            role="dialog"
+            aria-modal="true"
+          >
             <div className="flex min-h-full items-start justify-center px-6 py-10">
-              <div className="bg-white p-6 rounded-xl shadow-xl w-full max-w-[760px] relative">
+              <div
+                className="bg-white p-6 rounded-xl shadow-xl w-full max-w-[760px] relative"
+                onClick={(e) => e.stopPropagation()}
+              >
                 <CloseButton
                   onClick={() => {
                     setTossModalOpen(false);
@@ -2086,9 +2174,23 @@ export default function Page() {
 
         {/* 패밀리 라이선스 모달 */}
         {showFamilyModal && (
-          <div className="fixed inset-0 z-50 bg-black bg-opacity-50 overflow-auto">
+          <div
+            className="fixed inset-0 z-[200] bg-black/50 overflow-auto"
+            onClick={(e) => {
+              if (e.target === e.currentTarget) {
+                setShowFamilyModal(false);
+                setShowFreeLicenseGuide(false);
+                setShowPaymentProceed(false);
+              }
+            }}
+            role="dialog"
+            aria-modal="true"
+          >
             <div className="flex min-h-full items-start justify-center px-6 py-10">
-              <div className="bg-white p-8 rounded-xl shadow-xl w-full max-w-[1100px] relative overflow-x-auto">
+              <div
+                className="bg-white p-8 rounded-xl shadow-xl w-full max-w-[1100px] relative overflow-x-auto"
+                onClick={(e) => e.stopPropagation()}
+              >
                 <CloseButton
                   onClick={() => {
                     setShowFamilyModal(false);
@@ -2307,8 +2409,18 @@ export default function Page() {
 
         {/* 결제 문의 (이메일 안내) 모달 */}
         {showPaymentSupportModal && (
-          <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center px-4">
-            <div className="bg-white w-full max-w-md p-8 rounded-lg shadow-xl relative">
+          <div
+            className="fixed inset-0 z-[200] bg-black/50 flex items-center justify-center px-4"
+            onClick={(e) => {
+              if (e.target === e.currentTarget) setShowPaymentSupportModal(false);
+            }}
+            role="dialog"
+            aria-modal="true"
+          >
+            <div
+              className="bg-white w-full max-w-md p-8 rounded-lg shadow-xl relative"
+              onClick={(e) => e.stopPropagation()}
+            >
               <CloseButton
                 onClick={() => setShowPaymentSupportModal(false)}
                 label="결제 문의 모달 닫기"
@@ -2342,8 +2454,18 @@ export default function Page() {
 
         {/* 다운로드 안내 모달 */}
         {showDownloadModal && (
-          <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center px-4">
-            <div className="bg-white w-full max-w-lg p-6 rounded-lg shadow-xl relative">
+          <div
+            className="fixed inset-0 z-[200] bg-black/50 flex items-center justify-center px-4"
+            onClick={(e) => {
+              if (e.target === e.currentTarget) setShowDownloadModal(false);
+            }}
+            role="dialog"
+            aria-modal="true"
+          >
+            <div
+              className="bg-white w-full max-w-lg p-6 rounded-lg shadow-xl relative"
+              onClick={(e) => e.stopPropagation()}
+            >
               <CloseButton
                 onClick={() => setShowDownloadModal(false)}
                 label="다운로드 안내 닫기"
@@ -2402,8 +2524,21 @@ export default function Page() {
 
         {/* 🆕 Webina 모달: 홈페이지 진입 시 자동 표시 (닫으면 공지 모달 이어서 열림) */}
         {showWebinaModal && (
-          <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center px-4">
-            <div className="relative bg-white rounded-xl shadow-2xl w-full max-w-5xl p-4 sm:p-6">
+          <div
+            className="fixed inset-0 z-[200] bg-black/50 flex items-center justify-center px-4"
+            onClick={(e) => {
+              if (e.target === e.currentTarget) {
+                setShowWebinaModal(false);
+                setShowNoticeModal(true);
+              }
+            }}
+            role="dialog"
+            aria-modal="true"
+          >
+            <div
+              className="relative bg-white rounded-xl shadow-2xl w-full max-w-5xl p-4 sm:p-6"
+              onClick={(e) => e.stopPropagation()}
+            >
               <CloseButton
                 onClick={() => { setShowWebinaModal(false); setShowNoticeModal(true); }}
                 label="Webina 모달 닫기"
@@ -2496,7 +2631,7 @@ export default function Page() {
               {/* 라이트박스: 이미지 클릭 → 다시 클릭하면 닫힘 */}
               {analysisPreview && (
                 <div
-                  className="fixed inset-0 z-[60] bg-black/80 flex items-center justify-center p-4"
+                  className="fixed inset-0 z-[300] bg-black/80 flex items-center justify-center p-4"
                   onClick={() => setAnalysisPreview(null)}
                   role="button"
                   aria-label="Close analysis preview"
@@ -2523,8 +2658,18 @@ export default function Page() {
 
         {/* 🔔 Notice 모달 (공지) — /notice/1.png 사용 */}
         {showNoticeModal && (
-          <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center px-4">
-            <div className="relative bg-white rounded-xl shadow-2xl w-full max-w-3xl p-4 sm:p-6">
+          <div
+            className="fixed inset-0 z-[200] bg-black/50 flex items-center justify-center px-4"
+            onClick={(e) => {
+              if (e.target === e.currentTarget) setShowNoticeModal(false);
+            }}
+            role="dialog"
+            aria-modal="true"
+          >
+            <div
+              className="relative bg-white rounded-xl shadow-2xl w-full max-w-3xl p-4 sm:p-6"
+              onClick={(e) => e.stopPropagation()}
+            >
               <CloseButton
                 onClick={() => setShowNoticeModal(false)}
                 label="공지 모달 닫기"
@@ -2554,9 +2699,19 @@ export default function Page() {
         {/* 로그인 모달 */}
         <div
           id="login-modal"
-          className="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-center justify-center"
+          className="fixed inset-0 z-[200] hidden bg-black bg-opacity-50 flex items-center justify-center"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              document.getElementById("login-modal")!.classList.add("hidden");
+            }
+          }}
+          role="dialog"
+          aria-modal="true"
         >
-          <div className="bg-white w-full max-w-md p-8 rounded-lg shadow-xl relative">
+          <div
+            className="bg-white w-full max-w-md p-8 rounded-lg shadow-xl relative"
+            onClick={(e) => e.stopPropagation()}
+          >
             <CloseButton
               onClick={() =>
                 document.getElementById("login-modal")!.classList.add("hidden")
@@ -2612,8 +2767,21 @@ export default function Page() {
         </div>
 
         {/* 회원가입 모달 */}
-        <div id="signup-modal" className="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white w-full max-w-md p-8 rounded-lg shadow-xl relative">
+        <div
+          id="signup-modal"
+          className="fixed inset-0 z-[200] hidden bg-black bg-opacity-50 flex items-center justify-center"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              document.getElementById("signup-modal")!.classList.add("hidden");
+            }
+          }}
+          role="dialog"
+          aria-modal="true"
+        >
+          <div
+            className="bg-white w-full max-w-md p-8 rounded-lg shadow-xl relative"
+            onClick={(e) => e.stopPropagation()}
+          >
             <CloseButton
               onClick={() => document.getElementById("signup-modal")!.classList.add("hidden")}
               label="회원가입 모달 닫기"
@@ -2723,8 +2891,18 @@ export default function Page() {
 
         {/* MY 모달 */}
         {showMyModal && (
-          <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
-            <div className="bg-white w-full max-w-md p-8 rounded-lg shadow-xl relative">
+          <div
+            className="fixed inset-0 z-[200] bg-black bg-opacity-50 flex items-center justify-center"
+            onClick={(e) => {
+              if (e.target === e.currentTarget) setShowMyModal(false);
+            }}
+            role="dialog"
+            aria-modal="true"
+          >
+            <div
+              className="bg-white w-full max-w-md p-8 rounded-lg shadow-xl relative"
+              onClick={(e) => e.stopPropagation()}
+            >
               <CloseButton
                 onClick={() => setShowMyModal(false)}
                 label="My Info 모달 닫기"
