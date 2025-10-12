@@ -2677,7 +2677,7 @@ export default function Page() {
 
               <div className="w-full flex items-center justify-center">
                 <img
-                  src="/notice/1.png"
+                  src="/notice/1.png?v=2"
                   alt="Notice"
                   className="max-h-[75vh] w-auto object-contain rounded"
                 />
