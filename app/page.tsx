@@ -2667,7 +2667,7 @@ export default function Page() {
             aria-modal="true"
           >
             <div
-              className="relative bg-white rounded-xl shadow-2xl w-full max-w-6xl max-h-[90vh] flex flex-col"
+              className="relative bg-white rounded-xl shadow-2xl w-full max-w-6xl max-h-[90vh] flex flex-col overflow-hidden"
               onClick={(e) => e.stopPropagation()}
             >
               <CloseButton
@@ -2676,17 +2676,17 @@ export default function Page() {
               />
 
               {/* 스크롤 가능한 컨텐츠 영역 */}
-              <div className="overflow-y-auto p-4 sm:p-6">
-                <div className="w-full flex flex-col md:flex-row items-center justify-center gap-4">
+              <div className="overflow-y-auto p-4 sm:p-6 flex-1">
+                <div className="w-full flex flex-col md:flex-row items-start justify-center gap-4">
                   <img
                     src="/notice/1.png"
                     alt="Notice 1"
-                    className="max-w-full h-auto object-contain rounded"
+                    className="w-full md:w-1/2 h-auto object-contain rounded"
                   />
                   <img
                     src="/notice/2.jpg"
                     alt="Notice 2"
-                    className="max-w-full h-auto object-contain rounded"
+                    className="w-full md:w-1/2 h-auto object-contain rounded"
                   />
                 </div>
 
