@@ -1345,11 +1345,12 @@ export default function Page() {
             className="object-contain"
             priority
           />
+          {/* 보이는 LanguageSelector (왼쪽) */}
           <LanguageSelector />
         </div>
 
-        {/* 모바일 전용 언어 선택기 — z-index 하향(모달보다 아래) */}
-        <div className="fixed top-4 right-4 z-30 flex items-center sm:hidden">
+        {/* ▼ 모바일 전용 LanguageSelector ― 데스크탑에서는 숨김 */}
+        <div className="fixed top-4 right-4 z-50 flex items-center sm:hidden">
           <LanguageSelector />
         </div>
 
@@ -1364,6 +1365,7 @@ export default function Page() {
               className="object-contain max-w-full sm:max-w-[600px] mx-auto mt-[80px] sm:mt-0 mb-0 sm:mb-0"
               priority
             />
+            {/* ▼ 네비게이션 버튼 그룹 (오른쪽) */}
             <div className="absolute bottom-2 right-4 sm:right-8 hidden sm:flex flex-wrap items-center gap-x-4 gap-y-2">
               {["home", "download", "buy"].map((tab) => (
                 <button
@@ -1376,6 +1378,7 @@ export default function Page() {
                   {t(`nav.${tab}`)}
                 </button>
               ))}
+
               <button
                 onClick={() => scrollToSection("terms-privacy")}
                 className="relative pb-2 transition-colors duration-200 cursor-pointer
@@ -1388,13 +1391,13 @@ export default function Page() {
           </div>
         </nav>
 
-        {/* 로그인 & 사인업 버튼 — z-index 하향(모달보다 아래) */}
+        {/* 로그인 & 사인업 버튼 */}
         <div
           className="
             fixed
             top-6 left-6
             sm:top-6 sm:right-6 sm:left-auto
-            flex gap-2 z-30
+            flex gap-2 z-50
           "
         >
           {!isLoggedIn ? (

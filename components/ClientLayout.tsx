@@ -13,17 +13,6 @@ export default function ClientLayout({
 }) {
   return (
     <LanguageWrapper>
-      {/* (선택) ClientHeader */}
-      {/*
-      <ClientHeader />
-      */}
-
-      {/* 우측 상단 언어 선택 드롭다운 */}
-      <div className="fixed top-4 right-4 sm:right-[220px] z-50">
-  <LanguageSelector />
-</div>
-
-
       {/* 실제 페이지 내용 */}
       {children}
     </LanguageWrapper>
