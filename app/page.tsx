@@ -1075,8 +1075,8 @@ export default function Page() {
   // 🔔 공지(Notice) 모달 — /public/notice/1.png
   const [showNoticeModal, setShowNoticeModal] = useState(false);
   useEffect(() => {
-    // 홈페이지 진입 시 Webina 모달 먼저
-    setShowWebinaModal(true);
+    // 홈페이지 진입 시 Notice 모달 표시
+    setShowNoticeModal(true);
   }, []);
 
   // ✅ 공통: 모달 열릴 때 스크롤 잠금 + ESC 닫기
