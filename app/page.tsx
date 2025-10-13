@@ -1075,8 +1075,8 @@ export default function Page() {
   // 🔔 공지(Notice) 모달 — /public/notice/1.png
   const [showNoticeModal, setShowNoticeModal] = useState(false);
   useEffect(() => {
-    // 홈페이지 진입 시 Notice 모달 표시
-    setShowNoticeModal(true);
+    // 홈페이지 진입 시 Webina 모달 먼저
+    setShowWebinaModal(true);
   }, []);
 
   // ✅ 공통: 모달 열릴 때 스크롤 잠금 + ESC 닫기
@@ -2656,7 +2656,7 @@ export default function Page() {
           </div>
         )}
 
-        {/* 🔔 Notice 모달 (공지) — /notice/1.png 사용 */}
+        {/* 🔔 Notice 모달 (공지) — /notice/1.png, 2.jpg 사용 */}
         {showNoticeModal && (
           <div
             className="fixed inset-0 z-[200] bg-black/50 flex items-center justify-center px-4"
@@ -2667,7 +2667,7 @@ export default function Page() {
             aria-modal="true"
           >
             <div
-              className="relative bg-white rounded-xl shadow-2xl w-full max-w-3xl p-4 sm:p-6"
+              className="relative bg-white rounded-xl shadow-2xl w-full max-w-6xl p-4 sm:p-6"
               onClick={(e) => e.stopPropagation()}
             >
               <CloseButton
@@ -2675,11 +2675,16 @@ export default function Page() {
                 label="공지 모달 닫기"
               />
 
-              <div className="w-full flex items-center justify-center">
+              <div className="w-full flex flex-col md:flex-row items-center justify-center gap-4">
                 <img
-                  src="/notice/1.png?v=2"
-                  alt="Notice"
-                  className="max-h-[75vh] w-auto object-contain rounded"
+                  src="/notice/1.png"
+                  alt="Notice 1"
+                  className="max-h-[70vh] w-auto object-contain rounded"
+                />
+                <img
+                  src="/notice/2.jpg"
+                  alt="Notice 2"
+                  className="max-h-[70vh] w-auto object-contain rounded"
                 />
               </div>
 
