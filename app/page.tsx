@@ -1516,15 +1516,6 @@ export default function Page() {
             <div className="mt-8 flex flex-col items-center space-y-4 w-full">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-center gap-4 w-full max-w-2xl sm:pl-8">
                 <a
-                  href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v1.5.0/DLAS.1.5.0.zip"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-gray-700 text-white px-8 py-3 rounded hover:bg-gray-600 transition text-center whitespace-nowrap"
-                  style={{ minWidth: '200px' }}
-                >
-                  v1.5.zip
-                </a>
-                <a
                   href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v1.5.0/DLAS_Installer.exe"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -1535,7 +1526,7 @@ export default function Page() {
                     setShowDownloadModal(true);
                   }}
                 >
-                  v1.5&nbsp;Installer
+                  v2.0.0&nbsp;Installer
                 </a>
                 <div className="flex flex-col items-start sm:items-center">
                   <a
