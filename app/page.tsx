@@ -1516,7 +1516,7 @@ export default function Page() {
             <div className="mt-8 flex flex-col items-center space-y-4 w-full">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-center gap-4 w-full max-w-2xl sm:pl-8">
                 <a
-                  href="hhttps://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v2.0.0/DLAS_2.0.0_Installer_Korean.exe"
+                  href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v2.0.0/DLAS_2.0.0_Installer_Korean.exe"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-black text-white px-8 py-3 rounded hover:bg-gray-800 transition text-center whitespace-nowrap"
