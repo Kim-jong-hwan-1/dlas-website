@@ -7,7 +7,8 @@
       "Bash(git commit -m \"$(cat <<''EOF''\nfix: 노티스 이미지 캐시 무효화를 위한 버전 파라미터 추가\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
       "Bash(git log:*)",
       "WebFetch(domain:www.anthropic.com)",
-      "Bash(git reset:*)"
+      "Bash(git reset:*)",
+      "Bash(npm run dev)"
     ],
     "deny": [],
     "ask": []

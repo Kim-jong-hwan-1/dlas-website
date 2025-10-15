@@ -1070,11 +1070,14 @@ export default function Page() {
   const WEBINA_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSc_fzZTLxCqNlCYlbZs3RvogqSxbzq9BMFQnAiTBSNyw8z52A/viewform?usp=sharing&ouid=100677474144073110334";
 
 
-  // 🔔 공지(Notice) 모달 — /public/notice/1.png
+  // 🔔 공지 PDF 모달 — /public/notice/DLAS_공고문.pdf
+  const [showPdfModal, setShowPdfModal] = useState(false);
+  // 🔔 공지 이미지 모달 — /public/notice/1.jpg
   const [showNoticeModal, setShowNoticeModal] = useState(false);
+
   useEffect(() => {
-    // 홈페이지 진입 시 Notice 모달 표시
-    setShowNoticeModal(true);
+    // 홈페이지 진입 시 PDF 모달 먼저 표시
+    setShowPdfModal(true);
   }, []);
 
   // ✅ 공통: 모달 열릴 때 스크롤 잠금 + ESC 닫기
@@ -1084,6 +1087,7 @@ export default function Page() {
     showPaymentSupportModal ||
     showDownloadModal ||
     showWebinaModal ||
+    showPdfModal ||
     showNoticeModal ||
     showMyModal;
 
@@ -1102,6 +1106,11 @@ export default function Page() {
         }
         if (showWebinaModal) {
           setShowWebinaModal(false);
+          return;
+        }
+        if (showPdfModal) {
+          setShowPdfModal(false);
+          setShowNoticeModal(true);
           return;
         }
         if (showNoticeModal) {
@@ -1140,6 +1149,7 @@ export default function Page() {
     analysisPreview,
     tossModalOpen,
     showWebinaModal,
+    showPdfModal,
     showNoticeModal,
     showDownloadModal,
     showPaymentSupportModal,
@@ -1151,23 +1161,13 @@ export default function Page() {
   const handleDownloadConfirm = () => {
     setShowDownloadModal(false);
 
-    // 첫 번째 파일 다운로드
+    // DLAS_Installer.exe 다운로드
     const link1 = document.createElement('a');
     link1.href = "https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v1.5.0/DLAS_Installer.exe";
     link1.download = '';
     document.body.appendChild(link1);
     link1.click();
     document.body.removeChild(link1);
-
-    // 두 번째 파일 다운로드 (약간의 지연을 두어 브라우저가 두 다운로드를 모두 처리할 수 있도록 함)
-    setTimeout(() => {
-      const link2 = document.createElement('a');
-      link2.href = "https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v1.5.0/DLAS.v2.0.0.zip";
-      link2.download = '';
-      document.body.appendChild(link2);
-      link2.click();
-      document.body.removeChild(link2);
-    }, 100);
   };
 
   // ------------------
@@ -1514,20 +1514,30 @@ export default function Page() {
             </p>
 
             <div className="mt-8 flex flex-col items-center space-y-4 w-full">
-              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 w-full max-w-md">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-center gap-4 w-full max-w-2xl sm:pl-8">
+                <a
+                  href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v1.5.0/DLAS.1.5.0.zip"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-gray-700 text-white px-8 py-3 rounded hover:bg-gray-600 transition text-center whitespace-nowrap"
+                  style={{ minWidth: '200px' }}
+                >
+                  v1.5.zip
+                </a>
                 <a
                   href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v1.5.0/DLAS_Installer.exe"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition w/full sm:w-auto text-center"
+                  className="bg-black text-white px-8 py-3 rounded hover:bg-gray-800 transition text-center whitespace-nowrap"
+                  style={{ minWidth: '200px' }}
                   onClick={(e) => {
                     e.preventDefault();
                     setShowDownloadModal(true);
                   }}
                 >
-                  Download&nbsp;v1.5.0
+                  v1.5&nbsp;Installer
                 </a>
-                <div className="flex flex-col items-start sm:items-end">
+                <div className="flex flex-col items-start sm:items-center">
                   <a
                     href="https://github.com/MarcoAttene/MeshFix-V2.1/archive/refs/heads/master.zip"
                     target="_blank"
@@ -1536,7 +1546,7 @@ export default function Page() {
                   >
                     MeshFix&nbsp;2.1.0&nbsp;(Source)
                   </a>
-                  <span className="text-[10px] text-gray-600 mt-1 sm:text-right leading-tight">
+                  <span className="text-[10px] text-gray-600 mt-1 text-center sm:text-center leading-tight">
                     MeshFix (GPL v3 – commercial use requires a separate license from IMATI-CNR)
                   </span>
                 </div>
@@ -1581,7 +1591,7 @@ export default function Page() {
                 "Wing Exo Jig": {
                   gif: null,
                   youtube: null,
-                  image: "/modules/exo_wing_jig_maker.png",
+                  image: "/modules/wing_exo.png",
                 },
                 "HTML Viewer Converter": {
                   gif: "/gifs/html_viewer_converter.gif",
@@ -2679,7 +2689,51 @@ export default function Page() {
           </div>
         )}
 
-        {/* 🔔 Notice 모달 (공지) — /notice/1.png, 2.jpg 사용 */}
+        {/* 🔔 PDF 모달 (공고문) — /notice/DLAS_공고문.pdf */}
+        {showPdfModal && (
+          <div
+            className="fixed inset-0 z-[200] bg-black/50 flex items-center justify-center px-4"
+            onClick={(e) => {
+              if (e.target === e.currentTarget) {
+                setShowPdfModal(false);
+                setShowNoticeModal(true);
+              }
+            }}
+            role="dialog"
+            aria-modal="true"
+          >
+            <div
+              className="relative bg-white rounded-xl shadow-2xl w-full max-w-6xl max-h-[90vh] flex flex-col overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <CloseButton
+                onClick={() => { setShowPdfModal(false); setShowNoticeModal(true); }}
+                label="공고문 모달 닫기"
+              />
+
+              {/* 스크롤 가능한 컨텐츠 영역 */}
+              <div className="overflow-y-auto p-4 sm:p-6 flex-1">
+                <iframe
+                  src="/notice/DLAS_공고문.pdf"
+                  className="w-full h-[80vh] rounded"
+                  title="DLAS 공고문"
+                />
+
+                {/* 하단 닫기 버튼 (모바일 & 데스크탑 공통) */}
+                <div className="mt-4 text-center">
+                  <button
+                    onClick={() => { setShowPdfModal(false); setShowNoticeModal(true); }}
+                    className="w-full bg-black text-white py-3 rounded hover:bg-gray-800 transition"
+                  >
+                    닫기
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* 🔔 Notice 모달 (이미지 공지) — /notice/1.jpg */}
         {showNoticeModal && (
           <div
             className="fixed inset-0 z-[200] bg-black/50 flex items-center justify-center px-4"
@@ -2690,7 +2744,7 @@ export default function Page() {
             aria-modal="true"
           >
             <div
-              className="relative bg-white rounded-xl shadow-2xl w-full max-w-6xl max-h-[90vh] flex flex-col overflow-hidden"
+              className="relative bg-white rounded-xl shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col overflow-hidden"
               onClick={(e) => e.stopPropagation()}
             >
               <CloseButton
@@ -2700,16 +2754,11 @@ export default function Page() {
 
               {/* 스크롤 가능한 컨텐츠 영역 */}
               <div className="overflow-y-auto p-4 sm:p-6 flex-1">
-                <div className="w-full flex flex-col md:flex-row items-start justify-center gap-4">
+                <div className="w-full flex justify-center">
                   <img
-                    src="/notice/1.png"
-                    alt="Notice 1"
-                    className="w-full md:w-1/2 h-auto object-contain rounded"
-                  />
-                  <img
-                    src="/notice/2.jpg"
-                    alt="Notice 2"
-                    className="w-full md:w-1/2 h-auto object-contain rounded"
+                    src="/notice/1.jpg"
+                    alt="Notice"
+                    className="w-full h-auto object-contain rounded"
                   />
                 </div>
 
