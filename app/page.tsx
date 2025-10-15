@@ -2754,10 +2754,15 @@ export default function Page() {
 
               {/* 스크롤 가능한 컨텐츠 영역 */}
               <div className="overflow-y-auto p-4 sm:p-6 flex-1">
-                <div className="w-full flex justify-center">
+                <div className="w-full flex flex-col gap-4 items-center">
                   <img
-                    src="/notice/1.jpg"
-                    alt="Notice"
+                    src="/notice/1.png"
+                    alt="Notice 1"
+                    className="w-full h-auto object-contain rounded"
+                  />
+                  <img
+                    src="/notice/2.jpg"
+                    alt="Notice 2"
                     className="w-full h-auto object-contain rounded"
                   />
                 </div>
