@@ -1163,7 +1163,7 @@ export default function Page() {
 
     // DLAS_Installer.exe 다운로드
     const link1 = document.createElement('a');
-    link1.href = "https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v1.5.0/DLAS_Installer.exe";
+    link1.href = "https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v2.0.0/DLAS_2.0.0_Installer_Korean.exe";
     link1.download = '';
     document.body.appendChild(link1);
     link1.click();
