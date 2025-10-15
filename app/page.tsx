@@ -189,10 +189,9 @@ const MODULE_DISCOUNT_LEVELS: Record<string, 0 | 1 | 2> = {
   "STL Classifier": 1,
   "HTML Viewer Converter": 1,
   "Image Converter": 2,
-  "Booleaner": 2,
-  "Fuser": 2,
-  "New Module (TBD)": 0,
-};
+  "Abutment Editor": 0,
+  "Wing Exo Jig": 0,
+  "Fuser": 2,};
 /** 만원 단위 반올림 */
 const roundToManWon = (krw: number) => Math.round(krw / 10_000) * 10_000;
 /** KRW 기준 1차/2차 할인 금액 계산 (만원 단위 반올림 적용) */
@@ -401,10 +400,16 @@ export default function Page() {
       "1YEAR": "pri_01k1dhwbb0yvngp04ggzna166w",
       "LIFETIME": "",
     },
-    "Booleaner": {
-      "1WEEK": "pri_01k1dj1fwdb7gqd7m6zcvgcqmw",
-      "1MONTH": "pri_01k1dj2gbhq3r3g26kg9sb1c4j",
-      "1YEAR": "pri_01k1dj4hm0933fgr6zn7a7yvx0",
+    "Abutment Editor": {
+      "1WEEK": "",
+      "1MONTH": "",
+      "1YEAR": "",
+      "LIFETIME": "",
+    },
+    "Wing Exo Jig": {
+      "1WEEK": "",
+      "1MONTH": "",
+      "1YEAR": "",
       "LIFETIME": "",
     },
     "Fuser": {
@@ -412,14 +417,7 @@ export default function Page() {
       "1MONTH": "pri_01k1dj6qjawp143jjbwbac779c",
       "1YEAR": "pri_01k1dj77nyhzgpg2terfwwd9pd",
       "LIFETIME": "",
-    },
-    "New Module (TBD)": {
-      "1WEEK": "",
-      "1MONTH": "",
-      "1YEAR": "",
-      "LIFETIME": "",
-    },
-  };
+    },  };
 
   const handleDownloadUnavailable = (e?: React.MouseEvent) => {
     if (e) e.preventDefault();
@@ -951,10 +949,9 @@ export default function Page() {
     "STL Classifier",
     "HTML Viewer Converter",
     "Image Converter",
-    "Booleaner",
-    "Fuser",
-    "New Module (TBD)",
-  ];
+    "Abutment Editor",
+    "Wing Exo Jig",
+    "Fuser",  ];
 
   const currentOrigin = useMemo(() => {
     if (typeof window === "undefined") return "https://www.dlas.io";
@@ -1015,7 +1012,8 @@ export default function Page() {
       "Automated jig generation software",
     ],
     ["Image Converter", priceLabel("1MONTH", userInfo.country), "Free", "Convert STL to image quickly"],
-    ["Booleaner", asDisplayPrice(590, userInfo.country), "Free", "Fast automaitc Booleaner"],
+    ["Abutment Editor", asDisplayPrice(770, userInfo.country), "Free", "Professional abutment editing tool"],
+    ["Wing Exo Jig", "통합예정", "Free", "Wing exo jig maker"],
     ["HTML Viewer Converter", priceLabel("1MONTH", userInfo.country), "Free", "Convert STL to HTML viewer"],
     [
       "Printing Model Maker (Expected July 2025)",
@@ -1152,8 +1150,24 @@ export default function Page() {
   // 실제 다운로드 실행
   const handleDownloadConfirm = () => {
     setShowDownloadModal(false);
-    window.location.href =
-      "https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v1.5.0/DLAS_Installer.exe";
+
+    // 첫 번째 파일 다운로드
+    const link1 = document.createElement('a');
+    link1.href = "https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v1.5.0/DLAS_Installer.exe";
+    link1.download = '';
+    document.body.appendChild(link1);
+    link1.click();
+    document.body.removeChild(link1);
+
+    // 두 번째 파일 다운로드 (약간의 지연을 두어 브라우저가 두 다운로드를 모두 처리할 수 있도록 함)
+    setTimeout(() => {
+      const link2 = document.createElement('a');
+      link2.href = "https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v1.5.0/DLAS.v2.0.0.zip";
+      link2.download = '';
+      document.body.appendChild(link2);
+      link2.click();
+      document.body.removeChild(link2);
+    }, 100);
   };
 
   // ------------------
@@ -1540,7 +1554,8 @@ export default function Page() {
                 "STL Classifier": "2",
                 "HTML Viewer Converter": "5",
                 "Image Converter": "6",
-                "Booleaner": "4",
+                "Abutment Editor": "3",
+                "Wing Exo Jig": "8",
                 "Fuser": "7",
               };
 
@@ -1558,10 +1573,15 @@ export default function Page() {
                   youtube: "agm47qKzw1Q",
                   image: "/modules/fast_image_converter.png",
                 },
-                Booleaner: {
-                  gif: "/gifs/denture_booleaner.gif",
-                  youtube: "f5DBv8m-iJU",
-                  image: "/modules/fast_denture_booleaner.png",
+                "Abutment Editor": {
+                  gif: null,
+                  youtube: null,
+                  image: "/modules/exo_abutment_editor.png",
+                },
+                "Wing Exo Jig": {
+                  gif: null,
+                  youtube: null,
+                  image: "/modules/exo_wing_jig_maker.png",
                 },
                 "HTML Viewer Converter": {
                   gif: "/gifs/html_viewer_converter.gif",
