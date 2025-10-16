@@ -2491,7 +2491,8 @@ export default function Page() {
                 <p>Please install <strong>TeamViewer</strong> and contact us:</p>
                 <p className="mt-2">
                   <strong>Email:</strong> support@dlas.io<br />
-                  <strong>Phone:</strong> 010-9756-1992
+                  <strong>Phone:</strong> 010-9756-1992<br />
+                  <strong>Support Hours:</strong> 10:00~12:00, 13:00~17:00
                 </p>
               </div>
 
@@ -2501,7 +2502,8 @@ export default function Page() {
                 <p>원격 설치는 가능하니, <strong>에니데스크(AnyDesk)</strong> 설치 후 연락 주세요:</p>
                 <p className="mt-2">
                   <strong>이메일:</strong> techsupport@dlas.io<br />
-                  <strong>전화:</strong> 010-2314-1169
+                  <strong>전화:</strong> 010-2314-1169<br />
+                  <strong>지원 가능 시간:</strong> 10:00~12:00, 13:00~17:00
                 </p>
               </div>
 
