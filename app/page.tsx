@@ -1517,6 +1517,19 @@ export default function Page() {
                 >
                   v2.0.0&nbsp;Installer
                 </button>
+                <div className="flex flex-col items-start sm:items-center">
+                  <a
+                    href="https://github.com/MarcoAttene/MeshFix-V2.1/archive/refs/heads/master.zip"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 transition w-full sm:w-auto text-center"
+                  >
+                    MeshFix&nbsp;2.1.0&nbsp;(Source)
+                  </a>
+                  <span className="text-[10px] text-gray-600 mt-1 text-center sm:text-center leading-tight">
+                    MeshFix (GPL v3 – commercial use requires a separate license from IMATI-CNR)
+                  </span>
+                </div>
               </div>
             </div>
           </section>
