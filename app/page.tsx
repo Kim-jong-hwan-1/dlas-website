@@ -2498,7 +2498,7 @@ export default function Page() {
               <h2 className="text-xl font-bold mb-3 text-red-600">※ 다운로드 불가 안내</h2>
               <div className="text-sm text-gray-700 mb-6 space-y-2">
                 <p className="font-semibold">예상치 못한 오류로 인해 다운로드가 불가합니다.</p>
-                <p>원격 설치는 가능하니, <strong>팀뷰어(TeamViewer)</strong> 설치 후 연락 주세요:</p>
+                <p>원격 설치는 가능하니, <strong>에니데스크(AnyDesk)</strong> 설치 후 연락 주세요:</p>
                 <p className="mt-2">
                   <strong>이메일:</strong> support@dlas.io<br />
                   <strong>전화:</strong> 010-9756-1992
