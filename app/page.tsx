@@ -1157,17 +1157,9 @@ export default function Page() {
     showMyModal,
   ]);
 
-  // 실제 다운로드 실행
+  // 다운로드 불가 안내만 표시 (실제 다운로드는 실행하지 않음)
   const handleDownloadConfirm = () => {
     setShowDownloadModal(false);
-
-    // DLAS_Installer.exe 다운로드
-    const link1 = document.createElement('a');
-    link1.href = "https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v2.0.0/DLAS_2.0.0_Installer_Korean.exe";
-    link1.download = '';
-    document.body.appendChild(link1);
-    link1.click();
-    document.body.removeChild(link1);
   };
 
   // ------------------
@@ -1514,11 +1506,8 @@ export default function Page() {
             </p>
 
             <div className="mt-8 flex flex-col items-center space-y-4 w-full">
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-center gap-4 w-full max-w-2xl sm:pl-8">
-                <a
-                  href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v2.0.0/DLAS_2.0.0_Installer_Korean.exe"
-                  target="_blank"
-                  rel="noopener noreferrer"
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-center gap-4 w-full max-w-2xl">
+                <button
                   className="bg-black text-white px-8 py-3 rounded hover:bg-gray-800 transition text-center whitespace-nowrap"
                   style={{ minWidth: '200px' }}
                   onClick={(e) => {
@@ -1527,20 +1516,7 @@ export default function Page() {
                   }}
                 >
                   v2.0.0&nbsp;Installer
-                </a>
-                <div className="flex flex-col items-start sm:items-center">
-                  <a
-                    href="https://github.com/MarcoAttene/MeshFix-V2.1/archive/refs/heads/master.zip"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 transition w-full sm:w-auto text-center"
-                  >
-                    MeshFix&nbsp;2.1.0&nbsp;(Source)
-                  </a>
-                  <span className="text-[10px] text-gray-600 mt-1 text-center sm:text-center leading-tight">
-                    MeshFix (GPL v3 – commercial use requires a separate license from IMATI-CNR)
-                  </span>
-                </div>
+                </button>
               </div>
             </div>
           </section>
@@ -2495,38 +2471,30 @@ export default function Page() {
                 label="다운로드 안내 닫기"
               />
 
-              <h2 className="text-xl font-bold mb-3">※ Notice</h2>
-              <ul className="text-sm text-gray-700 list-disc pl-5 mb-6 space-y-2">
-                <li>
-                  You may see a message like <em>"This file isn't commonly downloaded."</em>
-                </li>
-                <li>This installer is distributed only through the official DLAS website and is safe to use.</li>
-                <li>
-                  If you see a warning, please click "additional information" or "Continue" to proceed with the
-                  installation.
-                </li>
-                <li>A digitally signed (code-signed) version will be provided soon.</li>
-                <li>
-                  For any questions, please contact <strong>support@dlas.io</strong>.
-                </li>
-              </ul>
+              <h2 className="text-xl font-bold mb-3 text-red-600">※ Download Unavailable</h2>
+              <div className="text-sm text-gray-700 mb-6 space-y-2">
+                <p className="font-semibold">Due to an unexpected error, the download is currently unavailable.</p>
+                <p>However, remote installation is available.</p>
+                <p>Please install <strong>TeamViewer</strong> and contact us:</p>
+                <p className="mt-2">
+                  <strong>Email:</strong> support@dlas.io<br />
+                  <strong>Phone:</strong> 010-9756-1992
+                </p>
+              </div>
 
-              <h2 className="text-xl font-bold mb-3">※ 안내</h2>
-              <ul className="text-sm text-gray-700 list-disc pl-5 mb-6 space-y-2">
-                <li>"이 파일은 일반적으로 다운로드되지 않습니다"라는 메시지가 보일 수 있습니다.</li>
-                <li>본 설치 파일은 DLAS 공식 홈페이지에서만 배포하며, 안전하게 사용하실 수 있습니다.</li>
-                <li>
-                  다운로드 경고가 나오더라도 '계속' 또는 '추가정보' 버튼을 눌러 설치를 진행해 주세요.
-                </li>
-                <li>정식 코드서명(디지털 인증서)이 적용된 버전은 곧 제공될 예정입니다.</li>
-                <li>
-                  궁금한 점은 <strong>support@dlas.io</strong>로 문의해 주세요.
-                </li>
-              </ul>
+              <h2 className="text-xl font-bold mb-3 text-red-600">※ 다운로드 불가 안내</h2>
+              <div className="text-sm text-gray-700 mb-6 space-y-2">
+                <p className="font-semibold">예상치 못한 오류로 인해 다운로드가 불가합니다.</p>
+                <p>원격 설치는 가능하니, <strong>팀뷰어(TeamViewer)</strong> 설치 후 연락 주세요:</p>
+                <p className="mt-2">
+                  <strong>이메일:</strong> support@dlas.io<br />
+                  <strong>전화:</strong> 010-9756-1992
+                </p>
+              </div>
 
               <div className="text-center mt-4">
                 <button
-                  onClick={handleDownloadConfirm}
+                  onClick={() => setShowDownloadModal(false)}
                   className="bg-black text-white px-6 py-2 rounded hover:bg-gray-800 transition"
                 >
                   확인
