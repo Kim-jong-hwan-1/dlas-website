@@ -2484,18 +2484,6 @@ export default function Page() {
                 label="다운로드 안내 닫기"
               />
 
-              <h2 className="text-xl font-bold mb-3 text-red-600">※ Download Unavailable</h2>
-              <div className="text-sm text-gray-700 mb-6 space-y-2">
-                <p className="font-semibold">Due to an unexpected error, the download is currently unavailable.</p>
-                <p>However, remote installation is available.</p>
-                <p>Please install <strong>TeamViewer</strong> and contact us:</p>
-                <p className="mt-2">
-                  <strong>Email:</strong> support@dlas.io<br />
-                  <strong>Phone:</strong> 010-9756-1992<br />
-                  <strong>Support Hours:</strong> 10:00~12:00, 13:00~17:00
-                </p>
-              </div>
-
               <h2 className="text-xl font-bold mb-3 text-red-600">※ 다운로드 불가 안내</h2>
               <div className="text-sm text-gray-700 mb-6 space-y-2">
                 <p className="font-semibold">예상치 못한 오류로 인해 다운로드가 불가합니다.</p>
