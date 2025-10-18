@@ -90,7 +90,7 @@ export const translations = {
       article4: { title: "Article 4 (Provision of Services)", desc: `The Company provides the following services:<br/>- Downloadable AI-based dental software<br/>- Purchase and activation of paid modules<br/>- Other services designated by the Company` },
       article5: { title: "Article 5 (Payment and Refunds)", desc: `1. Users may purchase products using payment methods designated by the Company.<br/>2. Due to the nature of digital products, refunds are not available after download or activation, except as stipulated in the Act on Consumer Protection in Electronic Commerce, etc.<br/>3. For lifetime free-use products (such as Family License), refunds are not available after 7 days from the payment date, except as stipulated in Article 17 (Withdrawal of Offer, etc.) of the Act on Consumer Protection in Electronic Commerce, etc. However, withdrawal of offer is available if the goods are lost or damaged due to reasons not attributable to the user.` },
       article6: { title: "Article 6 (Intellectual Property)", desc: `1. All content and software provided on the website are protected under copyright and belong to the Company.<br/>2. Unauthorized duplication, redistribution, or reverse engineering is prohibited and may lead to legal consequences.` },
-      article7: { title: "Article 7 (Disclaimer)", desc: `1. The Company shall not be liable for service failures caused by force majeure events such as natural disasters, cyberattacks, or system failures.<br/>2. The Company is not responsible for damages caused by the user's negligence.` },
+      article7: { title: "Article 7 (Limitation of Liability)", desc: `1. The Company shall not be liable for service interruptions, failures, data loss, quality degradation, or any damages resulting from force majeure events beyond the Company's control, including but not limited to: natural disasters, war, terrorism, power outages, communication failures, hacking, DDoS attacks, viruses, malware and other external cyberattacks, system failures, server errors, or third-party service disruptions.<br/>2. The Company may temporarily suspend services for maintenance, inspection, replacement, repairs, or communication disruptions, and shall not be obligated to compensate users for such interruptions. However, the Company will make reasonable efforts to provide advance notice.<br/>3. The Company shall not be liable for service disruptions or damages caused by user negligence, including but not limited to: failure to properly manage account credentials, unauthorized use, or violations of applicable laws.<br/>4. The Company does not guarantee the reliability or accuracy of information or materials obtained through the Services and shall not be liable for any damages arising therefrom.` },
       article8: { title: "Article 8 (Governing Law and Jurisdiction)", desc: `Any disputes arising from these Terms shall be governed by the laws of the Republic of Korea, with the court having jurisdiction over the Company's headquarters as the court of first instance.` },
       effectiveDate: "Effective Date: April 29, 2025",
     },
@@ -1322,8 +1322,10 @@ export const translations = {
       },
       article7: {
         title: "제7조 (책임의 한계)",
-        desc: `1. 회사는 자연재해, 사이버 공격, 시스템 장애 등 불가항력으로 인한 서비스 장애에 대해 책임을 지지 않습니다.<br/>
-2. 회원의 과실로 인한 피해에 대해서는 회사가 책임지지 않습니다.`,
+        desc: `1. 회사는 천재지변, 전쟁, 테러, 정전, 통신장애, 해킹, 디도스(DDoS) 공격, 바이러스, 악성코드 등 외부 사이버 공격, 시스템 장애, 서버 오류, 제3자 서비스 중단 등 회사의 귀책사유 없이 발생한 불가항력적 사유로 인한 서비스 중단, 장애, 데이터 손실, 품질 저하 등에 대해 책임을 지지 않습니다.<br/>
+2. 회사는 서비스의 유지·보수·점검·교체 및 고장, 통신두절 등의 사유가 발생한 경우, 서비스의 제공을 일시적으로 중단할 수 있으며, 이에 대해 회원에게 별도의 보상을 하지 않습니다. 단, 회사는 사전에 공지할 수 있도록 노력합니다.<br/>
+3. 회원의 귀책사유(ID 및 비밀번호 관리 소홀, 부정 사용, 법령 위반 등)로 인한 서비스 이용 장애 및 손해에 대해서는 회사가 책임지지 않습니다.<br/>
+4. 회사는 회원이 서비스를 통해 얻은 정보 또는 자료의 신뢰도, 정확성에 대해서는 보증하지 않으며, 이로 인한 손해에 대해 책임지지 않습니다.`,
       },
       article8: {
         title: "제8조 (준거법 및 관할)",
