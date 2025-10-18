@@ -88,7 +88,7 @@ export const translations = {
       article2: { title: "Article 2 (Definitions)", desc: `1. "User" refers to any individual who agrees to these Terms and uses the Services.<br/>2. "Product" refers to any AI-based software, modules, or programs provided by the Company.` },
       article3: { title: "Article 3 (Effect and Modification of Terms)", desc: `1. These Terms become effective upon posting on the website.<br/>2. The Company may revise these Terms in compliance with applicable laws and will notify users in advance.` },
       article4: { title: "Article 4 (Provision of Services)", desc: `The Company provides the following services:<br/>- Downloadable AI-based dental software<br/>- Purchase and activation of paid modules<br/>- Other services designated by the Company` },
-      article5: { title: "Article 5 (Payment and Refunds)", desc: `1. Users may purchase products using payment methods designated by the Company.<br/>2. Due to the nature of digital products, refunds are not available after download or activation, except where required by law.` },
+      article5: { title: "Article 5 (Payment and Refunds)", desc: `1. Users may purchase products using payment methods designated by the Company.<br/>2. Due to the nature of digital products, refunds are not available after download or activation, except as stipulated in the Act on Consumer Protection in Electronic Commerce, etc.<br/>3. For lifetime free-use products (such as Family License), refunds are not available after 7 days from the payment date, except as stipulated in Article 17 (Withdrawal of Offer, etc.) of the Act on Consumer Protection in Electronic Commerce, etc. However, withdrawal of offer is available if the goods are lost or damaged due to reasons not attributable to the user.` },
       article6: { title: "Article 6 (Intellectual Property)", desc: `1. All content and software provided on the website are protected under copyright and belong to the Company.<br/>2. Unauthorized duplication, redistribution, or reverse engineering is prohibited and may lead to legal consequences.` },
       article7: { title: "Article 7 (Disclaimer)", desc: `1. The Company shall not be liable for service failures caused by force majeure events such as natural disasters, cyberattacks, or system failures.<br/>2. The Company is not responsible for damages caused by the user's negligence.` },
       article8: { title: "Article 8 (Governing Law and Jurisdiction)", desc: `Any disputes arising from these Terms shall be governed by the laws of the Republic of Korea, with the court having jurisdiction over the Company's headquarters as the court of first instance.` },
@@ -1312,7 +1312,8 @@ export const translations = {
       article5: {
         title: "제5조 (결제 및 환불)",
         desc: `1. 회원은 회사가 지정한 결제수단을 통해 제품을 구매할 수 있습니다.<br/>
-2. 디지털 제품의 특성상, 다운로드 또는 활성화 후에는 관련 법령에서 정한 경우를 제외하고 환불이 불가합니다.`,
+2. 디지털 제품의 특성상, 다운로드 또는 활성화 후에는 「전자상거래 등에서의 소비자보호에 관한 법률」에서 정한 경우를 제외하고 환불이 불가합니다.<br/>
+3. 평생 무료 이용 상품(패밀리 라이센스 등)의 경우, 결제일로부터 7일이 경과한 후에는 「전자상거래 등에서의 소비자보호에 관한 법률」 제17조(청약철회 등)에서 정한 경우를 제외하고 환불이 불가합니다. 단, 회원의 귀책사유가 아닌 사유로 재화 등이 멸실되거나 훼손된 경우에는 청약철회가 가능합니다.`,
       },
       article6: {
         title: "제6조 (지적재산권)",

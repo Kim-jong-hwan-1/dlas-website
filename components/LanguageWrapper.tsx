@@ -13,7 +13,7 @@ interface LangContextType {
 }
 
 const LangContext = createContext<LangContextType>({
-  lang: 'en',
+  lang: 'ko',
   setLang: () => {},
   t: (key: string) => key,
 });
@@ -21,7 +21,7 @@ const LangContext = createContext<LangContextType>({
 export const useLang = () => useContext(LangContext);
 
 export default function LanguageWrapper({ children }: { children: React.ReactNode }) {
-  const [lang, setLang] = useState<LangCode>('en');
+  const [lang, setLang] = useState<LangCode>('ko');
 
   useEffect(() => {
     const saved = localStorage.getItem('selectedLanguage');
