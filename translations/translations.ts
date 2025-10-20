@@ -36,9 +36,9 @@ export const translations = {
     
     family: {
       modalTitle: "Family License Information",
-      desc1: "Use DLAS modules for life without extra fees. We are looking for partners to grow with DLAS. Only those leading digital innovation in dental labs should join.",
-      desc2: "You can access all listed modules permanently. If you don’t understand what innovation is, or you're a beginner or inexperienced, please do not sign up.",
-      desc3: "Even new modules will be free if released before v2.0.0. Our automation programs may have bugs depending on your computer environment. Report them, and we’ll improve.",
+      desc1: "1) All modules free for life, up to 5 fixed IP IDs per dental lab. Use DLAS modules for life without extra fees. We are looking for partners to grow with DLAS. Only those leading digital innovation in dental labs should join.",
+      desc2: "You can access all listed modules permanently. If you don't understand what innovation is, or you're a beginner or inexperienced, please do not sign up.",
+      desc3: "Even new modules will be free if released before v2.0.0. Our automation programs may have bugs depending on your computer environment. Report them, and we'll improve.",
       desc4: "After v2.0.0, regular license fees will apply. We recommend using the free license first before purchasing.",
       desc5: "This is a one-time offer only available now. The family license will likely increase in value. One user can own multiple licenses, and reselling is allowed.",
       tableNote: "※ Details may change without notice.",
@@ -1235,7 +1235,7 @@ export const translations = {
     family: {
       modalTitle: "패밀리 라이선스 안내",
       desc1:
-        "DLAS와 함께 성장할 파트너를 찾고 있습니다. 디지털 혁신을 주도하는 치과 랩만 참여하세요.",
+        "1) 모든 모듈 평생 무료, 한 기공소당 최대 5개 IP고정 아이디 제공. DLAS와 함께 성장할 파트너를 찾고 있습니다. 디지털 혁신을 주도하는 치과 랩만 참여하세요.",
       desc2:
         "혁신이 무엇인지 이해하지 못하거나, 초보 혹은 경험이 없는 경우에는 가입을 자제해 주세요.",
       desc3:
