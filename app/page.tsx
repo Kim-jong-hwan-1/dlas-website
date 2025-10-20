@@ -1871,17 +1871,11 @@ export default function Page() {
                       </div>
                       <div className="w-full sm:w-56 flex sm:flex-col gap-2">
                         <button
-                          onClick={() => alert("010-9756-1992로 문자나 전화주세요")}
+                          onClick={() => alert("032-212-2882로 전화 또는 support@dlas.io로 문의 주세요")}
                           className="flex-1 bg-black text-white rounded-lg px-6 py-3 font-bold hover:bg-gray-800 transition"
                         >
                           가입 문의
                         </button>
-                        <a
-                          href="010-9756-1992로 연락주세요"
-                          className="flex-1 border rounded-lg px-6 py-3 text-center hover:bg-gray-50 transition"
-                        >
-                          이메일 문의
-                        </a>
                         <div className="hidden sm:block text-xs text-gray-500 mt-2"></div>
                       </div>
                     </div>
@@ -1924,17 +1918,11 @@ export default function Page() {
 
                       <div className="w-full sm:w-56 flex sm:flex-col gap-2">
                         <button
-                          onClick={() => alert("010-9756-1992로 문자나 전화주세요")}
+                          onClick={() => alert("032-212-2882로 전화 또는 support@dlas.io로 문의 주세요")}
                           className="flex-1 bg-black text-white rounded-lg px-6 py-3 font-bold hover:bg-gray-800 transition"
                         >
                           가입 문의
                         </button>
-                        <a
-                          href="010-9756-1992로 연락주세요"
-                          className="flex-1 border rounded-lg px-6 py-3 text-center hover:bg-gray-50 transition"
-                        >
-                          이메일 문의
-                        </a>
                       </div>
                     </div>
                   </div>
