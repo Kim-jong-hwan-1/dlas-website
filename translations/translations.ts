@@ -1196,8 +1196,8 @@ export const translations = {
       signup: "회원가입",
     },
     home: {
-      subtitle: "한 번의 클릭으로 작업을 완료하세요",
-      title: "몇 시간 걸리던 일이 단 몇 초 만에 끝납니다",
+      subtitle: "자동화로 여는 치기공의 새로운 시대",
+      title: "손의 기술에서, 시스템의 기술로",
       cta: "DLAS 패밀리에 합류하세요 – 단",
       price: "390달러",
       gameChangerTitle: "디지털 덴티스트리의 게임 체인저",
