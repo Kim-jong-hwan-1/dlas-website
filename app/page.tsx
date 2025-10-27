@@ -185,13 +185,13 @@ const asDisplayPrice = (usdNumber: number, country?: string) => {
 const DISCOUNT_FACTOR = 0.7; // ≈30% 할인
 /** 각 모듈의 할인 레벨: 0=없음, 1=1차, 2=2차 */
 const MODULE_DISCOUNT_LEVELS: Record<string, 0 | 1 | 2> = {
-  "Transfer Jig Maker": 1,
-  "STL Classifier": 1,
-  "HTML Viewer Converter": 1,
-  "Image Converter": 2,
-  "Abutment Editor": 0,
-  "Wing Exo Jig": 0,
-  "Fuser": 2,};
+  "3_transfer_jig_maker": 0,
+  "e_transfer_jig_maker": 0,
+  "exo_abutment_editor": 0,
+  "stl_classifier": 0,
+  "stl_to_html": 1,
+  "stl_to_image": 2,
+};
 /** 만원 단위 반올림 */
 const roundToManWon = (krw: number) => Math.round(krw / 10_000) * 10_000;
 /** KRW 기준 1차/2차 할인 금액 계산 (만원 단위 반올림 적용) */
@@ -945,13 +945,13 @@ export default function Page() {
   };
 
   const modules = [
-    "Transfer Jig Maker",
-    "STL Classifier",
-    "HTML Viewer Converter",
-    "Image Converter",
-    "Abutment Editor",
-    "Wing Exo Jig",
-    "Fuser",  ];
+    "3_transfer_jig_maker",
+    "e_transfer_jig_maker",
+    "exo_abutment_editor",
+    "stl_classifier",
+    "stl_to_html",
+    "stl_to_image",
+  ];
 
   const currentOrigin = useMemo(() => {
     if (typeof window === "undefined") return "https://www.dlas.io";
@@ -1110,7 +1110,6 @@ export default function Page() {
         }
         if (showPdfModal) {
           setShowPdfModal(false);
-          setShowNoticeModal(true);
           return;
         }
         if (showNoticeModal) {
@@ -1507,29 +1506,14 @@ export default function Page() {
 
             <div className="mt-8 flex flex-col items-center space-y-4 w-full">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-center gap-4 w-full max-w-2xl">
-                <button
-                  className="bg-black text-white px-8 py-3 rounded hover:bg-gray-800 transition text-center whitespace-nowrap"
+                <a
+                  href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v2.2.24/DLAS_Setup_v2.2.24.exe"
+                  className="bg-black text-white px-8 py-3 rounded hover:bg-gray-800 transition text-center whitespace-nowrap inline-block"
                   style={{ minWidth: '200px' }}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setShowDownloadModal(true);
-                  }}
+                  download
                 >
-                  v2.0.0&nbsp;Installer
-                </button>
-                <div className="flex flex-col items-start sm:items-center">
-                  <a
-                    href="https://github.com/MarcoAttene/MeshFix-V2.1/archive/refs/heads/master.zip"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="bg-blue-600 text-white px-6 py-3 rounded hover:bg-blue-700 transition w-full sm:w-auto text-center"
-                  >
-                    MeshFix&nbsp;2.1.0&nbsp;(Source)
-                  </a>
-                  <span className="text-[10px] text-gray-600 mt-1 text-center sm:text-center leading-tight">
-                    MeshFix (GPL v3 – commercial use requires a separate license from IMATI-CNR)
-                  </span>
-                </div>
+                  v2.2.24&nbsp;Installer
+                </a>
               </div>
             </div>
           </section>
@@ -1540,59 +1524,63 @@ export default function Page() {
 
             {(() => {
               const MODULE_NAME_TO_ID: Record<string, string> = {
-                "Transfer Jig Maker": "9",
-                "STL Classifier": "2",
-                "HTML Viewer Converter": "5",
-                "Image Converter": "6",
-                "Abutment Editor": "3",
-                "Wing Exo Jig": "8",
-                "Fuser": "7",
+                "3_transfer_jig_maker": "9",
+                "e_transfer_jig_maker": "9",
+                "exo_abutment_editor": "3",
+                "stl_classifier": "2",
+                "stl_to_html": "5",
+                "stl_to_image": "6",
               };
 
               const info: Record<
                 string,
-                { gif: string | null; youtube: string | null; image: string | null }
+                { gif: string | null; youtube: string | null; image: string | null; description: string; pdfPage?: number }
               > = {
-                "Transfer Jig Maker": {
-                  gif: "/gifs/transfer_jig_maker.gif",
-                  youtube: "7-YeT3Y0KcQ",
-                  image: "/modules/transfer_jig_maker.png",
+                "3_transfer_jig_maker": {
+                  gif: null,
+                  youtube: null,
+                  image: "/modules/3_transfer_jig_maker.png",
+                  description: "Transfer Jig 자동 제작 모듈",
                 },
-                "Image Converter": {
-                  gif: "/gifs/fast_image_converter.gif",
-                  youtube: "agm47qKzw1Q",
-                  image: "/modules/fast_image_converter.png",
+                "e_transfer_jig_maker": {
+                  gif: null,
+                  youtube: null,
+                  image: "/modules/e_transfer_jig_maker.png",
+                  description: "Transfer Jig 자동 제작 모듈",
                 },
-                "Abutment Editor": {
+                "exo_abutment_editor": {
                   gif: null,
                   youtube: null,
                   image: "/modules/exo_abutment_editor.png",
+                  description: "어버트먼트 홀을 자동으로 처리하여, 이전 디자인 쉽고 빠르게 활용 가능",
+                  pdfPage: 10,
                 },
-                "Wing Exo Jig": {
+                "stl_classifier": {
                   gif: null,
                   youtube: null,
-                  image: "/modules/wing_exo.png",
+                  image: "/modules/stl_classifier.png",
+                  description: "STL 파일의 Z축 높이를 계산하여 블록 높이별로 자동 분류",
+                  pdfPage: 14,
                 },
-                "HTML Viewer Converter": {
-                  gif: "/gifs/html_viewer_converter.gif",
-                  youtube: "IGOFiLchblo",
-                  image: "/modules/fast_html_viewer_converter.png",
-                },
-                "STL Classifier": {
-                  gif: "/gifs/classifier.gif",
+                "stl_to_html": {
+                  gif: null,
                   youtube: null,
-                  image: "/modules/fast_stl_classifier.png",
+                  image: "/modules/stl_to_html.png",
+                  description: "디자인 파일을 html로 자동으로 변환하여 원장님과의 소통을 원활하게",
+                  pdfPage: 6,
                 },
-                Fuser: {
-                  gif: "/gifs/fuser.gif",
+                "stl_to_image": {
+                  gif: null,
                   youtube: null,
-                  image: "/modules/fast_stl_fuser.png",
+                  image: "/modules/stl_to_image.png",
+                  description: "STL 6방향의 이미지로 변환하여, 신터링 후 크라운을 쉽게 찾도록 (A4모드 가능)",
+                  pdfPage: 1,
                 },
               };
 
               const moduleCards = modules.map((mod) => {
-                const { gif, youtube, image } =
-                  info[mod] ?? { gif: null, youtube: null, image: null };
+                const { gif, youtube, image, description, pdfPage } =
+                  info[mod] ?? { gif: null, youtube: null, image: null, description: "", pdfPage: undefined };
                 const moduleId = MODULE_NAME_TO_ID[mod];
                 let expireUtc: string | null = null;
                 if (
@@ -1623,7 +1611,7 @@ export default function Page() {
                   >
                     {/* 모바일 */}
                     <div className="flex flex-col w-full sm:hidden items-center">
-                      <div className="w-full flex items-center justify-center mb-4">
+                      <div className="w-full flex items-center justify-center mb-2">
                         {image ? (
                           <Image
                             src={image}
@@ -1639,6 +1627,21 @@ export default function Page() {
                           </span>
                         )}
                       </div>
+                      {description && (
+                        <div className="w-full px-4 mb-4">
+                          <p className="text-sm text-gray-600 text-center mb-2">
+                            {description}
+                          </p>
+                          {pdfPage && (
+                            <button
+                              onClick={() => window.open(`/module-guide.pdf#page=${pdfPage}`, '_blank')}
+                              className="text-xs text-blue-600 hover:text-blue-800 underline"
+                            >
+                              자세한 설명 보기
+                            </button>
+                          )}
+                        </div>
+                      )}
                       <div className="w-full h-56 aspect-video border rounded-2xl bg-white overflow-hidden flex items-center justify-center mb-4">
                         {youtube ? (
                           <iframe
@@ -1724,20 +1727,35 @@ export default function Page() {
                     </div>
                     {/* 데스크탑 */}
                     <div className="hidden sm:flex flex-row items-center w-full h-full gap-6">
-                      <div className="w-64 h-full flex-shrink-0 flex items-center justify-center">
+                      <div className="w-64 h-full flex-shrink-0 flex flex-col items-center justify-center">
                         {image ? (
                           <Image
                             src={image}
                             alt={mod}
                             width={288}
                             height={72}
-                            className="object-contain max-h-[72px]"
+                            className="object-contain max-h-[72px] mb-3"
                             priority
                           />
                         ) : (
-                          <span className="text-2xl sm:text-3xl font-extrabold px-4 break-words">
+                          <span className="text-2xl sm:text-3xl font-extrabold px-4 break-words mb-3">
                             {mod}
                           </span>
+                        )}
+                        {description && (
+                          <div className="w-full px-2">
+                            <p className="text-sm text-gray-600 text-center mb-2">
+                              {description}
+                            </p>
+                            {pdfPage && (
+                              <button
+                                onClick={() => window.open(`/module-guide.pdf#page=${pdfPage}`, '_blank')}
+                                className="text-xs text-blue-600 hover:text-blue-800 underline block mx-auto"
+                              >
+                                자세한 설명 보기
+                              </button>
+                            )}
+                          </div>
                         )}
                       </div>
                       <div className="w-72 h-72 flex items-center justify-center flex-shrink-0">
@@ -2512,7 +2530,6 @@ export default function Page() {
             onClick={(e) => {
               if (e.target === e.currentTarget) {
                 setShowWebinaModal(false);
-                setShowNoticeModal(true);
               }
             }}
             role="dialog"
@@ -2523,7 +2540,7 @@ export default function Page() {
               onClick={(e) => e.stopPropagation()}
             >
               <CloseButton
-                onClick={() => { setShowWebinaModal(false); setShowNoticeModal(true); }}
+                onClick={() => { setShowWebinaModal(false); }}
                 label="Webina 모달 닫기"
               />
 
@@ -2629,7 +2646,7 @@ export default function Page() {
 
               <div className="mt-4 text-center">
                 <button
-                  onClick={() => { setShowWebinaModal(false); setShowNoticeModal(true); }}
+                  onClick={() => { setShowWebinaModal(false); }}
                   className="w-full bg-black text-white py-3 rounded hover:bg-gray-800 transition"
                 >
                   닫기
@@ -2646,7 +2663,6 @@ export default function Page() {
             onClick={(e) => {
               if (e.target === e.currentTarget) {
                 setShowPdfModal(false);
-                setShowNoticeModal(true);
               }
             }}
             role="dialog"
@@ -2657,7 +2673,7 @@ export default function Page() {
               onClick={(e) => e.stopPropagation()}
             >
               <CloseButton
-                onClick={() => { setShowPdfModal(false); setShowNoticeModal(true); }}
+                onClick={() => { setShowPdfModal(false); }}
                 label="공고문 모달 닫기"
               />
 
@@ -2672,7 +2688,7 @@ export default function Page() {
                 {/* 하단 닫기 버튼 (모바일 & 데스크탑 공통) */}
                 <div className="mt-4 text-center">
                   <button
-                    onClick={() => { setShowPdfModal(false); setShowNoticeModal(true); }}
+                    onClick={() => { setShowPdfModal(false); }}
                     className="w-full bg-black text-white py-3 rounded hover:bg-gray-800 transition"
                   >
                     닫기

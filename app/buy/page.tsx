@@ -4,14 +4,12 @@ import Link from 'next/link';
 
 export default function BuyPage() {
   const modules = [
-    'KakaoTalk_20250411_083718571_02.png',
-    'KakaoTalk_20250411_083718571_03.png',
-    'KakaoTalk_20250411_083718571_04.png',
-    'KakaoTalk_20250411_083718571_05.png',
-    'KakaoTalk_20250411_083718571_06.png',
-    'KakaoTalk_20250411_083718571_07.png',
-    'KakaoTalk_20250411_083718571_09.jpg',
-    'KakaoTalk_20250411_083718571_10.png',
+    '3_transfer_jig_maker.png',
+    'e_transfer_jig_maker.png',
+    'exo_abutment_editor.png',
+    'stl_classifier.png',
+    'stl_to_html.png',
+    'stl_to_image.png',
   ];
 
   return (
