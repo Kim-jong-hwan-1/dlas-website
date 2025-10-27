@@ -1581,21 +1581,21 @@ export default function Page() {
                 { gif: string | null; youtube: string | null; image: string | null; description: string; pdfPage?: number; startTime?: number }
               > = {
                 "3_transfer_jig_maker": {
-                  gif: null,
+                  gif: "/gifs/transferjig.gif",
                   youtube: "U3W8LVJTFyU",
                   image: "/modules/3_transfer_jig_maker.png",
                   description: "Transfer Jig 자동 제작 모듈",
                   startTime: 127,
                 },
                 "e_transfer_jig_maker": {
-                  gif: null,
+                  gif: "/gifs/transferjig.gif",
                   youtube: "U3W8LVJTFyU",
                   image: "/modules/e_transfer_jig_maker.png",
                   description: "Transfer Jig 자동 제작 모듈",
                   startTime: 127,
                 },
                 "exo_abutment_editor": {
-                  gif: null,
+                  gif: "/gifs/abutment_editor.gif",
                   youtube: "U3W8LVJTFyU",
                   image: "/modules/exo_abutment_editor.png",
                   description: "어버트먼트 홀을 자동으로 처리하여, 이전 디자인 쉽고 빠르게 활용 가능",
@@ -1603,7 +1603,7 @@ export default function Page() {
                   startTime: 159,
                 },
                 "stl_classifier": {
-                  gif: null,
+                  gif: "/gifs/stl_classifier.gif",
                   youtube: "U3W8LVJTFyU",
                   image: "/modules/stl_classifier.png",
                   description: "STL 파일의 Z축 높이를 계산하여 블록 높이별로 자동 분류",
@@ -1611,7 +1611,7 @@ export default function Page() {
                   startTime: 201,
                 },
                 "stl_to_html": {
-                  gif: null,
+                  gif: "/gifs/stl_to_html.gif",
                   youtube: "U3W8LVJTFyU",
                   image: "/modules/stl_to_html.png",
                   description: "디자인 파일을 html로 자동으로 변환하여 원장님과의 소통을 원활하게",
@@ -1619,7 +1619,7 @@ export default function Page() {
                   startTime: 88,
                 },
                 "stl_to_image": {
-                  gif: null,
+                  gif: "/gifs/stl_to_image.gif",
                   youtube: "U3W8LVJTFyU",
                   image: "/modules/stl_to_image.png",
                   description: "STL 6방향의 이미지로 변환하여, 신터링 후 크라운을 쉽게 찾도록 (A4모드 가능)",
