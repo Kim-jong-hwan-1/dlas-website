@@ -974,11 +974,55 @@ export default function Page() {
       return;
     }
 
+    // 🇰🇷 한국 사용자 → Toss Payments
     if (isKrwDisplay(userInfo.country)) {
-      alert(KOREA_PAYMENT_MESSAGE);
+      if (typeof window === "undefined" || !(window as MyWindow).TossPayments) {
+        alert("결제 모듈이 아직 로드되지 않았습니다. 페이지를 새로고침해주세요.");
+        return;
+      }
+
+      const tossClientKey = process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY!;
+      const tossInit = (window as MyWindow).TossPayments;
+      if (!tossInit) {
+        alert("결제 모듈이 아직 로드되지 않았습니다.");
+        return;
+      }
+      const tossPayments = tossInit(tossClientKey);
+
+      // 가격 계산 - 버튼에 표시된 가격과 동일하게 (할인 포함)
+      const level = MODULE_DISCOUNT_LEVELS[mod] ?? 0;
+      let amount: number;
+
+      if (period === "LIFETIME") {
+        const base = LIFETIME_PRICE_KRW;
+        amount = level > 0 ? discountedKrwByLevel(base, level) : base;
+      } else {
+        const baseUsd = MODULE_PRICES_USD[period as keyof typeof MODULE_PRICES_USD];
+        const baseKrw = usdToKrw(baseUsd);
+        amount = level > 0 ? discountedKrwByLevel(baseKrw, level) : baseKrw;
+      }
+
+      const orderId = `DLAS-MODULE-${mod}-${Date.now()}`;
+      const orderName = `${mod} (${period})`;
+
+      const successUrl =
+        `${currentOrigin}/?provider=toss&type=module&mod=${encodeURIComponent(mod)}&period=${encodeURIComponent(period)}` +
+        `&orderName=${encodeURIComponent(orderName)}&orderId=${encodeURIComponent(orderId)}&amount=${encodeURIComponent(String(amount))}`;
+      const failUrl = `${currentOrigin}/?provider=toss&type=module&mod=${encodeURIComponent(mod)}&period=${encodeURIComponent(period)}`;
+
+      tossPayments.requestPayment("CARD", {
+        amount,
+        orderId,
+        orderName,
+        customerEmail: storedId,
+        customerName: userInfo && userInfo.name ? userInfo.name : storedId,
+        successUrl,
+        failUrl,
+      });
       return;
     }
 
+    // 🌎 비한국 사용자 → Paddle
     if (!paddleReady || !(window as MyWindow).Paddle) {
       alert("Paddle is not ready yet. Please refresh the page or try again.");
       return;
@@ -1524,8 +1568,8 @@ export default function Page() {
 
             {(() => {
               const MODULE_NAME_TO_ID: Record<string, string> = {
-                "3_transfer_jig_maker": "9",
-                "e_transfer_jig_maker": "9",
+                "3_transfer_jig_maker": "1",
+                "e_transfer_jig_maker": "4",
                 "exo_abutment_editor": "3",
                 "stl_classifier": "2",
                 "stl_to_html": "5",
@@ -1534,53 +1578,59 @@ export default function Page() {
 
               const info: Record<
                 string,
-                { gif: string | null; youtube: string | null; image: string | null; description: string; pdfPage?: number }
+                { gif: string | null; youtube: string | null; image: string | null; description: string; pdfPage?: number; startTime?: number }
               > = {
                 "3_transfer_jig_maker": {
                   gif: null,
-                  youtube: null,
+                  youtube: "U3W8LVJTFyU",
                   image: "/modules/3_transfer_jig_maker.png",
                   description: "Transfer Jig 자동 제작 모듈",
+                  startTime: 127,
                 },
                 "e_transfer_jig_maker": {
                   gif: null,
-                  youtube: null,
+                  youtube: "U3W8LVJTFyU",
                   image: "/modules/e_transfer_jig_maker.png",
                   description: "Transfer Jig 자동 제작 모듈",
+                  startTime: 127,
                 },
                 "exo_abutment_editor": {
                   gif: null,
-                  youtube: null,
+                  youtube: "U3W8LVJTFyU",
                   image: "/modules/exo_abutment_editor.png",
                   description: "어버트먼트 홀을 자동으로 처리하여, 이전 디자인 쉽고 빠르게 활용 가능",
                   pdfPage: 10,
+                  startTime: 159,
                 },
                 "stl_classifier": {
                   gif: null,
-                  youtube: null,
+                  youtube: "U3W8LVJTFyU",
                   image: "/modules/stl_classifier.png",
                   description: "STL 파일의 Z축 높이를 계산하여 블록 높이별로 자동 분류",
                   pdfPage: 14,
+                  startTime: 201,
                 },
                 "stl_to_html": {
                   gif: null,
-                  youtube: null,
+                  youtube: "U3W8LVJTFyU",
                   image: "/modules/stl_to_html.png",
                   description: "디자인 파일을 html로 자동으로 변환하여 원장님과의 소통을 원활하게",
                   pdfPage: 6,
+                  startTime: 88,
                 },
                 "stl_to_image": {
                   gif: null,
-                  youtube: null,
+                  youtube: "U3W8LVJTFyU",
                   image: "/modules/stl_to_image.png",
                   description: "STL 6방향의 이미지로 변환하여, 신터링 후 크라운을 쉽게 찾도록 (A4모드 가능)",
                   pdfPage: 1,
+                  startTime: 17,
                 },
               };
 
               const moduleCards = modules.map((mod) => {
-                const { gif, youtube, image, description, pdfPage } =
-                  info[mod] ?? { gif: null, youtube: null, image: null, description: "", pdfPage: undefined };
+                const { gif, youtube, image, description, pdfPage, startTime } =
+                  info[mod] ?? { gif: null, youtube: null, image: null, description: "", pdfPage: undefined, startTime: undefined };
                 const moduleId = MODULE_NAME_TO_ID[mod];
                 let expireUtc: string | null = null;
                 if (
@@ -1646,7 +1696,7 @@ export default function Page() {
                         {youtube ? (
                           <iframe
                             className="w-full h-full"
-                            src={`https://www.youtube.com/embed/${youtube}`}
+                            src={`https://www.youtube.com/embed/${youtube}${startTime ? `?start=${startTime}` : ''}`}
                             title={`${mod} demo`}
                             frameBorder={0}
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -1699,30 +1749,6 @@ export default function Page() {
                             {priceLabelForModule(mod, "LIFETIME", userInfo.country)}
                           </span>
                         </button>
-                        <div className="w-full text-center mt-3">
-                          {isLoggedIn ? (
-                            <span className="text-xs text-gray-600 font-mono">
-                              License expires:&nbsp;
-                              {expireDisplay ? (
-                                <>
-                                  <span className="text-black">{expireDisplay}</span>
-                                  <span className="text-xs text-gray-500">
-                                    &nbsp;(UTC)
-                                  </span>
-                                </>
-                              ) : (
-                                <span className="text-red-500">
-                                  Not activated
-                                  {expireDebug ? ` (reason: ${expireDebug})` : ""}
-                                </span>
-                              )}
-                            </span>
-                          ) : (
-                            <span className="text-xs text-gray-400">
-                              * Log in to check your license
-                            </span>
-                          )}
-                        </div>
                       </div>
                     </div>
                     {/* 데스크탑 */}
@@ -1781,7 +1807,7 @@ export default function Page() {
                           {youtube ? (
                             <iframe
                               className="w-full h-full"
-                              src={`https://www.youtube.com/embed/${youtube}`}
+                              src={`https://www.youtube.com/embed/${youtube}${startTime ? `?start=${startTime}` : ''}`}
                               title={`${mod} demo`}
                               frameBorder={0}
                               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -1833,30 +1859,6 @@ export default function Page() {
                             {priceLabelForModule(mod, "LIFETIME", userInfo.country)}
                           </span>
                         </button>
-                        <div className="w-full text-center mt-4">
-                          {isLoggedIn ? (
-                            <span className="text-xs text-gray-600 font-mono">
-                              License expires:&nbsp;
-                              {expireDisplay ? (
-                                <>
-                                  <span className="text-black">{expireDisplay}</span>
-                                  <span className="text-xs text-gray-500">
-                                    &nbsp;(UTC)
-                                  </span>
-                                </>
-                              ) : (
-                                <span className="text-red-500">
-                                  Not activated
-                                  {expireDebug ? ` (reason: ${expireDebug})` : ""}
-                                </span>
-                              )}
-                            </span>
-                          ) : (
-                            <span className="text-xs text-gray-400">
-                              * Log in to check your license
-                            </span>
-                          )}
-                        </div>
                       </div>
                     </div>
                   </div>
