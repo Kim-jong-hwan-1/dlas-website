@@ -974,6 +974,24 @@ export default function Page() {
       return;
     }
 
+    // 💳 결제 전 약관 동의 모달 표시
+    setPendingPayment({ module: mod, period });
+    setTermsConsent1(false);
+    setTermsConsent2(false);
+    setShowTermsConsentModal(true);
+  };
+
+  // 💳 약관 동의 후 실제 결제 진행
+  const proceedWithPayment = () => {
+    if (!pendingPayment) return;
+
+    const { module: mod, period } = pendingPayment;
+    const storedId = localStorage.getItem("userID") || userID;
+
+    // 약관 동의 모달 닫기
+    setShowTermsConsentModal(false);
+    setPendingPayment(null);
+
     // 🇰🇷 한국 사용자 → Toss Payments
     if (isKrwDisplay(userInfo.country)) {
       if (typeof window === "undefined" || !(window as MyWindow).TossPayments) {
@@ -989,7 +1007,7 @@ export default function Page() {
       }
       const tossPayments = tossInit(tossClientKey);
 
-      // 가격 계산 - 버튼에 표시된 가격과 동일하게 (할인 포함)
+      // 가격 계산 - 버튼에 표시된 가격과 동일하게
       const level = MODULE_DISCOUNT_LEVELS[mod] ?? 0;
       let amount: number;
 
@@ -1119,6 +1137,12 @@ export default function Page() {
   // 🔔 공지 이미지 모달 — /public/notice/1.jpg
   const [showNoticeModal, setShowNoticeModal] = useState(false);
 
+  // 💳 약관 동의 모달 (결제 전)
+  const [showTermsConsentModal, setShowTermsConsentModal] = useState(false);
+  const [pendingPayment, setPendingPayment] = useState<{module: string; period: string} | null>(null);
+  const [termsConsent1, setTermsConsent1] = useState(false); // 결제 및 환불
+  const [termsConsent2, setTermsConsent2] = useState(false); // 책임의 한계
+
   useEffect(() => {
     // 홈페이지 진입 시 PDF 모달 먼저 표시
     setShowPdfModal(true);
@@ -1133,7 +1157,8 @@ export default function Page() {
     showWebinaModal ||
     showPdfModal ||
     showNoticeModal ||
-    showMyModal;
+    showMyModal ||
+    showTermsConsentModal;
 
   useEffect(() => {
     if (!anyModalOpen) return;
@@ -2694,6 +2719,112 @@ export default function Page() {
                     className="w-full bg-black text-white py-3 rounded hover:bg-gray-800 transition"
                   >
                     닫기
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* 💳 약관 동의 모달 (결제 전) */}
+        {showTermsConsentModal && (
+          <div
+            className="fixed inset-0 z-[200] bg-black/50 flex items-center justify-center px-4"
+            onClick={(e) => {
+              if (e.target === e.currentTarget) {
+                setShowTermsConsentModal(false);
+                setPendingPayment(null);
+              }
+            }}
+            role="dialog"
+            aria-modal="true"
+          >
+            <div
+              className="relative bg-white rounded-xl shadow-2xl w-full max-w-3xl max-h-[90vh] flex flex-col overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <CloseButton
+                onClick={() => {
+                  setShowTermsConsentModal(false);
+                  setPendingPayment(null);
+                }}
+                label="약관 동의 모달 닫기"
+              />
+
+              {/* 스크롤 가능한 컨텐츠 영역 */}
+              <div className="overflow-y-auto p-4 sm:p-6 flex-1">
+                <h2 className="text-2xl font-bold mb-4 text-center">결제 전 필수 약관 동의</h2>
+                <p className="text-sm text-gray-600 mb-6 text-center">
+                  결제를 진행하시기 전에 아래 약관을 반드시 확인하시고 동의해주세요.
+                </p>
+
+                {/* 제5조: 결제 및 환불 */}
+                <div className="mb-6 p-4 border border-gray-300 rounded-lg bg-gray-50">
+                  <h3 className="text-lg font-semibold mb-2">제5조 (결제 및 환불)</h3>
+                  <div
+                    className="text-sm text-gray-700 leading-relaxed"
+                    dangerouslySetInnerHTML={{
+                      __html: `1. 회원은 회사가 지정한 결제수단을 통해 제품을 구매할 수 있습니다.<br/>
+2. 디지털 제품의 특성상, 다운로드 또는 활성화 후에는 「전자상거래 등에서의 소비자보호에 관한 법률」에서 정한 경우를 제외하고 환불이 불가합니다.<br/>
+3. 평생 무료 이용 상품(패밀리 라이센스 등)의 경우, 결제일로부터 7일이 경과한 후에는 「전자상거래 등에서의 소비자보호에 관한 법률」 제17조(청약철회 등)에서 정한 경우를 제외하고 환불이 불가합니다.`
+                    }}
+                  />
+                  <label className="flex items-start mt-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={termsConsent1}
+                      onChange={(e) => setTermsConsent1(e.target.checked)}
+                      className="mt-1 mr-2 w-4 h-4 accent-black"
+                    />
+                    <span className="text-sm font-medium">위 약관을 확인했으며 이에 동의합니다.</span>
+                  </label>
+                </div>
+
+                {/* 제7조: 책임의 한계 */}
+                <div className="mb-6 p-4 border border-gray-300 rounded-lg bg-gray-50">
+                  <h3 className="text-lg font-semibold mb-2">제7조 (책임의 한계)</h3>
+                  <div
+                    className="text-sm text-gray-700 leading-relaxed"
+                    dangerouslySetInnerHTML={{
+                      __html: `1. 회사는 천재지변, 전쟁, 테러, 정전, 통신장애, 해킹, 디도스(DDoS) 공격, 바이러스, 악성코드 등 외부 사이버 공격, 시스템 장애, 서버 오류, 제3자 서비스 중단 등 회사의 귀책사유 없이 발생한 불가항력적 사유로 인한 서비스 중단, 장애, 데이터 손실, 품질 저하 등에 대해 책임을 지지 않습니다.<br/>
+2. 회사는 서비스의 유지·보수·점검·교체 및 고장, 통신두절 등의 사유가 발생한 경우, 서비스의 제공을 일시적으로 중단할 수 있으며, 이에 대해 회원에게 별도의 보상을 하지 않습니다. 단, 회사는 사전에 공지할 수 있도록 노력합니다.<br/>
+3. 회원의 귀책사유(ID 및 비밀번호 관리 소홀, 부정 사용, 법령 위반 등)로 인한 서비스 이용 장애 및 손해에 대해서는 회사가 책임지지 않습니다.<br/>
+4. 회사는 회원이 서비스를 통해 얻은 정보 또는 자료의 신뢰도, 정확성에 대해서는 보증하지 않으며, 이로 인한 손해에 대해 책임지지 않습니다.<br/>
+5. 본 소프트웨어는 AI 기반 자동화 도구로서, 사용자의 시스템 환경, 하드웨어 사양, 운영체제, 기타 소프트웨어 등의 조건에 따라 정상적으로 작동하지 않거나 제한적으로 작동할 수 있으며, 회사는 모든 환경에서의 완벽한 호환성 및 동작을 보증하지 않습니다.`
+                    }}
+                  />
+                  <label className="flex items-start mt-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={termsConsent2}
+                      onChange={(e) => setTermsConsent2(e.target.checked)}
+                      className="mt-1 mr-2 w-4 h-4 accent-black"
+                    />
+                    <span className="text-sm font-medium">위 약관을 확인했으며 이에 동의합니다.</span>
+                  </label>
+                </div>
+
+                {/* 버튼 영역 */}
+                <div className="flex gap-3">
+                  <button
+                    onClick={() => {
+                      setShowTermsConsentModal(false);
+                      setPendingPayment(null);
+                    }}
+                    className="flex-1 bg-gray-300 text-gray-700 py-3 rounded hover:bg-gray-400 transition"
+                  >
+                    취소
+                  </button>
+                  <button
+                    onClick={proceedWithPayment}
+                    disabled={!termsConsent1 || !termsConsent2}
+                    className={`flex-1 py-3 rounded transition ${
+                      termsConsent1 && termsConsent2
+                        ? 'bg-black text-white hover:bg-gray-800'
+                        : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                    }`}
+                  >
+                    동의하고 결제하기
                   </button>
                 </div>
               </div>

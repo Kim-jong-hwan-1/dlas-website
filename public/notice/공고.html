@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DLAS 프로그램 이용 안내</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            line-height: 1.8;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+        }
+
+        .header h2 {
+            font-size: 1.3em;
+            font-weight: 400;
+            opacity: 0.95;
+            margin-bottom: 15px;
+        }
+
+        .header .date {
+            font-size: 0.95em;
+            opacity: 0.85;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .notice-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+        }
+
+        .notice-box h3 {
+            color: #856404;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .notice-box p {
+            color: #856404;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        .section {
+            margin-bottom: 35px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+
+        .section-icon {
+            font-size: 1.8em;
+            margin-right: 12px;
+        }
+
+        .section-title {
+            font-size: 1.4em;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .section-content {
+            color: #555;
+            font-size: 1.05em;
+            line-height: 1.8;
+            padding-left: 10px;
+        }
+
+        .update-list {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 12px;
+            margin-top: 15px;
+        }
+
+        .update-list ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .update-list li {
+            padding: 12px 0;
+            padding-left: 30px;
+            position: relative;
+            color: #495057;
+            font-size: 1.05em;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .update-list li:last-child {
+            border-bottom: none;
+        }
+
+        .update-list li:before {
+            content: "▸";
+            position: absolute;
+            left: 10px;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px;
+            background: #f8f9fa;
+            color: #666;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .footer-note {
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #999;
+        }
+
+        .highlight {
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 10px;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .header h2 {
+                font-size: 1.1em;
+            }
+
+            .content {
+                padding: 25px;
+            }
+
+            .section-title {
+                font-size: 1.2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>공 고</h1>
+            <h2>DLAS 프로그램 이용 안내</h2>
+            <div class="date">발행일: 2025년 10월 28일</div>
+        </div>
+
+        <div class="content">
+            <div class="notice-box">
+                <h3>※ 라이선스 안내</h3>
+                <p>세미나 참석, 당첨 등 라이센스 권한 가지고계신 분들은, 회원가입 후 010-9756-1992로 아이디를 알려주시면 됩니다.</p>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <span class="section-icon">💡</span>
+                    <h3 class="section-title">1. 우리의 목표</h3>
+                </div>
+                <div class="section-content">
+                    <p>DLAS의 목표는 <span class="highlight">치과 기공소에 조금이라도 도움이 되는 소프트웨어</span>를 만드는 것입니다.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <span class="section-icon">⚙️</span>
+                    <h3 class="section-title">2. 사용 안내</h3>
+                </div>
+                <div class="section-content">
+                    <p>DLAS 프로그램은 자동화 기능이 많기 때문에, 각 기공소의 작업 환경이나 컴퓨터 사양, 작업 방식에 따라 일부 기능이 원활히 작동하지 않을 수 있습니다.</p>
+                    <p style="margin-top: 10px;">따라서 <span class="highlight">장기 라이선스 구매 전 반드시 테스트를 진행</span>해 주시기 바랍니다.</p>
+                    <p style="margin-top: 10px; font-size: 0.95em; color: #666;">※ 테스트용 라이선스는 별도 제공되며, 정식 라이선스 구매 후에는 환불이 불가합니다.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <span class="section-icon">🧩</span>
+                    <h3 class="section-title">3. 맞춤형 업데이트</h3>
+                </div>
+                <div class="section-content">
+                    <p>DLAS는 현재 특정 기공소의 시스템에 맞춰 설계된 버전으로, <span class="highlight">'패밀리 라이선스' 회원분들의 피드백을 기반</span>으로 각 기공소 환경에 하나씩 맞춰가는 방향으로 지속 개선될 예정입니다.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <span class="section-icon">🔄</span>
+                    <h3 class="section-title">4. 업데이트 주기</h3>
+                </div>
+                <div class="section-content">
+                    <p>프로그램 업데이트는 <span class="highlight">매주 1회 정기적으로 진행</span>됩니다.</p>
+                    <p style="margin-top: 10px;">각 기공소에서의 사용 경험을 바탕으로 안정성과 효율성을 꾸준히 향상시켜 나가겠습니다.</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <span class="section-icon">📋</span>
+                    <h3 class="section-title">5. 업데이트 예정 사항</h3>
+                </div>
+                <div class="update-list">
+                    <ul>
+                        <li>HTML변환기 엑소-바이트 안나오는 버그 수정 예정</li>
+                        <li>트랜스퍼지그 로직 개선 예정</li>
+                        <li>exo 유저를 위한 트랜스퍼지그 메이커 추가 예정</li>
+                        <li>이미지 컨버터 로직 개선 - shape 용 용량기반 필터 로직 추가</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>DLAS와 함께 더욱 효율적인 치과 기공소를 만들어가세요.</p>
+            <p class="footer-note">DLAS 운영팀 드림</p>
+        </div>
+    </div>
+</body>
+</html>
