@@ -1591,6 +1591,20 @@ export default function Page() {
           <section id="buy" className="scroll-mt-[180px] text-center py-20 bg-white">
             <h2 className="text-4xl font-bold mb-12">{t("nav.buy")}</h2>
 
+            {/* 2.2.24 버전 업데이트 소개 영상 */}
+            <div className="max-w-4xl mx-auto mb-16">
+              <h3 className="text-2xl font-bold mb-6">2.2.24 Version Update</h3>
+              <div className="aspect-video w-full">
+                <iframe
+                  className="w-full h-full rounded-lg shadow-lg"
+                  src="https://www.youtube.com/embed/U3W8LVJTFyU"
+                  title="2.2.24 Version Update"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
+              </div>
+            </div>
+
             {(() => {
               const MODULE_NAME_TO_ID: Record<string, string> = {
                 "3_transfer_jig_maker": "1",
@@ -1607,21 +1621,21 @@ export default function Page() {
               > = {
                 "3_transfer_jig_maker": {
                   gif: "/gifs/transferjig.gif",
-                  youtube: "U3W8LVJTFyU",
+                  youtube: "OkDuWHWf2Io",
                   image: "/modules/3_transfer_jig_maker.png",
                   description: "Transfer Jig 자동 제작 모듈",
                   startTime: 127,
                 },
                 "e_transfer_jig_maker": {
                   gif: "/gifs/transferjig.gif",
-                  youtube: "U3W8LVJTFyU",
+                  youtube: "OkDuWHWf2Io",
                   image: "/modules/e_transfer_jig_maker.png",
                   description: "Transfer Jig 자동 제작 모듈",
                   startTime: 127,
                 },
                 "exo_abutment_editor": {
                   gif: "/gifs/abutment_editor.gif",
-                  youtube: "U3W8LVJTFyU",
+                  youtube: "FdO0N5iwbOE",
                   image: "/modules/exo_abutment_editor.png",
                   description: "어버트먼트 홀을 자동으로 처리하여, 이전 디자인 쉽고 빠르게 활용 가능",
                   pdfPage: 10,
@@ -1629,7 +1643,7 @@ export default function Page() {
                 },
                 "stl_classifier": {
                   gif: "/gifs/stl_classifier.gif",
-                  youtube: "U3W8LVJTFyU",
+                  youtube: "IyG-PhSPtIQ",
                   image: "/modules/stl_classifier.png",
                   description: "STL 파일의 Z축 높이를 계산하여 블록 높이별로 자동 분류",
                   pdfPage: 14,
@@ -1637,7 +1651,7 @@ export default function Page() {
                 },
                 "stl_to_html": {
                   gif: "/gifs/stl_to_html.gif",
-                  youtube: "U3W8LVJTFyU",
+                  youtube: "k37CtbhEW0g",
                   image: "/modules/stl_to_html.png",
                   description: "디자인 파일을 html로 자동으로 변환하여 원장님과의 소통을 원활하게",
                   pdfPage: 6,
@@ -1645,7 +1659,7 @@ export default function Page() {
                 },
                 "stl_to_image": {
                   gif: "/gifs/stl_to_image.gif",
-                  youtube: "U3W8LVJTFyU",
+                  youtube: "4nHZA3sVO88",
                   image: "/modules/stl_to_image.png",
                   description: "STL 6방향의 이미지로 변환하여, 신터링 후 크라운을 쉽게 찾도록 (A4모드 가능)",
                   pdfPage: 1,

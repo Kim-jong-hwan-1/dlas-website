@@ -4,7 +4,10 @@
       "Read(//c/Users/user/Desktop/checkpoint/7th_checkpoint/front/public/**)",
       "Read(//c/Users/user/Desktop/checkpoint/7th_checkpoint/front/**)",
       "Read(//c/Users/user/Desktop/checkpoint/7th_checkpoint/**)",
-      "Bash(python -c:*)"
+      "Bash(python -c:*)",
+      "Bash(node:*)",
+      "Read(//c/Program Files/Google/Chrome/Application/**)",
+      "Bash(\"/c/Program Files/Google/Chrome/Application/chrome.exe\" --headless --disable-gpu --print-to-pdf=\"/c/Users/user/Desktop/checkpoint/7th_checkpoint/front/public/notice/DLAS_공고문.pdf\" \"file:///c/Users/user/Desktop/checkpoint/7th_checkpoint/front/public/notice/공고.html\")"
     ],
     "deny": [],
     "ask": []
