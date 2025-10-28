@@ -1143,10 +1143,10 @@ export default function Page() {
   const [termsConsent1, setTermsConsent1] = useState(false); // 결제 및 환불
   const [termsConsent2, setTermsConsent2] = useState(false); // 책임의 한계
 
-  useEffect(() => {
-    // 홈페이지 진입 시 PDF 모달 먼저 표시
-    setShowPdfModal(true);
-  }, []);
+  // useEffect(() => {
+  //   // 홈페이지 진입 시 PDF 모달 먼저 표시
+  //   setShowPdfModal(true);
+  // }, []);
 
   // ✅ 공통: 모달 열릴 때 스크롤 잠금 + ESC 닫기
   const anyModalOpen =
