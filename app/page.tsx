@@ -1735,7 +1735,7 @@ export default function Page() {
                         {youtube ? (
                           <iframe
                             className="w-full h-full"
-                            src={`https://www.youtube.com/embed/${youtube}${startTime ? `?start=${startTime}` : ''}`}
+                            src={`https://www.youtube.com/embed/${youtube}`}
                             title={`${mod} demo`}
                             frameBorder={0}
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -1846,7 +1846,7 @@ export default function Page() {
                           {youtube ? (
                             <iframe
                               className="w-full h-full"
-                              src={`https://www.youtube.com/embed/${youtube}${startTime ? `?start=${startTime}` : ''}`}
+                              src={`https://www.youtube.com/embed/${youtube}`}
                               title={`${mod} demo`}
                               frameBorder={0}
                               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
