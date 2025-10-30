@@ -96,16 +96,24 @@ class EmailService:
             # aiosmtplib을 사용한 비동기 이메일 발송
             # 포트 465는 SSL, 포트 587은 STARTTLS 사용
             use_ssl = self.smtp_port == 465
-            await aiosmtplib.send(
-                message,
+
+            # SMTP 객체 생성 (local_hostname 명시로 한글 경로 문제 해결)
+            smtp = aiosmtplib.SMTP(
                 hostname=self.smtp_server,
                 port=self.smtp_port,
-                username=self.smtp_user,
-                password=self.smtp_password,
-                use_tls=use_ssl,  # 465 포트는 SSL 사용
-                start_tls=(not use_ssl),  # 587 포트는 STARTTLS 사용
-                timeout=30,  # 30초 타임아웃 설정
+                use_tls=use_ssl,
+                local_hostname="dlas-server",
+                timeout=30
             )
+
+            await smtp.connect()
+
+            if not use_ssl:
+                await smtp.starttls()
+
+            await smtp.login(self.smtp_user, self.smtp_password)
+            await smtp.send_message(message)
+            await smtp.quit()
 
             print(f"✅ 이메일 발송 성공: {email}")
             return True
