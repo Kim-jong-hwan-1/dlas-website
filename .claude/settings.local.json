@@ -12,7 +12,8 @@
       "Read(//c/Users/user/Desktop/checkpoint/7th_checkpoint/license_server/**)",
       "Bash(git stash:*)",
       "Bash(git checkout:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(if exist nul del nul)"
     ],
     "deny": [],
     "ask": []
