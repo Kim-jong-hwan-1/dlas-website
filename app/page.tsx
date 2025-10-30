@@ -1624,6 +1624,7 @@ export default function Page() {
                   youtube: "OkDuWHWf2Io",
                   image: "/modules/3_transfer_jig_maker.png",
                   description: "Transfer Jig 자동 제작 모듈",
+                  pdfPage: 10,
                   startTime: 127,
                 },
                 "e_transfer_jig_maker": {
@@ -1631,6 +1632,7 @@ export default function Page() {
                   youtube: "OkDuWHWf2Io",
                   image: "/modules/e_transfer_jig_maker.png",
                   description: "Transfer Jig 자동 제작 모듈",
+                  pdfPage: 10,
                   startTime: 127,
                 },
                 "exo_abutment_editor": {
@@ -1638,7 +1640,7 @@ export default function Page() {
                   youtube: "FdO0N5iwbOE",
                   image: "/modules/exo_abutment_editor.png",
                   description: "어버트먼트 홀을 자동으로 처리하여, 이전 디자인 쉽고 빠르게 활용 가능",
-                  pdfPage: 10,
+                  pdfPage: 14,
                   startTime: 159,
                 },
                 "stl_classifier": {
@@ -1646,7 +1648,7 @@ export default function Page() {
                   youtube: "IyG-PhSPtIQ",
                   image: "/modules/stl_classifier.png",
                   description: "STL 파일의 Z축 높이를 계산하여 블록 높이별로 자동 분류",
-                  pdfPage: 14,
+                  pdfPage: 18,
                   startTime: 201,
                 },
                 "stl_to_html": {
