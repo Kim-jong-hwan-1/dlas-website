@@ -1,4 +1,4 @@
-import smtplib
+import aiosmtplib
 import random
 import os
 from email.mime.text import MIMEText
@@ -93,13 +93,22 @@ class EmailService:
             html_part = MIMEText(html_content, "html")
             message.attach(html_part)
 
-            with smtplib.SMTP(self.smtp_server, self.smtp_port) as server:
-                server.starttls()
-                server.login(self.smtp_user, self.smtp_password)
-                server.send_message(message)
+            # aiosmtplib을 사용한 비동기 이메일 발송
+            await aiosmtplib.send(
+                message,
+                hostname=self.smtp_server,
+                port=self.smtp_port,
+                username=self.smtp_user,
+                password=self.smtp_password,
+                start_tls=True,
+                timeout=30,  # 30초 타임아웃 설정
+            )
 
             print(f"✅ 이메일 발송 성공: {email}")
             return True
+        except aiosmtplib.SMTPException as e:
+            print(f"❌ SMTP 오류: {e}")
+            return False
         except Exception as e:
             print(f"❌ 이메일 발송 실패: {e}")
             return False
