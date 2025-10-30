@@ -6,6 +6,7 @@ import type React from "react";
 import Image from "next/image";
 import { useLang } from "@/components/LanguageWrapper";
 import LanguageSelector from "@/components/LanguageSelector";
+import EmailVerification from "@/components/EmailVerification";
 import Script from "next/script";
 
 // ---------------------------------------------
@@ -1528,6 +1529,14 @@ export default function Page() {
             <div className="flex flex-col items-center justify-center">
               <button
                 onClick={() => {
+                  // 로그인 체크 (상태 + localStorage 둘 다 확인)
+                  const storedIsLoggedIn = localStorage.getItem("isLoggedIn");
+                  if (!isLoggedIn && storedIsLoggedIn !== "true") {
+                    alert("무료 라이센스를 받으려면 먼저 로그인해주세요.");
+                    // 로그인 모달 띄우기
+                    document.getElementById("login-modal")?.classList.remove("hidden");
+                    return;
+                  }
                   setShowFamilyModal(true);
                   setShowFreeLicenseGuide(true);
                   setShowPaymentProceed(false);
@@ -1546,7 +1555,7 @@ export default function Page() {
                   hover:bg-gray-800
                 "
               >
-                무료라이센스 발급 받으세요!
+                3일 무료 라이센스 받기 (이메일 인증)
               </button>
             </div>
 
@@ -2302,59 +2311,24 @@ export default function Page() {
                   </div>
                 ) : showFreeLicenseGuide ? (
                   <div className="mt-6">
-                    <button
-                      onClick={() => {
-                        if (freeLicenseGuideOrigin === "home") {
+                    <EmailVerification
+                        userID={userInfo.id || ""}
+                        onBack={() => {
+                          if (freeLicenseGuideOrigin === "home") {
+                            setShowFreeLicenseGuide(false);
+                            setShowFamilyModal(false);
+                          } else {
+                            setShowFreeLicenseGuide(false);
+                          }
+                        }}
+                        onVerificationSuccess={async () => {
+                          // 라이센스 정보 새로고침
+                          await fetchLicenses();
                           setShowFreeLicenseGuide(false);
                           setShowFamilyModal(false);
-                        } else {
-                          setShowFreeLicenseGuide(false);
-                        }
-                      }}
-                      className="underline text-blue-600 mb-4"
-                    >
-                      ← Back
-                    </button>
-                    <h3 className="text-2xl font-bold mb-4 text-center">
-                      {t("freeLicense.title")}
-                    </h3>
-
-                    <div className="flex flex-row items-start justify-center space-x-4">
-                      {[1, 2, 3].map((n) => (
-                        <img
-                          key={n}
-                          src={`/free_liecense/${n}.png`}
-                          alt={`Step ${n}`}
-                          className="w-60 h-auto"
-                        />
-                      ))}
-                    </div>
-
-                    <div className="text-sm text-gray-700 mt-4 leading-6 space-y-2">
-                      <p
-                        dangerouslySetInnerHTML={{
-                          __html: t("freeLicense.step1"),
+                          alert("✅ 3일 무료 라이센스가 발급되었습니다!");
                         }}
                       />
-                      <p
-                        dangerouslySetInnerHTML={{
-                          __html: t("freeLicense.step2"),
-                        }}
-                      />
-                      <p>{t("freeLicense.step3")}</p>
-                      <p
-                        dangerouslySetInnerHTML={{
-                          __html: t("freeLicense.send"),
-                        }}
-                      />
-                      <p>{t("freeLicense.aiReview")}</p>
-                      <hr className="my-3" />
-                      <div className="font-bold text-gray-900 space-y-1">
-                        {[1, 2, 3].map((n) => (
-                          <p key={n}>{t(`freeLicense.note${n}`)}</p>
-                        ))}
-                      </div>
-                    </div>
                   </div>
                 ) : (
                   <>
@@ -2383,6 +2357,15 @@ export default function Page() {
                       </p>
                       <button
                         onClick={() => {
+                          // 로그인 체크 (상태 + localStorage 둘 다 확인)
+                          const storedIsLoggedIn = localStorage.getItem("isLoggedIn");
+                          if (!isLoggedIn && storedIsLoggedIn !== "true") {
+                            alert("무료 라이센스를 받으려면 먼저 로그인해주세요.");
+                            // 로그인 모달 띄우기
+                            setShowFamilyModal(false);
+                            document.getElementById("login-modal")?.classList.remove("hidden");
+                            return;
+                          }
                           setShowFreeLicenseGuide(true);
                           setFreeLicenseGuideOrigin("familyInfo");
                         }}
