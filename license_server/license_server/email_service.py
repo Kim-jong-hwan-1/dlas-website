@@ -115,13 +115,15 @@ class EmailService:
             await smtp.send_message(message)
             await smtp.quit()
 
-            print(f"✅ 이메일 발송 성공: {email}")
+            print(f"[SUCCESS] Email sent to: {email}")
             return True
         except aiosmtplib.SMTPException as e:
-            print(f"❌ SMTP 오류: {e}")
+            print(f"[ERROR] SMTP error: {e}")
             return False
         except Exception as e:
-            print(f"❌ 이메일 발송 실패: {e}")
+            print(f"[ERROR] Email send failed: {e}")
+            import traceback
+            traceback.print_exc()
             return False
 
 # Singleton instance
