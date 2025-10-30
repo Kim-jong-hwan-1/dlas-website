@@ -9,7 +9,10 @@
       "WebFetch(domain:www.anthropic.com)",
       "Bash(git reset:*)",
       "Bash(npm run dev)",
-      "Read(//c/Users/user/Desktop/checkpoint/7th_checkpoint/license_server/**)"
+      "Read(//c/Users/user/Desktop/checkpoint/7th_checkpoint/license_server/**)",
+      "Bash(git stash:*)",
+      "Bash(git checkout:*)",
+      "Bash(git commit:*)"
     ],
     "deny": [],
     "ask": []
