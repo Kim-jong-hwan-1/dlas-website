@@ -7,32 +7,32 @@ export default function BuyPage() {
     {
       image: 'stl_to_html.png',
       name: 'STL to HTML',
-      videoUrl: 'https://youtu.be/k37CtbhEW0g'
+      videoUrl: 'https://youtu.be/cMuSQO5zKt8?si=Sm_CcexV4GerU9se'
     },
     {
       image: 'stl_to_image.png',
       name: 'STL to Image',
-      videoUrl: 'https://youtu.be/4nHZA3sVO88'
+      videoUrl: 'https://youtu.be/tnUM0i6RRG8?si=J53u7hZMde7FugUd'
     },
     {
       image: 'stl_classifier.png',
       name: 'STL Classifier',
-      videoUrl: 'https://youtu.be/IyG-PhSPtIQ'
+      videoUrl: 'https://youtu.be/z32LXLfLEyM?si=_waxduDi6xQrSsov'
     },
     {
       image: 'exo_abutment_editor.png',
       name: 'Abutment Editor',
-      videoUrl: 'https://youtu.be/FdO0N5iwbOE'
+      videoUrl: 'https://youtu.be/CC7FbcueG48?si=VoipfnDAJ_wDmc7Q'
     },
     {
       image: '3_transfer_jig_maker.png',
       name: '3 Transfer Jig Maker',
-      videoUrl: 'https://youtu.be/OkDuWHWf2Io'
+      videoUrl: 'https://youtu.be/FAtEIxAN-UY?si=RAKm-TSXcwjN7yJt'
     },
     {
       image: 'e_transfer_jig_maker.png',
       name: 'E Transfer Jig Maker',
-      videoUrl: 'https://youtu.be/OkDuWHWf2Io'
+      videoUrl: 'https://youtu.be/FAtEIxAN-UY?si=RAKm-TSXcwjN7yJt'
     },
   ];
 
