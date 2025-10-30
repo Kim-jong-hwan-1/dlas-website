@@ -1606,7 +1606,7 @@ export default function Page() {
               <div className="aspect-video w-full">
                 <iframe
                   className="w-full h-full rounded-lg shadow-lg"
-                  src="https://www.youtube.com/embed/U3W8LVJTFyU"
+                  src="https://www.youtube.com/embed/o1LryHUMz5g"
                   title="2.2.24 Version Update"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
