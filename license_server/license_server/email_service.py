@@ -94,13 +94,16 @@ class EmailService:
             message.attach(html_part)
 
             # aiosmtplib을 사용한 비동기 이메일 발송
+            # 포트 465는 SSL, 포트 587은 STARTTLS 사용
+            use_ssl = self.smtp_port == 465
             await aiosmtplib.send(
                 message,
                 hostname=self.smtp_server,
                 port=self.smtp_port,
                 username=self.smtp_user,
                 password=self.smtp_password,
-                start_tls=True,
+                use_tls=use_ssl,  # 465 포트는 SSL 사용
+                start_tls=(not use_ssl),  # 587 포트는 STARTTLS 사용
                 timeout=30,  # 30초 타임아웃 설정
             )
 
