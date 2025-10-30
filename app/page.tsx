@@ -2323,7 +2323,8 @@ export default function Page() {
                         }}
                         onVerificationSuccess={async () => {
                           // 라이센스 정보 새로고침
-                          await fetchLicenseInfo();
+                          const token = localStorage.getItem("accessToken");
+                          if (token) await fetchLicenseInfo(token);
                           setShowFreeLicenseGuide(false);
                           setShowFamilyModal(false);
                           alert("✅ 3일 무료 라이센스가 발급되었습니다!");
