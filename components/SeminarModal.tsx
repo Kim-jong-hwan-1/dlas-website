@@ -6,6 +6,7 @@ import Image from "next/image";
 export default function SeminarModal() {
   const [isOpen, setIsOpen] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isFullscreen, setIsFullscreen] = useState(false);
 
   const seminarLink = "https://docs.google.com/forms/d/e/1FAIpQLSc_fzZTLxCqNlCYlbZs3RvogqSxbzq9BMFQnAiTBSNyw8z52A/viewform?usp=sharing&ouid=100677474144073110334";
 
@@ -19,6 +20,7 @@ export default function SeminarModal() {
 
   const handleClose = () => {
     setIsOpen(false);
+    setIsFullscreen(false);
   };
 
   const handlePrevSlide = () => {
@@ -33,21 +35,53 @@ export default function SeminarModal() {
     window.open(seminarLink, "_blank", "noopener,noreferrer");
   };
 
-  // ESC 키로 모달 닫기
+  const handleImageClick = () => {
+    setIsFullscreen(true);
+  };
+
+  const handleFullscreenClose = () => {
+    setIsFullscreen(false);
+  };
+
+  // ESC 키로 모달/전체화면 닫기
   useEffect(() => {
     if (!isOpen) return;
 
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        handleClose();
+        if (isFullscreen) {
+          handleFullscreenClose();
+        } else {
+          handleClose();
+        }
       }
     };
 
     window.addEventListener("keydown", handleEsc);
     return () => window.removeEventListener("keydown", handleEsc);
-  }, [isOpen]);
+  }, [isOpen, isFullscreen]);
 
   if (!isOpen) return null;
+
+  // 전체화면 모드
+  if (isFullscreen) {
+    return (
+      <div
+        className="fixed inset-0 z-[9999] flex items-center justify-center bg-black cursor-pointer"
+        onClick={handleFullscreenClose}
+      >
+        <div className="relative w-full h-full">
+          <Image
+            src={posters[currentSlide]}
+            alt={`세미나 포스터 ${currentSlide + 1}`}
+            fill
+            className="object-contain"
+            priority
+          />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -85,7 +119,7 @@ export default function SeminarModal() {
           {/* 이미지 컨테이너 */}
           <div
             className="relative w-full h-full cursor-pointer"
-            onClick={handleNextSlide}
+            onClick={handleImageClick}
           >
             <div className="absolute inset-0 flex items-center justify-center p-2 sm:p-4">
               <Image
