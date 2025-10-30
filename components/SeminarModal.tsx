@@ -150,6 +150,33 @@ export default function SeminarModal() {
           </div>
         </div>
 
+        {/* 가격 정보 */}
+        <div className="px-4 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-blue-50 to-indigo-50 border-t border-blue-100">
+          <h3 className="text-base sm:text-lg font-bold text-center text-gray-800 mb-2 sm:mb-3">
+            세미나 참가비
+          </h3>
+          <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 justify-center items-center">
+            <div className="text-center px-3 sm:px-4 py-2 bg-white rounded-lg shadow-sm">
+              <span className="text-sm sm:text-base font-semibold text-blue-600">1인 신청</span>
+              <span className="mx-2 text-gray-400">|</span>
+              <span className="text-base sm:text-lg font-bold text-gray-800">20만원</span>
+            </div>
+            <div className="text-center px-3 sm:px-4 py-2 bg-white rounded-lg shadow-sm">
+              <span className="text-sm sm:text-base font-semibold text-blue-600">2인 신청</span>
+              <span className="mx-2 text-gray-400">|</span>
+              <span className="text-base sm:text-lg font-bold text-gray-800">각 17만원</span>
+            </div>
+            <div className="text-center px-3 sm:px-4 py-2 bg-white rounded-lg shadow-sm">
+              <span className="text-sm sm:text-base font-semibold text-blue-600">3인 신청</span>
+              <span className="mx-2 text-gray-400">|</span>
+              <span className="text-base sm:text-lg font-bold text-gray-800">각 15만원</span>
+            </div>
+          </div>
+          <p className="text-center mt-2 text-xs sm:text-sm text-gray-500">
+            * 부가세 별도
+          </p>
+        </div>
+
         {/* 하단 버튼 영역 */}
         <div className="px-4 sm:px-8 py-4 sm:py-6 bg-white flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
           <button
