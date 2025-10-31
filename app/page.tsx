@@ -976,7 +976,8 @@ export default function Page() {
     }
 
     // 💳 결제 전 약관 동의 모달 표시
-    setPendingPayment({ module: mod, period });
+    const isCouponApplied = moduleCouponApplied[mod] || false;
+    setPendingPayment({ type: "module", module: mod, period, couponApplied: isCouponApplied });
     setTermsConsent1(false);
     setTermsConsent2(false);
     setShowTermsConsentModal(true);
@@ -986,13 +987,106 @@ export default function Page() {
   const proceedWithPayment = () => {
     if (!pendingPayment) return;
 
-    const { module: mod, period } = pendingPayment;
+    const { type, module: mod, period, couponApplied } = pendingPayment;
     const storedId = localStorage.getItem("userID") || userID;
 
     // 약관 동의 모달 닫기
     setShowTermsConsentModal(false);
     setPendingPayment(null);
 
+    // 🔹 Permanent 라이센스 결제
+    if (type === "permanent") {
+      if (typeof window === "undefined" || !(window as MyWindow).TossPayments) {
+        alert("결제 모듈이 아직 로드되지 않았습니다. 페이지를 새로고침해주세요.");
+        return;
+      }
+
+      const tossClientKey = process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY!;
+      const tossInit = (window as MyWindow).TossPayments;
+      if (!tossInit) {
+        alert("결제 모듈이 아직 로드되지 않았습니다.");
+        return;
+      }
+      const tossPayments = tossInit(tossClientKey);
+
+      const orderId = `DLAS-PERMANENT-${Date.now()}`;
+      let amount = 2200000; // 220만원
+
+      // 🎟️ 쿠폰 할인 적용 (50% 할인)
+      if (permanentCouponApplied) {
+        amount = Math.floor(amount * 0.5);
+      }
+
+      const orderName = "DLAS Permanent License";
+
+      const successUrl =
+        `${currentOrigin}/?provider=toss&type=permanent&orderName=${encodeURIComponent(
+          orderName
+        )}` +
+        `&orderId=${encodeURIComponent(orderId)}&amount=${encodeURIComponent(
+          String(amount)
+        )}`;
+      const failUrl = `${currentOrigin}/?provider=toss&type=permanent&status=fail`;
+
+      tossPayments.requestPayment("CARD", {
+        amount,
+        orderId,
+        orderName,
+        customerEmail: storedId,
+        customerName: userInfo && userInfo.name ? userInfo.name : storedId,
+        successUrl,
+        failUrl,
+      });
+      return;
+    }
+
+    // 🔹 Family 라이센스 결제
+    if (type === "family") {
+      if (typeof window === "undefined" || !(window as MyWindow).TossPayments) {
+        alert("The payment module has not been loaded yet.");
+        return;
+      }
+
+      const tossClientKey = process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY!;
+      const tossInit = (window as MyWindow).TossPayments;
+      if (!tossInit) {
+        alert("The payment module has not been loaded yet.");
+        return;
+      }
+      const tossPayments = tossInit(tossClientKey);
+
+      const orderId = `DLAS-FAMILY-${Date.now()}`;
+      let amount = 3850000; // 385만원
+
+      // 🎟️ 쿠폰 할인 적용 (50% 할인)
+      if (familyCouponApplied) {
+        amount = Math.floor(amount * 0.5);
+      }
+
+      const orderName = "DLAS Family License";
+
+      const successUrl =
+        `${currentOrigin}/?provider=toss&type=family&orderName=${encodeURIComponent(
+          orderName
+        )}` +
+        `&orderId=${encodeURIComponent(orderId)}&amount=${encodeURIComponent(
+          String(amount)
+        )}`;
+      const failUrl = `${currentOrigin}/?provider=toss&type=family`;
+
+      tossPayments.requestPayment("CARD", {
+        amount,
+        orderId,
+        orderName,
+        customerEmail: storedId,
+        customerName: userInfo && userInfo.name ? userInfo.name : storedId,
+        successUrl,
+        failUrl,
+      });
+      return;
+    }
+
+    // 🔹 모듈 라이센스 결제
     // 🇰🇷 한국 사용자 → Toss Payments
     if (isKrwDisplay(userInfo.country)) {
       if (typeof window === "undefined" || !(window as MyWindow).TossPayments) {
@@ -1009,6 +1103,7 @@ export default function Page() {
       const tossPayments = tossInit(tossClientKey);
 
       // 가격 계산 - 버튼에 표시된 가격과 동일하게
+      if (!mod || !period) return;
       const level = MODULE_DISCOUNT_LEVELS[mod] ?? 0;
       let amount: number;
 
@@ -1019,6 +1114,11 @@ export default function Page() {
         const baseUsd = MODULE_PRICES_USD[period as keyof typeof MODULE_PRICES_USD];
         const baseKrw = usdToKrw(baseUsd);
         amount = level > 0 ? discountedKrwByLevel(baseKrw, level) : baseKrw;
+      }
+
+      // 🎟️ 쿠폰 할인 적용 (50% 할인)
+      if (couponApplied) {
+        amount = Math.floor(amount * 0.5);
       }
 
       const orderId = `DLAS-MODULE-${mod}-${Date.now()}`;
@@ -1046,6 +1146,8 @@ export default function Page() {
       alert("Paddle is not ready yet. Please refresh the page or try again.");
       return;
     }
+
+    if (!mod || !period) return;
 
     const priceId =
       MODULE_PRICE_IDS[mod] && MODULE_PRICE_IDS[mod][period]
@@ -1140,9 +1242,58 @@ export default function Page() {
 
   // 💳 약관 동의 모달 (결제 전)
   const [showTermsConsentModal, setShowTermsConsentModal] = useState(false);
-  const [pendingPayment, setPendingPayment] = useState<{module: string; period: string} | null>(null);
+  const [pendingPayment, setPendingPayment] = useState<{type: "module" | "permanent" | "family"; module?: string; period?: string; couponApplied?: boolean} | null>(null);
   const [termsConsent1, setTermsConsent1] = useState(false); // 결제 및 환불
   const [termsConsent2, setTermsConsent2] = useState(false); // 책임의 한계
+
+  // 🎟️ 모듈별 쿠폰 관련 state
+  const [moduleCoupons, setModuleCoupons] = useState<Record<string, string>>({});
+  const [moduleCouponApplied, setModuleCouponApplied] = useState<Record<string, boolean>>({});
+
+  // 🎟️ Permanent/Family 쿠폰 관련 state
+  const [permanentCoupon, setPermanentCoupon] = useState("");
+  const [permanentCouponApplied, setPermanentCouponApplied] = useState(false);
+  const [familyCoupon, setFamilyCoupon] = useState("");
+  const [familyCouponApplied, setFamilyCouponApplied] = useState(false);
+
+  // 🎟️ 모듈 쿠폰 검증 함수
+  const validateModuleCoupon = (couponCode: string): boolean => {
+    return couponCode.trim() === "01035836042";
+  };
+
+  // 🎟️ 모듈 쿠폰 적용
+  const applyModuleCoupon = (module: string) => {
+    const code = moduleCoupons[module] || "";
+    if (validateModuleCoupon(code)) {
+      setModuleCouponApplied({ ...moduleCouponApplied, [module]: true });
+      alert("🎉 쿠폰이 적용되었습니다! 50% 할인된 가격으로 결제됩니다.");
+    } else {
+      setModuleCouponApplied({ ...moduleCouponApplied, [module]: false });
+      alert("유효하지 않은 쿠폰 코드입니다.");
+    }
+  };
+
+  // 🎟️ Permanent 쿠폰 적용
+  const applyPermanentCoupon = () => {
+    if (validateModuleCoupon(permanentCoupon)) {
+      setPermanentCouponApplied(true);
+      alert("🎉 쿠폰이 적용되었습니다! 50% 할인된 가격으로 결제됩니다.");
+    } else {
+      setPermanentCouponApplied(false);
+      alert("유효하지 않은 쿠폰 코드입니다.");
+    }
+  };
+
+  // 🎟️ Family 쿠폰 적용
+  const applyFamilyCoupon = () => {
+    if (validateModuleCoupon(familyCoupon)) {
+      setFamilyCouponApplied(true);
+      alert("🎉 쿠폰이 적용되었습니다! 50% 할인된 가격으로 결제됩니다.");
+    } else {
+      setFamilyCouponApplied(false);
+      alert("유효하지 않은 쿠폰 코드입니다.");
+    }
+  };
 
   // useEffect(() => {
   //   // 홈페이지 진입 시 PDF 모달 먼저 표시
@@ -1298,7 +1449,13 @@ export default function Page() {
     const tossPayments = tossInit(tossClientKey);
 
     const orderId = `DLAS-FAMILY-${Date.now()}`;
-    const amount = 550000;
+    let amount = 3850000; // 385만원
+
+    // 🎟️ 쿠폰 할인 적용 (50% 할인)
+    if (familyCouponApplied) {
+      amount = Math.floor(amount * 0.5);
+    }
+
     const userID = localStorage.getItem("userID") || "";
     const orderName = "DLAS Family License";
 
@@ -1322,7 +1479,42 @@ export default function Page() {
     });
   };
 
+  // 🔹 Permanent 라이선스 결제
+  const handlePermanentLicensePayment = () => {
+    // 로그인 체크 (상태 + localStorage 둘 다 확인)
+    const storedIsLoggedIn = localStorage.getItem("isLoggedIn");
+    if (!isLoggedIn && storedIsLoggedIn !== "true") {
+      alert("로그인이 필요합니다. 먼저 로그인해주세요.");
+      document.getElementById("login-modal")?.classList.remove("hidden");
+      return;
+    }
+
+    if (isUserInfoLoading) {
+      alert("Loading your information... Please try again shortly.");
+      return;
+    }
+    if (userInfo.licenseStatus === "permanent") {
+      alert("You already have a Permanent License.");
+      return;
+    }
+
+    // 💳 결제 전 약관 동의 모달 표시
+    setPendingPayment({ type: "permanent" });
+    setTermsConsent1(false);
+    setTermsConsent2(false);
+    setShowTermsConsentModal(true);
+  };
+
+  // 🔹 Family 라이선스 결제
   const handleFamilyLicensePayment = () => {
+    // 로그인 체크 (상태 + localStorage 둘 다 확인)
+    const storedIsLoggedIn = localStorage.getItem("isLoggedIn");
+    if (!isLoggedIn && storedIsLoggedIn !== "true") {
+      alert("로그인이 필요합니다. 먼저 로그인해주세요.");
+      document.getElementById("login-modal")?.classList.remove("hidden");
+      return;
+    }
+
     if (isUserInfoLoading) {
       alert("Loading your information... Please try again shortly.");
       return;
@@ -1331,15 +1523,12 @@ export default function Page() {
       alert("You are already a Family user. Payment is not possible.");
       return;
     }
-    if (!userInfo.country || userInfo.country.trim() === "") {
-      alert("국가 정보를 불러오는 중입니다. 상단 'MY'에서 확인한 뒤 다시 시도해 주세요.");
-      return;
-    }
-    if (isKrwDisplay(userInfo.country)) {
-      alert(KOREA_PAYMENT_MESSAGE);
-      return;
-    }
-    handlePaddleCheckout();
+
+    // 💳 결제 전 약관 동의 모달 표시
+    setPendingPayment({ type: "family" });
+    setTermsConsent1(false);
+    setTermsConsent2(false);
+    setShowTermsConsentModal(true);
   };
 
   return (
@@ -1758,6 +1947,31 @@ export default function Page() {
                           </span>
                         )}
                       </div>
+                      {/* 🎟️ 쿠폰 입력 필드 (모바일) */}
+                      {false && (
+                      <div className="w-full px-4 mb-3">
+                        <div className="flex gap-2">
+                          <input
+                            type="text"
+                            value={moduleCoupons[mod] || ""}
+                            onChange={(e) => setModuleCoupons({ ...moduleCoupons, [mod]: e.target.value })}
+                            placeholder="쿠폰 코드 (선택)"
+                            disabled={moduleCouponApplied[mod]}
+                            className="flex-1 px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed"
+                          />
+                          <button
+                            onClick={() => applyModuleCoupon(mod)}
+                            disabled={!moduleCoupons[mod] || moduleCouponApplied[mod]}
+                            className="px-4 py-2 text-sm bg-purple-600 text-white rounded-lg hover:bg-purple-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition font-medium whitespace-nowrap"
+                          >
+                            {moduleCouponApplied[mod] ? "적용완료" : "적용"}
+                          </button>
+                        </div>
+                        {moduleCouponApplied[mod] && (
+                          <p className="text-xs text-green-600 mt-1 text-center">🎉 50% 할인 적용됨</p>
+                        )}
+                      </div>
+                      )}
                       <div className="flex flex-col w-full items-center gap-2">
                         {/* 할인 배지 제거 */}
 
@@ -1871,6 +2085,29 @@ export default function Page() {
                         </div>
                       </div>
                       <div className="flex flex-col gap-3 w-40 flex-shrink-0 h-full justify-center items-center">
+                        {/* 🎟️ 쿠폰 입력 필드 (데스크탑) */}
+                        {false && (
+                        <div className="w-full mb-2">
+                          <input
+                            type="text"
+                            value={moduleCoupons[mod] || ""}
+                            onChange={(e) => setModuleCoupons({ ...moduleCoupons, [mod]: e.target.value })}
+                            placeholder="쿠폰 코드"
+                            disabled={moduleCouponApplied[mod]}
+                            className="w-full px-3 py-2 text-xs border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed mb-1"
+                          />
+                          <button
+                            onClick={() => applyModuleCoupon(mod)}
+                            disabled={!moduleCoupons[mod] || moduleCouponApplied[mod]}
+                            className="w-full px-3 py-2 text-xs bg-purple-600 text-white rounded-lg hover:bg-purple-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition font-medium"
+                          >
+                            {moduleCouponApplied[mod] ? "적용완료" : "쿠폰 적용"}
+                          </button>
+                          {moduleCouponApplied[mod] && (
+                            <p className="text-xs text-green-600 mt-1 text-center font-medium">50% 할인</p>
+                          )}
+                        </div>
+                        )}
                         {/* 할인 배지 제거 */}
 
                         <button
@@ -1939,7 +2176,36 @@ export default function Page() {
                           <li>• <b>업데이트</b> 및 <b>버전</b>과 상관없이 평생 무료</li>
                         </ul>
                       </div>
-                      <div className="w-full sm:w-56 flex sm:flex-col gap-2">
+                      <div className="w-full sm:w-56 flex flex-col gap-2">
+                        {/* 🎟️ Permanent 쿠폰 입력 필드 */}
+                        {false && (
+                        <div className="w-full">
+                          <input
+                            type="text"
+                            value={permanentCoupon}
+                            onChange={(e) => setPermanentCoupon(e.target.value)}
+                            placeholder="쿠폰 코드 (선택)"
+                            disabled={permanentCouponApplied}
+                            className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed mb-2"
+                          />
+                          <button
+                            onClick={applyPermanentCoupon}
+                            disabled={!permanentCoupon || permanentCouponApplied}
+                            className="w-full px-4 py-2 text-sm bg-purple-600 text-white rounded-lg hover:bg-purple-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition font-medium"
+                          >
+                            {permanentCouponApplied ? "적용완료" : "쿠폰 적용"}
+                          </button>
+                          {permanentCouponApplied && (
+                            <p className="text-xs text-green-600 mt-1 text-center font-medium">🎉 50% 할인 적용 (₩1,100,000)</p>
+                          )}
+                        </div>
+                        )}
+                        <button
+                          onClick={handlePermanentLicensePayment}
+                          className="w-full bg-blue-600 text-white rounded-lg px-6 py-3 font-bold hover:bg-blue-700 transition"
+                        >
+                          결제하기
+                        </button>
                         <button
                           onClick={() => alert("032-212-2882로 전화 또는 support@dlas.io로 문의 주세요")}
                           className="flex-1 bg-black text-white rounded-lg px-6 py-3 font-bold hover:bg-gray-800 transition"
@@ -1976,17 +2242,41 @@ export default function Page() {
                             <li>2) <b>라이센스 계약자 의견</b>을 반영하여 개발 및 업데이트</li>
                             <li>3) 모든 <b>연구자료·세미나자료 공유</b></li>
                             <li>4) 디지털 기공 과정 문제 발생 시 <b>해결책 제시 및 어시스트</b></li>
-                            <li>5) <b>치과 연계</b> (2025년 10월 31일 내 가입자 한정)</li>
-                          </ul>
-                          <ul className="mt-2 ml-4 list-disc space-y-1">
-                            <li>DLAS Family의 디지털 전문성을 강조하여 영업</li>
-                            <li>단순 연결(수익 보장 아님)</li>
-                            <li>원장님의 피드백을 점수화하여 다음 연결 시 가산</li>
+                            <li>5) <b>거래처별 스캔수준 분석 서비스 제공</b></li>
                           </ul>
                         </div>
                       </div>
 
-                      <div className="w-full sm:w-56 flex sm:flex-col gap-2">
+                      <div className="w-full sm:w-56 flex flex-col gap-2">
+                        {/* 🎟️ Family 쿠폰 입력 필드 */}
+                        {false && (
+                        <div className="w-full">
+                          <input
+                            type="text"
+                            value={familyCoupon}
+                            onChange={(e) => setFamilyCoupon(e.target.value)}
+                            placeholder="쿠폰 코드 (선택)"
+                            disabled={familyCouponApplied}
+                            className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed mb-2"
+                          />
+                          <button
+                            onClick={applyFamilyCoupon}
+                            disabled={!familyCoupon || familyCouponApplied}
+                            className="w-full px-4 py-2 text-sm bg-purple-600 text-white rounded-lg hover:bg-purple-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition font-medium"
+                          >
+                            {familyCouponApplied ? "적용완료" : "쿠폰 적용"}
+                          </button>
+                          {familyCouponApplied && (
+                            <p className="text-xs text-green-600 mt-1 text-center font-medium">🎉 50% 할인 적용 (₩1,925,000)</p>
+                          )}
+                        </div>
+                        )}
+                        <button
+                          onClick={handleFamilyLicensePayment}
+                          className="w-full bg-amber-600 text-white rounded-lg px-6 py-3 font-bold hover:bg-amber-700 transition"
+                        >
+                          결제하기
+                        </button>
                         <button
                           onClick={() => alert("032-212-2882로 전화 또는 support@dlas.io로 문의 주세요")}
                           className="flex-1 bg-black text-white rounded-lg px-6 py-3 font-bold hover:bg-gray-800 transition"

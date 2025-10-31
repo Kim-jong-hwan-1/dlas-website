@@ -53,7 +53,7 @@ export default function EmailVerification({
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            email: email,
+            email: email.trim(),
             userID: userID,
             couponCode: isCouponValid ? couponCode : undefined,
           }),
@@ -106,8 +106,8 @@ export default function EmailVerification({
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            email: email,
-            code: verificationCode,
+            email: email.trim(),
+            code: verificationCode.trim(),
             userID: userID,
             couponCode: isCouponValid ? couponCode : undefined, // 쿠폰이 검증된 경우 전달
           }),
