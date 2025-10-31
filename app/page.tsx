@@ -1324,16 +1324,20 @@ export default function Page() {
 
   // 🔹 Permanent 라이선스 결제
   const handlePermanentLicensePayment = () => {
+    // 로그인 체크 (상태 + localStorage 둘 다 확인)
+    const storedIsLoggedIn = localStorage.getItem("isLoggedIn");
+    if (!isLoggedIn && storedIsLoggedIn !== "true") {
+      alert("로그인이 필요합니다. 먼저 로그인해주세요.");
+      document.getElementById("login-modal")?.classList.remove("hidden");
+      return;
+    }
+
     if (isUserInfoLoading) {
       alert("Loading your information... Please try again shortly.");
       return;
     }
     if (userInfo.licenseStatus === "permanent") {
       alert("You already have a Permanent License.");
-      return;
-    }
-    if (!isLoggedIn) {
-      alert("로그인이 필요합니다.");
       return;
     }
 
@@ -1377,6 +1381,14 @@ export default function Page() {
 
   // 🔹 Family 라이선스 결제
   const handleFamilyLicensePayment = () => {
+    // 로그인 체크 (상태 + localStorage 둘 다 확인)
+    const storedIsLoggedIn = localStorage.getItem("isLoggedIn");
+    if (!isLoggedIn && storedIsLoggedIn !== "true") {
+      alert("로그인이 필요합니다. 먼저 로그인해주세요.");
+      document.getElementById("login-modal")?.classList.remove("hidden");
+      return;
+    }
+
     if (isUserInfoLoading) {
       alert("Loading your information... Please try again shortly.");
       return;
