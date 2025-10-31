@@ -18,7 +18,7 @@ class EmailService:
         """6자리 랜덤 인증번호 생성"""
         return str(random.randint(100000, 999999))
 
-    def get_verification_email_html(self, code: str) -> str:
+    def get_verification_email_html(self, code: str, license_days: int = 3) -> str:
         """인증번호 이메일 HTML 템플릿"""
         return f"""
         <!DOCTYPE html>
@@ -46,7 +46,7 @@ class EmailService:
                     <td style="padding: 40px 30px;">
                       <p style="color: #333333; font-size: 16px; line-height: 1.6; margin: 0 0 20px 0;">
                         안녕하세요,<br>
-                        DLAS 3일 무료 라이센스 발급을 위한 이메일 인증번호입니다.
+                        DLAS {license_days}일 무료 라이센스 발급을 위한 이메일 인증번호입니다.
                       </p>
 
                       <!-- Verification Code Box -->
@@ -81,7 +81,7 @@ class EmailService:
         </html>
         """
 
-    async def send_verification_code(self, email: str, code: str) -> bool:
+    async def send_verification_code(self, email: str, code: str, license_days: int = 3) -> bool:
         """인증번호 이메일 발송"""
         try:
             message = MIMEMultipart("alternative")
@@ -89,7 +89,7 @@ class EmailService:
             message["From"] = f"DLAS <{self.smtp_user}>"
             message["To"] = email
 
-            html_content = self.get_verification_email_html(code)
+            html_content = self.get_verification_email_html(code, license_days)
             html_part = MIMEText(html_content, "html")
             message.attach(html_part)
 

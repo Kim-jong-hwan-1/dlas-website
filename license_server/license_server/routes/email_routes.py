@@ -17,6 +17,7 @@ verification_codes = {}
 class EmailSendRequest(BaseModel):
     email: EmailStr
     userID: str
+    couponCode: str | None = None  # 쿠폰 코드 추가
 
 class EmailVerifyRequest(BaseModel):
     email: EmailStr
@@ -42,11 +43,14 @@ async def send_verification_code(request: EmailSendRequest, db: AsyncSession = D
                 detail="Gmail은 사용할 수 없습니다. 다른 이메일을 사용해주세요."
             )
 
+        # 쿠폰 검증하여 라이센스 일수 결정
+        license_days = validate_coupon(request.couponCode) if request.couponCode else 3
+
         # 인증번호 생성
         code = email_service.generate_verification_code()
 
-        # 이메일 발송
-        success = await email_service.send_verification_code(request.email, code)
+        # 이메일 발송 (라이센스 일수 포함)
+        success = await email_service.send_verification_code(request.email, code, license_days)
 
         if not success:
             raise HTTPException(
@@ -60,6 +64,8 @@ async def send_verification_code(request: EmailSendRequest, db: AsyncSession = D
             "userID": request.userID,
             "expires_at": datetime.utcnow() + timedelta(minutes=3)
         }
+
+        print(f"[DEBUG] Saved verification code: email={request.email}, code={code}, userID={request.userID}")
 
         return {
             "success": True,
@@ -79,17 +85,24 @@ async def send_verification_code(request: EmailSendRequest, db: AsyncSession = D
 async def verify_code(request: EmailVerifyRequest, db: AsyncSession = Depends(get_db)):
     """인증번호 확인 및 라이센스 발급"""
     try:
+        print(f"[DEBUG] Verify attempt: email={request.email}, code={request.code}, userID={request.userID}")
+        print(f"[DEBUG] Available codes: {list(verification_codes.keys())}")
+
         # 인증번호 확인
         stored_data = verification_codes.get(request.email)
 
         if not stored_data:
+            print(f"[DEBUG] No stored data found for email: {request.email}")
             raise HTTPException(
                 status_code=400,
                 detail="인증번호가 만료되었거나 존재하지 않습니다."
             )
 
+        print(f"[DEBUG] Stored data: code={stored_data['code']}, userID={stored_data['userID']}")
+
         # 만료 시간 확인
         if datetime.utcnow() > stored_data["expires_at"]:
+            print(f"[DEBUG] Code expired")
             del verification_codes[request.email]
             raise HTTPException(
                 status_code=400,
@@ -98,10 +111,13 @@ async def verify_code(request: EmailVerifyRequest, db: AsyncSession = Depends(ge
 
         # 코드 일치 확인
         if stored_data["code"] != request.code:
+            print(f"[DEBUG] Code mismatch: stored={stored_data['code']}, received={request.code}")
             raise HTTPException(
                 status_code=400,
                 detail="인증번호가 일치하지 않습니다."
             )
+
+        print(f"[DEBUG] Code matched!")
 
         # userID 일치 확인
         if stored_data["userID"] != request.userID:
