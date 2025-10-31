@@ -976,7 +976,8 @@ export default function Page() {
     }
 
     // 💳 결제 전 약관 동의 모달 표시
-    setPendingPayment({ module: mod, period });
+    const isCouponApplied = moduleCouponApplied[mod] || false;
+    setPendingPayment({ module: mod, period, couponApplied: isCouponApplied });
     setTermsConsent1(false);
     setTermsConsent2(false);
     setShowTermsConsentModal(true);
@@ -986,7 +987,7 @@ export default function Page() {
   const proceedWithPayment = () => {
     if (!pendingPayment) return;
 
-    const { module: mod, period } = pendingPayment;
+    const { module: mod, period, couponApplied } = pendingPayment;
     const storedId = localStorage.getItem("userID") || userID;
 
     // 약관 동의 모달 닫기
@@ -1019,6 +1020,11 @@ export default function Page() {
         const baseUsd = MODULE_PRICES_USD[period as keyof typeof MODULE_PRICES_USD];
         const baseKrw = usdToKrw(baseUsd);
         amount = level > 0 ? discountedKrwByLevel(baseKrw, level) : baseKrw;
+      }
+
+      // 🎟️ 쿠폰 할인 적용 (50% 할인)
+      if (couponApplied) {
+        amount = Math.floor(amount * 0.5);
       }
 
       const orderId = `DLAS-MODULE-${mod}-${Date.now()}`;
@@ -1140,9 +1146,30 @@ export default function Page() {
 
   // 💳 약관 동의 모달 (결제 전)
   const [showTermsConsentModal, setShowTermsConsentModal] = useState(false);
-  const [pendingPayment, setPendingPayment] = useState<{module: string; period: string} | null>(null);
+  const [pendingPayment, setPendingPayment] = useState<{module: string; period: string; couponApplied?: boolean} | null>(null);
   const [termsConsent1, setTermsConsent1] = useState(false); // 결제 및 환불
   const [termsConsent2, setTermsConsent2] = useState(false); // 책임의 한계
+
+  // 🎟️ 모듈별 쿠폰 관련 state
+  const [moduleCoupons, setModuleCoupons] = useState<Record<string, string>>({});
+  const [moduleCouponApplied, setModuleCouponApplied] = useState<Record<string, boolean>>({});
+
+  // 🎟️ 모듈 쿠폰 검증 함수
+  const validateModuleCoupon = (couponCode: string): boolean => {
+    return couponCode.trim() === "01035836042";
+  };
+
+  // 🎟️ 모듈 쿠폰 적용
+  const applyModuleCoupon = (module: string) => {
+    const code = moduleCoupons[module] || "";
+    if (validateModuleCoupon(code)) {
+      setModuleCouponApplied({ ...moduleCouponApplied, [module]: true });
+      alert("🎉 쿠폰이 적용되었습니다! 50% 할인된 가격으로 결제됩니다.");
+    } else {
+      setModuleCouponApplied({ ...moduleCouponApplied, [module]: false });
+      alert("유효하지 않은 쿠폰 코드입니다.");
+    }
+  };
 
   // useEffect(() => {
   //   // 홈페이지 진입 시 PDF 모달 먼저 표시
@@ -1824,6 +1851,29 @@ export default function Page() {
                           </span>
                         )}
                       </div>
+                      {/* 🎟️ 쿠폰 입력 필드 (모바일) */}
+                      <div className="w-full px-4 mb-3">
+                        <div className="flex gap-2">
+                          <input
+                            type="text"
+                            value={moduleCoupons[mod] || ""}
+                            onChange={(e) => setModuleCoupons({ ...moduleCoupons, [mod]: e.target.value })}
+                            placeholder="쿠폰 코드 (선택)"
+                            disabled={moduleCouponApplied[mod]}
+                            className="flex-1 px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed"
+                          />
+                          <button
+                            onClick={() => applyModuleCoupon(mod)}
+                            disabled={!moduleCoupons[mod] || moduleCouponApplied[mod]}
+                            className="px-4 py-2 text-sm bg-purple-600 text-white rounded-lg hover:bg-purple-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition font-medium whitespace-nowrap"
+                          >
+                            {moduleCouponApplied[mod] ? "적용완료" : "적용"}
+                          </button>
+                        </div>
+                        {moduleCouponApplied[mod] && (
+                          <p className="text-xs text-green-600 mt-1 text-center">🎉 50% 할인 적용됨</p>
+                        )}
+                      </div>
                       <div className="flex flex-col w-full items-center gap-2">
                         {/* 할인 배지 제거 */}
 
@@ -1937,6 +1987,27 @@ export default function Page() {
                         </div>
                       </div>
                       <div className="flex flex-col gap-3 w-40 flex-shrink-0 h-full justify-center items-center">
+                        {/* 🎟️ 쿠폰 입력 필드 (데스크탑) */}
+                        <div className="w-full mb-2">
+                          <input
+                            type="text"
+                            value={moduleCoupons[mod] || ""}
+                            onChange={(e) => setModuleCoupons({ ...moduleCoupons, [mod]: e.target.value })}
+                            placeholder="쿠폰 코드"
+                            disabled={moduleCouponApplied[mod]}
+                            className="w-full px-3 py-2 text-xs border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed mb-1"
+                          />
+                          <button
+                            onClick={() => applyModuleCoupon(mod)}
+                            disabled={!moduleCoupons[mod] || moduleCouponApplied[mod]}
+                            className="w-full px-3 py-2 text-xs bg-purple-600 text-white rounded-lg hover:bg-purple-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition font-medium"
+                          >
+                            {moduleCouponApplied[mod] ? "적용완료" : "쿠폰 적용"}
+                          </button>
+                          {moduleCouponApplied[mod] && (
+                            <p className="text-xs text-green-600 mt-1 text-center font-medium">50% 할인</p>
+                          )}
+                        </div>
                         {/* 할인 배지 제거 */}
 
                         <button
