@@ -1103,6 +1103,7 @@ export default function Page() {
       const tossPayments = tossInit(tossClientKey);
 
       // 가격 계산 - 버튼에 표시된 가격과 동일하게
+      if (!mod) return;
       const level = MODULE_DISCOUNT_LEVELS[mod] ?? 0;
       let amount: number;
 
@@ -1145,6 +1146,8 @@ export default function Page() {
       alert("Paddle is not ready yet. Please refresh the page or try again.");
       return;
     }
+
+    if (!mod) return;
 
     const priceId =
       MODULE_PRICE_IDS[mod] && MODULE_PRICE_IDS[mod][period]
