@@ -55,6 +55,7 @@ export default function EmailVerification({
           body: JSON.stringify({
             email: email,
             userID: userID,
+            couponCode: isCouponValid ? couponCode : undefined,
           }),
         }
       );
