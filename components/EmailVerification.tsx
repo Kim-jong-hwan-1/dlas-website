@@ -4,7 +4,7 @@ import { useState } from "react";
 // Coupon validation integrated
 
 interface EmailVerificationProps {
-  onVerificationSuccess: () => void;
+  onVerificationSuccess: (licenseDays: number) => void;
   onBack?: () => void;
   userID: string;
 }
@@ -122,7 +122,7 @@ export default function EmailVerification({
 
         // 인증 완료 후 메인으로 이동
         setTimeout(() => {
-          onVerificationSuccess();
+          onVerificationSuccess(days);
         }, 2000);
       } else {
         setMessage(data.message || "인증번호가 일치하지 않습니다.");

@@ -2611,13 +2611,13 @@ export default function Page() {
                             setShowFreeLicenseGuide(false);
                           }
                         }}
-                        onVerificationSuccess={async () => {
+                        onVerificationSuccess={async (licenseDays: number) => {
                           // 라이센스 정보 새로고침
                           const token = localStorage.getItem("accessToken");
                           if (token) await fetchLicenseInfo(token);
                           setShowFreeLicenseGuide(false);
                           setShowFamilyModal(false);
-                          alert("✅ 3일 무료 라이센스가 발급되었습니다!");
+                          alert(`✅ ${licenseDays}일 무료 라이센스가 발급되었습니다!`);
                         }}
                       />
                   </div>
