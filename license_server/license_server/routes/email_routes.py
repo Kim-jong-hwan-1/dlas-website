@@ -109,9 +109,14 @@ async def verify_code(request: EmailVerifyRequest, db: AsyncSession = Depends(ge
                 detail="인증번호가 만료되었습니다. 다시 요청해주세요."
             )
 
-        # 코드 일치 확인
-        if stored_data["code"] != request.code:
-            print(f"[DEBUG] Code mismatch: stored={stored_data['code']}, received={request.code}")
+        # 코드 일치 확인 (양쪽 trim)
+        stored_code = str(stored_data["code"]).strip()
+        received_code = str(request.code).strip()
+
+        if stored_code != received_code:
+            print(f"[DEBUG] Code mismatch: stored='{stored_code}' (len={len(stored_code)}), received='{received_code}' (len={len(received_code)})")
+            print(f"[DEBUG] Stored bytes: {stored_code.encode()}")
+            print(f"[DEBUG] Received bytes: {received_code.encode()}")
             raise HTTPException(
                 status_code=400,
                 detail="인증번호가 일치하지 않습니다."
