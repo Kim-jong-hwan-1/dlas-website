@@ -24,10 +24,9 @@ export default function LanguageWrapper({ children }: { children: React.ReactNod
   const [lang, setLang] = useState<LangCode>('ko');
 
   useEffect(() => {
-    const saved = localStorage.getItem('selectedLanguage');
-    if (saved === 'ko' || saved === 'en') {
-      setLang(saved);
-    }
+    // 항상 한국어로 설정
+    setLang('ko');
+    localStorage.setItem('selectedLanguage', 'ko');
   }, []);
 
   // 번역 함수

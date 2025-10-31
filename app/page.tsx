@@ -548,7 +548,7 @@ export default function Page() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [name, setName] = useState("");
-  const [country, setCountry] = useState("");
+  const [country, setCountry] = useState("South Korea");
   const [workplaceName, setWorkplaceName] = useState("");
   const [workplaceAddress, setWorkplaceAddress] = useState("");
   const [marketingAgree, setMarketingAgree] = useState(false);
@@ -3174,11 +3174,6 @@ export default function Page() {
         <div
           id="login-modal"
           className="fixed inset-0 z-[200] hidden bg-black bg-opacity-50 flex items-center justify-center"
-          onClick={(e) => {
-            if (e.target === e.currentTarget) {
-              document.getElementById("login-modal")!.classList.add("hidden");
-            }
-          }}
           role="dialog"
           aria-modal="true"
         >
@@ -3244,11 +3239,6 @@ export default function Page() {
         <div
           id="signup-modal"
           className="fixed inset-0 z-[200] hidden bg-black bg-opacity-50 flex items-center justify-center"
-          onClick={(e) => {
-            if (e.target === e.currentTarget) {
-              document.getElementById("signup-modal")!.classList.add("hidden");
-            }
-          }}
           role="dialog"
           aria-modal="true"
         >
