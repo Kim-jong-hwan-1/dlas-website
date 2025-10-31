@@ -1154,6 +1154,12 @@ export default function Page() {
   const [moduleCoupons, setModuleCoupons] = useState<Record<string, string>>({});
   const [moduleCouponApplied, setModuleCouponApplied] = useState<Record<string, boolean>>({});
 
+  // 🎟️ Permanent/Family 쿠폰 관련 state
+  const [permanentCoupon, setPermanentCoupon] = useState("");
+  const [permanentCouponApplied, setPermanentCouponApplied] = useState(false);
+  const [familyCoupon, setFamilyCoupon] = useState("");
+  const [familyCouponApplied, setFamilyCouponApplied] = useState(false);
+
   // 🎟️ 모듈 쿠폰 검증 함수
   const validateModuleCoupon = (couponCode: string): boolean => {
     return couponCode.trim() === "01035836042";
@@ -1167,6 +1173,28 @@ export default function Page() {
       alert("🎉 쿠폰이 적용되었습니다! 50% 할인된 가격으로 결제됩니다.");
     } else {
       setModuleCouponApplied({ ...moduleCouponApplied, [module]: false });
+      alert("유효하지 않은 쿠폰 코드입니다.");
+    }
+  };
+
+  // 🎟️ Permanent 쿠폰 적용
+  const applyPermanentCoupon = () => {
+    if (validateModuleCoupon(permanentCoupon)) {
+      setPermanentCouponApplied(true);
+      alert("🎉 쿠폰이 적용되었습니다! 50% 할인된 가격으로 결제됩니다.");
+    } else {
+      setPermanentCouponApplied(false);
+      alert("유효하지 않은 쿠폰 코드입니다.");
+    }
+  };
+
+  // 🎟️ Family 쿠폰 적용
+  const applyFamilyCoupon = () => {
+    if (validateModuleCoupon(familyCoupon)) {
+      setFamilyCouponApplied(true);
+      alert("🎉 쿠폰이 적용되었습니다! 50% 할인된 가격으로 결제됩니다.");
+    } else {
+      setFamilyCouponApplied(false);
       alert("유효하지 않은 쿠폰 코드입니다.");
     }
   };
@@ -1325,7 +1353,13 @@ export default function Page() {
     const tossPayments = tossInit(tossClientKey);
 
     const orderId = `DLAS-FAMILY-${Date.now()}`;
-    const amount = 3850000; // 385만원
+    let amount = 3850000; // 385만원
+
+    // 🎟️ 쿠폰 할인 적용 (50% 할인)
+    if (familyCouponApplied) {
+      amount = Math.floor(amount * 0.5);
+    }
+
     const userID = localStorage.getItem("userID") || "";
     const orderName = "DLAS Family License";
 
@@ -1382,7 +1416,13 @@ export default function Page() {
     const tossPayments = tossInit(tossClientKey);
 
     const orderId = `DLAS-PERMANENT-${Date.now()}`;
-    const amount = 2200000; // 220만원
+    let amount = 2200000; // 220만원
+
+    // 🎟️ 쿠폰 할인 적용 (50% 할인)
+    if (permanentCouponApplied) {
+      amount = Math.floor(amount * 0.5);
+    }
+
     const userID = localStorage.getItem("userID") || "";
     const orderName = "DLAS Permanent License";
 
@@ -2076,10 +2116,31 @@ export default function Page() {
                           <li>• <b>업데이트</b> 및 <b>버전</b>과 상관없이 평생 무료</li>
                         </ul>
                       </div>
-                      <div className="w-full sm:w-56 flex sm:flex-col gap-2">
+                      <div className="w-full sm:w-56 flex flex-col gap-2">
+                        {/* 🎟️ Permanent 쿠폰 입력 필드 */}
+                        <div className="w-full">
+                          <input
+                            type="text"
+                            value={permanentCoupon}
+                            onChange={(e) => setPermanentCoupon(e.target.value)}
+                            placeholder="쿠폰 코드 (선택)"
+                            disabled={permanentCouponApplied}
+                            className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed mb-2"
+                          />
+                          <button
+                            onClick={applyPermanentCoupon}
+                            disabled={!permanentCoupon || permanentCouponApplied}
+                            className="w-full px-4 py-2 text-sm bg-purple-600 text-white rounded-lg hover:bg-purple-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition font-medium"
+                          >
+                            {permanentCouponApplied ? "적용완료" : "쿠폰 적용"}
+                          </button>
+                          {permanentCouponApplied && (
+                            <p className="text-xs text-green-600 mt-1 text-center font-medium">🎉 50% 할인 적용 (₩1,100,000)</p>
+                          )}
+                        </div>
                         <button
                           onClick={handlePermanentLicensePayment}
-                          className="flex-1 bg-blue-600 text-white rounded-lg px-6 py-3 font-bold hover:bg-blue-700 transition"
+                          className="w-full bg-blue-600 text-white rounded-lg px-6 py-3 font-bold hover:bg-blue-700 transition"
                         >
                           결제하기
                         </button>
@@ -2129,10 +2190,31 @@ export default function Page() {
                         </div>
                       </div>
 
-                      <div className="w-full sm:w-56 flex sm:flex-col gap-2">
+                      <div className="w-full sm:w-56 flex flex-col gap-2">
+                        {/* 🎟️ Family 쿠폰 입력 필드 */}
+                        <div className="w-full">
+                          <input
+                            type="text"
+                            value={familyCoupon}
+                            onChange={(e) => setFamilyCoupon(e.target.value)}
+                            placeholder="쿠폰 코드 (선택)"
+                            disabled={familyCouponApplied}
+                            className="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent disabled:bg-gray-100 disabled:cursor-not-allowed mb-2"
+                          />
+                          <button
+                            onClick={applyFamilyCoupon}
+                            disabled={!familyCoupon || familyCouponApplied}
+                            className="w-full px-4 py-2 text-sm bg-purple-600 text-white rounded-lg hover:bg-purple-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition font-medium"
+                          >
+                            {familyCouponApplied ? "적용완료" : "쿠폰 적용"}
+                          </button>
+                          {familyCouponApplied && (
+                            <p className="text-xs text-green-600 mt-1 text-center font-medium">🎉 50% 할인 적용 (₩1,925,000)</p>
+                          )}
+                        </div>
                         <button
                           onClick={handleFamilyLicensePayment}
-                          className="flex-1 bg-amber-600 text-white rounded-lg px-6 py-3 font-bold hover:bg-amber-700 transition"
+                          className="w-full bg-amber-600 text-white rounded-lg px-6 py-3 font-bold hover:bg-amber-700 transition"
                         >
                           결제하기
                         </button>
