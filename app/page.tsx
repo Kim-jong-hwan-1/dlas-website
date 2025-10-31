@@ -977,7 +977,7 @@ export default function Page() {
 
     // 💳 결제 전 약관 동의 모달 표시
     const isCouponApplied = moduleCouponApplied[mod] || false;
-    setPendingPayment({ module: mod, period, couponApplied: isCouponApplied });
+    setPendingPayment({ type: "module", module: mod, period, couponApplied: isCouponApplied });
     setTermsConsent1(false);
     setTermsConsent2(false);
     setShowTermsConsentModal(true);
@@ -987,13 +987,106 @@ export default function Page() {
   const proceedWithPayment = () => {
     if (!pendingPayment) return;
 
-    const { module: mod, period, couponApplied } = pendingPayment;
+    const { type, module: mod, period, couponApplied } = pendingPayment;
     const storedId = localStorage.getItem("userID") || userID;
 
     // 약관 동의 모달 닫기
     setShowTermsConsentModal(false);
     setPendingPayment(null);
 
+    // 🔹 Permanent 라이센스 결제
+    if (type === "permanent") {
+      if (typeof window === "undefined" || !(window as MyWindow).TossPayments) {
+        alert("결제 모듈이 아직 로드되지 않았습니다. 페이지를 새로고침해주세요.");
+        return;
+      }
+
+      const tossClientKey = process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY!;
+      const tossInit = (window as MyWindow).TossPayments;
+      if (!tossInit) {
+        alert("결제 모듈이 아직 로드되지 않았습니다.");
+        return;
+      }
+      const tossPayments = tossInit(tossClientKey);
+
+      const orderId = `DLAS-PERMANENT-${Date.now()}`;
+      let amount = 2200000; // 220만원
+
+      // 🎟️ 쿠폰 할인 적용 (50% 할인)
+      if (permanentCouponApplied) {
+        amount = Math.floor(amount * 0.5);
+      }
+
+      const orderName = "DLAS Permanent License";
+
+      const successUrl =
+        `${currentOrigin}/?provider=toss&type=permanent&orderName=${encodeURIComponent(
+          orderName
+        )}` +
+        `&orderId=${encodeURIComponent(orderId)}&amount=${encodeURIComponent(
+          String(amount)
+        )}`;
+      const failUrl = `${currentOrigin}/?provider=toss&type=permanent&status=fail`;
+
+      tossPayments.requestPayment("CARD", {
+        amount,
+        orderId,
+        orderName,
+        customerEmail: storedId,
+        customerName: userInfo && userInfo.name ? userInfo.name : storedId,
+        successUrl,
+        failUrl,
+      });
+      return;
+    }
+
+    // 🔹 Family 라이센스 결제
+    if (type === "family") {
+      if (typeof window === "undefined" || !(window as MyWindow).TossPayments) {
+        alert("The payment module has not been loaded yet.");
+        return;
+      }
+
+      const tossClientKey = process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY!;
+      const tossInit = (window as MyWindow).TossPayments;
+      if (!tossInit) {
+        alert("The payment module has not been loaded yet.");
+        return;
+      }
+      const tossPayments = tossInit(tossClientKey);
+
+      const orderId = `DLAS-FAMILY-${Date.now()}`;
+      let amount = 3850000; // 385만원
+
+      // 🎟️ 쿠폰 할인 적용 (50% 할인)
+      if (familyCouponApplied) {
+        amount = Math.floor(amount * 0.5);
+      }
+
+      const orderName = "DLAS Family License";
+
+      const successUrl =
+        `${currentOrigin}/?provider=toss&type=family&orderName=${encodeURIComponent(
+          orderName
+        )}` +
+        `&orderId=${encodeURIComponent(orderId)}&amount=${encodeURIComponent(
+          String(amount)
+        )}`;
+      const failUrl = `${currentOrigin}/?provider=toss&type=family`;
+
+      tossPayments.requestPayment("CARD", {
+        amount,
+        orderId,
+        orderName,
+        customerEmail: storedId,
+        customerName: userInfo && userInfo.name ? userInfo.name : storedId,
+        successUrl,
+        failUrl,
+      });
+      return;
+    }
+
+    // 🔹 모듈 라이센스 결제
     // 🇰🇷 한국 사용자 → Toss Payments
     if (isKrwDisplay(userInfo.country)) {
       if (typeof window === "undefined" || !(window as MyWindow).TossPayments) {
@@ -1146,7 +1239,7 @@ export default function Page() {
 
   // 💳 약관 동의 모달 (결제 전)
   const [showTermsConsentModal, setShowTermsConsentModal] = useState(false);
-  const [pendingPayment, setPendingPayment] = useState<{module: string; period: string; couponApplied?: boolean} | null>(null);
+  const [pendingPayment, setPendingPayment] = useState<{type: "module" | "permanent" | "family"; module?: string; period?: string; couponApplied?: boolean} | null>(null);
   const [termsConsent1, setTermsConsent1] = useState(false); // 결제 및 환불
   const [termsConsent2, setTermsConsent2] = useState(false); // 책임의 한계
 
@@ -1402,48 +1495,11 @@ export default function Page() {
       return;
     }
 
-    if (typeof window === "undefined" || !(window as MyWindow).TossPayments) {
-      alert("The payment module has not been loaded yet.");
-      return;
-    }
-
-    const tossClientKey = process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY!;
-    const tossInit = (window as MyWindow).TossPayments;
-    if (!tossInit) {
-      alert("The payment module has not been loaded yet.");
-      return;
-    }
-    const tossPayments = tossInit(tossClientKey);
-
-    const orderId = `DLAS-PERMANENT-${Date.now()}`;
-    let amount = 2200000; // 220만원
-
-    // 🎟️ 쿠폰 할인 적용 (50% 할인)
-    if (permanentCouponApplied) {
-      amount = Math.floor(amount * 0.5);
-    }
-
-    const userID = localStorage.getItem("userID") || "";
-    const orderName = "DLAS Permanent License";
-
-    const successUrl =
-      `${currentOrigin}/?provider=toss&type=permanent&orderName=${encodeURIComponent(
-        orderName
-      )}` +
-      `&orderId=${encodeURIComponent(orderId)}&amount=${encodeURIComponent(
-        String(amount)
-      )}`;
-    const failUrl = `${currentOrigin}/?provider=toss&type=permanent&status=fail`;
-
-    tossPayments.requestPayment("CARD", {
-      amount,
-      orderId,
-      orderName,
-      customerEmail: userID,
-      customerName: userInfo && userInfo.name ? userInfo.name : userID,
-      successUrl,
-      failUrl,
-    });
+    // 💳 결제 전 약관 동의 모달 표시
+    setPendingPayment({ type: "permanent" });
+    setTermsConsent1(false);
+    setTermsConsent2(false);
+    setShowTermsConsentModal(true);
   };
 
   // 🔹 Family 라이선스 결제
@@ -1464,15 +1520,12 @@ export default function Page() {
       alert("You are already a Family user. Payment is not possible.");
       return;
     }
-    if (!userInfo.country || userInfo.country.trim() === "") {
-      alert("국가 정보를 불러오는 중입니다. 상단 'MY'에서 확인한 뒤 다시 시도해 주세요.");
-      return;
-    }
-    if (isKrwDisplay(userInfo.country)) {
-      alert(KOREA_PAYMENT_MESSAGE);
-      return;
-    }
-    handlePaddleCheckout();
+
+    // 💳 결제 전 약관 동의 모달 표시
+    setPendingPayment({ type: "family" });
+    setTermsConsent1(false);
+    setTermsConsent2(false);
+    setShowTermsConsentModal(true);
   };
 
   return (
