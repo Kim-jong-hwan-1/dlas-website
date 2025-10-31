@@ -1298,7 +1298,7 @@ export default function Page() {
     const tossPayments = tossInit(tossClientKey);
 
     const orderId = `DLAS-FAMILY-${Date.now()}`;
-    const amount = 550000;
+    const amount = 3850000; // 385만원
     const userID = localStorage.getItem("userID") || "";
     const orderName = "DLAS Family License";
 
@@ -1322,6 +1322,60 @@ export default function Page() {
     });
   };
 
+  // 🔹 Permanent 라이선스 결제
+  const handlePermanentLicensePayment = () => {
+    if (isUserInfoLoading) {
+      alert("Loading your information... Please try again shortly.");
+      return;
+    }
+    if (userInfo.licenseStatus === "permanent") {
+      alert("You already have a Permanent License.");
+      return;
+    }
+    if (!isLoggedIn) {
+      alert("로그인이 필요합니다.");
+      return;
+    }
+
+    if (typeof window === "undefined" || !(window as MyWindow).TossPayments) {
+      alert("The payment module has not been loaded yet.");
+      return;
+    }
+
+    const tossClientKey = process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY!;
+    const tossInit = (window as MyWindow).TossPayments;
+    if (!tossInit) {
+      alert("The payment module has not been loaded yet.");
+      return;
+    }
+    const tossPayments = tossInit(tossClientKey);
+
+    const orderId = `DLAS-PERMANENT-${Date.now()}`;
+    const amount = 2200000; // 220만원
+    const userID = localStorage.getItem("userID") || "";
+    const orderName = "DLAS Permanent License";
+
+    const successUrl =
+      `${currentOrigin}/?provider=toss&type=permanent&orderName=${encodeURIComponent(
+        orderName
+      )}` +
+      `&orderId=${encodeURIComponent(orderId)}&amount=${encodeURIComponent(
+        String(amount)
+      )}`;
+    const failUrl = `${currentOrigin}/?provider=toss&type=permanent&status=fail`;
+
+    tossPayments.requestPayment("CARD", {
+      amount,
+      orderId,
+      orderName,
+      customerEmail: userID,
+      customerName: userInfo && userInfo.name ? userInfo.name : userID,
+      successUrl,
+      failUrl,
+    });
+  };
+
+  // 🔹 Family 라이선스 결제
   const handleFamilyLicensePayment = () => {
     if (isUserInfoLoading) {
       alert("Loading your information... Please try again shortly.");
@@ -1941,6 +1995,12 @@ export default function Page() {
                       </div>
                       <div className="w-full sm:w-56 flex sm:flex-col gap-2">
                         <button
+                          onClick={handlePermanentLicensePayment}
+                          className="flex-1 bg-blue-600 text-white rounded-lg px-6 py-3 font-bold hover:bg-blue-700 transition"
+                        >
+                          결제하기
+                        </button>
+                        <button
                           onClick={() => alert("032-212-2882로 전화 또는 support@dlas.io로 문의 주세요")}
                           className="flex-1 bg-black text-white rounded-lg px-6 py-3 font-bold hover:bg-gray-800 transition"
                         >
@@ -1987,6 +2047,12 @@ export default function Page() {
                       </div>
 
                       <div className="w-full sm:w-56 flex sm:flex-col gap-2">
+                        <button
+                          onClick={handleFamilyLicensePayment}
+                          className="flex-1 bg-amber-600 text-white rounded-lg px-6 py-3 font-bold hover:bg-amber-700 transition"
+                        >
+                          결제하기
+                        </button>
                         <button
                           onClick={() => alert("032-212-2882로 전화 또는 support@dlas.io로 문의 주세요")}
                           className="flex-1 bg-black text-white rounded-lg px-6 py-3 font-bold hover:bg-gray-800 transition"
