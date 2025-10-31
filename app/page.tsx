@@ -1945,6 +1945,7 @@ export default function Page() {
                         )}
                       </div>
                       {/* 🎟️ 쿠폰 입력 필드 (모바일) */}
+                      {false && (
                       <div className="w-full px-4 mb-3">
                         <div className="flex gap-2">
                           <input
@@ -1967,6 +1968,7 @@ export default function Page() {
                           <p className="text-xs text-green-600 mt-1 text-center">🎉 50% 할인 적용됨</p>
                         )}
                       </div>
+                      )}
                       <div className="flex flex-col w-full items-center gap-2">
                         {/* 할인 배지 제거 */}
 
@@ -2081,6 +2083,7 @@ export default function Page() {
                       </div>
                       <div className="flex flex-col gap-3 w-40 flex-shrink-0 h-full justify-center items-center">
                         {/* 🎟️ 쿠폰 입력 필드 (데스크탑) */}
+                        {false && (
                         <div className="w-full mb-2">
                           <input
                             type="text"
@@ -2101,6 +2104,7 @@ export default function Page() {
                             <p className="text-xs text-green-600 mt-1 text-center font-medium">50% 할인</p>
                           )}
                         </div>
+                        )}
                         {/* 할인 배지 제거 */}
 
                         <button
@@ -2171,6 +2175,7 @@ export default function Page() {
                       </div>
                       <div className="w-full sm:w-56 flex flex-col gap-2">
                         {/* 🎟️ Permanent 쿠폰 입력 필드 */}
+                        {false && (
                         <div className="w-full">
                           <input
                             type="text"
@@ -2191,6 +2196,7 @@ export default function Page() {
                             <p className="text-xs text-green-600 mt-1 text-center font-medium">🎉 50% 할인 적용 (₩1,100,000)</p>
                           )}
                         </div>
+                        )}
                         <button
                           onClick={handlePermanentLicensePayment}
                           className="w-full bg-blue-600 text-white rounded-lg px-6 py-3 font-bold hover:bg-blue-700 transition"
@@ -2245,6 +2251,7 @@ export default function Page() {
 
                       <div className="w-full sm:w-56 flex flex-col gap-2">
                         {/* 🎟️ Family 쿠폰 입력 필드 */}
+                        {false && (
                         <div className="w-full">
                           <input
                             type="text"
@@ -2265,6 +2272,7 @@ export default function Page() {
                             <p className="text-xs text-green-600 mt-1 text-center font-medium">🎉 50% 할인 적용 (₩1,925,000)</p>
                           )}
                         </div>
+                        )}
                         <button
                           onClick={handleFamilyLicensePayment}
                           className="w-full bg-amber-600 text-white rounded-lg px-6 py-3 font-bold hover:bg-amber-700 transition"
