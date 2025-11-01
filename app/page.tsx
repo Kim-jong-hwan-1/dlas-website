@@ -7,6 +7,7 @@ import Image from "next/image";
 import { useLang } from "@/components/LanguageWrapper";
 import LanguageSelector from "@/components/LanguageSelector";
 import EmailVerification from "@/components/EmailVerification";
+import AdminPanel from "@/components/AdminPanel";
 import Script from "next/script";
 
 // ---------------------------------------------
@@ -3439,6 +3440,9 @@ export default function Page() {
             </div>
           </div>
         )}
+
+        {/* Admin Monitoring Panel */}
+        <AdminPanel />
 
         {/* Footer */}
         <footer className="bg-black text-white py-10 px-6 mt-20">
