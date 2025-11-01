@@ -618,6 +618,36 @@ export default function Page() {
 
         alert(`Sign up completed: ${data.message}`);
         document.getElementById("signup-modal")?.classList.add("hidden");
+
+        // 회원가입 후 자동 로그인
+        try {
+          const loginResponse = await fetch(
+            "https://license-server-697p.onrender.com/auth/login",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                email: idForSignup,
+                password: password,
+              }),
+            }
+          );
+
+          if (loginResponse.ok) {
+            const loginData = await loginResponse.json();
+            const access_token = loginData.access_token;
+            if (access_token) {
+              localStorage.setItem("DLAS_TOKEN", access_token);
+              setToken(access_token);
+              console.log("Auto-login successful after signup");
+            }
+          }
+        } catch (loginError) {
+          console.error("Auto-login failed:", loginError);
+          // 자동 로그인 실패해도 회원가입은 성공했으므로 무시
+        }
       } catch (e) {
         console.error("JSON parse failed", text);
         alert("Received an invalid response from the server.");

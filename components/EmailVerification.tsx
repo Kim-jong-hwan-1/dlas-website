@@ -77,7 +77,8 @@ export default function EmailVerification({
           });
         }, 1000);
       } else {
-        setMessage(data.message || "인증번호 발송에 실패했습니다.");
+        // FastAPI는 detail 키로 에러 메시지를 보냄
+        setMessage(data.detail || data.message || "인증번호 발송에 실패했습니다.");
       }
     } catch (error) {
       setMessage("서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
@@ -125,7 +126,8 @@ export default function EmailVerification({
           onVerificationSuccess(days);
         }, 2000);
       } else {
-        setMessage(data.message || "인증번호가 일치하지 않습니다.");
+        // FastAPI는 detail 키로 에러 메시지를 보냄
+        setMessage(data.detail || data.message || "인증번호가 일치하지 않습니다.");
       }
     } catch (error) {
       setMessage("서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
