@@ -1661,7 +1661,7 @@ export default function Page() {
             />
             {/* ▼ 네비게이션 버튼 그룹 (오른쪽) */}
             <div className="absolute bottom-2 right-4 sm:right-8 hidden sm:flex flex-wrap items-center gap-x-4 gap-y-2">
-              {["home", "download", "buy"].map((tab) => (
+              {["home", "download", "buy", "tips"].map((tab) => (
                 <button
                   key={tab}
                   onClick={() => scrollToSection(tab)}
@@ -2327,6 +2327,73 @@ export default function Page() {
               );
             })()}
           </section>
+
+          {/* --- 기공작업팁 섹션 --- */}
+          <section id="tips" className="scroll-mt-[180px] py-20 px-6 bg-gray-100">
+            <div className="max-w-6xl mx-auto">
+              <h2 className="text-4xl font-bold mb-12 text-center">{t("nav.tips")}</h2>
+
+              {/* 팁 목록 - 추후 확장 가능 */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {/* Tip 1: Adding Pontic (HTML) */}
+                <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition">
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold mb-2">EXO Tip #1: Adding Pontic</h3>
+                    <p className="text-gray-600 mb-4">엑소 모드에서 폰틱 추가하는 방법</p>
+                    <button
+                      onClick={() => {
+                        const modal = document.getElementById("tip-modal-1");
+                        if (modal) modal.classList.remove("hidden");
+                      }}
+                      className="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition"
+                    >
+                      자세히 보기
+                    </button>
+                  </div>
+                </div>
+
+                {/* 추후 추가될 팁들을 위한 플레이스홀더 */}
+                {/* 팁 추가 시 여기에 동일한 구조로 카드 추가 */}
+              </div>
+            </div>
+          </section>
+
+          {/* Tip 1 Modal */}
+          <div id="tip-modal-1" className="hidden fixed inset-0 bg-black/70 z-[9999] flex items-center justify-center p-4">
+            <div className="bg-white rounded-lg w-full h-full max-w-7xl max-h-[90vh] flex flex-col">
+              <div className="flex justify-between items-center p-4 border-b">
+                <h3 className="text-2xl font-bold">EXO Tip #1: Adding Pontic</h3>
+                <div className="flex items-center gap-3">
+                  <a
+                    href="/DLAS_exo_tip_1_adding_pontic.html"
+                    download="DLAS_exo_tip_1_adding_pontic.html"
+                    className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition flex items-center gap-2"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                    </svg>
+                    저장
+                  </a>
+                  <button
+                    onClick={() => {
+                      const modal = document.getElementById("tip-modal-1");
+                      if (modal) modal.classList.add("hidden");
+                    }}
+                    className="text-gray-500 hover:text-gray-700 text-3xl font-bold"
+                  >
+                    ×
+                  </button>
+                </div>
+              </div>
+              <div className="flex-1 overflow-hidden">
+                <iframe
+                  src="/DLAS_exo_tip_1_adding_pontic.html"
+                  className="w-full h-full border-0"
+                  title="EXO Tip 1: Adding Pontic"
+                />
+              </div>
+            </div>
+          </div>
 
           {/* --- Terms & Privacy 섹션 --- */}
           <section id="terms-privacy" className="scroll-mt-[180px] py-20 px-6 bg-white">

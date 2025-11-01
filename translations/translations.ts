@@ -5,7 +5,7 @@ export const translations = {
  /////////////////////////////////////////////////////////////////////
   en: {
     // ... 영어 번역 (생략 없이 전체 있음)
-    nav: { home: "Home", download: "Download", buy: "Buy", contact: "Contact", terms: "Terms & Privacy", family: "Family", login: "Login", signup: "Sign Up" },
+    nav: { home: "Home", download: "Download", buy: "Buy", tips: "Lab Tips", contact: "Contact", terms: "Terms & Privacy", family: "Family", login: "Login", signup: "Sign Up" },
     home: {
       subtitle: "Maximize Productivity with Just One Click",
       title: "From Hours to Seconds",
@@ -1189,6 +1189,7 @@ export const translations = {
       home: "홈",
       download: "다운로드",
       buy: "구매",
+      tips: "기공작업팁",
       contact: "문의",
       terms: "이용약관/개인정보",
       family: "패밀리",
