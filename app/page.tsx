@@ -2335,14 +2335,31 @@ export default function Page() {
 
               {/* 팁 목록 - 추후 확장 가능 */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {/* Tip 1: Adding Pontic (HTML) */}
+                {/* Tip 1: 폰틱 추가하기 (HTML) */}
                 <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition">
                   <div className="p-6">
-                    <h3 className="text-xl font-bold mb-2">EXO Tip #1: Adding Pontic</h3>
-                    <p className="text-gray-600 mb-4">엑소 모드에서 폰틱 추가하는 방법</p>
+                    <h3 className="text-xl font-bold mb-2">EXO Tip #1: 폰틱 추가하기</h3>
+                    <p className="text-gray-600 mb-4">엑소에서 주문서 안바꾸고 폰틱 추가하는 방법</p>
                     <button
                       onClick={() => {
                         const modal = document.getElementById("tip-modal-1");
+                        if (modal) modal.classList.remove("hidden");
+                      }}
+                      className="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition"
+                    >
+                      자세히 보기
+                    </button>
+                  </div>
+                </div>
+
+                {/* Tip 2: 라이브러리 에디팅 응용 */}
+                <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition">
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold mb-2">EXO Tip #2: 라이브러리 에디팅 응용</h3>
+                    <p className="text-gray-600 mb-4">커넥션부위 조절로 깔끔한 어버트먼트 디자인 하는 방법</p>
+                    <button
+                      onClick={() => {
+                        const modal = document.getElementById("tip-modal-2");
                         if (modal) modal.classList.remove("hidden");
                       }}
                       className="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition"
@@ -2362,11 +2379,11 @@ export default function Page() {
           <div id="tip-modal-1" className="hidden fixed inset-0 bg-black/70 z-[9999] flex items-center justify-center p-4">
             <div className="bg-white rounded-lg w-full h-full max-w-7xl max-h-[90vh] flex flex-col">
               <div className="flex justify-between items-center p-4 border-b">
-                <h3 className="text-2xl font-bold">EXO Tip #1: Adding Pontic</h3>
+                <h3 className="text-2xl font-bold">EXO Tip #1: 폰틱 추가하기</h3>
                 <div className="flex items-center gap-3">
                   <a
-                    href="/DLAS_exo_tip_1_adding_pontic.html"
-                    download="DLAS_exo_tip_1_adding_pontic.html"
+                    href="/tip/exo_1_potinc.html"
+                    download="exo_1_potinc.html"
                     className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition flex items-center gap-2"
                   >
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -2387,9 +2404,46 @@ export default function Page() {
               </div>
               <div className="flex-1 overflow-hidden">
                 <iframe
-                  src="/DLAS_exo_tip_1_adding_pontic.html"
+                  src="/tip/exo_1_potinc.html"
                   className="w-full h-full border-0"
-                  title="EXO Tip 1: Adding Pontic"
+                  title="EXO Tip 1: 폰틱 추가하기"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Tip 2 Modal */}
+          <div id="tip-modal-2" className="hidden fixed inset-0 bg-black/70 z-[9999] flex items-center justify-center p-4">
+            <div className="bg-white rounded-lg w-full h-full max-w-7xl max-h-[90vh] flex flex-col">
+              <div className="flex justify-between items-center p-4 border-b">
+                <h3 className="text-2xl font-bold">EXO Tip #2: 라이브러리 에디팅 응용</h3>
+                <div className="flex items-center gap-3">
+                  <a
+                    href="/tip/exo_2_library_1.html"
+                    download="exo_2_library_1.html"
+                    className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition flex items-center gap-2"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                    </svg>
+                    저장
+                  </a>
+                  <button
+                    onClick={() => {
+                      const modal = document.getElementById("tip-modal-2");
+                      if (modal) modal.classList.add("hidden");
+                    }}
+                    className="text-gray-500 hover:text-gray-700 text-3xl font-bold"
+                  >
+                    ×
+                  </button>
+                </div>
+              </div>
+              <div className="flex-1 overflow-hidden">
+                <iframe
+                  src="/tip/exo_2_library_1.html"
+                  className="w-full h-full border-0"
+                  title="EXO Tip 2: 라이브러리 에디팅 응용"
                 />
               </div>
             </div>
