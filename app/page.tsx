@@ -2335,11 +2335,11 @@ export default function Page() {
 
               {/* 팁 목록 - 추후 확장 가능 */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {/* Tip 1: 폰틱 추가하기 (HTML) */}
+                {/* Tip 1: 파닉 추가하기 (HTML) */}
                 <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition">
                   <div className="p-6">
-                    <h3 className="text-xl font-bold mb-2">EXO Tip #1: 폰틱 추가하기</h3>
-                    <p className="text-gray-600 mb-4">엑소에서 주문서 안바꾸고 폰틱 추가하는 방법</p>
+                    <h3 className="text-xl font-bold mb-2">EXO Tip #1: 파닉 추가하기</h3>
+                    <p className="text-gray-600 mb-4">엑소에서 주문서 안바꾸고 파닉 추가하는 방법</p>
                     <button
                       onClick={() => {
                         const modal = document.getElementById("tip-modal-1");
@@ -2379,7 +2379,7 @@ export default function Page() {
           <div id="tip-modal-1" className="hidden fixed inset-0 bg-black/70 z-[9999] flex items-center justify-center p-4">
             <div className="bg-white rounded-lg w-full h-full max-w-7xl max-h-[90vh] flex flex-col">
               <div className="flex justify-between items-center p-4 border-b">
-                <h3 className="text-2xl font-bold">EXO Tip #1: 폰틱 추가하기</h3>
+                <h3 className="text-2xl font-bold">EXO Tip #1: 파닉 추가하기</h3>
                 <div className="flex items-center gap-3">
                   <a
                     href="/tip/exo_1_potinc.html"
@@ -2406,7 +2406,7 @@ export default function Page() {
                 <iframe
                   src="/tip/exo_1_potinc.html"
                   className="w-full h-full border-0"
-                  title="EXO Tip 1: 폰틱 추가하기"
+                  title="EXO Tip 1: 파닉 추가하기"
                 />
               </div>
             </div>
