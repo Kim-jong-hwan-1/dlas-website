@@ -1116,6 +1116,47 @@ export default function Page() {
       return;
     }
 
+    // 🔹 Family 라이센스 50% 할인 결제 (특정 사용자 전용)
+    if (type === "family50") {
+      if (typeof window === "undefined" || !(window as MyWindow).TossPayments) {
+        alert("The payment module has not been loaded yet.");
+        return;
+      }
+
+      const tossClientKey = process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY!;
+      const tossInit = (window as MyWindow).TossPayments;
+      if (!tossInit) {
+        alert("The payment module has not been loaded yet.");
+        return;
+      }
+      const tossPayments = tossInit(tossClientKey);
+
+      const orderId = `DLAS-FAMILY50-${Date.now()}`;
+      const amount = Math.floor(3850000 * 0.5); // 50% 할인 적용
+
+      const orderName = "DLAS Family License (50% Discount)";
+
+      const successUrl =
+        `${currentOrigin}/?provider=toss&type=family&orderName=${encodeURIComponent(
+          orderName
+        )}` +
+        `&orderId=${encodeURIComponent(orderId)}&amount=${encodeURIComponent(
+          String(amount)
+        )}`;
+      const failUrl = `${currentOrigin}/?provider=toss&type=family`;
+
+      tossPayments.requestPayment("CARD", {
+        amount,
+        orderId,
+        orderName,
+        customerEmail: storedId,
+        customerName: userInfo && userInfo.name ? userInfo.name : storedId,
+        successUrl,
+        failUrl,
+      });
+      return;
+    }
+
     // 🔹 모듈 라이센스 결제
     // 🇰🇷 한국 사용자 → Toss Payments
     if (isKrwDisplay(userInfo.country)) {
@@ -1272,7 +1313,7 @@ export default function Page() {
 
   // 💳 약관 동의 모달 (결제 전)
   const [showTermsConsentModal, setShowTermsConsentModal] = useState(false);
-  const [pendingPayment, setPendingPayment] = useState<{type: "module" | "permanent" | "family"; module?: string; period?: string; couponApplied?: boolean} | null>(null);
+  const [pendingPayment, setPendingPayment] = useState<{type: "module" | "permanent" | "family" | "family50"; module?: string; period?: string; couponApplied?: boolean} | null>(null);
   const [termsConsent1, setTermsConsent1] = useState(false); // 결제 및 환불
   const [termsConsent2, setTermsConsent2] = useState(false); // 책임의 한계
 
@@ -1556,6 +1597,32 @@ export default function Page() {
 
     // 💳 결제 전 약관 동의 모달 표시
     setPendingPayment({ type: "family" });
+    setTermsConsent1(false);
+    setTermsConsent2(false);
+    setShowTermsConsentModal(true);
+  };
+
+  // 🔹 Family 라이선스 50% 할인 결제 (특정 사용자 전용)
+  const handleFamilyLicensePayment50 = () => {
+    // 로그인 체크 (상태 + localStorage 둘 다 확인)
+    const storedIsLoggedIn = localStorage.getItem("isLoggedIn");
+    if (!isLoggedIn && storedIsLoggedIn !== "true") {
+      alert("로그인이 필요합니다. 먼저 로그인해주세요.");
+      document.getElementById("login-modal")?.classList.remove("hidden");
+      return;
+    }
+
+    if (isUserInfoLoading) {
+      alert("Loading your information... Please try again shortly.");
+      return;
+    }
+    if (userInfo.licenseStatus === "family") {
+      alert("You are already a Family user. Payment is not possible.");
+      return;
+    }
+
+    // 💳 결제 전 약관 동의 모달 표시
+    setPendingPayment({ type: "family50" });
     setTermsConsent1(false);
     setTermsConsent2(false);
     setShowTermsConsentModal(true);
@@ -2307,6 +2374,15 @@ export default function Page() {
                         >
                           결제하기
                         </button>
+                        {/* 🎯 특정 사용자(km5030, 113311)에게만 50% 할인 버튼 표시 */}
+                        {(userID === "km5030" || userID === "113311") && (
+                          <button
+                            onClick={handleFamilyLicensePayment50}
+                            className="w-full bg-green-600 text-white rounded-lg px-6 py-3 font-bold hover:bg-green-700 transition"
+                          >
+                            50% 할인 결제 (₩1,925,000)
+                          </button>
+                        )}
                         <button
                           onClick={() => alert("032-212-2882로 전화 또는 support@dlas.io로 문의 주세요")}
                           className="flex-1 bg-black text-white rounded-lg px-6 py-3 font-bold hover:bg-gray-800 transition"
