@@ -7,6 +7,7 @@ import Image from "next/image";
 import { useLang } from "@/components/LanguageWrapper";
 import LanguageSelector from "@/components/LanguageSelector";
 import EmailVerification from "@/components/EmailVerification";
+import SeminarInfoModal from "@/components/SeminarInfoModal";
 import Script from "next/script";
 
 // ---------------------------------------------
@@ -1301,6 +1302,8 @@ export default function Page() {
   // 🆕 Webina modal (Poster images + 9월 세미나 설문결과)
   const [showWebinaModal, setShowWebinaModal] = useState(false);
   const [webinaTab, setWebinaTab] = useState<"poster" | "survey">("poster");
+  // 세미나 정보 모달
+  const [showSeminarInfoModal, setShowSeminarInfoModal] = useState(false);
   const [analysisPreview, setAnalysisPreview] = useState<string | null>(null);
   const WEBINA_ANALYSIS_FILES = ["분석1.png", "분석2.png", "분석3.png", "분석4.png"];
   const WEBINA_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSc_fzZTLxCqNlCYlbZs3RvogqSxbzq9BMFQnAiTBSNyw8z52A/viewform?usp=sharing&ouid=100677474144073110334";
@@ -1378,6 +1381,7 @@ export default function Page() {
     showPaymentSupportModal ||
     showDownloadModal ||
     showWebinaModal ||
+    showSeminarInfoModal ||
     showPdfModal ||
     showNoticeModal ||
     showMyModal ||
@@ -1412,6 +1416,10 @@ export default function Page() {
           setShowDownloadModal(false);
           return;
         }
+        if (showSeminarInfoModal) {
+          setShowSeminarInfoModal(false);
+          return;
+        }
         if (showPaymentSupportModal) {
           setShowPaymentSupportModal(false);
           return;
@@ -1440,6 +1448,7 @@ export default function Page() {
     analysisPreview,
     tossModalOpen,
     showWebinaModal,
+    showSeminarInfoModal,
     showPdfModal,
     showNoticeModal,
     showDownloadModal,
@@ -1728,7 +1737,25 @@ export default function Page() {
             />
             {/* ▼ 네비게이션 버튼 그룹 (오른쪽) */}
             <div className="absolute bottom-2 right-4 sm:right-8 hidden sm:flex flex-wrap items-center gap-x-4 gap-y-2">
-              {["home", "download", "buy", "tips"].map((tab) => (
+              <button
+                onClick={() => scrollToSection("home")}
+                className="relative pb-2 transition-colors duration-200 cursor-pointer
+                           border-b-2 border-transparent hover:border-black
+                           text-gray-700 hover:text-black"
+              >
+                {t("nav.home")}
+              </button>
+
+              <button
+                onClick={() => setShowSeminarInfoModal(true)}
+                className="relative pb-2 transition-colors duration-200 cursor-pointer
+                           border-b-2 border-transparent hover:border-black
+                           text-gray-700 hover:text-black"
+              >
+                세미나
+              </button>
+
+              {["download", "buy", "tips"].map((tab) => (
                 <button
                   key={tab}
                   onClick={() => scrollToSection(tab)}
@@ -3672,6 +3699,12 @@ export default function Page() {
             </div>
           </div>
         </footer>
+
+        {/* 세미나 정보 모달 */}
+        <SeminarInfoModal
+          isOpen={showSeminarInfoModal}
+          onClose={() => setShowSeminarInfoModal(false)}
+        />
       </div>
     </>
   );
