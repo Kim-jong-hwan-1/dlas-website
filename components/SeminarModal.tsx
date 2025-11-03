@@ -3,8 +3,11 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 
-export default function SeminarModal() {
-  const [isOpen, setIsOpen] = useState(false);
+interface SeminarModalProps {
+  onClose?: () => void;
+}
+
+export default function SeminarModal({ onClose }: SeminarModalProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isFullscreen, setIsFullscreen] = useState(false);
 
@@ -13,14 +16,8 @@ export default function SeminarModal() {
   // 포스터 이미지 배열 (1.png ~ 9.png)
   const posters = Array.from({ length: 9 }, (_, i) => `/posters/${i + 1}.png`);
 
-  useEffect(() => {
-    // 페이지 로드 시 모달 표시
-    setIsOpen(true);
-  }, []);
-
   const handleClose = () => {
-    setIsOpen(false);
-    setIsFullscreen(false);
+    if (onClose) onClose();
   };
 
   const handlePrevSlide = () => {
@@ -43,25 +40,17 @@ export default function SeminarModal() {
     setIsFullscreen(false);
   };
 
-  // ESC 키로 모달/전체화면 닫기
+  // ESC 키로 전체화면 닫기
   useEffect(() => {
-    if (!isOpen) return;
-
     const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        if (isFullscreen) {
-          handleFullscreenClose();
-        } else {
-          handleClose();
-        }
+      if (e.key === "Escape" && isFullscreen) {
+        handleFullscreenClose();
       }
     };
 
     window.addEventListener("keydown", handleEsc);
     return () => window.removeEventListener("keydown", handleEsc);
-  }, [isOpen, isFullscreen]);
-
-  if (!isOpen) return null;
+  }, [isFullscreen]);
 
   // 전체화면 모드
   if (isFullscreen) {
@@ -85,13 +74,9 @@ export default function SeminarModal() {
 
   return (
     <div
-      className="fixed inset-0 z-[9998] flex items-center justify-center bg-black/70 p-2 sm:p-4"
-      onClick={handleClose}
+      className="relative w-full h-full bg-white rounded-xl sm:rounded-2xl shadow-2xl overflow-hidden flex flex-col"
+      onClick={(e) => e.stopPropagation()}
     >
-      <div
-        className="relative w-[95vw] sm:w-[85vw] lg:w-[65vw] h-[95vh] bg-white rounded-xl sm:rounded-2xl shadow-2xl overflow-hidden flex flex-col"
-        onClick={(e) => e.stopPropagation()}
-      >
         {/* 닫기 버튼 */}
         <button
           onClick={handleClose}
@@ -107,9 +92,9 @@ export default function SeminarModal() {
         </button>
 
         {/* 모달 헤더 */}
-        <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white px-4 sm:px-8 py-4 sm:py-6">
-          <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-center">세미나 안내</h2>
-          <p className="text-center mt-1 sm:mt-2 text-sm sm:text-base text-blue-100">
+        <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white px-4 sm:px-6 py-3 sm:py-4">
+          <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-center">세미나 안내</h2>
+          <p className="text-center mt-1 text-xs sm:text-sm text-blue-100">
             DLAS 세미나에 참여하세요
           </p>
         </div>
@@ -185,52 +170,51 @@ export default function SeminarModal() {
         </div>
 
         {/* 가격 정보 */}
-        <div className="px-4 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-blue-50 to-indigo-50 border-t border-blue-100">
-          <h3 className="text-base sm:text-lg font-bold text-center text-gray-800 mb-2 sm:mb-3">
+        <div className="px-3 sm:px-4 py-2 bg-gradient-to-r from-blue-50 to-indigo-50 border-t border-blue-100">
+          <h3 className="text-sm sm:text-base font-bold text-center text-gray-800 mb-1">
             세미나 참가비
           </h3>
-          <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 justify-center items-center">
-            <div className="text-center px-3 sm:px-4 py-2 bg-white rounded-lg shadow-sm">
-              <span className="text-sm sm:text-base font-semibold text-blue-600">1인 신청</span>
-              <span className="mx-2 text-gray-400">|</span>
-              <span className="text-base sm:text-lg font-bold text-gray-800">20만원</span>
+          <div className="flex flex-col sm:flex-row gap-1 sm:gap-2 justify-center items-center">
+            <div className="text-center px-2 py-1 bg-white rounded shadow-sm">
+              <span className="text-xs font-semibold text-blue-600">1인</span>
+              <span className="mx-1 text-gray-400">|</span>
+              <span className="text-sm font-bold text-gray-800">20만원</span>
             </div>
-            <div className="text-center px-3 sm:px-4 py-2 bg-white rounded-lg shadow-sm">
-              <span className="text-sm sm:text-base font-semibold text-blue-600">2인 신청</span>
-              <span className="mx-2 text-gray-400">|</span>
-              <span className="text-base sm:text-lg font-bold text-gray-800">각 17만원</span>
+            <div className="text-center px-2 py-1 bg-white rounded shadow-sm">
+              <span className="text-xs font-semibold text-blue-600">2인</span>
+              <span className="mx-1 text-gray-400">|</span>
+              <span className="text-sm font-bold text-gray-800">각 17만원</span>
             </div>
-            <div className="text-center px-3 sm:px-4 py-2 bg-white rounded-lg shadow-sm">
-              <span className="text-sm sm:text-base font-semibold text-blue-600">3인 신청</span>
-              <span className="mx-2 text-gray-400">|</span>
-              <span className="text-base sm:text-lg font-bold text-gray-800">각 15만원</span>
+            <div className="text-center px-2 py-1 bg-white rounded shadow-sm">
+              <span className="text-xs font-semibold text-blue-600">3인</span>
+              <span className="mx-1 text-gray-400">|</span>
+              <span className="text-sm font-bold text-gray-800">각 15만원</span>
             </div>
           </div>
-          <p className="text-center mt-2 text-xs sm:text-sm text-gray-500">
+          <p className="text-center mt-1 text-[10px] sm:text-xs text-gray-500">
             * 부가세 별도
           </p>
         </div>
 
         {/* 하단 버튼 영역 */}
-        <div className="px-4 sm:px-8 py-4 sm:py-6 bg-white flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
-          <button
-            onClick={handleClose}
-            className="px-6 sm:px-8 py-3 sm:py-4 rounded-lg bg-gray-200 text-gray-700
-                       hover:bg-gray-300 active:scale-95
-                       font-medium transition text-base sm:text-lg"
-          >
-            나중에 보기
-          </button>
+        <div className="px-3 sm:px-4 py-2 sm:py-3 bg-white flex gap-2">
           <button
             onClick={handleApply}
-            className="px-8 sm:px-12 py-4 sm:py-5 rounded-lg bg-blue-600 text-white
+            className="px-4 sm:px-6 py-2 sm:py-3 rounded-lg bg-blue-600 text-white
                        hover:bg-blue-700 active:scale-95
-                       font-bold transition shadow-lg text-xl sm:text-2xl"
+                       font-bold transition shadow-lg text-base sm:text-lg flex-1"
           >
             세미나 신청하기
           </button>
+          <button
+            onClick={handleClose}
+            className="px-4 sm:px-6 py-2 sm:py-3 rounded-lg bg-gray-500 text-white
+                       hover:bg-gray-600 active:scale-95
+                       font-medium transition shadow-lg text-base sm:text-lg flex-1"
+          >
+            닫기
+          </button>
         </div>
       </div>
-    </div>
   );
 }
