@@ -1924,24 +1924,30 @@ export default function Page() {
                         <div class="absolute bottom-4 left-1/2 -translate-x-1/2 text-white text-xl font-bold bg-black/50 px-4 py-2 rounded">1 / 9</div>
                       `;
                       document.body.appendChild(modal);
-                      const img = modal.querySelector('#slideImg');
-                      const counter = modal.querySelector('div');
+                      const img = modal.querySelector('#slideImg') as HTMLImageElement;
+                      const counter = modal.querySelector('div') as HTMLDivElement;
+                      const prevBtn = modal.querySelector('#prevBtn') as HTMLButtonElement;
+                      const nextBtn = modal.querySelector('#nextBtn') as HTMLButtonElement;
                       const updateSlide = () => {
-                        img.src = '/posters/' + (currentSlide + 1) + '.png';
-                        counter.textContent = (currentSlide + 1) + ' / 9';
+                        if (img) img.src = '/posters/' + (currentSlide + 1) + '.png';
+                        if (counter) counter.textContent = (currentSlide + 1) + ' / 9';
                       };
-                      modal.querySelector('#prevBtn').onclick = (e) => {
-                        e.stopPropagation();
-                        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-                        updateSlide();
-                      };
-                      modal.querySelector('#nextBtn').onclick = (e) => {
-                        e.stopPropagation();
-                        currentSlide = (currentSlide + 1) % totalSlides;
-                        updateSlide();
-                      };
+                      if (prevBtn) {
+                        prevBtn.onclick = (e) => {
+                          e.stopPropagation();
+                          currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+                          updateSlide();
+                        };
+                      }
+                      if (nextBtn) {
+                        nextBtn.onclick = (e) => {
+                          e.stopPropagation();
+                          currentSlide = (currentSlide + 1) % totalSlides;
+                          updateSlide();
+                        };
+                      }
                       modal.onclick = () => modal.remove();
-                      img.onclick = (e) => e.stopPropagation();
+                      if (img) img.onclick = (e) => e.stopPropagation();
                     }}
                   >
                     <div className="absolute inset-0 flex items-center justify-center">
@@ -2004,24 +2010,30 @@ export default function Page() {
                         <div class="absolute bottom-4 left-1/2 -translate-x-1/2 text-white text-xl font-bold bg-black/50 px-4 py-2 rounded">1 / 3</div>
                       `;
                       document.body.appendChild(modal);
-                      const img = modal.querySelector('#slideImg');
-                      const counter = modal.querySelector('div');
+                      const img = modal.querySelector('#slideImg') as HTMLImageElement;
+                      const counter = modal.querySelector('div') as HTMLDivElement;
+                      const prevBtn = modal.querySelector('#prevBtn') as HTMLButtonElement;
+                      const nextBtn = modal.querySelector('#nextBtn') as HTMLButtonElement;
                       const updateSlide = () => {
-                        img.src = '/webina/' + (currentSlide + 1) + '.jpg';
-                        counter.textContent = (currentSlide + 1) + ' / 3';
+                        if (img) img.src = '/webina/' + (currentSlide + 1) + '.jpg';
+                        if (counter) counter.textContent = (currentSlide + 1) + ' / 3';
                       };
-                      modal.querySelector('#prevBtn').onclick = (e) => {
-                        e.stopPropagation();
-                        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-                        updateSlide();
-                      };
-                      modal.querySelector('#nextBtn').onclick = (e) => {
-                        e.stopPropagation();
-                        currentSlide = (currentSlide + 1) % totalSlides;
-                        updateSlide();
-                      };
+                      if (prevBtn) {
+                        prevBtn.onclick = (e) => {
+                          e.stopPropagation();
+                          currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+                          updateSlide();
+                        };
+                      }
+                      if (nextBtn) {
+                        nextBtn.onclick = (e) => {
+                          e.stopPropagation();
+                          currentSlide = (currentSlide + 1) % totalSlides;
+                          updateSlide();
+                        };
+                      }
                       modal.onclick = () => modal.remove();
-                      img.onclick = (e) => e.stopPropagation();
+                      if (img) img.onclick = (e) => e.stopPropagation();
                     }}
                   >
                     <div className="absolute inset-0 flex items-center justify-center">
