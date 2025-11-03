@@ -1747,7 +1747,7 @@ export default function Page() {
               </button>
 
               <button
-                onClick={() => setShowSeminarInfoModal(true)}
+                onClick={() => scrollToSection("seminar")}
                 className="relative pb-2 transition-colors duration-200 cursor-pointer
                            border-b-2 border-transparent hover:border-black
                            text-gray-700 hover:text-black"
@@ -1882,6 +1882,179 @@ export default function Page() {
               <p className="italic text-2xl text-gray-800 font-medium">
                 {t("home.gameChangerQuote")}
               </p>
+            </div>
+          </section>
+
+          {/* 세미나 섹션 */}
+          <section id="seminar" className="scroll-mt-[180px] py-20 bg-gradient-to-b from-white to-gray-50">
+            <div className="max-w-7xl mx-auto px-4">
+              <h2 className="text-4xl font-bold text-center mb-12">세미나 & 웨비나</h2>
+
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                {/* 소개 영상 */}
+                <div className="lg:col-span-1 flex flex-col items-center">
+                  <h3 className="text-2xl font-bold mb-4 text-blue-600">소개 영상</h3>
+                  <div className="w-full max-w-sm aspect-[9/16] bg-black rounded-lg overflow-hidden shadow-lg">
+                    <iframe
+                      src="https://www.youtube.com/embed/nIW3pJCzfOM"
+                      title="DLAS 소개"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="w-full h-full"
+                    />
+                  </div>
+                </div>
+
+                {/* 세미나 정보 */}
+                <div className="lg:col-span-1 bg-white rounded-xl shadow-lg p-6">
+                  <h3 className="text-2xl font-bold mb-4 text-blue-600">DLAS 세미나</h3>
+
+                  {/* 세미나 포스터 이미지 슬라이더 */}
+                  <div className="mb-4 relative bg-gray-100 rounded-lg overflow-hidden cursor-pointer" style={{ height: '300px' }}
+                    onClick={() => {
+                      let currentSlide = 0;
+                      const totalSlides = 9;
+                      const modal = document.createElement('div');
+                      modal.className = 'fixed inset-0 z-[9999] bg-black/90 flex items-center justify-center p-4';
+                      modal.innerHTML = `
+                        <button onclick="this.parentElement.remove()" class="absolute top-4 right-4 text-white text-6xl font-bold z-10 w-16 h-16 flex items-center justify-center hover:bg-white/20 rounded-full transition">×</button>
+                        <button id="prevBtn" class="absolute left-2 sm:left-8 top-1/2 -translate-y-1/2 text-white text-8xl sm:text-9xl font-bold z-10 w-20 h-20 sm:w-32 sm:h-32 flex items-center justify-center hover:bg-white/20 rounded-full transition">‹</button>
+                        <img id="slideImg" src="/posters/1.png" class="max-w-full max-h-full object-contain" />
+                        <button id="nextBtn" class="absolute right-2 sm:right-8 top-1/2 -translate-y-1/2 text-white text-8xl sm:text-9xl font-bold z-10 w-20 h-20 sm:w-32 sm:h-32 flex items-center justify-center hover:bg-white/20 rounded-full transition">›</button>
+                        <div class="absolute bottom-4 left-1/2 -translate-x-1/2 text-white text-xl font-bold bg-black/50 px-4 py-2 rounded">1 / 9</div>
+                      `;
+                      document.body.appendChild(modal);
+                      const img = modal.querySelector('#slideImg');
+                      const counter = modal.querySelector('div');
+                      const updateSlide = () => {
+                        img.src = '/posters/' + (currentSlide + 1) + '.png';
+                        counter.textContent = (currentSlide + 1) + ' / 9';
+                      };
+                      modal.querySelector('#prevBtn').onclick = (e) => {
+                        e.stopPropagation();
+                        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+                        updateSlide();
+                      };
+                      modal.querySelector('#nextBtn').onclick = (e) => {
+                        e.stopPropagation();
+                        currentSlide = (currentSlide + 1) % totalSlides;
+                        updateSlide();
+                      };
+                      modal.onclick = () => modal.remove();
+                      img.onclick = (e) => e.stopPropagation();
+                    }}
+                  >
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <Image
+                        src="/posters/1.png"
+                        alt="세미나 포스터"
+                        fill
+                        className="object-contain"
+                      />
+                    </div>
+                    <div className="absolute bottom-2 right-2 bg-blue-600/80 text-white px-3 py-1 rounded text-sm pointer-events-none">
+                      클릭하여 전체보기 (9장)
+                    </div>
+                  </div>
+
+                  <div className="bg-blue-50 p-4 rounded-lg mb-4">
+                    <h4 className="font-bold text-lg mb-3">참가비</h4>
+                    <div className="space-y-2">
+                      <div className="flex justify-between items-center bg-white p-3 rounded">
+                        <span className="font-semibold">1인 신청</span>
+                        <span className="text-lg font-bold text-blue-600">20만원</span>
+                      </div>
+                      <div className="flex justify-between items-center bg-white p-3 rounded">
+                        <span className="font-semibold">2인 신청</span>
+                        <span className="text-lg font-bold text-blue-600">각 17만원</span>
+                      </div>
+                      <div className="flex justify-between items-center bg-white p-3 rounded">
+                        <span className="font-semibold">3인 신청</span>
+                        <span className="text-lg font-bold text-blue-600">각 15만원</span>
+                      </div>
+                    </div>
+                    <p className="text-sm text-gray-500 mt-2">* 부가세 별도</p>
+                  </div>
+
+                  <button
+                    onClick={() => window.open("https://docs.google.com/forms/d/e/1FAIpQLSc_fzZTLxCqNlCYlbZs3RvogqSxbzq9BMFQnAiTBSNyw8z52A/viewform?usp=sharing&ouid=100677474144073110334", "_blank", "noopener,noreferrer")}
+                    className="w-full py-3 bg-blue-600 text-white font-bold rounded-lg
+                               hover:bg-blue-700 active:scale-95 transition shadow-lg"
+                  >
+                    세미나 신청하기
+                  </button>
+                </div>
+
+                {/* 웨비나 정보 */}
+                <div className="lg:col-span-1 bg-white rounded-xl shadow-lg p-6">
+                  <h3 className="text-2xl font-bold mb-4 text-purple-600">DLAS 웨비나</h3>
+
+                  {/* 웨비나 포스터 이미지 슬라이더 */}
+                  <div className="mb-4 relative bg-gray-100 rounded-lg overflow-hidden cursor-pointer" style={{ height: '300px' }}
+                    onClick={() => {
+                      let currentSlide = 0;
+                      const totalSlides = 3;
+                      const modal = document.createElement('div');
+                      modal.className = 'fixed inset-0 z-[9999] bg-black/90 flex items-center justify-center p-4';
+                      modal.innerHTML = `
+                        <button onclick="this.parentElement.remove()" class="absolute top-4 right-4 text-white text-6xl font-bold z-10 w-16 h-16 flex items-center justify-center hover:bg-white/20 rounded-full transition">×</button>
+                        <button id="prevBtn" class="absolute left-2 sm:left-8 top-1/2 -translate-y-1/2 text-white text-8xl sm:text-9xl font-bold z-10 w-20 h-20 sm:w-32 sm:h-32 flex items-center justify-center hover:bg-white/20 rounded-full transition">‹</button>
+                        <img id="slideImg" src="/webina/1.jpg" class="max-w-full max-h-full object-contain" />
+                        <button id="nextBtn" class="absolute right-2 sm:right-8 top-1/2 -translate-y-1/2 text-white text-8xl sm:text-9xl font-bold z-10 w-20 h-20 sm:w-32 sm:h-32 flex items-center justify-center hover:bg-white/20 rounded-full transition">›</button>
+                        <div class="absolute bottom-4 left-1/2 -translate-x-1/2 text-white text-xl font-bold bg-black/50 px-4 py-2 rounded">1 / 3</div>
+                      `;
+                      document.body.appendChild(modal);
+                      const img = modal.querySelector('#slideImg');
+                      const counter = modal.querySelector('div');
+                      const updateSlide = () => {
+                        img.src = '/webina/' + (currentSlide + 1) + '.jpg';
+                        counter.textContent = (currentSlide + 1) + ' / 3';
+                      };
+                      modal.querySelector('#prevBtn').onclick = (e) => {
+                        e.stopPropagation();
+                        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+                        updateSlide();
+                      };
+                      modal.querySelector('#nextBtn').onclick = (e) => {
+                        e.stopPropagation();
+                        currentSlide = (currentSlide + 1) % totalSlides;
+                        updateSlide();
+                      };
+                      modal.onclick = () => modal.remove();
+                      img.onclick = (e) => e.stopPropagation();
+                    }}
+                  >
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <Image
+                        src="/webina/1.jpg"
+                        alt="웨비나 포스터"
+                        fill
+                        className="object-contain"
+                      />
+                    </div>
+                    <div className="absolute bottom-2 right-2 bg-purple-600/80 text-white px-3 py-1 rounded text-sm pointer-events-none">
+                      클릭하여 전체보기 (3장)
+                    </div>
+                  </div>
+
+                  <div className="bg-purple-50 p-4 rounded-lg mb-4">
+                    <h4 className="font-bold text-lg mb-3">참가비</h4>
+                    <div className="flex justify-between items-center bg-white p-3 rounded">
+                      <span className="font-semibold">참가비</span>
+                      <span className="text-lg font-bold text-purple-600">7만원</span>
+                    </div>
+                    <p className="text-sm text-gray-500 mt-2">* 부가세 포함</p>
+                  </div>
+
+                  <button
+                    onClick={() => window.open("https://docs.google.com/forms/d/e/1FAIpQLSfX_YSbdyGM92f6CWVg_VkiTXan5AxGYRSPMshfXkeN4kgSYg/viewform?usp=sharing&ouid=100677474144073110334", "_blank", "noopener,noreferrer")}
+                    className="w-full py-3 bg-purple-600 text-white font-bold rounded-lg
+                               hover:bg-purple-700 active:scale-95 transition shadow-lg"
+                  >
+                    웨비나 신청하기
+                  </button>
+                </div>
+              </div>
             </div>
           </section>
 
