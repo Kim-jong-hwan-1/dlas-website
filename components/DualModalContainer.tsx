@@ -7,12 +7,38 @@ import WebinaModal from "./WebinaModal";
 export default function DualModalContainer() {
   const [isSeminarOpen, setIsSeminarOpen] = useState(false);
   const [isWebinaOpen, setIsWebinaOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    // 모바일 여부 확인
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024); // lg breakpoint
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
     // 페이지 로드 시 모달 표시
     setIsSeminarOpen(true);
-    setIsWebinaOpen(true);
+    // 데스크톱에서는 웨비나도 바로 표시
+    if (window.innerWidth >= 1024) {
+      setIsWebinaOpen(true);
+    }
+
+    return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
+  const handleSeminarClose = () => {
+    setIsSeminarOpen(false);
+    // 모바일에서는 세미나 닫으면 웨비나 표시
+    if (isMobile) {
+      setIsWebinaOpen(true);
+    }
+  };
+
+  const handleWebinaClose = () => {
+    setIsWebinaOpen(false);
+  };
 
   const handleBackdropClick = () => {
     setIsSeminarOpen(false);
@@ -30,15 +56,15 @@ export default function DualModalContainer() {
       <div className="w-full h-full max-w-[95vw] max-h-[95vh] flex flex-col lg:flex-row gap-4 items-center justify-center">
         {/* 세미나 모달 */}
         {isSeminarOpen && (
-          <div className="w-full lg:w-1/2 h-[48%] lg:h-full">
-            <SeminarModal onClose={() => setIsSeminarOpen(false)} />
+          <div className="w-full lg:w-1/2 h-full lg:h-full">
+            <SeminarModal onClose={handleSeminarClose} />
           </div>
         )}
 
         {/* 웨비나 모달 */}
         {isWebinaOpen && (
-          <div className="w-full lg:w-1/2 h-[48%] lg:h-full">
-            <WebinaModal onClose={() => setIsWebinaOpen(false)} />
+          <div className="w-full lg:w-1/2 h-full lg:h-full">
+            <WebinaModal onClose={handleWebinaClose} />
           </div>
         )}
       </div>
