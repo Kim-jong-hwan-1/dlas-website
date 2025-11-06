@@ -14,7 +14,14 @@
       "Bash(git checkout:*)",
       "Bash(git commit:*)",
       "Bash(if exist nul del nul)",
-      "Bash(python:*)"
+      "Bash(python:*)",
+      "Bash(npx vercel pull:*)",
+      "Bash(git fetch:*)",
+      "Bash(npx vercel login)",
+      "Bash(git ls-tree:*)",
+      "Bash(/tmp/test_intro.py)",
+      "Bash(git archive:*)",
+      "Bash(tar:*)"
     ],
     "deny": [],
     "ask": []

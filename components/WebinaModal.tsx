@@ -182,6 +182,9 @@ export default function WebinaModal({ onClose }: WebinaModalProps) {
         <p className="text-center mt-1 text-[10px] sm:text-xs text-gray-500">
           * 부가세 포함
         </p>
+        <p className="text-center mt-1 text-[10px] sm:text-xs text-red-600 font-semibold">
+          * 웨비나 등록은 해당 웨비나 전날까지 가능하나, 조기마감 될 수 있습니다.
+        </p>
       </div>
 
       {/* 하단 버튼 영역 */}

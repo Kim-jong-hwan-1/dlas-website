@@ -1890,7 +1890,7 @@ export default function Page() {
             <div className="max-w-7xl mx-auto px-4">
               <h2 className="text-4xl font-bold text-center mb-12">세미나 & 웨비나</h2>
 
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
                 {/* 소개 영상 */}
                 <div className="lg:col-span-1 flex flex-col items-center">
                   <h3 className="text-2xl font-bold mb-4 text-blue-600">소개 영상</h3>
@@ -1980,6 +1980,7 @@ export default function Page() {
                       </div>
                     </div>
                     <p className="text-sm text-gray-500 mt-2">* 부가세 별도</p>
+                    <p className="text-xs text-red-600 font-semibold mt-1">* 세미나 등록은 해당 세미나 전날까지 가능하나, 조기마감 될 수 있습니다.</p>
                   </div>
 
                   <button
@@ -2056,6 +2057,7 @@ export default function Page() {
                       <span className="text-lg font-bold text-purple-600">7만원</span>
                     </div>
                     <p className="text-sm text-gray-500 mt-2">* 부가세 포함</p>
+                    <p className="text-xs text-red-600 font-semibold mt-1">* 웨비나 등록은 해당 웨비나 전날까지 가능하나, 조기마감 될 수 있습니다.</p>
                   </div>
 
                   <button
@@ -2065,6 +2067,20 @@ export default function Page() {
                   >
                     웨비나 신청하기
                   </button>
+                </div>
+
+                {/* 새로운 영상 */}
+                <div className="lg:col-span-1 flex flex-col items-center">
+                  <h3 className="text-2xl font-bold mb-4 text-green-600">추가 영상</h3>
+                  <div className="w-full max-w-sm aspect-[9/16] bg-black rounded-lg overflow-hidden shadow-lg">
+                    <iframe
+                      src="https://www.youtube.com/embed/1X0i46-r_as"
+                      title="DLAS 추가 영상"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="w-full h-full"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
