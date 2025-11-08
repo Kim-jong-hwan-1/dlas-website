@@ -2678,6 +2678,23 @@ export default function Page() {
                   </div>
                 </div>
 
+                {/* Tip 3: 새로운 팁 영상 */}
+                <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition">
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold mb-2">개념 Tip #1: DLAS가 생각하는 윌슨만곡 부여의 의미</h3>
+                    <p className="text-gray-600 mb-4">윌슨만곡의 중요성과 적용 방법</p>
+                    <button
+                      onClick={() => {
+                        const modal = document.getElementById("tip-modal-3");
+                        if (modal) modal.classList.remove("hidden");
+                      }}
+                      className="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition"
+                    >
+                      자세히 보기
+                    </button>
+                  </div>
+                </div>
+
                 {/* 추후 추가될 팁들을 위한 플레이스홀더 */}
                 {/* 팁 추가 시 여기에 동일한 구조로 카드 추가 */}
               </div>
@@ -2754,6 +2771,35 @@ export default function Page() {
                   className="w-full h-full border-0"
                   title="EXO Tip 2: 라이브러리 에디팅 응용"
                 />
+              </div>
+            </div>
+          </div>
+
+          {/* Tip 3 Modal */}
+          <div id="tip-modal-3" className="hidden fixed inset-0 bg-black/70 z-[9999] flex items-center justify-center p-4">
+            <div className="bg-white rounded-lg w-full max-w-4xl max-h-[90vh] flex flex-col">
+              <div className="flex justify-between items-center p-4 border-b">
+                <h3 className="text-2xl font-bold">개념 Tip #1: DLAS가 생각하는 윌슨만곡 부여의 의미</h3>
+                <button
+                  onClick={() => {
+                    const modal = document.getElementById("tip-modal-3");
+                    if (modal) modal.classList.add("hidden");
+                  }}
+                  className="text-gray-500 hover:text-gray-700 text-3xl font-bold"
+                >
+                  ×
+                </button>
+              </div>
+              <div className="p-6">
+                <div className="aspect-video w-full">
+                  <iframe
+                    className="w-full h-full rounded-lg shadow-lg"
+                    src="https://www.youtube.com/embed/xXXLLi7y7b4"
+                    title="개념 Tip #1: DLAS가 생각하는 윌슨만곡 부여의 의미"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -3892,6 +3938,61 @@ export default function Page() {
             </div>
           </div>
         )}
+
+        {/* 소셜 미디어 플로팅 버튼들 */}
+        <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-3">
+          {/* 카카오톡 */}
+          <a
+            href="https://pf.kakao.com/_JLkxkn"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-[#FEE500] hover:bg-[#FFD700] transition-all duration-300 rounded-full w-16 h-16 flex items-center justify-center shadow-[0_4px_14px_0_rgba(0,0,0,0.25)] hover:shadow-[0_6px_20px_rgba(0,0,0,0.35)] transform hover:scale-110"
+            aria-label="카카오톡 상담"
+          >
+            <svg
+              viewBox="0 0 60 60"
+              className="w-9 h-9"
+              fill="#3C1E1E"
+            >
+              <ellipse cx="30" cy="25" rx="26" ry="20"/>
+              <path d="M30 3C14.536 3 2 13.402 2 26.5c0 7.45 4.145 14.083 10.566 18.16-.757 2.749-4.848 17.643-4.848 17.643-.218.867.364 1.612 1.27 1.612.446 0 .936-.196 1.45-.574 0 0 13.036-9.417 17.117-12.36C28.36 50.794 29.175 50.9 30 50.9c15.464 0 28-10.402 28-23.4S45.464 3 30 3z"/>
+            </svg>
+          </a>
+
+          {/* 유튜브 */}
+          <a
+            href="https://www.youtube.com/@Dlas-official-e6k"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-[#FF0000] hover:bg-[#CC0000] transition-all duration-300 rounded-full w-16 h-16 flex items-center justify-center shadow-[0_4px_14px_0_rgba(0,0,0,0.25)] hover:shadow-[0_6px_20px_rgba(0,0,0,0.35)] transform hover:scale-110"
+            aria-label="유튜브"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              className="w-9 h-9"
+              fill="white"
+            >
+              <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+            </svg>
+          </a>
+
+          {/* 인스타그램 */}
+          <a
+            href="https://www.instagram.com/dlas_official_"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-gradient-to-br from-[#833AB4] via-[#FD1D1D] to-[#F77737] hover:opacity-90 transition-all duration-300 rounded-full w-16 h-16 flex items-center justify-center shadow-[0_4px_14px_0_rgba(0,0,0,0.25)] hover:shadow-[0_6px_20px_rgba(0,0,0,0.35)] transform hover:scale-110"
+            aria-label="인스타그램"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              className="w-9 h-9"
+              fill="white"
+            >
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+            </svg>
+          </a>
+        </div>
 
         {/* Footer */}
         <footer className="bg-black text-white py-10 px-6 mt-20">
