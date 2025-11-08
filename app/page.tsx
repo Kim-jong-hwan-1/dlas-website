@@ -1011,6 +1011,7 @@ export default function Page() {
     setPendingPayment({ type: "module", module: mod, period, couponApplied: isCouponApplied });
     setTermsConsent1(false);
     setTermsConsent2(false);
+    setTermsConsent3(false);
     setShowTermsConsentModal(true);
   };
 
@@ -1319,6 +1320,7 @@ export default function Page() {
   const [pendingPayment, setPendingPayment] = useState<{type: "module" | "permanent" | "family" | "family50"; module?: string; period?: string; couponApplied?: boolean} | null>(null);
   const [termsConsent1, setTermsConsent1] = useState(false); // 결제 및 환불
   const [termsConsent2, setTermsConsent2] = useState(false); // 책임의 한계
+  const [termsConsent3, setTermsConsent3] = useState(false); // 계정 공유 금지
 
   // 🎟️ 모듈별 쿠폰 관련 state
   const [moduleCoupons, setModuleCoupons] = useState<Record<string, string>>({});
@@ -1582,6 +1584,7 @@ export default function Page() {
     setPendingPayment({ type: "permanent" });
     setTermsConsent1(false);
     setTermsConsent2(false);
+    setTermsConsent3(false);
     setShowTermsConsentModal(true);
   };
 
@@ -1608,6 +1611,7 @@ export default function Page() {
     setPendingPayment({ type: "family" });
     setTermsConsent1(false);
     setTermsConsent2(false);
+    setTermsConsent3(false);
     setShowTermsConsentModal(true);
   };
 
@@ -1634,6 +1638,7 @@ export default function Page() {
     setPendingPayment({ type: "family50" });
     setTermsConsent1(false);
     setTermsConsent2(false);
+    setTermsConsent3(false);
     setShowTermsConsentModal(true);
   };
 
@@ -3549,6 +3554,29 @@ export default function Page() {
                   </label>
                 </div>
 
+                {/* 제8조: 계정 공유 금지 및 제재 */}
+                <div className="mb-6 p-4 border border-gray-300 rounded-lg bg-gray-50">
+                  <h3 className="text-lg font-semibold mb-2">제8조 (계정 공유 금지 및 제재)</h3>
+                  <div
+                    className="text-sm text-gray-700 leading-relaxed"
+                    dangerouslySetInnerHTML={{
+                      __html: `1. 회원은 자신의 계정(ID 및 비밀번호)을 타인과 공유하거나 양도할 수 없습니다.<br/>
+2. 회사는 계정 공유 방지 및 부정 이용 방지를 위해 회원의 접속 IP 주소, 접속 기록, 이용 패턴 등을 수집·분석할 수 있으며, 이는 개인정보처리방침에 따라 처리됩니다.<br/>
+3. 비정상적인 접속 패턴(예: 짧은 시간 내 서로 다른 지역에서의 동시 접속, 과도한 기기 변경 등)이 감지될 경우, 회사는 해당 계정의 이용을 일시 정지하거나 영구적으로 제한할 수 있습니다.<br/>
+4. 계정 공유가 확인된 경우, 회사는 사전 통보 없이 해당 계정을 정지하거나 서비스 이용 계약을 해지할 수 있으며, 이에 따른 환불은 제공되지 않습니다.`
+                    }}
+                  />
+                  <label className="flex items-start mt-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={termsConsent3}
+                      onChange={(e) => setTermsConsent3(e.target.checked)}
+                      className="mt-1 mr-2 w-4 h-4 accent-black"
+                    />
+                    <span className="text-sm font-medium">위 약관을 확인했으며 이에 동의합니다.</span>
+                  </label>
+                </div>
+
                 {/* 버튼 영역 */}
                 <div className="flex gap-3">
                   <button
@@ -3562,9 +3590,9 @@ export default function Page() {
                   </button>
                   <button
                     onClick={proceedWithPayment}
-                    disabled={!termsConsent1 || !termsConsent2}
+                    disabled={!termsConsent1 || !termsConsent2 || !termsConsent3}
                     className={`flex-1 py-3 rounded transition ${
-                      termsConsent1 && termsConsent2
+                      termsConsent1 && termsConsent2 && termsConsent3
                         ? 'bg-black text-white hover:bg-gray-800'
                         : 'bg-gray-200 text-gray-400 cursor-not-allowed'
                     }`}

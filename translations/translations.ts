@@ -91,14 +91,15 @@ export const translations = {
       article5: { title: "Article 5 (Payment and Refunds)", desc: `1. Users may purchase products using payment methods designated by the Company.<br/>2. Due to the nature of digital products, refunds are not available after download or activation, except as stipulated in the Act on Consumer Protection in Electronic Commerce, etc.<br/>3. For lifetime free-use products (such as Family License), refunds are not available after 7 days from the payment date, except as stipulated in Article 17 (Withdrawal of Offer, etc.) of the Act on Consumer Protection in Electronic Commerce, etc. However, withdrawal of offer is available if the goods are lost or damaged due to reasons not attributable to the user.` },
       article6: { title: "Article 6 (Intellectual Property)", desc: `1. All content and software provided on the website are protected under copyright and belong to the Company.<br/>2. Unauthorized duplication, redistribution, or reverse engineering is prohibited and may lead to legal consequences.` },
       article7: { title: "Article 7 (Limitation of Liability)", desc: `1. The Company shall not be liable for service interruptions, failures, data loss, quality degradation, or any damages resulting from force majeure events beyond the Company's control, including but not limited to: natural disasters, war, terrorism, power outages, communication failures, hacking, DDoS attacks, viruses, malware and other external cyberattacks, system failures, server errors, or third-party service disruptions.<br/>2. The Company may temporarily suspend services for maintenance, inspection, replacement, repairs, or communication disruptions, and shall not be obligated to compensate users for such interruptions. However, the Company will make reasonable efforts to provide advance notice.<br/>3. The Company shall not be liable for service disruptions or damages caused by user negligence, including but not limited to: failure to properly manage account credentials, unauthorized use, or violations of applicable laws.<br/>4. The Company does not guarantee the reliability or accuracy of information or materials obtained through the Services and shall not be liable for any damages arising therefrom.` },
-      article8: { title: "Article 8 (Governing Law and Jurisdiction)", desc: `Any disputes arising from these Terms shall be governed by the laws of the Republic of Korea, with the court having jurisdiction over the Company's headquarters as the court of first instance.` },
+      article8: { title: "Article 8 (Account Sharing Prohibition and Sanctions)", desc: `1. Users shall not share or transfer their account (ID and password) with others.<br/>2. The Company may collect and analyze user IP addresses, access logs, and usage patterns to prevent account sharing and unauthorized use, in accordance with the Privacy Policy.<br/>3. If abnormal access patterns are detected (e.g., simultaneous access from different locations within a short time, excessive device changes), the Company may temporarily suspend or permanently restrict the use of the account.<br/>4. If account sharing is confirmed, the Company may suspend the account or terminate the service agreement without prior notice, and no refund will be provided.` },
+      article9: { title: "Article 9 (Governing Law and Jurisdiction)", desc: `Any disputes arising from these Terms shall be governed by the laws of the Republic of Korea, with the court having jurisdiction over the Company's headquarters as the court of first instance.` },
       effectiveDate: "Effective Date: April 29, 2025",
     },
     privacy: {
       headingPrivacy: "[Privacy Policy]",
       intro: `DLAS ("Company") respects your privacy and handles your personal data in accordance with applicable laws including the Personal Information Protection Act.`,
       article1: { title: "Article 1 (Collected Information)", desc: `We may collect the following types of information:<br/>- Email address and password (when registering)<br/>- Name and payment details (for paid services)<br/>- Access logs, IP address, usage history (for service quality and security)` },
-      article2: { title: "Article 2 (Purpose of Collection)", desc: `Personal data is collected and used for the following purposes:<br/>- User authentication and service provision<br/>- Payment processing and refund support<br/>- Customer support and notification delivery<br/>- Prevention of fraud and system abuse` },
+      article2: { title: "Article 2 (Purpose of Collection)", desc: `Personal data is collected and used for the following purposes:<br/>- User authentication and service provision<br/>- Payment processing and refund support<br/>- Customer support and notification delivery<br/>- Prevention of fraud, system abuse, and account sharing detection (including IP address, access logs, and usage pattern analysis)` },
       article3: { title: "Article 3 (Retention Period)", desc: `- Data is deleted upon account termination unless otherwise required by law.<br/>- Certain data may be retained for a legally mandated period (e.g., under e-commerce regulations).` },
       article4: { title: "Article 4 (Third-party Disclosure)", desc: `We do not share personal data with third parties except:<br/>- With your prior consent<br/>- When required by law or legal proceedings` },
       article5: { title: "Article 5 (Destruction of Personal Data)", desc: `Personal data will be securely destroyed after the retention period.<br/>- Digital files: permanently deleted<br/>- Paper documents: shredded or incinerated` },
@@ -252,7 +253,8 @@ export const translations = {
     article5: { title: "第五条（付款及退款）", desc: `1. 用户可通过公司指定的支付方式购买产品。<br/>2. 鉴于数字产品性质，下载或激活后一般不支持退款，法律另有规定除外。` },
     article6: { title: "第六条（知识产权）", desc: `1. 网站提供的所有内容及软件均受版权保护，归公司所有。<br/>2. 未经授权的复制、传播、逆向工程等行为均被禁止，违者将承担法律责任。` },
     article7: { title: "第七条（免责声明）", desc: `1. 因自然灾害、网络攻击或系统故障等不可抗力导致的服务中断，公司不承担责任。<br/>2. 用户因疏忽造成的损害，公司不负责任。` },
-    article8: { title: "第八条（适用法律及管辖）", desc: `因本条款引起的纠纷适用韩国法律，法院管辖为公司总部所在地法院。` },
+    article8: { title: "第八条（禁止账号共享及处罚）", desc: `1. 用户不得与他人共享或转让其账号（ID和密码）。<br/>2. 公司可收集和分析用户IP地址、访问记录和使用模式，以防止账号共享和未经授权的使用，此类数据处理将遵循隐私政策。<br/>3. 如检测到异常访问模式（例如短时间内从不同地点同时访问、频繁更换设备等），公司可暂停或永久限制该账号的使用。<br/>4. 如确认存在账号共享行为，公司可在不事先通知的情况下暂停该账号或终止服务协议，且不提供退款。` },
+    article9: { title: "第九条（适用法律及管辖）", desc: `因本条款引起的纠纷适用韩国法律，法院管辖为公司总部所在地法院。` },
     effectiveDate: "生效日期：2025年4月29日"
   },
   
@@ -260,7 +262,7 @@ export const translations = {
     headingPrivacy: "[隐私政策]",
     intro: `DLAS（以下简称“公司”）尊重您的隐私，依据包括《个人信息保护法》在内的相关法律规范处理您的个人数据。`,
     article1: { title: "第一条（收集信息）", desc: `我们可能收集以下类型的信息：<br/>- 注册时的邮箱及密码<br/>- 姓名及支付信息（用于付费服务）<br/>- 访问日志、IP地址、使用记录（用于服务质量及安全保障）` },
-    article2: { title: "第二条（收集目的）", desc: `个人信息的收集和使用目的如下：<br/>- 用户身份认证及服务提供<br/>- 支付处理及退款支持<br/>- 客户支持及通知发送<br/>- 防止欺诈及系统滥用` },
+    article2: { title: "第二条（收集目的）", desc: `个人信息的收集和使用目的如下：<br/>- 用户身份认证及服务提供<br/>- 支付处理及退款支持<br/>- 客户支持及通知发送<br/>- 防止欺诈、系统滥用和账号共享检测（包括IP地址、访问记录和使用模式分析）` },
     article3: { title: "第三条（保存期限）", desc: `- 账户终止时删除数据，法律另有规定的除外。<br/>- 部分数据根据电商法等法规保留一定期限。` },
     article4: { title: "第四条（第三方披露）", desc: `除非取得您的同意或法律要求，我们不会向第三方披露个人信息。` },
     article5: { title: "第五条（个人信息销毁）", desc: `个人信息将在保存期限结束后安全销毁。<br/>- 数字文件：永久删除<br/>- 纸质文件：碎纸或焚烧` },
@@ -421,14 +423,15 @@ export const translations = {
       article5: { title: "第5条（支払いおよび返金）", desc: `1. ユーザーは当社指定の支払い方法で製品を購入できます。<br/>2. デジタル製品の性質上、ダウンロードまたは有効化後の返金は法令により例外を除きできません。` },
       article6: { title: "第6条（知的財産権）", desc: `1. ウェブサイト上のすべてのコンテンツおよびソフトウェアは著作権で保護され、当社に帰属します。<br/>2. 無断複製、再配布、リバースエンジニアリングは禁止されており、違反者は法的責任を負います。` },
       article7: { title: "第7条（免責事項）", desc: `1. 自然災害、サイバー攻撃、システム障害などの不可抗力によるサービス停止について当社は責任を負いません。<br/>2. ユーザーの過失による損害についても当社は責任を負いません。` },
-      article8: { title: "第8条（準拠法および管轄）", desc: `本規約に起因または関連する紛争は韓国法を準拠法とし、管轄裁判所は当社本社所在地の裁判所とします。` },
+      article8: { title: "第8条（アカウント共有の禁止および制裁）", desc: `1. ユーザーは自分のアカウント（IDおよびパスワード）を他人と共有または譲渡することはできません。<br/>2. 当社はアカウント共有防止および不正使用防止のため、ユーザーのIPアドレス、アクセス記録、使用パターンを収集・分析することができ、これらはプライバシーポリシーに従って処理されます。<br/>3. 異常なアクセスパターン（例：短時間内に異なる場所からの同時アクセス、過度なデバイス変更など）が検出された場合、当社は該当アカウントの使用を一時停止または永久的に制限することができます。<br/>4. アカウント共有が確認された場合、当社は事前通知なしに該当アカウントを停止またはサービス利用契約を解除することができ、返金は提供されません。` },
+      article9: { title: "第9条（準拠法および管轄）", desc: `本規約に起因または関連する紛争は韓国法を準拠法とし、管轄裁判所は当社本社所在地の裁判所とします。` },
       effectiveDate: "施行日：2025年4月29日"
     },
     privacy: {
       headingPrivacy: "[プライバシーポリシー]",
       intro: `DLAS（以下「当社」）は個人情報保護法など関連法令に従い、お客様の個人情報を尊重し取り扱います。`,
       article1: { title: "第1条（収集情報）", desc: `収集する情報は以下の通りです：<br/>- 登録時のメールアドレスおよびパスワード<br/>- 有料サービス利用時の氏名および支払い情報<br/>- アクセスログ、IPアドレス、利用履歴（サービス品質・安全管理のため）` },
-      article2: { title: "第2条（収集目的）", desc: `個人情報の収集・利用目的は以下です：<br/>- ユーザー認証およびサービス提供<br/>- 支払い処理および返金対応<br/>- 顧客サポートおよび通知送信<br/>- 不正防止およびシステムの不正利用防止` },
+      article2: { title: "第2条（収集目的）", desc: `個人情報の収集・利用目的は以下です：<br/>- ユーザー認証およびサービス提供<br/>- 支払い処理および返金対応<br/>- 顧客サポートおよび通知送信<br/>- 不正防止、システムの不正利用防止、およびアカウント共有検出（IPアドレス、アクセス記録、使用パターン分析を含む）` },
       article3: { title: "第3条（保存期間）", desc: `- アカウント解約時にデータを削除しますが、法令により保存が必要な場合は別途保管します。<br/>- 一部データは電子商取引関連法令に基づき一定期間保存します。` },
       article4: { title: "第4条（第三者提供）", desc: `ご本人の同意または法令に基づく場合を除き、第三者に個人情報を提供しません。` },
       article5: { title: "第5条（個人情報の破棄）", desc: `保存期間終了後、安全に個人情報を破棄します。<br/>- 電子ファイルは完全消去<br/>- 紙媒体はシュレッダー処理または焼却` },
@@ -1330,7 +1333,14 @@ export const translations = {
 5. 본 소프트웨어는 AI 기반 자동화 도구로서, 사용자의 시스템 환경, 하드웨어 사양, 운영체제, 기타 소프트웨어 등의 조건에 따라 정상적으로 작동하지 않거나 제한적으로 작동할 수 있으며, 회사는 모든 환경에서의 완벽한 호환성 및 동작을 보증하지 않습니다.`,
       },
       article8: {
-        title: "제8조 (준거법 및 관할)",
+        title: "제8조 (계정 공유 금지 및 제재)",
+        desc: `1. 회원은 자신의 계정(ID 및 비밀번호)을 타인과 공유하거나 양도할 수 없습니다.<br/>
+2. 회사는 계정 공유 방지 및 부정 이용 방지를 위해 회원의 접속 IP 주소, 접속 기록, 이용 패턴 등을 수집·분석할 수 있으며, 이는 개인정보처리방침에 따라 처리됩니다.<br/>
+3. 비정상적인 접속 패턴(예: 짧은 시간 내 서로 다른 지역에서의 동시 접속, 과도한 기기 변경 등)이 감지될 경우, 회사는 해당 계정의 이용을 일시 정지하거나 영구적으로 제한할 수 있습니다.<br/>
+4. 계정 공유가 확인된 경우, 회사는 사전 통보 없이 해당 계정을 정지하거나 서비스 이용 계약을 해지할 수 있으며, 이에 따른 환불은 제공되지 않습니다.`,
+      },
+      article9: {
+        title: "제9조 (준거법 및 관할)",
         desc: `본 약관에 따른 분쟁에 대해서는 대한민국 법령을 준거법으로 하며, 회사 본사가 소재하는 관할 법원을 제1심 관할법원으로 합니다.`,
       },
       effectiveDate: "시행일자: 2025년 4월 29일",
@@ -1351,7 +1361,7 @@ export const translations = {
 - 회원 인증 및 서비스 제공<br/>
 - 결제 및 환불 처리<br/>
 - 고객 지원 및 공지사항 전달<br/>
-- 부정 이용 방지`,
+- 부정 이용 방지 및 계정 공유 탐지(IP 주소, 접속 기록, 이용 패턴 분석 포함)`,
       },
       article3: {
         title: "제3조 (개인정보의 보유 및 이용기간)",
