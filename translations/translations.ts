@@ -93,7 +93,7 @@ export const translations = {
       article7: { title: "Article 7 (Limitation of Liability)", desc: `1. The Company shall not be liable for service interruptions, failures, data loss, quality degradation, or any damages resulting from force majeure events beyond the Company's control, including but not limited to: natural disasters, war, terrorism, power outages, communication failures, hacking, DDoS attacks, viruses, malware and other external cyberattacks, system failures, server errors, or third-party service disruptions.<br/>2. The Company may temporarily suspend services for maintenance, inspection, replacement, repairs, or communication disruptions, and shall not be obligated to compensate users for such interruptions. However, the Company will make reasonable efforts to provide advance notice.<br/>3. The Company shall not be liable for service disruptions or damages caused by user negligence, including but not limited to: failure to properly manage account credentials, unauthorized use, or violations of applicable laws.<br/>4. The Company does not guarantee the reliability or accuracy of information or materials obtained through the Services and shall not be liable for any damages arising therefrom.` },
       article8: { title: "Article 8 (Account Sharing Prohibition and Sanctions)", desc: `1. Users shall not share or transfer their account (ID and password) with others.<br/>2. The Company may collect and analyze user IP addresses, access logs, and usage patterns to prevent account sharing and unauthorized use, in accordance with the Privacy Policy.<br/>3. If abnormal access patterns are detected (e.g., simultaneous access from different locations within a short time, excessive device changes), the Company may temporarily suspend or permanently restrict the use of the account.<br/>4. If account sharing is confirmed, the Company may suspend the account or terminate the service agreement without prior notice, and no refund will be provided.` },
       article9: { title: "Article 9 (Governing Law and Jurisdiction)", desc: `Any disputes arising from these Terms shall be governed by the laws of the Republic of Korea, with the court having jurisdiction over the Company's headquarters as the court of first instance.` },
-      effectiveDate: "Effective Date: April 29, 2025",
+      effectiveDate: "Effective Date: November 8, 2025",
     },
     privacy: {
       headingPrivacy: "[Privacy Policy]",
@@ -105,7 +105,7 @@ export const translations = {
       article5: { title: "Article 5 (Destruction of Personal Data)", desc: `Personal data will be securely destroyed after the retention period.<br/>- Digital files: permanently deleted<br/>- Paper documents: shredded or incinerated` },
       article6: { title: "Article 6 (User Rights)", desc: `You may request to view, modify, delete, or restrict the processing of your personal data at any time.` },
       article7: { title: "Article 7 (Data Protection Officer)", desc: `- Officer: JongHwan Kim<br/>- Email: support@dlas.io` },
-      effectiveDate: "Effective Date: April 29, 2025",
+      effectiveDate: "Effective Date: November 8, 2025",
     },
     login: {
       title: "Login to DLAS",
@@ -255,7 +255,7 @@ export const translations = {
     article7: { title: "第七条（免责声明）", desc: `1. 因自然灾害、网络攻击或系统故障等不可抗力导致的服务中断，公司不承担责任。<br/>2. 用户因疏忽造成的损害，公司不负责任。` },
     article8: { title: "第八条（禁止账号共享及处罚）", desc: `1. 用户不得与他人共享或转让其账号（ID和密码）。<br/>2. 公司可收集和分析用户IP地址、访问记录和使用模式，以防止账号共享和未经授权的使用，此类数据处理将遵循隐私政策。<br/>3. 如检测到异常访问模式（例如短时间内从不同地点同时访问、频繁更换设备等），公司可暂停或永久限制该账号的使用。<br/>4. 如确认存在账号共享行为，公司可在不事先通知的情况下暂停该账号或终止服务协议，且不提供退款。` },
     article9: { title: "第九条（适用法律及管辖）", desc: `因本条款引起的纠纷适用韩国法律，法院管辖为公司总部所在地法院。` },
-    effectiveDate: "生效日期：2025年4月29日"
+    effectiveDate: "生效日期：2025年11月8日"
   },
   
   privacy: {
@@ -268,7 +268,7 @@ export const translations = {
     article5: { title: "第五条（个人信息销毁）", desc: `个人信息将在保存期限结束后安全销毁。<br/>- 数字文件：永久删除<br/>- 纸质文件：碎纸或焚烧` },
     article6: { title: "第六条（用户权利）", desc: `您有权随时请求查看、更正、删除或限制个人信息处理。` },
     article7: { title: "第七条（数据保护负责人）", desc: `- 负责人：金钟焕<br/>- 邮箱：support@dlas.io` },
-    effectiveDate: "生效日期：2025年4月29日"
+    effectiveDate: "生效日期：2025年11月8日"
   },
   login: {
     title: "登录DLAS",
@@ -425,7 +425,7 @@ export const translations = {
       article7: { title: "第7条（免責事項）", desc: `1. 自然災害、サイバー攻撃、システム障害などの不可抗力によるサービス停止について当社は責任を負いません。<br/>2. ユーザーの過失による損害についても当社は責任を負いません。` },
       article8: { title: "第8条（アカウント共有の禁止および制裁）", desc: `1. ユーザーは自分のアカウント（IDおよびパスワード）を他人と共有または譲渡することはできません。<br/>2. 当社はアカウント共有防止および不正使用防止のため、ユーザーのIPアドレス、アクセス記録、使用パターンを収集・分析することができ、これらはプライバシーポリシーに従って処理されます。<br/>3. 異常なアクセスパターン（例：短時間内に異なる場所からの同時アクセス、過度なデバイス変更など）が検出された場合、当社は該当アカウントの使用を一時停止または永久的に制限することができます。<br/>4. アカウント共有が確認された場合、当社は事前通知なしに該当アカウントを停止またはサービス利用契約を解除することができ、返金は提供されません。` },
       article9: { title: "第9条（準拠法および管轄）", desc: `本規約に起因または関連する紛争は韓国法を準拠法とし、管轄裁判所は当社本社所在地の裁判所とします。` },
-      effectiveDate: "施行日：2025年4月29日"
+      effectiveDate: "施行日：2025年11月8日"
     },
     privacy: {
       headingPrivacy: "[プライバシーポリシー]",
@@ -437,7 +437,7 @@ export const translations = {
       article5: { title: "第5条（個人情報の破棄）", desc: `保存期間終了後、安全に個人情報を破棄します。<br/>- 電子ファイルは完全消去<br/>- 紙媒体はシュレッダー処理または焼却` },
       article6: { title: "第6条（ユーザーの権利）", desc: `いつでも個人情報の閲覧、訂正、削除、利用制限を請求できます。` },
       article7: { title: "第7条（個人情報保護責任者）", desc: `- 担当者：キム・ジョンファン<br/>- メール：support@dlas.io` },
-      effectiveDate: "施行日：2025年4月29日"
+      effectiveDate: "施行日：2025年11月8日"
     },
     login: {
       title: "DLASにログイン",
@@ -1343,7 +1343,7 @@ export const translations = {
         title: "제9조 (준거법 및 관할)",
         desc: `본 약관에 따른 분쟁에 대해서는 대한민국 법령을 준거법으로 하며, 회사 본사가 소재하는 관할 법원을 제1심 관할법원으로 합니다.`,
       },
-      effectiveDate: "시행일자: 2025년 4월 29일",
+      effectiveDate: "시행일자: 2025년 11월 8일",
     },
     privacy: {
       headingPrivacy: "[개인정보처리방침]",
@@ -1389,7 +1389,7 @@ export const translations = {
         desc: `- 책임자: 김종환<br/>
 - 이메일: support@dlas.io`,
       },
-      effectiveDate: "시행일자: 2025년 4월 29일",
+      effectiveDate: "시행일자: 2025년 11월 8일",
     },
     login: {
       title: "DLAS 로그인",
