@@ -1895,14 +1895,14 @@ export default function Page() {
             <div className="max-w-7xl mx-auto px-4">
               <h2 className="text-4xl font-bold text-center mb-12">세미나 & 웨비나</h2>
 
-              <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-                {/* 소개 영상 */}
+              <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+                {/* 추가 영상 1 */}
                 <div className="lg:col-span-1 flex flex-col items-center">
-                  <h3 className="text-2xl font-bold mb-4 text-blue-600">소개 영상</h3>
+                  <h3 className="text-2xl font-bold mb-4 text-blue-600">추가 영상 1</h3>
                   <div className="w-full max-w-sm aspect-[9/16] bg-black rounded-lg overflow-hidden shadow-lg">
                     <iframe
-                      src="https://www.youtube.com/embed/nIW3pJCzfOM"
-                      title="DLAS 소개"
+                      src="https://www.youtube.com/embed/ox37MdbXEBk"
+                      title="DLAS 소개 영상"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
                       className="w-full h-full"
@@ -2074,13 +2074,27 @@ export default function Page() {
                   </button>
                 </div>
 
-                {/* 새로운 영상 */}
+                {/* 추가 영상 2 */}
                 <div className="lg:col-span-1 flex flex-col items-center">
-                  <h3 className="text-2xl font-bold mb-4 text-green-600">추가 영상</h3>
+                  <h3 className="text-2xl font-bold mb-4 text-green-600">추가 영상 2</h3>
+                  <div className="w-full max-w-sm aspect-[9/16] bg-black rounded-lg overflow-hidden shadow-lg">
+                    <iframe
+                      src="https://www.youtube.com/embed/nIW3pJCzfOM"
+                      title="DLAS 추가 영상 2"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="w-full h-full"
+                    />
+                  </div>
+                </div>
+
+                {/* 추가 영상 3 */}
+                <div className="lg:col-span-1 flex flex-col items-center">
+                  <h3 className="text-2xl font-bold mb-4 text-orange-600">추가 영상 3</h3>
                   <div className="w-full max-w-sm aspect-[9/16] bg-black rounded-lg overflow-hidden shadow-lg">
                     <iframe
                       src="https://www.youtube.com/embed/1X0i46-r_as"
-                      title="DLAS 추가 영상"
+                      title="DLAS 추가 영상 3"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
                       className="w-full h-full"
@@ -2678,7 +2692,7 @@ export default function Page() {
                   </div>
                 </div>
 
-                {/* Tip 3: 새로운 팁 영상 */}
+                {/* Tip 3: 개념 Tip #1 */}
                 <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition">
                   <div className="p-6">
                     <h3 className="text-xl font-bold mb-2">개념 Tip #1: DLAS가 생각하는 윌슨만곡 부여의 의미</h3>
@@ -2686,6 +2700,40 @@ export default function Page() {
                     <button
                       onClick={() => {
                         const modal = document.getElementById("tip-modal-3");
+                        if (modal) modal.classList.remove("hidden");
+                      }}
+                      className="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition"
+                    >
+                      자세히 보기
+                    </button>
+                  </div>
+                </div>
+
+                {/* Tip 4: 개념 Tip #2 */}
+                <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition">
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold mb-2">개념 Tip #2</h3>
+                    <p className="text-gray-600 mb-4">치과 기공에 대한 개념 팁</p>
+                    <button
+                      onClick={() => {
+                        const modal = document.getElementById("tip-modal-4");
+                        if (modal) modal.classList.remove("hidden");
+                      }}
+                      className="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition"
+                    >
+                      자세히 보기
+                    </button>
+                  </div>
+                </div>
+
+                {/* Tip 5: 개념 Tip #3 */}
+                <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition">
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold mb-2">개념 Tip #3</h3>
+                    <p className="text-gray-600 mb-4">치과 기공에 대한 개념 팁</p>
+                    <button
+                      onClick={() => {
+                        const modal = document.getElementById("tip-modal-5");
                         if (modal) modal.classList.remove("hidden");
                       }}
                       className="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition"
@@ -2796,6 +2844,64 @@ export default function Page() {
                     className="w-full h-full rounded-lg shadow-lg"
                     src="https://www.youtube.com/embed/xXXLLi7y7b4"
                     title="개념 Tip #1: DLAS가 생각하는 윌슨만곡 부여의 의미"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Tip 4 Modal */}
+          <div id="tip-modal-4" className="hidden fixed inset-0 bg-black/70 z-[9999] flex items-center justify-center p-4">
+            <div className="bg-white rounded-lg w-full max-w-4xl max-h-[90vh] flex flex-col">
+              <div className="flex justify-between items-center p-4 border-b">
+                <h3 className="text-2xl font-bold">개념 Tip #2</h3>
+                <button
+                  onClick={() => {
+                    const modal = document.getElementById("tip-modal-4");
+                    if (modal) modal.classList.add("hidden");
+                  }}
+                  className="text-gray-500 hover:text-gray-700 text-3xl font-bold"
+                >
+                  ×
+                </button>
+              </div>
+              <div className="p-6">
+                <div className="aspect-video w-full">
+                  <iframe
+                    className="w-full h-full rounded-lg shadow-lg"
+                    src="https://www.youtube.com/embed/v72T5nzzBVs"
+                    title="개념 Tip #2"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Tip 5 Modal */}
+          <div id="tip-modal-5" className="hidden fixed inset-0 bg-black/70 z-[9999] flex items-center justify-center p-4">
+            <div className="bg-white rounded-lg w-full max-w-4xl max-h-[90vh] flex flex-col">
+              <div className="flex justify-between items-center p-4 border-b">
+                <h3 className="text-2xl font-bold">개념 Tip #3</h3>
+                <button
+                  onClick={() => {
+                    const modal = document.getElementById("tip-modal-5");
+                    if (modal) modal.classList.add("hidden");
+                  }}
+                  className="text-gray-500 hover:text-gray-700 text-3xl font-bold"
+                >
+                  ×
+                </button>
+              </div>
+              <div className="p-6">
+                <div className="aspect-video w-full">
+                  <iframe
+                    className="w-full h-full rounded-lg shadow-lg"
+                    src="https://www.youtube.com/embed/hD48-_5GCxk"
+                    title="개념 Tip #3"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                   />
