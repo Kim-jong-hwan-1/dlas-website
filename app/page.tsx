@@ -1895,10 +1895,10 @@ export default function Page() {
             <div className="max-w-7xl mx-auto px-4">
               <h2 className="text-4xl font-bold text-center mb-12">세미나 & 웨비나</h2>
 
-              <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
-                {/* 추가 영상 1 */}
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                {/* 소개 영상 */}
                 <div className="lg:col-span-1 flex flex-col items-center">
-                  <h3 className="text-2xl font-bold mb-4 text-blue-600">추가 영상 1</h3>
+                  <h3 className="text-2xl font-bold mb-4 text-blue-600">소개 영상</h3>
                   <div className="w-full max-w-sm aspect-[9/16] bg-black rounded-lg overflow-hidden shadow-lg">
                     <iframe
                       src="https://www.youtube.com/embed/ox37MdbXEBk"
@@ -2074,33 +2074,6 @@ export default function Page() {
                   </button>
                 </div>
 
-                {/* 추가 영상 2 */}
-                <div className="lg:col-span-1 flex flex-col items-center">
-                  <h3 className="text-2xl font-bold mb-4 text-green-600">추가 영상 2</h3>
-                  <div className="w-full max-w-sm aspect-[9/16] bg-black rounded-lg overflow-hidden shadow-lg">
-                    <iframe
-                      src="https://www.youtube.com/embed/nIW3pJCzfOM"
-                      title="DLAS 추가 영상 2"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                      className="w-full h-full"
-                    />
-                  </div>
-                </div>
-
-                {/* 추가 영상 3 */}
-                <div className="lg:col-span-1 flex flex-col items-center">
-                  <h3 className="text-2xl font-bold mb-4 text-orange-600">추가 영상 3</h3>
-                  <div className="w-full max-w-sm aspect-[9/16] bg-black rounded-lg overflow-hidden shadow-lg">
-                    <iframe
-                      src="https://www.youtube.com/embed/1X0i46-r_as"
-                      title="DLAS 추가 영상 3"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                      className="w-full h-full"
-                    />
-                  </div>
-                </div>
               </div>
             </div>
           </section>
