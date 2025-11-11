@@ -2685,8 +2685,8 @@ export default function Page() {
                 {/* Tip 4: 개념 Tip #2 */}
                 <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition">
                   <div className="p-6">
-                    <h3 className="text-xl font-bold mb-2">개념 Tip #2</h3>
-                    <p className="text-gray-600 mb-4">치과 기공에 대한 개념 팁</p>
+                    <h3 className="text-xl font-bold mb-2">개념 Tip #2: DLAS가 생각하는 모델리스에서의 과교합 1편</h3>
+                    <p className="text-gray-600 mb-4">모델리스 작업에서의 과교합 개념과 적용</p>
                     <button
                       onClick={() => {
                         const modal = document.getElementById("tip-modal-4");
@@ -2702,8 +2702,8 @@ export default function Page() {
                 {/* Tip 5: 개념 Tip #3 */}
                 <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition">
                   <div className="p-6">
-                    <h3 className="text-xl font-bold mb-2">개념 Tip #3</h3>
-                    <p className="text-gray-600 mb-4">치과 기공에 대한 개념 팁</p>
+                    <h3 className="text-xl font-bold mb-2">개념 Tip #3: DLAS가 생각하는 모델리스에서의 과교합 2편</h3>
+                    <p className="text-gray-600 mb-4">모델리스 작업에서의 과교합 심화 개념</p>
                     <button
                       onClick={() => {
                         const modal = document.getElementById("tip-modal-5");
@@ -2829,7 +2829,7 @@ export default function Page() {
           <div id="tip-modal-4" className="hidden fixed inset-0 bg-black/70 z-[9999] flex items-center justify-center p-4">
             <div className="bg-white rounded-lg w-full max-w-4xl max-h-[90vh] flex flex-col">
               <div className="flex justify-between items-center p-4 border-b">
-                <h3 className="text-2xl font-bold">개념 Tip #2</h3>
+                <h3 className="text-2xl font-bold">개념 Tip #2: DLAS가 생각하는 모델리스에서의 과교합 1편</h3>
                 <button
                   onClick={() => {
                     const modal = document.getElementById("tip-modal-4");
@@ -2845,7 +2845,7 @@ export default function Page() {
                   <iframe
                     className="w-full h-full rounded-lg shadow-lg"
                     src="https://www.youtube.com/embed/v72T5nzzBVs"
-                    title="개념 Tip #2"
+                    title="개념 Tip #2: DLAS가 생각하는 모델리스에서의 과교합 1편"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                   />
@@ -2858,7 +2858,7 @@ export default function Page() {
           <div id="tip-modal-5" className="hidden fixed inset-0 bg-black/70 z-[9999] flex items-center justify-center p-4">
             <div className="bg-white rounded-lg w-full max-w-4xl max-h-[90vh] flex flex-col">
               <div className="flex justify-between items-center p-4 border-b">
-                <h3 className="text-2xl font-bold">개념 Tip #3</h3>
+                <h3 className="text-2xl font-bold">개념 Tip #3: DLAS가 생각하는 모델리스에서의 과교합 2편</h3>
                 <button
                   onClick={() => {
                     const modal = document.getElementById("tip-modal-5");
@@ -2874,7 +2874,7 @@ export default function Page() {
                   <iframe
                     className="w-full h-full rounded-lg shadow-lg"
                     src="https://www.youtube.com/embed/hD48-_5GCxk"
-                    title="개념 Tip #3"
+                    title="개념 Tip #3: DLAS가 생각하는 모델리스에서의 과교합 2편"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                   />
