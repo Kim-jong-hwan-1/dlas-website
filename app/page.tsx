@@ -2091,8 +2091,16 @@ export default function Page() {
             <div className="mt-8 flex flex-col items-center space-y-4 w-full">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-center gap-4 w-full max-w-2xl">
                 <a
-                  href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v2.3.2/DLAS_Setup_v2.3.2.exe"
+                  href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v2.3.14/DLAS_Setup_v2.3.14.exe"
                   className="bg-blue-600 text-white px-8 py-3 rounded hover:bg-blue-700 transition text-center whitespace-nowrap inline-block"
+                  style={{ minWidth: '200px' }}
+                  download
+                >
+                  v2.3.14&nbsp;Installer
+                </a>
+                <a
+                  href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v2.3.2/DLAS_Setup_v2.3.2.exe"
+                  className="bg-gray-600 text-white px-8 py-3 rounded hover:bg-gray-700 transition text-center whitespace-nowrap inline-block"
                   style={{ minWidth: '200px' }}
                   download
                 >
