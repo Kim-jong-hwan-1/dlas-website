@@ -21,7 +21,9 @@
       "Bash(git ls-tree:*)",
       "Bash(/tmp/test_intro.py)",
       "Bash(git archive:*)",
-      "Bash(tar:*)"
+      "Bash(tar:*)",
+      "WebFetch(domain:youtu.be)",
+      "Bash(test:*)"
     ],
     "deny": [],
     "ask": []
