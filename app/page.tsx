@@ -1910,6 +1910,20 @@ export default function Page() {
                   </div>
                 </div>
 
+                {/* 맛보기 영상 */}
+                <div className="lg:col-span-1 flex flex-col items-center">
+                  <h3 className="text-2xl font-bold mb-4 text-green-600">맛보기 영상</h3>
+                  <div className="w-full max-w-sm aspect-[9/16] bg-black rounded-lg overflow-hidden shadow-lg">
+                    <iframe
+                      src="https://www.youtube.com/embed/h_0rIVS6Gyo"
+                      title="DLAS 맛보기 영상"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="w-full h-full"
+                    />
+                  </div>
+                </div>
+
                 {/* 세미나 정보 */}
                 <div className="lg:col-span-1 bg-white rounded-xl shadow-lg p-6">
                   <h3 className="text-2xl font-bold mb-4 text-blue-600">DLAS 세미나</h3>
@@ -1994,83 +2008,6 @@ export default function Page() {
                                hover:bg-blue-700 active:scale-95 transition shadow-lg"
                   >
                     세미나 신청하기
-                  </button>
-                </div>
-
-                {/* 웨비나 정보 */}
-                <div className="lg:col-span-1 bg-white rounded-xl shadow-lg p-6">
-                  <h3 className="text-2xl font-bold mb-4 text-purple-600">DLAS 웨비나</h3>
-
-                  {/* 웨비나 포스터 이미지 슬라이더 */}
-                  <div className="mb-4 relative bg-gray-100 rounded-lg overflow-hidden cursor-pointer" style={{ height: '300px' }}
-                    onClick={() => {
-                      let currentSlide = 0;
-                      const totalSlides = 3;
-                      const modal = document.createElement('div');
-                      modal.className = 'fixed inset-0 z-[9999] bg-black/90 flex items-center justify-center p-4';
-                      modal.innerHTML = `
-                        <button onclick="this.parentElement.remove()" class="absolute top-4 right-4 text-white text-6xl font-bold z-10 w-16 h-16 flex items-center justify-center hover:bg-white/20 rounded-full transition">×</button>
-                        <button id="prevBtn" class="absolute left-2 sm:left-8 top-1/2 -translate-y-1/2 text-white text-8xl sm:text-9xl font-bold z-10 w-20 h-20 sm:w-32 sm:h-32 flex items-center justify-center hover:bg-white/20 rounded-full transition">‹</button>
-                        <img id="slideImg" src="/webina/1.jpg" class="max-w-full max-h-full object-contain" />
-                        <button id="nextBtn" class="absolute right-2 sm:right-8 top-1/2 -translate-y-1/2 text-white text-8xl sm:text-9xl font-bold z-10 w-20 h-20 sm:w-32 sm:h-32 flex items-center justify-center hover:bg-white/20 rounded-full transition">›</button>
-                        <div class="absolute bottom-4 left-1/2 -translate-x-1/2 text-white text-xl font-bold bg-black/50 px-4 py-2 rounded">1 / 3</div>
-                      `;
-                      document.body.appendChild(modal);
-                      const img = modal.querySelector('#slideImg') as HTMLImageElement;
-                      const counter = modal.querySelector('div') as HTMLDivElement;
-                      const prevBtn = modal.querySelector('#prevBtn') as HTMLButtonElement;
-                      const nextBtn = modal.querySelector('#nextBtn') as HTMLButtonElement;
-                      const updateSlide = () => {
-                        if (img) img.src = '/webina/' + (currentSlide + 1) + '.jpg';
-                        if (counter) counter.textContent = (currentSlide + 1) + ' / 3';
-                      };
-                      if (prevBtn) {
-                        prevBtn.onclick = (e) => {
-                          e.stopPropagation();
-                          currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-                          updateSlide();
-                        };
-                      }
-                      if (nextBtn) {
-                        nextBtn.onclick = (e) => {
-                          e.stopPropagation();
-                          currentSlide = (currentSlide + 1) % totalSlides;
-                          updateSlide();
-                        };
-                      }
-                      modal.onclick = () => modal.remove();
-                      if (img) img.onclick = (e) => e.stopPropagation();
-                    }}
-                  >
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <Image
-                        src="/webina/1.jpg"
-                        alt="웨비나 포스터"
-                        fill
-                        className="object-contain"
-                      />
-                    </div>
-                    <div className="absolute bottom-2 right-2 bg-purple-600/80 text-white px-3 py-1 rounded text-sm pointer-events-none">
-                      클릭하여 전체보기 (3장)
-                    </div>
-                  </div>
-
-                  <div className="bg-purple-50 p-4 rounded-lg mb-4">
-                    <h4 className="font-bold text-lg mb-3">참가비</h4>
-                    <div className="flex justify-between items-center bg-white p-3 rounded">
-                      <span className="font-semibold">참가비</span>
-                      <span className="text-lg font-bold text-purple-600">7만원</span>
-                    </div>
-                    <p className="text-sm text-gray-500 mt-2">* 부가세 포함</p>
-                    <p className="text-xs text-red-600 font-semibold mt-1">* 웨비나 등록은 해당 웨비나 전날까지 가능하나, 조기마감 될 수 있습니다.</p>
-                  </div>
-
-                  <button
-                    onClick={() => window.open("https://docs.google.com/forms/d/e/1FAIpQLSfX_YSbdyGM92f6CWVg_VkiTXan5AxGYRSPMshfXkeN4kgSYg/viewform?usp=sharing&ouid=100677474144073110334", "_blank", "noopener,noreferrer")}
-                    className="w-full py-3 bg-purple-600 text-white font-bold rounded-lg
-                               hover:bg-purple-700 active:scale-95 transition shadow-lg"
-                  >
-                    웨비나 신청하기
                   </button>
                 </div>
 
@@ -2732,6 +2669,23 @@ export default function Page() {
                   </div>
                 </div>
 
+                {/* Tip 6: 개념 Tip #4 */}
+                <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition">
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold mb-2">개념 Tip #4: 토크와 어버트먼트 축변위에 대한 내용</h3>
+                    <p className="text-gray-600 mb-4">토크 적용과 어버트먼트 축변위의 이해</p>
+                    <button
+                      onClick={() => {
+                        const modal = document.getElementById("tip-modal-6");
+                        if (modal) modal.classList.remove("hidden");
+                      }}
+                      className="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition"
+                    >
+                      자세히 보기
+                    </button>
+                  </div>
+                </div>
+
                 {/* 추후 추가될 팁들을 위한 플레이스홀더 */}
                 {/* 팁 추가 시 여기에 동일한 구조로 카드 추가 */}
               </div>
@@ -2891,6 +2845,35 @@ export default function Page() {
                     className="w-full h-full rounded-lg shadow-lg"
                     src="https://www.youtube.com/embed/hD48-_5GCxk"
                     title="개념 Tip #3: DLAS가 생각하는 모델리스에서의 과교합 2편"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Tip 6 Modal */}
+          <div id="tip-modal-6" className="hidden fixed inset-0 bg-black/70 z-[9999] flex items-center justify-center p-4">
+            <div className="bg-white rounded-lg w-full max-w-4xl max-h-[90vh] flex flex-col">
+              <div className="flex justify-between items-center p-4 border-b">
+                <h3 className="text-2xl font-bold">개념 Tip #4: 토크와 어버트먼트 축변위에 대한 내용</h3>
+                <button
+                  onClick={() => {
+                    const modal = document.getElementById("tip-modal-6");
+                    if (modal) modal.classList.add("hidden");
+                  }}
+                  className="text-gray-500 hover:text-gray-700 text-3xl font-bold"
+                >
+                  ×
+                </button>
+              </div>
+              <div className="p-6">
+                <div className="aspect-video w-full">
+                  <iframe
+                    className="w-full h-full rounded-lg shadow-lg"
+                    src="https://www.youtube.com/embed/h_0rIVS6Gyo"
+                    title="개념 Tip #4: 토크와 어버트먼트 축변위에 대한 내용"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                   />
