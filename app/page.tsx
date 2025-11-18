@@ -1741,21 +1741,21 @@ export default function Page() {
             {/* ▼ 네비게이션 버튼 그룹 (오른쪽) */}
             <div className="absolute bottom-2 right-4 sm:right-8 hidden sm:flex flex-wrap items-center gap-x-4 gap-y-2">
               <button
-                onClick={() => scrollToSection("home")}
-                className="relative pb-2 transition-colors duration-200 cursor-pointer
-                           border-b-2 border-transparent hover:border-black
-                           text-gray-700 hover:text-black"
-              >
-                {t("nav.home")}
-              </button>
-
-              <button
                 onClick={() => scrollToSection("seminar")}
                 className="relative pb-2 transition-colors duration-200 cursor-pointer
                            border-b-2 border-transparent hover:border-black
                            text-gray-700 hover:text-black"
               >
                 세미나
+              </button>
+
+              <button
+                onClick={() => scrollToSection("home")}
+                className="relative pb-2 transition-colors duration-200 cursor-pointer
+                           border-b-2 border-transparent hover:border-black
+                           text-gray-700 hover:text-black"
+              >
+                {t("nav.home")}
               </button>
 
               {["download", "buy", "tips"].map((tab) => (
@@ -1833,101 +1833,18 @@ export default function Page() {
         </div>
 
         <main className="pt-[180px]">
-          {/* ✅ 세미나 섹션 완전 제거됨 */}
-
-          {/* 홈 섹션 */}
-          <section id="home" className="scroll-mt-[180px] text-center py-20">
-            <p className="text-xl text-gray-300 mb-2">
-              <span className="text-5xl font-bold block">{t("home.subtitle")}</span>
-            </p>
-            <h1 className="text-6xl font-bold mb-8">{t("home.title")}</h1>
-
-            <div className="flex flex-col items-center justify-center">
-              <button
-                onClick={() => {
-                  // 로그인 체크 (상태 + localStorage 둘 다 확인)
-                  const storedIsLoggedIn = localStorage.getItem("isLoggedIn");
-                  if (!isLoggedIn && storedIsLoggedIn !== "true") {
-                    alert("무료 라이센스를 받으려면 먼저 로그인해주세요.");
-                    // 로그인 모달 띄우기
-                    document.getElementById("login-modal")?.classList.remove("hidden");
-                    return;
-                  }
-                  setShowFamilyModal(true);
-                  setShowFreeLicenseGuide(true);
-                  setShowPaymentProceed(false);
-                  setFreeLicenseGuideOrigin("home");
-                }}
-                className="
-                  bg-black text-white
-                  font-bold
-                  rounded-md
-                  text-lg md:text-xl
-                  px-6 md:px-12
-                  py-3 md:py-4
-                  mb-10
-                  cursor-pointer
-                  transition
-                  hover:bg-gray-800
-                "
-              >
-                3일 무료 라이센스 받기 (이메일 인증)
-              </button>
-            </div>
-
-            <div className="mt-10 px-6 max-w-4xl mx-auto text-center">
-              <h2 className="text-3xl font-semibold mb-4 text-gray-900">
-                {t("home.gameChangerTitle")}
-              </h2>
-              <p className="text-lg text-gray-600 leading-relaxed mb-4">
-                {t("home.gameChangerDesc")}
-              </p>
-              <p className="italic text-2xl text-gray-800 font-medium">
-                {t("home.gameChangerQuote")}
-              </p>
-            </div>
-          </section>
-
           {/* 세미나 섹션 */}
           <section id="seminar" className="scroll-mt-[180px] py-20 bg-gradient-to-b from-white to-gray-50">
             <div className="max-w-7xl mx-auto px-4">
-              <h2 className="text-4xl font-bold text-center mb-12">세미나 & 웨비나</h2>
+              <h2 className="text-4xl font-bold text-center mb-12">세미나</h2>
 
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                {/* 소개 영상 */}
-                <div className="lg:col-span-1 flex flex-col items-center">
-                  <h3 className="text-2xl font-bold mb-4 text-blue-600">소개 영상</h3>
-                  <div className="w-full max-w-sm aspect-[9/16] bg-black rounded-lg overflow-hidden shadow-lg">
-                    <iframe
-                      src="https://www.youtube.com/embed/ox37MdbXEBk"
-                      title="DLAS 소개 영상"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                      className="w-full h-full"
-                    />
-                  </div>
-                </div>
-
-                {/* 맛보기 영상 */}
-                <div className="lg:col-span-1 flex flex-col items-center">
-                  <h3 className="text-2xl font-bold mb-4 text-green-600">맛보기 영상</h3>
-                  <div className="w-full max-w-sm aspect-[9/16] bg-black rounded-lg overflow-hidden shadow-lg">
-                    <iframe
-                      src="https://www.youtube.com/embed/h_0rIVS6Gyo"
-                      title="DLAS 맛보기 영상"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                      className="w-full h-full"
-                    />
-                  </div>
-                </div>
-
-                {/* 세미나 정보 */}
-                <div className="lg:col-span-1 bg-white rounded-xl shadow-lg p-6">
-                  <h3 className="text-2xl font-bold mb-4 text-blue-600">DLAS 세미나</h3>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                {/* 왼쪽: 세미나 포스터 이미지 */}
+                <div className="bg-white rounded-xl shadow-lg p-6 h-full">
+                  <h3 className="text-2xl font-bold mb-4 text-blue-600 text-center">DLAS 세미나</h3>
 
                   {/* 세미나 포스터 이미지 슬라이더 */}
-                  <div className="mb-4 relative bg-gray-100 rounded-lg overflow-hidden cursor-pointer" style={{ height: '300px' }}
+                  <div className="mb-4 relative bg-gray-100 rounded-lg overflow-hidden cursor-pointer flex-1" style={{ height: '600px' }}
                     onClick={() => {
                       let currentSlide = 0;
                       const totalSlides = 9;
@@ -1980,36 +1897,128 @@ export default function Page() {
                     </div>
                   </div>
 
-                  <div className="bg-blue-50 p-4 rounded-lg mb-4">
-                    <h4 className="font-bold text-lg mb-3">참가비</h4>
-                    <div className="space-y-2">
-                      <div className="flex justify-between items-center bg-white p-3 rounded">
-                        <span className="font-semibold">1인 신청</span>
-                        <span className="text-lg font-bold text-blue-600">20만원</span>
-                      </div>
-                      <div className="flex justify-between items-center bg-white p-3 rounded">
-                        <span className="font-semibold">2인 신청</span>
-                        <span className="text-lg font-bold text-blue-600">각 17만원</span>
-                      </div>
-                      <div className="flex justify-between items-center bg-white p-3 rounded">
-                        <span className="font-semibold">3인 신청</span>
-                        <span className="text-lg font-bold text-blue-600">각 15만원</span>
+                </div>
+
+                {/* 오른쪽: 영상 및 참가신청 */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 h-full">
+                  {/* 왼쪽 컬럼: 영상 2개 */}
+                  <div className="flex flex-col gap-4" style={{ height: '680px' }}>
+                    {/* 소개 영상 */}
+                    <div className="bg-white rounded-xl shadow-lg p-4 flex-[3] flex flex-col">
+                      <h3 className="text-xl font-bold mb-3 text-blue-600 text-center">소개 영상</h3>
+                      <div className="flex-1 bg-black rounded-lg overflow-hidden shadow-lg">
+                        <iframe
+                          src="https://www.youtube.com/embed/ox37MdbXEBk"
+                          title="DLAS 소개 영상"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                          className="w-full h-full"
+                        />
                       </div>
                     </div>
-                    <p className="text-sm text-gray-500 mt-2">* 부가세 별도</p>
-                    <p className="text-xs text-red-600 font-semibold mt-1">* 세미나 등록은 해당 세미나 전날까지 가능하나, 조기마감 될 수 있습니다.</p>
+
+                    {/* 맛보기 영상 */}
+                    <div className="bg-white rounded-xl shadow-lg p-4 flex-[2] flex flex-col">
+                      <h3 className="text-xl font-bold mb-3 text-green-600 text-center">맛보기 영상</h3>
+                      <div className="flex-1 bg-black rounded-lg overflow-hidden shadow-lg">
+                        <iframe
+                          src="https://www.youtube.com/embed/h_0rIVS6Gyo"
+                          title="DLAS 맛보기 영상"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                          className="w-full h-full"
+                        />
+                      </div>
+                    </div>
                   </div>
 
-                  <button
-                    onClick={() => window.open("https://docs.google.com/forms/d/e/1FAIpQLSc_fzZTLxCqNlCYlbZs3RvogqSxbzq9BMFQnAiTBSNyw8z52A/viewform?usp=sharing&ouid=100677474144073110334", "_blank", "noopener,noreferrer")}
-                    className="w-full py-3 bg-blue-600 text-white font-bold rounded-lg
-                               hover:bg-blue-700 active:scale-95 transition shadow-lg"
-                  >
-                    세미나 신청하기
-                  </button>
+                  {/* 오른쪽 컬럼: 참가신청 카드 */}
+                  <div className="bg-white rounded-xl shadow-lg p-6 flex flex-col" style={{ height: '680px' }}>
+                    <h3 className="text-2xl font-bold mb-4 text-blue-600 text-center">참가 신청</h3>
+                    <div className="bg-blue-50 p-4 rounded-lg mb-4 flex-1">
+                      <h4 className="font-bold text-lg mb-3">참가비</h4>
+                      <div className="space-y-2">
+                        <div className="flex justify-between items-center bg-white p-3 rounded">
+                          <span className="font-semibold">1인 신청</span>
+                          <span className="text-lg font-bold text-blue-600">20만원</span>
+                        </div>
+                        <div className="flex justify-between items-center bg-white p-3 rounded">
+                          <span className="font-semibold">2인 신청</span>
+                          <span className="text-lg font-bold text-blue-600">각 17만원</span>
+                        </div>
+                        <div className="flex justify-between items-center bg-white p-3 rounded">
+                          <span className="font-semibold">3인 신청</span>
+                          <span className="text-lg font-bold text-blue-600">각 15만원</span>
+                        </div>
+                      </div>
+                      <p className="text-sm text-gray-500 mt-2">* 부가세 별도</p>
+                      <p className="text-xs text-red-600 font-semibold mt-1">* 세미나 등록은 해당 세미나 전날까지 가능하나, 조기마감 될 수 있습니다.</p>
+                    </div>
+
+                    <button
+                      onClick={() => window.open("https://docs.google.com/forms/d/e/1FAIpQLSc_fzZTLxCqNlCYlbZs3RvogqSxbzq9BMFQnAiTBSNyw8z52A/viewform?usp=sharing&ouid=100677474144073110334", "_blank", "noopener,noreferrer")}
+                      className="w-full py-6 bg-blue-600 text-white font-bold rounded-lg text-xl
+                                 hover:bg-blue-700 active:scale-95 transition shadow-lg"
+                    >
+                      세미나 신청하기
+                    </button>
+                  </div>
                 </div>
 
               </div>
+            </div>
+          </section>
+
+          {/* 홈 섹션 */}
+          <section id="home" className="scroll-mt-[180px] text-center py-20">
+            <p className="text-xl text-gray-300 mb-2">
+              <span className="text-5xl font-bold block">{t("home.subtitle")}</span>
+            </p>
+            <h1 className="text-6xl font-bold mb-8">{t("home.title")}</h1>
+
+            <div className="flex flex-col items-center justify-center">
+              <button
+                onClick={() => {
+                  // 로그인 체크 (상태 + localStorage 둘 다 확인)
+                  const storedIsLoggedIn = localStorage.getItem("isLoggedIn");
+                  if (!isLoggedIn && storedIsLoggedIn !== "true") {
+                    alert("무료 라이센스를 받으려면 먼저 로그인해주세요.");
+                    // 로그인 모달 띄우기
+                    document.getElementById("login-modal")?.classList.remove("hidden");
+                    return;
+                  }
+                  setShowFamilyModal(true);
+                  setShowFreeLicenseGuide(true);
+                  setShowPaymentProceed(false);
+                  setFreeLicenseGuideOrigin("home");
+                }}
+                className="
+                  bg-black text-white
+                  font-bold
+                  rounded-md
+                  text-lg md:text-xl
+                  px-6 md:px-12
+                  py-3 md:py-4
+                  mb-10
+                  cursor-pointer
+                  transition
+                  hover:bg-gray-800
+                "
+              >
+                3일 무료 라이센스 받기 (이메일 인증)
+              </button>
+            </div>
+
+            <div className="mt-10 px-6 max-w-4xl mx-auto text-center">
+              <h2 className="text-3xl font-semibold mb-4 text-gray-900">
+                {t("home.gameChangerTitle")}
+              </h2>
+              <p className="text-lg text-gray-600 leading-relaxed mb-4">
+                {t("home.gameChangerDesc")}
+              </p>
+              <p className="italic text-2xl text-gray-800 font-medium">
+                {t("home.gameChangerQuote")}
+              </p>
             </div>
           </section>
 
