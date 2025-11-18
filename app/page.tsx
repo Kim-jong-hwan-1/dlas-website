@@ -1300,13 +1300,11 @@ export default function Page() {
 
   // 다운로드 모달
   const [showDownloadModal, setShowDownloadModal] = useState(false);
-  // 🆕 Webina modal (Poster images + 9월 세미나 설문결과)
-  const [showWebinaModal, setShowWebinaModal] = useState(false);
-  const [webinaTab, setWebinaTab] = useState<"poster" | "survey">("poster");
+  // 🆕 세미나 영상 모달 (소개영상 + 맛보기영상)
+  const [showSeminarVideoModal, setShowSeminarVideoModal] = useState(false);
   // 세미나 정보 모달
   const [showSeminarInfoModal, setShowSeminarInfoModal] = useState(false);
   const [analysisPreview, setAnalysisPreview] = useState<string | null>(null);
-  const WEBINA_ANALYSIS_FILES = ["분석1.png", "분석2.png", "분석3.png", "분석4.png"];
   const WEBINA_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSc_fzZTLxCqNlCYlbZs3RvogqSxbzq9BMFQnAiTBSNyw8z52A/viewform?usp=sharing&ouid=100677474144073110334";
 
 
@@ -1371,10 +1369,10 @@ export default function Page() {
     }
   };
 
-  // useEffect(() => {
-  //   // 홈페이지 진입 시 PDF 모달 먼저 표시
-  //   setShowPdfModal(true);
-  // }, []);
+  // 홈페이지 진입 시 세미나 영상 모달 자동 표시
+  useEffect(() => {
+    setShowSeminarVideoModal(true);
+  }, []);
 
   // ✅ 공통: 모달 열릴 때 스크롤 잠금 + ESC 닫기
   const anyModalOpen =
@@ -1382,7 +1380,7 @@ export default function Page() {
     showFamilyModal ||
     showPaymentSupportModal ||
     showDownloadModal ||
-    showWebinaModal ||
+    showSeminarVideoModal ||
     showSeminarInfoModal ||
     showPdfModal ||
     showNoticeModal ||
@@ -1402,8 +1400,8 @@ export default function Page() {
           clearTossQuery();
           return;
         }
-        if (showWebinaModal) {
-          setShowWebinaModal(false);
+        if (showSeminarVideoModal) {
+          setShowSeminarVideoModal(false);
           return;
         }
         if (showPdfModal) {
@@ -1449,7 +1447,7 @@ export default function Page() {
     anyModalOpen,
     analysisPreview,
     tossModalOpen,
-    showWebinaModal,
+    showSeminarVideoModal,
     showSeminarInfoModal,
     showPdfModal,
     showNoticeModal,
@@ -3424,131 +3422,77 @@ export default function Page() {
           </div>
         )}
 
-        {/* 🆕 Webina 모달: 홈페이지 진입 시 자동 표시 (닫으면 공지 모달 이어서 열림) */}
-        {showWebinaModal && (
+        {/* 🆕 세미나 영상 모달: 홈페이지 진입 시 자동 표시 (소개영상 + 맛보기영상) */}
+        {showSeminarVideoModal && (
           <div
             className="fixed inset-0 z-[200] bg-black/50 flex items-center justify-center px-4"
             onClick={(e) => {
               if (e.target === e.currentTarget) {
-                setShowWebinaModal(false);
+                setShowSeminarVideoModal(false);
               }
             }}
             role="dialog"
             aria-modal="true"
           >
             <div
-              className="relative bg-white rounded-xl shadow-2xl w-full max-w-5xl p-4 sm:p-6"
+              className="relative bg-white rounded-xl shadow-2xl w-full max-w-6xl p-4 sm:p-6"
               onClick={(e) => e.stopPropagation()}
             >
               <CloseButton
-                onClick={() => { setShowWebinaModal(false); }}
-                label="Webina 모달 닫기"
+                onClick={() => { setShowSeminarVideoModal(false); }}
+                label="세미나 영상 모달 닫기"
               />
 
-              <h2 className="text-2xl font-bold mb-4 text-center">웨비나 안내</h2>
+              <h2 className="text-3xl font-bold mb-6 text-center">DLAS 세미나 영상</h2>
 
-              {/* 탭 */}
-              <div className="flex items-center justify-center gap-2 mb-4">
-                <button
-                  className={"px-4 py-2 rounded border " + (webinaTab === "poster" ? "bg-black text-white" : "bg-white")}
-                  onClick={() => setWebinaTab("poster")}
-                >
-                  포스터
-                </button>
-                <button
-                  className={"px-4 py-2 rounded border " + (webinaTab === "survey" ? "bg-black text-white" : "bg-white")}
-                  onClick={() => setWebinaTab("survey")}
-                >
-                  9월 세미나 설문결과
-                </button>
+              {/* 영상 그리드 */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                {/* 소개 영상 */}
+                <div className="flex flex-col items-center">
+                  <h3 className="text-xl font-bold mb-3 text-blue-600">소개 영상</h3>
+                  <div className="w-full aspect-[9/16] bg-black rounded-lg overflow-hidden shadow-lg">
+                    <iframe
+                      src="https://www.youtube.com/embed/ox37MdbXEBk"
+                      title="DLAS 소개 영상"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="w-full h-full"
+                    />
+                  </div>
+                </div>
+
+                {/* 맛보기 영상 */}
+                <div className="flex flex-col items-center">
+                  <h3 className="text-xl font-bold mb-3 text-green-600">맛보기 영상</h3>
+                  <div className="w-full aspect-[9/16] bg-black rounded-lg overflow-hidden shadow-lg">
+                    <iframe
+                      src="https://www.youtube.com/embed/h_0rIVS6Gyo"
+                      title="DLAS 맛보기 영상"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="w-full h-full"
+                    />
+                  </div>
+                </div>
               </div>
 
-              {/* 안내문 (설문결과 별개 행사) */}
-              {webinaTab === "survey" && (
-                <div className="mb-3 text-center text-xs text-gray-600">
-                  이 자료는 <b>9월 세미나 설문결과</b>이며, <b>현재 진행될 EXO 웨비나와는 별개의 행사</b>입니다.
-                </div>
-              )}
-
-              {/* 콘텐츠 */}
-              {webinaTab === "poster" ? (
-                <div className="grid grid-cols-1 lg:grid-cols-5 gap-4">
-                  {/* 좌측: 포스터 이미지 — ✅ 1번만 표시 */}
-                  <div className="lg:col-span-3 rounded-lg border bg-white overflow-auto max-h:[75vh] lg:max-h-[75vh] p-2">
-                    <div className="space-y-3">
-                      <img
-                        src="/webina/1.png"
-                        alt="웨비나 포스터 1"
-                        className="w-full h-auto object-contain"
-                      />
-                      {/* 2.png 제거됨 */}
-                    </div>
-                  </div>
-
-                  {/* 우측: 참가신청 */}
-                  <aside className="lg:col-span-2 rounded-lg border bg-white p-4 flex flex-col gap-3">
-                    <div className="text-center">
-                      <h3 className="text-xl font-bold mb-1">EXO CAD 실무 팁 세미나</h3>
-                      <p className="text-sm text-gray-600">좌측 포스터 이미지를 확인하세요.</p>
-                    </div>
-                    <a
-                      href={WEBINA_FORM_URL}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full bg-black text-white py-3 rounded text-center font-bold hover:bg-gray-800 transition"
-                    >
-                      참가신청하기
-                    </a>
-                    <div className="text-xs text-gray-500">
-                      • 참가신청은 Google Forms로 진행됩니다.<br />
-                      • 문의: 010-9756-1992 / support@dlas.io
-                    </div>
-                  </aside>
-                </div>
-              ) : (
-                <div className="max-h-[75vh] overflow-auto p-1">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {WEBINA_ANALYSIS_FILES.map((name, idx) => (
-                      <button
-                        key={idx}
-                        onClick={() => setAnalysisPreview(name)}
-                        className="block rounded-lg border bg-white overflow-hidden"
-                      >
-                        <img
-                          src={`/webina/${encodeURIComponent(name)}`}
-                          alt={name}
-                          className="w-full h-80 object-contain bg-white"
-                          loading="lazy"
-                        />
-                        <div className="p-2 text-center text-sm text-gray-700">
-                          {name.replace(".png", "")} — 크게 보기
-                        </div>
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* 라이트박스: 이미지 클릭 → 다시 클릭하면 닫힘 */}
-              {analysisPreview && (
-                <div
-                  className="fixed inset-0 z-[300] bg-black/80 flex items-center justify-center p-4"
-                  onClick={() => setAnalysisPreview(null)}
-                  role="button"
-                  aria-label="Close analysis preview"
+              {/* 세미나 신청 버튼 */}
+              <div className="text-center space-y-3">
+                <a
+                  href={WEBINA_FORM_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block w-full max-w-md bg-blue-600 text-white py-3 px-6 rounded-lg text-lg font-bold hover:bg-blue-700 transition"
                 >
-                  <img
-                    src={`/webina/${encodeURIComponent(analysisPreview)}`}
-                    alt="preview"
-                    className="max-h-[90vh] max-w-full object-contain"
-                  />
-                </div>
-              )}
+                  세미나 신청하기
+                </a>
+                <p className="text-sm text-gray-500">문의: 010-9756-1992 / support@dlas.io</p>
+              </div>
 
-              <div className="mt-4 text-center">
+              <div className="mt-6 text-center">
                 <button
-                  onClick={() => { setShowWebinaModal(false); }}
-                  className="w-full bg-black text-white py-3 rounded hover:bg-gray-800 transition"
+                  onClick={() => { setShowSeminarVideoModal(false); }}
+                  className="w-full max-w-md bg-gray-600 text-white py-3 rounded-lg hover:bg-gray-700 transition"
                 >
                   닫기
                 </button>
