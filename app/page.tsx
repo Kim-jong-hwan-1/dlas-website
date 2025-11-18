@@ -1300,8 +1300,8 @@ export default function Page() {
 
   // 다운로드 모달
   const [showDownloadModal, setShowDownloadModal] = useState(false);
-  // 🆕 세미나 영상 모달 (소개영상 + 맛보기영상)
-  const [showSeminarVideoModal, setShowSeminarVideoModal] = useState(false);
+  // 🆕 Webina modal
+  const [showWebinaModal, setShowWebinaModal] = useState(false);
   // 세미나 정보 모달
   const [showSeminarInfoModal, setShowSeminarInfoModal] = useState(false);
   const [analysisPreview, setAnalysisPreview] = useState<string | null>(null);
@@ -1369,9 +1369,9 @@ export default function Page() {
     }
   };
 
-  // 홈페이지 진입 시 세미나 영상 모달 자동 표시
+  // 홈페이지 진입 시 웨비나 모달 자동 표시
   useEffect(() => {
-    setShowSeminarVideoModal(true);
+    setShowWebinaModal(true);
   }, []);
 
   // ✅ 공통: 모달 열릴 때 스크롤 잠금 + ESC 닫기
@@ -1380,7 +1380,7 @@ export default function Page() {
     showFamilyModal ||
     showPaymentSupportModal ||
     showDownloadModal ||
-    showSeminarVideoModal ||
+    showWebinaModal ||
     showSeminarInfoModal ||
     showPdfModal ||
     showNoticeModal ||
@@ -1400,8 +1400,8 @@ export default function Page() {
           clearTossQuery();
           return;
         }
-        if (showSeminarVideoModal) {
-          setShowSeminarVideoModal(false);
+        if (showWebinaModal) {
+          setShowWebinaModal(false);
           return;
         }
         if (showPdfModal) {
@@ -1447,7 +1447,7 @@ export default function Page() {
     anyModalOpen,
     analysisPreview,
     tossModalOpen,
-    showSeminarVideoModal,
+    showWebinaModal,
     showSeminarInfoModal,
     showPdfModal,
     showNoticeModal,
@@ -3422,13 +3422,13 @@ export default function Page() {
           </div>
         )}
 
-        {/* 🆕 세미나 영상 모달: 홈페이지 진입 시 자동 표시 (소개영상 + 맛보기영상) */}
-        {showSeminarVideoModal && (
+        {/* 🆕 Webina 모달: 홈페이지 진입 시 자동 표시 (세미나 소개영상 + 맛보기영상) */}
+        {showWebinaModal && (
           <div
             className="fixed inset-0 z-[200] bg-black/50 flex items-center justify-center px-4"
             onClick={(e) => {
               if (e.target === e.currentTarget) {
-                setShowSeminarVideoModal(false);
+                setShowWebinaModal(false);
               }
             }}
             role="dialog"
@@ -3439,8 +3439,8 @@ export default function Page() {
               onClick={(e) => e.stopPropagation()}
             >
               <CloseButton
-                onClick={() => { setShowSeminarVideoModal(false); }}
-                label="세미나 영상 모달 닫기"
+                onClick={() => { setShowWebinaModal(false); }}
+                label="Webina 모달 닫기"
               />
 
               <h2 className="text-3xl font-bold mb-6 text-center">DLAS 세미나 영상</h2>
@@ -3491,7 +3491,7 @@ export default function Page() {
 
               <div className="mt-6 text-center">
                 <button
-                  onClick={() => { setShowSeminarVideoModal(false); }}
+                  onClick={() => { setShowWebinaModal(false); }}
                   className="w-full max-w-md bg-gray-600 text-white py-3 rounded-lg hover:bg-gray-700 transition"
                 >
                   닫기
