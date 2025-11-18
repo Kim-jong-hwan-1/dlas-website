@@ -18,22 +18,14 @@ export default function DualModalContainer() {
     checkMobile();
     window.addEventListener('resize', checkMobile);
 
-    // 페이지 로드 시 모달 표시
+    // 페이지 로드 시 세미나 모달만 표시
     setIsSeminarOpen(true);
-    // 데스크톱에서는 웨비나도 바로 표시
-    if (window.innerWidth >= 1024) {
-      setIsWebinaOpen(true);
-    }
 
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
   const handleSeminarClose = () => {
     setIsSeminarOpen(false);
-    // 모바일에서는 세미나 닫으면 웨비나 표시
-    if (isMobile) {
-      setIsWebinaOpen(true);
-    }
   };
 
   const handleWebinaClose = () => {
@@ -53,10 +45,10 @@ export default function DualModalContainer() {
       className="fixed inset-0 z-[9998] flex items-center justify-center bg-black/70 p-2 sm:p-4"
       onClick={handleBackdropClick}
     >
-      <div className="w-full h-full max-w-[95vw] max-h-[95vh] flex flex-col lg:flex-row gap-4 items-center justify-center">
+      <div className="w-full h-full max-w-[98vw] max-h-[95vh] flex flex-col lg:flex-row gap-4 items-center justify-center">
         {/* 세미나 모달 */}
         {isSeminarOpen && (
-          <div className="w-full lg:w-1/2 h-full lg:h-full">
+          <div className="w-full h-full">
             <SeminarModal onClose={handleSeminarClose} />
           </div>
         )}

@@ -99,8 +99,10 @@ export default function SeminarModal({ onClose }: SeminarModalProps) {
           </p>
         </div>
 
-        {/* 슬라이더 영역 */}
-        <div className="relative bg-gray-50 flex-1">
+        {/* 메인 콘텐츠 영역: 이미지(왼쪽) + 영상(오른쪽) */}
+        <div className="flex-1 flex flex-col lg:flex-row overflow-hidden">
+          {/* 왼쪽: 슬라이더 영역 */}
+          <div className="relative bg-gray-50 flex-1 lg:w-1/2">
           {/* 이미지 컨테이너 */}
           <div
             className="relative w-full h-full cursor-pointer"
@@ -168,6 +170,38 @@ export default function SeminarModal({ onClose }: SeminarModalProps) {
             ))}
           </div>
         </div>
+
+        {/* 오른쪽: 영상 영역 */}
+        <div className="flex-1 lg:w-1/2 bg-white p-3 sm:p-4 flex flex-col gap-3 overflow-y-auto">
+          {/* 소개 영상 */}
+          <div className="flex flex-col items-center">
+            <h3 className="text-sm sm:text-base font-bold mb-2 text-blue-600">소개 영상</h3>
+            <div className="w-full aspect-video bg-black rounded-lg overflow-hidden shadow-lg">
+              <iframe
+                src="https://www.youtube.com/embed/ox37MdbXEBk"
+                title="DLAS 소개 영상"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="w-full h-full"
+              />
+            </div>
+          </div>
+
+          {/* 맛보기 영상 */}
+          <div className="flex flex-col items-center">
+            <h3 className="text-sm sm:text-base font-bold mb-2 text-green-600">맛보기 영상</h3>
+            <div className="w-full aspect-video bg-black rounded-lg overflow-hidden shadow-lg">
+              <iframe
+                src="https://www.youtube.com/embed/h_0rIVS6Gyo"
+                title="DLAS 맛보기 영상"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="w-full h-full"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
 
         {/* 가격 정보 */}
         <div className="px-3 sm:px-4 py-2 bg-gradient-to-r from-blue-50 to-indigo-50 border-t border-blue-100">

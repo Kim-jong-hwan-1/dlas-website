@@ -1370,9 +1370,9 @@ export default function Page() {
   };
 
   // 홈페이지 진입 시 웨비나 모달 자동 표시
-  useEffect(() => {
-    setShowWebinaModal(true);
-  }, []);
+  // useEffect(() => {
+  //   setShowWebinaModal(true);
+  // }, []);
 
   // ✅ 공통: 모달 열릴 때 스크롤 잠금 + ESC 닫기
   const anyModalOpen =
@@ -3414,85 +3414,6 @@ export default function Page() {
                 <button
                   onClick={() => setShowDownloadModal(false)}
                   className="w-full border px-6 py-2 rounded hover:bg-gray-50 transition"
-                >
-                  닫기
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* 🆕 Webina 모달: 홈페이지 진입 시 자동 표시 (세미나 소개영상 + 맛보기영상) */}
-        {showWebinaModal && (
-          <div
-            className="fixed inset-0 z-[200] bg-black/50 flex items-center justify-center px-4"
-            onClick={(e) => {
-              if (e.target === e.currentTarget) {
-                setShowWebinaModal(false);
-              }
-            }}
-            role="dialog"
-            aria-modal="true"
-          >
-            <div
-              className="relative bg-white rounded-xl shadow-2xl w-full max-w-6xl p-4 sm:p-6"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <CloseButton
-                onClick={() => { setShowWebinaModal(false); }}
-                label="Webina 모달 닫기"
-              />
-
-              <h2 className="text-3xl font-bold mb-6 text-center">DLAS 세미나 영상</h2>
-
-              {/* 영상 그리드 */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                {/* 소개 영상 */}
-                <div className="flex flex-col items-center">
-                  <h3 className="text-xl font-bold mb-3 text-blue-600">소개 영상</h3>
-                  <div className="w-full aspect-[9/16] bg-black rounded-lg overflow-hidden shadow-lg">
-                    <iframe
-                      src="https://www.youtube.com/embed/ox37MdbXEBk"
-                      title="DLAS 소개 영상"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                      className="w-full h-full"
-                    />
-                  </div>
-                </div>
-
-                {/* 맛보기 영상 */}
-                <div className="flex flex-col items-center">
-                  <h3 className="text-xl font-bold mb-3 text-green-600">맛보기 영상</h3>
-                  <div className="w-full aspect-[9/16] bg-black rounded-lg overflow-hidden shadow-lg">
-                    <iframe
-                      src="https://www.youtube.com/embed/h_0rIVS6Gyo"
-                      title="DLAS 맛보기 영상"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                      className="w-full h-full"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              {/* 세미나 신청 버튼 */}
-              <div className="text-center space-y-3">
-                <a
-                  href={WEBINA_FORM_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block w-full max-w-md bg-blue-600 text-white py-3 px-6 rounded-lg text-lg font-bold hover:bg-blue-700 transition"
-                >
-                  세미나 신청하기
-                </a>
-                <p className="text-sm text-gray-500">문의: 010-9756-1992 / support@dlas.io</p>
-              </div>
-
-              <div className="mt-6 text-center">
-                <button
-                  onClick={() => { setShowWebinaModal(false); }}
-                  className="w-full max-w-md bg-gray-600 text-white py-3 rounded-lg hover:bg-gray-700 transition"
                 >
                   닫기
                 </button>
