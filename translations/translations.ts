@@ -105,6 +105,33 @@ export const translations = {
       article5: { title: "Article 5 (Destruction of Personal Data)", desc: `Personal data will be securely destroyed after the retention period.<br/>- Digital files: permanently deleted<br/>- Paper documents: shredded or incinerated` },
       article6: { title: "Article 6 (User Rights)", desc: `You may request to view, modify, delete, or restrict the processing of your personal data at any time.` },
       article7: { title: "Article 7 (Data Protection Officer)", desc: `- Officer: JongHwan Kim<br/>- Email: support@dlas.io` },
+      article8: {
+        title: "Article 8 (Mobile App Privacy)",
+        desc: `DLAS processes personal information through the DLAS iOS app ("App") as follows:<br/>
+<br/>
+<strong>1. Collection and Use of Information</strong><br/>
+- The App uses Apple ID for authentication and may collect User ID and email address provided by Apple.<br/>
+- Collected information is used solely for user authentication and service provision.<br/>
+<br/>
+<strong>2. Information Retention</strong><br/>
+- Information collected through the App is stored on the Company's secure servers and managed according to the same standards as the privacy policy stated on the website.<br/>
+<br/>
+<strong>3. Compliance with iOS and Apple Policies</strong><br/>
+- The App is developed in compliance with Apple's App Store Review Guidelines and Privacy Policy.<br/>
+- User personal information follows Apple's operating system policies.<br/>
+<br/>
+<strong>4. Third-party Disclosure and External Modules</strong><br/>
+- The App does not provide or sell user personal information to third parties.<br/>
+- The App does not use any third-party analytics or advertising services beyond the basic platform features provided by iOS and Apple.<br/>
+<br/>
+<strong>5. Rights and Inquiries</strong><br/>
+For inquiries regarding personal information processing, please contact:<br/>
+- Developer: DLAS<br/>
+- Email: CEO@dlas.io<br/>
+<br/>
+<strong>6. Changes to Privacy Policy</strong><br/>
+This privacy policy may be changed due to legal amendments or service improvements. Important changes will be notified through app update notes or website announcements.`
+      },
       effectiveDate: "Effective Date: November 8, 2025",
     },
     login: {
@@ -1388,6 +1415,33 @@ export const translations = {
         title: "제7조 (개인정보 보호책임자)",
         desc: `- 책임자: 김종환<br/>
 - 이메일: support@dlas.io`,
+      },
+      article8: {
+        title: "제8조 (모바일 앱 개인정보 처리)",
+        desc: `회사는 DLAS iOS 앱("앱")을 통해 다음과 같이 개인정보를 처리합니다:<br/>
+<br/>
+<strong>1. 정보의 수집 및 사용</strong><br/>
+- 앱은 Apple ID와 연동하여 로그인하며, Apple이 제공하는 사용자 식별 정보(User ID) 및 이메일 주소를 수집할 수 있습니다.<br/>
+- 수집된 정보는 사용자 인증, 서비스 제공 목적으로만 사용됩니다.<br/>
+<br/>
+<strong>2. 정보의 보유</strong><br/>
+- 회사는 앱을 통해 수집한 정보를 회사의 보안 서버에 저장하며, 웹사이트에 명시된 개인정보처리방침과 동일한 기준으로 관리합니다.<br/>
+<br/>
+<strong>3. iOS 및 Apple 정책 준수</strong><br/>
+- 앱은 Apple의 App Store 심사 지침 및 개인정보 보호 정책을 준수하여 개발되었습니다.<br/>
+- 사용자의 개인정보는 Apple의 운영체제 정책에 따릅니다.<br/>
+<br/>
+<strong>4. 제3자 제공 및 외부 모듈</strong><br/>
+- 본 앱은 사용자의 개인정보를 제3자에게 제공하거나 판매하지 않습니다.<br/>
+- 본 앱은 iOS 및 Apple이 제공하는 기본 플랫폼 기능 외에, 별도의 제3자 분석·광고 서비스를 사용하지 않습니다.<br/>
+<br/>
+<strong>5. 권리 및 문의</strong><br/>
+개인정보 처리에 대한 문의가 있을 경우 아래 연락처로 문의하실 수 있습니다.<br/>
+- 개발자: DLAS<br/>
+- 이메일: CEO@dlas.io<br/>
+<br/>
+<strong>6. 개인정보 처리방침의 변경</strong><br/>
+법령 변경 또는 서비스 개선을 위해 본 개인정보 처리방침이 변경될 수 있으며, 중요한 변경이 있을 경우 앱 업데이트 내 변경 사항 안내 또는 웹페이지 공지를 통해 안내합니다.`,
       },
       effectiveDate: "시행일자: 2025년 11월 8일",
     },

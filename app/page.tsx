@@ -2921,7 +2921,7 @@ export default function Page() {
 
               <h3 className="text-2xl font-bold mb-4">{t("privacy.headingPrivacy")}</h3>
               <p className="mb-4">{t("privacy.intro")}</p>
-              {["article1", "article2", "article3", "article4", "article5", "article6", "article7"].map(
+              {["article1", "article2", "article3", "article4", "article5", "article6", "article7", "article8"].map(
                 (a) => (
                   <div key={a}>
                     <h4 className="font-semibold mb-1">{t(`privacy.${a}.title`)}</h4>
