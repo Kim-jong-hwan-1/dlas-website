@@ -107,7 +107,7 @@ export const translations = {
       article7: { title: "Article 7 (Data Protection Officer)", desc: `- Officer: JongHwan Kim<br/>- Email: support@dlas.io` },
       article8: {
         title: "Article 8 (Mobile App Privacy)",
-        desc: `DLAS processes personal information through the DLAS iOS app ("App") as follows:<br/>
+        desc: `The Company processes personal information through DLAS Viewer (hereinafter referred to as "the App") as follows:<br/>
 <br/>
 <strong>1. Collection and Use of Information</strong><br/>
 - The App uses Apple ID for authentication and may collect User ID and email address provided by Apple.<br/>
@@ -130,7 +130,7 @@ For inquiries regarding personal information processing, please contact:<br/>
 - Email: CEO@dlas.io<br/>
 <br/>
 <strong>6. Changes to Privacy Policy</strong><br/>
-This privacy policy may be changed due to legal amendments or service improvements. Important changes will be notified through app update notes or website announcements.`
+This privacy policy may be changed due to legal amendments or service improvements. Important changes will be notified through the App update notes or website announcements.`
       },
       effectiveDate: "Effective Date: November 8, 2025",
     },
@@ -1418,17 +1418,17 @@ This privacy policy may be changed due to legal amendments or service improvemen
       },
       article8: {
         title: "제8조 (모바일 앱 개인정보 처리)",
-        desc: `회사는 DLAS iOS 앱("앱")을 통해 다음과 같이 개인정보를 처리합니다:<br/>
+        desc: `회사는 DLAS Viewer(이하 "본 앱")를 통해 다음과 같이 개인정보를 처리합니다:<br/>
 <br/>
 <strong>1. 정보의 수집 및 사용</strong><br/>
-- 앱은 Apple ID와 연동하여 로그인하며, Apple이 제공하는 사용자 식별 정보(User ID) 및 이메일 주소를 수집할 수 있습니다.<br/>
+- 본 앱은 Apple ID와 연동하여 로그인하며, Apple이 제공하는 사용자 식별 정보(User ID) 및 이메일 주소를 수집할 수 있습니다.<br/>
 - 수집된 정보는 사용자 인증, 서비스 제공 목적으로만 사용됩니다.<br/>
 <br/>
 <strong>2. 정보의 보유</strong><br/>
-- 회사는 앱을 통해 수집한 정보를 회사의 보안 서버에 저장하며, 웹사이트에 명시된 개인정보처리방침과 동일한 기준으로 관리합니다.<br/>
+- 회사는 본 앱을 통해 수집한 정보를 회사의 보안 서버에 저장하며, 웹사이트에 명시된 개인정보처리방침과 동일한 기준으로 관리합니다.<br/>
 <br/>
 <strong>3. iOS 및 Apple 정책 준수</strong><br/>
-- 앱은 Apple의 App Store 심사 지침 및 개인정보 보호 정책을 준수하여 개발되었습니다.<br/>
+- 본 앱은 Apple의 App Store 심사 지침 및 개인정보 보호 정책을 준수하여 개발되었습니다.<br/>
 - 사용자의 개인정보는 Apple의 운영체제 정책에 따릅니다.<br/>
 <br/>
 <strong>4. 제3자 제공 및 외부 모듈</strong><br/>
@@ -1441,7 +1441,7 @@ This privacy policy may be changed due to legal amendments or service improvemen
 - 이메일: CEO@dlas.io<br/>
 <br/>
 <strong>6. 개인정보 처리방침의 변경</strong><br/>
-법령 변경 또는 서비스 개선을 위해 본 개인정보 처리방침이 변경될 수 있으며, 중요한 변경이 있을 경우 앱 업데이트 내 변경 사항 안내 또는 웹페이지 공지를 통해 안내합니다.`,
+법령 변경 또는 서비스 개선을 위해 본 개인정보 처리방침이 변경될 수 있으며, 중요한 변경이 있을 경우 본 앱 업데이트 내 변경 사항 안내 또는 웹페이지 공지를 통해 안내합니다.`,
       },
       effectiveDate: "시행일자: 2025년 11월 8일",
     },
