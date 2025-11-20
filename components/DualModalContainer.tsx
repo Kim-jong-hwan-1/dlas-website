@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import SeminarModal from "./SeminarModal";
 import WebinaModal from "./WebinaModal";
 
@@ -8,8 +9,14 @@ export default function DualModalContainer() {
   const [isSeminarOpen, setIsSeminarOpen] = useState(false);
   const [isWebinaOpen, setIsWebinaOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
+    // /app-privacy 경로에서는 모달을 표시하지 않음
+    if (pathname === "/app-privacy") {
+      return;
+    }
+
     // 모바일 여부 확인
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 1024); // lg breakpoint
@@ -22,7 +29,7 @@ export default function DualModalContainer() {
     setIsSeminarOpen(true);
 
     return () => window.removeEventListener('resize', checkMobile);
-  }, []);
+  }, [pathname]);
 
   const handleSeminarClose = () => {
     setIsSeminarOpen(false);
