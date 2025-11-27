@@ -1841,39 +1841,6 @@ export default function Page() {
             </p>
             <h1 className="text-6xl font-bold mb-8">{t("home.title")}</h1>
 
-            <div className="flex flex-col items-center justify-center">
-              <button
-                onClick={() => {
-                  // 로그인 체크 (상태 + localStorage 둘 다 확인)
-                  const storedIsLoggedIn = localStorage.getItem("isLoggedIn");
-                  if (!isLoggedIn && storedIsLoggedIn !== "true") {
-                    alert("무료 라이센스를 받으려면 먼저 로그인해주세요.");
-                    // 로그인 모달 띄우기
-                    document.getElementById("login-modal")?.classList.remove("hidden");
-                    return;
-                  }
-                  setShowFamilyModal(true);
-                  setShowFreeLicenseGuide(true);
-                  setShowPaymentProceed(false);
-                  setFreeLicenseGuideOrigin("home");
-                }}
-                className="
-                  bg-black text-white
-                  font-bold
-                  rounded-md
-                  text-lg md:text-xl
-                  px-6 md:px-12
-                  py-3 md:py-4
-                  mb-10
-                  cursor-pointer
-                  transition
-                  hover:bg-gray-800
-                "
-              >
-                3일 무료 라이센스 받기 (이메일 인증)
-              </button>
-            </div>
-
             <div className="mt-10 px-6 max-w-4xl mx-auto text-center">
               <h2 className="text-3xl font-semibold mb-4 text-gray-900">
                 {t("home.gameChangerTitle")}
