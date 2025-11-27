@@ -1741,15 +1741,6 @@ export default function Page() {
             {/* ▼ 네비게이션 버튼 그룹 (오른쪽) */}
             <div className="absolute bottom-2 right-4 sm:right-8 hidden sm:flex flex-wrap items-center gap-x-4 gap-y-2">
               <button
-                onClick={() => scrollToSection("seminar")}
-                className="relative pb-2 transition-colors duration-200 cursor-pointer
-                           border-b-2 border-transparent hover:border-black
-                           text-gray-700 hover:text-black"
-              >
-                세미나
-              </button>
-
-              <button
                 onClick={() => scrollToSection("home")}
                 className="relative pb-2 transition-colors duration-200 cursor-pointer
                            border-b-2 border-transparent hover:border-black
@@ -1769,6 +1760,15 @@ export default function Page() {
                   {t(`nav.${tab}`)}
                 </button>
               ))}
+
+              <button
+                onClick={() => scrollToSection("seminar")}
+                className="relative pb-2 transition-colors duration-200 cursor-pointer
+                           border-b-2 border-transparent hover:border-black
+                           text-gray-700 hover:text-black"
+              >
+                세미나
+              </button>
 
               <button
                 onClick={() => scrollToSection("terms-privacy")}
@@ -1833,141 +1833,6 @@ export default function Page() {
         </div>
 
         <main className="pt-[180px]">
-          {/* 세미나 섹션 */}
-          <section id="seminar" className="scroll-mt-[180px] py-20 bg-gradient-to-b from-white to-gray-50">
-            <div className="max-w-7xl mx-auto px-4">
-              <h2 className="text-4xl font-bold text-center mb-12">세미나</h2>
-
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-                {/* 왼쪽: 세미나 포스터 이미지 */}
-                <div className="bg-white rounded-xl shadow-lg p-6 h-full">
-                  <h3 className="text-2xl font-bold mb-4 text-blue-600 text-center">DLAS 세미나</h3>
-
-                  {/* 세미나 포스터 이미지 슬라이더 */}
-                  <div className="mb-4 relative bg-gray-100 rounded-lg overflow-hidden cursor-pointer flex-1" style={{ height: '600px' }}
-                    onClick={() => {
-                      let currentSlide = 0;
-                      const totalSlides = 9;
-                      const modal = document.createElement('div');
-                      modal.className = 'fixed inset-0 z-[9999] bg-black/90 flex items-center justify-center p-4';
-                      modal.innerHTML = `
-                        <button onclick="this.parentElement.remove()" class="absolute top-4 right-4 text-white text-6xl font-bold z-10 w-16 h-16 flex items-center justify-center hover:bg-white/20 rounded-full transition">×</button>
-                        <button id="prevBtn" class="absolute left-2 sm:left-8 top-1/2 -translate-y-1/2 text-white text-8xl sm:text-9xl font-bold z-10 w-20 h-20 sm:w-32 sm:h-32 flex items-center justify-center hover:bg-white/20 rounded-full transition">‹</button>
-                        <img id="slideImg" src="/posters/1.png" class="max-w-full max-h-full object-contain" />
-                        <button id="nextBtn" class="absolute right-2 sm:right-8 top-1/2 -translate-y-1/2 text-white text-8xl sm:text-9xl font-bold z-10 w-20 h-20 sm:w-32 sm:h-32 flex items-center justify-center hover:bg-white/20 rounded-full transition">›</button>
-                        <div class="absolute bottom-4 left-1/2 -translate-x-1/2 text-white text-xl font-bold bg-black/50 px-4 py-2 rounded">1 / 9</div>
-                      `;
-                      document.body.appendChild(modal);
-                      const img = modal.querySelector('#slideImg') as HTMLImageElement;
-                      const counter = modal.querySelector('div') as HTMLDivElement;
-                      const prevBtn = modal.querySelector('#prevBtn') as HTMLButtonElement;
-                      const nextBtn = modal.querySelector('#nextBtn') as HTMLButtonElement;
-                      const updateSlide = () => {
-                        if (img) img.src = '/posters/' + (currentSlide + 1) + '.png';
-                        if (counter) counter.textContent = (currentSlide + 1) + ' / 9';
-                      };
-                      if (prevBtn) {
-                        prevBtn.onclick = (e) => {
-                          e.stopPropagation();
-                          currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-                          updateSlide();
-                        };
-                      }
-                      if (nextBtn) {
-                        nextBtn.onclick = (e) => {
-                          e.stopPropagation();
-                          currentSlide = (currentSlide + 1) % totalSlides;
-                          updateSlide();
-                        };
-                      }
-                      modal.onclick = () => modal.remove();
-                      if (img) img.onclick = (e) => e.stopPropagation();
-                    }}
-                  >
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <Image
-                        src="/posters/1.png"
-                        alt="세미나 포스터"
-                        fill
-                        className="object-contain"
-                      />
-                    </div>
-                    <div className="absolute bottom-2 right-2 bg-blue-600/80 text-white px-3 py-1 rounded text-sm pointer-events-none">
-                      클릭하여 전체보기 (9장)
-                    </div>
-                  </div>
-
-                </div>
-
-                {/* 오른쪽: 영상 및 참가신청 */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 h-full">
-                  {/* 왼쪽 컬럼: 영상 2개 */}
-                  <div className="flex flex-col gap-4" style={{ height: '680px' }}>
-                    {/* 소개 영상 */}
-                    <div className="bg-white rounded-xl shadow-lg p-4 flex-[3] flex flex-col">
-                      <h3 className="text-xl font-bold mb-3 text-blue-600 text-center">소개 영상</h3>
-                      <div className="flex-1 bg-black rounded-lg overflow-hidden shadow-lg">
-                        <iframe
-                          src="https://www.youtube.com/embed/ox37MdbXEBk"
-                          title="DLAS 소개 영상"
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                          allowFullScreen
-                          className="w-full h-full"
-                        />
-                      </div>
-                    </div>
-
-                    {/* 맛보기 영상 */}
-                    <div className="bg-white rounded-xl shadow-lg p-4 flex-[2] flex flex-col">
-                      <h3 className="text-xl font-bold mb-3 text-green-600 text-center">맛보기 영상</h3>
-                      <div className="flex-1 bg-black rounded-lg overflow-hidden shadow-lg">
-                        <iframe
-                          src="https://www.youtube.com/embed/h_0rIVS6Gyo"
-                          title="DLAS 맛보기 영상"
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                          allowFullScreen
-                          className="w-full h-full"
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* 오른쪽 컬럼: 참가신청 카드 */}
-                  <div className="bg-white rounded-xl shadow-lg p-6 flex flex-col" style={{ height: '680px' }}>
-                    <h3 className="text-2xl font-bold mb-4 text-blue-600 text-center">참가 신청</h3>
-                    <div className="bg-blue-50 p-4 rounded-lg mb-4 flex-1">
-                      <h4 className="font-bold text-lg mb-3">참가비</h4>
-                      <div className="space-y-2">
-                        <div className="flex justify-between items-center bg-white p-3 rounded">
-                          <span className="font-semibold">1인 신청</span>
-                          <span className="text-lg font-bold text-blue-600">20만원</span>
-                        </div>
-                        <div className="flex justify-between items-center bg-white p-3 rounded">
-                          <span className="font-semibold">2인 신청</span>
-                          <span className="text-lg font-bold text-blue-600">각 17만원</span>
-                        </div>
-                        <div className="flex justify-between items-center bg-white p-3 rounded">
-                          <span className="font-semibold">3인 신청</span>
-                          <span className="text-lg font-bold text-blue-600">각 15만원</span>
-                        </div>
-                      </div>
-                      <p className="text-sm text-gray-500 mt-2">* 부가세 별도</p>
-                      <p className="text-xs text-red-600 font-semibold mt-1">* 세미나 등록은 해당 세미나 전날까지 가능하나, 조기마감 될 수 있습니다.</p>
-                    </div>
-
-                    <button
-                      onClick={() => window.open("https://docs.google.com/forms/d/e/1FAIpQLSc_fzZTLxCqNlCYlbZs3RvogqSxbzq9BMFQnAiTBSNyw8z52A/viewform?usp=sharing&ouid=100677474144073110334", "_blank", "noopener,noreferrer")}
-                      className="w-full py-6 bg-blue-600 text-white font-bold rounded-lg text-xl
-                                 hover:bg-blue-700 active:scale-95 transition shadow-lg"
-                    >
-                      세미나 신청하기
-                    </button>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-          </section>
 
           {/* 홈 섹션 */}
           <section id="home" className="scroll-mt-[180px] text-center py-20">
@@ -2082,14 +1947,14 @@ export default function Page() {
           <section id="buy" className="scroll-mt-[180px] text-center py-20 bg-white">
             <h2 className="text-4xl font-bold mb-12">{t("nav.buy")}</h2>
 
-            {/* 2.2.24 버전 업데이트 소개 영상 */}
+            {/* 2.4.2 버전 업데이트 소개 영상 */}
             <div className="max-w-4xl mx-auto mb-16">
-              <h3 className="text-2xl font-bold mb-6">2.2.24 Version Update</h3>
+              <h3 className="text-2xl font-bold mb-6">2.4.2 버전 업데이트</h3>
               <div className="aspect-video w-full">
                 <iframe
                   className="w-full h-full rounded-lg shadow-lg"
-                  src="https://www.youtube.com/embed/o1LryHUMz5g"
-                  title="2.2.24 Version Update"
+                  src="https://www.youtube.com/embed/WQRJAyfZ5zI"
+                  title="2.4.2 버전 업데이트"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
                 ></iframe>
@@ -2112,7 +1977,7 @@ export default function Page() {
               > = {
                 "3_transfer_jig_maker": {
                   gif: "/gifs/transferjig.gif",
-                  youtube: "FAtEIxAN-UY",
+                  youtube: "WQRJAyfZ5zI",
                   image: "/modules/3_transfer_jig_maker.png",
                   description: "Transfer Jig 자동 제작 모듈",
                   pdfPage: 10,
@@ -2120,7 +1985,7 @@ export default function Page() {
                 },
                 "e_transfer_jig_maker": {
                   gif: "/gifs/transferjig.gif",
-                  youtube: "FAtEIxAN-UY",
+                  youtube: "WQRJAyfZ5zI",
                   image: "/modules/e_transfer_jig_maker.png",
                   description: "Transfer Jig 자동 제작 모듈",
                   pdfPage: 10,
@@ -2728,6 +2593,141 @@ export default function Page() {
 
                 {/* 추후 추가될 팁들을 위한 플레이스홀더 */}
                 {/* 팁 추가 시 여기에 동일한 구조로 카드 추가 */}
+              </div>
+            </div>
+          </section>
+          {/* 세미나 섹션 */}
+          <section id="seminar" className="scroll-mt-[180px] py-20 bg-gradient-to-b from-white to-gray-50">
+            <div className="max-w-7xl mx-auto px-4">
+              <h2 className="text-4xl font-bold text-center mb-12">세미나</h2>
+
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+                {/* 왼쪽: 세미나 포스터 이미지 */}
+                <div className="bg-white rounded-xl shadow-lg p-6 h-full">
+                  <h3 className="text-2xl font-bold mb-4 text-blue-600 text-center">DLAS 세미나</h3>
+
+                  {/* 세미나 포스터 이미지 슬라이더 */}
+                  <div className="mb-4 relative bg-gray-100 rounded-lg overflow-hidden cursor-pointer flex-1" style={{ height: '600px' }}
+                    onClick={() => {
+                      let currentSlide = 0;
+                      const totalSlides = 9;
+                      const modal = document.createElement('div');
+                      modal.className = 'fixed inset-0 z-[9999] bg-black/90 flex items-center justify-center p-4';
+                      modal.innerHTML = `
+                        <button onclick="this.parentElement.remove()" class="absolute top-4 right-4 text-white text-6xl font-bold z-10 w-16 h-16 flex items-center justify-center hover:bg-white/20 rounded-full transition">×</button>
+                        <button id="prevBtn" class="absolute left-2 sm:left-8 top-1/2 -translate-y-1/2 text-white text-8xl sm:text-9xl font-bold z-10 w-20 h-20 sm:w-32 sm:h-32 flex items-center justify-center hover:bg-white/20 rounded-full transition">‹</button>
+                        <img id="slideImg" src="/posters/1.png" class="max-w-full max-h-full object-contain" />
+                        <button id="nextBtn" class="absolute right-2 sm:right-8 top-1/2 -translate-y-1/2 text-white text-8xl sm:text-9xl font-bold z-10 w-20 h-20 sm:w-32 sm:h-32 flex items-center justify-center hover:bg-white/20 rounded-full transition">›</button>
+                        <div class="absolute bottom-4 left-1/2 -translate-x-1/2 text-white text-xl font-bold bg-black/50 px-4 py-2 rounded">1 / 9</div>
+                      `;
+                      document.body.appendChild(modal);
+                      const img = modal.querySelector('#slideImg') as HTMLImageElement;
+                      const counter = modal.querySelector('div') as HTMLDivElement;
+                      const prevBtn = modal.querySelector('#prevBtn') as HTMLButtonElement;
+                      const nextBtn = modal.querySelector('#nextBtn') as HTMLButtonElement;
+                      const updateSlide = () => {
+                        if (img) img.src = '/posters/' + (currentSlide + 1) + '.png';
+                        if (counter) counter.textContent = (currentSlide + 1) + ' / 9';
+                      };
+                      if (prevBtn) {
+                        prevBtn.onclick = (e) => {
+                          e.stopPropagation();
+                          currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+                          updateSlide();
+                        };
+                      }
+                      if (nextBtn) {
+                        nextBtn.onclick = (e) => {
+                          e.stopPropagation();
+                          currentSlide = (currentSlide + 1) % totalSlides;
+                          updateSlide();
+                        };
+                      }
+                      modal.onclick = () => modal.remove();
+                      if (img) img.onclick = (e) => e.stopPropagation();
+                    }}
+                  >
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <Image
+                        src="/posters/1.png"
+                        alt="세미나 포스터"
+                        fill
+                        className="object-contain"
+                      />
+                    </div>
+                    <div className="absolute bottom-2 right-2 bg-blue-600/80 text-white px-3 py-1 rounded text-sm pointer-events-none">
+                      클릭하여 전체보기 (9장)
+                    </div>
+                  </div>
+
+                </div>
+
+                {/* 오른쪽: 영상 및 참가신청 */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 h-full">
+                  {/* 왼쪽 컬럼: 영상 2개 */}
+                  <div className="flex flex-col gap-4" style={{ height: '680px' }}>
+                    {/* 소개 영상 */}
+                    <div className="bg-white rounded-xl shadow-lg p-4 flex-[3] flex flex-col">
+                      <h3 className="text-xl font-bold mb-3 text-blue-600 text-center">소개 영상</h3>
+                      <div className="flex-1 bg-black rounded-lg overflow-hidden shadow-lg">
+                        <iframe
+                          src="https://www.youtube.com/embed/ox37MdbXEBk"
+                          title="DLAS 소개 영상"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                          className="w-full h-full"
+                        />
+                      </div>
+                    </div>
+
+                    {/* 맛보기 영상 */}
+                    <div className="bg-white rounded-xl shadow-lg p-4 flex-[2] flex flex-col">
+                      <h3 className="text-xl font-bold mb-3 text-green-600 text-center">맛보기 영상</h3>
+                      <div className="flex-1 bg-black rounded-lg overflow-hidden shadow-lg">
+                        <iframe
+                          src="https://www.youtube.com/embed/h_0rIVS6Gyo"
+                          title="DLAS 맛보기 영상"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                          className="w-full h-full"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* 오른쪽 컬럼: 참가신청 카드 */}
+                  <div className="bg-white rounded-xl shadow-lg p-6 flex flex-col" style={{ height: '680px' }}>
+                    <h3 className="text-2xl font-bold mb-4 text-blue-600 text-center">참가 신청</h3>
+                    <div className="bg-blue-50 p-4 rounded-lg mb-4 flex-1">
+                      <h4 className="font-bold text-lg mb-3">참가비</h4>
+                      <div className="space-y-2">
+                        <div className="flex justify-between items-center bg-white p-3 rounded">
+                          <span className="font-semibold">1인 신청</span>
+                          <span className="text-lg font-bold text-blue-600">20만원</span>
+                        </div>
+                        <div className="flex justify-between items-center bg-white p-3 rounded">
+                          <span className="font-semibold">2인 신청</span>
+                          <span className="text-lg font-bold text-blue-600">각 17만원</span>
+                        </div>
+                        <div className="flex justify-between items-center bg-white p-3 rounded">
+                          <span className="font-semibold">3인 신청</span>
+                          <span className="text-lg font-bold text-blue-600">각 15만원</span>
+                        </div>
+                      </div>
+                      <p className="text-sm text-gray-500 mt-2">* 부가세 별도</p>
+                      <p className="text-xs text-red-600 font-semibold mt-1">* 세미나 등록은 해당 세미나 전날까지 가능하나, 조기마감 될 수 있습니다.</p>
+                    </div>
+
+                    <button
+                      onClick={() => window.open("https://docs.google.com/forms/d/e/1FAIpQLSc_fzZTLxCqNlCYlbZs3RvogqSxbzq9BMFQnAiTBSNyw8z52A/viewform?usp=sharing&ouid=100677474144073110334", "_blank", "noopener,noreferrer")}
+                      className="w-full py-6 bg-blue-600 text-white font-bold rounded-lg text-xl
+                                 hover:bg-blue-700 active:scale-95 transition shadow-lg"
+                    >
+                      세미나 신청하기
+                    </button>
+                  </div>
+                </div>
+
               </div>
             </div>
           </section>
