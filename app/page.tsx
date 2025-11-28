@@ -1944,7 +1944,7 @@ export default function Page() {
               > = {
                 "3_transfer_jig_maker": {
                   gif: "/gifs/transferjig.gif",
-                  youtube: "WQRJAyfZ5zI",
+                  youtube: "9WlsgbpeS58",
                   image: "/modules/3_transfer_jig_maker.png",
                   description: "Transfer Jig 자동 제작 모듈",
                   pdfPage: 10,
