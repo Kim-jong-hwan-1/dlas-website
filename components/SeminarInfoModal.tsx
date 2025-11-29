@@ -82,9 +82,9 @@ export default function SeminarInfoModal({ isOpen, onClose }: SeminarInfoModalPr
           {activeTab === "video" && (
             <div className="space-y-4">
               <h3 className="text-xl font-bold text-gray-800">DLAS 소개 영상</h3>
-              <div className="aspect-[9/16] max-w-md mx-auto bg-black rounded-lg overflow-hidden">
+              <div className="aspect-video max-w-2xl mx-auto bg-black rounded-lg overflow-hidden">
                 <iframe
-                  src="https://www.youtube.com/embed/nIW3pJCzfOM"
+                  src="https://www.youtube.com/embed/39Ud9wvFqis"
                   title="DLAS 소개"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen

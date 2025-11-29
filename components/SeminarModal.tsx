@@ -174,26 +174,12 @@ export default function SeminarModal({ onClose }: SeminarModalProps) {
         {/* 오른쪽: 영상 영역 */}
         <div className="flex-1 lg:w-1/2 bg-white p-3 sm:p-4 flex flex-col gap-3 overflow-y-auto">
           {/* 소개 영상 */}
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center h-full">
             <h3 className="text-sm sm:text-base font-bold mb-2 text-blue-600">소개 영상</h3>
-            <div className="w-full aspect-video bg-black rounded-lg overflow-hidden shadow-lg">
+            <div className="w-full flex-1 bg-black rounded-lg overflow-hidden shadow-lg">
               <iframe
-                src="https://www.youtube.com/embed/ox37MdbXEBk"
+                src="https://www.youtube.com/embed/39Ud9wvFqis"
                 title="DLAS 소개 영상"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                className="w-full h-full"
-              />
-            </div>
-          </div>
-
-          {/* 맛보기 영상 */}
-          <div className="flex flex-col items-center">
-            <h3 className="text-sm sm:text-base font-bold mb-2 text-green-600">맛보기 영상</h3>
-            <div className="w-full aspect-video bg-black rounded-lg overflow-hidden shadow-lg">
-              <iframe
-                src="https://www.youtube.com/embed/h_0rIVS6Gyo"
-                title="DLAS 맛보기 영상"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
                 className="w-full h-full"
