@@ -1867,44 +1867,12 @@ export default function Page() {
             <div className="mt-8 flex flex-col items-center space-y-4 w-full">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-center gap-4 w-full max-w-2xl">
                 <a
-                  href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v2.4.2/DLAS_Setup_v2.4.2.exe"
+                  href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v2.5.0/DLAS_Setup_v2.5.0.exe"
                   className="bg-blue-600 text-white px-8 py-3 rounded hover:bg-blue-700 transition text-center whitespace-nowrap inline-block"
                   style={{ minWidth: '200px' }}
                   download
                 >
-                  v2.4.2&nbsp;Installer
-                </a>
-                <a
-                  href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v2.4.0/DLAS_Setup_v2.4.0.exe"
-                  className="bg-gray-600 text-white px-8 py-3 rounded hover:bg-gray-700 transition text-center whitespace-nowrap inline-block"
-                  style={{ minWidth: '200px' }}
-                  download
-                >
-                  v2.4.0&nbsp;Installer
-                </a>
-                <a
-                  href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v2.3.14/DLAS_Setup_v2.3.14.exe"
-                  className="bg-gray-600 text-white px-8 py-3 rounded hover:bg-gray-700 transition text-center whitespace-nowrap inline-block"
-                  style={{ minWidth: '200px' }}
-                  download
-                >
-                  v2.3.14&nbsp;Installer
-                </a>
-                <a
-                  href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v2.3.2/DLAS_Setup_v2.3.2.exe"
-                  className="bg-gray-600 text-white px-8 py-3 rounded hover:bg-gray-700 transition text-center whitespace-nowrap inline-block"
-                  style={{ minWidth: '200px' }}
-                  download
-                >
-                  v2.3.2&nbsp;Installer
-                </a>
-                <a
-                  href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v2.2.24/DLAS_Setup_v2.2.24.exe"
-                  className="bg-gray-600 text-white px-8 py-3 rounded hover:bg-gray-700 transition text-center whitespace-nowrap inline-block"
-                  style={{ minWidth: '200px' }}
-                  download
-                >
-                  v2.2.24&nbsp;Installer
+                  v2.5.0&nbsp;Installer
                 </a>
               </div>
             </div>
@@ -1913,20 +1881,6 @@ export default function Page() {
           {/* 구매 섹션 */}
           <section id="buy" className="scroll-mt-[180px] text-center py-20 bg-white">
             <h2 className="text-4xl font-bold mb-12">{t("nav.buy")}</h2>
-
-            {/* 2.4.2 버전 업데이트 소개 영상 */}
-            <div className="max-w-4xl mx-auto mb-16">
-              <h3 className="text-2xl font-bold mb-6">2.4.2 버전 업데이트</h3>
-              <div className="aspect-video w-full">
-                <iframe
-                  className="w-full h-full rounded-lg shadow-lg"
-                  src="https://www.youtube.com/embed/WQRJAyfZ5zI"
-                  title="2.4.2 버전 업데이트"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
-              </div>
-            </div>
 
             {(() => {
               const MODULE_NAME_TO_ID: Record<string, string> = {
@@ -1944,7 +1898,7 @@ export default function Page() {
               > = {
                 "3_transfer_jig_maker": {
                   gif: "/gifs/transferjig.gif",
-                  youtube: "9WlsgbpeS58",
+                  youtube: "4HxD16Tr2mg",
                   image: "/modules/3_transfer_jig_maker.png",
                   description: "Transfer Jig 자동 제작 모듈",
                   pdfPage: 10,
@@ -1952,7 +1906,7 @@ export default function Page() {
                 },
                 "e_transfer_jig_maker": {
                   gif: "/gifs/transferjig.gif",
-                  youtube: "WQRJAyfZ5zI",
+                  youtube: "4HxD16Tr2mg",
                   image: "/modules/e_transfer_jig_maker.png",
                   description: "Transfer Jig 자동 제작 모듈",
                   pdfPage: 10,
