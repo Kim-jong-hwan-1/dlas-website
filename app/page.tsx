@@ -2250,10 +2250,13 @@ export default function Page() {
                           ₩2,200,000{" "}
                           <span className="text-sm font-medium text-gray-500 align-middle"></span>
                         </div>
-                        <ul className="mt-6 space-y-2 text-gray-800">
-                          <li>• 모든 모듈 <b>평생 무료 라이선스</b></li>
-                          <li>• <b>업데이트</b> 및 <b>버전</b>과 상관없이 평생 무료</li>
-                        </ul>
+                        <div className="mt-6 text-gray-800">
+                          <p className="font-semibold mb-2">설명</p>
+                          <ul className="space-y-1">
+                            <li>1) <b>모든 모듈 평생 무료 라이선스</b></li>
+                            <li>2) <b>업데이트</b> 및 <b>버전</b>과 상관없이 평생 무료</li>
+                          </ul>
+                        </div>
                       </div>
                       <div className="w-full sm:w-56 flex flex-col gap-2">
                         {/* 🎟️ Permanent 쿠폰 입력 필드 */}
@@ -2319,6 +2322,7 @@ export default function Page() {
                           <ul className="space-y-1">
                             <li>1) <b>모든 모듈 평생 무료 + 한 계약 당 최대 5개 계정 제공</b> (동일 기공소 데스크탑 IP 고정)</li>
                             <li>2) <b>라이센스 계약자 의견</b>을 반영하여 개발 및 업데이트</li>
+                            <li>3) DLAS 디지털 기공 <b>세미나자료, 연구자료 제공</b></li>
                           </ul>
                         </div>
                       </div>
