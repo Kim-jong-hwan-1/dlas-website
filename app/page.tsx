@@ -1914,7 +1914,7 @@ export default function Page() {
                 },
                 "exo_abutment_editor": {
                   gif: "/gifs/abutment_editor.gif",
-                  youtube: "CC7FbcueG48",
+                  youtube: "0yr50UK9-Z0",
                   image: "/modules/exo_abutment_editor.png",
                   description: "어버트먼트 홀을 자동으로 처리하여, 이전 디자인 쉽고 빠르게 활용 가능",
                   pdfPage: 14,
