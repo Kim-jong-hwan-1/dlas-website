@@ -1922,7 +1922,7 @@ export default function Page() {
                 },
                 "stl_classifier": {
                   gif: "/gifs/stl_classifier.gif",
-                  youtube: "z32LXLfLEyM",
+                  youtube: "OCSzCMdLvyY",
                   image: "/modules/stl_classifier.png",
                   description: "STL 파일의 Z축 높이를 계산하여 블록 높이별로 자동 분류",
                   pdfPage: 18,
