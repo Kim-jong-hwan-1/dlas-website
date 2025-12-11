@@ -2538,6 +2538,30 @@ export default function Page() {
                   </div>
                 </div>
 
+                {/* Tip 9: 왁스업 STL 공유 */}
+                <div className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition">
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold mb-2">공유 Tip #1: 왁스업 STL 공유</h3>
+                    <p className="text-gray-600 mb-4">상악 6전치 왁스업 STL 파일을 공유합니다</p>
+                    <div className="space-y-2">
+                      <a
+                        href="/상악6전치검 1.stl"
+                        download="상악6전치검 1.stl"
+                        className="block w-full bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 transition text-center"
+                      >
+                        상악6전치검 1.stl 다운로드
+                      </a>
+                      <a
+                        href="/상악6전치검 2.stl"
+                        download="상악6전치검 2.stl"
+                        className="block w-full bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 transition text-center"
+                      >
+                        상악6전치검 2.stl 다운로드
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
                 {/* 추후 추가될 팁들을 위한 플레이스홀더 */}
                 {/* 팁 추가 시 여기에 동일한 구조로 카드 추가 */}
               </div>
