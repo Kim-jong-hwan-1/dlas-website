@@ -1663,7 +1663,7 @@ export default function Page() {
 
     const amount = 220000; // 22만원
     const orderId = `DLAS-SEMINAR-${Date.now()}`;
-    const orderName = "DLAS 세미나 참가 (모든 모듈 2주 이용권)";
+    const orderName = "DLAS 세미나";
 
     const currentOrigin =
       typeof window !== "undefined" ? window.location.origin : "https://www.dlas.io";
