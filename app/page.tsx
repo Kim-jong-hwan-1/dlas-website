@@ -242,7 +242,7 @@ export default function Page() {
   }, []);
 
   // ------------ [추가] Toss 성공/실패 콜백 처리용 상태 ------------
-  type TossIntentType = "module" | "family";
+  type TossIntentType = "module" | "family" | "seminar";
   type TossStatus = "success" | "fail";
 
   const [tossModalOpen, setTossModalOpen] = useState(false);
