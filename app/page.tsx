@@ -1669,8 +1669,8 @@ export default function Page() {
       typeof window !== "undefined" ? window.location.origin : "https://www.dlas.io";
 
     const successUrl =
-      `${currentOrigin}/?provider=toss&type=seminar&orderName=${encodeURIComponent(orderName)}&orderId=${encodeURIComponent(orderId)}&amount=${encodeURIComponent(String(amount))}`;
-    const failUrl = `${currentOrigin}/?provider=toss&type=seminar&status=fail`;
+      `${currentOrigin}/?provider=toss&type=family&orderName=${encodeURIComponent(orderName)}&orderId=${encodeURIComponent(orderId)}&amount=${encodeURIComponent(String(amount))}&period=2WEEK`;
+    const failUrl = `${currentOrigin}/?provider=toss&type=family&status=fail`;
 
     tossPayments.requestPayment("CARD", {
       amount,
