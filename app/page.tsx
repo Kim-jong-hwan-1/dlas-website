@@ -1642,6 +1642,7 @@ export default function Page() {
 
   // 🔹 세미나 결제 (1명 22만원 - 모든 모듈 2주 이용권)
   const handleSeminarPayment = () => {
+    const storedId = localStorage.getItem("userID") || userID;
     if (!storedId) {
       alert("로그인이 필요합니다.");
       return;
