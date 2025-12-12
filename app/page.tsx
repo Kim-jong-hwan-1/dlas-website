@@ -1640,8 +1640,17 @@ export default function Page() {
     setShowTermsConsentModal(true);
   };
 
-  // 🔹 세미나 결제 (1명 22만원 - 모든 모듈 2주 이용권)
-  const handleSeminarPayment = () => {
+  // 🔹 세미나 결제 (인원별 가격)
+  const SEMINAR_PRICES: Record<number, number> = {
+    1: 220000,
+    2: 374000,
+    3: 495000,
+    4: 660000,
+    5: 825000,
+    6: 990000,
+  };
+
+  const handleSeminarPayment = (persons: number) => {
     const storedId = localStorage.getItem("userID") || userID;
     if (!storedId) {
       alert("로그인이 필요합니다.");
@@ -1661,9 +1670,9 @@ export default function Page() {
     }
     const tossPayments = tossInit(tossClientKey);
 
-    const amount = 220000; // 22만원
-    const orderId = `DLAS-SEMINAR-${Date.now()}`;
-    const orderName = "DLAS 세미나";
+    const amount = SEMINAR_PRICES[persons] || 220000;
+    const orderId = `DLAS-SEMINAR-${persons}P-${Date.now()}`;
+    const orderName = `DLAS 세미나 (${persons}인)`;
 
     const currentOrigin =
       typeof window !== "undefined" ? window.location.origin : "https://www.dlas.io";
@@ -2446,29 +2455,57 @@ export default function Page() {
                   <div className="w-full">
                     <h3 className="text-2xl font-bold text-center mb-8">세미나 결제</h3>
                     <div className="relative bg-gradient-to-br from-purple-50 to-white rounded-2xl border shadow-md p-6 sm:p-10 text-left">
-                      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
-                        <div className="flex-1">
-                          <div className="flex items-center gap-3 mb-2">
-                            <span className="inline-flex items-center px-3 py-1 rounded-full border border-purple-300 bg-purple-100 text-purple-800 text-xs font-semibold">
-                              SEMINAR
-                            </span>
-                            <h3 className="text-2xl sm:text-3xl font-bold leading-tight">
-                              DLAS 세미나
-                            </h3>
-                          </div>
-                          <p className="text-gray-600">1인 참가비</p>
-                          <div className="mt-4 text-3xl sm:text-4xl font-extrabold">
-                            ₩220,000
-                          </div>
-                        </div>
-                        <div className="w-full sm:w-56 flex flex-col gap-2">
-                          <button
-                            onClick={handleSeminarPayment}
-                            className="w-full bg-purple-600 text-white rounded-lg px-6 py-3 font-bold hover:bg-purple-700 transition"
-                          >
-                            결제하기
-                          </button>
-                        </div>
+                      <div className="flex items-center gap-3 mb-6">
+                        <span className="inline-flex items-center px-3 py-1 rounded-full border border-purple-300 bg-purple-100 text-purple-800 text-xs font-semibold">
+                          SEMINAR
+                        </span>
+                        <h3 className="text-2xl sm:text-3xl font-bold leading-tight">
+                          DLAS 세미나
+                        </h3>
+                      </div>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+                        <button
+                          onClick={() => handleSeminarPayment(1)}
+                          className="flex flex-col items-center p-4 bg-white border-2 border-purple-200 rounded-lg hover:border-purple-500 hover:bg-purple-50 transition"
+                        >
+                          <span className="text-sm text-gray-600">1인</span>
+                          <span className="text-lg font-bold">₩220,000</span>
+                        </button>
+                        <button
+                          onClick={() => handleSeminarPayment(2)}
+                          className="flex flex-col items-center p-4 bg-white border-2 border-purple-200 rounded-lg hover:border-purple-500 hover:bg-purple-50 transition"
+                        >
+                          <span className="text-sm text-gray-600">2인</span>
+                          <span className="text-lg font-bold">₩374,000</span>
+                        </button>
+                        <button
+                          onClick={() => handleSeminarPayment(3)}
+                          className="flex flex-col items-center p-4 bg-white border-2 border-purple-200 rounded-lg hover:border-purple-500 hover:bg-purple-50 transition"
+                        >
+                          <span className="text-sm text-gray-600">3인</span>
+                          <span className="text-lg font-bold">₩495,000</span>
+                        </button>
+                        <button
+                          onClick={() => handleSeminarPayment(4)}
+                          className="flex flex-col items-center p-4 bg-white border-2 border-purple-200 rounded-lg hover:border-purple-500 hover:bg-purple-50 transition"
+                        >
+                          <span className="text-sm text-gray-600">4인</span>
+                          <span className="text-lg font-bold">₩660,000</span>
+                        </button>
+                        <button
+                          onClick={() => handleSeminarPayment(5)}
+                          className="flex flex-col items-center p-4 bg-white border-2 border-purple-200 rounded-lg hover:border-purple-500 hover:bg-purple-50 transition"
+                        >
+                          <span className="text-sm text-gray-600">5인</span>
+                          <span className="text-lg font-bold">₩825,000</span>
+                        </button>
+                        <button
+                          onClick={() => handleSeminarPayment(6)}
+                          className="flex flex-col items-center p-4 bg-white border-2 border-purple-200 rounded-lg hover:border-purple-500 hover:bg-purple-50 transition"
+                        >
+                          <span className="text-sm text-gray-600">6인</span>
+                          <span className="text-lg font-bold">₩990,000</span>
+                        </button>
                       </div>
                     </div>
                   </div>
