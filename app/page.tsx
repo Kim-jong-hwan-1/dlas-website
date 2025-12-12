@@ -2445,19 +2445,30 @@ export default function Page() {
                   {/* 세미나 결제 섹션 */}
                   <div className="w-full">
                     <h3 className="text-2xl font-bold text-center mb-8">세미나 결제</h3>
-                    <div className="max-w-md mx-auto bg-gradient-to-br from-purple-500 to-indigo-600 rounded-2xl shadow-xl overflow-hidden">
-                      <div className="p-8 text-white text-center">
-                        <h4 className="text-2xl font-bold mb-4">DLAS 세미나</h4>
-                        <div className="bg-white/20 rounded-lg p-4 mb-6">
-                          <p className="text-sm text-purple-100">참가비 (1인)</p>
-                          <p className="text-4xl font-bold">₩220,000</p>
+                    <div className="relative bg-gradient-to-br from-purple-50 to-white rounded-2xl border shadow-md p-6 sm:p-10 text-left">
+                      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-3 mb-2">
+                            <span className="inline-flex items-center px-3 py-1 rounded-full border border-purple-300 bg-purple-100 text-purple-800 text-xs font-semibold">
+                              SEMINAR
+                            </span>
+                            <h3 className="text-2xl sm:text-3xl font-bold leading-tight">
+                              DLAS 세미나
+                            </h3>
+                          </div>
+                          <p className="text-gray-600">1인 참가비</p>
+                          <div className="mt-4 text-3xl sm:text-4xl font-extrabold">
+                            ₩220,000
+                          </div>
                         </div>
-                        <button
-                          onClick={handleSeminarPayment}
-                          className="w-full bg-white text-purple-600 font-bold py-3 px-6 rounded-lg hover:bg-purple-50 transition"
-                        >
-                          결제하기
-                        </button>
+                        <div className="w-full sm:w-56 flex flex-col gap-2">
+                          <button
+                            onClick={handleSeminarPayment}
+                            className="w-full bg-purple-600 text-white rounded-lg px-6 py-3 font-bold hover:bg-purple-700 transition"
+                          >
+                            결제하기
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
