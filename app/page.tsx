@@ -2443,31 +2443,14 @@ export default function Page() {
 
                   {/* 세미나 결제 섹션 */}
                   <div className="w-full">
-                    <h3 className="text-2xl font-bold text-center mb-8">세미나 참가</h3>
+                    <h3 className="text-2xl font-bold text-center mb-8">세미나 결제</h3>
                     <div className="max-w-md mx-auto bg-gradient-to-br from-purple-500 to-indigo-600 rounded-2xl shadow-xl overflow-hidden">
                       <div className="p-8 text-white text-center">
-                        <div className="text-5xl mb-4">🎓</div>
-                        <h4 className="text-2xl font-bold mb-2">DLAS 세미나</h4>
-                        <p className="text-purple-100 mb-4">세미나 참가 시 모든 모듈 2주 무료 체험</p>
+                        <h4 className="text-2xl font-bold mb-4">DLAS 세미나</h4>
                         <div className="bg-white/20 rounded-lg p-4 mb-6">
                           <p className="text-sm text-purple-100">참가비 (1인)</p>
                           <p className="text-4xl font-bold">₩220,000</p>
-                          <p className="text-sm text-purple-200 mt-1">부가세 포함</p>
                         </div>
-                        <ul className="text-left text-sm space-y-2 mb-6">
-                          <li className="flex items-center gap-2">
-                            <span className="text-green-300">✓</span>
-                            <span>세미나 참석권</span>
-                          </li>
-                          <li className="flex items-center gap-2">
-                            <span className="text-green-300">✓</span>
-                            <span>모든 모듈 2주간 무료 이용</span>
-                          </li>
-                          <li className="flex items-center gap-2">
-                            <span className="text-green-300">✓</span>
-                            <span>실습 자료 제공</span>
-                          </li>
-                        </ul>
                         <button
                           onClick={handleSeminarPayment}
                           className="w-full bg-white text-purple-600 font-bold py-3 px-6 rounded-lg hover:bg-purple-50 transition"
