@@ -2504,105 +2504,99 @@ export default function Page() {
 
               return (
                 <div className="flex flex-col gap-y-16 w-full max-w-6xl mx-auto">
-                  {moduleCards}
-
-                  {/* 패키지 결제 섹션 */}
-                  <div className="w-full">
-                    <h3 className="text-2xl font-bold text-center mb-8">패키지 (평생 이용)</h3>
-                    <div className="flex flex-col gap-6">
-                      {/* 3 Package */}
-                      <div className="relative bg-gray-50 rounded-2xl border shadow-md px-2 py-8 flex flex-col sm:flex-row items-center h-auto sm:h-80 sm:min-h-[320px] sm:max-h-[320px] gap-6">
-                        {/* 왼쪽: 모듈 이미지들 */}
-                        <div className="hidden sm:flex flex-col items-center justify-center w-1/4 h-full gap-2">
-                          <Image
-                            src="/modules/3_transfer_jig_maker.png"
-                            alt="3 Transfer Jig Maker"
-                            width={120}
-                            height={30}
-                            className="object-contain"
-                          />
-                          <span className="text-gray-400 text-xl font-bold">+</span>
-                          <Image
-                            src="/modules/stl_classifier.png"
-                            alt="STL Classifier"
-                            width={120}
-                            height={30}
-                            className="object-contain"
-                          />
-                        </div>
-                        {/* 중앙: 패키지 정보 */}
-                        <div className="flex-1 flex flex-col justify-center items-center sm:items-start px-4">
-                          <div className="flex items-center gap-3 mb-2">
-                            <span className="inline-flex items-center px-3 py-1 rounded-full border border-green-300 bg-green-100 text-green-800 text-xs font-semibold">
-                              3 PKG
-                            </span>
-                            <h4 className="text-xl sm:text-2xl font-bold">3 Package</h4>
-                          </div>
-                          <p className="text-gray-600 text-sm mb-3">3 Transfer Jig Maker + STL Classifier</p>
-                          <div className="flex items-center gap-3 mb-2">
-                            <span className="text-gray-400 line-through text-lg">₩1,540,000</span>
-                            <span className="text-red-500 text-sm font-semibold">29% OFF</span>
-                          </div>
-                          <div className="text-3xl font-extrabold text-green-600">₩1,100,000</div>
-                        </div>
-                        {/* 오른쪽: 결제 버튼 */}
-                        <div className="w-full sm:w-48 px-4 sm:px-0 sm:pr-6">
-                          <button
-                            onClick={() => handlePackagePayment("3")}
-                            className="w-full bg-green-600 text-white rounded-lg px-6 py-4 font-bold hover:bg-green-700 transition text-lg"
-                          >
-                            결제하기
-                          </button>
-                        </div>
+                  {/* 3 Package - 맨 앞 */}
+                  <div className="relative bg-gray-50 rounded-2xl border shadow-md px-2 py-8 flex flex-col sm:flex-row items-center h-auto sm:h-80 sm:min-h-[320px] sm:max-h-[320px] gap-6">
+                    {/* 왼쪽: 모듈 이미지들 - 가로 배치 */}
+                    <div className="hidden sm:flex flex-row items-center justify-center w-2/5 h-full gap-4 px-4">
+                      <Image
+                        src="/modules/3_transfer_jig_maker.png"
+                        alt="3 Transfer Jig Maker"
+                        width={200}
+                        height={50}
+                        className="object-contain max-h-[50px]"
+                      />
+                      <span className="text-gray-400 text-2xl font-bold">+</span>
+                      <Image
+                        src="/modules/stl_classifier.png"
+                        alt="STL Classifier"
+                        width={200}
+                        height={50}
+                        className="object-contain max-h-[50px]"
+                      />
+                    </div>
+                    {/* 중앙: 패키지 정보 */}
+                    <div className="flex-1 flex flex-col justify-center items-center sm:items-start px-4">
+                      <div className="flex items-center gap-3 mb-2">
+                        <span className="inline-flex items-center px-3 py-1 rounded-full border border-green-300 bg-green-100 text-green-800 text-xs font-semibold">
+                          패키지 · 평생이용
+                        </span>
                       </div>
-
-                      {/* E Package */}
-                      <div className="relative bg-gray-50 rounded-2xl border shadow-md px-2 py-8 flex flex-col sm:flex-row items-center h-auto sm:h-80 sm:min-h-[320px] sm:max-h-[320px] gap-6">
-                        {/* 왼쪽: 모듈 이미지들 */}
-                        <div className="hidden sm:flex flex-col items-center justify-center w-1/4 h-full gap-2">
-                          <Image
-                            src="/modules/e_transfer_jig_maker.png"
-                            alt="E Transfer Jig Maker"
-                            width={120}
-                            height={30}
-                            className="object-contain"
-                          />
-                          <span className="text-gray-400 text-xl font-bold">+</span>
-                          <Image
-                            src="/modules/stl_classifier.png"
-                            alt="STL Classifier"
-                            width={120}
-                            height={30}
-                            className="object-contain"
-                          />
-                        </div>
-                        {/* 중앙: 패키지 정보 */}
-                        <div className="flex-1 flex flex-col justify-center items-center sm:items-start px-4">
-                          <div className="flex items-center gap-3 mb-2">
-                            <span className="inline-flex items-center px-3 py-1 rounded-full border border-orange-300 bg-orange-100 text-orange-800 text-xs font-semibold">
-                              E PKG
-                            </span>
-                            <h4 className="text-xl sm:text-2xl font-bold">E Package</h4>
-                          </div>
-                          <p className="text-gray-600 text-sm mb-3">E Transfer Jig Maker + STL Classifier</p>
-                          <div className="flex items-center gap-3 mb-2">
-                            <span className="text-gray-400 line-through text-lg">₩1,540,000</span>
-                            <span className="text-red-500 text-sm font-semibold">29% OFF</span>
-                          </div>
-                          <div className="text-3xl font-extrabold text-orange-600">₩1,100,000</div>
-                        </div>
-                        {/* 오른쪽: 결제 버튼 */}
-                        <div className="w-full sm:w-48 px-4 sm:px-0 sm:pr-6">
-                          <button
-                            onClick={() => handlePackagePayment("E")}
-                            className="w-full bg-orange-600 text-white rounded-lg px-6 py-4 font-bold hover:bg-orange-700 transition text-lg"
-                          >
-                            결제하기
-                          </button>
-                        </div>
+                      <h4 className="text-xl sm:text-2xl font-bold mb-1">3 Package</h4>
+                      <p className="text-gray-600 text-sm mb-3">3 Transfer Jig Maker + STL Classifier</p>
+                      <div className="flex items-center gap-3 mb-2">
+                        <span className="text-gray-400 line-through text-lg">₩1,540,000</span>
+                        <span className="text-red-500 text-sm font-semibold">29% OFF</span>
                       </div>
+                      <div className="text-3xl font-extrabold text-green-600">₩1,100,000</div>
+                    </div>
+                    {/* 오른쪽: 결제 버튼 */}
+                    <div className="w-full sm:w-48 px-4 sm:px-0 sm:pr-6">
+                      <button
+                        onClick={() => handlePackagePayment("3")}
+                        className="w-full bg-green-600 text-white rounded-lg px-6 py-4 font-bold hover:bg-green-700 transition text-lg"
+                      >
+                        결제하기
+                      </button>
                     </div>
                   </div>
+
+                  {/* E Package - 두번째 */}
+                  <div className="relative bg-gray-50 rounded-2xl border shadow-md px-2 py-8 flex flex-col sm:flex-row items-center h-auto sm:h-80 sm:min-h-[320px] sm:max-h-[320px] gap-6">
+                    {/* 왼쪽: 모듈 이미지들 - 가로 배치 */}
+                    <div className="hidden sm:flex flex-row items-center justify-center w-2/5 h-full gap-4 px-4">
+                      <Image
+                        src="/modules/e_transfer_jig_maker.png"
+                        alt="E Transfer Jig Maker"
+                        width={200}
+                        height={50}
+                        className="object-contain max-h-[50px]"
+                      />
+                      <span className="text-gray-400 text-2xl font-bold">+</span>
+                      <Image
+                        src="/modules/stl_classifier.png"
+                        alt="STL Classifier"
+                        width={200}
+                        height={50}
+                        className="object-contain max-h-[50px]"
+                      />
+                    </div>
+                    {/* 중앙: 패키지 정보 */}
+                    <div className="flex-1 flex flex-col justify-center items-center sm:items-start px-4">
+                      <div className="flex items-center gap-3 mb-2">
+                        <span className="inline-flex items-center px-3 py-1 rounded-full border border-orange-300 bg-orange-100 text-orange-800 text-xs font-semibold">
+                          패키지 · 평생이용
+                        </span>
+                      </div>
+                      <h4 className="text-xl sm:text-2xl font-bold mb-1">E Package</h4>
+                      <p className="text-gray-600 text-sm mb-3">E Transfer Jig Maker + STL Classifier</p>
+                      <div className="flex items-center gap-3 mb-2">
+                        <span className="text-gray-400 line-through text-lg">₩1,540,000</span>
+                        <span className="text-red-500 text-sm font-semibold">29% OFF</span>
+                      </div>
+                      <div className="text-3xl font-extrabold text-orange-600">₩1,100,000</div>
+                    </div>
+                    {/* 오른쪽: 결제 버튼 */}
+                    <div className="w-full sm:w-48 px-4 sm:px-0 sm:pr-6">
+                      <button
+                        onClick={() => handlePackagePayment("E")}
+                        className="w-full bg-orange-600 text-white rounded-lg px-6 py-4 font-bold hover:bg-orange-700 transition text-lg"
+                      >
+                        결제하기
+                      </button>
+                    </div>
+                  </div>
+
+                  {moduleCards}
 
                   {licenseCards}
 
