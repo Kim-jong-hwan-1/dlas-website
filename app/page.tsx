@@ -242,7 +242,7 @@ export default function Page() {
   }, []);
 
   // ------------ [추가] Toss 성공/실패 콜백 처리용 상태 ------------
-  type TossIntentType = "module" | "family" | "seminar";
+  type TossIntentType = "module" | "family" | "seminar" | "package";
   type TossStatus = "success" | "fail";
 
   const [tossModalOpen, setTossModalOpen] = useState(false);
@@ -259,6 +259,7 @@ export default function Page() {
     orderName?: string;
     module?: string;
     period?: string;
+    packageType?: string;
     userEmail?: string;
     code?: string;
     message?: string;
@@ -277,6 +278,7 @@ export default function Page() {
     const mod = p.get("mod") ?? undefined;
     const period = p.get("period") ?? undefined;
     const orderName = p.get("orderName") ?? undefined;
+    const packageType = p.get("package") ?? undefined;
 
     // 실패 시 Toss가 code/message 부여
     const failCode = p.get("code");
@@ -293,6 +295,7 @@ export default function Page() {
           orderName,
           module: mod,
           period,
+          packageType,
           userEmail: localStorage.getItem("userID") || undefined,
         });
       } else {
@@ -304,6 +307,7 @@ export default function Page() {
           amount: Number(amountStr || "0"),
           module: mod,
           period,
+          packageType,
           orderName,
           code: failCode || undefined,
           message: failMsg || undefined,
@@ -346,6 +350,7 @@ export default function Page() {
         type: tossPayload.type,
         module: tossPayload.module,
         period: tossPayload.period,
+        packageType: tossPayload.packageType,
         orderName: tossPayload.orderName,
         userEmail: tossPayload.userEmail,
       };
@@ -1692,6 +1697,49 @@ export default function Page() {
     });
   };
 
+  // 🔹 패키지 결제 (3패키지, E패키지 - 각 110만원)
+  const handlePackagePayment = (packageType: "3" | "E") => {
+    const storedId = localStorage.getItem("userID") || userID;
+    if (!storedId) {
+      alert("로그인이 필요합니다.");
+      return;
+    }
+
+    if (typeof window === "undefined" || !(window as MyWindow).TossPayments) {
+      alert("결제 모듈이 아직 로드되지 않았습니다. 페이지를 새로고침해주세요.");
+      return;
+    }
+
+    const tossClientKey = process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY!;
+    const tossInit = (window as MyWindow).TossPayments;
+    if (!tossInit) {
+      alert("결제 모듈이 아직 로드되지 않았습니다.");
+      return;
+    }
+    const tossPayments = tossInit(tossClientKey);
+
+    const amount = 1100000; // 110만원
+    const orderId = `DLAS-PKG-${packageType}-${Date.now()}`;
+    const orderName = packageType === "3" ? "3 Package (3 Transfer Jig + STL Classifier)" : "E Package (E Transfer Jig + STL Classifier)";
+
+    const currentOrigin =
+      typeof window !== "undefined" ? window.location.origin : "https://www.dlas.io";
+
+    const successUrl =
+      `${currentOrigin}/?provider=toss&type=package&package=${packageType}&orderName=${encodeURIComponent(orderName)}&orderId=${encodeURIComponent(orderId)}&amount=${encodeURIComponent(String(amount))}`;
+    const failUrl = `${currentOrigin}/?provider=toss&type=package&status=fail`;
+
+    tossPayments.requestPayment("CARD", {
+      amount,
+      orderId,
+      orderName,
+      customerEmail: storedId,
+      customerName: userInfo && userInfo.name ? userInfo.name : storedId,
+      successUrl,
+      failUrl,
+    });
+  };
+
   return (
     <>
       <Head>
@@ -2457,6 +2505,61 @@ export default function Page() {
               return (
                 <div className="flex flex-col gap-y-16 w-full max-w-6xl mx-auto">
                   {moduleCards}
+
+                  {/* 패키지 결제 섹션 */}
+                  <div className="w-full">
+                    <h3 className="text-2xl font-bold text-center mb-8">패키지 (평생 이용)</h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {/* 3 Package */}
+                      <div className="relative bg-gradient-to-br from-green-50 to-white rounded-2xl border shadow-md p-6 sm:p-8 text-left">
+                        <div className="flex items-center gap-3 mb-4">
+                          <span className="inline-flex items-center px-3 py-1 rounded-full border border-green-300 bg-green-100 text-green-800 text-xs font-semibold">
+                            3 PKG
+                          </span>
+                          <h4 className="text-xl sm:text-2xl font-bold leading-tight">
+                            3 Package
+                          </h4>
+                        </div>
+                        <p className="text-gray-600 mb-2">3 Transfer Jig Maker + STL Classifier</p>
+                        <div className="flex items-center gap-3 mb-4">
+                          <span className="text-gray-400 line-through text-lg">₩1,540,000</span>
+                          <span className="text-red-500 text-sm font-semibold">29% OFF</span>
+                        </div>
+                        <div className="text-3xl font-extrabold mb-4">₩1,100,000</div>
+                        <button
+                          onClick={() => handlePackagePayment("3")}
+                          className="w-full bg-green-600 text-white rounded-lg px-6 py-3 font-bold hover:bg-green-700 transition"
+                        >
+                          결제하기
+                        </button>
+                      </div>
+
+                      {/* E Package */}
+                      <div className="relative bg-gradient-to-br from-orange-50 to-white rounded-2xl border shadow-md p-6 sm:p-8 text-left">
+                        <div className="flex items-center gap-3 mb-4">
+                          <span className="inline-flex items-center px-3 py-1 rounded-full border border-orange-300 bg-orange-100 text-orange-800 text-xs font-semibold">
+                            E PKG
+                          </span>
+                          <h4 className="text-xl sm:text-2xl font-bold leading-tight">
+                            E Package
+                          </h4>
+                        </div>
+                        <p className="text-gray-600 mb-2">E Transfer Jig Maker + STL Classifier</p>
+                        <div className="flex items-center gap-3 mb-4">
+                          <span className="text-gray-400 line-through text-lg">₩1,540,000</span>
+                          <span className="text-red-500 text-sm font-semibold">29% OFF</span>
+                        </div>
+                        <div className="text-3xl font-extrabold mb-4">₩1,100,000</div>
+                        <button
+                          onClick={() => handlePackagePayment("E")}
+                          className="w-full bg-orange-600 text-white rounded-lg px-6 py-3 font-bold hover:bg-orange-700 transition"
+                        >
+                          결제하기
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
                   {licenseCards}
 
                   {/* 세미나 결제 섹션 */}
