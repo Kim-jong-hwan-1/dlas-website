@@ -25,8 +25,8 @@ export default function DualModalContainer() {
     checkMobile();
     window.addEventListener('resize', checkMobile);
 
-    // 페이지 로드 시 세미나 모달만 표시
-    setIsSeminarOpen(true);
+    // 페이지 로드 시 세미나 모달 표시 비활성화
+    // setIsSeminarOpen(true);
 
     return () => window.removeEventListener('resize', checkMobile);
   }, [pathname]);

@@ -23,7 +23,11 @@
       "Bash(git archive:*)",
       "Bash(tar:*)",
       "WebFetch(domain:youtu.be)",
-      "Bash(test:*)"
+      "Bash(test:*)",
+      "Bash(npx vercel:*)",
+      "Bash(git revert:*)",
+      "Bash(cat:*)",
+      "Bash(ls:*)"
     ],
     "deny": [],
     "ask": []
