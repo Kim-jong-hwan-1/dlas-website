@@ -2444,6 +2444,9 @@ export default function Page() {
                         <div className="mt-6 text-gray-800">
                           <p className="font-semibold mb-2">설명</p>
                           <ul className="space-y-1">
+                            <li className="bg-amber-100 border border-amber-300 rounded-lg px-3 py-2 mb-2">
+                              <span className="text-amber-800 font-bold">0) 🦷 기공물 치과 영업 연계</span>
+                            </li>
                             <li>1) <b>모든 모듈 평생 무료 + 한 계약 당 최대 5개 계정 제공</b> (동일 기공소 데스크탑 IP 고정)</li>
                             <li>2) <b>라이센스 계약자 의견</b>을 반영하여 개발 및 업데이트</li>
                             <li>3) DLAS 디지털 기공 <b>세미나자료, 연구자료 제공</b></li>
