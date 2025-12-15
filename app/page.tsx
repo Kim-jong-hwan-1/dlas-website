@@ -2443,7 +2443,13 @@ export default function Page() {
 
                         <div className="mt-6 text-gray-800">
                           <p className="font-semibold mb-2">설명</p>
-                          <p className="text-gray-600 text-sm mb-3">DLAS와 가족이 된다는 의미의 라이센스</p>
+                          <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 mb-4">
+                            <p className="text-amber-900 text-sm leading-relaxed">
+                              <b>DLAS Family License</b>는 단순한 라이센스를 넘어,<br />
+                              지속적인 기술 업데이트와 성장을 함께하는<br />
+                              <b className="text-amber-700">DLAS의 파트너십 멤버십</b>입니다.
+                            </p>
+                          </div>
                           <ul className="space-y-1">
                             <li>1) <b>🦷 기공물 치과 영업 연계</b></li>
                             <li>2) <b>모든 모듈 평생 무료 + 한 계약 당 최대 5개 계정 제공</b> (동일 기공소 데스크탑 IP 고정)</li>
