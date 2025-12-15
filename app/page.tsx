@@ -1998,14 +1998,6 @@ export default function Page() {
                 >
                   v2.5.2&nbsp;Installer
                 </a>
-                <a
-                  href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v2.5.0/DLAS_Setup_v2.5.0.exe"
-                  className="bg-gray-500 text-white px-8 py-3 rounded hover:bg-gray-600 transition text-center whitespace-nowrap inline-block"
-                  style={{ minWidth: '180px' }}
-                  download
-                >
-                  v2.5.0&nbsp;Installer
-                </a>
               </div>
             </div>
           </section>
