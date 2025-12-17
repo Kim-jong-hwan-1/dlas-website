@@ -1967,8 +1967,16 @@ export default function Page() {
             <div className="mt-8 flex flex-col items-center space-y-4 w-full">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-center gap-4 w-full max-w-4xl flex-wrap">
                 <a
-                  href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v2.5.7/DLAS_Setup_v2.5.7.exe"
+                  href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v2.5.8/DLAS_Setup_v2.5.8.exe"
                   className="bg-blue-600 text-white px-8 py-3 rounded hover:bg-blue-700 transition text-center whitespace-nowrap inline-block"
+                  style={{ minWidth: '180px' }}
+                  download
+                >
+                  v2.5.8&nbsp;Installer
+                </a>
+                <a
+                  href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v2.5.7/DLAS_Setup_v2.5.7.exe"
+                  className="bg-gray-500 text-white px-8 py-3 rounded hover:bg-gray-600 transition text-center whitespace-nowrap inline-block"
                   style={{ minWidth: '180px' }}
                   download
                 >
