@@ -1965,46 +1965,58 @@ export default function Page() {
             </p>
 
             <div className="mt-8 flex flex-col items-center space-y-4 w-full">
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-center gap-4 w-full max-w-4xl flex-wrap">
+              {/* v2.6.0 - 메인 버튼 */}
+              <div className="flex justify-center w-full">
                 <a
-                  href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v2.5.8/DLAS_Setup_v2.5.8.exe"
-                  className="bg-blue-600 text-white px-8 py-3 rounded hover:bg-blue-700 transition text-center whitespace-nowrap inline-block"
-                  style={{ minWidth: '180px' }}
+                  href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v2.6.0/DLAS_Setup_v2.6.0.exe"
+                  className="bg-blue-600 text-white px-10 py-4 rounded hover:bg-blue-700 transition text-center whitespace-nowrap inline-block text-lg font-semibold"
+                  style={{ minWidth: '220px' }}
                   download
                 >
-                  v2.5.8&nbsp;Installer
+                  v2.6.0&nbsp;Installer
+                </a>
+              </div>
+              {/* 이전 버전들 */}
+              <div className="flex flex-row items-center justify-center gap-3 w-full max-w-4xl flex-wrap">
+                <a
+                  href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v2.5.8/DLAS_Setup_v2.5.8.exe"
+                  className="bg-gray-500 text-white px-6 py-2 rounded hover:bg-gray-600 transition text-center whitespace-nowrap inline-block text-sm"
+                  style={{ minWidth: '150px' }}
+                  download
+                >
+                  v2.5.8
                 </a>
                 <a
                   href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v2.5.7/DLAS_Setup_v2.5.7.exe"
-                  className="bg-gray-500 text-white px-8 py-3 rounded hover:bg-gray-600 transition text-center whitespace-nowrap inline-block"
-                  style={{ minWidth: '180px' }}
+                  className="bg-gray-500 text-white px-6 py-2 rounded hover:bg-gray-600 transition text-center whitespace-nowrap inline-block text-sm"
+                  style={{ minWidth: '150px' }}
                   download
                 >
-                  v2.5.7&nbsp;Installer
+                  v2.5.7
                 </a>
                 <a
                   href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v2.5.5/DLAS_Setup_v2.5.5.exe"
-                  className="bg-gray-500 text-white px-8 py-3 rounded hover:bg-gray-600 transition text-center whitespace-nowrap inline-block"
-                  style={{ minWidth: '180px' }}
+                  className="bg-gray-500 text-white px-6 py-2 rounded hover:bg-gray-600 transition text-center whitespace-nowrap inline-block text-sm"
+                  style={{ minWidth: '150px' }}
                   download
                 >
-                  v2.5.5&nbsp;Installer
+                  v2.5.5
                 </a>
                 <a
                   href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v2.5.4/DLAS_Setup_v2.5.4.exe"
-                  className="bg-gray-500 text-white px-8 py-3 rounded hover:bg-gray-600 transition text-center whitespace-nowrap inline-block"
-                  style={{ minWidth: '180px' }}
+                  className="bg-gray-500 text-white px-6 py-2 rounded hover:bg-gray-600 transition text-center whitespace-nowrap inline-block text-sm"
+                  style={{ minWidth: '150px' }}
                   download
                 >
-                  v2.5.4&nbsp;Installer
+                  v2.5.4
                 </a>
                 <a
                   href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v2.5.2/DLAS_Setup_v2.5.2.exe"
-                  className="bg-gray-500 text-white px-8 py-3 rounded hover:bg-gray-600 transition text-center whitespace-nowrap inline-block"
-                  style={{ minWidth: '180px' }}
+                  className="bg-gray-500 text-white px-6 py-2 rounded hover:bg-gray-600 transition text-center whitespace-nowrap inline-block text-sm"
+                  style={{ minWidth: '150px' }}
                   download
                 >
-                  v2.5.2&nbsp;Installer
+                  v2.5.2
                 </a>
               </div>
             </div>
