@@ -189,6 +189,7 @@ const DISCOUNT_FACTOR = 0.7; // ≈30% 할인
 const MODULE_DISCOUNT_LEVELS: Record<string, 0 | 1 | 2> = {
   "3_transfer_jig_maker": 0,
   "e_transfer_jig_maker": 0,
+  "separator": 0,
   "exo_abutment_editor": 0,
   "stl_classifier": 0,
   "stl_to_html": 1,
@@ -405,6 +406,12 @@ export default function Page() {
       "1WEEK": "pri_01k1dhsg4gwyzycar6cggsm93j",
       "1MONTH": "pri_01k1dhtxxwyaqt63bx9wfgttfa",
       "1YEAR": "pri_01k1dhwbb0yvngp04ggzna166w",
+      "LIFETIME": "",
+    },
+    "Separator": {
+      "1WEEK": "",
+      "1MONTH": "",
+      "1YEAR": "",
       "LIFETIME": "",
     },
     "Abutment Editor": {
@@ -984,6 +991,7 @@ export default function Page() {
   const modules = [
     "3_transfer_jig_maker",
     "e_transfer_jig_maker",
+    "separator",
     "exo_abutment_editor",
     "stl_classifier",
     "stl_to_html",
@@ -2038,6 +2046,7 @@ export default function Page() {
               const MODULE_NAME_TO_ID: Record<string, string> = {
                 "3_transfer_jig_maker": "1",
                 "e_transfer_jig_maker": "4",
+                "separator": "9",
                 "exo_abutment_editor": "3",
                 "stl_classifier": "2",
                 "stl_to_html": "5",
@@ -2046,7 +2055,7 @@ export default function Page() {
 
               const info: Record<
                 string,
-                { gif: string | null; youtube: string | null; image: string | null; description: string; pdfPage?: number; startTime?: number }
+                { gif: string | null; youtube: string | null; image: string | null; description: string; pdfPage?: number; startTime?: number; comingSoon?: boolean }
               > = {
                 "3_transfer_jig_maker": {
                   gif: "/gifs/transferjig.gif",
@@ -2063,6 +2072,13 @@ export default function Page() {
                   description: "Transfer Jig 자동 제작 모듈",
                   pdfPage: 10,
                   startTime: 127,
+                },
+                "separator": {
+                  gif: null,
+                  youtube: null,
+                  image: "/modules/separator.png",
+                  description: "덴쳐 진지바 분리 세퍼레이터",
+                  comingSoon: true,
                 },
                 "exo_abutment_editor": {
                   gif: "/gifs/abutment_editor.gif",
@@ -2099,8 +2115,8 @@ export default function Page() {
               };
 
               const moduleCards = modules.map((mod) => {
-                const { gif, youtube, image, description, pdfPage, startTime } =
-                  info[mod] ?? { gif: null, youtube: null, image: null, description: "", pdfPage: undefined, startTime: undefined };
+                const { gif, youtube, image, description, pdfPage, startTime, comingSoon } =
+                  info[mod] ?? { gif: null, youtube: null, image: null, description: "", pdfPage: undefined, startTime: undefined, comingSoon: false };
                 const moduleId = MODULE_NAME_TO_ID[mod];
                 let expireUtc: string | null = null;
                 if (
@@ -2209,39 +2225,39 @@ export default function Page() {
                         <div className="flex flex-row w-full justify-center items-center gap-2">
                           <button
                             className="bg-black text-white rounded-lg w-1/3 h-12 text-base font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
-                            onClick={() => handleModulePayment(mod, "1WEEK")}
+                            onClick={() => comingSoon ? alert("준비중입니다.") : handleModulePayment(mod, "1WEEK")}
                           >
                             <span className="text-lg leading-5">1주</span>
                             <span className="text-xs leading-5">
-                              {priceLabelForModule(mod, "1WEEK", userInfo.country)}
+                              {comingSoon ? "준비중" : priceLabelForModule(mod, "1WEEK", userInfo.country)}
                             </span>
                           </button>
                           <button
                             className="bg-black text-white rounded-lg w-1/3 h-12 text-base font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
-                            onClick={() => handleModulePayment(mod, "1MONTH")}
+                            onClick={() => comingSoon ? alert("준비중입니다.") : handleModulePayment(mod, "1MONTH")}
                           >
                             <span className="text-lg leading-5">1달</span>
                             <span className="text-xs leading-5">
-                              {priceLabelForModule(mod, "1MONTH", userInfo.country)}
+                              {comingSoon ? "준비중" : priceLabelForModule(mod, "1MONTH", userInfo.country)}
                             </span>
                           </button>
                           <button
                             className="bg-black text-white rounded-lg w-1/3 h-12 text-base font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
-                            onClick={() => handleModulePayment(mod, "1YEAR")}
+                            onClick={() => comingSoon ? alert("준비중입니다.") : handleModulePayment(mod, "1YEAR")}
                           >
                             <span className="text-lg leading-5">1년</span>
                             <span className="text-xs leading-5">
-                              {priceLabelForModule(mod, "1YEAR", userInfo.country)}
+                              {comingSoon ? "준비중" : priceLabelForModule(mod, "1YEAR", userInfo.country)}
                             </span>
                           </button>
                         </div>
                         <button
                           className="bg-black text-white rounded-lg w-full h-12 text-base font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
-                          onClick={() => handleModulePayment(mod, "LIFETIME")}
+                          onClick={() => comingSoon ? alert("준비중입니다.") : handleModulePayment(mod, "LIFETIME")}
                         >
                           <span className="text-lg leading-5">평생이용</span>
                           <span className="text-xs leading-5">
-                            {priceLabelForModule(mod, "LIFETIME", userInfo.country)}
+                            {comingSoon ? "준비중" : priceLabelForModule(mod, "LIFETIME", userInfo.country)}
                           </span>
                         </button>
                       </div>
@@ -2343,38 +2359,38 @@ export default function Page() {
 
                         <button
                           className="bg-black text-white rounded-lg w-32 h-16 text-lg font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
-                          onClick={() => handleModulePayment(mod, "1WEEK")}
+                          onClick={() => comingSoon ? alert("준비중입니다.") : handleModulePayment(mod, "1WEEK")}
                         >
                           <span className="text-xl leading-5">1주</span>
                           <span className="text-base leading-5">
-                            {priceLabelForModule(mod, "1WEEK", userInfo.country)}
+                            {comingSoon ? "준비중" : priceLabelForModule(mod, "1WEEK", userInfo.country)}
                           </span>
                         </button>
                         <button
                           className="bg-black text-white rounded-lg w-32 h-16 text-lg font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
-                          onClick={() => handleModulePayment(mod, "1MONTH")}
+                          onClick={() => comingSoon ? alert("준비중입니다.") : handleModulePayment(mod, "1MONTH")}
                         >
                           <span className="text-xl leading-5">1달</span>
                           <span className="text-base leading-5">
-                            {priceLabelForModule(mod, "1MONTH", userInfo.country)}
+                            {comingSoon ? "준비중" : priceLabelForModule(mod, "1MONTH", userInfo.country)}
                           </span>
                         </button>
                         <button
                           className="bg-black text-white rounded-lg w-32 h-16 text-lg font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
-                          onClick={() => handleModulePayment(mod, "1YEAR")}
+                          onClick={() => comingSoon ? alert("준비중입니다.") : handleModulePayment(mod, "1YEAR")}
                         >
                           <span className="text-xl leading-5">1년</span>
                           <span className="text-base leading-5">
-                            {priceLabelForModule(mod, "1YEAR", userInfo.country)}
+                            {comingSoon ? "준비중" : priceLabelForModule(mod, "1YEAR", userInfo.country)}
                           </span>
                         </button>
                         <button
                           className="bg-black text-white rounded-lg w-32 h-16 text-lg font-extrabold flex flex-col items-center justify-center transition hover:bg-gray-800"
-                          onClick={() => handleModulePayment(mod, "LIFETIME")}
+                          onClick={() => comingSoon ? alert("준비중입니다.") : handleModulePayment(mod, "LIFETIME")}
                         >
                           <span className="text-xl leading-5">평생이용</span>
                           <span className="text-base leading-5">
-                            {priceLabelForModule(mod, "LIFETIME", userInfo.country)}
+                            {comingSoon ? "준비중" : priceLabelForModule(mod, "LIFETIME", userInfo.country)}
                           </span>
                         </button>
                       </div>
