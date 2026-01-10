@@ -63,7 +63,7 @@ export default function DownloadPage() {
             }}
           >
             <h2 className="text-4xl font-bold mb-12 text-[#f8fafc]">{t("download.title")}</h2>
-            <div className="flex justify-center gap-32 w-full">
+            <div className="flex flex-col sm:flex-row justify-center gap-6 sm:gap-32 w-full px-4">
               <a
                 href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v2.6.1/DLAS_Setup_v2.6.1.exe"
                 className="border border-[#8b5cf6]/40 text-[#f8fafc]/80 px-14 py-6 rounded-xl

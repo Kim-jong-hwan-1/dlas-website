@@ -130,7 +130,7 @@ export default function HomePage() {
         setCurrentTextIndex((prev) => (prev + 1) % textSequence.length);
         setIsTextVisible(true);
       }, 2000);
-    }, 7000); // 나타남(~1.5초) + 유지(3.5초) + 사라짐+대기(2초)
+    }, 5000); // 더 빠르게: 나타남(~1초) + 유지(2초) + 사라짐+대기(2초)
 
     return () => clearInterval(interval);
   }, [showIntro, bgPhase]);
