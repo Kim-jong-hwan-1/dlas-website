@@ -253,7 +253,9 @@ export default function AuthModals() {
         className="fixed inset-0 z-[200] hidden bg-black/70 backdrop-blur-sm flex items-center justify-center p-4"
         role="dialog"
         aria-modal="true"
-        onClick={() => closeModal("login-modal")}
+        onMouseDown={(e) => {
+          if (e.target === e.currentTarget) closeModal("login-modal");
+        }}
       >
         <div
           className="bg-black/80 border border-white/20 w-full max-w-md p-8 rounded-2xl shadow-2xl relative backdrop-blur-xl"
@@ -318,7 +320,9 @@ export default function AuthModals() {
         className="fixed inset-0 z-[200] hidden bg-black/70 backdrop-blur-sm flex items-center justify-center p-4"
         role="dialog"
         aria-modal="true"
-        onClick={() => closeModal("signup-modal")}
+        onMouseDown={(e) => {
+          if (e.target === e.currentTarget) closeModal("signup-modal");
+        }}
       >
         <div
           className="bg-black/80 border border-white/20 w-full max-w-md p-8 rounded-2xl shadow-2xl relative backdrop-blur-xl max-h-[90vh] overflow-y-auto"
