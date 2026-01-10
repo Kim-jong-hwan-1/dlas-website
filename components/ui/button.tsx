@@ -19,6 +19,13 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
+        // Space Theme Variants
+        cosmic:
+          "bg-gradient-to-r from-[#8b5cf6] to-[#06b6d4] text-white shadow-lg hover:shadow-[0_0_30px_rgba(139,92,246,0.5)] transition-all duration-300",
+        cosmicOutline:
+          "border border-[#8b5cf6]/50 bg-transparent text-[#f8fafc] hover:bg-[#8b5cf6]/10 hover:border-[#06b6d4] transition-all duration-300",
+        cosmicGhost:
+          "text-[#f8fafc] hover:bg-white/5 hover:text-[#06b6d4] transition-all duration-300",
       },
       size: {
         default: "h-9 px-4 py-2 has-[>svg]:px-3",

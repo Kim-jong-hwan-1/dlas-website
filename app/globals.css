@@ -1,3 +1,4 @@
+@import url('https://cdn.jsdelivr.net/gh/sunn-us/SUIT/fonts/variable/woff2/SUIT-Variable.css');
 @import "tailwindcss";
 
 @plugin "tailwindcss-animate";
@@ -7,7 +8,7 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: 'SUIT Variable', var(--font-geist-sans), sans-serif;
   --font-mono: var(--font-geist-mono);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -43,6 +44,15 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+
+  /* Space Theme Colors */
+  --color-space-black: var(--space-black);
+  --color-space-deep: var(--space-deep);
+  --color-cosmic-purple: var(--cosmic-purple);
+  --color-cosmic-cyan: var(--cosmic-cyan);
+  --color-cosmic-blue: var(--cosmic-blue);
+  --color-nebula-pink: var(--nebula-pink);
+  --color-star-white: var(--star-white);
 }
 
 :root {
@@ -79,6 +89,15 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  /* Space Theme Colors */
+  --space-black: #030014;
+  --space-deep: #0a0a1a;
+  --cosmic-purple: #8b5cf6;
+  --cosmic-cyan: #06b6d4;
+  --cosmic-blue: #3b82f6;
+  --nebula-pink: #ec4899;
+  --star-white: #f8fafc;
 }
 
 .dark {
@@ -141,4 +160,186 @@ nav select[aria-label="Change language"] {
    ──────────────────────────────────────────────── */
 .fixed.top-4.right-4.sm\:right-\[220px\].z-50 {
   display: none !important;
+}
+
+/* ════════════════════════════════════════════════
+   SPACE THEME - Cosmic Animations & Effects
+   ════════════════════════════════════════════════ */
+
+/* Star Twinkle Animation */
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+/* Shooting Star Animation */
+@keyframes shootingStar {
+  0% {
+    transform: translateX(0) translateY(0) rotate(-45deg);
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-500px) translateY(300px) rotate(-45deg);
+    opacity: 0;
+  }
+}
+
+/* Nebula Pulse Animation */
+@keyframes nebulaPulse {
+  0%, 100% {
+    opacity: 0.15;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.25;
+    transform: scale(1.05);
+  }
+}
+
+/* Gradient Shift Animation */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Glow Pulse Animation */
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(139, 92, 246, 0.6);
+  }
+}
+
+/* Fade Out Animation (white flash) */
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Float Animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* ── Utility Classes ────────────────────────────── */
+
+/* Cosmic Gradient Text */
+.cosmic-gradient-text {
+  background: linear-gradient(90deg, var(--cosmic-purple), var(--cosmic-cyan), var(--cosmic-blue));
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 4s ease infinite;
+}
+
+/* Glassmorphism */
+.glass {
+  background: rgba(40, 40, 45, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-light {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Cosmic Glow Effects */
+.glow-purple {
+  box-shadow: 0 0 30px rgba(139, 92, 246, 0.4);
+}
+
+.glow-cyan {
+  box-shadow: 0 0 30px rgba(6, 182, 212, 0.4);
+}
+
+.glow-white {
+  box-shadow: 0 0 20px rgba(248, 250, 252, 0.2);
+}
+
+/* Cosmic Border */
+.cosmic-border {
+  position: relative;
+}
+
+.cosmic-border::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(45deg, var(--cosmic-purple), var(--cosmic-cyan), var(--cosmic-purple));
+  border-radius: inherit;
+  z-index: -1;
+  opacity: 0.5;
+}
+
+/* Animated Border */
+.animated-border::before {
+  animation: gradientShift 3s ease infinite;
+  background-size: 200% auto;
+}
+
+/* Star Animation Classes */
+.animate-twinkle {
+  animation: twinkle var(--twinkle-duration, 3s) ease-in-out infinite;
+  animation-delay: var(--twinkle-delay, 0s);
+}
+
+.animate-shooting-star {
+  animation: shootingStar 1.5s ease-out forwards;
+}
+
+.animate-nebula-pulse {
+  animation: nebulaPulse 8s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-glow-pulse {
+  animation: glowPulse 2s ease-in-out infinite;
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .cosmic-gradient-text,
+  .animate-twinkle,
+  .animate-shooting-star,
+  .animate-nebula-pulse,
+  .animate-float,
+  .animate-glow-pulse,
+  .animated-border::before {
+    animation: none;
+  }
 }

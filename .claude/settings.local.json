@@ -27,7 +27,13 @@
       "Bash(npx vercel:*)",
       "Bash(git revert:*)",
       "Bash(cat:*)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "WebFetch(domain:www.x.ai)",
+      "Bash(find:*)",
+      "Bash(wc:*)",
+      "Bash(explorer \"C:\\\\Users\\\\user\\\\Desktop\\\\checkpoint\\\\7th_checkpoint\\\\front - 복사본 \\(4\\)\")",
+      "Bash(npm run build:*)",
+      "Bash(dir \"C:\\\\Users\\\\user\\\\Desktop\\\\checkpoint\\\\7th_checkpoint\\\\front - 복사본 \\(4\\)\\\\public\\\\background\")"
     ],
     "deny": [],
     "ask": []
