@@ -45,7 +45,7 @@ export default function AuthButtons({ showUI = true }: AuthButtonsProps) {
 
   return (
     <div
-      className="fixed top-6 left-6 sm:top-6 sm:right-6 sm:left-auto flex gap-0 z-50 transition-all duration-500 ease-out"
+      className="fixed top-6 right-6 hidden sm:flex gap-0 z-50 transition-all duration-500 ease-out"
       style={{
         opacity: showUI ? 1 : 0,
         transform: showUI ? 'translateY(0)' : 'translateY(-50px)',
