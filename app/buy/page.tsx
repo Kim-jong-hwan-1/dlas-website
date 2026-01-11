@@ -134,25 +134,31 @@ const PADDLE_PRICE_ID = isSandbox
 // 가격/표시 관련
 // ─────────────────────────────────────────────
 const LIFETIME_PRICE_KRW = 770_000;
+const LIFETIME_PRICE_USD = 770; // $770
 const USD_TO_KRW = 1000;
 const MODULE_PRICES_USD: Record<string, number> = {
   "1WEEK": 19,
   "1MONTH": 49,
   "1YEAR": 290,
+  "LIFETIME": 770,
 };
 
 const usdToKrw = (usd: number) => usd * USD_TO_KRW;
 
 const isKoreanUser = (country?: string) =>
   country &&
+  (country.toUpperCase() === "KR" ||
   ["korea", "south korea", "republic of korea", "대한민국", "한국"].some((kw) =>
     country.toLowerCase().includes(kw)
-  );
+  ));
 
 const isKrwDisplay = (country?: string) => !country || isKoreanUser(country);
 
 const priceLabel = (period: string, country?: string) => {
-  if (period === "LIFETIME") return `₩${LIFETIME_PRICE_KRW.toLocaleString()}`;
+  if (period === "LIFETIME") {
+    if (isKrwDisplay(country)) return `₩${LIFETIME_PRICE_KRW.toLocaleString()}`;
+    return `$${LIFETIME_PRICE_USD}`;
+  }
   const usd = MODULE_PRICES_USD[period];
   const krwStr = `₩${usdToKrw(usd).toLocaleString()}`;
   if (isKrwDisplay(country)) return krwStr;
@@ -196,9 +202,16 @@ const priceLabelForModule = (
   const level = MODULE_DISCOUNT_LEVELS[mod] ?? 0;
 
   if (period === "LIFETIME") {
-    const base = LIFETIME_PRICE_KRW;
-    const finalKrw = level > 0 ? discountedKrwByLevel(base, level) : base;
-    return `₩${finalKrw.toLocaleString()}`;
+    if (isKrwDisplay(country)) {
+      const base = LIFETIME_PRICE_KRW;
+      const finalKrw = level > 0 ? discountedKrwByLevel(base, level) : base;
+      return `₩${finalKrw.toLocaleString()}`;
+    } else {
+      let usd = LIFETIME_PRICE_USD;
+      if (level >= 1) usd = Math.round(usd * DISCOUNT_FACTOR);
+      if (level >= 2) usd = Math.round(usd * DISCOUNT_FACTOR);
+      return `$${usd.toLocaleString()}`;
+    }
   }
 
   const baseUsd = MODULE_PRICES_USD[period];
@@ -667,6 +680,14 @@ export default function BuyPage() {
   const proceedWithPayment = () => {
     if (!pendingPayment) return;
 
+    // 비한국 사용자는 준비중 알림
+    if (!isKrwDisplay(paymentCountry)) {
+      alert(t("buyPage.comingSoon"));
+      setShowTermsConsentModal(false);
+      setPendingPayment(null);
+      return;
+    }
+
     const { type, module: mod, period, couponApplied } = pendingPayment;
     const storedId = localStorage.getItem("userID") || userID;
 
@@ -856,31 +877,8 @@ export default function BuyPage() {
       return;
     }
 
-    // 비한국 사용자 -> Paddle
-    if (!paddleReady || !(window as MyWindow).Paddle) {
-      alert("Paddle is not ready yet. Please refresh the page or try again.");
-      return;
-    }
-
-    if (!mod || !period) return;
-
-    const priceId =
-      MODULE_PRICE_IDS[mod] && MODULE_PRICE_IDS[mod][period]
-        ? MODULE_PRICE_IDS[mod][period]
-        : "";
-    if (!priceId) {
-      alert("Price is not configured yet. Please contact us.");
-      return;
-    }
-
-    const orderName = `${mod} (${period})`;
-
-    (window as MyWindow).Paddle!.Checkout.open({
-      items: [{ priceId, quantity: 1 }],
-      customer: { email: storedId },
-      customData: { userID: storedId, module: mod, period, orderName },
-      closeCallback: () => console.log("Checkout closed"),
-    });
+    // 비한국 사용자 -> 준비중 알림
+    alert(t("buyPage.comingSoon"));
   };
 
   // Permanent 라이센스 결제
