@@ -341,7 +341,27 @@ export default function BuyPage() {
 
   const [isUserInfoLoading, setIsUserInfoLoading] = useState(false);
 
-  // 국가 정보 로드
+  // IP 기반 국가 정보 (결제 시스템 결정용)
+  const [ipCountry, setIpCountry] = useState<string>("");
+
+  // IP 기반 국가 정보 로드 (DLAS_COUNTRY 쿠키에서)
+  useEffect(() => {
+    const getCookie = (name: string): string | null => {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop()?.split(';').shift() || null;
+      return null;
+    };
+    const country = getCookie('DLAS_COUNTRY');
+    if (country) {
+      setIpCountry(country);
+    }
+  }, []);
+
+  // 결제용 국가 (IP 기반 우선, 없으면 userInfo.country 사용)
+  const paymentCountry = ipCountry || userInfo.country || "";
+
+  // 국가 정보 로드 (레거시 - localStorage)
   useEffect(() => {
     try {
       const lc = localStorage.getItem("DLAS_USER_COUNTRY");
@@ -630,8 +650,8 @@ export default function BuyPage() {
       return;
     }
 
-    if (!userInfo.country || userInfo.country.trim() === "") {
-      alert("국가 정보를 불러오는 중입니다. 상단 'MY'에서 확인한 뒤 다시 시도해 주세요.");
+    if (!paymentCountry || paymentCountry.trim() === "") {
+      alert(t("buyPage.countryNotLoaded"));
       return;
     }
 
@@ -785,7 +805,7 @@ export default function BuyPage() {
     }
 
     // 모듈 라이센스 결제 (한국 사용자)
-    if (isKrwDisplay(userInfo.country)) {
+    if (isKrwDisplay(paymentCountry)) {
       if (typeof window === "undefined" || !(window as MyWindow).TossPayments) {
         alert("결제 모듈이 아직 로드되지 않았습니다. 페이지를 새로고침해주세요.");
         return;
@@ -1191,7 +1211,7 @@ export default function BuyPage() {
               >
                 <span className="text-lg leading-5">{t("buyPage.week1")}</span>
                 <span className="text-xs leading-5">
-                  {comingSoon ? t("buyPage.comingSoon") : priceLabelForModule(mod, "1WEEK", userInfo.country)}
+                  {comingSoon ? t("buyPage.comingSoon") : priceLabelForModule(mod, "1WEEK", paymentCountry)}
                 </span>
               </button>
               <button
@@ -1200,7 +1220,7 @@ export default function BuyPage() {
               >
                 <span className="text-lg leading-5">{t("buyPage.month1")}</span>
                 <span className="text-xs leading-5">
-                  {comingSoon ? t("buyPage.comingSoon") : priceLabelForModule(mod, "1MONTH", userInfo.country)}
+                  {comingSoon ? t("buyPage.comingSoon") : priceLabelForModule(mod, "1MONTH", paymentCountry)}
                 </span>
               </button>
               <button
@@ -1209,7 +1229,7 @@ export default function BuyPage() {
               >
                 <span className="text-lg leading-5">{t("buyPage.year1")}</span>
                 <span className="text-xs leading-5">
-                  {comingSoon ? t("buyPage.comingSoon") : priceLabelForModule(mod, "1YEAR", userInfo.country)}
+                  {comingSoon ? t("buyPage.comingSoon") : priceLabelForModule(mod, "1YEAR", paymentCountry)}
                 </span>
               </button>
             </div>
@@ -1219,7 +1239,7 @@ export default function BuyPage() {
             >
               <span className="text-lg leading-5">{t("buyPage.lifetime")}</span>
               <span className="text-xs leading-5">
-                {comingSoon ? t("buyPage.comingSoon") : priceLabelForModule(mod, "LIFETIME", userInfo.country)}
+                {comingSoon ? t("buyPage.comingSoon") : priceLabelForModule(mod, "LIFETIME", paymentCountry)}
               </span>
             </button>
           </div>
@@ -1300,7 +1320,7 @@ export default function BuyPage() {
             >
               <span className="text-xl leading-5">{t("buyPage.week1")}</span>
               <span className="text-base leading-5">
-                {comingSoon ? t("buyPage.comingSoon") : priceLabelForModule(mod, "1WEEK", userInfo.country)}
+                {comingSoon ? t("buyPage.comingSoon") : priceLabelForModule(mod, "1WEEK", paymentCountry)}
               </span>
             </button>
             <button
@@ -1309,7 +1329,7 @@ export default function BuyPage() {
             >
               <span className="text-xl leading-5">{t("buyPage.month1")}</span>
               <span className="text-base leading-5">
-                {comingSoon ? t("buyPage.comingSoon") : priceLabelForModule(mod, "1MONTH", userInfo.country)}
+                {comingSoon ? t("buyPage.comingSoon") : priceLabelForModule(mod, "1MONTH", paymentCountry)}
               </span>
             </button>
             <button
@@ -1318,7 +1338,7 @@ export default function BuyPage() {
             >
               <span className="text-xl leading-5">{t("buyPage.year1")}</span>
               <span className="text-base leading-5">
-                {comingSoon ? t("buyPage.comingSoon") : priceLabelForModule(mod, "1YEAR", userInfo.country)}
+                {comingSoon ? t("buyPage.comingSoon") : priceLabelForModule(mod, "1YEAR", paymentCountry)}
               </span>
             </button>
             <button
@@ -1327,7 +1347,7 @@ export default function BuyPage() {
             >
               <span className="text-xl leading-5">{t("buyPage.lifetime")}</span>
               <span className="text-base leading-5">
-                {comingSoon ? t("buyPage.comingSoon") : priceLabelForModule(mod, "LIFETIME", userInfo.country)}
+                {comingSoon ? t("buyPage.comingSoon") : priceLabelForModule(mod, "LIFETIME", paymentCountry)}
               </span>
             </button>
           </div>

@@ -33,20 +33,24 @@ const countryToLang: Record<string, string> = {
 export function middleware(request: NextRequest) {
   const response = NextResponse.next();
 
-  // 이미 언어가 설정되어 있으면 스킵
-  const existingLang = request.cookies.get('DLAS_LANG')?.value;
-  if (existingLang) {
-    return response;
-  }
-
   // Vercel에서 제공하는 국가 코드 (Vercel Edge 헤더에서 가져옴)
   const country = request.headers.get('x-vercel-ip-country') || 'US';
 
-  // 국가에 맞는 언어 결정 (기본값: 영어)
-  const lang = countryToLang[country] || 'en';
+  // 이미 언어가 설정되어 있으면 언어 설정 스킵
+  const existingLang = request.cookies.get('DLAS_LANG')?.value;
+  if (!existingLang) {
+    // 국가에 맞는 언어 결정 (기본값: 영어)
+    const lang = countryToLang[country] || 'en';
 
-  // 쿠키에 언어 저장 (1년)
-  response.cookies.set('DLAS_LANG', lang, {
+    // 쿠키에 언어 저장 (1년)
+    response.cookies.set('DLAS_LANG', lang, {
+      maxAge: 60 * 60 * 24 * 365,
+      path: '/',
+    });
+  }
+
+  // 국가 코드도 쿠키에 저장 (결제 시스템용) - 항상 업데이트
+  response.cookies.set('DLAS_COUNTRY', country, {
     maxAge: 60 * 60 * 24 * 365,
     path: '/',
   });
