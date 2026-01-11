@@ -191,13 +191,15 @@ export default function TipsPage() {
           >
             {selectedTip.type === "youtube" ? (
               <iframe
-                src={selectedTip.url}
+                src={selectedTip.url.replace('youtube.com', 'youtube-nocookie.com')}
+                title={selectedTip.title}
                 className="w-full h-full"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
               />
             ) : (
-              <iframe src={selectedTip.url} className="w-full h-full bg-white" />
+              <iframe src={selectedTip.url} title={selectedTip.title} className="w-full h-full bg-white" />
             )}
           </div>
         </div>
