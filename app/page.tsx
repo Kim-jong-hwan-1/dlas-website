@@ -163,10 +163,8 @@ export default function HomePage() {
               setShowWhiteFlash(true);
               setShowIntro(false);
             }}
+            className="w-[95vw] h-auto sm:w-auto sm:max-w-[80%] sm:max-h-[80%] object-contain"
             style={{
-              maxWidth: '80%',
-              maxHeight: '80%',
-              objectFit: 'contain',
               opacity: videoReady ? 1 : 0,
               transition: 'opacity 0.3s ease-in'
             }}
