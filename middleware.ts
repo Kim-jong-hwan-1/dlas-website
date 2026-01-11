@@ -39,8 +39,8 @@ export function middleware(request: NextRequest) {
     return response;
   }
 
-  // Vercel에서 제공하는 국가 코드 (Vercel Edge에서만 작동)
-  const country = request.geo?.country || 'US';
+  // Vercel에서 제공하는 국가 코드 (Vercel Edge 헤더에서 가져옴)
+  const country = request.headers.get('x-vercel-ip-country') || 'US';
 
   // 국가에 맞는 언어 결정 (기본값: 영어)
   const lang = countryToLang[country] || 'en';

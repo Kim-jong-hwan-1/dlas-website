@@ -3,12 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import PageLayout from "@/components/PageLayout";
 import Image from "next/image";
-
-const textSequence = [
-  "손의 기술에서 시스템의 기술로",
-  "디지털 덴티스트리의 게임체인저",
-  "치과 기공 자동화의 미래가 여기 있습니다"
-];
+import { useLang } from "@/components/LanguageWrapper";
 
 // 단어별 애니메이션 컴포넌트
 function AnimatedText({ text, isVisible, wordDelay = 250 }: { text: string; isVisible: boolean; wordDelay?: number }) {
@@ -43,6 +38,15 @@ function AnimatedText({ text, isVisible, wordDelay = 250 }: { text: string; isVi
 }
 
 export default function HomePage() {
+  const { t } = useLang();
+
+  // 번역된 텍스트 시퀀스
+  const textSequence = [
+    t("homePage.text1"),
+    t("homePage.text2"),
+    t("homePage.text3"),
+  ];
+
   // 첫 방문인지 체크 (sessionStorage 사용)
   const [isFirstVisit, setIsFirstVisit] = useState(true);
   const [showIntro, setShowIntro] = useState(true);

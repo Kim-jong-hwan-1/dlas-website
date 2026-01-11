@@ -65,7 +65,7 @@ interface MyWindow extends Window {
 function CloseButton({
   onClick,
   className = "",
-  label = "닫기",
+  label = "Close",
 }: {
   onClick: () => void;
   className?: string;
@@ -1055,13 +1055,13 @@ export default function BuyPage() {
 
   const info: Record<
     string,
-    { gif: string | null; youtube: string | null; image: string | null; description: string; pdfPage?: number; startTime?: number; comingSoon?: boolean }
+    { gif: string | null; youtube: string | null; image: string | null; descKey: string; pdfPage?: number; startTime?: number; comingSoon?: boolean }
   > = {
     "3_transfer_jig_maker": {
       gif: "/gifs/transferjig.gif",
       youtube: "5_kXuMsFdXY",
       image: "/modules/3_transfer_jig_maker.png",
-      description: "Transfer Jig 자동 제작 모듈",
+      descKey: "buyPage.module1Desc",
       pdfPage: 10,
       startTime: 127,
     },
@@ -1069,7 +1069,7 @@ export default function BuyPage() {
       gif: "/gifs/transferjig.gif",
       youtube: "4HxD16Tr2mg",
       image: "/modules/e_transfer_jig_maker.png",
-      description: "Transfer Jig 자동 제작 모듈",
+      descKey: "buyPage.module2Desc",
       pdfPage: 10,
       startTime: 127,
     },
@@ -1077,7 +1077,7 @@ export default function BuyPage() {
       gif: "/gifs/abutment_editor.gif",
       youtube: "0yr50UK9-Z0",
       image: "/modules/exo_abutment_editor.png",
-      description: "어버트먼트 홀을 자동으로 처리하여, 이전 디자인 쉽고 빠르게 활용 가능",
+      descKey: "buyPage.module3Desc",
       pdfPage: 14,
       startTime: 159,
     },
@@ -1085,7 +1085,7 @@ export default function BuyPage() {
       gif: "/gifs/stl_classifier.gif",
       youtube: "OCSzCMdLvyY",
       image: "/modules/stl_classifier.png",
-      description: "STL 파일의 Z축 높이를 계산하여 블록 높이별로 자동 분류",
+      descKey: "buyPage.module4Desc",
       pdfPage: 18,
       startTime: 201,
     },
@@ -1093,7 +1093,7 @@ export default function BuyPage() {
       gif: "/gifs/stl_to_html.gif",
       youtube: "cMuSQO5zKt8",
       image: "/modules/stl_to_html.png",
-      description: "디자인 파일을 html로 자동으로 변환하여 원장님과의 소통을 원활하게",
+      descKey: "buyPage.module5Desc",
       pdfPage: 6,
       startTime: 88,
     },
@@ -1101,7 +1101,7 @@ export default function BuyPage() {
       gif: "/gifs/stl_to_image.gif",
       youtube: "tnUM0i6RRG8",
       image: "/modules/stl_to_image.png",
-      description: "STL 6방향의 이미지로 변환하여, 신터링 후 크라운을 쉽게 찾도록 (A4모드 가능)",
+      descKey: "buyPage.module6Desc",
       pdfPage: 1,
       startTime: 17,
     },
@@ -1109,8 +1109,9 @@ export default function BuyPage() {
 
   // 모듈 카드 렌더링
   const moduleCards = modules.map((mod) => {
-    const { gif, youtube, image, description, pdfPage, startTime, comingSoon } =
-      info[mod] ?? { gif: null, youtube: null, image: null, description: "", pdfPage: undefined, startTime: undefined, comingSoon: false };
+    const { gif, youtube, image, descKey, pdfPage, startTime, comingSoon } =
+      info[mod] ?? { gif: null, youtube: null, image: null, descKey: "", pdfPage: undefined, startTime: undefined, comingSoon: false };
+    const description = descKey ? t(descKey) : "";
     const moduleId = MODULE_NAME_TO_ID[mod];
     let expireUtc: string | null = null;
     if (
@@ -1161,7 +1162,7 @@ export default function BuyPage() {
                   onClick={() => window.open(`/module-guide.pdf#page=${pdfPage}`, '_blank')}
                   className="text-xs text-white/50 hover:text-white/70 underline"
                 >
-                  자세한 설명 보기
+                  {t("buyPage.viewDetail")}
                 </button>
               )}
             </div>
@@ -1186,39 +1187,39 @@ export default function BuyPage() {
             <div className="flex flex-row w-full justify-center items-center gap-2">
               <button
                 className="border border-[#8b5cf6]/40 text-white/80 rounded-lg w-1/3 h-12 text-base font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-[#8b5cf6]/10 hover:border-[#8b5cf6]/60 backdrop-blur-sm"
-                onClick={() => comingSoon ? alert("준비중입니다.") : handleModulePayment(mod, "1WEEK")}
+                onClick={() => comingSoon ? alert(t("buyPage.comingSoon")) : handleModulePayment(mod, "1WEEK")}
               >
-                <span className="text-lg leading-5">1주</span>
+                <span className="text-lg leading-5">{t("buyPage.week1")}</span>
                 <span className="text-xs leading-5">
-                  {comingSoon ? "준비중" : priceLabelForModule(mod, "1WEEK", userInfo.country)}
+                  {comingSoon ? t("buyPage.comingSoon") : priceLabelForModule(mod, "1WEEK", userInfo.country)}
                 </span>
               </button>
               <button
                 className="border border-[#8b5cf6]/40 text-white/80 rounded-lg w-1/3 h-12 text-base font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-[#8b5cf6]/10 hover:border-[#8b5cf6]/60 backdrop-blur-sm"
-                onClick={() => comingSoon ? alert("준비중입니다.") : handleModulePayment(mod, "1MONTH")}
+                onClick={() => comingSoon ? alert(t("buyPage.comingSoon")) : handleModulePayment(mod, "1MONTH")}
               >
-                <span className="text-lg leading-5">1달</span>
+                <span className="text-lg leading-5">{t("buyPage.month1")}</span>
                 <span className="text-xs leading-5">
-                  {comingSoon ? "준비중" : priceLabelForModule(mod, "1MONTH", userInfo.country)}
+                  {comingSoon ? t("buyPage.comingSoon") : priceLabelForModule(mod, "1MONTH", userInfo.country)}
                 </span>
               </button>
               <button
                 className="border border-[#8b5cf6]/40 text-white/80 rounded-lg w-1/3 h-12 text-base font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-[#8b5cf6]/10 hover:border-[#8b5cf6]/60 backdrop-blur-sm"
-                onClick={() => comingSoon ? alert("준비중입니다.") : handleModulePayment(mod, "1YEAR")}
+                onClick={() => comingSoon ? alert(t("buyPage.comingSoon")) : handleModulePayment(mod, "1YEAR")}
               >
-                <span className="text-lg leading-5">1년</span>
+                <span className="text-lg leading-5">{t("buyPage.year1")}</span>
                 <span className="text-xs leading-5">
-                  {comingSoon ? "준비중" : priceLabelForModule(mod, "1YEAR", userInfo.country)}
+                  {comingSoon ? t("buyPage.comingSoon") : priceLabelForModule(mod, "1YEAR", userInfo.country)}
                 </span>
               </button>
             </div>
             <button
               className="border border-[#8b5cf6]/40 text-white/80 rounded-lg w-full h-12 text-base font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-[#8b5cf6]/10 hover:border-[#8b5cf6]/60 backdrop-blur-sm"
-              onClick={() => comingSoon ? alert("준비중입니다.") : handleModulePayment(mod, "LIFETIME")}
+              onClick={() => comingSoon ? alert(t("buyPage.comingSoon")) : handleModulePayment(mod, "LIFETIME")}
             >
-              <span className="text-lg leading-5">평생이용</span>
+              <span className="text-lg leading-5">{t("buyPage.lifetime")}</span>
               <span className="text-xs leading-5">
-                {comingSoon ? "준비중" : priceLabelForModule(mod, "LIFETIME", userInfo.country)}
+                {comingSoon ? t("buyPage.comingSoon") : priceLabelForModule(mod, "LIFETIME", userInfo.country)}
               </span>
             </button>
           </div>
@@ -1250,7 +1251,7 @@ export default function BuyPage() {
                     onClick={() => window.open(`/module-guide.pdf#page=${pdfPage}`, '_blank')}
                     className="text-xs text-white/50 hover:text-white/70 underline block mx-auto"
                   >
-                    자세한 설명 보기
+                    {t("buyPage.viewDetail")}
                   </button>
                 )}
               </div>
@@ -1295,38 +1296,38 @@ export default function BuyPage() {
           <div className="flex flex-col gap-3 w-40 flex-shrink-0 h-full justify-center items-center">
             <button
               className="border border-[#8b5cf6]/40 text-white/80 rounded-lg w-32 h-16 text-lg font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-[#8b5cf6]/10 hover:border-[#8b5cf6]/60 backdrop-blur-sm"
-              onClick={() => comingSoon ? alert("준비중입니다.") : handleModulePayment(mod, "1WEEK")}
+              onClick={() => comingSoon ? alert(t("buyPage.comingSoon")) : handleModulePayment(mod, "1WEEK")}
             >
-              <span className="text-xl leading-5">1주</span>
+              <span className="text-xl leading-5">{t("buyPage.week1")}</span>
               <span className="text-base leading-5">
-                {comingSoon ? "준비중" : priceLabelForModule(mod, "1WEEK", userInfo.country)}
+                {comingSoon ? t("buyPage.comingSoon") : priceLabelForModule(mod, "1WEEK", userInfo.country)}
               </span>
             </button>
             <button
               className="border border-[#8b5cf6]/40 text-white/80 rounded-lg w-32 h-16 text-lg font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-[#8b5cf6]/10 hover:border-[#8b5cf6]/60 backdrop-blur-sm"
-              onClick={() => comingSoon ? alert("준비중입니다.") : handleModulePayment(mod, "1MONTH")}
+              onClick={() => comingSoon ? alert(t("buyPage.comingSoon")) : handleModulePayment(mod, "1MONTH")}
             >
-              <span className="text-xl leading-5">1달</span>
+              <span className="text-xl leading-5">{t("buyPage.month1")}</span>
               <span className="text-base leading-5">
-                {comingSoon ? "준비중" : priceLabelForModule(mod, "1MONTH", userInfo.country)}
+                {comingSoon ? t("buyPage.comingSoon") : priceLabelForModule(mod, "1MONTH", userInfo.country)}
               </span>
             </button>
             <button
               className="border border-[#8b5cf6]/40 text-white/80 rounded-lg w-32 h-16 text-lg font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-[#8b5cf6]/10 hover:border-[#8b5cf6]/60 backdrop-blur-sm"
-              onClick={() => comingSoon ? alert("준비중입니다.") : handleModulePayment(mod, "1YEAR")}
+              onClick={() => comingSoon ? alert(t("buyPage.comingSoon")) : handleModulePayment(mod, "1YEAR")}
             >
-              <span className="text-xl leading-5">1년</span>
+              <span className="text-xl leading-5">{t("buyPage.year1")}</span>
               <span className="text-base leading-5">
-                {comingSoon ? "준비중" : priceLabelForModule(mod, "1YEAR", userInfo.country)}
+                {comingSoon ? t("buyPage.comingSoon") : priceLabelForModule(mod, "1YEAR", userInfo.country)}
               </span>
             </button>
             <button
               className="border border-[#8b5cf6]/40 text-white/80 rounded-lg w-32 h-16 text-lg font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-[#8b5cf6]/10 hover:border-[#8b5cf6]/60 backdrop-blur-sm"
-              onClick={() => comingSoon ? alert("준비중입니다.") : handleModulePayment(mod, "LIFETIME")}
+              onClick={() => comingSoon ? alert(t("buyPage.comingSoon")) : handleModulePayment(mod, "LIFETIME")}
             >
-              <span className="text-xl leading-5">평생이용</span>
+              <span className="text-xl leading-5">{t("buyPage.lifetime")}</span>
               <span className="text-base leading-5">
-                {comingSoon ? "준비중" : priceLabelForModule(mod, "LIFETIME", userInfo.country)}
+                {comingSoon ? t("buyPage.comingSoon") : priceLabelForModule(mod, "LIFETIME", userInfo.country)}
               </span>
             </button>
           </div>
@@ -1344,21 +1345,21 @@ export default function BuyPage() {
           <div className="flex-1">
             <div className="flex items-center gap-3 mb-2">
               <span className="inline-flex items-center px-3 py-1 rounded-full border border-white/30 bg-white/10 text-white text-xs font-semibold">
-                D.P.L.
+                {t("buyPage.dplBadge")}
               </span>
               <h3 className="text-2xl sm:text-3xl font-bold leading-tight text-white">
-                DLAS Permanent License
+                {t("buyPage.dplTitle")}
               </h3>
             </div>
-            <p className="text-white/60">단발성 결제 / 부가세 포함</p>
+            <p className="text-white/60">{t("buyPage.singlePayment")}</p>
             <div className="mt-4 text-3xl sm:text-4xl font-extrabold text-white">
-              ₩2,200,000
+              {t("buyPage.dplPrice")}
             </div>
             <div className="mt-6 text-white/80">
-              <p className="font-semibold mb-2">설명</p>
+              <p className="font-semibold mb-2">{t("buyPage.dplDesc")}</p>
               <ul className="space-y-1">
-                <li>1) <b>모든 모듈 평생 무료 라이선스</b></li>
-                <li>2) <b>업데이트</b> 및 <b>버전</b>과 상관없이 평생 무료</li>
+                <li>1) <b>{t("buyPage.dplDesc1")}</b></li>
+                <li>2) <b>{t("buyPage.dplDesc2")}</b></li>
               </ul>
             </div>
           </div>
@@ -1367,13 +1368,13 @@ export default function BuyPage() {
               onClick={handlePermanentLicensePayment}
               className="w-full border border-blue-400/50 bg-blue-500/20 text-white rounded-lg px-6 py-3 font-bold hover:bg-blue-500/30 hover:border-blue-400/70 transition-all duration-300 backdrop-blur-sm"
             >
-              결제하기
+              {t("buyPage.payNow")}
             </button>
             <button
-              onClick={() => alert("032-212-2882로 전화 또는 support@dlas.io로 문의 주세요")}
+              onClick={() => alert(t("buyPage.inquireAlert"))}
               className="flex-1 bg-white/20 text-white rounded-lg px-6 py-3 font-bold hover:bg-white/30 transition"
             >
-              가입 문의
+              {t("buyPage.inquire")}
             </button>
           </div>
         </div>
@@ -1385,30 +1386,30 @@ export default function BuyPage() {
           <div className="flex-1">
             <div className="flex items-center gap-3 mb-2">
               <span className="inline-flex items-center px-3 py-1 rounded-full border border-amber-400/50 bg-amber-500/20 text-amber-200 text-xs font-semibold">
-                D.F.L.
+                {t("buyPage.dflBadge")}
               </span>
               <h3 className="text-2xl sm:text-3xl font-bold leading-tight text-white">
-                DLAS Family License
+                {t("buyPage.dflTitle")}
               </h3>
             </div>
-            <p className="text-white/60">단발성 결제 / 부가세 포함</p>
+            <p className="text-white/60">{t("buyPage.singlePayment")}</p>
             <div className="mt-4 text-3xl sm:text-4xl font-extrabold text-white">
-              ₩3,850,000
+              {t("buyPage.dflPrice")}
             </div>
 
             <div className="mt-6 text-white/80">
-              <p className="font-semibold mb-2">설명</p>
+              <p className="font-semibold mb-2">{t("buyPage.dflDesc")}</p>
               <div className="bg-amber-500/20 border border-amber-400/30 rounded-lg p-3 mb-4">
                 <p className="text-amber-100 text-sm leading-relaxed">
-                  <b>DLAS Family License</b>는 단순한 라이센스를 넘어,<br />
-                  지속적인 기술 업데이트와 성장을 함께하는<br />
-                  <b className="text-amber-300">DLAS의 파트너십 멤버십</b>입니다.
+                  {t("buyPage.dflHighlight1")}<br />
+                  {t("buyPage.dflHighlight2")}<br />
+                  <b className="text-amber-300">{t("buyPage.dflHighlight3")}</b>
                 </p>
               </div>
               <ul className="space-y-1">
-                <li>1) <b>모든 모듈 평생 무료 + 한 계약 당 최대 5개 계정 제공</b> (동일 기공소 데스크탑 IP 고정)</li>
-                <li>2) <b>라이센스 계약자 의견</b>을 반영하여 개발 및 업데이트</li>
-                <li>3) DLAS 디지털 기공 <b>세미나자료, 연구자료 제공</b></li>
+                <li>1) <b>{t("buyPage.dflDesc1")}</b></li>
+                <li>2) <b>{t("buyPage.dflDesc2")}</b></li>
+                <li>3) {t("buyPage.dflDesc3")}</li>
               </ul>
             </div>
           </div>
@@ -1418,21 +1419,21 @@ export default function BuyPage() {
               onClick={handleFamilyLicensePayment}
               className="w-full border border-amber-400/50 bg-amber-500/20 text-white rounded-lg px-6 py-3 font-bold hover:bg-amber-500/30 hover:border-amber-400/70 transition-all duration-300 backdrop-blur-sm"
             >
-              결제하기
+              {t("buyPage.payNow")}
             </button>
             {(userID === "km5030" || userID === "113311") && (
               <button
                 onClick={handleFamilyLicensePayment50}
                 className="w-full border border-green-400/50 bg-green-500/20 text-white rounded-lg px-6 py-3 font-bold hover:bg-green-500/30 hover:border-green-400/70 transition-all duration-300 backdrop-blur-sm"
               >
-                50% 할인 결제 (₩1,925,000)
+                50% Discount (₩1,925,000)
               </button>
             )}
             <button
-              onClick={() => alert("032-212-2882로 전화 또는 support@dlas.io로 문의 주세요")}
+              onClick={() => alert(t("buyPage.inquireAlert"))}
               className="flex-1 bg-white/20 text-white rounded-lg px-6 py-3 font-bold hover:bg-white/30 transition"
             >
-              가입 문의
+              {t("buyPage.inquire")}
             </button>
           </div>
         </div>

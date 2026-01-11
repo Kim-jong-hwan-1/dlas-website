@@ -71,7 +71,7 @@ export default function DownloadPage() {
                            text-center whitespace-nowrap inline-block text-xl font-semibold backdrop-blur-sm"
                 download
               >
-                자동화소프트웨어 v2.6.1
+                {t("downloadPage.software")} v2.6.1
               </a>
               <a
                 href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/E_v.1.0.0/DLAS.FAST.EDITOR.Setup.1.0.0.exe"
@@ -80,7 +80,7 @@ export default function DownloadPage() {
                            text-center whitespace-nowrap inline-block text-xl font-semibold backdrop-blur-sm"
                 download
               >
-                FAST EDITOR v1.0.0
+                {t("downloadPage.fastEditor")} v1.0.0
               </a>
             </div>
           </div>

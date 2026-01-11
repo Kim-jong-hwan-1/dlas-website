@@ -3,8 +3,10 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import PageLayout from "@/components/PageLayout";
+import { useLang } from "@/components/LanguageWrapper";
 
 export default function AboutPage() {
+  const { t } = useLang();
   const [showWhiteScreen, setShowWhiteScreen] = useState(true);
   const [bgPhase, setBgPhase] = useState<'clear' | 'blurring' | 'blurred'>('clear');
 
@@ -21,27 +23,27 @@ export default function AboutPage() {
 
   const coreValues = [
     {
-      title: "혁신",
-      subtitle: "Innovation",
-      description: "끊임없는 기술 혁신으로 치과 기공의 새로운 표준을 제시합니다. 우리는 불가능을 가능으로 바꾸는 도전을 두려워하지 않습니다.",
+      title: t("aboutPage.value1Title"),
+      subtitle: t("aboutPage.value1Subtitle"),
+      description: t("aboutPage.value1Desc"),
       icon: "✦"
     },
     {
-      title: "신뢰",
-      subtitle: "Trust",
-      description: "변함없는 별빛처럼 고객과의 약속을 지킵니다. 정직과 투명함으로 오래도록 신뢰받는 파트너가 되겠습니다.",
+      title: t("aboutPage.value2Title"),
+      subtitle: t("aboutPage.value2Subtitle"),
+      description: t("aboutPage.value2Desc"),
       icon: "✧"
     },
     {
-      title: "동반성장",
-      subtitle: "Partnership",
-      description: "함께 빛나는 별자리처럼, 고객과 함께 성장합니다. 우리의 성공은 고객의 성공 위에 빛납니다.",
+      title: t("aboutPage.value3Title"),
+      subtitle: t("aboutPage.value3Subtitle"),
+      description: t("aboutPage.value3Desc"),
       icon: "✦"
     },
     {
-      title: "열정",
-      subtitle: "Passion",
-      description: "끊임없이 타오르는 별빛처럼, 더 나은 내일을 향한 열정을 멈추지 않습니다.",
+      title: t("aboutPage.value4Title"),
+      subtitle: t("aboutPage.value4Subtitle"),
+      description: t("aboutPage.value4Desc"),
       icon: "✧"
     }
   ];
@@ -96,15 +98,15 @@ export default function AboutPage() {
                 fontFamily: 'Pretendard, -apple-system, BlinkMacSystemFont, sans-serif'
               }}
             >
-              어둠 속에서 빛나는 별처럼
+              {t("aboutPage.heroTitle")}
             </h1>
             <p
               className="text-lg md:text-xl text-white/80 max-w-3xl mx-auto leading-relaxed"
               style={{ fontFamily: 'Pretendard, -apple-system, BlinkMacSystemFont, sans-serif' }}
             >
-              캄캄한 밤하늘에서도 밝게 빛나는 별들처럼,<br />
-              힘들고 어려운 상황 속에서도 빛날 수 있도록.<br />
-              DLAS는 치과 기공의 미래를 밝히는 빛이 되겠습니다.
+              {t("aboutPage.heroDesc1")}<br />
+              {t("aboutPage.heroDesc2")}<br />
+              {t("aboutPage.heroDesc3")}
             </p>
           </section>
 
@@ -120,15 +122,14 @@ export default function AboutPage() {
                   className="text-2xl font-bold text-[#8b5cf6] mb-4"
                   style={{ textShadow: '0 0 20px rgba(139, 92, 246, 0.5)' }}
                 >
-                  VISION
+                  {t("aboutPage.visionTitle")}
                 </h2>
                 <p className="text-white/90 text-lg leading-relaxed">
-                  치과 기공 산업의 밤하늘을 밝히는<br />
-                  <span className="text-white font-semibold">북극성</span>이 되다
+                  {t("aboutPage.visionDesc1")}<br />
+                  <span className="text-white font-semibold">{t("aboutPage.visionDesc2")}</span>{t("aboutPage.visionDesc3")}
                 </p>
                 <p className="text-white/60 mt-4 text-sm leading-relaxed">
-                  우리는 디지털 덴티스트리의 선두주자로서, 모든 치과 기공사가 나아갈 방향을 제시하는
-                  변함없는 이정표가 되고자 합니다.
+                  {t("aboutPage.visionDetail")}
                 </p>
               </div>
 
@@ -141,15 +142,14 @@ export default function AboutPage() {
                   className="text-2xl font-bold text-[#06b6d4] mb-4"
                   style={{ textShadow: '0 0 20px rgba(6, 182, 212, 0.5)' }}
                 >
-                  MISSION
+                  {t("aboutPage.missionTitle")}
                 </h2>
                 <p className="text-white/90 text-lg leading-relaxed">
-                  혁신적인 자동화 기술로<br />
-                  <span className="text-white font-semibold">치과 기공사의 가치</span>를 빛나게 하다
+                  {t("aboutPage.missionDesc1")}<br />
+                  <span className="text-white font-semibold">{t("aboutPage.missionDesc2")}</span>{t("aboutPage.missionDesc3")}
                 </p>
                 <p className="text-white/60 mt-4 text-sm leading-relaxed">
-                  반복적인 수작업에서 벗어나, 기공사 본연의 전문성과 창의성에 집중할 수 있도록.
-                  우리의 기술이 그 여정을 함께합니다.
+                  {t("aboutPage.missionDetail")}
                 </p>
               </div>
             </div>
@@ -162,9 +162,9 @@ export default function AboutPage() {
                 className="text-3xl md:text-4xl font-bold text-center text-white mb-4"
                 style={{ textShadow: '0 0 30px rgba(255, 255, 255, 0.3)' }}
               >
-                Core Values
+                {t("aboutPage.coreValuesTitle")}
               </h2>
-              <p className="text-center text-white/60 mb-12">우리가 믿고 추구하는 가치</p>
+              <p className="text-center text-white/60 mb-12">{t("aboutPage.coreValuesSubtitle")}</p>
 
               <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {coreValues.map((value, index) => (
@@ -196,7 +196,7 @@ export default function AboutPage() {
                 className="text-3xl md:text-4xl font-bold text-white mb-8"
                 style={{ textShadow: '0 0 30px rgba(255, 255, 255, 0.3)' }}
               >
-                Why DLAS?
+                {t("aboutPage.whyDlasTitle")}
               </h2>
               <div
                 className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-8 md:p-12"
@@ -209,22 +209,22 @@ export default function AboutPage() {
                   <span className="text-white font-semibold">S</span>olution
                 </p>
                 <p className="text-white/70 leading-relaxed mb-6">
-                  DLAS는 치과 기공 자동화 솔루션의 약자입니다.<br />
-                  하지만 우리에게 이 이름은 그 이상의 의미를 담고 있습니다.
+                  {t("aboutPage.whyDlasDesc1")}<br />
+                  {t("aboutPage.whyDlasDesc2")}
                 </p>
                 <p className="text-white/70 leading-relaxed mb-6">
-                  매일 밤 기공소에서 묵묵히 일하는 기공사들,<br />
-                  그들의 손끝에서 탄생하는 작품들,<br />
-                  그 가치가 세상에 더 밝게 빛나기를 바랍니다.
+                  {t("aboutPage.whyDlasDesc3")}<br />
+                  {t("aboutPage.whyDlasDesc4")}<br />
+                  {t("aboutPage.whyDlasDesc5")}
                 </p>
                 <p
                   className="text-white text-xl font-semibold"
                   style={{ textShadow: '0 0 20px rgba(139, 92, 246, 0.5)' }}
                 >
-                  "손의 기술에서 시스템의 기술로"
+                  {t("aboutPage.whyDlasQuote")}
                 </p>
                 <p className="text-white/60 mt-4 text-sm">
-                  우리는 기술로 시간을 아끼고, 그 시간으로 더 큰 가치를 만들어갑니다.
+                  {t("aboutPage.whyDlasFooter")}
                 </p>
               </div>
             </div>

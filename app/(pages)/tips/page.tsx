@@ -5,120 +5,9 @@ import Image from "next/image";
 import { useLang } from "@/components/LanguageWrapper";
 import PageLayout from "@/components/PageLayout";
 
-const tips = [
-  // EXO 팁 (HTML)
-  {
-    id: 1,
-    title: "EXO Tip #1: 파닉 추가하기",
-    desc: "엑소에서 주문서 안바꾸고 파닉 추가하는 방법",
-    type: "html",
-    url: "/tip/exo_1_potinc.html",
-  },
-  {
-    id: 2,
-    title: "EXO Tip #2: 라이브러리 에디팅 응용",
-    desc: "커넥션부위 조절로 깔끔한 어버트먼트 디자인 하는 방법",
-    type: "html",
-    url: "/tip/exo_2_library_1.html",
-  },
-  // EXO 팁 (YouTube)
-  {
-    id: 3,
-    title: "EXO Tip #3: 과교합 해결",
-    desc: "엑소에서 과교합 문제 해결하는 방법",
-    type: "youtube",
-    url: "https://www.youtube.com/embed/YNJGHHQ6q34",
-  },
-  {
-    id: 4,
-    title: "EXO Tip #4: 디자인 빨리하는 방법 (왁스업)",
-    desc: "왁스업 디자인 작업 속도 향상 팁",
-    type: "youtube",
-    url: "https://www.youtube.com/embed/FzFub31JF30",
-  },
-  {
-    id: 5,
-    title: "EXO Tip #5: 치은디자인 하는 방법",
-    desc: "엑소에서 치은 디자인 작업 방법",
-    type: "youtube",
-    url: "https://www.youtube.com/embed/GOjMKfDM0WY",
-  },
-  {
-    id: 6,
-    title: "EXO Tip #6: 교합기 사용법",
-    desc: "엑소 교합기 활용 방법",
-    type: "youtube",
-    url: "https://www.youtube.com/embed/zFLYWG3pczw",
-  },
-  {
-    id: 7,
-    title: "EXO Tip #7: 주문서 살리고 어버트먼트 매칭",
-    desc: "주문서 그대로 유지하면서 어버트먼트 매칭해서 디자인하기",
-    type: "youtube",
-    url: "https://www.youtube.com/embed/pwee-ZGyH1o",
-  },
-  // 개념 팁
-  {
-    id: 8,
-    title: "개념 Tip #1: 윌슨만곡 부여의 의미",
-    desc: "DLAS가 생각하는 윌슨만곡의 중요성과 적용 방법",
-    type: "youtube",
-    url: "https://www.youtube.com/embed/xXXLLi7y7b4",
-  },
-  {
-    id: 9,
-    title: "개념 Tip #2: 모델리스에서의 과교합 1편",
-    desc: "모델리스 작업에서의 과교합 개념과 적용",
-    type: "youtube",
-    url: "https://www.youtube.com/embed/v72T5nzzBVs",
-  },
-  {
-    id: 10,
-    title: "개념 Tip #3: 모델리스에서의 과교합 2편",
-    desc: "모델리스 작업에서의 과교합 심화 개념",
-    type: "youtube",
-    url: "https://www.youtube.com/embed/hD48-_5GCxk",
-  },
-  {
-    id: 11,
-    title: "개념 Tip #4: 토크와 어버트먼트 축변위",
-    desc: "토크 적용과 어버트먼트 축변위의 이해",
-    type: "youtube",
-    url: "https://www.youtube.com/embed/h_0rIVS6Gyo",
-  },
-  {
-    id: 12,
-    title: "개념 Tip #5: 풀케이스 VD 채득시 CR의 중요성",
-    desc: "풀케이스에서 VD 채득 시 CR의 중요성",
-    type: "youtube",
-    url: "https://www.youtube.com/embed/-RFqChL8ilY",
-  },
-  {
-    id: 13,
-    title: "개념 Tip #6: 스캔바디 오차 검증하기",
-    desc: "스캔바디는 항상 일정한 위치를 알려주진 않는다",
-    type: "youtube",
-    url: "https://www.youtube.com/embed/pm2HzBIKOlw",
-  },
-  {
-    id: 14,
-    title: "개념 Tip #7: 치과에서 문제생겨서 전화 왔을 때",
-    desc: "치과에서 문제 발생 시 대응 방법",
-    type: "youtube",
-    url: "https://www.youtube.com/embed/FAQEcjru41g",
-  },
-  {
-    id: 15,
-    title: "개념 Tip #8: 스캔바디 자체 오차 확인하기",
-    desc: "스캔바디 자체의 오차를 확인하는 방법",
-    type: "youtube",
-    url: "https://www.youtube.com/embed/39Ud9wvFqis",
-  },
-];
-
 export default function TipsPage() {
   const { t } = useLang();
-  const [selectedTip, setSelectedTip] = useState<typeof tips[0] | null>(null);
+  const [selectedTip, setSelectedTip] = useState<{ id: number; title: string; desc: string; type: string; url: string } | null>(null);
 
   // 로딩 애니메이션 상태
   const [showWhiteScreen, setShowWhiteScreen] = useState(true);
@@ -134,6 +23,27 @@ export default function TipsPage() {
       clearTimeout(blurredTimer);
     };
   }, []);
+
+  const tips = [
+    // EXO 팁 (HTML)
+    { id: 1, title: t("tipsPage.tip1Title"), desc: t("tipsPage.tip1Desc"), type: "html", url: "/tip/exo_1_potinc.html" },
+    { id: 2, title: t("tipsPage.tip2Title"), desc: t("tipsPage.tip2Desc"), type: "html", url: "/tip/exo_2_library_1.html" },
+    // EXO 팁 (YouTube)
+    { id: 3, title: t("tipsPage.tip3Title"), desc: t("tipsPage.tip3Desc"), type: "youtube", url: "https://www.youtube.com/embed/YNJGHHQ6q34" },
+    { id: 4, title: t("tipsPage.tip4Title"), desc: t("tipsPage.tip4Desc"), type: "youtube", url: "https://www.youtube.com/embed/FzFub31JF30" },
+    { id: 5, title: t("tipsPage.tip5Title"), desc: t("tipsPage.tip5Desc"), type: "youtube", url: "https://www.youtube.com/embed/GOjMKfDM0WY" },
+    { id: 6, title: t("tipsPage.tip6Title"), desc: t("tipsPage.tip6Desc"), type: "youtube", url: "https://www.youtube.com/embed/zFLYWG3pczw" },
+    { id: 7, title: t("tipsPage.tip7Title"), desc: t("tipsPage.tip7Desc"), type: "youtube", url: "https://www.youtube.com/embed/pwee-ZGyH1o" },
+    // 개념 팁
+    { id: 8, title: t("tipsPage.tip8Title"), desc: t("tipsPage.tip8Desc"), type: "youtube", url: "https://www.youtube.com/embed/xXXLLi7y7b4" },
+    { id: 9, title: t("tipsPage.tip9Title"), desc: t("tipsPage.tip9Desc"), type: "youtube", url: "https://www.youtube.com/embed/v72T5nzzBVs" },
+    { id: 10, title: t("tipsPage.tip10Title"), desc: t("tipsPage.tip10Desc"), type: "youtube", url: "https://www.youtube.com/embed/hD48-_5GCxk" },
+    { id: 11, title: t("tipsPage.tip11Title"), desc: t("tipsPage.tip11Desc"), type: "youtube", url: "https://www.youtube.com/embed/h_0rIVS6Gyo" },
+    { id: 12, title: t("tipsPage.tip12Title"), desc: t("tipsPage.tip12Desc"), type: "youtube", url: "https://www.youtube.com/embed/-RFqChL8ilY" },
+    { id: 13, title: t("tipsPage.tip13Title"), desc: t("tipsPage.tip13Desc"), type: "youtube", url: "https://www.youtube.com/embed/pm2HzBIKOlw" },
+    { id: 14, title: t("tipsPage.tip14Title"), desc: t("tipsPage.tip14Desc"), type: "youtube", url: "https://www.youtube.com/embed/FAQEcjru41g" },
+    { id: 15, title: t("tipsPage.tip15Title"), desc: t("tipsPage.tip15Desc"), type: "youtube", url: "https://www.youtube.com/embed/39Ud9wvFqis" },
+  ];
 
   return (
     <>
@@ -188,7 +98,7 @@ export default function TipsPage() {
                       className="w-full border border-[#8b5cf6]/40 text-white/80 py-2 px-4 rounded-lg
                                  hover:bg-[#8b5cf6]/10 hover:border-[#8b5cf6]/60 transition-all duration-300 backdrop-blur-sm"
                     >
-                      자세히 보기
+                      {t("tipsPage.viewDetail")}
                     </button>
                   </div>
                 </div>
@@ -197,8 +107,8 @@ export default function TipsPage() {
               {/* 왁스업 STL 공유 */}
               <div className="glass rounded-xl overflow-hidden hover:shadow-[0_0_30px_rgba(139,92,246,0.3)] transition-all duration-300">
                 <div className="p-6">
-                  <h3 className="text-xl font-bold mb-2 text-[#f8fafc]">공유 Tip #1: 왁스업 STL 공유</h3>
-                  <p className="text-[#f8fafc]/60 mb-4">상악 6전치 왁스업 STL 파일을 공유합니다</p>
+                  <h3 className="text-xl font-bold mb-2 text-[#f8fafc]">{t("tipsPage.shareTitle")}</h3>
+                  <p className="text-[#f8fafc]/60 mb-4">{t("tipsPage.shareDesc")}</p>
                   <div className="space-y-2">
                     <a
                       href="/상악6전치검 1.stl"
@@ -206,7 +116,7 @@ export default function TipsPage() {
                       className="block w-full border border-green-400/40 text-white/80 py-2 px-4 rounded-lg
                                  hover:bg-green-500/10 hover:border-green-400/60 transition-all duration-300 text-center backdrop-blur-sm"
                     >
-                      상악6전치검 1.stl 다운로드
+                      {t("tipsPage.shareDownload1")}
                     </a>
                     <a
                       href="/상악6전치검 2.stl"
@@ -214,7 +124,7 @@ export default function TipsPage() {
                       className="block w-full border border-green-400/40 text-white/80 py-2 px-4 rounded-lg
                                  hover:bg-green-500/10 hover:border-green-400/60 transition-all duration-300 text-center backdrop-blur-sm"
                     >
-                      상악6전치검 2.stl 다운로드
+                      {t("tipsPage.shareDownload2")}
                     </a>
                   </div>
                 </div>
