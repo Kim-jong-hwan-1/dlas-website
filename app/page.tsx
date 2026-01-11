@@ -155,7 +155,7 @@ export default function HomePage() {
             muted
             playsInline
             preload="auto"
-            onCanPlayThrough={() => setVideoReady(true)}
+            onLoadedData={() => setVideoReady(true)}
             onEnded={handleVideoEnd}
             onError={(e) => {
               console.log("Video error:", e);
@@ -163,11 +163,7 @@ export default function HomePage() {
               setShowWhiteFlash(true);
               setShowIntro(false);
             }}
-            className="w-[95vw] h-auto sm:w-auto sm:max-w-[80%] sm:max-h-[80%] object-contain"
-            style={{
-              opacity: videoReady ? 1 : 0,
-              transition: 'opacity 0.3s ease-in'
-            }}
+            className="w-[90vw] max-h-[70vh] sm:w-auto sm:max-w-[80%] sm:max-h-[80%] object-contain"
             src="/background/intro.mp4"
           />
           <button
