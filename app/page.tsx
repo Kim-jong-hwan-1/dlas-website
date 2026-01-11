@@ -152,6 +152,7 @@ export default function HomePage() {
         <div className="fixed inset-0 z-[9999] bg-black flex items-center justify-center">
           <video
             ref={videoRef}
+            autoPlay
             muted
             playsInline
             preload="auto"
@@ -165,7 +166,9 @@ export default function HomePage() {
             }}
             className="w-[90vw] max-h-[70vh] sm:w-auto sm:max-w-[80%] sm:max-h-[80%] object-contain"
             src="/background/intro.mp4"
-          />
+          >
+            <source src="/background/intro.mp4" type="video/mp4" />
+          </video>
           <button
             onClick={handleSkip}
             className="absolute bottom-8 right-8 text-white/50 hover:text-white text-sm transition-all duration-300 px-4 py-2"
