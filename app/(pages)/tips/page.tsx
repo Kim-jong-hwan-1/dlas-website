@@ -6,6 +6,7 @@ import { useLang } from "@/components/LanguageWrapper";
 import PageLayout from "@/components/PageLayout";
 
 const tips = [
+  // EXO 팁 (HTML)
   {
     id: 1,
     title: "EXO Tip #1: 파닉 추가하기",
@@ -20,47 +21,98 @@ const tips = [
     type: "html",
     url: "/tip/exo_2_library_1.html",
   },
+  // EXO 팁 (YouTube)
   {
     id: 3,
-    title: "개념 Tip #1: DLAS가 생각하는 윌슨만곡 부여의 의미",
-    desc: "윌슨만곡의 중요성과 적용 방법",
+    title: "EXO Tip #3: 과교합 해결",
+    desc: "엑소에서 과교합 문제 해결하는 방법",
+    type: "youtube",
+    url: "https://www.youtube.com/embed/YNJGHHQ6q34",
+  },
+  {
+    id: 4,
+    title: "EXO Tip #4: 디자인 빨리하는 방법 (왁스업)",
+    desc: "왁스업 디자인 작업 속도 향상 팁",
+    type: "youtube",
+    url: "https://www.youtube.com/embed/FzFub31JF30",
+  },
+  {
+    id: 5,
+    title: "EXO Tip #5: 치은디자인 하는 방법",
+    desc: "엑소에서 치은 디자인 작업 방법",
+    type: "youtube",
+    url: "https://www.youtube.com/embed/GOjMKfDM0WY",
+  },
+  {
+    id: 6,
+    title: "EXO Tip #6: 교합기 사용법",
+    desc: "엑소 교합기 활용 방법",
+    type: "youtube",
+    url: "https://www.youtube.com/embed/zFLYWG3pczw",
+  },
+  {
+    id: 7,
+    title: "EXO Tip #7: 주문서 살리고 어버트먼트 매칭",
+    desc: "주문서 그대로 유지하면서 어버트먼트 매칭해서 디자인하기",
+    type: "youtube",
+    url: "https://www.youtube.com/embed/pwee-ZGyH1o",
+  },
+  // 개념 팁
+  {
+    id: 8,
+    title: "개념 Tip #1: 윌슨만곡 부여의 의미",
+    desc: "DLAS가 생각하는 윌슨만곡의 중요성과 적용 방법",
     type: "youtube",
     url: "https://www.youtube.com/embed/xXXLLi7y7b4",
   },
   {
-    id: 4,
-    title: "개념 Tip #2: DLAS가 생각하는 모델리스에서의 과교합 1편",
+    id: 9,
+    title: "개념 Tip #2: 모델리스에서의 과교합 1편",
     desc: "모델리스 작업에서의 과교합 개념과 적용",
     type: "youtube",
     url: "https://www.youtube.com/embed/v72T5nzzBVs",
   },
   {
-    id: 5,
-    title: "개념 Tip #3: DLAS가 생각하는 모델리스에서의 과교합 2편",
+    id: 10,
+    title: "개념 Tip #3: 모델리스에서의 과교합 2편",
     desc: "모델리스 작업에서의 과교합 심화 개념",
     type: "youtube",
     url: "https://www.youtube.com/embed/hD48-_5GCxk",
   },
   {
-    id: 6,
-    title: "개념 Tip #4: 토크와 어버트먼트 축변위에 대한 내용",
+    id: 11,
+    title: "개념 Tip #4: 토크와 어버트먼트 축변위",
     desc: "토크 적용과 어버트먼트 축변위의 이해",
     type: "youtube",
     url: "https://www.youtube.com/embed/h_0rIVS6Gyo",
   },
   {
-    id: 7,
+    id: 12,
     title: "개념 Tip #5: 풀케이스 VD 채득시 CR의 중요성",
     desc: "풀케이스에서 VD 채득 시 CR의 중요성",
     type: "youtube",
     url: "https://www.youtube.com/embed/-RFqChL8ilY",
   },
   {
-    id: 8,
+    id: 13,
     title: "개념 Tip #6: 스캔바디 오차 검증하기",
     desc: "스캔바디는 항상 일정한 위치를 알려주진 않는다",
     type: "youtube",
     url: "https://www.youtube.com/embed/pm2HzBIKOlw",
+  },
+  {
+    id: 14,
+    title: "개념 Tip #7: 치과에서 문제생겨서 전화 왔을 때",
+    desc: "치과에서 문제 발생 시 대응 방법",
+    type: "youtube",
+    url: "https://www.youtube.com/embed/FAQEcjru41g",
+  },
+  {
+    id: 15,
+    title: "개념 Tip #8: 스캔바디 자체 오차 확인하기",
+    desc: "스캔바디 자체의 오차를 확인하는 방법",
+    type: "youtube",
+    url: "https://www.youtube.com/embed/39Ud9wvFqis",
   },
 ];
 
