@@ -15,6 +15,7 @@ export default function Navigation({ showUI = true }: NavigationProps) {
 
   const navItems = [
     { href: "/", label: t("nav.home"), key: "home" },
+    { href: "/about", label: "소개", key: "about" },
     { href: "/download", label: t("nav.download"), key: "download" },
     { href: "/buy", label: t("nav.buy"), key: "buy" },
     { href: "/tips", label: t("nav.tips"), key: "tips" },

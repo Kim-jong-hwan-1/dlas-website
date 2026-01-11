@@ -100,16 +100,15 @@ export default function HomePage() {
   useEffect(() => {
     if (showIntro) return;
 
-    // 2초 후 블러 시작
+    // 첫 방문 후 인트로 끝났을 때도 빠르게 로딩
     const blurTimer = setTimeout(() => {
       setBgPhase('blurring');
-    }, 2000);
+    }, 200);
 
-    // 4초 후 (블러 완료 후) 텍스트 표시
     const textTimer = setTimeout(() => {
       setBgPhase('blurred');
       setIsTextVisible(true);
-    }, 4000);
+    }, 800);
 
     return () => {
       clearTimeout(blurTimer);
