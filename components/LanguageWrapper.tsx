@@ -4,7 +4,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { translations } from '@/translations/translations';
 
-export type LangCode = 'en' | 'ko';
+export type LangCode = 'en' | 'ko' | 'ja' | 'es';
 
 interface LangContextType {
   lang: LangCode;
@@ -24,9 +24,23 @@ export default function LanguageWrapper({ children }: { children: React.ReactNod
   const [lang, setLang] = useState<LangCode>('ko');
 
   useEffect(() => {
-    // 항상 한국어로 설정
-    setLang('ko');
-    localStorage.setItem('selectedLanguage', 'ko');
+    // 쿠키에서 언어 읽기 (미들웨어에서 설정한 DLAS_LANG)
+    const getCookie = (name: string): string | null => {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop()?.split(';').shift() || null;
+      return null;
+    };
+
+    const cookieLang = getCookie('DLAS_LANG') as LangCode | null;
+    const validLangs: LangCode[] = ['en', 'ko', 'ja', 'es'];
+
+    if (cookieLang && validLangs.includes(cookieLang)) {
+      setLang(cookieLang);
+    } else {
+      // 쿠키가 없으면 한국어 기본값
+      setLang('ko');
+    }
   }, []);
 
   // 번역 함수
