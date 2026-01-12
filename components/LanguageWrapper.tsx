@@ -15,7 +15,7 @@ interface LangContextType {
 }
 
 const LangContext = createContext<LangContextType>({
-  lang: 'ko',
+  lang: 'kr',
   setLang: () => {},
   t: (key: string) => key,
 });
@@ -33,13 +33,13 @@ export default function LanguageWrapper({ children, locale }: LanguageWrapperPro
 
   // URL에서 현재 locale 추출
   const getLocaleFromPath = (): Locale => {
-    if (!pathname) return 'ko';
+    if (!pathname) return 'kr';
     const segments = pathname.split('/');
     const pathLocale = segments[1];
     if (locales.includes(pathLocale as Locale)) {
       return pathLocale as Locale;
     }
-    return 'ko'; // 기본값
+    return 'kr'; // 기본값
   };
 
   // locale prop 우선, 없으면 URL에서 추출

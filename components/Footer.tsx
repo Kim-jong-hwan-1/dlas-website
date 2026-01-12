@@ -64,7 +64,7 @@ export default function Footer({ showUI = true }: FooterProps) {
                 e.currentTarget.style.textShadow = "0 0 8px rgba(255,255,255,0.3)";
               }}
             >
-              카카오톡채널
+              {t("footer.kakao")}
             </a>
           </div>
         </div>

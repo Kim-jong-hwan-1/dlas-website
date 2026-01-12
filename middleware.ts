@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 // 지원 locale 목록
-const locales = ['ko', 'en', 'ja', 'es'] as const;
+const locales = ['kr', 'en', 'jp', 'es'] as const;
 type Locale = (typeof locales)[number];
 
 const defaultLocale: Locale = 'en';
@@ -10,9 +10,9 @@ const defaultLocale: Locale = 'en';
 // 국가 코드 → locale 매핑
 const countryToLocale: Record<string, Locale> = {
   // 한국
-  KR: 'ko',
+  KR: 'kr',
   // 일본
-  JP: 'ja',
+  JP: 'jp',
   // 스페인어권
   ES: 'es',
   MX: 'es',

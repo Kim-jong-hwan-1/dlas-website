@@ -94,7 +94,7 @@ export default function AboutPage() {
             <h1
               className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-8"
               style={{
-                textShadow: '0 0 40px rgba(139, 92, 246, 0.5), 0 0 80px rgba(139, 92, 246, 0.3)',
+                textShadow: '0 0 40px rgba(253, 230, 138, 0.5), 0 0 80px rgba(253, 230, 138, 0.3)',
                 fontFamily: 'Pretendard, -apple-system, BlinkMacSystemFont, sans-serif'
               }}
             >
@@ -115,40 +115,40 @@ export default function AboutPage() {
             <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-8">
               {/* 비전 */}
               <div
-                className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-8"
-                style={{ boxShadow: '0 0 40px rgba(139, 92, 246, 0.15)' }}
+                className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-8 overflow-hidden"
+                style={{ boxShadow: '0 0 40px rgba(253, 230, 138, 0.15)' }}
               >
                 <h2
-                  className="text-2xl font-bold text-[#8b5cf6] mb-4"
-                  style={{ textShadow: '0 0 20px rgba(139, 92, 246, 0.5)' }}
+                  className="text-2xl font-bold text-[#fde68a] mb-4"
+                  style={{ textShadow: '0 0 20px rgba(253, 230, 138, 0.5)' }}
                 >
                   {t("aboutPage.visionTitle")}
                 </h2>
-                <p className="text-white/90 text-lg leading-relaxed">
+                <p className="text-white/90 text-lg leading-relaxed break-words">
                   {t("aboutPage.visionDesc1")}<br />
                   <span className="text-white font-semibold">{t("aboutPage.visionDesc2")}</span>{t("aboutPage.visionDesc3")}
                 </p>
-                <p className="text-white/60 mt-4 text-sm leading-relaxed">
+                <p className="text-white/60 mt-4 text-sm leading-relaxed break-words">
                   {t("aboutPage.visionDetail")}
                 </p>
               </div>
 
               {/* 미션 */}
               <div
-                className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-8"
-                style={{ boxShadow: '0 0 40px rgba(6, 182, 212, 0.15)' }}
+                className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-8 overflow-hidden"
+                style={{ boxShadow: '0 0 40px rgba(253, 230, 138, 0.15)' }}
               >
                 <h2
-                  className="text-2xl font-bold text-[#06b6d4] mb-4"
-                  style={{ textShadow: '0 0 20px rgba(6, 182, 212, 0.5)' }}
+                  className="text-2xl font-bold text-[#fde68a] mb-4"
+                  style={{ textShadow: '0 0 20px rgba(253, 230, 138, 0.5)' }}
                 >
                   {t("aboutPage.missionTitle")}
                 </h2>
-                <p className="text-white/90 text-lg leading-relaxed">
+                <p className="text-white/90 text-lg leading-relaxed break-words">
                   {t("aboutPage.missionDesc1")}<br />
                   <span className="text-white font-semibold">{t("aboutPage.missionDesc2")}</span>{t("aboutPage.missionDesc3")}
                 </p>
-                <p className="text-white/60 mt-4 text-sm leading-relaxed">
+                <p className="text-white/60 mt-4 text-sm leading-relaxed break-words">
                   {t("aboutPage.missionDetail")}
                 </p>
               </div>
@@ -170,19 +170,19 @@ export default function AboutPage() {
                 {coreValues.map((value, index) => (
                   <div
                     key={index}
-                    className="bg-black/30 backdrop-blur-lg border border-white/10 rounded-xl p-6 text-center
+                    className="bg-black/30 backdrop-blur-lg border border-white/10 rounded-xl p-6 text-center overflow-hidden
                                hover:bg-black/50 hover:border-white/20 transition-all duration-300"
-                    style={{ boxShadow: '0 0 20px rgba(139, 92, 246, 0.1)' }}
+                    style={{ boxShadow: '0 0 20px rgba(253, 230, 138, 0.1)' }}
                   >
                     <div
-                      className="text-3xl mb-4 text-[#8b5cf6]"
-                      style={{ textShadow: '0 0 20px rgba(139, 92, 246, 0.8)' }}
+                      className="text-3xl mb-4 text-[#fde68a]"
+                      style={{ textShadow: '0 0 20px rgba(253, 230, 138, 0.8)' }}
                     >
                       {value.icon}
                     </div>
-                    <h3 className="text-xl font-bold text-white mb-1">{value.title}</h3>
-                    <p className="text-sm text-[#8b5cf6]/80 mb-3">{value.subtitle}</p>
-                    <p className="text-white/60 text-sm leading-relaxed">{value.description}</p>
+                    <h3 className="text-xl font-bold text-white mb-1 break-words">{value.title}</h3>
+                    <p className="text-sm text-[#fde68a]/80 mb-3">{value.subtitle}</p>
+                    <p className="text-white/60 text-sm leading-relaxed break-words">{value.description}</p>
                   </div>
                 ))}
               </div>
@@ -199,8 +199,8 @@ export default function AboutPage() {
                 {t("aboutPage.whyDlasTitle")}
               </h2>
               <div
-                className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-8 md:p-12"
-                style={{ boxShadow: '0 0 60px rgba(139, 92, 246, 0.1), 0 0 30px rgba(6, 182, 212, 0.1)' }}
+                className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-8 md:p-12 overflow-hidden"
+                style={{ boxShadow: '0 0 60px rgba(253, 230, 138, 0.1), 0 0 30px rgba(253, 230, 138, 0.05)' }}
               >
                 <p className="text-white/80 text-lg md:text-xl leading-relaxed mb-6">
                   <span className="text-white font-semibold">D</span>ental{' '}
@@ -208,22 +208,22 @@ export default function AboutPage() {
                   <span className="text-white font-semibold">A</span>utomation{' '}
                   <span className="text-white font-semibold">S</span>olution
                 </p>
-                <p className="text-white/70 leading-relaxed mb-6">
+                <p className="text-white/70 leading-relaxed mb-6 break-words">
                   {t("aboutPage.whyDlasDesc1")}<br />
                   {t("aboutPage.whyDlasDesc2")}
                 </p>
-                <p className="text-white/70 leading-relaxed mb-6">
+                <p className="text-white/70 leading-relaxed mb-6 break-words">
                   {t("aboutPage.whyDlasDesc3")}<br />
                   {t("aboutPage.whyDlasDesc4")}<br />
                   {t("aboutPage.whyDlasDesc5")}
                 </p>
                 <p
-                  className="text-white text-xl font-semibold"
-                  style={{ textShadow: '0 0 20px rgba(139, 92, 246, 0.5)' }}
+                  className="text-white text-xl font-semibold break-words"
+                  style={{ textShadow: '0 0 20px rgba(253, 230, 138, 0.5)' }}
                 >
                   {t("aboutPage.whyDlasQuote")}
                 </p>
-                <p className="text-white/60 mt-4 text-sm">
+                <p className="text-white/60 mt-4 text-sm break-words">
                   {t("aboutPage.whyDlasFooter")}
                 </p>
               </div>

@@ -6,9 +6,12 @@ import { useLang } from "@/components/LanguageWrapper";
 import PageLayout from "@/components/PageLayout";
 
 export default function DownloadPage() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
   const [showWhiteScreen, setShowWhiteScreen] = useState(true);
   const [bgPhase, setBgPhase] = useState<'clear' | 'blurring' | 'blurred'>('clear');
+
+  // 한국어인지 확인
+  const isKorean = lang === 'kr';
 
   useEffect(() => {
     const whiteTimer = setTimeout(() => setShowWhiteScreen(false), 100);
@@ -63,21 +66,31 @@ export default function DownloadPage() {
             }}
           >
             <h2 className="text-4xl font-bold mb-12 text-[#f8fafc]">{t("download.title")}</h2>
-            <div className="flex flex-col sm:flex-row justify-center gap-6 sm:gap-32 w-full px-4">
-              <a
-                href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v2.6.1/DLAS_Setup_v2.6.1.exe"
-                className="border border-[#8b5cf6]/40 text-[#f8fafc]/80 px-14 py-6 rounded-xl
-                           hover:bg-[#8b5cf6]/10 hover:border-[#8b5cf6]/60 transition-all duration-300
-                           text-center whitespace-nowrap inline-block text-xl font-semibold backdrop-blur-sm"
-                download
-              >
-                {t("downloadPage.software")} v2.6.1
-              </a>
+            <div className="flex flex-col sm:flex-row justify-center gap-6 sm:gap-12 w-full px-4">
+              {/* 한국어인 경우에만 DLAS 소프트웨어 다운로드 표시 */}
+              {isKorean && (
+                <a
+                  href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v2.6.1/DLAS_Setup_v2.6.1.exe"
+                  className="bg-black/10 backdrop-blur-xl border border-white/10 rounded-2xl px-14 py-8
+                             text-white text-xl font-semibold text-center
+                             hover:bg-black/15 hover:border-[#fde68a]/30 transition-all duration-500"
+                  style={{ boxShadow: '0 0 30px rgba(255, 255, 255, 0.08)' }}
+                  onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 40px rgba(253, 230, 138, 0.25), 0 0 80px rgba(253, 230, 138, 0.15)'}
+                  onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 0 30px rgba(255, 255, 255, 0.08)'}
+                  download
+                >
+                  {t("downloadPage.software")} v2.6.1
+                </a>
+              )}
+              {/* FAST EDITOR는 모든 언어에서 표시 */}
               <a
                 href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/E_v.1.0.0/DLAS.FAST.EDITOR.Setup.1.0.0.exe"
-                className="border border-[#8b5cf6]/40 text-[#f8fafc]/80 px-14 py-6 rounded-xl
-                           hover:bg-[#8b5cf6]/10 hover:border-[#8b5cf6]/60 transition-all duration-300
-                           text-center whitespace-nowrap inline-block text-xl font-semibold backdrop-blur-sm"
+                className="bg-black/10 backdrop-blur-xl border border-white/10 rounded-2xl px-14 py-8
+                           text-white text-xl font-semibold text-center
+                           hover:bg-black/15 hover:border-[#fde68a]/30 transition-all duration-500"
+                style={{ boxShadow: '0 0 30px rgba(255, 255, 255, 0.08)' }}
+                onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 40px rgba(253, 230, 138, 0.25), 0 0 80px rgba(253, 230, 138, 0.15)'}
+                onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 0 30px rgba(255, 255, 255, 0.08)'}
                 download
               >
                 {t("downloadPage.fastEditor")} v1.0.0

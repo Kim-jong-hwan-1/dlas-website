@@ -1,15 +1,15 @@
 // i18n/config.ts
-export const locales = ['ko', 'en', 'ja', 'es'] as const;
+export const locales = ['kr', 'en', 'jp', 'es'] as const;
 export type Locale = (typeof locales)[number];
 
-export const defaultLocale: Locale = 'ko';
+export const defaultLocale: Locale = 'en';
 
 // 국가 코드 → locale 매핑 (IP 기반 감지용)
 export const countryToLocale: Record<string, Locale> = {
   // 한국
-  KR: 'ko',
+  KR: 'kr',
   // 일본
-  JP: 'ja',
+  JP: 'jp',
   // 스페인어권
   ES: 'es',
   MX: 'es',
@@ -35,8 +35,8 @@ export const countryToLocale: Record<string, Locale> = {
 
 // locale → html lang 속성
 export const localeToHtmlLang: Record<Locale, string> = {
-  ko: 'ko',
+  kr: 'ko',
   en: 'en',
-  ja: 'ja',
+  jp: 'ja',
   es: 'es',
 };

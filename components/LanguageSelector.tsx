@@ -11,9 +11,9 @@ export default function LanguageSelector() {
 
   // 지원하는 4개 언어
   const languages: { code: Locale; label: string }[] = [
-    { code: 'ko', label: '한국어' },
+    { code: 'kr', label: '한국어' },
     { code: 'en', label: 'English' },
-    { code: 'ja', label: '日本語' },
+    { code: 'jp', label: '日本語' },
     { code: 'es', label: 'Español' },
   ];
 

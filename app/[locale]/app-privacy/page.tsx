@@ -8,7 +8,7 @@ export default function AppPrivacyPage() {
 
   useEffect(() => {
     // 항상 한국어로 설정
-    setLang('ko');
+    setLang('kr');
     // 페이지 로드 시 스크롤을 최상단으로
     window.scrollTo(0, 0);
   }, [setLang]);

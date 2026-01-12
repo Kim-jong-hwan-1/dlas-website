@@ -228,9 +228,9 @@ export default function HomePage() {
           {/* Hero Content */}
           <div className="relative z-10 px-6 max-w-4xl mx-auto -mt-[130px]">
             <p
-              className="text-3xl md:text-5xl lg:text-6xl font-semibold text-white/90"
+              className="text-3xl md:text-5xl lg:text-6xl font-semibold text-white"
               style={{
-                textShadow: '0 0 30px rgba(255,255,255,0.3)',
+                textShadow: '0 0 40px rgba(253, 230, 138, 0.6), 0 0 80px rgba(253, 230, 138, 0.4)',
                 fontFamily: 'Pretendard, -apple-system, BlinkMacSystemFont, sans-serif'
               }}
             >

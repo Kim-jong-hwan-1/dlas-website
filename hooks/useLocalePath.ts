@@ -12,13 +12,13 @@ export function useLocalePath() {
 
   // 현재 locale 추출
   const getCurrentLocale = (): Locale => {
-    if (!pathname) return 'ko';
+    if (!pathname) return 'kr';
     const segments = pathname.split('/');
     const pathLocale = segments[1];
     if (locales.includes(pathLocale as Locale)) {
       return pathLocale as Locale;
     }
-    return 'ko';
+    return 'kr';
   };
 
   const locale = getCurrentLocale();

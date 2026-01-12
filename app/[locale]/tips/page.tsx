@@ -88,15 +88,19 @@ export default function TipsPage() {
               {tips.map((tip) => (
                 <div
                   key={tip.id}
-                  className="glass rounded-xl overflow-hidden hover:shadow-[0_0_30px_rgba(139,92,246,0.3)] transition-all duration-300"
+                  className="bg-black/10 backdrop-blur-xl rounded-xl border border-white/10 overflow-hidden
+                             hover:bg-black/15 hover:border-[#fde68a]/30 transition-all duration-500"
+                  style={{ boxShadow: '0 0 30px rgba(255, 255, 255, 0.08)' }}
+                  onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 40px rgba(253, 230, 138, 0.25), 0 0 80px rgba(253, 230, 138, 0.15)'}
+                  onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 0 30px rgba(255, 255, 255, 0.08)'}
                 >
                   <div className="p-6">
                     <h3 className="text-xl font-bold mb-2 text-[#f8fafc]">{tip.title}</h3>
                     <p className="text-[#f8fafc]/60 mb-4">{tip.desc}</p>
                     <button
                       onClick={() => setSelectedTip(tip)}
-                      className="w-full border border-[#8b5cf6]/40 text-white/80 py-2 px-4 rounded-lg
-                                 hover:bg-[#8b5cf6]/10 hover:border-[#8b5cf6]/60 transition-all duration-300 backdrop-blur-sm"
+                      className="w-full border border-white/20 text-white/80 py-2 px-4 rounded-lg
+                                 hover:bg-white/10 hover:border-white/40 transition-all duration-300 backdrop-blur-sm"
                     >
                       {t("tipsPage.viewDetail")}
                     </button>
@@ -105,7 +109,13 @@ export default function TipsPage() {
               ))}
 
               {/* 왁스업 STL 공유 */}
-              <div className="glass rounded-xl overflow-hidden hover:shadow-[0_0_30px_rgba(139,92,246,0.3)] transition-all duration-300">
+              <div
+                className="bg-black/10 backdrop-blur-xl rounded-xl border border-white/10 overflow-hidden
+                           hover:bg-black/15 hover:border-[#fde68a]/30 transition-all duration-500"
+                style={{ boxShadow: '0 0 30px rgba(255, 255, 255, 0.08)' }}
+                onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 40px rgba(253, 230, 138, 0.25), 0 0 80px rgba(253, 230, 138, 0.15)'}
+                onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 0 30px rgba(255, 255, 255, 0.08)'}
+              >
                 <div className="p-6">
                   <h3 className="text-xl font-bold mb-2 text-[#f8fafc]">{t("tipsPage.shareTitle")}</h3>
                   <p className="text-[#f8fafc]/60 mb-4">{t("tipsPage.shareDesc")}</p>
@@ -113,16 +123,16 @@ export default function TipsPage() {
                     <a
                       href="/상악6전치검 1.stl"
                       download
-                      className="block w-full border border-green-400/40 text-white/80 py-2 px-4 rounded-lg
-                                 hover:bg-green-500/10 hover:border-green-400/60 transition-all duration-300 text-center backdrop-blur-sm"
+                      className="block w-full border border-white/20 text-white/80 py-2 px-4 rounded-lg
+                                 hover:bg-white/10 hover:border-white/40 transition-all duration-300 text-center backdrop-blur-sm"
                     >
                       {t("tipsPage.shareDownload1")}
                     </a>
                     <a
                       href="/상악6전치검 2.stl"
                       download
-                      className="block w-full border border-green-400/40 text-white/80 py-2 px-4 rounded-lg
-                                 hover:bg-green-500/10 hover:border-green-400/60 transition-all duration-300 text-center backdrop-blur-sm"
+                      className="block w-full border border-white/20 text-white/80 py-2 px-4 rounded-lg
+                                 hover:bg-white/10 hover:border-white/40 transition-all duration-300 text-center backdrop-blur-sm"
                     >
                       {t("tipsPage.shareDownload2")}
                     </a>

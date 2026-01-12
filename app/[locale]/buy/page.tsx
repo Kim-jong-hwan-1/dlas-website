@@ -295,7 +295,13 @@ const MODULE_PRICE_IDS: Record<string, Record<string, string>> = {
 };
 
 export default function BuyPage() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
+
+  // 한국어인지 확인
+  const isKorean = lang === 'kr';
+
+  // 한국 구매 페이지 선택 상태 (null: 초기 버튼 표시, automation/fastEditor: 해당 결제 표시)
+  const [activeTab, setActiveTab] = useState<'automation' | 'fastEditor' | null>(null);
 
   // 로딩 애니메이션 상태
   const [showWhiteScreen, setShowWhiteScreen] = useState(true);
@@ -371,8 +377,8 @@ export default function BuyPage() {
     }
   }, []);
 
-  // 결제용 국가 (순수 IP 기반 - userInfo.country 사용 안함)
-  const paymentCountry = ipCountry || "";
+  // 결제용 국가 (한국어 페이지면 항상 KR, 아니면 IP 기반)
+  const paymentCountry = isKorean ? "KR" : (ipCountry || "");
 
   // 국가 정보 로드 (레거시 - localStorage)
   useEffect(() => {
@@ -641,7 +647,7 @@ export default function BuyPage() {
   // 약관 동의 모달
   const [showTermsConsentModal, setShowTermsConsentModal] = useState(false);
   const [pendingPayment, setPendingPayment] = useState<{
-    type: "module" | "permanent" | "family" | "family50";
+    type: "module" | "permanent" | "family" | "family50" | "fastEditor";
     module?: string;
     period?: string;
     couponApplied?: boolean;
@@ -670,6 +676,21 @@ export default function BuyPage() {
 
     const isCouponApplied = moduleCouponApplied[mod] || false;
     setPendingPayment({ type: "module", module: mod, period, couponApplied: isCouponApplied });
+    setTermsConsent1(false);
+    setTermsConsent2(false);
+    setTermsConsent3(false);
+    setShowTermsConsentModal(true);
+  };
+
+  // FAST EDITOR 결제 핸들러
+  const handleFastEditorPayment = (period: string) => {
+    const storedId = localStorage.getItem("userID") || userID;
+    if (!storedId) {
+      alert("Please log in first.");
+      return;
+    }
+
+    setPendingPayment({ type: "fastEditor", period });
     setTermsConsent1(false);
     setTermsConsent2(false);
     setTermsConsent3(false);
@@ -812,6 +833,52 @@ export default function BuyPage() {
           String(amount)
         )}`;
       const failUrl = `${currentOrigin}/buy?provider=toss&type=family`;
+
+      tossPayments.requestPayment("CARD", {
+        amount,
+        orderId,
+        orderName,
+        customerEmail: storedId,
+        customerName: userInfo && userInfo.name ? userInfo.name : storedId,
+        successUrl,
+        failUrl,
+      });
+      return;
+    }
+
+    // FAST EDITOR 결제 (라이센스 9번)
+    if (type === "fastEditor") {
+      if (typeof window === "undefined" || !(window as MyWindow).TossPayments) {
+        alert("결제 모듈이 아직 로드되지 않았습니다. 페이지를 새로고침해주세요.");
+        return;
+      }
+
+      const tossClientKey = process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY!;
+      const tossInit = (window as MyWindow).TossPayments;
+      if (!tossInit) {
+        alert("결제 모듈이 아직 로드되지 않았습니다.");
+        return;
+      }
+      const tossPayments = tossInit(tossClientKey);
+
+      if (!period) return;
+
+      // FAST EDITOR 가격 (기존 모듈과 동일)
+      let amount: number;
+      if (period === "LIFETIME") {
+        amount = LIFETIME_PRICE_KRW; // 770,000원
+      } else {
+        const baseUsd = MODULE_PRICES_USD[period as keyof typeof MODULE_PRICES_USD];
+        amount = usdToKrw(baseUsd);
+      }
+
+      const orderId = `DLAS-FASTEDITOR-${Date.now()}`;
+      const orderName = `FAST EDITOR (${period})`;
+
+      const successUrl =
+        `${currentOrigin}/buy?provider=toss&type=module&mod=fast_editor&period=${encodeURIComponent(period)}` +
+        `&orderName=${encodeURIComponent(orderName)}&orderId=${encodeURIComponent(orderId)}&amount=${encodeURIComponent(String(amount))}`;
+      const failUrl = `${currentOrigin}/buy?provider=toss&type=module&mod=fast_editor&period=${encodeURIComponent(period)}`;
 
       tossPayments.requestPayment("CARD", {
         amount,
@@ -1149,8 +1216,12 @@ export default function BuyPage() {
     return (
       <div
         key={mod}
-        className="relative bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 shadow-xl px-2 py-8
-                   flex flex-col sm:flex-row items-center h-auto sm:h-80 sm:min-h-[320px] sm:max-h-[320px] gap-6"
+        className="relative bg-black/10 backdrop-blur-xl rounded-2xl border border-white/10 px-2 py-8
+                   flex flex-col sm:flex-row items-center h-auto sm:h-80 sm:min-h-[320px] sm:max-h-[320px] gap-6
+                   hover:bg-black/15 hover:border-[#fde68a]/30 transition-all duration-500"
+        style={{ boxShadow: '0 0 30px rgba(255, 255, 255, 0.08)' }}
+        onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 40px rgba(253, 230, 138, 0.25), 0 0 80px rgba(253, 230, 138, 0.15)'}
+        onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 0 30px rgba(255, 255, 255, 0.08)'}
       >
         {/* 모바일 */}
         <div className="flex flex-col w-full sm:hidden items-center">
@@ -1204,7 +1275,7 @@ export default function BuyPage() {
           <div className="flex flex-col w-full items-center gap-2">
             <div className="flex flex-row w-full justify-center items-center gap-2">
               <button
-                className="border border-[#8b5cf6]/40 text-white/80 rounded-lg w-1/3 h-12 text-base font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-[#8b5cf6]/10 hover:border-[#8b5cf6]/60 backdrop-blur-sm"
+                className="bg-black/30 border border-white/10 text-white rounded-lg w-1/3 h-12 text-base font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-black/50 hover:border-white/20"
                 onClick={() => comingSoon ? alert(t("buyPage.comingSoon")) : handleModulePayment(mod, "1WEEK")}
               >
                 <span className="text-lg leading-5">{t("buyPage.week1")}</span>
@@ -1213,7 +1284,7 @@ export default function BuyPage() {
                 </span>
               </button>
               <button
-                className="border border-[#8b5cf6]/40 text-white/80 rounded-lg w-1/3 h-12 text-base font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-[#8b5cf6]/10 hover:border-[#8b5cf6]/60 backdrop-blur-sm"
+                className="bg-black/30 border border-white/10 text-white rounded-lg w-1/3 h-12 text-base font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-black/50 hover:border-white/20"
                 onClick={() => comingSoon ? alert(t("buyPage.comingSoon")) : handleModulePayment(mod, "1MONTH")}
               >
                 <span className="text-lg leading-5">{t("buyPage.month1")}</span>
@@ -1222,7 +1293,7 @@ export default function BuyPage() {
                 </span>
               </button>
               <button
-                className="border border-[#8b5cf6]/40 text-white/80 rounded-lg w-1/3 h-12 text-base font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-[#8b5cf6]/10 hover:border-[#8b5cf6]/60 backdrop-blur-sm"
+                className="bg-black/30 border border-white/10 text-white rounded-lg w-1/3 h-12 text-base font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-black/50 hover:border-white/20"
                 onClick={() => comingSoon ? alert(t("buyPage.comingSoon")) : handleModulePayment(mod, "1YEAR")}
               >
                 <span className="text-lg leading-5">{t("buyPage.year1")}</span>
@@ -1232,7 +1303,7 @@ export default function BuyPage() {
               </button>
             </div>
             <button
-              className="border border-[#8b5cf6]/40 text-white/80 rounded-lg w-full h-12 text-base font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-[#8b5cf6]/10 hover:border-[#8b5cf6]/60 backdrop-blur-sm"
+              className="bg-black/30 border border-white/10 text-white rounded-lg w-full h-12 text-base font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-black/50 hover:border-white/20"
               onClick={() => comingSoon ? alert(t("buyPage.comingSoon")) : handleModulePayment(mod, "LIFETIME")}
             >
               <span className="text-lg leading-5">{t("buyPage.lifetime")}</span>
@@ -1313,7 +1384,7 @@ export default function BuyPage() {
           </div>
           <div className="flex flex-col gap-3 w-40 flex-shrink-0 h-full justify-center items-center">
             <button
-              className="border border-[#8b5cf6]/40 text-white/80 rounded-lg w-32 h-16 text-lg font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-[#8b5cf6]/10 hover:border-[#8b5cf6]/60 backdrop-blur-sm"
+              className="bg-black/30 border border-white/10 text-white rounded-lg w-32 h-16 text-lg font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-black/50 hover:border-white/20"
               onClick={() => comingSoon ? alert(t("buyPage.comingSoon")) : handleModulePayment(mod, "1WEEK")}
             >
               <span className="text-xl leading-5">{t("buyPage.week1")}</span>
@@ -1322,7 +1393,7 @@ export default function BuyPage() {
               </span>
             </button>
             <button
-              className="border border-[#8b5cf6]/40 text-white/80 rounded-lg w-32 h-16 text-lg font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-[#8b5cf6]/10 hover:border-[#8b5cf6]/60 backdrop-blur-sm"
+              className="bg-black/30 border border-white/10 text-white rounded-lg w-32 h-16 text-lg font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-black/50 hover:border-white/20"
               onClick={() => comingSoon ? alert(t("buyPage.comingSoon")) : handleModulePayment(mod, "1MONTH")}
             >
               <span className="text-xl leading-5">{t("buyPage.month1")}</span>
@@ -1331,7 +1402,7 @@ export default function BuyPage() {
               </span>
             </button>
             <button
-              className="border border-[#8b5cf6]/40 text-white/80 rounded-lg w-32 h-16 text-lg font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-[#8b5cf6]/10 hover:border-[#8b5cf6]/60 backdrop-blur-sm"
+              className="bg-black/30 border border-white/10 text-white rounded-lg w-32 h-16 text-lg font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-black/50 hover:border-white/20"
               onClick={() => comingSoon ? alert(t("buyPage.comingSoon")) : handleModulePayment(mod, "1YEAR")}
             >
               <span className="text-xl leading-5">{t("buyPage.year1")}</span>
@@ -1340,7 +1411,7 @@ export default function BuyPage() {
               </span>
             </button>
             <button
-              className="border border-[#8b5cf6]/40 text-white/80 rounded-lg w-32 h-16 text-lg font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-[#8b5cf6]/10 hover:border-[#8b5cf6]/60 backdrop-blur-sm"
+              className="bg-black/30 border border-white/10 text-white rounded-lg w-32 h-16 text-lg font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-black/50 hover:border-white/20"
               onClick={() => comingSoon ? alert(t("buyPage.comingSoon")) : handleModulePayment(mod, "LIFETIME")}
             >
               <span className="text-xl leading-5">{t("buyPage.lifetime")}</span>
@@ -1358,11 +1429,17 @@ export default function BuyPage() {
   const licenseCards = (
     <div className="flex flex-col gap-10">
       {/* D.P.L */}
-      <div className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-md rounded-2xl border border-white/20 shadow-xl p-6 sm:p-10 text-left">
+      <div
+        className="group relative bg-black/10 backdrop-blur-xl rounded-2xl border border-white/10 p-6 sm:p-10 text-left
+                   hover:bg-black/15 hover:border-[#fde68a]/30 transition-all duration-500"
+        style={{ boxShadow: '0 0 30px rgba(255, 255, 255, 0.08)' }}
+        onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 40px rgba(253, 230, 138, 0.25), 0 0 80px rgba(253, 230, 138, 0.15)'}
+        onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 0 30px rgba(255, 255, 255, 0.08)'}
+      >
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
           <div className="flex-1">
             <div className="flex items-center gap-3 mb-2">
-              <span className="inline-flex items-center px-3 py-1 rounded-full border border-white/30 bg-white/10 text-white text-xs font-semibold">
+              <span className="inline-flex items-center px-3 py-1 rounded-full border border-white/20 bg-black/30 text-white text-xs font-semibold">
                 {t("buyPage.dplBadge")}
               </span>
               <h3 className="text-2xl sm:text-3xl font-bold leading-tight text-white">
@@ -1384,13 +1461,13 @@ export default function BuyPage() {
           <div className="w-full sm:w-56 flex flex-col gap-2">
             <button
               onClick={handlePermanentLicensePayment}
-              className="w-full border border-blue-400/50 bg-blue-500/20 text-white rounded-lg px-6 py-3 font-bold hover:bg-blue-500/30 hover:border-blue-400/70 transition-all duration-300 backdrop-blur-sm"
+              className="w-full bg-black/30 border border-white/10 text-white rounded-lg px-6 py-3 font-bold hover:bg-black/50 hover:border-white/20 transition-all duration-300"
             >
               {t("buyPage.payNow")}
             </button>
             <button
               onClick={() => alert(t("buyPage.inquireAlert"))}
-              className="flex-1 bg-white/20 text-white rounded-lg px-6 py-3 font-bold hover:bg-white/30 transition"
+              className="flex-1 bg-black/30 border border-white/10 text-white rounded-lg px-6 py-3 font-bold hover:bg-black/50 hover:border-white/20 transition-all duration-300"
             >
               {t("buyPage.inquire")}
             </button>
@@ -1399,11 +1476,17 @@ export default function BuyPage() {
       </div>
 
       {/* D.F.L */}
-      <div className="relative bg-gradient-to-br from-amber-500/20 to-amber-500/5 backdrop-blur-md rounded-2xl border border-amber-400/30 shadow-xl p-6 sm:p-10 text-left">
+      <div
+        className="group relative bg-black/10 backdrop-blur-xl rounded-2xl border border-white/20 p-6 sm:p-10 text-left
+                   hover:bg-black/15 hover:border-[#fde68a]/40 transition-all duration-500"
+        style={{ boxShadow: '0 0 50px rgba(255, 255, 255, 0.15), 0 0 80px rgba(255, 255, 255, 0.08)' }}
+        onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 60px rgba(253, 230, 138, 0.35), 0 0 100px rgba(253, 230, 138, 0.2)'}
+        onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 0 50px rgba(255, 255, 255, 0.15), 0 0 80px rgba(255, 255, 255, 0.08)'}
+      >
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
           <div className="flex-1">
             <div className="flex items-center gap-3 mb-2">
-              <span className="inline-flex items-center px-3 py-1 rounded-full border border-amber-400/50 bg-amber-500/20 text-amber-200 text-xs font-semibold">
+              <span className="inline-flex items-center px-3 py-1 rounded-full border border-white/30 bg-white/10 text-white text-xs font-semibold">
                 {t("buyPage.dflBadge")}
               </span>
               <h3 className="text-2xl sm:text-3xl font-bold leading-tight text-white">
@@ -1417,11 +1500,11 @@ export default function BuyPage() {
 
             <div className="mt-6 text-white/80">
               <p className="font-semibold mb-2">{t("buyPage.dflDesc")}</p>
-              <div className="bg-amber-500/20 border border-amber-400/30 rounded-lg p-3 mb-4">
-                <p className="text-amber-100 text-sm leading-relaxed">
+              <div className="bg-white/5 border border-white/20 rounded-lg p-3 mb-4">
+                <p className="text-white/90 text-sm leading-relaxed">
                   {t("buyPage.dflHighlight1")}<br />
                   {t("buyPage.dflHighlight2")}<br />
-                  <b className="text-amber-300">{t("buyPage.dflHighlight3")}</b>
+                  <b className="text-white">{t("buyPage.dflHighlight3")}</b>
                 </p>
               </div>
               <ul className="space-y-1">
@@ -1435,21 +1518,21 @@ export default function BuyPage() {
           <div className="w-full sm:w-56 flex flex-col gap-2">
             <button
               onClick={handleFamilyLicensePayment}
-              className="w-full border border-amber-400/50 bg-amber-500/20 text-white rounded-lg px-6 py-3 font-bold hover:bg-amber-500/30 hover:border-amber-400/70 transition-all duration-300 backdrop-blur-sm"
+              className="w-full bg-black/30 border border-white/10 text-white rounded-lg px-6 py-3 font-bold hover:bg-black/50 hover:border-white/20 transition-all duration-300"
             >
               {t("buyPage.payNow")}
             </button>
             {(userID === "km5030" || userID === "113311") && (
               <button
                 onClick={handleFamilyLicensePayment50}
-                className="w-full border border-green-400/50 bg-green-500/20 text-white rounded-lg px-6 py-3 font-bold hover:bg-green-500/30 hover:border-green-400/70 transition-all duration-300 backdrop-blur-sm"
+                className="w-full bg-black/30 border border-white/10 text-white rounded-lg px-6 py-3 font-bold hover:bg-black/50 hover:border-white/20 transition-all duration-300"
               >
                 50% Discount (₩1,925,000)
               </button>
             )}
             <button
               onClick={() => alert(t("buyPage.inquireAlert"))}
-              className="flex-1 bg-white/20 text-white rounded-lg px-6 py-3 font-bold hover:bg-white/30 transition"
+              className="flex-1 bg-black/30 border border-white/10 text-white rounded-lg px-6 py-3 font-bold hover:bg-black/50 hover:border-white/20 transition-all duration-300"
             >
               {t("buyPage.inquire")}
             </button>
@@ -1514,9 +1597,17 @@ export default function BuyPage() {
         </div>
 
         {/* 구매 섹션 */}
-        <section className="py-20 relative min-h-screen">
+        <section className={`relative transition-all duration-500 ${
+          isKorean && activeTab === null
+            ? 'min-h-[80vh] flex flex-col items-center justify-center py-20'
+            : 'py-20 min-h-screen'
+        }`}>
           <div
-            className="max-w-6xl mx-auto px-4 relative z-10 transition-all duration-500 ease-out"
+            className={`relative z-10 transition-all duration-500 ease-out ${
+              isKorean && activeTab === null
+                ? 'text-center'
+                : 'max-w-6xl mx-auto px-4'
+            }`}
             style={{
               opacity: bgPhase !== 'clear' ? 1 : 0,
               transform: bgPhase !== 'clear' ? 'translateY(0)' : 'translateY(20px)',
@@ -1525,9 +1616,185 @@ export default function BuyPage() {
             <h2 className="text-4xl font-bold mb-12 text-center text-white">{t("nav.buy")}</h2>
 
             <div className="flex flex-col gap-y-16 w-full">
-              {moduleCards}
+              {/* 한국어: 버튼 선택 UI / 해외: FAST EDITOR만 표시 */}
+              {isKorean ? (
+                activeTab === null ? (
+                  /* 초기 화면: 다운로드 페이지처럼 두 버튼 표시 (중앙 정렬) */
+                  <div className="flex flex-col sm:flex-row justify-center gap-6 sm:gap-12 w-full px-4">
+                    <button
+                      onClick={() => setActiveTab('automation')}
+                      className="bg-black/10 backdrop-blur-xl border border-white/10 rounded-2xl px-14 py-8
+                                 text-white text-xl font-semibold text-center
+                                 hover:bg-black/15 hover:border-[#fde68a]/30 transition-all duration-500"
+                      style={{ boxShadow: '0 0 30px rgba(255, 255, 255, 0.08)' }}
+                      onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 40px rgba(253, 230, 138, 0.25), 0 0 80px rgba(253, 230, 138, 0.15)'}
+                      onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 0 30px rgba(255, 255, 255, 0.08)'}
+                    >
+                      {t("buyPage.automationModules") || "자동화 모듈"}
+                    </button>
+                    <button
+                      onClick={() => setActiveTab('fastEditor')}
+                      className="bg-black/10 backdrop-blur-xl border border-white/10 rounded-2xl px-14 py-8
+                                 text-white text-xl font-semibold text-center
+                                 hover:bg-black/15 hover:border-[#fde68a]/30 transition-all duration-500"
+                      style={{ boxShadow: '0 0 30px rgba(255, 255, 255, 0.08)' }}
+                      onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 40px rgba(253, 230, 138, 0.25), 0 0 80px rgba(253, 230, 138, 0.15)'}
+                      onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 0 30px rgba(255, 255, 255, 0.08)'}
+                    >
+                      FAST EDITOR
+                    </button>
+                  </div>
+                ) : activeTab === 'automation' ? (
+                  <>
+                    {/* 뒤로가기 버튼 */}
+                    <div className="flex justify-center mb-8">
+                      <button
+                        onClick={() => setActiveTab(null)}
+                        className="bg-black/10 backdrop-blur-xl border border-white/10 rounded-2xl px-10 py-5
+                                   text-white text-lg font-semibold
+                                   hover:bg-black/15 hover:border-[#fde68a]/30 transition-all duration-500
+                                   inline-flex items-center gap-3"
+                        style={{ boxShadow: '0 0 30px rgba(255, 255, 255, 0.08)' }}
+                        onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 40px rgba(253, 230, 138, 0.25), 0 0 80px rgba(253, 230, 138, 0.15)'}
+                        onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 0 30px rgba(255, 255, 255, 0.08)'}
+                      >
+                        <span>←</span>
+                        <span>{t("common.back") || "뒤로가기"}</span>
+                      </button>
+                    </div>
+                    {moduleCards}
+                    {licenseCards}
+                  </>
+                ) : (
+                  <>
+                    {/* 뒤로가기 버튼 */}
+                    <div className="flex justify-center mb-8">
+                      <button
+                        onClick={() => setActiveTab(null)}
+                        className="bg-black/10 backdrop-blur-xl border border-white/10 rounded-2xl px-10 py-5
+                                   text-white text-lg font-semibold
+                                   hover:bg-black/15 hover:border-[#fde68a]/30 transition-all duration-500
+                                   inline-flex items-center gap-3"
+                        style={{ boxShadow: '0 0 30px rgba(255, 255, 255, 0.08)' }}
+                        onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 40px rgba(253, 230, 138, 0.25), 0 0 80px rgba(253, 230, 138, 0.15)'}
+                        onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 0 30px rgba(255, 255, 255, 0.08)'}
+                      >
+                        <span>←</span>
+                        <span>{t("common.back") || "뒤로가기"}</span>
+                      </button>
+                    </div>
+                    {/* FAST EDITOR 카드 */}
+                    <div
+                      className="relative bg-black/10 backdrop-blur-xl rounded-2xl border border-white/10 p-6 sm:p-10
+                                 hover:bg-black/15 hover:border-[#fde68a]/30 transition-all duration-500"
+                      style={{ boxShadow: '0 0 30px rgba(255, 255, 255, 0.08)' }}
+                      onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 40px rgba(253, 230, 138, 0.25), 0 0 80px rgba(253, 230, 138, 0.15)'}
+                      onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 0 30px rgba(255, 255, 255, 0.08)'}
+                    >
+                      <div className="flex flex-col items-center text-center">
+                        <div className="flex items-center gap-3 mb-4">
+                          <span className="inline-flex items-center px-3 py-1 rounded-full border border-white/30 bg-white/10 text-white text-xs font-semibold">
+                            NEW
+                          </span>
+                          <h3 className="text-3xl sm:text-4xl font-bold text-white">FAST EDITOR</h3>
+                        </div>
+                        <p className="text-white/70 mb-8 max-w-2xl">
+                          {t("buyPage.fastEditorDesc") || "빠르고 효율적인 STL 편집 도구"}
+                        </p>
 
-              {licenseCards}
+                        {/* 가격 버튼들 */}
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full max-w-2xl">
+                          <button
+                            onClick={() => handleFastEditorPayment("1WEEK")}
+                            className="bg-black/30 border border-white/10 text-white rounded-lg px-4 py-4 font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-black/50 hover:border-white/20"
+                          >
+                            <span className="text-lg">{t("buyPage.week1")}</span>
+                            <span className="text-sm text-[#c4b5fd]">₩19,000</span>
+                          </button>
+                          <button
+                            onClick={() => handleFastEditorPayment("1MONTH")}
+                            className="bg-black/30 border border-white/10 text-white rounded-lg px-4 py-4 font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-black/50 hover:border-white/20"
+                          >
+                            <span className="text-lg">{t("buyPage.month1")}</span>
+                            <span className="text-sm text-[#c4b5fd]">₩49,000</span>
+                          </button>
+                          <button
+                            onClick={() => handleFastEditorPayment("1YEAR")}
+                            className="bg-black/30 border border-white/10 text-white rounded-lg px-4 py-4 font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-black/50 hover:border-white/20"
+                          >
+                            <span className="text-lg">{t("buyPage.year1")}</span>
+                            <span className="text-sm text-[#c4b5fd]">₩290,000</span>
+                          </button>
+                          <button
+                            onClick={() => handleFastEditorPayment("LIFETIME")}
+                            className="bg-black/30 border border-white/10 text-white rounded-lg px-4 py-4 font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-black/50 hover:border-white/20"
+                          >
+                            <span className="text-lg">{t("buyPage.lifetime")}</span>
+                            <span className="text-sm text-[#c4b5fd]">₩770,000</span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                )
+              ) : (
+                /* 해외: FAST EDITOR만 표시 */
+                <div
+                  className="relative bg-black/10 backdrop-blur-xl rounded-2xl border border-white/10 p-6 sm:p-10
+                             hover:bg-black/15 hover:border-[#fde68a]/30 transition-all duration-500"
+                  style={{ boxShadow: '0 0 30px rgba(255, 255, 255, 0.08)' }}
+                  onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 40px rgba(253, 230, 138, 0.25), 0 0 80px rgba(253, 230, 138, 0.15)'}
+                  onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 0 30px rgba(255, 255, 255, 0.08)'}
+                >
+                  <div className="flex flex-col items-center text-center">
+                    <div className="flex items-center gap-3 mb-4">
+                      <span className="inline-flex items-center px-3 py-1 rounded-full border border-white/30 bg-white/10 text-white text-xs font-semibold">
+                        NEW
+                      </span>
+                      <h3 className="text-3xl sm:text-4xl font-bold text-white">FAST EDITOR</h3>
+                    </div>
+                    <p className="text-white/70 mb-8 max-w-2xl">
+                      {t("buyPage.fastEditorDesc") || "Fast and efficient STL editing tool"}
+                    </p>
+
+                    {/* 가격 버튼들 (해외 - USD) */}
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full max-w-2xl">
+                      <button
+                        onClick={() => handleFastEditorPayment("1WEEK")}
+                        className="bg-black/30 border border-white/10 text-white rounded-lg px-4 py-4 font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-black/50 hover:border-white/20"
+                      >
+                        <span className="text-lg">{t("buyPage.week1")}</span>
+                        <span className="text-sm text-[#c4b5fd]">$19</span>
+                      </button>
+                      <button
+                        onClick={() => handleFastEditorPayment("1MONTH")}
+                        className="bg-black/30 border border-white/10 text-white rounded-lg px-4 py-4 font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-black/50 hover:border-white/20"
+                      >
+                        <span className="text-lg">{t("buyPage.month1")}</span>
+                        <span className="text-sm text-[#c4b5fd]">$49</span>
+                      </button>
+                      <button
+                        onClick={() => handleFastEditorPayment("1YEAR")}
+                        className="bg-black/30 border border-white/10 text-white rounded-lg px-4 py-4 font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-black/50 hover:border-white/20"
+                      >
+                        <span className="text-lg">{t("buyPage.year1")}</span>
+                        <span className="text-sm text-[#c4b5fd]">$290</span>
+                      </button>
+                      <button
+                        onClick={() => handleFastEditorPayment("LIFETIME")}
+                        className="bg-black/30 border border-white/10 text-white rounded-lg px-4 py-4 font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-black/50 hover:border-white/20"
+                      >
+                        <span className="text-lg">{t("buyPage.lifetime")}</span>
+                        <span className="text-sm text-[#c4b5fd]">$770</span>
+                      </button>
+                    </div>
+
+                    <p className="mt-6 text-white/50 text-sm">
+                      {t("buyPage.comingSoon") || "Payment coming soon"}
+                    </p>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </section>

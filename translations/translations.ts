@@ -165,8 +165,8 @@ This privacy policy may be changed due to legal amendments or service improvemen
         submit: "Create Account",
       },
     },
-    common: { yes: "Yes", no: "No", ok: "OK" },
-    footer: { rights: "All rights reserved.", youtube: "YouTube", instagram: "Instagram" },
+    common: { yes: "Yes", no: "No", ok: "OK", back: "Back" },
+    footer: { rights: "All rights reserved.", youtube: "YouTube", instagram: "Instagram", kakao: "KakaoTalk" },
     // Home page
     homePage: {
       text1: "From Hand Skills to System Skills",
@@ -198,16 +198,16 @@ This privacy policy may be changed due to legal amendments or service improvemen
       coreValuesSubtitle: "Values we believe in and pursue",
       value1Title: "Innovation",
       value1Subtitle: "Innovation",
-      value1Desc: "We set new standards in dental technology through continuous innovation. We are not afraid to turn the impossible into possible.",
+      value1Desc: "Setting new standards through continuous innovation. Turning the impossible into possible.",
       value2Title: "Trust",
       value2Subtitle: "Trust",
-      value2Desc: "Like unchanging starlight, we keep our promises to customers. We strive to be a trusted partner through honesty and transparency.",
+      value2Desc: "Like unchanging starlight, we keep our promises. A trusted partner through honesty.",
       value3Title: "Partnership",
       value3Subtitle: "Partnership",
-      value3Desc: "Like constellations shining together, we grow with our customers. Our success shines upon the success of our customers.",
+      value3Desc: "Like constellations shining together, we grow with our customers.",
       value4Title: "Passion",
       value4Subtitle: "Passion",
-      value4Desc: "Like an ever-burning flame, we never stop our passion for a better tomorrow.",
+      value4Desc: "Like an ever-burning flame, our passion for a better tomorrow never stops.",
       whyDlasTitle: "Why DLAS?",
       whyDlasAbbr: "Dental Lab Automation Solution",
       whyDlasDesc1: "DLAS stands for Dental Lab Automation Solution.",
@@ -265,6 +265,8 @@ This privacy policy may be changed due to legal amendments or service improvemen
       year1: "1 Year",
       lifetime: "Lifetime",
       viewDetail: "View Details",
+      automationModules: "Automation Modules",
+      fastEditorDesc: "Fast and efficient STL editing tool for dental professionals",
       module1Desc: "Automatic Transfer Jig creation module",
       module2Desc: "Automatic Transfer Jig creation module",
       module3Desc: "Automatically process abutment holes for easy reuse of previous designs",
@@ -506,9 +508,9 @@ This privacy policy may be changed due to legal amendments or service improvemen
 
 
   /////////////////////////////////////////////////////////////////////
-  // 3. 일본어 (ja)
+  // 3. 일본어 (jp)
   /////////////////////////////////////////////////////////////////////
-  ja: {
+  jp: {
     home: {
       subtitle: "ワンクリックで生産性最大化",
       title: "何時間もかかる作業が数秒に",
@@ -654,12 +656,14 @@ This privacy policy may be changed due to legal amendments or service improvemen
     common: {
       yes: "はい",
       no: "いいえ",
-      ok: "OK"
+      ok: "OK",
+      back: "戻る"
     },
     footer: {
       rights: "全著作権所有。",
       youtube: "YouTube",
-      instagram: "Instagram"
+      instagram: "Instagram",
+      kakao: "KakaoTalk"
     },
     // ホームページ
     homePage: {
@@ -692,16 +696,16 @@ This privacy policy may be changed due to legal amendments or service improvemen
       coreValuesSubtitle: "私たちが信じ追求する価値",
       value1Title: "革新",
       value1Subtitle: "Innovation",
-      value1Desc: "絶え間ない技術革新で歯科技工の新しい標準を提示します。不可能を可能に変える挑戦を恐れません。",
+      value1Desc: "絶え間ない革新で新しい標準を。不可能を可能に変えます。",
       value2Title: "信頼",
       value2Subtitle: "Trust",
-      value2Desc: "変わらぬ星の光のように、お客様との約束を守ります。誠実さと透明性で長く信頼されるパートナーになります。",
+      value2Desc: "変わらぬ星の光のように、約束を守ります。誠実なパートナーに。",
       value3Title: "共創",
       value3Subtitle: "Partnership",
-      value3Desc: "共に輝く星座のように、お客様と共に成長します。私たちの成功はお客様の成功の上に輝きます。",
+      value3Desc: "共に輝く星座のように、お客様と共に成長します。",
       value4Title: "情熱",
       value4Subtitle: "Passion",
-      value4Desc: "絶え間なく燃え続ける星の光のように、より良い明日への情熱を止めません。",
+      value4Desc: "燃え続ける星のように、より良い明日への情熱を。",
       whyDlasTitle: "Why DLAS?",
       whyDlasAbbr: "Dental Lab Automation Solution",
       whyDlasDesc1: "DLASはDental Lab Automation Solutionの略です。",
@@ -759,6 +763,8 @@ This privacy policy may be changed due to legal amendments or service improvemen
       year1: "1年",
       lifetime: "永久利用",
       viewDetail: "詳細を見る",
+      automationModules: "自動化モジュール",
+      fastEditorDesc: "歯科専門家向けの高速かつ効率的なSTL編集ツール",
       module1Desc: "Transfer Jig 自動作成モジュール",
       module2Desc: "Transfer Jig 自動作成モジュール",
       module3Desc: "アバットメントホールを自動処理し、以前のデザインを簡単かつ迅速に活用可能",
@@ -1529,9 +1535,9 @@ This privacy policy may be changed due to legal amendments or service improvemen
       instagram: "Instagram"
     },
   },
-  
 
-  ko: {
+
+  kr: {
     home: {
       subtitle: "자동화로 여는 치기공의 새로운 시대",
       title: "손의 기술에서, 시스템의 기술로",
@@ -1787,11 +1793,13 @@ This privacy policy may be changed due to legal amendments or service improvemen
       yes: "예",
       no: "아니오",
       ok: "확인",
+      back: "뒤로가기",
     },
     footer: {
       rights: "모든 권리를 보유함.",
       youtube: "유튜브",
       instagram: "인스타그램",
+      kakao: "카카오톡채널",
     },
     // 홈 페이지
     homePage: {
@@ -1891,6 +1899,8 @@ This privacy policy may be changed due to legal amendments or service improvemen
       year1: "1년",
       lifetime: "평생이용",
       viewDetail: "자세한 설명 보기",
+      automationModules: "자동화 모듈",
+      fastEditorDesc: "빠르고 효율적인 STL 편집 도구",
       module1Desc: "Transfer Jig 자동 제작 모듈",
       module2Desc: "Transfer Jig 자동 제작 모듈",
       module3Desc: "어버트먼트 홀을 자동으로 처리하여, 이전 디자인 쉽고 빠르게 활용 가능",
@@ -2279,12 +2289,14 @@ This privacy policy may be changed due to legal amendments or service improvemen
     common: {
       yes: "Sí",
       no: "No",
-      ok: "OK"
+      ok: "OK",
+      back: "Volver"
     },
     footer: {
       rights: "Todos los derechos reservados.",
       youtube: "YouTube",
-      instagram: "Instagram"
+      instagram: "Instagram",
+      kakao: "KakaoTalk"
     },
     // Página de inicio
     homePage: {
@@ -2317,16 +2329,16 @@ This privacy policy may be changed due to legal amendments or service improvemen
       coreValuesSubtitle: "Valores en los que creemos y perseguimos",
       value1Title: "Innovación",
       value1Subtitle: "Innovation",
-      value1Desc: "Establecemos nuevos estándares en tecnología dental a través de la innovación continua. No tememos convertir lo imposible en posible.",
+      value1Desc: "Nuevos estándares a través de innovación continua. Lo imposible se vuelve posible.",
       value2Title: "Confianza",
       value2Subtitle: "Trust",
-      value2Desc: "Como la luz de las estrellas inmutable, cumplimos nuestras promesas a los clientes. Nos esforzamos por ser un socio de confianza a través de la honestidad y la transparencia.",
+      value2Desc: "Como luz estelar inmutable, cumplimos promesas. Socios de confianza con honestidad.",
       value3Title: "Asociación",
       value3Subtitle: "Partnership",
-      value3Desc: "Como constelaciones que brillan juntas, crecemos con nuestros clientes. Nuestro éxito brilla sobre el éxito de nuestros clientes.",
+      value3Desc: "Como constelaciones brillando juntas, crecemos con nuestros clientes.",
       value4Title: "Pasión",
       value4Subtitle: "Passion",
-      value4Desc: "Como una llama que nunca se apaga, nunca detenemos nuestra pasión por un mañana mejor.",
+      value4Desc: "Como llama eterna, nuestra pasión por un mañana mejor nunca se detiene.",
       whyDlasTitle: "¿Por qué DLAS?",
       whyDlasAbbr: "Dental Lab Automation Solution",
       whyDlasDesc1: "DLAS significa Dental Lab Automation Solution.",
@@ -2384,6 +2396,8 @@ This privacy policy may be changed due to legal amendments or service improvemen
       year1: "1 Año",
       lifetime: "De por vida",
       viewDetail: "Ver detalles",
+      automationModules: "Módulos de Automatización",
+      fastEditorDesc: "Herramienta de edición STL rápida y eficiente para profesionales dentales",
       module1Desc: "Módulo de creación automática de Transfer Jig",
       module2Desc: "Módulo de creación automática de Transfer Jig",
       module3Desc: "Procesar automáticamente agujeros de abutment para reutilizar fácilmente diseños anteriores",
