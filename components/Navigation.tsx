@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useLang } from "@/components/LanguageWrapper";
+import { useLocalePath } from "@/hooks/useLocalePath";
 
 interface NavigationProps {
   showUI?: boolean;
@@ -12,6 +13,7 @@ interface NavigationProps {
 export default function Navigation({ showUI = true }: NavigationProps) {
   const { t } = useLang();
   const pathname = usePathname();
+  const { locale, localePath } = useLocalePath();
 
   const navItems = [
     { href: "/", label: t("nav.home"), key: "home" },
@@ -22,10 +24,13 @@ export default function Navigation({ showUI = true }: NavigationProps) {
     { href: "/terms", label: t("nav.terms"), key: "terms" },
   ];
 
+  // locale을 고려한 활성 상태 확인
   const isActive = (href: string) => {
     if (!pathname) return false;
-    if (href === "/") return pathname === "/";
-    return pathname.startsWith(href);
+    // pathname에서 locale 제거 후 비교
+    const pathWithoutLocale = pathname.replace(`/${locale}`, '') || '/';
+    if (href === "/") return pathWithoutLocale === "/" || pathWithoutLocale === "";
+    return pathWithoutLocale.startsWith(href);
   };
 
   return (
@@ -38,7 +43,7 @@ export default function Navigation({ showUI = true }: NavigationProps) {
     >
       {/* 데스크탑 레이아웃 */}
       <div className="hidden sm:flex justify-center items-center relative">
-        <Link href="/">
+        <Link href={localePath("/")}>
           <Image
             src="/logo.png"
             alt="DLAS Logo"
@@ -53,7 +58,7 @@ export default function Navigation({ showUI = true }: NavigationProps) {
           {navItems.map((item) => (
             <Link
               key={item.key}
-              href={item.href}
+              href={localePath(item.href)}
               className={`relative pb-2 transition-all duration-300 cursor-pointer
                          ${isActive(item.href)
                            ? "text-white font-bold text-shadow-glow"
@@ -70,7 +75,7 @@ export default function Navigation({ showUI = true }: NavigationProps) {
 
       {/* 모바일 레이아웃 */}
       <div className="sm:hidden flex flex-col items-center">
-        <Link href="/">
+        <Link href={localePath("/")}>
           <Image
             src="/logo.png"
             alt="DLAS Logo"
@@ -85,7 +90,7 @@ export default function Navigation({ showUI = true }: NavigationProps) {
           {navItems.map((item) => (
             <Link
               key={item.key}
-              href={item.href}
+              href={localePath(item.href)}
               className={`text-sm transition-all duration-300 cursor-pointer
                          ${isActive(item.href)
                            ? "text-white font-bold"

@@ -34,7 +34,10 @@
       "Bash(explorer \"C:\\\\Users\\\\user\\\\Desktop\\\\checkpoint\\\\7th_checkpoint\\\\front - 복사본 \\(4\\)\")",
       "Bash(npm run build:*)",
       "Bash(dir \"C:\\\\Users\\\\user\\\\Desktop\\\\checkpoint\\\\7th_checkpoint\\\\front - 복사본 \\(4\\)\\\\public\\\\background\")",
-      "Bash(powershell -Command \"\\(Get-Item ''C:\\\\Users\\\\user\\\\Desktop\\\\checkpoint\\\\7th_checkpoint\\\\front - 복사본 \\(4\\)\\\\public\\\\background\\\\intro.mp4''\\).Length / 1MB\")"
+      "Bash(powershell -Command \"\\(Get-Item ''C:\\\\Users\\\\user\\\\Desktop\\\\checkpoint\\\\7th_checkpoint\\\\front - 복사본 \\(4\\)\\\\public\\\\background\\\\intro.mp4''\\).Length / 1MB\")",
+      "Bash(npx next build:*)",
+      "Bash(NEXT_PRIVATE_SKIP_TURBOPACK=1 npm run build:*)",
+      "Bash(npx tsc:*)"
     ],
     "deny": [],
     "ask": []

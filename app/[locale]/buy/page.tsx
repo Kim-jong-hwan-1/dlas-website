@@ -371,8 +371,8 @@ export default function BuyPage() {
     }
   }, []);
 
-  // 결제용 국가 (IP 기반 우선, 없으면 userInfo.country 사용)
-  const paymentCountry = ipCountry || userInfo.country || "";
+  // 결제용 국가 (순수 IP 기반 - userInfo.country 사용 안함)
+  const paymentCountry = ipCountry || "";
 
   // 국가 정보 로드 (레거시 - localStorage)
   useEffect(() => {

@@ -8,16 +8,19 @@ import DualModalContainer from './DualModalContainer';
 import VisitorTracker from './VisitorTracker';
 import StarField from './StarField';
 import AuthModals from './AuthModals';
+import type { Locale } from '@/i18n/config';
 // import ShootingStar from './ShootingStar'; // 비활성화
 // import ClientHeader from './ClientHeader';  // 헤더 필요하면 사용
 
 export default function ClientLayout({
   children,
+  locale,
 }: {
   children: React.ReactNode;
+  locale?: Locale;
 }) {
   return (
-    <LanguageWrapper>
+    <LanguageWrapper locale={locale}>
       {/* Space Theme: Starfield Background */}
       <StarField starCount={250} />
       {/* Space Theme: Shooting Stars - 비활성화 */}
