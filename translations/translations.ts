@@ -177,6 +177,8 @@ This privacy policy may be changed due to legal amendments or service improvemen
     downloadPage: {
       software: "Automation Software",
       fastEditor: "FAST EDITOR",
+      regionNotice: "Region Notice",
+      regionNoticeDesc: "The Automation Module is currently only available in South Korea due to medical device certification requirements.",
     },
     // About page
     aboutPage: {
@@ -675,6 +677,8 @@ This privacy policy may be changed due to legal amendments or service improvemen
     downloadPage: {
       software: "自動化ソフトウェア",
       fastEditor: "FAST EDITOR",
+      regionNotice: "地域に関するお知らせ",
+      regionNoticeDesc: "自動化モジュールは現在、医療機器認証の関係上、韓国でのみ販売されています。",
     },
     // 紹介ページ
     aboutPage: {
@@ -1811,6 +1815,8 @@ This privacy policy may be changed due to legal amendments or service improvemen
     downloadPage: {
       software: "자동화소프트웨어",
       fastEditor: "FAST EDITOR",
+      regionNotice: "지역 안내",
+      regionNoticeDesc: "현재 자동화 모듈은 의료기기 인증의 이유로 한국에서만 판매됩니다.",
     },
     // 소개 페이지
     aboutPage: {
@@ -2308,6 +2314,8 @@ This privacy policy may be changed due to legal amendments or service improvemen
     downloadPage: {
       software: "Software de automatización",
       fastEditor: "FAST EDITOR",
+      regionNotice: "Aviso de región",
+      regionNoticeDesc: "El Módulo de Automatización actualmente solo está disponible en Corea del Sur debido a los requisitos de certificación de dispositivos médicos.",
     },
     // Página de información
     aboutPage: {

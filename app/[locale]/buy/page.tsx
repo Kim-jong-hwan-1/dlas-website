@@ -304,6 +304,9 @@ export default function BuyPage() {
   // 한국 구매 페이지 선택 상태 (null: 초기 버튼 표시, automation/fastEditor: 해당 결제 표시)
   const [activeTab, setActiveTab] = useState<'automation' | 'fastEditor' | null>(null);
 
+  // 한국 외 지역 안내 모달 상태
+  const [showRegionModal, setShowRegionModal] = useState(false);
+
   // 로딩 애니메이션 상태
   const [showWhiteScreen, setShowWhiteScreen] = useState(true);
   const [bgPhase, setBgPhase] = useState<'clear' | 'blurring' | 'blurred'>('clear');
@@ -1742,62 +1745,103 @@ export default function BuyPage() {
                   </>
                 )
               ) : (
-                /* 해외: FAST EDITOR만 표시 */
-                <div
-                  className="relative bg-black/10 backdrop-blur-xl rounded-2xl border border-white/10 p-6 sm:p-10
-                             hover:bg-black/15 hover:border-[#fde68a]/30 transition-all duration-500"
-                  style={{ boxShadow: '0 0 30px rgba(255, 255, 255, 0.08)' }}
-                  onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 40px rgba(253, 230, 138, 0.25), 0 0 80px rgba(253, 230, 138, 0.15)'}
-                  onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 0 30px rgba(255, 255, 255, 0.08)'}
-                >
-                  <div className="flex flex-col items-center text-center">
-                    <div className="flex items-center gap-3 mb-4">
-                      <span className="inline-flex items-center px-3 py-1 rounded-full border border-white/30 bg-white/10 text-white text-xs font-semibold">
-                        NEW
-                      </span>
-                      <h3 className="text-3xl sm:text-4xl font-bold text-white">FAST EDITOR</h3>
-                    </div>
-                    <p className="text-white/70 mb-8 max-w-2xl">
-                      {t("buyPage.fastEditorDesc") || "Fast and efficient STL editing tool"}
-                    </p>
-
-                    {/* 가격 버튼들 (해외 - USD) */}
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full max-w-2xl">
-                      <button
-                        onClick={() => handleFastEditorPayment("1WEEK")}
-                        className="bg-black/30 border border-white/10 text-white rounded-lg px-4 py-4 font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-black/50 hover:border-white/20"
-                      >
-                        <span className="text-lg">{t("buyPage.week1")}</span>
-                        <span className="text-sm text-[#c4b5fd]">$19</span>
-                      </button>
-                      <button
-                        onClick={() => handleFastEditorPayment("1MONTH")}
-                        className="bg-black/30 border border-white/10 text-white rounded-lg px-4 py-4 font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-black/50 hover:border-white/20"
-                      >
-                        <span className="text-lg">{t("buyPage.month1")}</span>
-                        <span className="text-sm text-[#c4b5fd]">$49</span>
-                      </button>
-                      <button
-                        onClick={() => handleFastEditorPayment("1YEAR")}
-                        className="bg-black/30 border border-white/10 text-white rounded-lg px-4 py-4 font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-black/50 hover:border-white/20"
-                      >
-                        <span className="text-lg">{t("buyPage.year1")}</span>
-                        <span className="text-sm text-[#c4b5fd]">$290</span>
-                      </button>
-                      <button
-                        onClick={() => handleFastEditorPayment("LIFETIME")}
-                        className="bg-black/30 border border-white/10 text-white rounded-lg px-4 py-4 font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-black/50 hover:border-white/20"
-                      >
-                        <span className="text-lg">{t("buyPage.lifetime")}</span>
-                        <span className="text-sm text-[#c4b5fd]">$770</span>
-                      </button>
-                    </div>
-
-                    <p className="mt-6 text-white/50 text-sm">
-                      {t("buyPage.comingSoon") || "Payment coming soon"}
-                    </p>
+                /* 해외: 한국과 동일하게 두 버튼 표시, 자동화 모듈 클릭 시 안내 모달 */
+                activeTab === null ? (
+                  /* 초기 화면: 두 버튼 표시 (중앙 정렬) */
+                  <div className="flex flex-col sm:flex-row justify-center gap-6 sm:gap-12 w-full px-4">
+                    <button
+                      onClick={() => setShowRegionModal(true)}
+                      className="bg-black/10 backdrop-blur-xl border border-white/10 rounded-2xl px-14 py-8
+                                 text-white text-xl font-semibold text-center
+                                 hover:bg-black/15 hover:border-[#fde68a]/30 transition-all duration-500"
+                      style={{ boxShadow: '0 0 30px rgba(255, 255, 255, 0.08)' }}
+                      onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 40px rgba(253, 230, 138, 0.25), 0 0 80px rgba(253, 230, 138, 0.15)'}
+                      onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 0 30px rgba(255, 255, 255, 0.08)'}
+                    >
+                      {t("buyPage.automationModules") || "Automation Modules"}
+                    </button>
+                    <button
+                      onClick={() => setActiveTab('fastEditor')}
+                      className="bg-black/10 backdrop-blur-xl border border-white/10 rounded-2xl px-14 py-8
+                                 text-white text-xl font-semibold text-center
+                                 hover:bg-black/15 hover:border-[#fde68a]/30 transition-all duration-500"
+                      style={{ boxShadow: '0 0 30px rgba(255, 255, 255, 0.08)' }}
+                      onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 40px rgba(253, 230, 138, 0.25), 0 0 80px rgba(253, 230, 138, 0.15)'}
+                      onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 0 30px rgba(255, 255, 255, 0.08)'}
+                    >
+                      FAST EDITOR
+                    </button>
                   </div>
-                </div>
+                ) : (
+                  /* FAST EDITOR 결제 화면 */
+                  <>
+                    {/* 뒤로가기 버튼 */}
+                    <div className="flex justify-center mb-8">
+                      <button
+                        onClick={() => setActiveTab(null)}
+                        className="flex items-center gap-2 text-white/70 hover:text-white transition-colors"
+                      >
+                        <span className="text-xl">←</span>
+                        <span>{t("common.back") || "Back"}</span>
+                      </button>
+                    </div>
+                    <div
+                      className="relative bg-black/10 backdrop-blur-xl rounded-2xl border border-white/10 p-6 sm:p-10
+                                 hover:bg-black/15 hover:border-[#fde68a]/30 transition-all duration-500"
+                      style={{ boxShadow: '0 0 30px rgba(255, 255, 255, 0.08)' }}
+                      onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 40px rgba(253, 230, 138, 0.25), 0 0 80px rgba(253, 230, 138, 0.15)'}
+                      onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 0 30px rgba(255, 255, 255, 0.08)'}
+                    >
+                      <div className="flex flex-col items-center text-center">
+                        <div className="flex items-center gap-3 mb-4">
+                          <span className="inline-flex items-center px-3 py-1 rounded-full border border-white/30 bg-white/10 text-white text-xs font-semibold">
+                            NEW
+                          </span>
+                          <h3 className="text-3xl sm:text-4xl font-bold text-white">FAST EDITOR</h3>
+                        </div>
+                        <p className="text-white/70 mb-8 max-w-2xl">
+                          {t("buyPage.fastEditorDesc") || "Fast and efficient STL editing tool"}
+                        </p>
+
+                        {/* 가격 버튼들 (해외 - USD) */}
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full max-w-2xl">
+                          <button
+                            onClick={() => handleFastEditorPayment("1WEEK")}
+                            className="bg-black/30 border border-white/10 text-white rounded-lg px-4 py-4 font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-black/50 hover:border-white/20"
+                          >
+                            <span className="text-lg">{t("buyPage.week1")}</span>
+                            <span className="text-sm text-[#c4b5fd]">$19</span>
+                          </button>
+                          <button
+                            onClick={() => handleFastEditorPayment("1MONTH")}
+                            className="bg-black/30 border border-white/10 text-white rounded-lg px-4 py-4 font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-black/50 hover:border-white/20"
+                          >
+                            <span className="text-lg">{t("buyPage.month1")}</span>
+                            <span className="text-sm text-[#c4b5fd]">$49</span>
+                          </button>
+                          <button
+                            onClick={() => handleFastEditorPayment("1YEAR")}
+                            className="bg-black/30 border border-white/10 text-white rounded-lg px-4 py-4 font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-black/50 hover:border-white/20"
+                          >
+                            <span className="text-lg">{t("buyPage.year1")}</span>
+                            <span className="text-sm text-[#c4b5fd]">$290</span>
+                          </button>
+                          <button
+                            onClick={() => handleFastEditorPayment("LIFETIME")}
+                            className="bg-black/30 border border-white/10 text-white rounded-lg px-4 py-4 font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-black/50 hover:border-white/20"
+                          >
+                            <span className="text-lg">{t("buyPage.lifetime")}</span>
+                            <span className="text-sm text-[#c4b5fd]">$770</span>
+                          </button>
+                        </div>
+
+                        <p className="mt-6 text-white/50 text-sm">
+                          {t("buyPage.comingSoon") || "Payment coming soon"}
+                        </p>
+                      </div>
+                    </div>
+                  </>
+                )
               )}
             </div>
           </div>
@@ -2081,6 +2125,37 @@ export default function BuyPage() {
                 </button>
               </div>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* 한국 외 지역 안내 모달 */}
+      {showRegionModal && (
+        <div
+          className="fixed inset-0 z-[200] bg-black/50 flex items-center justify-center px-4"
+          onClick={() => setShowRegionModal(false)}
+        >
+          <div
+            className="bg-black/10 backdrop-blur-xl border border-white/10 rounded-2xl p-8 max-w-md text-center
+                       hover:bg-black/15 hover:border-[#fde68a]/30 transition-all duration-500"
+            style={{ boxShadow: '0 0 30px rgba(255, 255, 255, 0.08)' }}
+            onClick={(e) => e.stopPropagation()}
+            onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 40px rgba(253, 230, 138, 0.25), 0 0 80px rgba(253, 230, 138, 0.15)'}
+            onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 0 30px rgba(255, 255, 255, 0.08)'}
+          >
+            <h3 className="text-xl font-bold text-white mb-4">
+              {t("downloadPage.regionNotice") || "Region Notice"}
+            </h3>
+            <p className="text-white/70 mb-6">
+              {t("downloadPage.regionNoticeDesc") || "The Automation Module is currently only available in South Korea due to medical device certification requirements."}
+            </p>
+            <button
+              onClick={() => setShowRegionModal(false)}
+              className="bg-black/30 border border-white/10 text-white px-6 py-2 rounded-lg
+                         hover:bg-black/50 hover:border-white/20 transition-all duration-300"
+            >
+              {t("purchase.close") || "Close"}
+            </button>
           </div>
         </div>
       )}

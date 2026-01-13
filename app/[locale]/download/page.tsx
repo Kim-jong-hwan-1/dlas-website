@@ -10,6 +10,7 @@ export default function DownloadPage() {
   const { t, lang } = useLang();
   const [showWhiteScreen, setShowWhiteScreen] = useState(true);
   const [bgPhase, setBgPhase] = useState<'clear' | 'blurring' | 'blurred'>('clear');
+  const [showRegionModal, setShowRegionModal] = useState(false);
 
   // 한국어인지 확인
   const isKorean = lang === 'kr';
@@ -71,8 +72,8 @@ export default function DownloadPage() {
           >
             <h2 className="text-4xl font-bold mb-12 text-[#f8fafc]">{t("download.title")}</h2>
             <div className="flex flex-col sm:flex-row justify-center gap-6 sm:gap-12 w-full px-4">
-              {/* 한국어인 경우에만 DLAS 소프트웨어 다운로드 표시 */}
-              {isKorean && (
+              {/* 자동화 모듈 - 모든 언어에서 표시, 한국 외 지역은 클릭 시 안내 모달 */}
+              {isKorean ? (
                 <a
                   href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/v2.6.1/DLAS_Setup_v2.6.1.exe"
                   className="bg-black/10 backdrop-blur-xl border border-white/10 rounded-2xl px-14 py-8
@@ -85,10 +86,22 @@ export default function DownloadPage() {
                 >
                   {t("downloadPage.software")} v2.6.1
                 </a>
+              ) : (
+                <button
+                  onClick={() => setShowRegionModal(true)}
+                  className="bg-black/10 backdrop-blur-xl border border-white/10 rounded-2xl px-14 py-8
+                             text-white text-xl font-semibold text-center
+                             hover:bg-black/15 hover:border-[#fde68a]/30 transition-all duration-500"
+                  style={{ boxShadow: '0 0 30px rgba(255, 255, 255, 0.08)' }}
+                  onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 40px rgba(253, 230, 138, 0.25), 0 0 80px rgba(253, 230, 138, 0.15)'}
+                  onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 0 30px rgba(255, 255, 255, 0.08)'}
+                >
+                  {t("downloadPage.software")}
+                </button>
               )}
               {/* FAST EDITOR는 모든 언어에서 표시 */}
               <a
-                href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/E_v.1.0.0/DLAS.FAST.EDITOR.Setup.1.0.0.exe"
+                href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/E_v.2.0.0/DLAS.FAST.EDITOR.Setup.2.0.0.exe"
                 className="bg-black/10 backdrop-blur-xl border border-white/10 rounded-2xl px-14 py-8
                            text-white text-xl font-semibold text-center
                            hover:bg-black/15 hover:border-[#fde68a]/30 transition-all duration-500"
@@ -97,12 +110,43 @@ export default function DownloadPage() {
                 onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 0 30px rgba(255, 255, 255, 0.08)'}
                 download
               >
-                {t("downloadPage.fastEditor")} v1.0.0
+                {t("downloadPage.fastEditor")} v2.0.0
               </a>
             </div>
           </div>
         </section>
       </PageLayout>
+
+      {/* 한국 외 지역 안내 모달 */}
+      {showRegionModal && (
+        <div
+          className="fixed inset-0 z-[200] bg-black/50 flex items-center justify-center px-4"
+          onClick={() => setShowRegionModal(false)}
+        >
+          <div
+            className="bg-black/10 backdrop-blur-xl border border-white/10 rounded-2xl p-8 max-w-md text-center
+                       hover:bg-black/15 hover:border-[#fde68a]/30 transition-all duration-500"
+            style={{ boxShadow: '0 0 30px rgba(255, 255, 255, 0.08)' }}
+            onClick={(e) => e.stopPropagation()}
+            onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 40px rgba(253, 230, 138, 0.25), 0 0 80px rgba(253, 230, 138, 0.15)'}
+            onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 0 30px rgba(255, 255, 255, 0.08)'}
+          >
+            <h3 className="text-xl font-bold text-white mb-4">
+              {t("downloadPage.regionNotice") || "Region Notice"}
+            </h3>
+            <p className="text-white/70 mb-6">
+              {t("downloadPage.regionNoticeDesc") || "The Automation Module is currently only available in South Korea due to medical device certification requirements."}
+            </p>
+            <button
+              onClick={() => setShowRegionModal(false)}
+              className="bg-black/30 border border-white/10 text-white px-6 py-2 rounded-lg
+                         hover:bg-black/50 hover:border-white/20 transition-all duration-300"
+            >
+              {t("purchase.close") || "Close"}
+            </button>
+          </div>
+        </div>
+      )}
     </>
   );
 }

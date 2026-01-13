@@ -58,22 +58,21 @@ const countries = [
   "Yemen", "Zambia", "Zimbabwe",
 ];
 
-// 우주 테마 입력 필드 스타일
+// 카드 테마 입력 필드 스타일
 const inputStyle = `
   w-full p-3
-  bg-white/5 border border-white/20 rounded-lg
+  bg-black/30 border border-white/10 rounded-lg
   text-white placeholder-white/40
-  focus:outline-none focus:border-[#8b5cf6]/50 focus:bg-white/10
+  focus:outline-none focus:border-[#fde68a]/30 focus:bg-black/40
   transition-all duration-300
 `;
 
-// 우주 테마 버튼 스타일
+// 카드 테마 버튼 스타일
 const buttonStyle = `
   w-full py-3 rounded-lg font-medium
-  bg-gradient-to-r from-[#8b5cf6]/80 to-[#06b6d4]/80
-  hover:from-[#8b5cf6] hover:to-[#06b6d4]
+  bg-black/30 border border-white/10
+  hover:bg-black/50 hover:border-white/20
   text-white transition-all duration-300
-  border border-white/10
 `;
 
 export default function AuthModals() {
@@ -250,7 +249,7 @@ export default function AuthModals() {
       {/* 로그인 모달 */}
       <div
         id="login-modal"
-        className="fixed inset-0 z-[200] hidden bg-black/70 backdrop-blur-sm flex items-center justify-center p-4"
+        className="fixed inset-0 z-[200] hidden bg-black/50 flex items-center justify-center p-4"
         role="dialog"
         aria-modal="true"
         onMouseDown={(e) => {
@@ -258,21 +257,19 @@ export default function AuthModals() {
         }}
       >
         <div
-          className="bg-black/80 border border-white/20 w-full max-w-md p-8 rounded-2xl shadow-2xl relative backdrop-blur-xl"
-          style={{
-            boxShadow: "0 0 60px rgba(139, 92, 246, 0.2), 0 0 30px rgba(6, 182, 212, 0.1)"
-          }}
+          className="bg-black/10 backdrop-blur-xl border border-white/10 w-full max-w-md p-8 rounded-2xl relative
+                     hover:bg-black/15 hover:border-[#fde68a]/30 transition-all duration-500"
+          style={{ boxShadow: '0 0 30px rgba(255, 255, 255, 0.08)' }}
           onClick={(e) => e.stopPropagation()}
+          onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 40px rgba(253, 230, 138, 0.25), 0 0 80px rgba(253, 230, 138, 0.15)'}
+          onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 0 30px rgba(255, 255, 255, 0.08)'}
         >
           <CloseButton
             onClick={() => closeModal("login-modal")}
             label="로그인 모달 닫기"
           />
 
-          <h2
-            className="text-2xl font-bold mb-6 text-center text-white"
-            style={{ textShadow: "0 0 20px rgba(139, 92, 246, 0.5)" }}
-          >
+          <h2 className="text-2xl font-bold mb-6 text-center text-white">
             {t("login.title")}
           </h2>
 
@@ -301,7 +298,7 @@ export default function AuthModals() {
           <p className="mt-6 text-center text-sm text-white/60">
             {t("login.form.noAccount")}{" "}
             <button
-              className="text-[#8b5cf6] hover:text-[#06b6d4] transition-colors duration-300"
+              className="text-[#fde68a] hover:text-white transition-colors duration-300"
               onClick={(e) => {
                 e.preventDefault();
                 closeModal("login-modal");
@@ -317,7 +314,7 @@ export default function AuthModals() {
       {/* 회원가입 모달 */}
       <div
         id="signup-modal"
-        className="fixed inset-0 z-[200] hidden bg-black/70 backdrop-blur-sm flex items-center justify-center p-4"
+        className="fixed inset-0 z-[200] hidden bg-black/50 flex items-center justify-center p-4"
         role="dialog"
         aria-modal="true"
         onMouseDown={(e) => {
@@ -325,21 +322,19 @@ export default function AuthModals() {
         }}
       >
         <div
-          className="bg-black/80 border border-white/20 w-full max-w-md p-8 rounded-2xl shadow-2xl relative backdrop-blur-xl max-h-[90vh] overflow-y-auto"
-          style={{
-            boxShadow: "0 0 60px rgba(139, 92, 246, 0.2), 0 0 30px rgba(6, 182, 212, 0.1)"
-          }}
+          className="bg-black/10 backdrop-blur-xl border border-white/10 w-full max-w-md p-8 rounded-2xl relative max-h-[90vh] overflow-y-auto
+                     hover:bg-black/15 hover:border-[#fde68a]/30 transition-all duration-500"
+          style={{ boxShadow: '0 0 30px rgba(255, 255, 255, 0.08)' }}
           onClick={(e) => e.stopPropagation()}
+          onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 40px rgba(253, 230, 138, 0.25), 0 0 80px rgba(253, 230, 138, 0.15)'}
+          onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 0 30px rgba(255, 255, 255, 0.08)'}
         >
           <CloseButton
             onClick={() => closeModal("signup-modal")}
             label="회원가입 모달 닫기"
           />
 
-          <h2
-            className="text-2xl font-bold mb-6 text-center text-white"
-            style={{ textShadow: "0 0 20px rgba(139, 92, 246, 0.5)" }}
-          >
+          <h2 className="text-2xl font-bold mb-6 text-center text-white">
             {t("signup.title")}
           </h2>
 
@@ -412,7 +407,7 @@ export default function AuthModals() {
                   type="checkbox"
                   checked={termsAgree}
                   onChange={(e) => setTermsAgree(e.target.checked)}
-                  className="w-5 h-5 rounded border-white/30 bg-white/10 text-[#8b5cf6] focus:ring-[#8b5cf6]/50"
+                  className="w-5 h-5 rounded border-white/30 bg-black/30 text-[#fde68a] focus:ring-[#fde68a]/50"
                 />
                 <span className="ml-3 group-hover:text-white transition-colors">{t("signup.form.agreeRequired")}</span>
               </label>
@@ -421,7 +416,7 @@ export default function AuthModals() {
                   type="checkbox"
                   checked={marketingAgree}
                   onChange={(e) => setMarketingAgree(e.target.checked)}
-                  className="w-5 h-5 rounded border-white/30 bg-white/10 text-[#8b5cf6] focus:ring-[#8b5cf6]/50"
+                  className="w-5 h-5 rounded border-white/30 bg-black/30 text-[#fde68a] focus:ring-[#fde68a]/50"
                 />
                 <span className="ml-3 group-hover:text-white transition-colors">{t("signup.form.agreeMarketing")}</span>
               </label>
