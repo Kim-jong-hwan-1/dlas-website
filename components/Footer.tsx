@@ -71,10 +71,10 @@ export default function Footer({ showUI = true }: FooterProps) {
 
         <div className="mt-6 text-sm text-white/60 leading-relaxed">
           <p>DLAS</p>
-          <p>{t("footer.ceo")} : 김종환 (Kim Jong-hwan)</p>
+          <p>{t("footer.ceo")} : {t("footer.ceoName")}</p>
           <p>{t("footer.businessNumber")} : 753-06-03175</p>
           <p>{t("footer.salesNumber")} : 2025-대전서구-1033</p>
-          <p>{t("footer.address")} : 인천시 서구 청라동 202-3번지 청라더리브티아모지식산업센터 지원동 543호, 대한민국 (South Korea)</p>
+          <p>{t("footer.address")} : {t("footer.addressValue")}</p>
           <p>{t("footer.phone")} : 032-212-2882,2885,2887 {t("footer.fax")} : 032-212-2883</p>
         </div>
       </div>
