@@ -119,8 +119,11 @@ export default function AboutPage() {
             <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-8">
               {/* 비전 */}
               <div
-                className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-8 overflow-hidden"
-                style={{ boxShadow: '0 0 40px rgba(253, 230, 138, 0.15)' }}
+                className="bg-black/10 backdrop-blur-xl border border-white/10 rounded-2xl p-8 overflow-hidden
+                           hover:bg-black/15 hover:border-[#fde68a]/30 transition-all duration-500"
+                style={{ boxShadow: '0 0 30px rgba(255, 255, 255, 0.08)' }}
+                onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 40px rgba(253, 230, 138, 0.25), 0 0 80px rgba(253, 230, 138, 0.15)'}
+                onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 0 30px rgba(255, 255, 255, 0.08)'}
               >
                 <h2
                   className="text-2xl font-bold text-[#fde68a] mb-4"
@@ -139,8 +142,11 @@ export default function AboutPage() {
 
               {/* 미션 */}
               <div
-                className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-8 overflow-hidden"
-                style={{ boxShadow: '0 0 40px rgba(253, 230, 138, 0.15)' }}
+                className="bg-black/10 backdrop-blur-xl border border-white/10 rounded-2xl p-8 overflow-hidden
+                           hover:bg-black/15 hover:border-[#fde68a]/30 transition-all duration-500"
+                style={{ boxShadow: '0 0 30px rgba(255, 255, 255, 0.08)' }}
+                onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 40px rgba(253, 230, 138, 0.25), 0 0 80px rgba(253, 230, 138, 0.15)'}
+                onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 0 30px rgba(255, 255, 255, 0.08)'}
               >
                 <h2
                   className="text-2xl font-bold text-[#fde68a] mb-4"
@@ -174,9 +180,11 @@ export default function AboutPage() {
                 {coreValues.map((value, index) => (
                   <div
                     key={index}
-                    className="bg-black/30 backdrop-blur-lg border border-white/10 rounded-xl p-6 text-center overflow-hidden
-                               hover:bg-black/50 hover:border-white/20 transition-all duration-300"
-                    style={{ boxShadow: '0 0 20px rgba(253, 230, 138, 0.1)' }}
+                    className="bg-black/10 backdrop-blur-xl border border-white/10 rounded-xl p-6 text-center overflow-hidden
+                               hover:bg-black/15 hover:border-[#fde68a]/30 transition-all duration-500"
+                    style={{ boxShadow: '0 0 30px rgba(255, 255, 255, 0.08)' }}
+                    onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 40px rgba(253, 230, 138, 0.25), 0 0 80px rgba(253, 230, 138, 0.15)'}
+                    onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 0 30px rgba(255, 255, 255, 0.08)'}
                   >
                     <div
                       className="text-3xl mb-4 text-[#fde68a]"
@@ -203,8 +211,11 @@ export default function AboutPage() {
                 {t("aboutPage.whyDlasTitle")}
               </h2>
               <div
-                className="bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl p-8 md:p-12 overflow-hidden"
-                style={{ boxShadow: '0 0 60px rgba(253, 230, 138, 0.1), 0 0 30px rgba(253, 230, 138, 0.05)' }}
+                className="bg-black/10 backdrop-blur-xl border border-white/10 rounded-2xl p-8 md:p-12 overflow-hidden
+                           hover:bg-black/15 hover:border-[#fde68a]/30 transition-all duration-500"
+                style={{ boxShadow: '0 0 30px rgba(255, 255, 255, 0.08)' }}
+                onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 40px rgba(253, 230, 138, 0.25), 0 0 80px rgba(253, 230, 138, 0.15)'}
+                onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 0 30px rgba(255, 255, 255, 0.08)'}
               >
                 <p className="text-white/80 text-lg md:text-xl leading-relaxed mb-6">
                   <span className="text-white font-semibold">D</span>ental{' '}

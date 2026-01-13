@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { useLang } from "@/components/LanguageWrapper";
 import PageLayout from "@/components/PageLayout";
+import MouseLight from "@/components/MouseLight";
 
 export default function TermsPage() {
   const { t } = useLang();
@@ -50,6 +51,9 @@ export default function TermsPage() {
           />
         </div>
 
+        {/* 마우스를 따라다니는 빛 효과 */}
+        {bgPhase !== 'clear' && <MouseLight />}
+
         {/* Terms & Privacy 섹션 */}
         <section className="py-20 px-6 relative min-h-screen">
           <div
@@ -61,7 +65,13 @@ export default function TermsPage() {
           >
             <h2 className="text-4xl font-bold mb-8 text-center text-[#f8fafc]">{t("terms.title")}</h2>
 
-            <div className="glass rounded-xl p-8 mb-8">
+            <div
+              className="bg-black/10 backdrop-blur-xl rounded-xl border border-white/10 p-8 mb-8
+                         hover:bg-black/15 hover:border-[#fde68a]/30 transition-all duration-500"
+              style={{ boxShadow: '0 0 30px rgba(255, 255, 255, 0.08)' }}
+              onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 40px rgba(253, 230, 138, 0.25), 0 0 80px rgba(253, 230, 138, 0.15)'}
+              onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 0 30px rgba(255, 255, 255, 0.08)'}
+            >
               <h3 className="text-2xl font-bold mb-6 text-[#f8fafc]">{t("terms.headingTerms")}</h3>
               {[
                 "article1",
@@ -88,7 +98,13 @@ export default function TermsPage() {
               </p>
             </div>
 
-            <div className="glass rounded-xl p-8">
+            <div
+              className="bg-black/10 backdrop-blur-xl rounded-xl border border-white/10 p-8
+                         hover:bg-black/15 hover:border-[#fde68a]/30 transition-all duration-500"
+              style={{ boxShadow: '0 0 30px rgba(255, 255, 255, 0.08)' }}
+              onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 40px rgba(253, 230, 138, 0.25), 0 0 80px rgba(253, 230, 138, 0.15)'}
+              onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 0 30px rgba(255, 255, 255, 0.08)'}
+            >
               <h3 className="text-2xl font-bold mb-6 text-[#f8fafc]">{t("privacy.headingPrivacy")}</h3>
               <p className="mb-4 text-[#f8fafc]/70">{t("privacy.intro")}</p>
               {["article1", "article2", "article3", "article4", "article5", "article6", "article7", "article8"].map(
