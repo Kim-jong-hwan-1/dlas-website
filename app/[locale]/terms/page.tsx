@@ -84,7 +84,7 @@ export default function TermsPage() {
                 "article8",
               ].map((a) => (
                 <div key={a} className="mb-4">
-                  <h4 className="font-semibold mb-1 text-[#06b6d4]">{t(`terms.${a}.title`)}</h4>
+                  <h4 className="font-semibold mb-1 text-[#fde68a]">{t(`terms.${a}.title`)}</h4>
                   <p
                     className="text-[#f8fafc]/70"
                     dangerouslySetInnerHTML={{
@@ -110,7 +110,7 @@ export default function TermsPage() {
               {["article1", "article2", "article3", "article4", "article5", "article6", "article7", "article8"].map(
                 (a) => (
                   <div key={a} className="mb-4">
-                    <h4 className="font-semibold mb-1 text-[#06b6d4]">{t(`privacy.${a}.title`)}</h4>
+                    <h4 className="font-semibold mb-1 text-[#fde68a]">{t(`privacy.${a}.title`)}</h4>
                     <p
                       className="text-[#f8fafc]/70"
                       dangerouslySetInnerHTML={{
