@@ -1723,28 +1723,28 @@ export default function BuyPage() {
                             className="bg-black/30 border border-white/10 text-white rounded-lg px-4 py-4 font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-black/50 hover:border-white/20"
                           >
                             <span className="text-lg">{t("buyPage.week1")}</span>
-                            <span className="text-sm text-[#c4b5fd]">₩19,000</span>
+                            <span className="text-sm text-[#fde68a]">₩19,000</span>
                           </button>
                           <button
                             onClick={() => handleFastEditorPayment("1MONTH")}
                             className="bg-black/30 border border-white/10 text-white rounded-lg px-4 py-4 font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-black/50 hover:border-white/20"
                           >
                             <span className="text-lg">{t("buyPage.month1")}</span>
-                            <span className="text-sm text-[#c4b5fd]">₩49,000</span>
+                            <span className="text-sm text-[#fde68a]">₩49,000</span>
                           </button>
                           <button
                             onClick={() => handleFastEditorPayment("1YEAR")}
                             className="bg-black/30 border border-white/10 text-white rounded-lg px-4 py-4 font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-black/50 hover:border-white/20"
                           >
                             <span className="text-lg">{t("buyPage.year1")}</span>
-                            <span className="text-sm text-[#c4b5fd]">₩290,000</span>
+                            <span className="text-sm text-[#fde68a]">₩290,000</span>
                           </button>
                           <button
                             onClick={() => handleFastEditorPayment("LIFETIME")}
                             className="bg-black/30 border border-white/10 text-white rounded-lg px-4 py-4 font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-black/50 hover:border-white/20"
                           >
                             <span className="text-lg">{t("buyPage.lifetime")}</span>
-                            <span className="text-sm text-[#c4b5fd]">₩770,000</span>
+                            <span className="text-sm text-[#fde68a]">₩770,000</span>
                           </button>
                         </div>
                       </div>
@@ -1817,28 +1817,28 @@ export default function BuyPage() {
                             className="bg-black/30 border border-white/10 text-white rounded-lg px-4 py-4 font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-black/50 hover:border-white/20"
                           >
                             <span className="text-lg">{t("buyPage.week1")}</span>
-                            <span className="text-sm text-[#c4b5fd]">$19</span>
+                            <span className="text-sm text-[#fde68a]">$19</span>
                           </button>
                           <button
                             onClick={() => handleFastEditorPayment("1MONTH")}
                             className="bg-black/30 border border-white/10 text-white rounded-lg px-4 py-4 font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-black/50 hover:border-white/20"
                           >
                             <span className="text-lg">{t("buyPage.month1")}</span>
-                            <span className="text-sm text-[#c4b5fd]">$49</span>
+                            <span className="text-sm text-[#fde68a]">$49</span>
                           </button>
                           <button
                             onClick={() => handleFastEditorPayment("1YEAR")}
                             className="bg-black/30 border border-white/10 text-white rounded-lg px-4 py-4 font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-black/50 hover:border-white/20"
                           >
                             <span className="text-lg">{t("buyPage.year1")}</span>
-                            <span className="text-sm text-[#c4b5fd]">$290</span>
+                            <span className="text-sm text-[#fde68a]">$290</span>
                           </button>
                           <button
                             onClick={() => handleFastEditorPayment("LIFETIME")}
                             className="bg-black/30 border border-white/10 text-white rounded-lg px-4 py-4 font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-black/50 hover:border-white/20"
                           >
                             <span className="text-lg">{t("buyPage.lifetime")}</span>
-                            <span className="text-sm text-[#c4b5fd]">$770</span>
+                            <span className="text-sm text-[#fde68a]">$770</span>
                           </button>
                         </div>
 
