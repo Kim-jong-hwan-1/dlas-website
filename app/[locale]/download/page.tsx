@@ -70,7 +70,15 @@ export default function DownloadPage() {
               transform: bgPhase !== 'clear' ? 'translateY(0)' : 'translateY(20px)',
             }}
           >
-            <h2 className="text-4xl font-bold mb-12 text-[#f8fafc]">{t("download.title")}</h2>
+            <h2 className="text-4xl font-bold mb-8 text-[#f8fafc]">{t("download.title")}</h2>
+
+            {/* 해외 사용자 안내 문구 */}
+            {!isKorean && (
+              <p className="text-white/60 text-sm mb-8 max-w-2xl mx-auto px-4 leading-relaxed">
+                {t("footer.globalNotice")}
+              </p>
+            )}
+
             <div className="flex flex-col sm:flex-row justify-center gap-6 sm:gap-12 w-full px-4">
               {/* 자동화 모듈 - 모든 언어에서 표시, 한국 외 지역은 클릭 시 안내 모달 */}
               {isKorean ? (

@@ -1620,10 +1620,17 @@ export default function BuyPage() {
               transform: bgPhase !== 'clear' ? 'translateY(0)' : 'translateY(20px)',
             }}
           >
-            <h2 className="text-4xl font-bold mb-12 text-center text-white">{t("nav.buy")}</h2>
+            <h2 className="text-4xl font-bold mb-8 text-center text-white">{t("nav.buy")}</h2>
+
+            {/* 해외 사용자 안내 문구 */}
+            {!isKorean && (
+              <p className="text-white/60 text-sm mb-8 max-w-2xl mx-auto px-4 leading-relaxed text-center">
+                {t("footer.globalNotice")}
+              </p>
+            )}
 
             <div className="flex flex-col gap-y-16 w-full">
-              {/* 한국어: 버튼 선택 UI / 해외: FAST EDITOR만 표시 */}
+              {/* 한국어: 버튼 선택 UI / 해외: 두 버튼 표시 */}
               {isKorean ? (
                 activeTab === null ? (
                   /* 초기 화면: 다운로드 페이지처럼 두 버튼 표시 (중앙 정렬) */

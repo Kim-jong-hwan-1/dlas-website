@@ -180,6 +180,8 @@ This privacy policy may be changed due to legal amendments or service improvemen
       addressValue: "Room 543, Support Building, Cheongna The Rive Tiamo Knowledge Industry Center, 202-3 Cheongna-dong, Seo-gu, Incheon, South Korea",
       phone: "Phone",
       fax: "Fax",
+      email: "Email",
+      globalNotice: "We are in the early stages of our global launch. We understand that various issues may arise. We promise to respond as quickly as possible. For any inquiries, please contact us at support@dlas.io.",
     },
     // Home page
     homePage: {
@@ -689,6 +691,8 @@ This privacy policy may be changed due to legal amendments or service improvemen
       addressValue: "大韓民国 仁川市 西区 青羅洞 202-3番地 青羅ザ・リブティアモ知識産業センター 支援棟 543号",
       phone: "電話",
       fax: "ファックス",
+      email: "メール",
+      globalNotice: "グローバルローンチの初期段階です。様々な問題が発生する可能性があることを理解しております。できる限り迅速に対応することをお約束いたします。お問い合わせは support@dlas.io までご連絡ください。",
     },
     // ホームページ
     homePage: {
@@ -1836,6 +1840,8 @@ This privacy policy may be changed due to legal amendments or service improvemen
       addressValue: "인천시 서구 청라동 202-3번지 청라더리브티아모지식산업센터 지원동 543호, 대한민국",
       phone: "전화",
       fax: "팩스",
+      email: "이메일",
+      globalNotice: "해외 런칭 초기 단계입니다. 여러 문제가 발생할 수 있다고 생각합니다. 최대한 빠른 대처를 해드릴 것을 약속드리며, 문의사항은 support@dlas.io로 문의해 주십시오.",
     },
     // 홈 페이지
     homePage: {
@@ -2344,6 +2350,8 @@ This privacy policy may be changed due to legal amendments or service improvemen
       addressValue: "Sala 543, Edificio de Apoyo, Centro Industrial del Conocimiento Cheongna The Rive Tiamo, 202-3 Cheongna-dong, Seo-gu, Incheon, Corea del Sur",
       phone: "Teléfono",
       fax: "Fax",
+      email: "Correo electrónico",
+      globalNotice: "Estamos en las etapas iniciales de nuestro lanzamiento global. Entendemos que pueden surgir diversos problemas. Prometemos responder lo más rápido posible. Para cualquier consulta, contáctenos en support@dlas.io.",
     },
     // Página de inicio
     homePage: {
