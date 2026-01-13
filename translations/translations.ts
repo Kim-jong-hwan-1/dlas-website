@@ -166,7 +166,18 @@ This privacy policy may be changed due to legal amendments or service improvemen
       },
     },
     common: { yes: "Yes", no: "No", ok: "OK", back: "Back" },
-    footer: { rights: "All rights reserved.", youtube: "YouTube", instagram: "Instagram", kakao: "KakaoTalk" },
+    footer: {
+      rights: "All rights reserved.",
+      youtube: "YouTube",
+      instagram: "Instagram",
+      kakao: "KakaoTalk",
+      ceo: "CEO",
+      businessNumber: "Business Registration Number",
+      salesNumber: "E-commerce Registration Number",
+      address: "Address",
+      phone: "Phone",
+      fax: "Fax",
+    },
     // Home page
     homePage: {
       text1: "From Hand Skills to System Skills",
@@ -665,7 +676,13 @@ This privacy policy may be changed due to legal amendments or service improvemen
       rights: "全著作権所有。",
       youtube: "YouTube",
       instagram: "Instagram",
-      kakao: "KakaoTalk"
+      kakao: "KakaoTalk",
+      ceo: "代表",
+      businessNumber: "事業者登録番号",
+      salesNumber: "通信販売業届出番号",
+      address: "住所",
+      phone: "電話",
+      fax: "ファックス",
     },
     // ホームページ
     homePage: {
@@ -1804,6 +1821,12 @@ This privacy policy may be changed due to legal amendments or service improvemen
       youtube: "유튜브",
       instagram: "인스타그램",
       kakao: "카카오톡채널",
+      ceo: "대표",
+      businessNumber: "사업자 등록번호",
+      salesNumber: "통신판매업 신고번호",
+      address: "주소",
+      phone: "전화",
+      fax: "팩스",
     },
     // 홈 페이지
     homePage: {
@@ -2302,7 +2325,13 @@ This privacy policy may be changed due to legal amendments or service improvemen
       rights: "Todos los derechos reservados.",
       youtube: "YouTube",
       instagram: "Instagram",
-      kakao: "KakaoTalk"
+      kakao: "KakaoTalk",
+      ceo: "CEO",
+      businessNumber: "Número de Registro Comercial",
+      salesNumber: "Número de Registro de Comercio Electrónico",
+      address: "Dirección",
+      phone: "Teléfono",
+      fax: "Fax",
     },
     // Página de inicio
     homePage: {
