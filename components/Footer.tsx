@@ -73,7 +73,7 @@ export default function Footer({ showUI = true }: FooterProps) {
           <p>DLAS</p>
           <p>{t("footer.ceo")} : {t("footer.ceoName")}</p>
           <p>{t("footer.businessNumber")} : 753-06-03175</p>
-          <p>{t("footer.salesNumber")} : 2025-대전서구-1033</p>
+          <p>{t("footer.salesNumber")} : {t("footer.salesNumberValue")}</p>
           <p>{t("footer.address")} : {t("footer.addressValue")}</p>
           <p>{t("footer.phone")} : 032-212-2882,2885,2887 {t("footer.fax")} : 032-212-2883</p>
         </div>
