@@ -20,7 +20,7 @@ function AnimatedText({ text, isVisible, wordDelay = 250 }: { text: string; isVi
   const show = mounted && isVisible;
 
   return (
-    <span className="whitespace-nowrap">
+    <span className="inline-block text-center w-full">
       {words.map((word, index) => (
         <span
           key={index}
