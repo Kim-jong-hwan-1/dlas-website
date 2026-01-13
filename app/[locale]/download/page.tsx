@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { useLang } from "@/components/LanguageWrapper";
 import PageLayout from "@/components/PageLayout";
+import MouseLight from "@/components/MouseLight";
 
 export default function DownloadPage() {
   const { t, lang } = useLang();
@@ -55,6 +56,9 @@ export default function DownloadPage() {
             style={{ transitionDuration: '0.8s' }}
           />
         </div>
+
+        {/* 마우스를 따라다니는 빛 효과 */}
+        {bgPhase !== 'clear' && <MouseLight />}
 
         {/* 다운로드 섹션 */}
         <section className="text-center py-20 relative min-h-[80vh] flex flex-col items-center justify-center">

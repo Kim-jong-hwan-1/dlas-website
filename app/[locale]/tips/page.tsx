@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { useLang } from "@/components/LanguageWrapper";
 import PageLayout from "@/components/PageLayout";
+import MouseLight from "@/components/MouseLight";
 
 export default function TipsPage() {
   const { t } = useLang();
@@ -71,6 +72,9 @@ export default function TipsPage() {
             style={{ transitionDuration: '0.8s' }}
           />
         </div>
+
+        {/* 마우스를 따라다니는 빛 효과 */}
+        {bgPhase !== 'clear' && <MouseLight />}
 
         {/* 기공작업팁 섹션 */}
         <section className="py-20 px-6 relative min-h-screen">

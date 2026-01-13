@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import PageLayout from "@/components/PageLayout";
 import { useLang } from "@/components/LanguageWrapper";
+import MouseLight from "@/components/MouseLight";
 
 export default function AboutPage() {
   const { t } = useLang();
@@ -79,6 +80,9 @@ export default function AboutPage() {
             style={{ transitionDuration: '0.8s' }}
           />
         </div>
+
+        {/* 마우스를 따라다니는 빛 효과 */}
+        {bgPhase !== 'clear' && <MouseLight />}
 
         {/* 메인 콘텐츠 */}
         <div

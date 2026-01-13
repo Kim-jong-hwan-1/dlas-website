@@ -6,6 +6,7 @@ import Image from "next/image";
 import Script from "next/script";
 import { useLang } from "@/components/LanguageWrapper";
 import PageLayout from "@/components/PageLayout";
+import MouseLight from "@/components/MouseLight";
 
 // ---------------------------------------------
 // Local types to avoid global Window conflicts
@@ -1595,6 +1596,9 @@ export default function BuyPage() {
             style={{ transitionDuration: '0.8s' }}
           />
         </div>
+
+        {/* 마우스를 따라다니는 빛 효과 */}
+        {bgPhase !== 'clear' && <MouseLight />}
 
         {/* 구매 섹션 */}
         <section className={`relative transition-all duration-500 ${

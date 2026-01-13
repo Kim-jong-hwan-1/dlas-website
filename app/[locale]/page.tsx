@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import PageLayout from "@/components/PageLayout";
 import Image from "next/image";
 import { useLang } from "@/components/LanguageWrapper";
+import MouseLight from "@/components/MouseLight";
 
 // 단어별 애니메이션 컴포넌트
 function AnimatedText({ text, isVisible, wordDelay = 250 }: { text: string; isVisible: boolean; wordDelay?: number }) {
@@ -222,6 +223,9 @@ export default function HomePage() {
             style={{ transitionDuration: '0.8s' }}
           />
         </div>
+
+        {/* 마우스를 따라다니는 은은한 빛 효과 */}
+        {bgPhase !== 'clear' && <MouseLight />}
 
         {/* 홈 섹션 */}
         <section className="text-center py-32 relative overflow-hidden min-h-[80vh] flex flex-col justify-center">
