@@ -58,20 +58,15 @@ export default function MouseLight() {
           width: 1200,
           height: 1200,
           background: `radial-gradient(circle,
-            rgba(253, 230, 138, 0.025) 0%,
-            rgba(253, 230, 138, 0.022) 5%,
+            rgba(253, 230, 138, 0.02) 0%,
             rgba(253, 230, 138, 0.018) 10%,
-            rgba(253, 230, 138, 0.015) 15%,
-            rgba(253, 230, 138, 0.012) 20%,
-            rgba(253, 230, 138, 0.01) 25%,
-            rgba(253, 230, 138, 0.008) 30%,
-            rgba(253, 230, 138, 0.006) 35%,
-            rgba(253, 230, 138, 0.004) 40%,
-            rgba(253, 230, 138, 0.003) 45%,
-            rgba(253, 230, 138, 0.002) 50%,
-            rgba(253, 230, 138, 0.001) 55%,
-            transparent 60%)`,
-          filter: 'blur(100px)',
+            rgba(253, 230, 138, 0.015) 20%,
+            rgba(253, 230, 138, 0.012) 30%,
+            rgba(253, 230, 138, 0.008) 40%,
+            rgba(253, 230, 138, 0.004) 50%,
+            rgba(253, 230, 138, 0.002) 60%,
+            transparent 70%)`,
+          filter: 'blur(20px)',
         }}
       />
 
@@ -84,26 +79,22 @@ export default function MouseLight() {
           width: 800,
           height: 800,
           background: `radial-gradient(circle,
-            rgba(253, 230, 138, 0.04) 0%,
-            rgba(253, 230, 138, 0.035) 5%,
-            rgba(253, 230, 138, 0.03) 10%,
-            rgba(253, 230, 138, 0.025) 15%,
+            rgba(253, 230, 138, 0.03) 0%,
+            rgba(253, 230, 138, 0.025) 10%,
             rgba(253, 230, 138, 0.02) 20%,
-            rgba(253, 230, 138, 0.016) 25%,
-            rgba(253, 230, 138, 0.012) 30%,
-            rgba(253, 230, 138, 0.008) 35%,
-            rgba(253, 230, 138, 0.005) 40%,
-            rgba(253, 230, 138, 0.003) 45%,
-            rgba(253, 230, 138, 0.001) 50%,
-            transparent 55%)`,
-          filter: 'blur(60px)',
+            rgba(253, 230, 138, 0.015) 30%,
+            rgba(253, 230, 138, 0.01) 40%,
+            rgba(253, 230, 138, 0.005) 50%,
+            rgba(253, 230, 138, 0.002) 60%,
+            transparent 70%)`,
+          filter: 'blur(15px)',
         }}
       />
 
       {/* 빛의 궤적 - 자취 효과 */}
       {mouseTrail.map((trail) => {
         const age = (Date.now() - trail.time) / 3000;
-        const opacity = Math.max(0, 1 - age) * 0.025;
+        const opacity = Math.max(0, 1 - age) * 0.02;
         return (
           <div
             key={trail.id}
@@ -115,13 +106,11 @@ export default function MouseLight() {
               height: 600,
               background: `radial-gradient(circle,
                 rgba(253, 230, 138, ${opacity}) 0%,
-                rgba(253, 230, 138, ${opacity * 0.8}) 10%,
-                rgba(253, 230, 138, ${opacity * 0.6}) 20%,
-                rgba(253, 230, 138, ${opacity * 0.4}) 30%,
-                rgba(253, 230, 138, ${opacity * 0.2}) 40%,
-                rgba(253, 230, 138, ${opacity * 0.1}) 50%,
-                transparent 60%)`,
-              filter: 'blur(50px)',
+                rgba(253, 230, 138, ${opacity * 0.7}) 20%,
+                rgba(253, 230, 138, ${opacity * 0.4}) 40%,
+                rgba(253, 230, 138, ${opacity * 0.15}) 60%,
+                transparent 80%)`,
+              filter: 'blur(10px)',
             }}
           />
         );
@@ -136,18 +125,13 @@ export default function MouseLight() {
           width: 500,
           height: 500,
           background: `radial-gradient(circle,
-            rgba(253, 230, 138, 0.05) 0%,
-            rgba(253, 230, 138, 0.04) 5%,
-            rgba(253, 230, 138, 0.03) 10%,
-            rgba(253, 230, 138, 0.025) 15%,
-            rgba(253, 230, 138, 0.02) 20%,
-            rgba(253, 230, 138, 0.015) 25%,
-            rgba(253, 230, 138, 0.01) 30%,
-            rgba(253, 230, 138, 0.006) 35%,
-            rgba(253, 230, 138, 0.003) 40%,
-            rgba(253, 230, 138, 0.001) 45%,
-            transparent 50%)`,
-          filter: 'blur(40px)',
+            rgba(253, 230, 138, 0.04) 0%,
+            rgba(253, 230, 138, 0.03) 15%,
+            rgba(253, 230, 138, 0.02) 30%,
+            rgba(253, 230, 138, 0.01) 45%,
+            rgba(253, 230, 138, 0.005) 60%,
+            transparent 75%)`,
+          filter: 'blur(12px)',
           transition: 'left 0.5s ease-out, top 0.5s ease-out',
         }}
       />
