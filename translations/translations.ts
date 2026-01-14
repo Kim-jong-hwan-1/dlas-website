@@ -478,6 +478,33 @@ This privacy policy may be changed due to legal amendments or service improvemen
     article5: { title: "第五条（个人信息销毁）", desc: `个人信息将在保存期限结束后安全销毁。<br/>- 数字文件：永久删除<br/>- 纸质文件：碎纸或焚烧` },
     article6: { title: "第六条（用户权利）", desc: `您有权随时请求查看、更正、删除或限制个人信息处理。` },
     article7: { title: "第七条（数据保护负责人）", desc: `- 负责人：金钟焕<br/>- 邮箱：support@dlas.io` },
+    article8: {
+      title: "第八条（移动应用隐私处理）",
+      desc: `本公司通过DLAS Viewer（以下简称"本应用"）处理个人信息如下：<br/>
+<br/>
+<strong>1. 信息的收集和使用</strong><br/>
+- 本应用使用Apple ID进行登录，可能收集Apple提供的用户识别信息（User ID）和邮箱地址。<br/>
+- 收集的信息仅用于用户认证和服务提供目的。<br/>
+<br/>
+<strong>2. 信息的保存</strong><br/>
+- 本公司将通过本应用收集的信息保存在公司安全服务器上，并按照网站上公示的隐私政策相同标准进行管理。<br/>
+<br/>
+<strong>3. 遵守iOS和Apple政策</strong><br/>
+- 本应用遵循Apple的App Store审核指南和隐私政策进行开发。<br/>
+- 用户个人信息遵循Apple操作系统政策。<br/>
+<br/>
+<strong>4. 第三方提供及外部模块</strong><br/>
+- 本应用不向第三方提供或出售用户个人信息。<br/>
+- 本应用除iOS和Apple提供的基本平台功能外，不使用第三方分析或广告服务。<br/>
+<br/>
+<strong>5. 权利及咨询</strong><br/>
+如对个人信息处理有疑问，请通过以下方式联系：<br/>
+- 开发者：DLAS<br/>
+- 邮箱：CEO@dlas.io<br/>
+<br/>
+<strong>6. 隐私政策变更</strong><br/>
+本隐私政策可能因法律法规变更或服务改进而变更，重要变更将通过本应用更新说明或网站公告通知。`
+    },
     effectiveDate: "生效日期：2025年11月8日"
   },
   login: {
@@ -637,6 +664,33 @@ This privacy policy may be changed due to legal amendments or service improvemen
       article5: { title: "第5条（個人情報の破棄）", desc: `保存期間終了後、安全に個人情報を破棄します。<br/>- 電子ファイルは完全消去<br/>- 紙媒体はシュレッダー処理または焼却` },
       article6: { title: "第6条（ユーザーの権利）", desc: `いつでも個人情報の閲覧、訂正、削除、利用制限を請求できます。` },
       article7: { title: "第7条（個人情報保護責任者）", desc: `- 担当者：キム・ジョンファン<br/>- メール：support@dlas.io` },
+      article8: {
+        title: "第8条（モバイルアプリの個人情報処理）",
+        desc: `当社はDLAS Viewer（以下「本アプリ」）を通じて以下のように個人情報を処理します：<br/>
+<br/>
+<strong>1. 情報の収集および使用</strong><br/>
+- 本アプリはApple IDと連携してログインし、Appleが提供するユーザー識別情報（User ID）およびメールアドレスを収集することがあります。<br/>
+- 収集された情報はユーザー認証およびサービス提供目的でのみ使用されます。<br/>
+<br/>
+<strong>2. 情報の保有</strong><br/>
+- 当社は本アプリを通じて収集した情報を当社のセキュリティサーバーに保存し、ウェブサイトに明示された個人情報処理方針と同一の基準で管理します。<br/>
+<br/>
+<strong>3. iOSおよびAppleポリシーの遵守</strong><br/>
+- 本アプリはAppleのApp Store審査ガイドラインおよび個人情報保護ポリシーを遵守して開発されています。<br/>
+- ユーザーの個人情報はAppleのオペレーティングシステムポリシーに従います。<br/>
+<br/>
+<strong>4. 第三者提供および外部モジュール</strong><br/>
+- 本アプリはユーザーの個人情報を第三者に提供または販売しません。<br/>
+- 本アプリはiOSおよびAppleが提供する基本プラットフォーム機能以外に、第三者の分析・広告サービスを使用しません。<br/>
+<br/>
+<strong>5. 権利およびお問い合わせ</strong><br/>
+個人情報処理に関するお問い合わせは、下記の連絡先までご連絡ください。<br/>
+- 開発者：DLAS<br/>
+- メール：CEO@dlas.io<br/>
+<br/>
+<strong>6. 個人情報処理方針の変更</strong><br/>
+法令の変更またはサービス改善のため、本個人情報処理方針が変更される場合があり、重要な変更がある場合は本アプリのアップデート案内またはウェブページ公知を通じてお知らせします。`
+      },
       effectiveDate: "施行日：2025年11月8日"
     },
     login: {
@@ -973,8 +1027,9 @@ This privacy policy may be changed due to legal amendments or service improvemen
       article5: { title: "Artikel 5 (Zahlung und Rückerstattungen)", desc: `1. Nutzer können Produkte über vom Unternehmen festgelegte Zahlungsmethoden erwerben.<br/>2. Aufgrund der Natur digitaler Produkte sind Rückerstattungen nach Download oder Aktivierung, außer gesetzlich vorgeschrieben, nicht möglich.` },
       article6: { title: "Artikel 6 (Geistiges Eigentum)", desc: `1. Alle Inhalte und Software auf der Website sind urheberrechtlich geschützt und Eigentum des Unternehmens.<br/>2. Unautorisierte Vervielfältigung, Weiterverbreitung oder Reverse Engineering sind verboten und können rechtliche Konsequenzen nach sich ziehen.` },
       article7: { title: "Artikel 7 (Haftungsausschluss)", desc: `1. Das Unternehmen haftet nicht für Dienstunterbrechungen durch höhere Gewalt wie Naturkatastrophen, Cyberangriffe oder Systemausfälle.<br/>2. Das Unternehmen übernimmt keine Haftung für Schäden durch Fahrlässigkeit des Nutzers.` },
-      article8: { title: "Artikel 8 (Anwendbares Recht und Gerichtsstand)", desc: `Streitigkeiten aus diesen Bedingungen unterliegen dem Recht der Republik Korea. Gerichtsstand ist das Gericht am Unternehmenssitz.` },
-      effectiveDate: "Wirksamkeitsdatum: 29. April 2025"
+      article8: { title: "Artikel 8 (Verbot der Kontofreigabe und Sanktionen)", desc: `1. Benutzer dürfen ihr Konto (ID und Passwort) nicht mit anderen teilen oder übertragen.<br/>2. Das Unternehmen kann IP-Adressen, Zugriffsprotokolle und Nutzungsmuster der Benutzer erfassen und analysieren, um die gemeinsame Nutzung von Konten und unbefugte Nutzung zu verhindern, gemäß den Datenschutzrichtlinien.<br/>3. Bei Erkennung anomaler Zugriffsmuster (z.B. gleichzeitiger Zugriff von verschiedenen Standorten innerhalb kurzer Zeit, übermäßige Gerätewechsel) kann das Unternehmen die Nutzung des Kontos vorübergehend aussetzen oder dauerhaft einschränken.<br/>4. Bei bestätigter Kontofreigabe kann das Unternehmen das Konto ohne Vorankündigung sperren oder den Servicevertrag kündigen, und es erfolgt keine Rückerstattung.` },
+      article9: { title: "Artikel 9 (Anwendbares Recht und Gerichtsstand)", desc: `Streitigkeiten aus diesen Bedingungen unterliegen dem Recht der Republik Korea. Gerichtsstand ist das Gericht am Unternehmenssitz.` },
+      effectiveDate: "Wirksamkeitsdatum: 8. November 2025"
     },
     privacy: {
       headingPrivacy: "[Datenschutzrichtlinie]",
@@ -986,7 +1041,34 @@ This privacy policy may be changed due to legal amendments or service improvemen
       article5: { title: "Artikel 5 (Löschung personenbezogener Daten)", desc: `Personenbezogene Daten werden nach Ablauf der Aufbewahrungsfrist sicher gelöscht.<br/>- Digitale Dateien: dauerhaft gelöscht<br/>- Papierunterlagen: geschreddert oder verbrannt` },
       article6: { title: "Artikel 6 (Rechte der Nutzer)", desc: `Sie können jederzeit Auskunft, Berichtigung, Löschung oder Einschränkung der Verarbeitung Ihrer personenbezogenen Daten verlangen.` },
       article7: { title: "Artikel 7 (Datenschutzbeauftragter)", desc: `- Verantwortlicher: JongHwan Kim<br/>- E-Mail: support@dlas.io` },
-      effectiveDate: "Wirksamkeitsdatum: 29. April 2025"
+      article8: {
+        title: "Artikel 8 (Datenschutz der Mobile App)",
+        desc: `Das Unternehmen verarbeitet personenbezogene Daten über DLAS Viewer (nachfolgend „die App") wie folgt:<br/>
+<br/>
+<strong>1. Erhebung und Verwendung von Informationen</strong><br/>
+- Die App nutzt Apple ID zur Authentifizierung und kann die von Apple bereitgestellte Benutzerkennung (User ID) und E-Mail-Adresse erfassen.<br/>
+- Die erfassten Informationen werden ausschließlich zur Benutzerauthentifizierung und Servicebereitstellung verwendet.<br/>
+<br/>
+<strong>2. Aufbewahrung von Informationen</strong><br/>
+- Über die App erfasste Informationen werden auf den sicheren Servern des Unternehmens gespeichert und nach denselben Standards wie in der auf der Website angegebenen Datenschutzrichtlinie verwaltet.<br/>
+<br/>
+<strong>3. Einhaltung der iOS- und Apple-Richtlinien</strong><br/>
+- Die App wurde in Übereinstimmung mit den App Store Review Guidelines und der Datenschutzrichtlinie von Apple entwickelt.<br/>
+- Die personenbezogenen Daten der Benutzer unterliegen den Richtlinien des Apple-Betriebssystems.<br/>
+<br/>
+<strong>4. Weitergabe an Dritte und externe Module</strong><br/>
+- Die App gibt personenbezogene Daten nicht an Dritte weiter und verkauft diese nicht.<br/>
+- Die App verwendet keine Analyse- oder Werbedienste von Drittanbietern, die über die von iOS und Apple bereitgestellten grundlegenden Plattformfunktionen hinausgehen.<br/>
+<br/>
+<strong>5. Rechte und Anfragen</strong><br/>
+Bei Fragen zur Verarbeitung personenbezogener Daten wenden Sie sich bitte an:<br/>
+- Entwickler: DLAS<br/>
+- E-Mail: CEO@dlas.io<br/>
+<br/>
+<strong>6. Änderungen der Datenschutzrichtlinie</strong><br/>
+Diese Datenschutzrichtlinie kann aufgrund von Gesetzesänderungen oder Serviceverbesserungen geändert werden. Wichtige Änderungen werden über die App-Update-Hinweise oder Website-Ankündigungen mitgeteilt.`
+      },
+      effectiveDate: "Wirksamkeitsdatum: 8. November 2025"
     },
     login: {
       title: "Bei DLAS anmelden",
@@ -1157,10 +1239,14 @@ This privacy policy may be changed due to legal amendments or service improvemen
         desc: `1. La Société ne saurait être tenue responsable des défaillances de service dues à des cas de force majeure tels que catastrophes naturelles, cyberattaques ou pannes système.<br/>2. La Société n’est pas responsable des dommages causés par la négligence de l’utilisateur.`
       },
       article8: {
-        title: "Article 8 (Loi applicable et juridiction)",
+        title: "Article 8 (Interdiction de partage de compte et sanctions)",
+        desc: `1. Les utilisateurs ne peuvent pas partager ou transférer leur compte (ID et mot de passe) avec des tiers.<br/>2. La Société peut collecter et analyser les adresses IP, les journaux d'accès et les modèles d'utilisation des utilisateurs pour empêcher le partage de compte et l'utilisation non autorisée, conformément à la Politique de confidentialité.<br/>3. Si des modèles d'accès anormaux sont détectés (par exemple, accès simultané depuis différents emplacements sur une courte période, changements excessifs d'appareil), la Société peut suspendre temporairement ou restreindre définitivement l'utilisation du compte.<br/>4. Si le partage de compte est confirmé, la Société peut suspendre le compte ou résilier le contrat de service sans préavis, et aucun remboursement ne sera fourni.`
+      },
+      article9: {
+        title: "Article 9 (Loi applicable et juridiction)",
         desc: `Tout litige découlant des présentes Conditions sera régi par les lois de la République de Corée, avec le tribunal du siège de la Société comme première juridiction.`
       },
-      effectiveDate: "Date d’entrée en vigueur : 29 avril 2025",
+      effectiveDate: "Date d'entrée en vigueur : 8 novembre 2025",
     },
     privacy: {
       headingPrivacy: "[Politique de confidentialité]",
@@ -1193,7 +1279,34 @@ This privacy policy may be changed due to legal amendments or service improvemen
         title: "Article 7 (Délégué à la protection des données)",
         desc: `- Responsable : JongHwan Kim<br/>- Email : support@dlas.io`
       },
-      effectiveDate: "Date d’entrée en vigueur : 29 avril 2025",
+      article8: {
+        title: "Article 8 (Confidentialité de l'application mobile)",
+        desc: `La Société traite les informations personnelles via DLAS Viewer (ci-après « l'Application ») comme suit :<br/>
+<br/>
+<strong>1. Collecte et utilisation des informations</strong><br/>
+- L'Application utilise Apple ID pour l'authentification et peut collecter l'identifiant utilisateur et l'adresse email fournis par Apple.<br/>
+- Les informations collectées sont utilisées uniquement pour l'authentification de l'utilisateur et la fourniture du service.<br/>
+<br/>
+<strong>2. Conservation des informations</strong><br/>
+- Les informations collectées via l'Application sont stockées sur les serveurs sécurisés de la Société et gérées selon les mêmes normes que la politique de confidentialité indiquée sur le site Web.<br/>
+<br/>
+<strong>3. Conformité aux politiques iOS et Apple</strong><br/>
+- L'Application est développée conformément aux Directives d'examen de l'App Store d'Apple et à la Politique de confidentialité.<br/>
+- Les informations personnelles de l'utilisateur suivent les politiques du système d'exploitation d'Apple.<br/>
+<br/>
+<strong>4. Divulgation à des tiers et modules externes</strong><br/>
+- L'Application ne fournit ni ne vend les informations personnelles de l'utilisateur à des tiers.<br/>
+- L'Application n'utilise aucun service d'analyse ou de publicité tiers au-delà des fonctionnalités de base de la plateforme fournies par iOS et Apple.<br/>
+<br/>
+<strong>5. Droits et demandes</strong><br/>
+Pour toute question concernant le traitement des informations personnelles, veuillez contacter :<br/>
+- Développeur : DLAS<br/>
+- Email : CEO@dlas.io<br/>
+<br/>
+<strong>6. Modifications de la politique de confidentialité</strong><br/>
+Cette politique de confidentialité peut être modifiée en raison de changements législatifs ou d'améliorations du service. Les modifications importantes seront notifiées via les notes de mise à jour de l'Application ou les annonces sur le site Web.`
+      },
+      effectiveDate: "Date d'entrée en vigueur : 8 novembre 2025",
     },
     login: {
       title: "Connexion à DLAS",
@@ -1340,8 +1453,9 @@ This privacy policy may be changed due to legal amendments or service improvemen
       article5: { title: "धारा 5 (भुगतान और वापसी)", desc: `1. उपयोगकर्ता कंपनी द्वारा निर्दिष्ट भुगतान विधियों से उत्पाद खरीद सकते हैं।<br/>2. डिजिटल उत्पादों की प्रकृति के कारण, डाउनलोड या सक्रियण के बाद वापसी उपलब्ध नहीं है, जहां कानूनी रूप से आवश्यक न हो।` },
       article6: { title: "धारा 6 (बौद्धिक संपदा अधिकार)", desc: `1. वेबसाइट पर उपलब्ध सभी सामग्री और सॉफ़्टवेयर कॉपीराइट के तहत संरक्षित हैं और कंपनी के स्वामित्व हैं।<br/>2. बिना अनुमति के डुप्लीकेशन, पुनर्वितरण या रिवर्स इंजीनियरिंग प्रतिबंधित है और कानूनी परिणाम हो सकते हैं।` },
       article7: { title: "धारा 7 (अस्वीकरण)", desc: `1. प्राकृतिक आपदाओं, साइबर हमलों या सिस्टम विफलताओं जैसी अपरिहार्य घटनाओं से उत्पन्न सेवा विफलताओं के लिए कंपनी जिम्मेदार नहीं होगी।<br/>2. उपयोगकर्ता की लापरवाही से हुए नुकसान के लिए कंपनी जिम्मेदार नहीं है।` },
-      article8: { title: "धारा 8 (प्रभावी कानून और न्यायालय क्षेत्राधिकार)", desc: `इन शर्तों से उत्पन्न किसी भी विवाद को रिपब्लिक ऑफ कोरिया के कानूनों के अधीन माना जाएगा, और कंपनी के मुख्यालय के न्यायालय को प्रथम दर्जे का क्षेत्राधिकार प्राप्त होगा।` },
-      effectiveDate: "प्रभावी तिथि: 29 अप्रैल 2025"
+      article8: { title: "धारा 8 (खाता साझाकरण प्रतिबंध और दंड)", desc: `1. उपयोगकर्ता अपना खाता (आईडी और पासवर्ड) दूसरों के साथ साझा या हस्तांतरित नहीं कर सकते।<br/>2. कंपनी गोपनीयता नीति के अनुसार खाता साझाकरण और अनधिकृत उपयोग को रोकने के लिए उपयोगकर्ताओं के आईपी पते, एक्सेस लॉग और उपयोग पैटर्न को एकत्र और विश्लेषण कर सकती है।<br/>3. यदि असामान्य एक्सेस पैटर्न का पता चलता है (जैसे, कम समय में विभिन्न स्थानों से एक साथ एक्सेस, अत्यधिक डिवाइस परिवर्तन), तो कंपनी खाते के उपयोग को अस्थायी रूप से निलंबित या स्थायी रूप से प्रतिबंधित कर सकती है।<br/>4. यदि खाता साझाकरण की पुष्टि हो जाती है, तो कंपनी बिना पूर्व सूचना के खाता निलंबित कर सकती है या सेवा अनुबंध समाप्त कर सकती है, और कोई रिफंड प्रदान नहीं किया जाएगा।` },
+      article9: { title: "धारा 9 (प्रभावी कानून और न्यायालय क्षेत्राधिकार)", desc: `इन शर्तों से उत्पन्न किसी भी विवाद को रिपब्लिक ऑफ कोरिया के कानूनों के अधीन माना जाएगा, और कंपनी के मुख्यालय के न्यायालय को प्रथम दर्जे का क्षेत्राधिकार प्राप्त होगा।` },
+      effectiveDate: "प्रभावी तिथि: 8 नवंबर 2025"
     },
     privacy: {
       headingPrivacy: "[गोपनीयता नीति]",
@@ -1353,7 +1467,34 @@ This privacy policy may be changed due to legal amendments or service improvemen
       article5: { title: "धारा 5 (व्यक्तिगत डेटा का विनाश)", desc: `रखरखाव अवधि समाप्त होने के बाद व्यक्तिगत डेटा सुरक्षित रूप से नष्ट कर दिया जाएगा।<br/>- डिजिटल फाइलें: स्थायी रूप से हटाई जाएंगी<br/>- कागजी दस्तावेज़: शेडर या जलाए जाएंगे` },
       article6: { title: "धारा 6 (उपयोगकर्ता के अधिकार)", desc: `आप कभी भी अपने व्यक्तिगत डेटा को देखने, संशोधित करने, हटाने या प्रोसेसिंग को सीमित करने का अनुरोध कर सकते हैं।` },
       article7: { title: "धारा 7 (डेटा संरक्षण अधिकारी)", desc: `- अधिकारी: जोंगहवान किम<br/>- ईमेल: support@dlas.io` },
-      effectiveDate: "प्रभावी तिथि: 29 अप्रैल 2025"
+      article8: {
+        title: "धारा 8 (मोबाइल ऐप गोपनीयता)",
+        desc: `कंपनी DLAS Viewer (इसके बाद "ऐप") के माध्यम से व्यक्तिगत जानकारी को निम्नानुसार प्रोसेस करती है:<br/>
+<br/>
+<strong>1. जानकारी का संग्रह और उपयोग</strong><br/>
+- ऐप प्रमाणीकरण के लिए Apple ID का उपयोग करता है और Apple द्वारा प्रदान की गई उपयोगकर्ता आईडी और ईमेल पता एकत्र कर सकता है।<br/>
+- एकत्रित जानकारी का उपयोग केवल उपयोगकर्ता प्रमाणीकरण और सेवा प्रावधान के लिए किया जाता है।<br/>
+<br/>
+<strong>2. जानकारी का संरक्षण</strong><br/>
+- ऐप के माध्यम से एकत्रित जानकारी कंपनी के सुरक्षित सर्वर पर संग्रहीत की जाती है और वेबसाइट पर उल्लिखित गोपनीयता नीति के समान मानकों के अनुसार प्रबंधित की जाती है।<br/>
+<br/>
+<strong>3. iOS और Apple नीतियों का अनुपालन</strong><br/>
+- ऐप Apple की App Store समीक्षा दिशानिर्देशों और गोपनीयता नीति के अनुपालन में विकसित किया गया है।<br/>
+- उपयोगकर्ता की व्यक्तिगत जानकारी Apple के ऑपरेटिंग सिस्टम नीतियों का पालन करती है।<br/>
+<br/>
+<strong>4. तीसरे पक्ष को खुलासा और बाहरी मॉड्यूल</strong><br/>
+- ऐप उपयोगकर्ता की व्यक्तिगत जानकारी को तीसरे पक्ष को प्रदान या बेचता नहीं है।<br/>
+- ऐप iOS और Apple द्वारा प्रदान की गई बुनियादी प्लेटफ़ॉर्म सुविधाओं के अलावा किसी तीसरे पक्ष के विश्लेषण या विज्ञापन सेवाओं का उपयोग नहीं करता है।<br/>
+<br/>
+<strong>5. अधिकार और पूछताछ</strong><br/>
+व्यक्तिगत जानकारी प्रसंस्करण के बारे में पूछताछ के लिए, कृपया संपर्क करें:<br/>
+- डेवलपर: DLAS<br/>
+- ईमेल: CEO@dlas.io<br/>
+<br/>
+<strong>6. गोपनीयता नीति में परिवर्तन</strong><br/>
+कानूनी संशोधनों या सेवा सुधारों के कारण यह गोपनीयता नीति बदल सकती है। महत्वपूर्ण परिवर्तनों की सूचना ऐप अपडेट नोट्स या वेबसाइट घोषणाओं के माध्यम से दी जाएगी।`
+      },
+      effectiveDate: "प्रभावी तिथि: 8 नवंबर 2025"
     },
     login: {
       title: "DLAS में लॉगिन करें",
@@ -1508,8 +1649,9 @@ This privacy policy may be changed due to legal amendments or service improvemen
       article5: { title: "Artigo 5 (Pagamento e Reembolsos)", desc: `1. Usuários podem comprar produtos utilizando métodos de pagamento designados pela Empresa.<br/>2. Devido à natureza dos produtos digitais, reembolsos não estão disponíveis após o download ou ativação, exceto quando exigido por lei.` },
       article6: { title: "Artigo 6 (Propriedade Intelectual)", desc: `1. Todo o conteúdo e software fornecidos no site são protegidos por direitos autorais e pertencem à Empresa.<br/>2. Reprodução, redistribuição ou engenharia reversa não autorizadas são proibidas e podem acarretar consequências legais.` },
       article7: { title: "Artigo 7 (Isenção de Responsabilidade)", desc: `1. A Empresa não será responsável por falhas de serviço causadas por força maior, como desastres naturais, ataques cibernéticos ou falhas do sistema.<br/>2. A Empresa não é responsável por danos causados por negligência do usuário.` },
-      article8: { title: "Artigo 8 (Lei Aplicável e Jurisdição)", desc: `Quaisquer disputas decorrentes destes Termos serão regidas pelas leis da República da Coreia, com o foro competente sendo o tribunal da sede da Empresa.` },
-      effectiveDate: "Data de Vigência: 29 de abril de 2025"
+      article8: { title: "Artigo 8 (Proibição de Compartilhamento de Conta e Sanções)", desc: `1. Os usuários não podem compartilhar ou transferir sua conta (ID e senha) com terceiros.<br/>2. A Empresa pode coletar e analisar endereços IP, registros de acesso e padrões de uso dos usuários para prevenir o compartilhamento de conta e uso não autorizado, de acordo com a Política de Privacidade.<br/>3. Se padrões de acesso anormais forem detectados (por exemplo, acesso simultâneo de diferentes locais em um curto período, mudanças excessivas de dispositivo), a Empresa pode suspender temporariamente ou restringir permanentemente o uso da conta.<br/>4. Se o compartilhamento de conta for confirmado, a Empresa pode suspender a conta ou rescindir o contrato de serviço sem aviso prévio, e nenhum reembolso será fornecido.` },
+      article9: { title: "Artigo 9 (Lei Aplicável e Jurisdição)", desc: `Quaisquer disputas decorrentes destes Termos serão regidas pelas leis da República da Coreia, com o foro competente sendo o tribunal da sede da Empresa.` },
+      effectiveDate: "Data de Vigência: 8 de novembro de 2025"
     },
     privacy: {
       headingPrivacy: "[Política de Privacidade]",
@@ -1521,7 +1663,34 @@ This privacy policy may be changed due to legal amendments or service improvemen
       article5: { title: "Artigo 5 (Destruição de Dados Pessoais)", desc: `Dados pessoais serão destruídos de forma segura após o período de retenção.<br/>- Arquivos digitais: excluídos permanentemente<br/>- Documentos em papel: triturados ou incinerados` },
       article6: { title: "Artigo 6 (Direitos do Usuário)", desc: `Você pode solicitar visualizar, corrigir, excluir ou restringir o processamento dos seus dados pessoais a qualquer momento.` },
       article7: { title: "Artigo 7 (Encarregado de Proteção de Dados)", desc: `- Responsável: JongHwan Kim<br/>- E-mail: support@dlas.io` },
-      effectiveDate: "Data de Vigência: 29 de abril de 2025"
+      article8: {
+        title: "Artigo 8 (Privacidade do Aplicativo Móvel)",
+        desc: `A Empresa processa informações pessoais através do DLAS Viewer (doravante "o Aplicativo") da seguinte forma:<br/>
+<br/>
+<strong>1. Coleta e Uso de Informações</strong><br/>
+- O Aplicativo usa Apple ID para autenticação e pode coletar o ID do usuário e endereço de e-mail fornecidos pela Apple.<br/>
+- As informações coletadas são usadas apenas para autenticação do usuário e fornecimento de serviço.<br/>
+<br/>
+<strong>2. Retenção de Informações</strong><br/>
+- As informações coletadas através do Aplicativo são armazenadas nos servidores seguros da Empresa e gerenciadas de acordo com os mesmos padrões da política de privacidade indicada no site.<br/>
+<br/>
+<strong>3. Conformidade com Políticas iOS e Apple</strong><br/>
+- O Aplicativo é desenvolvido em conformidade com as Diretrizes de Revisão da App Store da Apple e a Política de Privacidade.<br/>
+- As informações pessoais do usuário seguem as políticas do sistema operacional da Apple.<br/>
+<br/>
+<strong>4. Divulgação a Terceiros e Módulos Externos</strong><br/>
+- O Aplicativo não fornece nem vende informações pessoais do usuário a terceiros.<br/>
+- O Aplicativo não usa serviços de análise ou publicidade de terceiros além das funcionalidades básicas da plataforma fornecidas pelo iOS e Apple.<br/>
+<br/>
+<strong>5. Direitos e Consultas</strong><br/>
+Para consultas sobre processamento de informações pessoais, entre em contato:<br/>
+- Desenvolvedor: DLAS<br/>
+- E-mail: CEO@dlas.io<br/>
+<br/>
+<strong>6. Alterações na Política de Privacidade</strong><br/>
+Esta política de privacidade pode ser alterada devido a mudanças legais ou melhorias no serviço. Alterações importantes serão notificadas através das notas de atualização do Aplicativo ou anúncios no site.`
+      },
+      effectiveDate: "Data de Vigência: 8 de novembro de 2025"
     },
     login: {
       title: "Login no DLAS",
@@ -2125,8 +2294,9 @@ This privacy policy may be changed due to legal amendments or service improvemen
       article5: { title: "Статья 5 (Оплата и возвраты)", desc: `1. Пользователи могут приобретать продукты с использованием способов оплаты, указанных Компанией.<br/>2. Из-за особенностей цифровых продуктов возврат средств после загрузки или активации невозможен, за исключением случаев, предусмотренных законом.` },
       article6: { title: "Статья 6 (Интеллектуальная собственность)", desc: `1. Все материалы и программное обеспечение на сайте защищены авторским правом и принадлежат Компании.<br/>2. Несанкционированное копирование, распространение или обратная разработка запрещены и могут повлечь юридическую ответственность.` },
       article7: { title: "Статья 7 (Отказ от ответственности)", desc: `1. Компания не несёт ответственности за сбои в работе из-за форс-мажорных обстоятельств, таких как природные катастрофы, кибератаки или сбои системы.<br/>2. Компания не отвечает за ущерб, причинённый по вине пользователя.` },
-      article8: { title: "Статья 8 (Применимое право и юрисдикция)", desc: `Любые споры, возникающие из настоящих Условий, регулируются законодательством Республики Корея, а компетентным судом является суд по месту нахождения Компании.` },
-      effectiveDate: "Дата вступления в силу: 29 апреля 2025 г."
+      article8: { title: "Статья 8 (Запрет на совместное использование аккаунта и санкции)", desc: `1. Пользователи не могут передавать или совместно использовать свой аккаунт (ID и пароль) с другими лицами.<br/>2. Компания может собирать и анализировать IP-адреса, журналы доступа и шаблоны использования пользователей для предотвращения совместного использования аккаунтов и несанкционированного использования в соответствии с Политикой конфиденциальности.<br/>3. При обнаружении аномальных шаблонов доступа (например, одновременный доступ из разных мест в течение короткого времени, чрезмерная смена устройств) Компания может временно приостановить или навсегда ограничить использование аккаунта.<br/>4. При подтверждении совместного использования аккаунта Компания может приостановить действие аккаунта или расторгнуть договор об услугах без предварительного уведомления, и возврат средств не предоставляется.` },
+      article9: { title: "Статья 9 (Применимое право и юрисдикция)", desc: `Любые споры, возникающие из настоящих Условий, регулируются законодательством Республики Корея, а компетентным судом является суд по месту нахождения Компании.` },
+      effectiveDate: "Дата вступления в силу: 8 ноября 2025 г."
     },
     privacy: {
       headingPrivacy: "[Политика конфиденциальности]",
@@ -2138,7 +2308,34 @@ This privacy policy may be changed due to legal amendments or service improvemen
       article5: { title: "Статья 5 (Уничтожение персональных данных)", desc: `Персональные данные будут безопасно уничтожены после окончания срока хранения.<br/>- Цифровые файлы: окончательно удалены<br/>- Бумажные документы: измельчены или сожжены` },
       article6: { title: "Статья 6 (Права пользователя)", desc: `Вы можете в любой момент запросить просмотр, исправление, удаление или ограничение обработки ваших персональных данных.` },
       article7: { title: "Статья 7 (Ответственное лицо за защиту данных)", desc: `- Ответственный: Чонгхван Ким<br/>- Электронная почта: support@dlas.io` },
-      effectiveDate: "Дата вступления в силу: 29 апреля 2025 г."
+      article8: {
+        title: "Статья 8 (Конфиденциальность мобильного приложения)",
+        desc: `Компания обрабатывает персональные данные через DLAS Viewer (далее «Приложение») следующим образом:<br/>
+<br/>
+<strong>1. Сбор и использование информации</strong><br/>
+- Приложение использует Apple ID для аутентификации и может собирать идентификатор пользователя и адрес электронной почты, предоставленные Apple.<br/>
+- Собранная информация используется исключительно для аутентификации пользователя и предоставления услуг.<br/>
+<br/>
+<strong>2. Хранение информации</strong><br/>
+- Информация, собранная через Приложение, хранится на защищённых серверах Компании и управляется в соответствии с теми же стандартами, что и политика конфиденциальности на веб-сайте.<br/>
+<br/>
+<strong>3. Соответствие политикам iOS и Apple</strong><br/>
+- Приложение разработано в соответствии с Рекомендациями по проверке App Store и Политикой конфиденциальности Apple.<br/>
+- Персональные данные пользователя подчиняются политикам операционной системы Apple.<br/>
+<br/>
+<strong>4. Передача третьим лицам и внешние модули</strong><br/>
+- Приложение не предоставляет и не продаёт персональные данные пользователя третьим лицам.<br/>
+- Приложение не использует сторонние аналитические или рекламные сервисы, кроме базовых функций платформы, предоставляемых iOS и Apple.<br/>
+<br/>
+<strong>5. Права и запросы</strong><br/>
+По вопросам обработки персональных данных обращайтесь:<br/>
+- Разработчик: DLAS<br/>
+- Электронная почта: CEO@dlas.io<br/>
+<br/>
+<strong>6. Изменения в политике конфиденциальности</strong><br/>
+Данная политика конфиденциальности может быть изменена в связи с изменениями законодательства или улучшением услуг. О важных изменениях будет сообщено через примечания к обновлению Приложения или объявления на веб-сайте.`
+      },
+      effectiveDate: "Дата вступления в силу: 8 ноября 2025 г."
     },
     login: {
       title: "Войти в DLAS",
@@ -2283,8 +2480,9 @@ This privacy policy may be changed due to legal amendments or service improvemen
       article5: { title: "Artículo 5 (Pago y Reembolsos)", desc: `1. Los usuarios pueden comprar productos usando métodos de pago designados por la Empresa.<br/>2. Debido a la naturaleza de los productos digitales, no hay reembolsos después de la descarga o activación, salvo donde la ley lo exija.` },
       article6: { title: "Artículo 6 (Propiedad Intelectual)", desc: `1. Todo el contenido y software en el sitio están protegidos por derechos de autor y pertenecen a la Empresa.<br/>2. La reproducción, redistribución o ingeniería inversa no autorizadas están prohibidas y pueden conllevar consecuencias legales.` },
       article7: { title: "Artículo 7 (Descargo de Responsabilidad)", desc: `1. La Empresa no se responsabiliza por fallas de servicio causadas por fuerza mayor, como desastres naturales, ataques cibernéticos o fallos del sistema.<br/>2. La Empresa no es responsable por daños causados por negligencia del usuario.` },
-      article8: { title: "Artículo 8 (Ley Aplicable y Jurisdicción)", desc: `Cualquier disputa derivada de estos Términos se regirá por las leyes de la República de Corea, y el tribunal competente será el tribunal de la sede de la Empresa.` },
-      effectiveDate: "Fecha de vigencia: 29 de abril de 2025"
+      article8: { title: "Artículo 8 (Prohibición de Compartir Cuenta y Sanciones)", desc: `1. Los usuarios no pueden compartir ni transferir su cuenta (ID y contraseña) con terceros.<br/>2. La Empresa puede recopilar y analizar direcciones IP, registros de acceso y patrones de uso de los usuarios para prevenir el uso compartido de cuentas y el uso no autorizado, de acuerdo con la Política de Privacidad.<br/>3. Si se detectan patrones de acceso anormales (por ejemplo, acceso simultáneo desde diferentes ubicaciones en un corto período, cambios excesivos de dispositivo), la Empresa puede suspender temporalmente o restringir permanentemente el uso de la cuenta.<br/>4. Si se confirma el uso compartido de cuenta, la Empresa puede suspender la cuenta o rescindir el contrato de servicio sin previo aviso, y no se proporcionará reembolso.` },
+      article9: { title: "Artículo 9 (Ley Aplicable y Jurisdicción)", desc: `Cualquier disputa derivada de estos Términos se regirá por las leyes de la República de Corea, y el tribunal competente será el tribunal de la sede de la Empresa.` },
+      effectiveDate: "Fecha de vigencia: 8 de noviembre de 2025"
     },
     privacy: {
       headingPrivacy: "[Política de Privacidad]",
@@ -2296,7 +2494,34 @@ This privacy policy may be changed due to legal amendments or service improvemen
       article5: { title: "Artículo 5 (Destrucción de Datos Personales)", desc: `Los datos personales se destruirán de manera segura después del período de retención.<br/>- Archivos digitales: eliminados permanentemente<br/>- Documentos en papel: triturados o incinerados` },
       article6: { title: "Artículo 6 (Derechos del Usuario)", desc: `Puedes solicitar en cualquier momento ver, corregir, eliminar o limitar el procesamiento de tus datos personales.` },
       article7: { title: "Artículo 7 (Responsable de Protección de Datos)", desc: `- Responsable: JongHwan Kim<br/>- Correo electrónico: support@dlas.io` },
-      effectiveDate: "Fecha de vigencia: 29 de abril de 2025"
+      article8: {
+        title: "Artículo 8 (Privacidad de la Aplicación Móvil)",
+        desc: `La Empresa procesa información personal a través de DLAS Viewer (en adelante "la Aplicación") de la siguiente manera:<br/>
+<br/>
+<strong>1. Recopilación y Uso de Información</strong><br/>
+- La Aplicación utiliza Apple ID para autenticación y puede recopilar el ID de usuario y la dirección de correo electrónico proporcionados por Apple.<br/>
+- La información recopilada se utiliza únicamente para autenticación del usuario y prestación del servicio.<br/>
+<br/>
+<strong>2. Retención de Información</strong><br/>
+- La información recopilada a través de la Aplicación se almacena en los servidores seguros de la Empresa y se gestiona según los mismos estándares de la política de privacidad indicada en el sitio web.<br/>
+<br/>
+<strong>3. Cumplimiento de Políticas de iOS y Apple</strong><br/>
+- La Aplicación se desarrolla en cumplimiento de las Directrices de Revisión de la App Store de Apple y la Política de Privacidad.<br/>
+- La información personal del usuario sigue las políticas del sistema operativo de Apple.<br/>
+<br/>
+<strong>4. Divulgación a Terceros y Módulos Externos</strong><br/>
+- La Aplicación no proporciona ni vende información personal del usuario a terceros.<br/>
+- La Aplicación no utiliza servicios de análisis o publicidad de terceros más allá de las funciones básicas de la plataforma proporcionadas por iOS y Apple.<br/>
+<br/>
+<strong>5. Derechos y Consultas</strong><br/>
+Para consultas sobre el procesamiento de información personal, por favor contacte:<br/>
+- Desarrollador: DLAS<br/>
+- Correo electrónico: CEO@dlas.io<br/>
+<br/>
+<strong>6. Cambios en la Política de Privacidad</strong><br/>
+Esta política de privacidad puede cambiar debido a modificaciones legales o mejoras del servicio. Los cambios importantes se notificarán a través de las notas de actualización de la Aplicación o anuncios en el sitio web.`
+      },
+      effectiveDate: "Fecha de vigencia: 8 de noviembre de 2025"
     },
     login: {
       title: "Iniciar sesión en DLAS",
@@ -2633,8 +2858,9 @@ This privacy policy may be changed due to legal amendments or service improvemen
       article5: { title: "المادة 5 (الدفع والاسترداد)", desc: `1. يمكن للمستخدمين شراء المنتجات باستخدام طرق الدفع المحددة من قبل الشركة.<br/>2. نظرًا لطبيعة المنتجات الرقمية، لا تتوفر استردادات بعد التنزيل أو التفعيل، إلا إذا نص القانون خلاف ذلك.` },
       article6: { title: "المادة 6 (حقوق الملكية الفكرية)", desc: `1. جميع المحتويات والبرامج المقدمة على الموقع محمية بحقوق النشر وتعود ملكيتها للشركة.<br/>2. يُحظر النسخ أو إعادة التوزيع أو الهندسة العكسية غير المصرح بها وقد تؤدي إلى عواقب قانونية.` },
       article7: { title: "المادة 7 (إخلاء المسؤولية)", desc: `1. لا تتحمل الشركة مسؤولية انقطاع الخدمة الناجم عن قوى قاهرة مثل الكوارث الطبيعية أو الهجمات السيبرانية أو أعطال النظام.<br/>2. لا تتحمل الشركة مسؤولية الأضرار الناتجة عن إهمال المستخدم.` },
-      article8: { title: "المادة 8 (القانون الواجب التطبيق والاختصاص القضائي)", desc: `تخضع أي نزاعات ناشئة عن هذه الشروط لقوانين جمهورية كوريا، ويكون الاختصاص القضائي للمحكمة التي تقع في مقر الشركة.` },
-      effectiveDate: "تاريخ السريان: 29 أبريل 2025"
+      article8: { title: "المادة 8 (حظر مشاركة الحساب والعقوبات)", desc: `1. لا يجوز للمستخدمين مشاركة أو نقل حساباتهم (المعرف وكلمة المرور) مع الآخرين.<br/>2. قد تقوم الشركة بجمع وتحليل عناوين IP وسجلات الوصول وأنماط الاستخدام للمستخدمين لمنع مشاركة الحساب والاستخدام غير المصرح به، وفقًا لسياسة الخصوصية.<br/>3. إذا تم اكتشاف أنماط وصول غير طبيعية (مثل الوصول المتزامن من مواقع مختلفة في فترة قصيرة، تغييرات الجهاز المفرطة)، فقد تقوم الشركة بتعليق استخدام الحساب مؤقتًا أو تقييده بشكل دائم.<br/>4. إذا تم تأكيد مشاركة الحساب، يجوز للشركة تعليق الحساب أو إنهاء عقد الخدمة دون إشعار مسبق، ولن يتم توفير أي استرداد.` },
+      article9: { title: "المادة 9 (القانون الواجب التطبيق والاختصاص القضائي)", desc: `تخضع أي نزاعات ناشئة عن هذه الشروط لقوانين جمهورية كوريا، ويكون الاختصاص القضائي للمحكمة التي تقع في مقر الشركة.` },
+      effectiveDate: "تاريخ السريان: 8 نوفمبر 2025"
     },
     privacy: {
       headingPrivacy: "[سياسة الخصوصية]",
@@ -2646,7 +2872,34 @@ This privacy policy may be changed due to legal amendments or service improvemen
       article5: { title: "المادة 5 (تدمير البيانات الشخصية)", desc: `سيتم تدمير البيانات الشخصية بأمان بعد انتهاء فترة الاحتفاظ.<br/>- الملفات الرقمية: حذف دائم<br/>- المستندات الورقية: تمزيق أو حرق` },
       article6: { title: "المادة 6 (حقوق المستخدم)", desc: `يمكنك طلب عرض أو تعديل أو حذف أو تقييد معالجة بياناتك الشخصية في أي وقت.` },
       article7: { title: "المادة 7 (مسؤول حماية البيانات)", desc: `- المسؤول: جونغهوان كيم<br/>- البريد الإلكتروني: support@dlas.io` },
-      effectiveDate: "تاريخ السريان: 29 أبريل 2025"
+      article8: {
+        title: "المادة 8 (خصوصية تطبيق الهاتف المحمول)",
+        desc: `تعالج الشركة المعلومات الشخصية من خلال DLAS Viewer (المشار إليه فيما بعد بـ "التطبيق") على النحو التالي:<br/>
+<br/>
+<strong>1. جمع واستخدام المعلومات</strong><br/>
+- يستخدم التطبيق Apple ID للتحقق وقد يجمع معرف المستخدم وعنوان البريد الإلكتروني المقدم من Apple.<br/>
+- تُستخدم المعلومات المجمعة فقط للتحقق من المستخدم وتقديم الخدمة.<br/>
+<br/>
+<strong>2. الاحتفاظ بالمعلومات</strong><br/>
+- يتم تخزين المعلومات المجمعة من خلال التطبيق على خوادم الشركة الآمنة ويتم إدارتها وفقًا لنفس المعايير المذكورة في سياسة الخصوصية على الموقع.<br/>
+<br/>
+<strong>3. الامتثال لسياسات iOS و Apple</strong><br/>
+- تم تطوير التطبيق وفقًا لإرشادات مراجعة App Store وسياسة الخصوصية من Apple.<br/>
+- تخضع المعلومات الشخصية للمستخدم لسياسات نظام التشغيل من Apple.<br/>
+<br/>
+<strong>4. الإفصاح لأطراف ثالثة والوحدات الخارجية</strong><br/>
+- لا يقدم التطبيق أو يبيع المعلومات الشخصية للمستخدم لأطراف ثالثة.<br/>
+- لا يستخدم التطبيق أي خدمات تحليلية أو إعلانية من أطراف ثالثة بخلاف ميزات النظام الأساسي الأساسية التي يوفرها iOS و Apple.<br/>
+<br/>
+<strong>5. الحقوق والاستفسارات</strong><br/>
+للاستفسارات حول معالجة المعلومات الشخصية، يرجى الاتصال:<br/>
+- المطور: DLAS<br/>
+- البريد الإلكتروني: CEO@dlas.io<br/>
+<br/>
+<strong>6. التغييرات في سياسة الخصوصية</strong><br/>
+قد تتغير سياسة الخصوصية هذه بسبب التعديلات القانونية أو تحسينات الخدمة. سيتم إخطار التغييرات المهمة من خلال ملاحظات تحديث التطبيق أو إعلانات الموقع.`
+      },
+      effectiveDate: "تاريخ السريان: 8 نوفمبر 2025"
     },
     login: {
       title: "تسجيل الدخول إلى DLAS",
@@ -2802,8 +3055,9 @@ This privacy policy may be changed due to legal amendments or service improvemen
       article5: { title: "Madde 5 (Ödeme ve İadeler)", desc: `1. Kullanıcılar, Şirket tarafından belirlenen ödeme yöntemleri ile ürün satın alabilir.<br/>2. Dijital ürünlerin doğası gereği, indirme veya etkinleştirme sonrası iade yapılmaz, yasal zorunluluklar hariç.` },
       article6: { title: "Madde 6 (Fikri Mülkiyet)", desc: `1. Web sitesinde sağlanan tüm içerik ve yazılımlar telif hakkı ile korunmakta olup Şirkete aittir.<br/>2. Yetkisiz kopyalama, dağıtım veya tersine mühendislik yasaktır ve yasal sonuçlara yol açabilir.` },
       article7: { title: "Madde 7 (Feragatname)", desc: `1. Doğal afetler, siber saldırılar veya sistem arızaları gibi mücbir sebepler nedeniyle hizmet kesintilerinden Şirket sorumlu değildir.<br/>2. Kullanıcının ihmali nedeniyle oluşan zararlardan Şirket sorumlu değildir.` },
-      article8: { title: "Madde 8 (Geçerli Hukuk ve Yetki)", desc: `Bu Şartlardan kaynaklanan uyuşmazlıklarda geçerli hukuk Kore Cumhuriyeti yasalarıdır ve yetkili mahkeme Şirketin merkezinin bulunduğu mahkemedir.` },
-      effectiveDate: "Yürürlük Tarihi: 29 Nisan 2025"
+      article8: { title: "Madde 8 (Hesap Paylaşımı Yasağı ve Yaptırımlar)", desc: `1. Kullanıcılar hesaplarını (ID ve şifre) başkalarıyla paylaşamaz veya transfer edemez.<br/>2. Şirket, hesap paylaşımını ve yetkisiz kullanımı önlemek için kullanıcıların IP adreslerini, erişim kayıtlarını ve kullanım kalıplarını Gizlilik Politikasına uygun olarak toplayıp analiz edebilir.<br/>3. Anormal erişim kalıpları tespit edilirse (örn., kısa sürede farklı konumlardan eşzamanlı erişim, aşırı cihaz değişikliği), Şirket hesap kullanımını geçici olarak askıya alabilir veya kalıcı olarak kısıtlayabilir.<br/>4. Hesap paylaşımı doğrulanırsa, Şirket önceden bildirimde bulunmaksızın hesabı askıya alabilir veya hizmet sözleşmesini feshedebilir ve geri ödeme yapılmaz.` },
+      article9: { title: "Madde 9 (Geçerli Hukuk ve Yetki)", desc: `Bu Şartlardan kaynaklanan uyuşmazlıklarda geçerli hukuk Kore Cumhuriyeti yasalarıdır ve yetkili mahkeme Şirketin merkezinin bulunduğu mahkemedir.` },
+      effectiveDate: "Yürürlük Tarihi: 8 Kasım 2025"
     },
     privacy: {
       headingPrivacy: "[Gizlilik Politikası]",
@@ -2815,10 +3069,37 @@ This privacy policy may be changed due to legal amendments or service improvemen
       article5: { title: "Madde 5 (Kişisel Verilerin İmhası)", desc: `Saklama süresi sonunda kişisel veriler güvenli şekilde yok edilir.<br/>- Dijital dosyalar: kalıcı olarak silinir<br/>- Kağıt belgeler: parçalayıcıdan geçirilir veya yakılır` },
       article6: { title: "Madde 6 (Kullanıcı Hakları)", desc: `Kişisel verilerinizi görüntüleme, düzeltme, silme veya işlem kısıtlama taleplerinde bulunabilirsiniz.` },
       article7: { title: "Madde 7 (Veri Koruma Görevlisi)", desc: `- Yetkili: JongHwan Kim<br/>- E-posta: support@dlas.io` },
-      effectiveDate: "Yürürlük Tarihi: 29 Nisan 2025"
+      article8: {
+        title: "Madde 8 (Mobil Uygulama Gizliliği)",
+        desc: `Şirket, DLAS Viewer (bundan böyle "Uygulama" olarak anılacaktır) aracılığıyla kişisel bilgileri aşağıdaki şekilde işler:<br/>
+<br/>
+<strong>1. Bilgilerin Toplanması ve Kullanımı</strong><br/>
+- Uygulama, kimlik doğrulama için Apple ID kullanır ve Apple tarafından sağlanan Kullanıcı Kimliği ve e-posta adresini toplayabilir.<br/>
+- Toplanan bilgiler yalnızca kullanıcı doğrulama ve hizmet sağlama amacıyla kullanılır.<br/>
+<br/>
+<strong>2. Bilgilerin Saklanması</strong><br/>
+- Uygulama aracılığıyla toplanan bilgiler Şirketin güvenli sunucularında saklanır ve web sitesinde belirtilen gizlilik politikasıyla aynı standartlara göre yönetilir.<br/>
+<br/>
+<strong>3. iOS ve Apple Politikalarına Uyum</strong><br/>
+- Uygulama, Apple'ın App Store İnceleme Yönergeleri ve Gizlilik Politikasına uygun olarak geliştirilmiştir.<br/>
+- Kullanıcı kişisel bilgileri Apple'ın işletim sistemi politikalarına tabidir.<br/>
+<br/>
+<strong>4. Üçüncü Taraflara Açıklama ve Harici Modüller</strong><br/>
+- Uygulama, kullanıcı kişisel bilgilerini üçüncü taraflara sağlamaz veya satmaz.<br/>
+- Uygulama, iOS ve Apple tarafından sağlanan temel platform özelliklerinin ötesinde herhangi bir üçüncü taraf analiz veya reklam hizmeti kullanmaz.<br/>
+<br/>
+<strong>5. Haklar ve Sorular</strong><br/>
+Kişisel bilgi işleme hakkında sorularınız için lütfen iletişime geçin:<br/>
+- Geliştirici: DLAS<br/>
+- E-posta: CEO@dlas.io<br/>
+<br/>
+<strong>6. Gizlilik Politikası Değişiklikleri</strong><br/>
+Bu gizlilik politikası yasal değişiklikler veya hizmet iyileştirmeleri nedeniyle değişebilir. Önemli değişiklikler Uygulama güncelleme notları veya web sitesi duyuruları aracılığıyla bildirilecektir.`
+      },
+      effectiveDate: "Yürürlük Tarihi: 8 Kasım 2025"
     },
     login: {
-      title: "DLAS’a Giriş Yap",
+      title: "DLAS'a Giriş Yap",
       form: {
         email: "E-posta",
         password: "Parola",
@@ -2971,8 +3252,9 @@ This privacy policy may be changed due to legal amendments or service improvemen
       article5: { title: "Điều 5 (Thanh Toán và Hoàn Tiền)", desc: `1. Người dùng có thể mua sản phẩm bằng các phương thức thanh toán do Công Ty chỉ định.<br/>2. Do tính chất của sản phẩm kỹ thuật số, không hoàn tiền sau khi tải xuống hoặc kích hoạt, trừ khi luật pháp quy định khác.` },
       article6: { title: "Điều 6 (Sở Hữu Trí Tuệ)", desc: `1. Tất cả nội dung và phần mềm trên trang web được bảo vệ bản quyền và thuộc sở hữu của Công Ty.<br/>2. Việc sao chép, phân phối hoặc đảo ngược kỹ thuật không được phép và có thể dẫn đến hậu quả pháp lý.` },
       article7: { title: "Điều 7 (Miễn Trừ Trách Nhiệm)", desc: `1. Công Ty không chịu trách nhiệm về sự cố dịch vụ do thiên tai, tấn công mạng hoặc sự cố hệ thống.<br/>2. Công Ty không chịu trách nhiệm về thiệt hại do người dùng sơ suất gây ra.` },
-      article8: { title: "Điều 8 (Luật Áp Dụng và Thẩm Quyền)", desc: `Mọi tranh chấp phát sinh từ Điều Khoản này sẽ được điều chỉnh bởi pháp luật Hàn Quốc và tòa án có thẩm quyền là tòa án nơi Công Ty đặt trụ sở.` },
-      effectiveDate: "Ngày có hiệu lực: 29 tháng 4 năm 2025"
+      article8: { title: "Điều 8 (Cấm Chia Sẻ Tài Khoản và Chế Tài)", desc: `1. Người dùng không được chia sẻ hoặc chuyển nhượng tài khoản (ID và mật khẩu) cho người khác.<br/>2. Công Ty có thể thu thập và phân tích địa chỉ IP, nhật ký truy cập và mẫu sử dụng của người dùng để ngăn chặn việc chia sẻ tài khoản và sử dụng trái phép, theo Chính Sách Bảo Mật.<br/>3. Nếu phát hiện các mẫu truy cập bất thường (ví dụ: truy cập đồng thời từ các vị trí khác nhau trong thời gian ngắn, thay đổi thiết bị quá nhiều), Công Ty có thể tạm đình chỉ hoặc hạn chế vĩnh viễn việc sử dụng tài khoản.<br/>4. Nếu xác nhận việc chia sẻ tài khoản, Công Ty có thể đình chỉ tài khoản hoặc chấm dứt hợp đồng dịch vụ mà không cần thông báo trước và không hoàn tiền.` },
+      article9: { title: "Điều 9 (Luật Áp Dụng và Thẩm Quyền)", desc: `Mọi tranh chấp phát sinh từ Điều Khoản này sẽ được điều chỉnh bởi pháp luật Hàn Quốc và tòa án có thẩm quyền là tòa án nơi Công Ty đặt trụ sở.` },
+      effectiveDate: "Ngày có hiệu lực: 8 tháng 11 năm 2025"
     },
     privacy: {
       headingPrivacy: "[Chính Sách Bảo Mật]",
@@ -2984,7 +3266,28 @@ This privacy policy may be changed due to legal amendments or service improvemen
       article5: { title: "Điều 5 (Hủy Dữ Liệu Cá Nhân)", desc: `Dữ liệu cá nhân sẽ được hủy một cách an toàn sau khi hết thời gian lưu trữ.<br/>- Tệp điện tử: bị xóa vĩnh viễn<br/>- Tài liệu giấy: được nghiền hoặc thiêu hủy` },
       article6: { title: "Điều 6 (Quyền Người Dùng)", desc: `Bạn có thể yêu cầu xem, chỉnh sửa, xóa hoặc giới hạn xử lý dữ liệu cá nhân của mình bất cứ lúc nào.` },
       article7: { title: "Điều 7 (Người Phụ Trách Bảo Vệ Dữ Liệu)", desc: `- Người phụ trách: JongHwan Kim<br/>- Email: support@dlas.io` },
-      effectiveDate: "Ngày có hiệu lực: 29 tháng 4 năm 2025"
+      article8: {
+        title: "Điều 8 (Quyền Riêng Tư Ứng Dụng Di Động)",
+        desc: `Công Ty xử lý thông tin cá nhân thông qua DLAS Viewer (sau đây gọi là "Ứng Dụng") như sau:<br/>
+<strong>1. Thu Thập và Sử Dụng Thông Tin</strong><br/>
+- Ứng Dụng sử dụng Apple ID để xác thực và có thể thu thập ID Người Dùng và địa chỉ email do Apple cung cấp.<br/>
+- Thông tin này chỉ được sử dụng cho mục đích đăng nhập ứng dụng và xác minh người dùng.<br/>
+- Chức năng chính của ứng dụng (xem ảnh nha khoa, v.v.) không yêu cầu thông tin cá nhân bổ sung.<br/>
+<strong>2. Lưu Trữ Thông Tin</strong><br/>
+- Thông tin thu thập qua Ứng Dụng được lưu trữ trên máy chủ bảo mật của Công Ty và được bảo vệ bằng mã hóa.<br/>
+- Dữ liệu sẽ bị xóa khi tài khoản bị đóng, trừ khi luật pháp quy định khác.<br/>
+<strong>3. Tuân Thủ iOS và Chính Sách Apple</strong><br/>
+- Ứng Dụng tuân thủ các chính sách quyền riêng tư của Apple và iOS.<br/>
+- Nếu bạn đồng ý "Ẩn email", chức năng Relay Riêng Tư của Apple sẽ được sử dụng và Công Ty sẽ không truy cập địa chỉ email thực của bạn.<br/>
+<strong>4. Tiết Lộ Cho Bên Thứ Ba và Module Bên Ngoài</strong><br/>
+- Ứng Dụng không bao gồm SDK hoặc trình theo dõi của bên thứ ba và không chia sẻ dữ liệu cá nhân với bên thứ ba.<br/>
+<strong>5. Quyền và Thắc Mắc</strong><br/>
+- Bạn có thể yêu cầu xem, chỉnh sửa, xóa hoặc giới hạn xử lý dữ liệu cá nhân liên quan đến ứng dụng bất cứ lúc nào.<br/>
+- Liên hệ: support@dlas.io<br/>
+<strong>6. Thay Đổi Chính Sách Bảo Mật</strong><br/>
+- Bất kỳ thay đổi nào đối với phần quyền riêng tư ứng dụng di động sẽ được thông báo trong ứng dụng hoặc thông qua thông báo trên trang web.`
+      },
+      effectiveDate: "Ngày có hiệu lực: 8 tháng 11 năm 2025"
     },
     login: {
       title: "Đăng nhập DLAS",
@@ -3139,8 +3442,9 @@ This privacy policy may be changed due to legal amendments or service improvemen
       article5: { title: "ข้อ 5 (การชำระเงินและการคืนเงิน)", desc: `1. ผู้ใช้สามารถซื้อผลิตภัณฑ์โดยใช้วิธีการชำระเงินที่บริษัทกำหนด<br/>2. เนื่องจากลักษณะของผลิตภัณฑ์ดิจิทัล ไม่สามารถคืนเงินได้หลังจากดาวน์โหลดหรือเปิดใช้งาน ยกเว้นตามที่กฎหมายกำหนด` },
       article6: { title: "ข้อ 6 (ทรัพย์สินทางปัญญา)", desc: `1. เนื้อหาและซอฟต์แวร์ทั้งหมดบนเว็บไซต์ได้รับการคุ้มครองโดยลิขสิทธิ์และเป็นของบริษัท<br/>2. ห้ามทำซ้ำ แจกจ่าย หรือย้อนกลับวิศวกรรมโดยไม่ได้รับอนุญาต ซึ่งอาจนำไปสู่ผลทางกฎหมาย` },
       article7: { title: "ข้อ 7 (การปฏิเสธความรับผิดชอบ)", desc: `1. บริษัทจะไม่รับผิดชอบต่อความล้มเหลวของบริการที่เกิดจากเหตุสุดวิสัย เช่น ภัยธรรมชาติ การโจมตีทางไซเบอร์ หรือความล้มเหลวของระบบ<br/>2. บริษัทไม่รับผิดชอบต่อความเสียหายที่เกิดจากความประมาทของผู้ใช้` },
-      article8: { title: "ข้อ 8 (กฎหมายที่ใช้บังคับและเขตอำนาจศาล)", desc: `ข้อพิพาทใดๆ ที่เกิดจากข้อกำหนดนี้จะถูกควบคุมโดยกฎหมายของสาธารณรัฐเกาหลี และศาลที่มีเขตอำนาจคือศาลที่ตั้งสำนักงานใหญ่ของบริษัท` },
-      effectiveDate: "วันที่มีผลบังคับใช้: 29 เมษายน 2025"
+      article8: { title: "ข้อ 8 (การห้ามแชร์บัญชีและบทลงโทษ)", desc: `1. ผู้ใช้ไม่สามารถแชร์หรือโอนบัญชี (ID และรหัสผ่าน) ให้กับผู้อื่น<br/>2. บริษัทอาจรวบรวมและวิเคราะห์ที่อยู่ IP บันทึกการเข้าถึง และรูปแบบการใช้งานของผู้ใช้เพื่อป้องกันการแชร์บัญชีและการใช้งานโดยไม่ได้รับอนุญาต ตามนโยบายความเป็นส่วนตัว<br/>3. หากตรวจพบรูปแบบการเข้าถึงที่ผิดปกติ (เช่น การเข้าถึงพร้อมกันจากสถานที่ต่างๆ ภายในเวลาสั้นๆ การเปลี่ยนอุปกรณ์มากเกินไป) บริษัทอาจระงับหรือจำกัดการใช้บัญชีชั่วคราวหรือถาวร<br/>4. หากยืนยันการแชร์บัญชี บริษัทอาจระงับบัญชีหรือยกเลิกสัญญาบริการโดยไม่ต้องแจ้งให้ทราบล่วงหน้า และจะไม่มีการคืนเงิน` },
+      article9: { title: "ข้อ 9 (กฎหมายที่ใช้บังคับและเขตอำนาจศาล)", desc: `ข้อพิพาทใดๆ ที่เกิดจากข้อกำหนดนี้จะถูกควบคุมโดยกฎหมายของสาธารณรัฐเกาหลี และศาลที่มีเขตอำนาจคือศาลที่ตั้งสำนักงานใหญ่ของบริษัท` },
+      effectiveDate: "วันที่มีผลบังคับใช้: 8 พฤศจิกายน 2025"
     },
     privacy: {
       headingPrivacy: "[นโยบายความเป็นส่วนตัว]",
@@ -3152,7 +3456,28 @@ This privacy policy may be changed due to legal amendments or service improvemen
       article5: { title: "ข้อ 5 (การทำลายข้อมูลส่วนบุคคล)", desc: `ข้อมูลส่วนบุคคลจะถูกทำลายอย่างปลอดภัยหลังจากสิ้นสุดระยะเวลาการเก็บรักษา<br/>- ไฟล์ดิจิทัล: ถูกลบอย่างถาวร<br/>- เอกสารกระดาษ: ถูกทำลายหรือเผา` },
       article6: { title: "ข้อ 6 (สิทธิของผู้ใช้)", desc: `คุณสามารถขอดู แก้ไข ลบ หรือจำกัดการประมวลผลข้อมูลส่วนบุคคลของคุณได้ตลอดเวลา` },
       article7: { title: "ข้อ 7 (เจ้าหน้าที่คุ้มครองข้อมูล)", desc: `- เจ้าหน้าที่: JongHwan Kim<br/>- อีเมล: support@dlas.io` },
-      effectiveDate: "วันที่มีผลบังคับใช้: 29 เมษายน 2025"
+      article8: {
+        title: "ข้อ 8 (ความเป็นส่วนตัวของแอปมือถือ)",
+        desc: `บริษัทประมวลผลข้อมูลส่วนบุคคลผ่าน DLAS Viewer (ต่อไปนี้เรียกว่า "แอป") ดังนี้:<br/>
+<strong>1. การรวบรวมและการใช้ข้อมูล</strong><br/>
+- แอปใช้ Apple ID สำหรับการยืนยันตัวตนและอาจรวบรวม User ID และที่อยู่อีเมลที่ Apple ให้มา<br/>
+- ข้อมูลนี้ใช้เพื่อการเข้าสู่ระบบแอปและการยืนยันตัวตนผู้ใช้เท่านั้น<br/>
+- ฟังก์ชันหลักของแอป (การดูภาพทันตกรรม ฯลฯ) ไม่ต้องการข้อมูลส่วนบุคคลเพิ่มเติม<br/>
+<strong>2. การจัดเก็บข้อมูล</strong><br/>
+- ข้อมูลที่รวบรวมผ่านแอปจะถูกจัดเก็บบนเซิร์ฟเวอร์ที่ปลอดภัยของบริษัทและได้รับการป้องกันด้วยการเข้ารหัส<br/>
+- ข้อมูลจะถูกลบเมื่อบัญชีถูกยกเลิก เว้นแต่กฎหมายกำหนดให้เก็บรักษา<br/>
+<strong>3. การปฏิบัติตาม iOS และนโยบายของ Apple</strong><br/>
+- แอปปฏิบัติตามนโยบายความเป็นส่วนตัวของ Apple และ iOS<br/>
+- หากคุณยินยอม "ซ่อนอีเมลของฉัน" ฟังก์ชัน Private Relay ของ Apple จะถูกใช้และบริษัทจะไม่เข้าถึงที่อยู่อีเมลจริงของคุณ<br/>
+<strong>4. การเปิดเผยข้อมูลแก่บุคคลที่สามและโมดูลภายนอก</strong><br/>
+- แอปไม่รวม SDK หรือตัวติดตามของบุคคลที่สามและไม่แชร์ข้อมูลส่วนบุคคลกับบุคคลที่สาม<br/>
+<strong>5. สิทธิและการสอบถาม</strong><br/>
+- คุณสามารถขอดู แก้ไข ลบ หรือจำกัดการประมวลผลข้อมูลส่วนบุคคลที่เกี่ยวข้องกับแอปได้ตลอดเวลา<br/>
+- ติดต่อ: support@dlas.io<br/>
+<strong>6. การเปลี่ยนแปลงนโยบายความเป็นส่วนตัว</strong><br/>
+- การเปลี่ยนแปลงใดๆ ในส่วนความเป็นส่วนตัวของแอปมือถือจะถูกแจ้งภายในแอปหรือผ่านการประกาศบนเว็บไซต์`
+      },
+      effectiveDate: "วันที่มีผลบังคับใช้: 8 พฤศจิกายน 2025"
     },
     login: {
       title: "เข้าสู่ระบบ DLAS",
@@ -3307,8 +3632,9 @@ This privacy policy may be changed due to legal amendments or service improvemen
       article5: { title: "Pasal 5 (Pembayaran dan Pengembalian Dana)", desc: `1. Pengguna dapat membeli produk menggunakan metode pembayaran yang ditentukan oleh Perusahaan.<br/>2. Karena sifat produk digital, pengembalian dana tidak tersedia setelah unduhan atau aktivasi, kecuali diwajibkan oleh hukum.` },
       article6: { title: "Pasal 6 (Hak Kekayaan Intelektual)", desc: `1. Semua konten dan perangkat lunak di situs dilindungi oleh hak cipta dan menjadi milik Perusahaan.<br/>2. Duplikasi, redistribusi, atau rekayasa balik tanpa izin dilarang dan dapat berakibat hukum.` },
       article7: { title: "Pasal 7 (Penafian)", desc: `1. Perusahaan tidak bertanggung jawab atas kegagalan layanan akibat force majeure seperti bencana alam, serangan siber, atau kegagalan sistem.<br/>2. Perusahaan tidak bertanggung jawab atas kerusakan akibat kelalaian pengguna.` },
-      article8: { title: "Pasal 8 (Hukum yang Berlaku dan Yurisdiksi)", desc: `Setiap sengketa yang timbul dari Syarat ini akan diatur oleh hukum Republik Korea dan pengadilan yang berwenang adalah pengadilan di lokasi kantor pusat Perusahaan.` },
-      effectiveDate: "Tanggal Efektif: 29 April 2025"
+      article8: { title: "Pasal 8 (Larangan Berbagi Akun dan Sanksi)", desc: `1. Pengguna tidak boleh berbagi atau mentransfer akun mereka (ID dan kata sandi) kepada pihak lain.<br/>2. Perusahaan dapat mengumpulkan dan menganalisis alamat IP, log akses, dan pola penggunaan pengguna untuk mencegah berbagi akun dan penggunaan tidak sah, sesuai dengan Kebijakan Privasi.<br/>3. Jika pola akses abnormal terdeteksi (misalnya, akses simultan dari lokasi berbeda dalam waktu singkat, pergantian perangkat berlebihan), Perusahaan dapat menangguhkan sementara atau membatasi secara permanen penggunaan akun.<br/>4. Jika berbagi akun dikonfirmasi, Perusahaan dapat menangguhkan akun atau mengakhiri kontrak layanan tanpa pemberitahuan sebelumnya, dan tidak akan ada pengembalian dana.` },
+      article9: { title: "Pasal 9 (Hukum yang Berlaku dan Yurisdiksi)", desc: `Setiap sengketa yang timbul dari Syarat ini akan diatur oleh hukum Republik Korea dan pengadilan yang berwenang adalah pengadilan di lokasi kantor pusat Perusahaan.` },
+      effectiveDate: "Tanggal Efektif: 8 November 2025"
     },
     privacy: {
       headingPrivacy: "[Kebijakan Privasi]",
@@ -3320,7 +3646,34 @@ This privacy policy may be changed due to legal amendments or service improvemen
       article5: { title: "Pasal 5 (Penghancuran Data Pribadi)", desc: `Data pribadi akan dihancurkan secara aman setelah periode retensi berakhir.<br/>- File digital: dihapus secara permanen<br/>- Dokumen kertas: dihancurkan atau dibakar` },
       article6: { title: "Pasal 6 (Hak Pengguna)", desc: `Anda dapat meminta untuk melihat, mengubah, menghapus, atau membatasi pemrosesan data pribadi Anda kapan saja.` },
       article7: { title: "Pasal 7 (Pejabat Perlindungan Data)", desc: `- Pejabat: JongHwan Kim<br/>- Email: support@dlas.io` },
-      effectiveDate: "Tanggal Efektif: 29 April 2025"
+      article8: {
+        title: "Pasal 8 (Privasi Aplikasi Seluler)",
+        desc: `Perusahaan memproses informasi pribadi melalui DLAS Viewer (selanjutnya disebut "Aplikasi") sebagai berikut:<br/>
+<br/>
+<strong>1. Pengumpulan dan Penggunaan Informasi</strong><br/>
+- Aplikasi menggunakan Apple ID untuk autentikasi dan dapat mengumpulkan ID pengguna dan alamat email yang disediakan oleh Apple.<br/>
+- Informasi yang dikumpulkan hanya digunakan untuk autentikasi pengguna dan penyediaan layanan.<br/>
+<br/>
+<strong>2. Penyimpanan Informasi</strong><br/>
+- Informasi yang dikumpulkan melalui Aplikasi disimpan di server aman Perusahaan dan dikelola sesuai standar yang sama dengan kebijakan privasi yang tercantum di situs web.<br/>
+<br/>
+<strong>3. Kepatuhan terhadap Kebijakan iOS dan Apple</strong><br/>
+- Aplikasi dikembangkan sesuai dengan Pedoman Tinjauan App Store Apple dan Kebijakan Privasi.<br/>
+- Informasi pribadi pengguna mengikuti kebijakan sistem operasi Apple.<br/>
+<br/>
+<strong>4. Pengungkapan ke Pihak Ketiga dan Modul Eksternal</strong><br/>
+- Aplikasi tidak memberikan atau menjual informasi pribadi pengguna kepada pihak ketiga.<br/>
+- Aplikasi tidak menggunakan layanan analitik atau iklan pihak ketiga di luar fitur platform dasar yang disediakan oleh iOS dan Apple.<br/>
+<br/>
+<strong>5. Hak dan Pertanyaan</strong><br/>
+Untuk pertanyaan tentang pemrosesan informasi pribadi, silakan hubungi:<br/>
+- Pengembang: DLAS<br/>
+- Email: CEO@dlas.io<br/>
+<br/>
+<strong>6. Perubahan Kebijakan Privasi</strong><br/>
+Kebijakan privasi ini dapat berubah karena perubahan hukum atau peningkatan layanan. Perubahan penting akan diberitahukan melalui catatan pembaruan Aplikasi atau pengumuman di situs web.`
+      },
+      effectiveDate: "Tanggal Efektif: 8 November 2025"
     },
     login: {
       title: "Masuk ke DLAS",
