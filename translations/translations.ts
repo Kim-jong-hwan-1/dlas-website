@@ -474,7 +474,7 @@ This privacy policy may be changed due to legal amendments or service improvemen
     refundPolicy: "退款政策",
     refundPolicyDesc: "由于数字产品的特性，所有销售均为最终销售。购买、下载或许可激活后，除法律另有规定外，不提供退款。购买前请确保软件符合您的需求。",
     liability: "责任限制",
-    liabilityDesc: "对于因使用或无法使用本软件而产生的任何直接、间接、附带、特殊、后果性或惩罚性损害，公司概不负责。本软件按"原样"提供，不提供任何明示或暗示的保证，包括但不限于适销性、特定用途适用性或不侵权的保证。",
+    liabilityDesc: "对于因使用或无法使用本软件而产生的任何直接、间接、附带、特殊、后果性或惩罚性损害，公司概不负责。本软件按'原样'提供，不提供任何明示或暗示的保证，包括但不限于适销性、特定用途适用性或不侵权的保证。",
     license: "许可条款",
     licenseDesc: "许可仅授予个人或商业使用。严禁向第三方共享、转让或转售许可。如检测到未经授权的使用或许可共享，公司有权在不另行通知的情况下终止许可。",
     agreeText: "我已阅读并理解上述所有条款。我确认这不是医疗器械，理解退款政策，接受责任限制，并同意许可条款。",
@@ -1862,7 +1862,7 @@ Esta política de privacidade pode ser alterada devido a mudanças legais ou mel
     
       ],
       footer:
-        ""동의합니다"를 클릭하면, 현재 상태를 이해하고 라이선스를 구매하겠다는 뜻으로 간주합니다.",
+        "'동의합니다'를 클릭하면, 현재 상태를 이해하고 라이선스를 구매하겠다는 뜻으로 간주합니다.",
     },
     // FAST EDITOR 해외 결제 동의 모달
     fastEditorConsent: {
@@ -2519,7 +2519,7 @@ Esta política de privacidade pode ser alterada devido a mudanças legais ou mel
         "El monto final del pago puede variar según las leyes y regulaciones fiscales de su país. Este es un pago único y no se renovará automáticamente.",
         "Estamos preparando nuestro sistema de pago. Si desea comprar de inmediato, por favor contacte a support@dlas.io."
       ],
-      footer: "Al hacer clic en "Estoy de acuerdo", confirmas que entiendes el estado actual y deseas comprar la licencia."
+      footer: "Al hacer clic en 'Estoy de acuerdo', confirmas que entiendes el estado actual y deseas comprar la licencia."
     },
     // FAST EDITOR 해외 결제 동의 모달
     fastEditorConsent: {
