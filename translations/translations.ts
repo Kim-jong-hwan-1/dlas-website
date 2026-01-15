@@ -338,6 +338,21 @@ This privacy policy may be changed due to legal amendments or service improvemen
       serverApprovalFail: "Server approval failed:",
       dataCopied: "Payment data copied.",
     },
+    // FAST EDITOR 해외 결제 동의 모달
+    fastEditorConsent: {
+      title: "Important Notice Before Purchase",
+      notMedicalDevice: "NOT A MEDICAL DEVICE",
+      notMedicalDeviceDesc: "FAST EDITOR is a general-purpose STL file editing software. It is NOT a medical device and has NOT been approved or certified by any medical regulatory authority (such as FDA, CE, or equivalent). This software is intended for general 3D file editing purposes only and should NOT be used for medical diagnosis, treatment, or any clinical decision-making. Users assume all responsibility for the use of this software.",
+      refundPolicy: "Refund Policy",
+      refundPolicyDesc: "Due to the nature of digital products, all sales are final. No refunds will be provided after purchase, download, or license activation, except as required by applicable law. Please ensure the software meets your requirements before purchasing.",
+      liability: "Limitation of Liability",
+      liabilityDesc: "The Company shall not be liable for any direct, indirect, incidental, special, consequential, or punitive damages arising from the use or inability to use this software. The software is provided 'AS IS' without warranty of any kind, either express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, or non-infringement.",
+      license: "License Terms",
+      licenseDesc: "The license is granted for personal or business use only. Sharing, transferring, or reselling the license to third parties is strictly prohibited. The Company reserves the right to terminate the license without notice if unauthorized use or license sharing is detected.",
+      agreeText: "I have read and understood all of the above terms. I acknowledge that this is NOT a medical device, understand the refund policy, accept the limitation of liability, and agree to the license terms.",
+      agree: "Agree & Proceed to Payment",
+      decline: "Decline",
+    },
     // Navigation addition
     nav: {
       home: "Home",
@@ -452,7 +467,20 @@ This privacy policy may be changed due to legal amendments or service improvemen
     copy: "复制",
     close: "关闭"
   },
-  
+  fastEditorConsent: {
+    title: "购买前重要须知",
+    notMedicalDevice: "非医疗器械",
+    notMedicalDeviceDesc: "FAST EDITOR是一款通用STL文件编辑软件。它不是医疗器械，未经任何医疗监管机构（如FDA、CE或同等机构）批准或认证。本软件仅用于通用3D文件编辑目的，不得用于医疗诊断、治疗或任何临床决策。用户对本软件的使用承担全部责任。",
+    refundPolicy: "退款政策",
+    refundPolicyDesc: "由于数字产品的特性，所有销售均为最终销售。购买、下载或许可激活后，除法律另有规定外，不提供退款。购买前请确保软件符合您的需求。",
+    liability: "责任限制",
+    liabilityDesc: "对于因使用或无法使用本软件而产生的任何直接、间接、附带、特殊、后果性或惩罚性损害，公司概不负责。本软件按"原样"提供，不提供任何明示或暗示的保证，包括但不限于适销性、特定用途适用性或不侵权的保证。",
+    license: "许可条款",
+    licenseDesc: "许可仅授予个人或商业使用。严禁向第三方共享、转让或转售许可。如检测到未经授权的使用或许可共享，公司有权在不另行通知的情况下终止许可。",
+    agreeText: "我已阅读并理解上述所有条款。我确认这不是医疗器械，理解退款政策，接受责任限制，并同意许可条款。",
+    agree: "同意并继续付款",
+    decline: "拒绝",
+  },
   terms: {
     title: "条款与隐私",
     headingTerms: "[服务条款]",
@@ -747,6 +775,20 @@ This privacy policy may be changed due to legal amendments or service improvemen
       fax: "ファックス",
       email: "メール",
       globalNotice: "グローバルローンチの初期段階です。様々な問題が発生する可能性があることを理解しております。できる限り迅速に対応することをお約束いたします。お問い合わせは support@dlas.io までご連絡ください。",
+    },
+    fastEditorConsent: {
+      title: "ご購入前の重要事項",
+      notMedicalDevice: "医療機器ではありません",
+      notMedicalDeviceDesc: "FAST EDITORは汎用STLファイル編集ソフトウェアです。医療機器ではなく、FDA、CE等の医療規制当局による承認・認証を受けておりません。本ソフトウェアは一般的な3Dファイル編集目的のみに使用され、医療診断、治療、臨床判断には使用できません。本ソフトウェアの使用に関する全責任はユーザーが負います。",
+      refundPolicy: "返金ポリシー",
+      refundPolicyDesc: "デジタル製品の性質上、すべての販売は最終的なものです。購入、ダウンロード、またはライセンス有効化後の返金は、適用法で義務付けられている場合を除き、提供されません。ご購入前にソフトウェアがご要件を満たしていることをご確認ください。",
+      liability: "責任の制限",
+      liabilityDesc: "本ソフトウェアの使用または使用不能から生じる直接的、間接的、偶発的、特別、結果的、または懲罰的な損害について、当社は一切責任を負いません。本ソフトウェアは「現状のまま」提供され、商品性、特定目的への適合性、または非侵害性を含む、明示または黙示の保証は一切ありません。",
+      license: "ライセンス条項",
+      licenseDesc: "ライセンスは個人または事業目的でのみ付与されます。第三者へのライセンスの共有、譲渡、または再販売は固く禁じられています。不正使用またはライセンス共有が検出された場合、当社は予告なくライセンスを終了する権利を留保します。",
+      agreeText: "上記のすべての条項を読み、理解しました。これが医療機器ではないことを認め、返金ポリシーを理解し、責任の制限を受け入れ、ライセンス条項に同意します。",
+      agree: "同意して支払いに進む",
+      decline: "拒否",
     },
     // ホームページ
     homePage: {
@@ -1820,7 +1862,22 @@ Esta política de privacidade pode ser alterada devido a mudanças legais ou mel
     
       ],
       footer:
-        "“동의합니다”를 클릭하면, 현재 상태를 이해하고 라이선스를 구매하겠다는 뜻으로 간주합니다.",
+        ""동의합니다"를 클릭하면, 현재 상태를 이해하고 라이선스를 구매하겠다는 뜻으로 간주합니다.",
+    },
+    // FAST EDITOR 해외 결제 동의 모달
+    fastEditorConsent: {
+      title: "구매 전 중요 안내",
+      notMedicalDevice: "의료기기 아님",
+      notMedicalDeviceDesc: "FAST EDITOR는 범용 STL 파일 편집 소프트웨어입니다. 본 소프트웨어는 의료기기가 아니며, FDA, CE 또는 이에 준하는 의료 규제 기관의 승인이나 인증을 받지 않았습니다. 본 소프트웨어는 일반적인 3D 파일 편집 목적으로만 사용되어야 하며, 의료 진단, 치료 또는 임상적 의사결정에 사용해서는 안 됩니다. 사용자는 본 소프트웨어 사용에 대한 모든 책임을 부담합니다.",
+      refundPolicy: "환불 정책",
+      refundPolicyDesc: "디지털 제품의 특성상, 모든 판매는 최종적입니다. 관련 법률에서 요구하는 경우를 제외하고, 구매, 다운로드 또는 라이선스 활성화 후에는 환불이 제공되지 않습니다. 구매 전에 소프트웨어가 요구 사항을 충족하는지 확인하시기 바랍니다.",
+      liability: "책임의 한계",
+      liabilityDesc: "회사는 본 소프트웨어의 사용 또는 사용 불가로 인해 발생하는 직접적, 간접적, 부수적, 특별, 결과적 또는 징벌적 손해에 대해 책임지지 않습니다. 소프트웨어는 상품성, 특정 목적에의 적합성 또는 비침해에 대한 보증을 포함하되 이에 국한되지 않는 명시적 또는 묵시적 보증 없이 '있는 그대로' 제공됩니다.",
+      license: "라이선스 약관",
+      licenseDesc: "라이선스는 개인 또는 사업 용도로만 부여됩니다. 라이선스를 제3자에게 공유, 양도 또는 재판매하는 것은 엄격히 금지됩니다. 무단 사용 또는 라이선스 공유가 감지될 경우 회사는 사전 통지 없이 라이선스를 종료할 권리를 보유합니다.",
+      agreeText: "본인은 위의 모든 조건을 읽고 이해했습니다. 본 제품이 의료기기가 아님을 인정하고, 환불 정책을 이해하며, 책임의 한계를 수락하고, 라이선스 약관에 동의합니다.",
+      agree: "동의 후 결제 진행",
+      decline: "거절",
     },
     purchase: {
       title: "결제 문의",
@@ -2462,7 +2519,22 @@ Esta política de privacidade pode ser alterada devido a mudanças legais ou mel
         "El monto final del pago puede variar según las leyes y regulaciones fiscales de su país. Este es un pago único y no se renovará automáticamente.",
         "Estamos preparando nuestro sistema de pago. Si desea comprar de inmediato, por favor contacte a support@dlas.io."
       ],
-      footer: "Al hacer clic en “Estoy de acuerdo”, confirmas que entiendes el estado actual y deseas comprar la licencia."
+      footer: "Al hacer clic en "Estoy de acuerdo", confirmas que entiendes el estado actual y deseas comprar la licencia."
+    },
+    // FAST EDITOR 해외 결제 동의 모달
+    fastEditorConsent: {
+      title: "Aviso Importante Antes de la Compra",
+      notMedicalDevice: "NO ES UN DISPOSITIVO MÉDICO",
+      notMedicalDeviceDesc: "FAST EDITOR es un software de edición de archivos STL de propósito general. NO es un dispositivo médico y NO ha sido aprobado ni certificado por ninguna autoridad reguladora médica (como FDA, CE o equivalente). Este software está destinado únicamente para fines generales de edición de archivos 3D y NO debe usarse para diagnóstico médico, tratamiento o cualquier toma de decisiones clínicas. Los usuarios asumen toda la responsabilidad por el uso de este software.",
+      refundPolicy: "Política de Reembolso",
+      refundPolicyDesc: "Debido a la naturaleza de los productos digitales, todas las ventas son finales. No se proporcionarán reembolsos después de la compra, descarga o activación de la licencia, excepto cuando lo exija la ley aplicable. Por favor, asegúrese de que el software cumple con sus requisitos antes de comprar.",
+      liability: "Limitación de Responsabilidad",
+      liabilityDesc: "La Empresa no será responsable de ningún daño directo, indirecto, incidental, especial, consecuente o punitivo que surja del uso o la imposibilidad de usar este software. El software se proporciona 'TAL CUAL' sin garantía de ningún tipo, ya sea expresa o implícita, incluyendo pero no limitado a garantías de comerciabilidad, idoneidad para un propósito particular o no infracción.",
+      license: "Términos de Licencia",
+      licenseDesc: "La licencia se otorga solo para uso personal o comercial. Está estrictamente prohibido compartir, transferir o revender la licencia a terceros. La Empresa se reserva el derecho de terminar la licencia sin previo aviso si se detecta uso no autorizado o compartición de licencia.",
+      agreeText: "He leído y comprendido todos los términos anteriores. Reconozco que esto NO es un dispositivo médico, entiendo la política de reembolso, acepto la limitación de responsabilidad y acepto los términos de la licencia.",
+      agree: "Aceptar y Proceder al Pago",
+      decline: "Rechazar",
     },
     purchase: {
       title: "Consulta de compra",

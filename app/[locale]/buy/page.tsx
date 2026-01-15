@@ -293,6 +293,12 @@ const MODULE_PRICE_IDS: Record<string, Record<string, string>> = {
     "1YEAR": "pri_01k1dj77nyhzgpg2terfwwd9pd",
     "LIFETIME": "",
   },
+  "Separator": {
+    "1WEEK": "pri_01k1jcsv5cg66tjnv05qhtwknh",
+    "1MONTH": "pri_01k1jcs60js4d1khk87qsczcgh",
+    "1YEAR": "pri_01k1jcptq639s6r3npgyphtk4p",
+    "LIFETIME": "",
+  },
 };
 
 export default function BuyPage() {
@@ -660,6 +666,11 @@ export default function BuyPage() {
   const [termsConsent2, setTermsConsent2] = useState(false);
   const [termsConsent3, setTermsConsent3] = useState(false);
 
+  // FAST EDITOR 해외 결제 동의 모달
+  const [showFastEditorConsentModal, setShowFastEditorConsentModal] = useState(false);
+  const [fastEditorConsent, setFastEditorConsent] = useState(false);
+  const [pendingFastEditorPeriod, setPendingFastEditorPeriod] = useState<string | null>(null);
+
   const currentOrigin = useMemo(() => {
     if (typeof window === "undefined") return "https://www.dlas.io";
     return window.location.origin;
@@ -705,13 +716,8 @@ export default function BuyPage() {
   const proceedWithPayment = () => {
     if (!pendingPayment) return;
 
-    // 비한국 사용자는 준비중 알림
-    if (!isKrwDisplay(paymentCountry)) {
-      alert(t("buyPage.comingSoon"));
-      setShowTermsConsentModal(false);
-      setPendingPayment(null);
-      return;
-    }
+    // 비한국 사용자는 모듈 결제만 가능 (FAST EDITOR 포함)
+    // fastEditor와 module 타입은 Paddle로 진행 가능
 
     const { type, module: mod, period, couponApplied } = pendingPayment;
     const storedId = localStorage.getItem("userID") || userID;
@@ -852,6 +858,17 @@ export default function BuyPage() {
 
     // FAST EDITOR 결제 (라이센스 9번)
     if (type === "fastEditor") {
+      if (!period) return;
+
+      // 해외 사용자: 동의 모달 표시 후 Paddle 결제
+      if (!isKrwDisplay(paymentCountry)) {
+        setPendingFastEditorPeriod(period);
+        setFastEditorConsent(false);
+        setShowFastEditorConsentModal(true);
+        return;
+      }
+
+      // 한국 사용자: Toss 결제
       if (typeof window === "undefined" || !(window as MyWindow).TossPayments) {
         alert("결제 모듈이 아직 로드되지 않았습니다. 페이지를 새로고침해주세요.");
         return;
@@ -864,8 +881,6 @@ export default function BuyPage() {
         return;
       }
       const tossPayments = tossInit(tossClientKey);
-
-      if (!period) return;
 
       // FAST EDITOR 가격 (기존 모듈과 동일)
       let amount: number;
@@ -1104,8 +1119,44 @@ export default function BuyPage() {
     });
   };
 
+  // FAST EDITOR 해외 결제 동의 후 진행
+  const proceedWithFastEditorPayment = () => {
+    if (!pendingFastEditorPeriod) return;
+    const storedId = localStorage.getItem("userID") || userID;
+
+    const periodMap: Record<string, string> = {
+      "1_WEEK": "1WEEK",
+      "1_MONTH": "1MONTH",
+      "1_YEAR": "1YEAR",
+      "LIFETIME": "LIFETIME"
+    };
+    const paddlePeriod = periodMap[pendingFastEditorPeriod] || pendingFastEditorPeriod;
+
+    const priceId = MODULE_PRICE_IDS["Separator"]?.[paddlePeriod];
+    if (!priceId) {
+      alert("This period is not available for international payments.");
+      setShowFastEditorConsentModal(false);
+      setPendingFastEditorPeriod(null);
+      return;
+    }
+    if (!(window as MyWindow).Paddle) {
+      alert("Payment module is not loaded yet. Please refresh the page.");
+      setShowFastEditorConsentModal(false);
+      setPendingFastEditorPeriod(null);
+      return;
+    }
+
+    setShowFastEditorConsentModal(false);
+    setPendingFastEditorPeriod(null);
+
+    (window as MyWindow).Paddle!.Checkout.open({
+      items: [{ priceId, quantity: 1 }],
+      customData: { userID: storedId, module: "Separator", period: paddlePeriod },
+    });
+  };
+
   // 모달 ESC 닫기
-  const anyModalOpen = tossModalOpen || showTermsConsentModal;
+  const anyModalOpen = tossModalOpen || showTermsConsentModal || showFastEditorConsentModal;
 
   useEffect(() => {
     if (!anyModalOpen) return;
@@ -1119,6 +1170,11 @@ export default function BuyPage() {
         if (showTermsConsentModal) {
           setShowTermsConsentModal(false);
           setPendingPayment(null);
+          return;
+        }
+        if (showFastEditorConsentModal) {
+          setShowFastEditorConsentModal(false);
+          setPendingFastEditorPeriod(null);
           return;
         }
       }
@@ -2131,6 +2187,109 @@ export default function BuyPage() {
                   동의하고 결제하기
                 </button>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* FAST EDITOR 해외 결제 동의 모달 */}
+      {showFastEditorConsentModal && (
+        <div
+          className="fixed inset-0 z-[200] bg-black/70 flex items-center justify-center px-4"
+          onClick={() => {
+            setShowFastEditorConsentModal(false);
+            setPendingFastEditorPeriod(null);
+          }}
+        >
+          <div
+            className="bg-black/20 backdrop-blur-xl border border-white/10 rounded-2xl p-6 sm:p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto
+                       transition-all duration-500"
+            style={{ boxShadow: '0 0 40px rgba(253, 230, 138, 0.15), 0 0 80px rgba(253, 230, 138, 0.08)' }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h3 className="text-2xl font-bold text-[#fde68a] mb-6 text-center">
+              {t("fastEditorConsent.title")}
+            </h3>
+
+            {/* 중요 고지사항 */}
+            <div className="space-y-4 mb-6">
+              {/* 의료기기 아님 */}
+              <div className="bg-red-500/10 border border-red-500/30 rounded-xl p-4">
+                <h4 className="text-red-400 font-semibold mb-2 flex items-center gap-2">
+                  <span>⚠️</span> {t("fastEditorConsent.notMedicalDevice")}
+                </h4>
+                <p className="text-white/70 text-sm leading-relaxed">
+                  {t("fastEditorConsent.notMedicalDeviceDesc")}
+                </p>
+              </div>
+
+              {/* 환불 정책 */}
+              <div className="bg-white/5 border border-white/10 rounded-xl p-4">
+                <h4 className="text-[#fde68a] font-semibold mb-2">
+                  {t("fastEditorConsent.refundPolicy")}
+                </h4>
+                <p className="text-white/70 text-sm leading-relaxed">
+                  {t("fastEditorConsent.refundPolicyDesc")}
+                </p>
+              </div>
+
+              {/* 책임 제한 */}
+              <div className="bg-white/5 border border-white/10 rounded-xl p-4">
+                <h4 className="text-[#fde68a] font-semibold mb-2">
+                  {t("fastEditorConsent.liability")}
+                </h4>
+                <p className="text-white/70 text-sm leading-relaxed">
+                  {t("fastEditorConsent.liabilityDesc")}
+                </p>
+              </div>
+
+              {/* 라이센스 조건 */}
+              <div className="bg-white/5 border border-white/10 rounded-xl p-4">
+                <h4 className="text-[#fde68a] font-semibold mb-2">
+                  {t("fastEditorConsent.license")}
+                </h4>
+                <p className="text-white/70 text-sm leading-relaxed">
+                  {t("fastEditorConsent.licenseDesc")}
+                </p>
+              </div>
+            </div>
+
+            {/* 동의 체크박스 */}
+            <label className="flex items-start gap-3 mb-6 cursor-pointer bg-white/5 border border-white/10 rounded-xl p-4 hover:border-[#fde68a]/30 transition-all">
+              <input
+                type="checkbox"
+                checked={fastEditorConsent}
+                onChange={(e) => setFastEditorConsent(e.target.checked)}
+                className="mt-1 w-5 h-5 accent-[#fde68a]"
+              />
+              <span className="text-white/90 text-sm leading-relaxed">
+                {t("fastEditorConsent.agreeText")}
+              </span>
+            </label>
+
+            {/* 버튼 */}
+            <div className="flex gap-4">
+              <button
+                onClick={() => {
+                  setShowFastEditorConsentModal(false);
+                  setPendingFastEditorPeriod(null);
+                }}
+                className="flex-1 bg-white/10 border border-white/20 text-white py-3 rounded-xl
+                           hover:bg-white/20 transition-all duration-300"
+              >
+                {t("fastEditorConsent.decline")}
+              </button>
+              <button
+                onClick={proceedWithFastEditorPayment}
+                disabled={!fastEditorConsent}
+                className={`flex-1 py-3 rounded-xl transition-all duration-300 font-semibold ${
+                  fastEditorConsent
+                    ? 'bg-gradient-to-r from-[#fde68a] to-[#f59e0b] text-black hover:shadow-lg hover:shadow-[#fde68a]/30'
+                    : 'bg-white/10 text-white/40 cursor-not-allowed'
+                }`}
+              >
+                {t("fastEditorConsent.agree")}
+              </button>
             </div>
           </div>
         </div>
