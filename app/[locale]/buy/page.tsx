@@ -880,9 +880,9 @@ export default function BuyPage() {
       const orderName = `FAST EDITOR (${period})`;
 
       const successUrl =
-        `${currentOrigin}/buy?provider=toss&type=module&mod=fast_editor&period=${encodeURIComponent(period)}` +
+        `${currentOrigin}/buy?provider=toss&type=module&mod=separator&period=${encodeURIComponent(period)}` +
         `&orderName=${encodeURIComponent(orderName)}&orderId=${encodeURIComponent(orderId)}&amount=${encodeURIComponent(String(amount))}`;
-      const failUrl = `${currentOrigin}/buy?provider=toss&type=module&mod=fast_editor&period=${encodeURIComponent(period)}`;
+      const failUrl = `${currentOrigin}/buy?provider=toss&type=module&mod=separator&period=${encodeURIComponent(period)}`;
 
       tossPayments.requestPayment("CARD", {
         amount,
