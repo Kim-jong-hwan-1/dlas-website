@@ -1151,6 +1151,7 @@ export default function BuyPage() {
 
     (window as MyWindow).Paddle!.Checkout.open({
       items: [{ priceId, quantity: 1 }],
+      customer: { email: storedId },
       customData: { userID: storedId, module: "Separator", period: paddlePeriod },
     });
   };
