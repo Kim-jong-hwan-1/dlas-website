@@ -705,15 +705,15 @@ export default function BuyPage() {
       return;
     }
 
-    // 해외 사용자: 영문 동의 모달 표시 후 Paddle 결제
-    if (!isKrwDisplay(paymentCountry)) {
+    // 비한국어 페이지: 해당 언어 동의 모달 표시 후 Paddle 결제
+    if (!isKorean) {
       setPendingFastEditorPeriod(period);
       setFastEditorConsent(false);
       setShowFastEditorConsentModal(true);
       return;
     }
 
-    // 한국 사용자: 한국어 약관 모달 표시 후 Toss 결제
+    // 한국어 페이지: 한국어 약관 모달 표시 후 Toss 결제
     setPendingPayment({ type: "fastEditor", period });
     setTermsConsent1(false);
     setTermsConsent2(false);
