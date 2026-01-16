@@ -195,6 +195,8 @@ This privacy policy may be changed due to legal amendments or service improvemen
       fastEditor: "FAST EDITOR",
       regionNotice: "Region Notice",
       regionNoticeDesc: "The Automation Module is currently only available in South Korea due to medical device certification requirements.",
+      fastEditorNotice: "Notice",
+      fastEditorNoticeDesc: "Due to a temporary issue, FAST EDITOR download is currently unavailable. Service will resume on January 20, 2026.",
     },
     // About page
     aboutPage: {
@@ -802,6 +804,8 @@ This privacy policy may be changed due to legal amendments or service improvemen
       fastEditor: "FAST EDITOR",
       regionNotice: "地域に関するお知らせ",
       regionNoticeDesc: "自動化モジュールは現在、医療機器認証の関係上、韓国でのみ販売されています。",
+      fastEditorNotice: "お知らせ",
+      fastEditorNoticeDesc: "一時的な問題により、FAST EDITORのダウンロードは現在利用できません。2026年1月20日にサービスが再開される予定です。",
     },
     // 紹介ページ
     aboutPage: {
@@ -2081,6 +2085,8 @@ Esta política de privacidade pode ser alterada devido a mudanças legais ou mel
       fastEditor: "FAST EDITOR",
       regionNotice: "지역 안내",
       regionNoticeDesc: "현재 자동화 모듈은 의료기기 인증의 이유로 한국에서만 판매됩니다.",
+      fastEditorNotice: "안내",
+      fastEditorNoticeDesc: "일시적인 오류로 인해 FAST EDITOR 다운로드가 현재 불가능합니다. 2025년 1월 20일에 서비스가 재개됩니다.",
     },
     // 소개 페이지
     aboutPage: {
@@ -2662,6 +2668,8 @@ Esta política de privacidad puede cambiar debido a modificaciones legales o mej
       fastEditor: "FAST EDITOR",
       regionNotice: "Aviso de región",
       regionNoticeDesc: "El Módulo de Automatización actualmente solo está disponible en Corea del Sur debido a los requisitos de certificación de dispositivos médicos.",
+      fastEditorNotice: "Aviso",
+      fastEditorNoticeDesc: "Debido a un problema temporal, la descarga de FAST EDITOR no está disponible actualmente. El servicio se reanudará el 20 de enero de 2026.",
     },
     // Página de información
     aboutPage: {

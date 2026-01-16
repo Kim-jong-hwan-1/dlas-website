@@ -11,6 +11,7 @@ export default function DownloadPage() {
   const [showWhiteScreen, setShowWhiteScreen] = useState(true);
   const [bgPhase, setBgPhase] = useState<'clear' | 'blurring' | 'blurred'>('clear');
   const [showRegionModal, setShowRegionModal] = useState(false);
+  const [showFastEditorModal, setShowFastEditorModal] = useState(false);
 
   // 한국어인지 확인
   const isKorean = lang === 'kr';
@@ -107,19 +108,18 @@ export default function DownloadPage() {
                   {t("downloadPage.software")}
                 </button>
               )}
-              {/* FAST EDITOR는 모든 언어에서 표시 */}
-              <a
-                href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/E_v.2.0.0/DLAS.FAST.EDITOR.Setup.2.0.0.exe"
+              {/* FAST EDITOR - 임시 중단 */}
+              <button
+                onClick={() => setShowFastEditorModal(true)}
                 className="bg-black/10 backdrop-blur-xl border border-white/10 rounded-2xl px-14 py-8
                            text-white text-xl font-semibold text-center
                            hover:bg-black/15 hover:border-[#fde68a]/30 transition-all duration-500"
                 style={{ boxShadow: '0 0 30px rgba(255, 255, 255, 0.08)' }}
                 onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 40px rgba(253, 230, 138, 0.25), 0 0 80px rgba(253, 230, 138, 0.15)'}
                 onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 0 30px rgba(255, 255, 255, 0.08)'}
-                download
               >
                 {t("downloadPage.fastEditor")} v2.0.0
-              </a>
+              </button>
             </div>
           </div>
         </section>
@@ -149,6 +149,34 @@ export default function DownloadPage() {
               onClick={() => setShowRegionModal(false)}
               className="bg-black/30 border border-white/10 text-white px-6 py-2 rounded-lg
                          hover:bg-black/50 hover:border-white/20 transition-all duration-300"
+            >
+              {t("purchase.close") || "Close"}
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* FAST EDITOR 임시 중단 안내 모달 */}
+      {showFastEditorModal && (
+        <div
+          className="fixed inset-0 z-[200] bg-black/60 flex items-center justify-center px-4"
+          onClick={() => setShowFastEditorModal(false)}
+        >
+          <div
+            className="bg-[#0a0a0a] border border-white/10 rounded-2xl p-8 max-w-md w-full"
+            style={{ boxShadow: '0 0 40px rgba(0, 0, 0, 0.5)' }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h3 className="text-xl font-bold text-white mb-6 text-center">
+              {t("downloadPage.fastEditorNotice") || "Notice"}
+            </h3>
+            <p className="text-white/80 text-center leading-relaxed mb-8">
+              {t("downloadPage.fastEditorNoticeDesc") || "Due to a temporary issue, FAST EDITOR download is currently unavailable. Service will resume on January 20, 2025."}
+            </p>
+            <button
+              onClick={() => setShowFastEditorModal(false)}
+              className="w-full bg-white/10 border border-white/20 text-white py-3 rounded-xl
+                         hover:bg-white/20 transition-all duration-300 font-medium"
             >
               {t("purchase.close") || "Close"}
             </button>
