@@ -39,30 +39,7 @@ function AnimatedText({ text, isVisible, wordDelay = 250 }: { text: string; isVi
 }
 
 export default function HomePage() {
-  const { t, lang } = useLang();
-  const isKorean = lang === 'kr';
-
-  // 한국어 페이지 안내 모달 상태
-  const [showNoticeModal, setShowNoticeModal] = useState(false);
-
-  // 한국어 페이지 진입 시 안내 모달 표시
-  useEffect(() => {
-    if (isKorean) {
-      const hasSeenNotice = sessionStorage.getItem('DLAS_NOTICE_SEEN_0214');
-      if (!hasSeenNotice) {
-        // 페이지 로딩 후 잠시 뒤에 모달 표시
-        const timer = setTimeout(() => {
-          setShowNoticeModal(true);
-        }, 1500);
-        return () => clearTimeout(timer);
-      }
-    }
-  }, [isKorean]);
-
-  const closeNoticeModal = () => {
-    setShowNoticeModal(false);
-    sessionStorage.setItem('DLAS_NOTICE_SEEN_0214', 'true');
-  };
+  const { t } = useLang();
 
   // 번역된 텍스트 시퀀스
   const textSequence = [
@@ -271,48 +248,6 @@ export default function HomePage() {
           </div>
         </section>
       </PageLayout>
-
-      {/* 한국어 페이지 안내 모달 - 패밀리/퍼머넌트 라이선스 판매 종료 안내 */}
-      {showNoticeModal && isKorean && (
-        <div
-          className="fixed inset-0 z-[9999] bg-black/70 flex items-center justify-center px-4"
-          onClick={closeNoticeModal}
-        >
-          <div
-            className="bg-black/20 backdrop-blur-xl border border-white/10 rounded-2xl p-6 sm:p-8 max-w-lg w-full
-                       transition-all duration-500"
-            style={{ boxShadow: '0 0 40px rgba(253, 230, 138, 0.15), 0 0 80px rgba(253, 230, 138, 0.08)' }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <h3 className="text-2xl font-bold text-[#fde68a] mb-4 text-center">
-              📢 중요 안내
-            </h3>
-
-            <div className="space-y-4 mb-6">
-              <div className="bg-red-500/10 border border-red-500/30 rounded-xl p-4">
-                <p className="text-white/90 text-center leading-relaxed">
-                  <span className="text-red-400 font-semibold">패밀리 라이선스</span>와{' '}
-                  <span className="text-red-400 font-semibold">퍼머넌트 라이선스</span>는
-                  <br />
-                  <span className="text-[#fde68a] font-bold text-lg">2025년 2월 14일</span>까지만 판매됩니다.
-                </p>
-              </div>
-
-              <p className="text-white/70 text-sm text-center">
-                해당 라이선스 구매를 원하시는 분은 기간 내에 구매해 주세요.
-              </p>
-            </div>
-
-            <button
-              onClick={closeNoticeModal}
-              className="w-full bg-gradient-to-r from-[#fde68a] to-[#f59e0b] text-black py-3 rounded-xl
-                         font-semibold hover:shadow-lg hover:shadow-[#fde68a]/30 transition-all duration-300"
-            >
-              확인
-            </button>
-          </div>
-        </div>
-      )}
     </>
   );
 }
