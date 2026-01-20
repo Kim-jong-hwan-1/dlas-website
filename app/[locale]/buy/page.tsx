@@ -1209,6 +1209,7 @@ export default function BuyPage() {
     "stl_classifier": "2",
     "stl_to_html": "5",
     "stl_to_image": "6",
+    "separator": "9",
   };
 
   const info: Record<
