@@ -101,7 +101,7 @@ export default function AuthButtons({ showUI = true }: AuthButtonsProps) {
             e.currentTarget.style.textShadow = "0 0 8px rgba(255,255,255,0.3)";
           }}
         >
-          로그아웃
+          {t("nav.logout")}
         </button>
       )}
     </div>

@@ -367,6 +367,7 @@ This privacy policy may be changed due to legal amendments or service improvemen
       family: "Family",
       login: "Login",
       signup: "Sign Up",
+      logout: "Logout",
     },
   },
 
@@ -383,7 +384,8 @@ This privacy policy may be changed due to legal amendments or service improvemen
     terms: "条款与隐私",
     family: "家庭",
     login: "登录",
-    signup: "注册"
+    signup: "注册",
+    logout: "退出"
   },
   home: {
     subtitle: "一键最大化生产力",
@@ -961,6 +963,7 @@ This privacy policy may be changed due to legal amendments or service improvemen
       family: "ファミリー",
       login: "ログイン",
       signup: "新規登録",
+      logout: "ログアウト",
     },
   },
 
@@ -977,7 +980,8 @@ This privacy policy may be changed due to legal amendments or service improvemen
       terms: "AGB & Datenschutz",
       family: "Familie",
       login: "Anmelden",
-      signup: "Registrieren"
+      signup: "Registrieren",
+      logout: "Abmelden"
     },
     home: {
       subtitle: "Produktivität mit nur einem Klick maximieren",
@@ -1168,7 +1172,8 @@ Diese Datenschutzrichtlinie kann aufgrund von Gesetzesänderungen oder Serviceve
       terms: "Conditions & Confidentialité",
       family: "Famille",
       login: "Connexion",
-      signup: "S’inscrire"
+      signup: "S'inscrire",
+      logout: "Déconnexion"
     },
     home: {
       subtitle: "Maximisez votre productivité en un seul clic",
@@ -1403,7 +1408,8 @@ Cette politique de confidentialité peut être modifiée en raison de changement
       terms: "नियम और गोपनीयता",
       family: "परिवार",
       login: "लॉगिन",
-      signup: "साइन अप"
+      signup: "साइन अप",
+      logout: "लॉग आउट"
     },
     home: {
       subtitle: "सिर्फ एक क्लिक से उत्पादकता बढ़ाएँ",
@@ -1599,7 +1605,8 @@ Cette politique de confidentialité peut être modifiée en raison de changement
       terms: "Termos & Privacidade",
       family: "Família",
       login: "Entrar",
-      signup: "Cadastrar"
+      signup: "Cadastrar",
+      logout: "Sair"
     },
     home: {
       subtitle: "Maximize a produtividade com um clique",
@@ -2242,6 +2249,7 @@ Esta política de privacidade pode ser alterada devido a mudanças legais ou mel
       family: "패밀리",
       login: "로그인",
       signup: "회원가입",
+      logout: "로그아웃",
     },
   },
 
@@ -2259,7 +2267,8 @@ Esta política de privacidade pode ser alterada devido a mudanças legais ou mel
       terms: "Условия и конфиденциальность",
       family: "Семейная лицензия",
       login: "Войти",
-      signup: "Регистрация"
+      signup: "Регистрация",
+      logout: "Выйти"
     },
     home: {
       subtitle: "Максимальная продуктивность в один клик",
@@ -2825,6 +2834,7 @@ Esta política de privacidad puede cambiar debido a modificaciones legales o mej
       family: "Familia",
       login: "Iniciar sesión",
       signup: "Registrarse",
+      logout: "Cerrar sesión",
     },
   },
 
@@ -2841,7 +2851,8 @@ Esta política de privacidad puede cambiar debido a modificaciones legales o mej
       terms: "الشروط والخصوصية",
       family: "العائلة",
       login: "تسجيل الدخول",
-      signup: "إنشاء حساب"
+      signup: "إنشاء حساب",
+      logout: "تسجيل الخروج"
     },
     home: {
       subtitle: "زيادة الإنتاجية بنقرة واحدة فقط",
@@ -3038,7 +3049,8 @@ Esta política de privacidad puede cambiar debido a modificaciones legales o mej
       terms: "Şartlar & Gizlilik",
       family: "Aile",
       login: "Giriş Yap",
-      signup: "Kayıt Ol"
+      signup: "Kayıt Ol",
+      logout: "Çıkış Yap"
     },
     home: {
       subtitle: "Tek Tıkla Verimliliği Maksimize Edin",
@@ -3235,7 +3247,8 @@ Bu gizlilik politikası yasal değişiklikler veya hizmet iyileştirmeleri neden
       terms: "Điều Khoản & Quyền Riêng Tư",
       family: "Gia Đình",
       login: "Đăng Nhập",
-      signup: "Đăng Ký"
+      signup: "Đăng Ký",
+      logout: "Đăng Xuất"
     },
     home: {
       subtitle: "Tối đa hóa năng suất chỉ với một cú nhấp chuột",
@@ -3425,7 +3438,8 @@ Bu gizlilik politikası yasal değişiklikler veya hizmet iyileştirmeleri neden
       terms: "ข้อกำหนด & ความเป็นส่วนตัว",
       family: "ครอบครัว",
       login: "เข้าสู่ระบบ",
-      signup: "สมัครสมาชิก"
+      signup: "สมัครสมาชิก",
+      logout: "ออกจากระบบ"
     },
     home: {
       subtitle: "เพิ่มประสิทธิภาพสูงสุดด้วยคลิกเดียว",
@@ -3616,7 +3630,8 @@ Bu gizlilik politikası yasal değişiklikler veya hizmet iyileştirmeleri neden
       terms: "Syarat & Privasi",
       family: "Keluarga",
       login: "Masuk",
-      signup: "Daftar"
+      signup: "Daftar",
+      logout: "Keluar"
     },
     home: {
       subtitle: "Maksimalkan Produktivitas dengan Satu Klik",
