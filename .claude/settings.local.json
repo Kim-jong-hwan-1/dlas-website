@@ -46,7 +46,16 @@
       "Bash(del /Q tmpclaude-*)",
       "Bash(git restore:*)",
       "Bash(dir /s /b \"C:\\\\Users\\\\user\\\\Desktop\\\\checkpoint\\\\7th_checkpoint\\\\front - 복사본 \\(4\\)\\\\app\")",
-      "Bash(findstr:*)"
+      "Bash(findstr:*)",
+      "Bash(curl:*)",
+      "Bash(git diff:*)",
+      "Bash(git show:*)",
+      "Bash(netstat:*)",
+      "Bash(taskkill:*)",
+      "Bash(cls)",
+      "Bash(clear:*)",
+      "Bash(tasklist:*)",
+      "Bash(cmd //c \"tasklist /FI \"\"PID eq 22416\"\"\")"
     ],
     "deny": [],
     "ask": []
