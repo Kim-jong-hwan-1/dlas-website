@@ -46,7 +46,7 @@ export default function HomePage() {
 
   // URL 쿼리 파라미터 체크하여 리다이렉트
   useEffect(() => {
-    const tab = searchParams.get('tab');
+    const tab = searchParams?.get('tab');
     if (tab === 'terms-privacy') {
       router.replace(`/${lang}/terms`);
     }
