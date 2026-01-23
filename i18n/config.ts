@@ -1,5 +1,5 @@
 // i18n/config.ts
-export const locales = ['kr', 'en', 'jp', 'es'] as const;
+export const locales = ['kr', 'en', 'jp', 'es', 'ru'] as const;
 export type Locale = (typeof locales)[number];
 
 export const defaultLocale: Locale = 'en';
@@ -31,6 +31,13 @@ export const countryToLocale: Record<string, Locale> = {
   PA: 'es',
   PR: 'es',
   UY: 'es',
+  // 러시아어권
+  RU: 'ru',
+  BY: 'ru',
+  KZ: 'ru',
+  KG: 'ru',
+  TJ: 'ru',
+  UZ: 'ru',
 };
 
 // locale → html lang 속성
@@ -39,4 +46,5 @@ export const localeToHtmlLang: Record<Locale, string> = {
   en: 'en',
   jp: 'ja',
   es: 'es',
+  ru: 'ru',
 };

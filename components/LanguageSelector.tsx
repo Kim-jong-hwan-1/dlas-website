@@ -9,12 +9,13 @@ export default function LanguageSelector() {
   const { lang, setLang } = useLang();
   const [open, setOpen] = useState(false);
 
-  // 지원하는 4개 언어
+  // 지원하는 5개 언어
   const languages: { code: Locale; label: string }[] = [
     { code: 'kr', label: '한국어' },
     { code: 'en', label: 'English' },
     { code: 'jp', label: '日本語' },
     { code: 'es', label: 'Español' },
+    { code: 'ru', label: 'Русский' },
   ];
 
   const handleSelect = (code: Locale) => {

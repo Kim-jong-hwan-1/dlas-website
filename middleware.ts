@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 // 지원 locale 목록
-const locales = ['kr', 'en', 'jp', 'es'] as const;
+const locales = ['kr', 'en', 'jp', 'es', 'ru'] as const;
 type Locale = (typeof locales)[number];
 
 const defaultLocale: Locale = 'en';
@@ -34,6 +34,13 @@ const countryToLocale: Record<string, Locale> = {
   PA: 'es',
   PR: 'es',
   UY: 'es',
+  // 러시아어권
+  RU: 'ru',
+  BY: 'ru',
+  KZ: 'ru',
+  KG: 'ru',
+  TJ: 'ru',
+  UZ: 'ru',
 };
 
 // pathname에서 locale 추출
