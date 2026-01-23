@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 import PageLayout from "@/components/PageLayout";
 import Image from "next/image";
 import { useLang } from "@/components/LanguageWrapper";
@@ -39,7 +40,17 @@ function AnimatedText({ text, isVisible, wordDelay = 250 }: { text: string; isVi
 }
 
 export default function HomePage() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
+  // URL 쿼리 파라미터 체크하여 리다이렉트
+  useEffect(() => {
+    const tab = searchParams.get('tab');
+    if (tab === 'terms-privacy') {
+      router.replace(`/${lang}/terms`);
+    }
+  }, [searchParams, router, lang]);
 
   // 번역된 텍스트 시퀀스
   const textSequence = [
