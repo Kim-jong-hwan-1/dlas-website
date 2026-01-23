@@ -143,6 +143,28 @@ export default function TipsPage() {
                   </div>
                 </div>
               </div>
+
+              {/* All on X 자료 공유 */}
+              <div
+                className="bg-black/10 backdrop-blur-xl rounded-xl border border-white/10 overflow-hidden
+                           hover:bg-black/15 hover:border-[#fde68a]/30 transition-all duration-500"
+                style={{ boxShadow: '0 0 30px rgba(255, 255, 255, 0.08)' }}
+                onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 40px rgba(253, 230, 138, 0.25), 0 0 80px rgba(253, 230, 138, 0.15)'}
+                onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 0 30px rgba(255, 255, 255, 0.08)'}
+              >
+                <div className="p-6">
+                  <h3 className="text-xl font-bold mb-2 text-[#f8fafc]">{t("tipsPage.share2Title")}</h3>
+                  <p className="text-[#f8fafc]/60 mb-4">{t("tipsPage.share2Desc")}</p>
+                  <a
+                    href="/tip/all on x 전반 (1).pdf"
+                    download
+                    className="block w-full border border-white/20 text-white/80 py-2 px-4 rounded-lg
+                               hover:bg-white/10 hover:border-white/40 transition-all duration-300 text-center backdrop-blur-sm"
+                  >
+                    {t("tipsPage.share2Download")}
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </section>

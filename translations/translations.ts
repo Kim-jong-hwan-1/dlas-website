@@ -275,6 +275,9 @@ This privacy policy may be changed due to legal amendments or service improvemen
       shareDesc: "Sharing upper 6 anterior wax-up STL files",
       shareDownload1: "Download Upper 6 Anterior 1.stl",
       shareDownload2: "Download Upper 6 Anterior 2.stl",
+      share2Title: "Share Tip #2: All on X Material Sharing",
+      share2Desc: "Sharing All on X overall concept materials",
+      share2Download: "Download PDF",
     },
     // Buy page
     buyPage: {
@@ -886,6 +889,9 @@ This privacy policy may be changed due to legal amendments or service improvemen
       shareDesc: "上顎6前歯ワックスアップSTLファイルを共有します",
       shareDownload1: "上顎6前歯1.stl ダウンロード",
       shareDownload2: "上顎6前歯2.stl ダウンロード",
+      share2Title: "共有 Tip #2: All on X 資料共有",
+      share2Desc: "All on X 全般の資料を共有します",
+      share2Download: "PDFダウンロード",
     },
     // 購入ページ
     buyPage: {
@@ -2172,6 +2178,9 @@ Esta política de privacidade pode ser alterada devido a mudanças legais ou mel
       shareDesc: "상악 6전치 왁스업 STL 파일을 공유합니다",
       shareDownload1: "상악6전치검 1.stl 다운로드",
       shareDownload2: "상악6전치검 2.stl 다운로드",
+      share2Title: "공유 Tip #2: all on x 자료 공유",
+      share2Desc: "All on X 전반 자료를 공유합니다",
+      share2Download: "PDF 다운로드",
     },
     // 구매 페이지
     buyPage: {
@@ -2757,6 +2766,9 @@ Esta política de privacidad puede cambiar debido a modificaciones legales o mej
       shareDesc: "Compartiendo archivos STL de encerado de 6 anteriores superiores",
       shareDownload1: "Descargar 6 anteriores superiores 1.stl",
       shareDownload2: "Descargar 6 anteriores superiores 2.stl",
+      share2Title: "Compartir Tip #2: Material All on X",
+      share2Desc: "Compartiendo materiales generales de All on X",
+      share2Download: "Descargar PDF",
     },
     // Página de compra
     buyPage: {
