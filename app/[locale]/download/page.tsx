@@ -109,7 +109,7 @@ export default function DownloadPage() {
               )}
               {/* FAST EDITOR는 모든 언어에서 표시 */}
               <a
-                href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/E_v.2.1.0/DLAS.FAST.EDITOR.Setup.2.1.0.exe"
+                href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/E_v.2.3.1/DLAS.FAST.EDITOR.Setup.2.3.1.exe"
                 className="bg-black/10 backdrop-blur-xl border border-white/10 rounded-2xl px-14 py-8
                            text-white text-xl font-semibold text-center
                            hover:bg-black/15 hover:border-[#fde68a]/30 transition-all duration-500"
@@ -118,7 +118,7 @@ export default function DownloadPage() {
                 onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 0 30px rgba(255, 255, 255, 0.08)'}
                 download
               >
-                {t("downloadPage.fastEditor")} v2.1.0
+                {t("downloadPage.fastEditor")} v2.3.1
               </a>
             </div>
           </div>
