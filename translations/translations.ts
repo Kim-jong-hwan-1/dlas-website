@@ -183,6 +183,20 @@ This privacy policy may be changed due to legal amendments or service improvemen
       email: "Email",
       globalNotice: "We are in the early stages of our global launch. We understand that various issues may arise. We promise to respond as quickly as possible. For any inquiries, please contact us at support@dlas.io.",
     },
+    // Notice modal
+    notice: {
+      important: "IMPORTANT NOTICE",
+      title: "Pricing Update",
+      deadline: "~ 2026. 02. 14",
+      salesEnd: "License Sales Ending",
+      salesEndDesc: "Family License and Permanent License will only be available for purchase until February 14, 2026.",
+      priceChange: "Price Adjustment",
+      priceChangeDesc: "Starting February 15, 2026, the following products will have new pricing:",
+      yearly: "1 Year",
+      lifetime: "Lifetime",
+      dontShowToday: "Don't show again today",
+      confirm: "OK",
+    },
     // Home page
     homePage: {
       text1: "From Hand Skills to System Skills",
@@ -796,6 +810,20 @@ This privacy policy may be changed due to legal amendments or service improvemen
       agreeText: "上記のすべての条項を読み、理解しました。これが医療機器ではないことを認め、返金ポリシーを理解し、責任の制限を受け入れ、ライセンス条項に同意します。",
       agree: "同意して支払いに進む",
       decline: "拒否",
+    },
+    // お知らせモーダル
+    notice: {
+      important: "重要なお知らせ",
+      title: "価格改定のお知らせ",
+      deadline: "~ 2026. 02. 14",
+      salesEnd: "ライセンス販売終了",
+      salesEndDesc: "ファミリーライセンスおよびパーマネントライセンスは2026年2月14日までの販売となります。",
+      priceChange: "価格改定",
+      priceChangeDesc: "2026年2月15日より、以下の製品の価格が改定されます：",
+      yearly: "1年利用権",
+      lifetime: "永久利用権",
+      dontShowToday: "今日は表示しない",
+      confirm: "確認",
     },
     // ホームページ
     homePage: {
@@ -2086,6 +2114,20 @@ Esta política de privacidade pode ser alterada devido a mudanças legais ou mel
       email: "이메일",
       globalNotice: "해외 런칭 초기 단계입니다. 여러 문제가 발생할 수 있다고 생각합니다. 최대한 빠른 대처를 해드릴 것을 약속드리며, 문의사항은 support@dlas.io로 문의해 주십시오.",
     },
+    // 공지사항 모달
+    notice: {
+      important: "중요 공지",
+      title: "가격 정책 변경 안내",
+      deadline: "~ 2026. 02. 14",
+      salesEnd: "라이선스 판매 종료",
+      salesEndDesc: "Family License 및 Permanent License는 2026년 2월 14일까지만 구매하실 수 있습니다.",
+      priceChange: "가격 인상 안내",
+      priceChangeDesc: "2026년 2월 15일부터 아래 제품의 가격이 인상됩니다:",
+      yearly: "1년 이용권",
+      lifetime: "평생 이용권",
+      dontShowToday: "오늘 하루 그만보기",
+      confirm: "확인",
+    },
     // 홈 페이지
     homePage: {
       text1: "손의 기술에서 시스템의 기술로",
@@ -2442,6 +2484,20 @@ Esta política de privacidade pode ser alterada devido a mudanças legais ou mel
       fax: "Факс",
       email: "Email",
       globalNotice: "Мы находимся на ранней стадии глобального запуска. Мы понимаем, что могут возникнуть различные проблемы. Обещаем отвечать как можно быстрее. По всем вопросам обращайтесь на support@dlas.io.",
+    },
+    // Модальное окно уведомлений
+    notice: {
+      important: "ВАЖНОЕ УВЕДОМЛЕНИЕ",
+      title: "Изменение цен",
+      deadline: "~ 2026. 02. 14",
+      salesEnd: "Завершение продажи лицензий",
+      salesEndDesc: "Семейная лицензия и Постоянная лицензия будут доступны для покупки только до 14 февраля 2026 года.",
+      priceChange: "Изменение цен",
+      priceChangeDesc: "С 15 февраля 2026 года следующие продукты будут иметь новые цены:",
+      yearly: "1 год",
+      lifetime: "Навсегда",
+      dontShowToday: "Не показывать сегодня",
+      confirm: "OK",
     },
     homePage: {
       text1: "От ручного мастерства к системному",
@@ -2838,6 +2894,20 @@ Esta política de privacidad puede cambiar debido a modificaciones legales o mej
       fax: "Fax",
       email: "Correo electrónico",
       globalNotice: "Estamos en las etapas iniciales de nuestro lanzamiento global. Entendemos que pueden surgir diversos problemas. Prometemos responder lo más rápido posible. Para cualquier consulta, contáctenos en support@dlas.io.",
+    },
+    // Modal de aviso
+    notice: {
+      important: "AVISO IMPORTANTE",
+      title: "Cambio de precios",
+      deadline: "~ 2026. 02. 14",
+      salesEnd: "Fin de venta de licencias",
+      salesEndDesc: "La Licencia Familiar y la Licencia Permanente solo estarán disponibles para compra hasta el 14 de febrero de 2026.",
+      priceChange: "Ajuste de precios",
+      priceChangeDesc: "A partir del 15 de febrero de 2026, los siguientes productos tendrán nuevos precios:",
+      yearly: "1 Año",
+      lifetime: "Vitalicio",
+      dontShowToday: "No mostrar hoy",
+      confirm: "OK",
     },
     // Página de inicio
     homePage: {
