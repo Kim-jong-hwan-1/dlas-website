@@ -297,6 +297,11 @@ This privacy policy may be changed due to legal amendments or service improvemen
     buyPage: {
       close: "Close",
       comingSoon: "Coming Soon",
+      paymentBlocked: {
+        title: "Payment Temporarily Unavailable",
+        desc: "Due to business registration changes, online payments are temporarily unavailable.",
+        contact: "For purchases, please contact us:",
+      },
       week1: "1 Week",
       month1: "1 Month",
       year1: "1 Year",
@@ -925,6 +930,11 @@ This privacy policy may be changed due to legal amendments or service improvemen
     buyPage: {
       close: "閉じる",
       comingSoon: "準備中",
+      paymentBlocked: {
+        title: "決済一時停止のお知らせ",
+        desc: "事業者変更に伴い、現在ウェブサイト内での決済が一時的にご利用いただけません。",
+        contact: "ご購入をご希望の場合は、下記までお問い合わせください。",
+      },
       week1: "1週間",
       month1: "1ヶ月",
       year1: "1年",
@@ -2228,6 +2238,11 @@ Esta política de privacidade pode ser alterada devido a mudanças legais ou mel
     buyPage: {
       close: "닫기",
       comingSoon: "준비중",
+      paymentBlocked: {
+        title: "결제 일시 중단 안내",
+        desc: "사업자 변경으로 인해 현재 홈페이지 내 결제가 일시적으로 불가능합니다.",
+        contact: "구매를 원하시면 아래로 문의해주세요.",
+      },
       week1: "1주",
       month1: "1달",
       year1: "1년",
@@ -2594,6 +2609,11 @@ Esta política de privacidade pode ser alterada devido a mudanças legais ou mel
     buyPage: {
       close: "Закрыть",
       comingSoon: "Скоро",
+      paymentBlocked: {
+        title: "Оплата временно недоступна",
+        desc: "В связи с изменением регистрации бизнеса онлайн-платежи временно недоступны.",
+        contact: "Для покупки свяжитесь с нами:",
+      },
       week1: "1 Неделя",
       month1: "1 Месяц",
       year1: "1 Год",
@@ -3009,6 +3029,11 @@ Esta política de privacidad puede cambiar debido a modificaciones legales o mej
     buyPage: {
       close: "Cerrar",
       comingSoon: "Próximamente",
+      paymentBlocked: {
+        title: "Pago temporalmente no disponible",
+        desc: "Debido a cambios en el registro comercial, los pagos en línea no están disponibles temporalmente.",
+        contact: "Para compras, contáctenos:",
+      },
       week1: "1 Semana",
       month1: "1 Mes",
       year1: "1 Año",

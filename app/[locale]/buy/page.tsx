@@ -313,6 +313,9 @@ export default function BuyPage() {
   // 한국 외 지역 안내 모달 상태
   const [showRegionModal, setShowRegionModal] = useState(false);
 
+  // 결제 차단 모달 (사업자 변경)
+  const [showPaymentBlockedModal, setShowPaymentBlockedModal] = useState(false);
+
   // 로딩 애니메이션 상태
   const [showWhiteScreen, setShowWhiteScreen] = useState(true);
   const [bgPhase, setBgPhase] = useState<'clear' | 'blurring' | 'blurred'>('clear');
@@ -679,49 +682,16 @@ export default function BuyPage() {
     return window.location.origin;
   }, []);
 
-  // 모듈 결제 핸들러
+  // 모듈 결제 핸들러 - 사업자 변경으로 일시 중단
   const handleModulePayment = (mod: string, period: string) => {
-    const storedId = localStorage.getItem("userID") || userID;
-    if (!storedId) {
-      alert("Please log in first.");
-      return;
-    }
-
-    if (!paymentCountry || paymentCountry.trim() === "") {
-      alert(t("buyPage.countryNotLoaded"));
-      return;
-    }
-
-    const isCouponApplied = moduleCouponApplied[mod] || false;
-    setPendingPayment({ type: "module", module: mod, period, couponApplied: isCouponApplied });
-    setTermsConsent1(false);
-    setTermsConsent2(false);
-    setTermsConsent3(false);
-    setShowTermsConsentModal(true);
+    setShowPaymentBlockedModal(true);
+    return;
   };
 
-  // FAST EDITOR 결제 핸들러
+  // FAST EDITOR 결제 핸들러 - 사업자 변경으로 일시 중단
   const handleFastEditorPayment = (period: string) => {
-    const storedId = localStorage.getItem("userID") || userID;
-    if (!storedId) {
-      alert("Please log in first.");
-      return;
-    }
-
-    // 비한국어 페이지: 해당 언어 동의 모달 표시 후 Paddle 결제
-    if (!isKorean) {
-      setPendingFastEditorPeriod(period);
-      setFastEditorConsent(false);
-      setShowFastEditorConsentModal(true);
-      return;
-    }
-
-    // 한국어 페이지: 한국어 약관 모달 표시 후 Toss 결제
-    setPendingPayment({ type: "fastEditor", period });
-    setTermsConsent1(false);
-    setTermsConsent2(false);
-    setTermsConsent3(false);
-    setShowTermsConsentModal(true);
+    setShowPaymentBlockedModal(true);
+    return;
   };
 
   // 약관 동의 후 결제 진행
@@ -1091,44 +1061,10 @@ export default function BuyPage() {
     });
   };
 
-  // 패키지 결제
+  // 패키지 결제 - 사업자 변경으로 일시 중단
   const handlePackagePayment = (packageType: "3" | "E") => {
-    const storedId = localStorage.getItem("userID") || userID;
-    if (!storedId) {
-      alert("로그인이 필요합니다.");
-      return;
-    }
-
-    if (typeof window === "undefined" || !(window as MyWindow).TossPayments) {
-      alert("결제 모듈이 아직 로드되지 않았습니다. 페이지를 새로고침해주세요.");
-      return;
-    }
-
-    const tossClientKey = process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY!;
-    const tossInit = (window as MyWindow).TossPayments;
-    if (!tossInit) {
-      alert("결제 모듈이 아직 로드되지 않았습니다.");
-      return;
-    }
-    const tossPayments = tossInit(tossClientKey);
-
-    const amount = 1100000;
-    const orderId = `DLAS-PKG-${packageType}-${Date.now()}`;
-    const orderName = packageType === "3" ? "3 Package (3 Transfer Jig + STL Classifier)" : "E Package (E Transfer Jig + STL Classifier)";
-
-    const successUrl =
-      `${currentOrigin}/buy?provider=toss&type=package&package=${packageType}&orderName=${encodeURIComponent(orderName)}&orderId=${encodeURIComponent(orderId)}&amount=${encodeURIComponent(String(amount))}`;
-    const failUrl = `${currentOrigin}/buy?provider=toss&type=package&status=fail`;
-
-    tossPayments.requestPayment("CARD", {
-      amount,
-      orderId,
-      orderName,
-      customerEmail: storedId,
-      customerName: userInfo && userInfo.name ? userInfo.name : storedId,
-      successUrl,
-      failUrl,
-    });
+    setShowPaymentBlockedModal(true);
+    return;
   };
 
   // FAST EDITOR 해외 결제 동의 후 진행
@@ -2305,6 +2241,64 @@ export default function BuyPage() {
                 {t("fastEditorConsent.agree")}
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* 결제 차단 모달 (사업자 변경) */}
+      {showPaymentBlockedModal && (
+        <div
+          className="fixed inset-0 z-[200] bg-black/60 backdrop-blur-sm flex items-center justify-center px-4"
+          onClick={() => setShowPaymentBlockedModal(false)}
+        >
+          <div
+            className="bg-black/20 backdrop-blur-xl border border-white/10 rounded-2xl p-8 max-w-md w-full text-center"
+            style={{ boxShadow: '0 0 30px rgba(255, 255, 255, 0.08)' }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* 아이콘 */}
+            <div className="w-16 h-16 mx-auto mb-6 bg-white/10 rounded-full flex items-center justify-center">
+              <svg className="w-8 h-8 text-white/70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+              </svg>
+            </div>
+
+            <h3 className="text-xl font-bold text-white mb-4">
+              {t("buyPage.paymentBlocked.title") || "결제 일시 중단 안내"}
+            </h3>
+
+            <p className="text-white/70 leading-relaxed mb-6">
+              {t("buyPage.paymentBlocked.desc") || "사업자 변경으로 인해 현재 홈페이지 내 결제가 일시적으로 불가능합니다."}
+            </p>
+
+            <div className="bg-white/5 border border-white/10 rounded-xl p-4 mb-6">
+              <p className="text-white/60 text-sm mb-3">
+                {t("buyPage.paymentBlocked.contact") || "구매를 원하시면 아래로 문의해주세요."}
+              </p>
+              <div className="space-y-2">
+                <div className="flex items-center justify-center gap-2 text-white/80">
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                  <span className="text-sm font-medium">support@dlas.io</span>
+                </div>
+                <div className="flex items-center justify-center gap-2 text-white/80">
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                  </svg>
+                  <span className="text-sm font-medium">070-8098-4201</span>
+                </div>
+              </div>
+            </div>
+
+            <button
+              onClick={() => setShowPaymentBlockedModal(false)}
+              className="px-8 py-2.5 bg-white/10 border border-white/20 rounded-full text-white/90 font-medium
+                         hover:bg-white/15 hover:border-white/30
+                         transition-all duration-300"
+            >
+              {t("notice.confirm") || "확인"}
+            </button>
           </div>
         </div>
       )}
