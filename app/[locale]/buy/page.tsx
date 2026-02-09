@@ -949,76 +949,22 @@ export default function BuyPage() {
     alert(t("buyPage.comingSoon"));
   };
 
-  // Permanent 라이센스 결제
+  // Permanent 라이센스 결제 - 사업자 변경으로 일시 중단
   const handlePermanentLicensePayment = () => {
-    const storedIsLoggedIn = localStorage.getItem("isLoggedIn");
-    if (!isLoggedIn && storedIsLoggedIn !== "true") {
-      alert("로그인이 필요합니다. 먼저 로그인해주세요.");
-      return;
-    }
-
-    if (isUserInfoLoading) {
-      alert("Loading your information... Please try again shortly.");
-      return;
-    }
-    if (userInfo.licenseStatus === "permanent") {
-      alert("You already have a Permanent License.");
-      return;
-    }
-
-    setPendingPayment({ type: "permanent" });
-    setTermsConsent1(false);
-    setTermsConsent2(false);
-    setTermsConsent3(false);
-    setShowTermsConsentModal(true);
+    setShowPaymentBlockedModal(true);
+    return;
   };
 
-  // Family 라이센스 결제
+  // Family 라이센스 결제 - 사업자 변경으로 일시 중단
   const handleFamilyLicensePayment = () => {
-    const storedIsLoggedIn = localStorage.getItem("isLoggedIn");
-    if (!isLoggedIn && storedIsLoggedIn !== "true") {
-      alert("로그인이 필요합니다. 먼저 로그인해주세요.");
-      return;
-    }
-
-    if (isUserInfoLoading) {
-      alert("Loading your information... Please try again shortly.");
-      return;
-    }
-    if (userInfo.licenseStatus === "family") {
-      alert("You are already a Family user. Payment is not possible.");
-      return;
-    }
-
-    setPendingPayment({ type: "family" });
-    setTermsConsent1(false);
-    setTermsConsent2(false);
-    setTermsConsent3(false);
-    setShowTermsConsentModal(true);
+    setShowPaymentBlockedModal(true);
+    return;
   };
 
-  // Family 50% 할인 결제 (특정 사용자 전용)
+  // Family 50% 할인 결제 - 사업자 변경으로 일시 중단
   const handleFamilyLicensePayment50 = () => {
-    const storedIsLoggedIn = localStorage.getItem("isLoggedIn");
-    if (!isLoggedIn && storedIsLoggedIn !== "true") {
-      alert("로그인이 필요합니다. 먼저 로그인해주세요.");
-      return;
-    }
-
-    if (isUserInfoLoading) {
-      alert("Loading your information... Please try again shortly.");
-      return;
-    }
-    if (userInfo.licenseStatus === "family") {
-      alert("You are already a Family user. Payment is not possible.");
-      return;
-    }
-
-    setPendingPayment({ type: "family50" });
-    setTermsConsent1(false);
-    setTermsConsent2(false);
-    setTermsConsent3(false);
-    setShowTermsConsentModal(true);
+    setShowPaymentBlockedModal(true);
+    return;
   };
 
   // 세미나 결제
