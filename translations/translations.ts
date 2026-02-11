@@ -168,6 +168,7 @@ This privacy policy may be changed due to legal amendments or service improvemen
     common: { yes: "Yes", no: "No", ok: "OK", back: "Back" },
     footer: {
       rights: "All rights reserved.",
+      companyName: "DLAS Co., Ltd.",
       youtube: "YouTube",
       instagram: "Instagram",
       kakao: "KakaoTalk",
@@ -787,10 +788,11 @@ This privacy policy may be changed due to legal amendments or service improvemen
     },
     footer: {
       rights: "全著作権所有。",
+      companyName: "株式会社ディエルエイエス (DLAS Co., Ltd.)",
       youtube: "YouTube",
       instagram: "Instagram",
       kakao: "KakaoTalk",
-      ceo: "代表",
+      ceo: "代表取締役",
       ceoName: "キム・ジョンファン (Kim Jong-hwan)",
       businessNumber: "事業者登録番号",
       salesNumber: "通信販売業届出番号",
@@ -2109,10 +2111,11 @@ Esta política de privacidade pode ser alterada devido a mudanças legais ou mel
     },
     footer: {
       rights: "모든 권리를 보유함.",
+      companyName: "주식회사 디엘에이에스 (DLAS Co., Ltd.)",
       youtube: "유튜브",
       instagram: "인스타그램",
       kakao: "카카오톡채널",
-      ceo: "대표",
+      ceo: "대표이사",
       ceoName: "김종환",
       businessNumber: "사업자 등록번호",
       salesNumber: "통신판매업 신고번호",
@@ -2485,6 +2488,7 @@ Esta política de privacidade pode ser alterada devido a mudanças legais ou mel
     common: { yes: "Да", no: "Нет", ok: "ОК", back: "Назад" },
     footer: {
       rights: "Все права защищены.",
+      companyName: "DLAS Co., Ltd.",
       youtube: "YouTube",
       instagram: "Instagram",
       kakao: "KakaoTalk",
@@ -2900,6 +2904,7 @@ Esta política de privacidad puede cambiar debido a modificaciones legales o mej
     },
     footer: {
       rights: "Todos los derechos reservados.",
+      companyName: "DLAS Co., Ltd.",
       youtube: "YouTube",
       instagram: "Instagram",
       kakao: "KakaoTalk",

@@ -70,9 +70,9 @@ export default function Footer({ showUI = true }: FooterProps) {
         </div>
 
         <div className="mt-6 text-sm text-white/60 leading-relaxed">
-          <p>DLAS</p>
+          <p>{t("footer.companyName")}</p>
           <p>{t("footer.ceo")} : {t("footer.ceoName")}</p>
-          <p>{t("footer.businessNumber")} : 753-06-03175</p>
+          <p>{t("footer.businessNumber")} : 589-86-03616</p>
           <p>{t("footer.salesNumber")} : {t("footer.salesNumberValue")}</p>
           <p>{t("footer.address")} : {t("footer.addressValue")}</p>
           <p>{t("footer.phone")} : 032-212-2882,2885,2887 {t("footer.fax")} : 032-212-2883</p>
