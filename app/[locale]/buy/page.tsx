@@ -674,8 +674,6 @@ export default function BuyPage() {
   const [fastEditorConsent, setFastEditorConsent] = useState(false);
   const [pendingFastEditorPeriod, setPendingFastEditorPeriod] = useState<string | null>(null);
 
-  // 자동화 모듈 판매 종료 안내 모달 (한국어)
-  const [showAutomationNoticeModal, setShowAutomationNoticeModal] = useState(false);
 
   const currentOrigin = useMemo(() => {
     if (typeof window === "undefined") return "https://www.dlas.io";
@@ -1588,7 +1586,7 @@ export default function BuyPage() {
                   /* 초기 화면: 다운로드 페이지처럼 두 버튼 표시 (중앙 정렬) */
                   <div className="flex flex-col sm:flex-row justify-center gap-6 sm:gap-12 w-full px-4">
                     <button
-                      onClick={() => setShowAutomationNoticeModal(true)}
+                      onClick={() => setActiveTab('automation')}
                       className="bg-black/10 backdrop-blur-xl border border-white/10 rounded-2xl px-14 py-8
                                  text-white text-xl font-semibold text-center
                                  hover:bg-black/15 hover:border-[#fde68a]/30 transition-all duration-500"
@@ -2280,42 +2278,6 @@ export default function BuyPage() {
         </div>
       )}
 
-      {/* 자동화 모듈 판매 종료 안내 모달 (한국어) */}
-      {showAutomationNoticeModal && (
-        <div
-          className="fixed inset-0 z-[200] bg-black/50 flex items-center justify-center px-4"
-          onClick={() => setShowAutomationNoticeModal(false)}
-        >
-          <div
-            className="bg-black/10 backdrop-blur-xl border border-white/10 rounded-2xl p-8 max-w-md w-full text-center"
-            style={{ boxShadow: '0 0 30px rgba(255, 255, 255, 0.08)' }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <h3 className="text-xl font-bold text-white mb-6">
-              안내
-            </h3>
-            <p className="text-white/80 leading-relaxed mb-2">
-              패밀리 라이선스 및 퍼머넌트 라이선스는
-            </p>
-            <p className="text-[#fde68a] font-semibold text-lg mb-4">
-              2026년 2월 14일까지만 판매됩니다.
-            </p>
-            <p className="text-white/60 text-sm mb-8">
-              구매를 원하시는 분은 기간 내에 구매해 주세요.
-            </p>
-            <button
-              onClick={() => {
-                setShowAutomationNoticeModal(false);
-                setActiveTab('automation');
-              }}
-              className="bg-black/30 border border-white/10 text-white px-8 py-2 rounded-lg
-                         hover:bg-black/50 hover:border-white/20 transition-all duration-300"
-            >
-              확인
-            </button>
-          </div>
-        </div>
-      )}
     </>
   );
 }
