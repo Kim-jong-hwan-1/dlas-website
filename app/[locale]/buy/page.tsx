@@ -1097,14 +1097,14 @@ export default function BuyPage() {
 
   const info: Record<
     string,
-    { gif: string | null; youtube: string | null; image: string | null; descKey: string; pdfPage?: number; startTime?: number; comingSoon?: boolean }
+    { gif: string | null; youtube: string | null; image: string | null; descKey: string; pdfUrl?: string; startTime?: number; comingSoon?: boolean }
   > = {
     "3_transfer_jig_maker": {
       gif: "/gifs/transferjig.gif",
       youtube: "5_kXuMsFdXY",
       image: "/modules/3_transfer_jig_maker.png",
       descKey: "buyPage.module1Desc",
-      pdfPage: 10,
+      pdfUrl: "/guides/DLAS-WING3MODE.pdf",
       startTime: 127,
     },
     "e_transfer_jig_maker": {
@@ -1112,7 +1112,7 @@ export default function BuyPage() {
       youtube: "4HxD16Tr2mg",
       image: "/modules/e_transfer_jig_maker.png",
       descKey: "buyPage.module2Desc",
-      pdfPage: 10,
+      pdfUrl: "/guides/DLAS-WINGEMODE.pdf",
       startTime: 127,
     },
     "exo_abutment_editor": {
@@ -1120,7 +1120,7 @@ export default function BuyPage() {
       youtube: "0yr50UK9-Z0",
       image: "/modules/exo_abutment_editor.png",
       descKey: "buyPage.module3Desc",
-      pdfPage: 14,
+      pdfUrl: "/guides/DLAS-ABUTMENT EDITOR.pdf",
       startTime: 159,
     },
     "stl_classifier": {
@@ -1128,7 +1128,7 @@ export default function BuyPage() {
       youtube: "OCSzCMdLvyY",
       image: "/modules/stl_classifier.png",
       descKey: "buyPage.module4Desc",
-      pdfPage: 18,
+      pdfUrl: "/guides/DLAS-STL CLASSIFIER.pdf",
       startTime: 201,
     },
     "stl_to_html": {
@@ -1136,23 +1136,23 @@ export default function BuyPage() {
       youtube: "cMuSQO5zKt8",
       image: "/modules/stl_to_html.png",
       descKey: "buyPage.module5Desc",
-      pdfPage: 6,
+      pdfUrl: "/guides/DLAS-STL TO HTML.pdf",
       startTime: 88,
     },
     "stl_to_image": {
       gif: "/gifs/stl_to_image.gif",
-      youtube: "tnUM0i6RRG8",
+      youtube: "wZbheFBUcI8",
       image: "/modules/stl_to_image.png",
       descKey: "buyPage.module6Desc",
-      pdfPage: 1,
+      pdfUrl: "/guides/DLAS-STL TO IMAGE.pdf",
       startTime: 17,
     },
   };
 
   // 모듈 카드 렌더링
   const moduleCards = modules.map((mod) => {
-    const { gif, youtube, image, descKey, pdfPage, startTime, comingSoon } =
-      info[mod] ?? { gif: null, youtube: null, image: null, descKey: "", pdfPage: undefined, startTime: undefined, comingSoon: false };
+    const { gif, youtube, image, descKey, pdfUrl, startTime, comingSoon } =
+      info[mod] ?? { gif: null, youtube: null, image: null, descKey: "", pdfUrl: undefined, startTime: undefined, comingSoon: false };
     const description = descKey ? t(descKey) : "";
     const moduleId = MODULE_NAME_TO_ID[mod];
     let expireUtc: string | null = null;
@@ -1203,10 +1203,11 @@ export default function BuyPage() {
               <p className="text-sm text-white/70 text-center mb-2">
                 {description}
               </p>
-              {pdfPage && (
+              {pdfUrl && (
                 <button
-                  onClick={() => window.open(`/module-guide.pdf#page=${pdfPage}`, '_blank')}
-                  className="text-xs text-white/50 hover:text-white/70 underline"
+                  onClick={() => window.open(pdfUrl, '_blank')}
+                  className="mt-2 bg-black/30 border border-white/10 text-white rounded-lg px-4 py-2 text-sm font-medium
+                             hover:bg-black/50 hover:border-white/20 transition-all duration-300"
                 >
                   {t("buyPage.viewDetail")}
                 </button>
@@ -1319,10 +1320,11 @@ export default function BuyPage() {
                 <p className="text-sm text-white/70 text-center mb-2">
                   {description}
                 </p>
-                {pdfPage && (
+                {pdfUrl && (
                   <button
-                    onClick={() => window.open(`/module-guide.pdf#page=${pdfPage}`, '_blank')}
-                    className="text-xs text-white/50 hover:text-white/70 underline block mx-auto"
+                    onClick={() => window.open(pdfUrl, '_blank')}
+                    className="mt-2 bg-black/30 border border-white/10 text-white rounded-lg px-4 py-2 text-sm font-medium
+                               hover:bg-black/50 hover:border-white/20 transition-all duration-300 block mx-auto"
                   >
                     {t("buyPage.viewDetail")}
                   </button>
