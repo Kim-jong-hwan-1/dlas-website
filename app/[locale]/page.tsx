@@ -6,7 +6,6 @@ import PageLayout from "@/components/PageLayout";
 import Image from "next/image";
 import { useLang } from "@/components/LanguageWrapper";
 import MouseLight from "@/components/MouseLight";
-import NoticeModal from "@/components/NoticeModal";
 
 // 단어별 애니메이션 컴포넌트
 function AnimatedText({ text, isVisible, wordDelay = 250 }: { text: string; isVisible: boolean; wordDelay?: number }) {
@@ -72,10 +71,6 @@ export default function HomePage() {
 
   // 재방문시 로딩 애니메이션 상태
   const [showWhiteScreen, setShowWhiteScreen] = useState(true);
-
-  // 공지사항 모달 상태 - 마운트 후 바로 표시
-  const [showNoticeModal, setShowNoticeModal] = useState(false);
-  const [noticeChecked, setNoticeChecked] = useState(false);
 
   // 첫 방문 체크
   useEffect(() => {
@@ -154,28 +149,6 @@ export default function HomePage() {
 
     return () => clearInterval(interval);
   }, [showIntro, bgPhase]);
-
-  // 공지사항 모달 표시 (인트로 끝난 후)
-  useEffect(() => {
-    if (showIntro) return; // 인트로 중에는 표시 안함
-    if (noticeChecked) return;
-
-    // 오늘 하루 그만보기 체크 확인
-    const hiddenDate = localStorage.getItem('DLAS_NOTICE_HIDDEN_DATE');
-    const today = new Date().toDateString();
-
-    if (hiddenDate === today) {
-      // 오늘 이미 그만보기 체크했으면 모달 안 띄움
-      setNoticeChecked(true);
-      return;
-    }
-
-    const timer = setTimeout(() => {
-      setShowNoticeModal(true);
-      setNoticeChecked(true);
-    }, 500);
-    return () => clearTimeout(timer);
-  }, [showIntro, noticeChecked]);
 
   const handleVideoEnd = () => {
     setShowWhiteFlash(true);
@@ -286,15 +259,6 @@ export default function HomePage() {
           </div>
         </section>
       </PageLayout>
-
-      {/* 공지사항 모달 */}
-      <NoticeModal
-        show={showNoticeModal}
-        onClose={() => {
-          setShowNoticeModal(false);
-          sessionStorage.setItem('DLAS_NOTICE_SEEN', 'true');
-        }}
-      />
     </>
   );
 }
