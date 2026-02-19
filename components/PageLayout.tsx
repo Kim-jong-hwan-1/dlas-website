@@ -10,9 +10,10 @@ interface PageLayoutProps {
   showUI?: boolean;
   showBackground?: boolean;
   backgroundImage?: string;
+  showNavigation?: boolean;
 }
 
-export default function PageLayout({ children, showUI = true, showBackground = true, backgroundImage = "1" }: PageLayoutProps) {
+export default function PageLayout({ children, showUI = true, showBackground = true, backgroundImage = "1", showNavigation = true }: PageLayoutProps) {
   return (
     <>
       {/* 배경 이미지 (홈과 동일) */}
@@ -29,7 +30,7 @@ export default function PageLayout({ children, showUI = true, showBackground = t
         </div>
       )}
 
-      <Navigation showUI={showUI} />
+      {showNavigation && <Navigation showUI={showUI} />}
       <AuthButtons showUI={showUI} />
 
       <main className="pt-[180px] relative z-10">

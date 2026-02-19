@@ -57,7 +57,7 @@ export default function NoticePage() {
         />
       )}
 
-      <PageLayout showUI={false} showBackground={false}>
+      <PageLayout showUI={bgPhase !== "clear"} showBackground={false} showNavigation={false}>
         {/* Fixed Background Image */}
         <div className="fixed inset-0 z-[1]">
           <Image
