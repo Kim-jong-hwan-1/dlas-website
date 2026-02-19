@@ -685,7 +685,7 @@ export default function BuyPage() {
 
   // 모듈 결제 핸들러 - 사업자 변경으로 일시 중단
   const handleModulePayment = (mod: string, period: string) => {
-    setShowPaymentBlockedModal(true);
+    setShowTransferJigContactModal(true);
     return;
   };
 

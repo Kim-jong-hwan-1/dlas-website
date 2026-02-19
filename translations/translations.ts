@@ -378,6 +378,15 @@ This privacy policy may be changed due to legal amendments or service improvemen
       agree: "Agree & Proceed to Payment",
       decline: "Decline",
     },
+    // 공지사항 페이지
+    noticePage: {
+      title: "Notice",
+      important: "Upcoming",
+      notice1Title: "[Upcoming] Contact Auto-Removal Option",
+      notice1Content: "A contact auto-removal option will be added in an upcoming update.<br/><br/>This feature will allow automatic removal of contacts during the automation process.",
+      notice2Title: "[Upcoming] Auto Single Processing on Bridge Path Error (2-unit bridge only)",
+      notice2Content: "When a bridge path error occurs, the system will automatically proceed with single processing.<br/><br/>This feature is currently planned for 2-unit bridges only.",
+    },
     // Navigation addition
     nav: {
       home: "Home",
@@ -996,6 +1005,15 @@ This privacy policy may be changed due to legal amendments or service improvemen
       serverApprovalSuccess: "サーバー承認成功。まもなくMY情報/ライセンスが更新されます。",
       serverApprovalFail: "サーバー承認失敗:",
       dataCopied: "決済データがコピーされました。",
+    },
+    // 공지사항 페이지
+    noticePage: {
+      title: "お知らせ",
+      important: "予定",
+      notice1Title: "[アップデート予定] コンタクト自動除去オプション",
+      notice1Content: "今後のアップデートでコンタクト自動除去オプションが追加されます。<br/><br/>自動化プロセス中にコンタクトを自動的に除去する機能です。",
+      notice2Title: "[アップデート予定] ブリッジパスエラー時シングル自動処理（2ユニットブリッジのみ）",
+      notice2Content: "ブリッジパスエラー発生時、自動的にシングル処理に切り替えます。<br/><br/>本機能は現在2ユニットブリッジのみ対応予定です。",
     },
     // ナビゲーション追加
     nav: {
@@ -2306,6 +2324,15 @@ Esta política de privacidade pode ser alterada devido a mudanças legais ou mel
       serverApprovalFail: "서버 승인 실패:",
       dataCopied: "결제 데이터가 복사되었습니다.",
     },
+    // 공지사항 페이지
+    noticePage: {
+      title: "공지사항",
+      important: "업데이트 예정",
+      notice1Title: "[업데이트 예정] 컨택 자동 제거 옵션",
+      notice1Content: "다음 업데이트에서 컨택 자동 제거 옵션이 추가될 예정입니다.<br/><br/>자동화 진행 시 컨택을 자동으로 제거하는 기능입니다.",
+      notice2Title: "[업데이트 예정] 브릿지 패스 이상 시 싱글로 자동 진행 (2개짜리 브릿지만 구현 예정)",
+      notice2Content: "브릿지 패스 이상 발생 시 자동으로 싱글로 전환하여 진행합니다.<br/><br/>현재 2개짜리 브릿지에 대해서만 구현 예정입니다.",
+    },
     // 네비게이션 추가
     nav: {
       home: "홈",
@@ -2692,6 +2719,14 @@ Esta política de privacidade pode ser alterada devido a mudanças legais ou mel
       agree: "Согласиться и перейти к оплате",
       decline: "Отклонить",
     },
+    noticePage: {
+      title: "Уведомления",
+      important: "Скоро",
+      notice1Title: "[Скоро] Опция автоматического удаления контактов",
+      notice1Content: "В следующем обновлении будет добавлена опция автоматического удаления контактов.<br/><br/>Эта функция позволит автоматически удалять контакты в процессе автоматизации.",
+      notice2Title: "[Скоро] Автоматическая обработка как single при ошибке пути bridge (только 2-unit bridge)",
+      notice2Content: "При возникновении ошибки пути bridge система автоматически перейдёт к обработке как single.<br/><br/>Данная функция планируется только для 2-unit bridge.",
+    },
     nav: {
       home: "Главная",
       about: "О нас",
@@ -2706,7 +2741,7 @@ Esta política de privacidade pode ser alterada devido a mudanças legais ou mel
       logout: "Выход",
     },
   },
-  
+
 
   /////////////////////////////////////////////////////////////////////
   // 10. 스페인어 (es)
@@ -3098,6 +3133,14 @@ Esta política de privacidad puede cambiar debido a modificaciones legales o mej
       serverApprovalSuccess: "Aprobación del servidor exitosa. La información MY/licencia se actualizará pronto.",
       serverApprovalFail: "Aprobación del servidor fallida:",
       dataCopied: "Datos de pago copiados.",
+    },
+    noticePage: {
+      title: "Avisos",
+      important: "Próximamente",
+      notice1Title: "[Próximamente] Opción de eliminación automática de contactos",
+      notice1Content: "Se añadirá una opción de eliminación automática de contactos en una próxima actualización.<br/><br/>Esta función permitirá eliminar contactos automáticamente durante el proceso de automatización.",
+      notice2Title: "[Próximamente] Procesamiento automático como single en error de ruta bridge (solo bridge de 2 unidades)",
+      notice2Content: "Cuando ocurra un error en la ruta del bridge, el sistema procederá automáticamente con procesamiento single.<br/><br/>Esta función está planificada solo para bridges de 2 unidades.",
     },
     // Adición de navegación
     nav: {
