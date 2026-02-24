@@ -13,21 +13,21 @@ const notices = [
     date: "2026-02-24",
     titleKey: "noticePage.notice3Title",
     contentKey: "noticePage.notice3Content",
-    important: true,
+    badge: "upcoming" as const,
   },
   {
     id: 1,
     date: "2026-02-19",
     titleKey: "noticePage.notice1Title",
     contentKey: "noticePage.notice1Content",
-    important: true,
+    badge: "completed" as const,
   },
   {
     id: 2,
     date: "2026-02-19",
     titleKey: "noticePage.notice2Title",
     contentKey: "noticePage.notice2Content",
-    important: true,
+    badge: "completed" as const,
   },
 ];
 
@@ -117,9 +117,14 @@ export default function NoticePage() {
                   {/* 헤더 */}
                   <div className="p-6 flex items-center justify-between">
                     <div className="flex items-center gap-3 flex-1 min-w-0">
-                      {notice.important && (
+                      {notice.badge === "upcoming" && (
                         <span className="flex-shrink-0 px-2.5 py-0.5 bg-red-500/20 border border-red-500/30 rounded-full text-red-300 text-xs font-semibold">
-                          {t("noticePage.important")}
+                          {t("noticePage.badgeUpcoming")}
+                        </span>
+                      )}
+                      {notice.badge === "completed" && (
+                        <span className="flex-shrink-0 px-2.5 py-0.5 bg-green-500/20 border border-green-500/30 rounded-full text-green-300 text-xs font-semibold">
+                          {t("noticePage.badgeCompleted")}
                         </span>
                       )}
                       <h3 className="text-lg font-bold text-[#f8fafc] truncate">

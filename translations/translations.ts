@@ -381,7 +381,8 @@ This privacy policy may be changed due to legal amendments or service improvemen
     // 공지사항 페이지
     noticePage: {
       title: "Notice",
-      important: "Updated",
+      badgeCompleted: "Updated",
+      badgeUpcoming: "Upcoming",
       notice1Title: "[Updated] 3.Transfer Jig - Contact Auto-Removal Option",
       notice1Content: "The contact auto-removal option has been added.<br/><br/>This feature allows automatic removal of contacts during the automation process.",
       notice2Title: "[Updated] 3.Transfer Jig - Auto Single Processing on Bridge Path Error (2-unit bridge only)",
@@ -1011,7 +1012,8 @@ This privacy policy may be changed due to legal amendments or service improvemen
     // 공지사항 페이지
     noticePage: {
       title: "お知らせ",
-      important: "更新完了",
+      badgeCompleted: "更新完了",
+      badgeUpcoming: "アップデート予定",
       notice1Title: "[更新完了] 3.Transfer Jig - コンタクト自動除去オプション",
       notice1Content: "コンタクト自動除去オプションが追加されました。<br/><br/>自動化プロセス中にコンタクトを自動的に除去する機能です。",
       notice2Title: "[更新完了] 3.Transfer Jig - ブリッジパスエラー時シングル自動処理（2ユニットブリッジのみ）",
@@ -2331,7 +2333,8 @@ Esta política de privacidade pode ser alterada devido a mudanças legais ou mel
     // 공지사항 페이지
     noticePage: {
       title: "공지사항",
-      important: "업데이트 완료",
+      badgeCompleted: "업데이트 완료",
+      badgeUpcoming: "업데이트 예정",
       notice1Title: "[업데이트 완료] 3.Transfer Jig - 컨택 자동 제거 옵션",
       notice1Content: "컨택 자동 제거 옵션이 추가되었습니다.<br/><br/>자동화 진행 시 컨택을 자동으로 제거하는 기능입니다.",
       notice2Title: "[업데이트 완료] 3.Transfer Jig - 브릿지 패스 이상 시 싱글로 자동 진행 (2개짜리 브릿지만 구현)",
@@ -2727,7 +2730,8 @@ Esta política de privacidade pode ser alterada devido a mudanças legais ou mel
     },
     noticePage: {
       title: "Уведомления",
-      important: "Обновлено",
+      badgeCompleted: "Обновлено",
+      badgeUpcoming: "Скоро обновление",
       notice1Title: "[Обновлено] 3.Transfer Jig - Опция автоматического удаления контактов",
       notice1Content: "Опция автоматического удаления контактов добавлена.<br/><br/>Эта функция позволяет автоматически удалять контакты в процессе автоматизации.",
       notice2Title: "[Обновлено] 3.Transfer Jig - Автоматическая обработка как single при ошибке пути bridge (только 2-unit bridge)",
@@ -3144,7 +3148,8 @@ Esta política de privacidad puede cambiar debido a modificaciones legales o mej
     },
     noticePage: {
       title: "Avisos",
-      important: "Actualizado",
+      badgeCompleted: "Actualizado",
+      badgeUpcoming: "Próximamente",
       notice1Title: "[Actualizado] 3.Transfer Jig - Opción de eliminación automática de contactos",
       notice1Content: "Se ha añadido la opción de eliminación automática de contactos.<br/><br/>Esta función permite eliminar contactos automáticamente durante el proceso de automatización.",
       notice2Title: "[Actualizado] 3.Transfer Jig - Procesamiento automático como single en error de ruta bridge (solo bridge de 2 unidades)",
