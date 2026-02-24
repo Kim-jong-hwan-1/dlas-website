@@ -381,11 +381,13 @@ This privacy policy may be changed due to legal amendments or service improvemen
     // 공지사항 페이지
     noticePage: {
       title: "Notice",
-      important: "Upcoming",
-      notice1Title: "[Upcoming] Contact Auto-Removal Option",
-      notice1Content: "A contact auto-removal option will be added in an upcoming update.<br/><br/>This feature will allow automatic removal of contacts during the automation process.",
-      notice2Title: "[Upcoming] Auto Single Processing on Bridge Path Error (2-unit bridge only)",
-      notice2Content: "When a bridge path error occurs, the system will automatically proceed with single processing.<br/><br/>This feature is currently planned for 2-unit bridges only.",
+      important: "Updated",
+      notice1Title: "[Updated] 3.Transfer Jig - Contact Auto-Removal Option",
+      notice1Content: "The contact auto-removal option has been added.<br/><br/>This feature allows automatic removal of contacts during the automation process.",
+      notice2Title: "[Updated] 3.Transfer Jig - Auto Single Processing on Bridge Path Error (2-unit bridge only)",
+      notice2Content: "When a bridge path error occurs, the system now automatically proceeds with single processing.<br/><br/>This feature is currently implemented for 2-unit bridges only.",
+      notice3Title: "[Bug Fix Scheduled] 3.Transfer Jig - Hole Blockage & Hole Creation Issues",
+      notice3Content: "The following bugs are scheduled to be fixed:<br/><br/>1. Hole blockage issue when selecting the contact auto-removal option<br/>2. Hole not being created in certain work environments (including the issue where holes are created inversely on the inner surface)",
     },
     // Navigation addition
     nav: {
@@ -1009,11 +1011,13 @@ This privacy policy may be changed due to legal amendments or service improvemen
     // 공지사항 페이지
     noticePage: {
       title: "お知らせ",
-      important: "予定",
-      notice1Title: "[アップデート予定] コンタクト自動除去オプション",
-      notice1Content: "今後のアップデートでコンタクト自動除去オプションが追加されます。<br/><br/>自動化プロセス中にコンタクトを自動的に除去する機能です。",
-      notice2Title: "[アップデート予定] ブリッジパスエラー時シングル自動処理（2ユニットブリッジのみ）",
-      notice2Content: "ブリッジパスエラー発生時、自動的にシングル処理に切り替えます。<br/><br/>本機能は現在2ユニットブリッジのみ対応予定です。",
+      important: "更新完了",
+      notice1Title: "[更新完了] 3.Transfer Jig - コンタクト自動除去オプション",
+      notice1Content: "コンタクト自動除去オプションが追加されました。<br/><br/>自動化プロセス中にコンタクトを自動的に除去する機能です。",
+      notice2Title: "[更新完了] 3.Transfer Jig - ブリッジパスエラー時シングル自動処理（2ユニットブリッジのみ）",
+      notice2Content: "ブリッジパスエラー発生時、自動的にシングル処理に切り替えます。<br/><br/>本機能は2ユニットブリッジのみ対応しています。",
+      notice3Title: "[バグ修正予定] 3.Transfer Jig - ホール詰まり・ホール生成の不具合",
+      notice3Content: "以下のバグを修正予定です：<br/><br/>1. コンタクト自動除去オプション選択時のホール詰まり現象<br/>2. 特定の作業環境でホールが開かない現象（ホールが内面に逆に生成される現象を含む）",
     },
     // ナビゲーション追加
     nav: {
@@ -2327,11 +2331,13 @@ Esta política de privacidade pode ser alterada devido a mudanças legais ou mel
     // 공지사항 페이지
     noticePage: {
       title: "공지사항",
-      important: "업데이트 예정",
-      notice1Title: "[업데이트 예정] 컨택 자동 제거 옵션",
-      notice1Content: "다음 업데이트에서 컨택 자동 제거 옵션이 추가될 예정입니다.<br/><br/>자동화 진행 시 컨택을 자동으로 제거하는 기능입니다.",
-      notice2Title: "[업데이트 예정] 브릿지 패스 이상 시 싱글로 자동 진행 (2개짜리 브릿지만 구현 예정)",
-      notice2Content: "브릿지 패스 이상 발생 시 자동으로 싱글로 전환하여 진행합니다.<br/><br/>현재 2개짜리 브릿지에 대해서만 구현 예정입니다.",
+      important: "업데이트 완료",
+      notice1Title: "[업데이트 완료] 3.Transfer Jig - 컨택 자동 제거 옵션",
+      notice1Content: "컨택 자동 제거 옵션이 추가되었습니다.<br/><br/>자동화 진행 시 컨택을 자동으로 제거하는 기능입니다.",
+      notice2Title: "[업데이트 완료] 3.Transfer Jig - 브릿지 패스 이상 시 싱글로 자동 진행 (2개짜리 브릿지만 구현)",
+      notice2Content: "브릿지 패스 이상 발생 시 자동으로 싱글로 전환하여 진행합니다.<br/><br/>현재 2개짜리 브릿지에 대해서만 구현되었습니다.",
+      notice3Title: "[버그 수정 예정] 3.Transfer Jig - 홀 막힘 및 홀 생성 관련 이슈",
+      notice3Content: "아래 버그가 수정 예정입니다:<br/><br/>1. 컨택 자동 제거 옵션 선택 시 홀 막힘 현상<br/>2. 특정 작업환경에서 홀이 안 뚫리는 현상 (홀이 역으로 내면에 생기는 현상 포함)",
     },
     // 네비게이션 추가
     nav: {
@@ -2721,11 +2727,13 @@ Esta política de privacidade pode ser alterada devido a mudanças legais ou mel
     },
     noticePage: {
       title: "Уведомления",
-      important: "Скоро",
-      notice1Title: "[Скоро] Опция автоматического удаления контактов",
-      notice1Content: "В следующем обновлении будет добавлена опция автоматического удаления контактов.<br/><br/>Эта функция позволит автоматически удалять контакты в процессе автоматизации.",
-      notice2Title: "[Скоро] Автоматическая обработка как single при ошибке пути bridge (только 2-unit bridge)",
-      notice2Content: "При возникновении ошибки пути bridge система автоматически перейдёт к обработке как single.<br/><br/>Данная функция планируется только для 2-unit bridge.",
+      important: "Обновлено",
+      notice1Title: "[Обновлено] 3.Transfer Jig - Опция автоматического удаления контактов",
+      notice1Content: "Опция автоматического удаления контактов добавлена.<br/><br/>Эта функция позволяет автоматически удалять контакты в процессе автоматизации.",
+      notice2Title: "[Обновлено] 3.Transfer Jig - Автоматическая обработка как single при ошибке пути bridge (только 2-unit bridge)",
+      notice2Content: "При возникновении ошибки пути bridge система автоматически переходит к обработке как single.<br/><br/>Данная функция реализована только для 2-unit bridge.",
+      notice3Title: "[Исправление ошибок запланировано] 3.Transfer Jig - Проблемы с отверстиями",
+      notice3Content: "Запланировано исправление следующих ошибок:<br/><br/>1. Блокировка отверстия при выборе опции автоматического удаления контактов<br/>2. Отверстие не создаётся в определённых рабочих условиях (включая создание отверстия на внутренней поверхности в обратном направлении)",
     },
     nav: {
       home: "Главная",
@@ -3136,11 +3144,13 @@ Esta política de privacidad puede cambiar debido a modificaciones legales o mej
     },
     noticePage: {
       title: "Avisos",
-      important: "Próximamente",
-      notice1Title: "[Próximamente] Opción de eliminación automática de contactos",
-      notice1Content: "Se añadirá una opción de eliminación automática de contactos en una próxima actualización.<br/><br/>Esta función permitirá eliminar contactos automáticamente durante el proceso de automatización.",
-      notice2Title: "[Próximamente] Procesamiento automático como single en error de ruta bridge (solo bridge de 2 unidades)",
-      notice2Content: "Cuando ocurra un error en la ruta del bridge, el sistema procederá automáticamente con procesamiento single.<br/><br/>Esta función está planificada solo para bridges de 2 unidades.",
+      important: "Actualizado",
+      notice1Title: "[Actualizado] 3.Transfer Jig - Opción de eliminación automática de contactos",
+      notice1Content: "Se ha añadido la opción de eliminación automática de contactos.<br/><br/>Esta función permite eliminar contactos automáticamente durante el proceso de automatización.",
+      notice2Title: "[Actualizado] 3.Transfer Jig - Procesamiento automático como single en error de ruta bridge (solo bridge de 2 unidades)",
+      notice2Content: "Cuando ocurre un error en la ruta del bridge, el sistema procede automáticamente con procesamiento single.<br/><br/>Esta función está implementada solo para bridges de 2 unidades.",
+      notice3Title: "[Corrección de errores programada] 3.Transfer Jig - Problemas de bloqueo y creación de orificios",
+      notice3Content: "Se programó la corrección de los siguientes errores:<br/><br/>1. Bloqueo del orificio al seleccionar la opción de eliminación automática de contactos<br/>2. El orificio no se crea en ciertos entornos de trabajo (incluyendo el problema donde el orificio se crea inversamente en la superficie interna)",
     },
     // Adición de navegación
     nav: {

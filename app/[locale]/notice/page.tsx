@@ -9,6 +9,13 @@ import MouseLight from "@/components/MouseLight";
 // 공지사항 데이터
 const notices = [
   {
+    id: 3,
+    date: "2026-02-24",
+    titleKey: "noticePage.notice3Title",
+    contentKey: "noticePage.notice3Content",
+    important: true,
+  },
+  {
     id: 1,
     date: "2026-02-19",
     titleKey: "noticePage.notice1Title",
