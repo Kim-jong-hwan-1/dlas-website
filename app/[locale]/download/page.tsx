@@ -83,7 +83,7 @@ export default function DownloadPage() {
               {/* 자동화 모듈 - 모든 언어에서 표시, 한국 외 지역은 클릭 시 안내 모달 */}
               {isKorean ? (
                 <a
-                  href="https://github.com/CHOIDOHYEON-droid/dlas-nightsky/releases/download/v3.6.6/DLAS-Night-Sky-Setup-3.6.6.exe"
+                  href="https://github.com/CHOIDOHYEON-droid/dlas-nightsky/releases/download/v3.7.0/DLAS-Night-Sky-Setup-3.7.0.exe"
                   className="bg-black/10 backdrop-blur-xl border border-white/10 rounded-2xl px-14 py-8
                              text-white text-xl font-semibold text-center
                              hover:bg-black/15 hover:border-[#fde68a]/30 transition-all duration-500"
@@ -92,7 +92,7 @@ export default function DownloadPage() {
                   onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 0 30px rgba(255, 255, 255, 0.08)'}
                   download
                 >
-                  {t("downloadPage.software")} v3.6.6
+                  {t("downloadPage.software")} v3.7.0
                 </a>
               ) : (
                 <button
@@ -119,6 +119,19 @@ export default function DownloadPage() {
                 download
               >
                 {t("downloadPage.fastEditor")} v2.3.1
+              </a>
+              {/* Automatic Sorter */}
+              <a
+                href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/sorter_v1.0.0/Automatic.Sorter.Setup.1.0.0.exe"
+                className="bg-black/10 backdrop-blur-xl border border-white/10 rounded-2xl px-14 py-8
+                           text-white text-xl font-semibold text-center
+                           hover:bg-black/15 hover:border-[#fde68a]/30 transition-all duration-500"
+                style={{ boxShadow: '0 0 30px rgba(255, 255, 255, 0.08)' }}
+                onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 40px rgba(253, 230, 138, 0.25), 0 0 80px rgba(253, 230, 138, 0.15)'}
+                onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 0 30px rgba(255, 255, 255, 0.08)'}
+                download
+              >
+                Automatic Sorter v1.0.0
               </a>
             </div>
           </div>
