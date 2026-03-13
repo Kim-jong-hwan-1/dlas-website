@@ -1115,7 +1115,7 @@ export default function BuyPage() {
     },
     "e_transfer_jig_maker": {
       gif: "/gifs/transferjig.gif",
-      youtube: "4HxD16Tr2mg",
+      youtube: "lfNqZeguEsQ",
       image: "/modules/e_transfer_jig_maker.png",
       descKey: "buyPage.module2Desc",
       pdfUrl: "/guides/DLAS-WINGEMODE.pdf",
@@ -1123,7 +1123,7 @@ export default function BuyPage() {
     },
     "exo_abutment_editor": {
       gif: "/gifs/abutment_editor.gif",
-      youtube: "0yr50UK9-Z0",
+      youtube: "XZueQxosGxs",
       image: "/modules/exo_abutment_editor.png",
       descKey: "buyPage.module3Desc",
       pdfUrl: "/guides/DLAS-ABUTMENT EDITOR.pdf",
@@ -1131,7 +1131,7 @@ export default function BuyPage() {
     },
     "stl_classifier": {
       gif: "/gifs/stl_classifier.gif",
-      youtube: "OCSzCMdLvyY",
+      youtube: "aSuXPNQhN34",
       image: "/modules/stl_classifier.png",
       descKey: "buyPage.module4Desc",
       pdfUrl: "/guides/DLAS-STL CLASSIFIER.pdf",
@@ -1337,24 +1337,6 @@ export default function BuyPage() {
                 )}
               </div>
             )}
-          </div>
-          <div className="w-72 h-72 flex items-center justify-center flex-shrink-0">
-            <div className="w-72 h-72 flex items-center justify-center border border-white/20 rounded-2xl bg-black/30 overflow-hidden">
-              {gif ? (
-                <Image
-                  src={gif}
-                  alt={`${mod} gif`}
-                  width={288}
-                  height={288}
-                  className="object-contain w-full h-full"
-                  priority
-                />
-              ) : (
-                <span className="text-white/50 text-2xl font-bold flex items-center justify-center w-full h-full">
-                  Coming&nbsp;Soon
-                </span>
-              )}
-            </div>
           </div>
           <div className="flex-1 h-72 flex items-center justify-center min-w-0">
             <div className="w-full h-72 aspect-video border border-white/20 rounded-2xl bg-black/30 overflow-hidden flex items-center justify-center">
