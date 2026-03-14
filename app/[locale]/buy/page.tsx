@@ -1658,7 +1658,7 @@ export default function BuyPage() {
                           <h3 className="text-3xl sm:text-4xl font-bold text-white">Automatic Sorter</h3>
                         </div>
                         <p className="text-white/70 mb-8 max-w-2xl">
-                          {t("buyPage.sorterDesc") || "자동 분류 소프트웨어"}
+                          {t("buyPage.sorterDesc") || "보철물 자동 분류 보조 소프트웨어"}
                         </p>
                         <div className="grid grid-cols-2 gap-4 w-full max-w-md">
                           <button
@@ -1796,7 +1796,7 @@ export default function BuyPage() {
                           <h3 className="text-3xl sm:text-4xl font-bold text-white">Automatic Sorter</h3>
                         </div>
                         <p className="text-white/70 mb-8 max-w-2xl">
-                          {t("buyPage.sorterDesc") || "Automatic sorting software"}
+                          {t("buyPage.sorterDesc") || "Prosthetic automatic sorting assistant software"}
                         </p>
                         <div className="grid grid-cols-2 gap-4 w-full max-w-md">
                           <button
