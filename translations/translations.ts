@@ -293,6 +293,9 @@ This privacy policy may be changed due to legal amendments or service improvemen
       share2Title: "Share Tip #2: All on X Material Sharing",
       share2Desc: "Sharing All on X overall concept materials",
       share2Download: "Download PDF",
+      share3Title: "Share Tip #3: Full-Arch Reconstruction Occlusion Review",
+      share3Desc: "Review of occlusion concepts for full-arch reconstruction",
+      share3Download: "Download PDF",
     },
     // Buy page
     buyPage: {
@@ -940,6 +943,9 @@ This privacy policy may be changed due to legal amendments or service improvemen
       share2Title: "共有 Tip #2: All on X 資料共有",
       share2Desc: "All on X 全般の資料を共有します",
       share2Download: "PDFダウンロード",
+      share3Title: "共有 Tip #3: 全顎再建 咬合概念レビュー",
+      share3Desc: "全顎再建のための咬合概念資料を共有します",
+      share3Download: "PDFダウンロード",
     },
     // 購入ページ
     buyPage: {
@@ -2262,6 +2268,9 @@ Esta política de privacidade pode ser alterada devido a mudanças legais ou mel
       share2Title: "공유 Tip #2: all on x 자료 공유",
       share2Desc: "All on X 전반 자료를 공유합니다",
       share2Download: "PDF 다운로드",
+      share3Title: "공유 Tip #3: 전악 재건 교합 개념 리뷰",
+      share3Desc: "전악 재건 교합 개념 자료를 공유합니다",
+      share3Download: "PDF 다운로드",
     },
     // 구매 페이지
     buyPage: {
@@ -2648,6 +2657,9 @@ Esta política de privacidade pode ser alterada devido a mudanças legais ou mel
       share2Title: "Совет по обмену #2: Материалы All on X",
       share2Desc: "Обмен общими концептуальными материалами All on X",
       share2Download: "Скачать PDF",
+      share3Title: "Совет по обмену #3: Обзор окклюзии полной реконструкции",
+      share3Desc: "Обзор концепций окклюзии для полной реконструкции дуги",
+      share3Download: "Скачать PDF",
     },
     buyPage: {
       close: "Закрыть",
@@ -3080,6 +3092,9 @@ Esta política de privacidad puede cambiar debido a modificaciones legales o mej
       share2Title: "Compartir Tip #2: Material All on X",
       share2Desc: "Compartiendo materiales generales de All on X",
       share2Download: "Descargar PDF",
+      share3Title: "Compartir Tip #3: Revisión de oclusión de reconstrucción total",
+      share3Desc: "Revisión de conceptos de oclusión para reconstrucción de arco completo",
+      share3Download: "Descargar PDF",
     },
     // Página de compra
     buyPage: {
