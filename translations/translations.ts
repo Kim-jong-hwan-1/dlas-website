@@ -296,6 +296,9 @@ This privacy policy may be changed due to legal amendments or service improvemen
       share3Title: "Share Tip #3: Full-Arch Reconstruction Occlusion Review",
       share3Desc: "Review of occlusion concepts for full-arch reconstruction",
       share3Download: "Download PDF",
+      share4Title: "Share Tip #4: Point Centric vs Long Centric",
+      share4Desc: "Comparison of point centric and long centric occlusion concepts",
+      share4Download: "Download PDF",
     },
     // Buy page
     buyPage: {
@@ -946,6 +949,9 @@ This privacy policy may be changed due to legal amendments or service improvemen
       share3Title: "共有 Tip #3: 全顎再建 咬合概念レビュー",
       share3Desc: "全顎再建のための咬合概念資料を共有します",
       share3Download: "PDFダウンロード",
+      share4Title: "共有 Tip #4: ポイントセントリック vs ロングセントリック",
+      share4Desc: "ポイントセントリックとロングセントリックの咬合概念比較",
+      share4Download: "PDFダウンロード",
     },
     // 購入ページ
     buyPage: {
@@ -2271,6 +2277,9 @@ Esta política de privacidade pode ser alterada devido a mudanças legais ou mel
       share3Title: "공유 Tip #3: 전악 재건 교합 개념 리뷰",
       share3Desc: "전악 재건 교합 개념 자료를 공유합니다",
       share3Download: "PDF 다운로드",
+      share4Title: "공유 Tip #4: 포인트 센트릭 vs 롱 센트릭",
+      share4Desc: "포인트 센트릭과 롱 센트릭 교합 개념 비교 자료를 공유합니다",
+      share4Download: "PDF 다운로드",
     },
     // 구매 페이지
     buyPage: {
@@ -2660,6 +2669,9 @@ Esta política de privacidade pode ser alterada devido a mudanças legais ou mel
       share3Title: "Совет по обмену #3: Обзор окклюзии полной реконструкции",
       share3Desc: "Обзор концепций окклюзии для полной реконструкции дуги",
       share3Download: "Скачать PDF",
+      share4Title: "Совет по обмену #4: Точечный центрик vs длинный центрик",
+      share4Desc: "Сравнение концепций точечного и длинного центрика окклюзии",
+      share4Download: "Скачать PDF",
     },
     buyPage: {
       close: "Закрыть",
@@ -3095,6 +3107,9 @@ Esta política de privacidad puede cambiar debido a modificaciones legales o mej
       share3Title: "Compartir Tip #3: Revisión de oclusión de reconstrucción total",
       share3Desc: "Revisión de conceptos de oclusión para reconstrucción de arco completo",
       share3Download: "Descargar PDF",
+      share4Title: "Compartir Tip #4: Céntrica puntual vs céntrica larga",
+      share4Desc: "Comparación de conceptos de oclusión céntrica puntual y céntrica larga",
+      share4Download: "Descargar PDF",
     },
     // Página de compra
     buyPage: {
