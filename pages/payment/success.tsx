@@ -23,10 +23,12 @@ export default function PaymentSuccess() {
 
     const confirmPayment = async () => {
       try {
+        const accessToken = localStorage.getItem("DLAS_TOKEN");
         const res = await fetch("https://license-server-697p.onrender.com/payment/confirm", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
           },
           body: JSON.stringify(payload),
         });

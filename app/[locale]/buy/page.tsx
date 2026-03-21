@@ -440,8 +440,12 @@ export default function BuyPage() {
   const fetchUserInfo = async (email: string) => {
     try {
       setIsUserInfoLoading(true);
+      const accessToken = localStorage.getItem("DLAS_TOKEN");
       const res = await fetch(
-        `https://license-server-697p.onrender.com/admin/userinfo?email=${email}`
+        `https://license-server-697p.onrender.com/admin/userinfo?email=${email}`,
+        {
+          headers: accessToken ? { Authorization: `Bearer ${accessToken}` } : {},
+        }
       );
       if (!res.ok) throw new Error("Failed to fetch user info");
       const data = await res.json();
