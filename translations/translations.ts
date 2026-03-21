@@ -299,6 +299,9 @@ This privacy policy may be changed due to legal amendments or service improvemen
       share4Title: "Share Tip #4: Point Centric vs Long Centric",
       share4Desc: "Comparison of point centric and long centric occlusion concepts",
       share4Download: "Download PDF",
+      share5Title: "Share Tip #5: All-on-X Prosthetic Design Advanced",
+      share5Desc: "Advanced materials on All-on-X prosthetic design",
+      share5Download: "Download PDF",
     },
     // Buy page
     buyPage: {
@@ -952,6 +955,9 @@ This privacy policy may be changed due to legal amendments or service improvemen
       share4Title: "共有 Tip #4: ポイントセントリック vs ロングセントリック",
       share4Desc: "ポイントセントリックとロングセントリックの咬合概念比較",
       share4Download: "PDFダウンロード",
+      share5Title: "共有 Tip #5: All-on-X 補綴デザイン 深化",
+      share5Desc: "All-on-X 補綴デザインの深化資料を共有します",
+      share5Download: "PDFダウンロード",
     },
     // 購入ページ
     buyPage: {
@@ -2280,6 +2286,9 @@ Esta política de privacidade pode ser alterada devido a mudanças legais ou mel
       share4Title: "공유 Tip #4: 포인트 센트릭 vs 롱 센트릭",
       share4Desc: "포인트 센트릭과 롱 센트릭 교합 개념 비교 자료를 공유합니다",
       share4Download: "PDF 다운로드",
+      share5Title: "공유 Tip #5: All-on-X 보철 디자인 심화",
+      share5Desc: "All-on-X 보철 디자인 심화 자료를 공유합니다",
+      share5Download: "PDF 다운로드",
     },
     // 구매 페이지
     buyPage: {
@@ -2672,6 +2681,9 @@ Esta política de privacidade pode ser alterada devido a mudanças legais ou mel
       share4Title: "Совет по обмену #4: Точечный центрик vs длинный центрик",
       share4Desc: "Сравнение концепций точечного и длинного центрика окклюзии",
       share4Download: "Скачать PDF",
+      share5Title: "Совет по обмену #5: All-on-X Углублённый дизайн протезов",
+      share5Desc: "Углублённые материалы по дизайну протезов All-on-X",
+      share5Download: "Скачать PDF",
     },
     buyPage: {
       close: "Закрыть",
@@ -3110,6 +3122,9 @@ Esta política de privacidad puede cambiar debido a modificaciones legales o mej
       share4Title: "Compartir Tip #4: Céntrica puntual vs céntrica larga",
       share4Desc: "Comparación de conceptos de oclusión céntrica puntual y céntrica larga",
       share4Download: "Descargar PDF",
+      share5Title: "Compartir Tip #5: Diseño protésico avanzado All-on-X",
+      share5Desc: "Materiales avanzados sobre diseño protésico All-on-X",
+      share5Download: "Descargar PDF",
     },
     // Página de compra
     buyPage: {
