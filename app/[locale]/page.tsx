@@ -65,10 +65,12 @@ export default function HomePage() {
     "/recruit/007.png",
   ];
 
-  // 인트로 끝난 후 채용 모달 표시 (하루동안 보지않기 체크)
+  // 인트로 끝난 후 채용 모달 표시 (하루동안 보지않기 체크, 모바일 제외)
   const [introFinished, setIntroFinished] = useState(false);
   useEffect(() => {
     if (!introFinished) return;
+    // 모바일에서는 채용 모달을 표시하지 않음
+    if (window.innerWidth <= 768) return;
     const dismissed = localStorage.getItem("DLAS_RECRUIT_DISMISSED");
     if (dismissed) {
       const dismissedTime = parseInt(dismissed, 10);
