@@ -69,6 +69,12 @@ export default function PartnerPage() {
       setToken(data.access_token);
       setIsLoggedIn(true);
       localStorage.setItem("DLAS_PARTNER_SESSION", JSON.stringify({ token: data.access_token, email, time: Date.now() }));
+      // 파트너 로그인 기록
+      fetch(`${API_BASE}/partner/log-auth`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${data.access_token}` },
+        body: JSON.stringify({ type: "login" }),
+      }).catch(() => {});
       addLog("Login", email, "Partner login success", true);
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : "Login failed";
@@ -202,6 +208,12 @@ export default function PartnerPage() {
             </div>
             <button
               onClick={() => {
+                // 파트너 로그아웃 기록
+                fetch(`${API_BASE}/partner/log-auth`, {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+                  body: JSON.stringify({ type: "logout" }),
+                }).catch(() => {});
                 setIsLoggedIn(false);
                 setToken("");
                 setEmail("");
