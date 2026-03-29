@@ -102,36 +102,29 @@ export default function AdminPage() {
     }
   };
 
-  // 라이센스 부여 (모든 모듈에 대해)
-  const grantLicense = async (label: string, days: number) => {
+  // 라이센스 부여 (모듈 1번 - 3 Transfer Jig Maker 전용)
+  const grantLicense = async (label: string, expiryDate: string) => {
     if (!targetEmail.trim()) return setMessage({ text: "대상 이메일을 입력하세요", type: "error" });
     setLoading(label);
     setMessage(null);
-    const expiryDate = addDays(days);
     try {
-      const moduleIds = Object.keys(MODULE_MAP);
-      const results = await Promise.all(
-        moduleIds.map((id) =>
-          fetch(`${API_BASE}/admin/update_user`, {
-            method: "PATCH",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify({
-              email: targetEmail.trim(),
-              field: `module_licenses.${id}`,
-              value: expiryDate,
-            }),
-          })
-        )
-      );
-      const failed = results.filter((r) => !r.ok);
-      if (failed.length > 0) {
-        const errData = await failed[0].json();
-        throw new Error(errData.detail || `${failed.length}개 모듈 업데이트 실패`);
+      const res = await fetch(`${API_BASE}/admin/update_user`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          email: targetEmail.trim(),
+          field: "module_licenses.1",
+          value: expiryDate,
+        }),
+      });
+      if (!res.ok) {
+        const errData = await res.json();
+        throw new Error(errData.detail || "업데이트 실패");
       }
-      const successMsg = `${label} 부여 완료 (만료: ${expiryDate})`;
+      const successMsg = `${label} 부여 완료 (만료: ${expiryDate === "9999-12-31" ? "평생" : expiryDate})`;
       setMessage({ text: successMsg, type: "success" });
       addLog(label, targetEmail, successMsg, true);
     } catch (err: unknown) {
@@ -272,27 +265,28 @@ export default function AdminPage() {
         {/* 라이센스 부여 버튼 */}
         <div className="bg-[#1a1a24] rounded-2xl border border-white/10 p-6">
           <h2 className="text-lg font-semibold mb-4">라이센스 부여</h2>
+          <p className="text-white/40 text-sm mb-3">대상 모듈: 3 Transfer Jig Maker (모듈 1)</p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <button
-              onClick={() => grantLicense("3일 무료", 3)}
+              onClick={() => grantLicense("3일 무료", addDays(3))}
               disabled={!!loading}
               className="py-4 bg-amber-600 hover:bg-amber-700 disabled:bg-amber-600/50 rounded-xl font-medium transition"
             >
               {loading === "3일 무료" ? "처리 중..." : "3일 무료 열기"}
             </button>
             <button
-              onClick={() => grantLicense("1년 라이센스", 365)}
+              onClick={() => grantLicense("1년 라이센스", addDays(365))}
               disabled={!!loading}
               className="py-4 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-600/50 rounded-xl font-medium transition"
             >
               {loading === "1년 라이센스" ? "처리 중..." : "1년 라이센스 부여"}
             </button>
             <button
-              onClick={() => grantLicense("3년 라이센스", 1095)}
+              onClick={() => grantLicense("평생 라이센스", "9999-12-31")}
               disabled={!!loading}
               className="py-4 bg-purple-600 hover:bg-purple-700 disabled:bg-purple-600/50 rounded-xl font-medium transition"
             >
-              {loading === "3년 라이센스" ? "처리 중..." : "3년 라이센스 부여"}
+              {loading === "평생 라이센스" ? "처리 중..." : "평생 라이센스 부여"}
             </button>
           </div>
         </div>
