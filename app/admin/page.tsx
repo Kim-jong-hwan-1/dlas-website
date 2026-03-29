@@ -134,6 +134,33 @@ export default function AdminPage() {
     }
   };
 
+  // IP 차단 초기화
+  const resetIPBlock = async () => {
+    if (!targetEmail.trim()) return setMessage({ text: "Enter target email", type: "error" });
+    if (!confirm(`${targetEmail} 의 IP 차단 기록을 초기화합니다. 계속할까요?`)) return;
+    setLoading("ip-reset");
+    setMessage(null);
+    try {
+      const res = await fetch(`${API_BASE}/admin/reset-ip-block`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+        body: JSON.stringify({ email: targetEmail.trim() }),
+      });
+      if (!res.ok) {
+        const errData = await res.json();
+        throw new Error(errData.detail || "Failed");
+      }
+      setMessage({ text: `IP 차단 초기화 완료: ${targetEmail}`, type: "success" });
+      addLog("IP Reset", targetEmail, "IP block cleared", true);
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "Failed";
+      setMessage({ text: msg, type: "error" });
+      addLog("IP Reset", targetEmail, msg, false);
+    } finally {
+      setLoading("");
+    }
+  };
+
   // 라이센스 부여 (선택한 모듈)
   const grantLicense = async (label: string, expiryDate: string) => {
     if (!targetEmail.trim()) return setMessage({ text: "Enter target email", type: "error" });
@@ -311,6 +338,10 @@ export default function AdminPage() {
                 className="px-6 py-3 bg-black/30 hover:bg-black/50 disabled:opacity-50 border border-white/10 hover:border-[#fde68a]/30 rounded-lg font-medium transition-all duration-500 whitespace-nowrap"
                 style={{ textShadow: "0 0 10px rgba(255,255,255,0.5)" }}>
                 {loading === "status" ? "..." : "STATUS"}
+              </button>
+              <button onClick={resetIPBlock} disabled={!!loading}
+                className="px-4 py-3 bg-black/30 hover:bg-red-900/30 disabled:opacity-50 border border-white/10 hover:border-red-400/30 rounded-lg font-medium transition-all duration-500 whitespace-nowrap text-red-300/70 hover:text-red-300 text-sm">
+                {loading === "ip-reset" ? "..." : "IP Block Reset"}
               </button>
             </div>
           </div>
