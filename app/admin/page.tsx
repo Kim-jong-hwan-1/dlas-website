@@ -208,14 +208,44 @@ export default function AdminPage() {
     }
   };
 
+  // 파트너 description → 활동 타입 분류
+  const classifyPartnerAction = (desc: string): string => {
+    if (desc.includes("로그인")) return "로그인";
+    if (desc.includes("로그아웃")) return "로그아웃";
+    if (desc.includes("3일 무료")) return "3일무료부여";
+    if (desc.includes("1년 라이센스")) return "1년부여";
+    if (desc.includes("평생 라이센스")) return "평생부여";
+    if (desc.includes("라이센스 중지")) return "라이센스중지";
+    return "기타";
+  };
+
+  // 어드민 description → 활동 타입 분류
+  const classifyAdminAction = (desc: string): string => {
+    if (desc.includes("유저 수정") && desc.includes("module_licenses")) {
+      if (desc.includes("9999-12-31")) return "평생부여";
+      if (desc.includes("2000-01-01")) return "라이센스중지";
+      return "라이센스변경";
+    }
+    if (desc.includes("유저 수정")) return "유저정보수정";
+    if (desc.includes("유저 추가")) return "유저추가";
+    if (desc.includes("유저 삭제")) return "유저삭제";
+    if (desc.includes("임시 라이센스")) return "임시라이센스";
+    if (desc.includes("패밀리 라이센스")) return "패밀리부여";
+    if (desc.includes("IP 차단 초기화")) return "IP차단초기화";
+    return "기타";
+  };
+
   // 파트너 로그 엑셀(CSV) 다운로드
   const downloadPartnerCSV = () => {
     if (partnerLogs.length === 0) return;
     const BOM = "\uFEFF";
-    const header = "No,Time,Partner Name,Partner Email,Action,IP Address,Success\n";
-    const rows = partnerLogs.map((log, i) =>
-      `${i + 1},"${new Date(log.timestamp).toLocaleString("ko-KR", { hour12: false })}","${log.partner_name}","${log.partner_email}","${log.description}","${log.ip_address}","${log.success ? "Y" : "N"}"`
-    ).join("\n");
+    const header = "No,Time,Activity Type,Partner Name,Partner Email,Detail,Target,IP Address,Success\n";
+    const rows = partnerLogs.map((log, i) => {
+      const type = classifyPartnerAction(log.description);
+      const targetMatch = log.description.match(/→\s*(\S+)/);
+      const target = targetMatch ? targetMatch[1] : "";
+      return `${i + 1},"${new Date(log.timestamp).toLocaleString("ko-KR", { hour12: false })}","${type}","${log.partner_name}","${log.partner_email}","${log.description}","${target}","${log.ip_address}","${log.success ? "Y" : "N"}"`;
+    }).join("\n");
     const blob = new Blob([BOM + header + rows], { type: "text/csv;charset=utf-8;" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -248,10 +278,11 @@ export default function AdminPage() {
   const downloadAdminCSV = () => {
     if (adminLogs.length === 0) return;
     const BOM = "\uFEFF";
-    const header = "No,Time,Admin,Action,IP Address,Success\n";
-    const rows = adminLogs.map((log, i) =>
-      `${i + 1},"${new Date(log.timestamp).toLocaleString("ko-KR", { hour12: false })}","${log.user_email}","${log.description}","${log.ip_address}","${log.success ? "Y" : "N"}"`
-    ).join("\n");
+    const header = "No,Time,Activity Type,Admin,Detail,IP Address,Success\n";
+    const rows = adminLogs.map((log, i) => {
+      const type = classifyAdminAction(log.description);
+      return `${i + 1},"${new Date(log.timestamp).toLocaleString("ko-KR", { hour12: false })}","${type}","${log.user_email}","${log.description}","${log.ip_address}","${log.success ? "Y" : "N"}"`;
+    }).join("\n");
     const blob = new Blob([BOM + header + rows], { type: "text/csv;charset=utf-8;" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
