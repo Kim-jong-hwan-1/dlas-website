@@ -53,6 +53,12 @@ export default function AdminPage() {
   const [showPartnerLogs, setShowPartnerLogs] = useState(false);
   const [partnerLogLoading, setPartnerLogLoading] = useState(false);
 
+  // 어드민 로그
+  interface ServerLog { id: number; user_email: string; action: string; description: string; ip_address: string; timestamp: string; success: boolean; }
+  const [adminLogs, setAdminLogs] = useState<ServerLog[]>([]);
+  const [showAdminLogs, setShowAdminLogs] = useState(false);
+  const [adminLogLoading, setAdminLogLoading] = useState(false);
+
   // 세션 복원
   useEffect(() => {
     const saved = localStorage.getItem("DLAS_ADMIN_SESSION");
@@ -188,6 +194,42 @@ export default function AdminPage() {
     const a = document.createElement("a");
     a.href = url;
     a.download = `partner-logs-${new Date().toISOString().split("T")[0]}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  // 어드민 로그 조회
+  const fetchAdminLogs = async () => {
+    setAdminLogLoading(true);
+    try {
+      const res = await fetch(`${API_BASE}/admin/activity-logs?action=admin_action&limit=500`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.detail || "Failed");
+      setAdminLogs(data.activities || []);
+      setShowAdminLogs(true);
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "Failed";
+      setMessage({ text: msg, type: "error" });
+    } finally {
+      setAdminLogLoading(false);
+    }
+  };
+
+  // 어드민 로그 CSV 다운로드
+  const downloadAdminCSV = () => {
+    if (adminLogs.length === 0) return;
+    const BOM = "\uFEFF";
+    const header = "No,Time,Admin,Action,IP Address,Success\n";
+    const rows = adminLogs.map((log, i) =>
+      `${i + 1},"${new Date(log.timestamp).toLocaleString("ko-KR", { hour12: false })}","${log.user_email}","${log.description}","${log.ip_address}","${log.success ? "Y" : "N"}"`
+    ).join("\n");
+    const blob = new Blob([BOM + header + rows], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `admin-logs-${new Date().toISOString().split("T")[0]}.csv`;
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -407,6 +449,59 @@ export default function AdminPage() {
               <p className="text-white/30 text-sm text-center py-4">No partner logs found</p>
             ) : (
               <p className="text-white/20 text-sm text-center py-4">Click LOAD to view partner activity logs</p>
+            )}
+          </div>
+
+          {/* 어드민 활동 로그 */}
+          <div className={cardClass} style={cardShadow} onMouseEnter={glowEnter} onMouseLeave={glowLeave}>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg font-semibold" style={{ textShadow: "0 0 20px rgba(253, 230, 138, 0.5)" }}>
+                Admin Activity Logs
+              </h2>
+              <div className="flex gap-2">
+                {showAdminLogs && adminLogs.length > 0 && (
+                  <button onClick={downloadAdminCSV}
+                    className="px-3 py-1.5 text-xs bg-black/30 hover:bg-black/50 border border-white/10 hover:border-[#fde68a]/30 rounded-lg transition-all duration-500 text-white/50 hover:text-white">
+                    EXCEL (CSV)
+                  </button>
+                )}
+                <button onClick={fetchAdminLogs} disabled={adminLogLoading}
+                  className="px-3 py-1.5 text-xs bg-black/30 hover:bg-black/50 disabled:opacity-50 border border-white/10 hover:border-[#fde68a]/30 rounded-lg transition-all duration-500 text-white/50 hover:text-white">
+                  {adminLogLoading ? "..." : showAdminLogs ? "REFRESH" : "LOAD"}
+                </button>
+              </div>
+            </div>
+
+            {showAdminLogs && adminLogs.length > 0 ? (
+              <div className="overflow-x-auto">
+                <table className="w-full text-xs">
+                  <thead>
+                    <tr className="text-white/40 border-b border-white/10">
+                      <th className="text-left py-2 px-2 font-medium">Time</th>
+                      <th className="text-left py-2 px-2 font-medium">Admin</th>
+                      <th className="text-left py-2 px-2 font-medium">Action</th>
+                      <th className="text-left py-2 px-2 font-medium">IP</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {adminLogs.map((log) => (
+                      <tr key={log.id} className="border-b border-white/5 hover:bg-white/[0.03] transition-colors">
+                        <td className="py-2 px-2 text-white/30 whitespace-nowrap">
+                          {new Date(log.timestamp).toLocaleString("ko-KR", { hour12: false })}
+                        </td>
+                        <td className="py-2 px-2 text-white/70">{log.user_email}</td>
+                        <td className="py-2 px-2 text-white/60 max-w-[300px]">{log.description}</td>
+                        <td className="py-2 px-2 text-white/30">{log.ip_address || "-"}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                <p className="text-white/20 text-xs mt-3 text-center">{adminLogs.length} records</p>
+              </div>
+            ) : showAdminLogs ? (
+              <p className="text-white/30 text-sm text-center py-4">No admin logs found</p>
+            ) : (
+              <p className="text-white/20 text-sm text-center py-4">Click LOAD to view admin activity logs</p>
             )}
           </div>
 
