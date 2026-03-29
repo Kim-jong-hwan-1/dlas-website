@@ -63,10 +63,11 @@ function pathnameIsMissingLocale(pathname: string): boolean {
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
-  // 정적 파일, API, _next 등은 스킵
+  // 정적 파일, API, _next, admin 등은 스킵
   if (
     pathname.startsWith('/_next') ||
     pathname.startsWith('/api') ||
+    pathname.startsWith('/admin') ||
     pathname.includes('.') // 정적 파일 (.js, .css, .png 등)
   ) {
     return NextResponse.next();
