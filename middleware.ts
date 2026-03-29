@@ -68,6 +68,7 @@ export function middleware(request: NextRequest) {
     pathname.startsWith('/_next') ||
     pathname.startsWith('/api') ||
     pathname.startsWith('/admin') ||
+    pathname.startsWith('/partner') ||
     pathname.includes('.') // 정적 파일 (.js, .css, .png 등)
   ) {
     return NextResponse.next();
