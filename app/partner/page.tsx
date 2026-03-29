@@ -59,7 +59,7 @@ export default function PartnerPage() {
     setLoginLoading(true);
     setLoginError("");
     try {
-      const res = await fetch(`${API_BASE}/auth/login`, {
+      const res = await fetch(`${API_BASE}/auth/partner-login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
