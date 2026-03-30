@@ -731,7 +731,7 @@ export default function BuyPage() {
         alert("결제 모듈이 아직 로드되지 않았습니다.");
         return;
       }
-      const tossPayments = tossInit(tossClientKey);
+      const tossPayments = tossInit!(tossClientKey);
 
       const orderId = `DLAS-PERMANENT-${Date.now()}`;
       let amount = 2200000;
@@ -776,7 +776,7 @@ export default function BuyPage() {
         alert("The payment module has not been loaded yet.");
         return;
       }
-      const tossPayments = tossInit(tossClientKey);
+      const tossPayments = tossInit!(tossClientKey);
 
       const orderId = `DLAS-FAMILY-${Date.now()}`;
       let amount = 3850000;
@@ -821,7 +821,7 @@ export default function BuyPage() {
         alert("The payment module has not been loaded yet.");
         return;
       }
-      const tossPayments = tossInit(tossClientKey);
+      const tossPayments = tossInit!(tossClientKey);
 
       const orderId = `DLAS-FAMILY50-${Date.now()}`;
       const amount = Math.floor(3850000 * 0.5);
@@ -873,7 +873,7 @@ export default function BuyPage() {
         alert("결제 모듈이 아직 로드되지 않았습니다.");
         return;
       }
-      const tossPayments = tossInit(tossClientKey);
+      const tossPayments = tossInit!(tossClientKey);
 
       // FAST EDITOR 가격 (기존 모듈과 동일)
       let amount: number;
@@ -917,7 +917,7 @@ export default function BuyPage() {
         alert("결제 모듈이 아직 로드되지 않았습니다.");
         return;
       }
-      const tossPayments = tossInit(tossClientKey);
+      const tossPayments = tossInit!(tossClientKey);
 
       if (!mod || !period) return;
       const level = MODULE_DISCOUNT_LEVELS[mod] ?? 0;
@@ -981,43 +981,6 @@ export default function BuyPage() {
   // 세미나 결제
   const handleSeminarPayment = (persons: number) => {
     alert("Online payment is currently unavailable. Please contact us.");
-    return;
-    const storedId = localStorage.getItem("userID") || userID;
-    if (!storedId) {
-      alert("로그인이 필요합니다.");
-      return;
-    }
-
-    if (typeof window === "undefined" || !(window as MyWindow).TossPayments) {
-      alert("결제 모듈이 아직 로드되지 않았습니다. 페이지를 새로고침해주세요.");
-      return;
-    }
-
-    const tossClientKey = process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY!;
-    const tossInit = (window as MyWindow).TossPayments;
-    if (!tossInit) {
-      alert("결제 모듈이 아직 로드되지 않았습니다.");
-      return;
-    }
-    const tossPayments = tossInit(tossClientKey);
-
-    const amount = SEMINAR_PRICES[persons] || 220000;
-    const orderId = `DLAS-SEMINAR-${persons}P-${Date.now()}`;
-    const orderName = `DLAS 세미나 (${persons}인)`;
-
-    const successUrl =
-      `${currentOrigin}/buy?provider=toss&type=seminar&orderName=${encodeURIComponent(orderName)}&orderId=${encodeURIComponent(orderId)}&amount=${encodeURIComponent(String(amount))}&period=2WEEK`;
-    const failUrl = `${currentOrigin}/buy?provider=toss&type=seminar&status=fail`;
-
-    tossPayments.requestPayment("CARD", {
-      amount,
-      orderId,
-      orderName,
-      customerEmail: storedId,
-      customerName: userInfo && userInfo.name ? userInfo.name : storedId,
-      successUrl,
-      failUrl,
-    });
   };
 
   // 패키지 결제 - 사업자 변경으로 일시 중단
@@ -1029,40 +992,6 @@ export default function BuyPage() {
   // FAST EDITOR 해외 결제 동의 후 진행
   const proceedWithFastEditorPayment = () => {
     alert("Online payment is currently unavailable. Please contact us.");
-    return;
-    if (!pendingFastEditorPeriod) return;
-    const storedId = localStorage.getItem("userID") || userID;
-
-    const periodMap: Record<string, string> = {
-      "1_WEEK": "1WEEK",
-      "1_MONTH": "1MONTH",
-      "1_YEAR": "1YEAR",
-      "LIFETIME": "LIFETIME"
-    };
-    const paddlePeriod = periodMap[pendingFastEditorPeriod] || pendingFastEditorPeriod;
-
-    const priceId = MODULE_PRICE_IDS["Separator"]?.[paddlePeriod];
-    if (!priceId) {
-      alert("This period is not available for international payments.");
-      setShowFastEditorConsentModal(false);
-      setPendingFastEditorPeriod(null);
-      return;
-    }
-    if (!(window as MyWindow).Paddle) {
-      alert("Payment module is not loaded yet. Please refresh the page.");
-      setShowFastEditorConsentModal(false);
-      setPendingFastEditorPeriod(null);
-      return;
-    }
-
-    setShowFastEditorConsentModal(false);
-    setPendingFastEditorPeriod(null);
-
-    (window as MyWindow).Paddle!.Checkout.open({
-      items: [{ priceId, quantity: 1 }],
-      customer: { email: storedId },
-      customData: { userID: storedId, module: "Separator", period: paddlePeriod },
-    });
   };
 
   // 모달 ESC 닫기
