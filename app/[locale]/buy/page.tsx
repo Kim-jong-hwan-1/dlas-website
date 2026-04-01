@@ -1461,7 +1461,7 @@ export default function BuyPage() {
                       onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 40px rgba(253, 230, 138, 0.25), 0 0 80px rgba(253, 230, 138, 0.15)'}
                       onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 0 30px rgba(255, 255, 255, 0.08)'}
                     >
-                      {t("buyPage.automationModules") || "자동화 모듈"}
+                      {t("buyPage.automationModules") || "자동화 소프트웨어"}
                     </button>
                     <button
                       onClick={() => setActiveTab('fastEditor')}
@@ -1631,7 +1631,7 @@ export default function BuyPage() {
                       onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 40px rgba(253, 230, 138, 0.25), 0 0 80px rgba(253, 230, 138, 0.15)'}
                       onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 0 30px rgba(255, 255, 255, 0.08)'}
                     >
-                      {t("buyPage.automationModules") || "Automation Modules"}
+                      {t("buyPage.automationModules") || "Automation Software"}
                     </button>
                     <button
                       onClick={() => setActiveTab('fastEditor')}
