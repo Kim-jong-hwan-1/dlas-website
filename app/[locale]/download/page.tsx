@@ -83,7 +83,7 @@ export default function DownloadPage() {
               {/* 자동화 모듈 - 모든 언어에서 표시, 한국 외 지역은 클릭 시 안내 모달 */}
               {isKorean ? (
                 <a
-                  href="https://github.com/CHOIDOHYEON-droid/dlas-nightsky/releases/download/v3.7.6/DLAS-Night-Sky-Setup-3.7.5.exe"
+                  href="https://github.com/CHOIDOHYEON-droid/dlas-nightsky/releases/download/v3.7.6/DLAS-Night-Sky-Setup-3.7.6.exe"
                   className="bg-black/10 backdrop-blur-xl border border-white/10 rounded-2xl px-14 py-8
                              text-white text-xl font-semibold text-center
                              hover:bg-black/15 hover:border-[#fde68a]/30 transition-all duration-500"
