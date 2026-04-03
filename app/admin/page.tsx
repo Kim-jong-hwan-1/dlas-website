@@ -48,6 +48,13 @@ export default function AdminPage() {
   const [message, setMessage] = useState<{ text: string; type: "success" | "error" } | null>(null);
   const [logs, setLogs] = useState<LogEntry[]>([]);
 
+  // 유저 리스트
+  interface UserInfo { email: string; name: string; country: string; workplace_name: string; signup_date: string; module_licenses: Record<string, string>; is_verified: boolean; }
+  const [users, setUsers] = useState<UserInfo[]>([]);
+  const [showUsers, setShowUsers] = useState(false);
+  const [userLoading, setUserLoading] = useState(false);
+  const [userSearch, setUserSearch] = useState("");
+
   // 파트너 로그
   const [partnerLogs, setPartnerLogs] = useState<PartnerLog[]>([]);
   const [showPartnerLogs, setShowPartnerLogs] = useState(false);
@@ -274,6 +281,47 @@ export default function AdminPage() {
     }
   };
 
+  // 유저 리스트 조회
+  const fetchUsers = async () => {
+    setUserLoading(true);
+    try {
+      const res = await fetch(`${API_BASE}/admin/users`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.detail || "Failed");
+      setUsers(Array.isArray(data) ? data : []);
+      setShowUsers(true);
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "Failed";
+      setMessage({ text: msg, type: "error" });
+    } finally {
+      setUserLoading(false);
+    }
+  };
+
+  // 유저 리스트 CSV 다운로드
+  const downloadUserCSV = () => {
+    if (users.length === 0) return;
+    const BOM = "\uFEFF";
+    const header = "No,Email,Name,Country,Company,Signup Date,Verified,Module 1,Module 2,Module 3,Module 4,Module 5,Module 6,Module 7,Module 8,Module 9\n";
+    const rows = users.map((u, i) => {
+      const ml = u.module_licenses || {};
+      return `${i + 1},"${u.email}","${u.name || ""}","${u.country || ""}","${u.workplace_name || ""}","${u.signup_date || ""}","${u.is_verified ? "Y" : "N"}","${ml["1"] || ""}","${ml["2"] || ""}","${ml["3"] || ""}","${ml["4"] || ""}","${ml["5"] || ""}","${ml["6"] || ""}","${ml["7"] || ""}","${ml["8"] || ""}","${ml["9"] || ""}"`;
+    }).join("\n");
+    const blob = new Blob([BOM + header + rows], { type: "text/csv;charset=utf-8;" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = `user-list-${new Date().toISOString().split("T")[0]}.csv`;
+    a.click();
+  };
+
+  const filteredUsers = users.filter((u) => {
+    if (!userSearch) return true;
+    const q = userSearch.toLowerCase();
+    return (u.email || "").toLowerCase().includes(q) || (u.name || "").toLowerCase().includes(q) || (u.workplace_name || "").toLowerCase().includes(q);
+  });
+
   // 어드민 로그 CSV 다운로드
   const downloadAdminCSV = () => {
     if (adminLogs.length === 0) return;
@@ -457,6 +505,80 @@ export default function AdminPage() {
               {message.text}
             </div>
           )}
+
+          {/* 유저 리스트 */}
+          <div className={cardClass} style={cardShadow} onMouseEnter={glowEnter} onMouseLeave={glowLeave}>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-lg font-semibold" style={{ textShadow: "0 0 20px rgba(253, 230, 138, 0.5)" }}>
+                All Users ({showUsers ? filteredUsers.length : "—"})
+              </h2>
+              <div className="flex gap-2">
+                {showUsers && users.length > 0 && (
+                  <button onClick={downloadUserCSV} className={`px-3 py-1.5 text-xs bg-black/30 hover:bg-black/50 border border-white/10 hover:border-[#fde68a]/30 rounded-lg transition-all duration-500 text-white/50 hover:text-white`}>
+                    EXCEL (CSV)
+                  </button>
+                )}
+                <button onClick={fetchUsers} disabled={userLoading}
+                  className={`px-3 py-1.5 text-xs bg-black/30 hover:bg-black/50 disabled:opacity-50 border border-white/10 hover:border-[#fde68a]/30 rounded-lg transition-all duration-500 text-white/50 hover:text-white`}>
+                  {userLoading ? "..." : showUsers ? "REFRESH" : "LOAD"}
+                </button>
+              </div>
+            </div>
+
+            {showUsers && (
+              <input type="text" placeholder="Search email, name, company..." value={userSearch} onChange={(e) => setUserSearch(e.target.value)}
+                className="w-full px-4 py-2 mb-4 bg-white/5 border border-white/10 rounded-lg text-white text-sm placeholder-white/20 focus:outline-none focus:border-[#fde68a]/30 transition-all duration-300" />
+            )}
+
+            {showUsers && filteredUsers.length > 0 ? (
+              <div className="overflow-x-auto max-h-[500px] overflow-y-auto">
+                <table className="w-full text-xs">
+                  <thead className="sticky top-0 bg-[#12121a]">
+                    <tr className="text-white/40 border-b border-white/10">
+                      <th className="text-left py-2 px-2 font-medium">#</th>
+                      <th className="text-left py-2 px-2 font-medium">Email</th>
+                      <th className="text-left py-2 px-2 font-medium">Name</th>
+                      <th className="text-left py-2 px-2 font-medium">Company</th>
+                      <th className="text-left py-2 px-2 font-medium">Country</th>
+                      <th className="text-left py-2 px-2 font-medium">Signup</th>
+                      <th className="text-center py-2 px-2 font-medium">Modules</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {filteredUsers.map((u, i) => {
+                      const ml = u.module_licenses || {};
+                      const now = new Date().toISOString().split("T")[0];
+                      const activeModules = Object.entries(ml).filter(([, d]) => d === "9999-12-31" || d >= now).map(([id]) => id);
+                      return (
+                        <tr key={u.email} className="border-b border-white/5 hover:bg-white/[0.03] transition-colors cursor-pointer"
+                          onClick={() => { setTargetEmail(u.email); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
+                          <td className="py-2 px-2 text-white/20">{i + 1}</td>
+                          <td className="py-2 px-2 text-white/70">{u.email}</td>
+                          <td className="py-2 px-2 text-white/50">{u.name || "-"}</td>
+                          <td className="py-2 px-2 text-white/40">{u.workplace_name || "-"}</td>
+                          <td className="py-2 px-2 text-white/30">{u.country || "-"}</td>
+                          <td className="py-2 px-2 text-white/30">{u.signup_date || "-"}</td>
+                          <td className="py-2 px-2 text-center">
+                            {activeModules.length > 0 ? (
+                              <div className="flex flex-wrap justify-center gap-0.5">
+                                {activeModules.map((id) => (
+                                  <span key={id} className="px-1.5 py-0.5 rounded text-[10px] bg-green-400/10 text-green-300 border border-green-400/20">{id}</span>
+                                ))}
+                              </div>
+                            ) : <span className="text-white/20">—</span>}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            ) : showUsers ? (
+              <p className="text-white/30 text-sm text-center py-4">{userSearch ? "No matching users" : "No users found"}</p>
+            ) : (
+              <p className="text-white/20 text-sm text-center py-4">Click LOAD to view all users</p>
+            )}
+          </div>
 
           {/* 파트너 활동 로그 */}
           <div className={cardClass} style={cardShadow} onMouseEnter={glowEnter} onMouseLeave={glowLeave}>
