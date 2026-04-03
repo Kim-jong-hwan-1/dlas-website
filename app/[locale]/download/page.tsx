@@ -107,32 +107,8 @@ export default function DownloadPage() {
                   {t("downloadPage.software")}
                 </button>
               )}
-              {/* FAST EDITOR는 모든 언어에서 표시 */}
-              <a
-                href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/E_v.2.3.1/DLAS.FAST.EDITOR.Setup.2.3.1.exe"
-                className="bg-black/10 backdrop-blur-xl border border-white/10 rounded-2xl px-14 py-8
-                           text-white text-xl font-semibold text-center
-                           hover:bg-black/15 hover:border-[#fde68a]/30 transition-all duration-500"
-                style={{ boxShadow: '0 0 30px rgba(255, 255, 255, 0.08)' }}
-                onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 40px rgba(253, 230, 138, 0.25), 0 0 80px rgba(253, 230, 138, 0.15)'}
-                onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 0 30px rgba(255, 255, 255, 0.08)'}
-                download
-              >
-                {t("downloadPage.fastEditor")} v2.3.1
-              </a>
-              {/* Automatic Sorter */}
-              <a
-                href="https://github.com/Kim-jong-hwan-1/dlas-website/releases/download/sorter_v1.0.0/Automatic.Sorter.Setup.1.0.0.exe"
-                className="bg-black/10 backdrop-blur-xl border border-white/10 rounded-2xl px-14 py-8
-                           text-white text-xl font-semibold text-center
-                           hover:bg-black/15 hover:border-[#fde68a]/30 transition-all duration-500"
-                style={{ boxShadow: '0 0 30px rgba(255, 255, 255, 0.08)' }}
-                onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 40px rgba(253, 230, 138, 0.25), 0 0 80px rgba(253, 230, 138, 0.15)'}
-                onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 0 30px rgba(255, 255, 255, 0.08)'}
-                download
-              >
-                Automatic Sorter v1.0.0
-              </a>
+              {/* FAST EDITOR - 숨김 처리 */}
+              {/* Automatic Sorter - 숨김 처리 */}
             </div>
           </div>
         </section>
