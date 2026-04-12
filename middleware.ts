@@ -75,7 +75,7 @@ export function middleware(request: NextRequest) {
   }
 
   // IP 기반 국가 코드 가져오기
-  const country = request.headers.get('x-vercel-ip-country') || 'US';
+  const country = request.headers.get('cf-ipcountry') || request.headers.get('x-vercel-ip-country') || 'US';
 
   // pathname에 locale이 없으면 리다이렉트
   if (pathnameIsMissingLocale(pathname)) {
