@@ -1,7 +1,17 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: 'https://www.dlas.io',   // 도메인
-  generateRobotsTxt: true,          // robots.txt 자동 생성
+  siteUrl: 'https://www.dlas.io',
+  generateRobotsTxt: true,
   changefreq: 'weekly',
   priority: 0.7,
+  exclude: ['/admin', '/admin/*', '/adminIPview', '/partner', '/payment/*'],
+  robotsTxtOptions: {
+    policies: [
+      {
+        userAgent: '*',
+        allow: '/',
+        disallow: ['/admin', '/adminIPview', '/partner', '/payment'],
+      },
+    ],
+  },
 };
