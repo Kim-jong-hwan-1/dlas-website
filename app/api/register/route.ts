@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 export async function POST(req: Request) {
   try {
     const { email, password } = await req.json();
-    console.log("회원가입 요청 데이터:", { email, password }); // ✅ 요청 로그 추가
+    // 민감 정보 로깅 제거
 
     const response = await fetch("http://127.0.0.1:8000/auth/register", {
       method: "POST",
@@ -12,7 +12,7 @@ export async function POST(req: Request) {
     });
 
     const data = await response.json();
-    console.log("회원가입 API 응답:", data); // ✅ 응답 로그 추가
+    // 응답 로깅 제거
 
     if (!response.ok) {
       return NextResponse.json({ error: data.detail || "회원가입 실패" }, { status: response.status });
