@@ -195,11 +195,22 @@ const discountedKrwByLevel = (baseKrw: number, level: 0 | 1 | 2) => {
   return v;
 };
 
+// 모듈별 가격 오버라이드 (KRW)
+const MODULE_PRICE_OVERRIDE_KRW: Record<string, Record<string, number>> = {
+  "stl_classifier": { "1YEAR": 2_200_000, "LIFETIME": 5_500_000 },
+};
+
 const priceLabelForModule = (
   mod: string,
   period: "1WEEK" | "1MONTH" | "1YEAR" | "LIFETIME",
   country?: string
 ) => {
+  // 모듈별 가격 오버라이드 확인
+  const override = MODULE_PRICE_OVERRIDE_KRW[mod]?.[period];
+  if (override && isKrwDisplay(country)) {
+    return `₩${override.toLocaleString()}`;
+  }
+
   const level = MODULE_DISCOUNT_LEVELS[mod] ?? 0;
 
   if (period === "LIFETIME") {
@@ -244,7 +255,7 @@ const modules = [
   "3_transfer_jig_maker",
   "e_transfer_jig_maker",
   "stl_classifier",
-  "exo_abutment_editor",
+  // "exo_abutment_editor", // 숨김 처리
   "stl_to_html",
   "stl_to_image",
 ];
@@ -308,7 +319,7 @@ export default function BuyPage() {
   const isKorean = lang === 'kr';
 
   // 한국 구매 페이지 선택 상태 (null: 초기 버튼 표시, automation/fastEditor: 해당 결제 표시)
-  const [activeTab, setActiveTab] = useState<'automation' | 'fastEditor' | 'sorter' | null>(null);
+  const [activeTab, setActiveTab] = useState<'automation' | 'fastEditor' | 'sorter' | null>('automation');
 
   // 한국 외 지역 안내 모달 상태
   const [showRegionModal, setShowRegionModal] = useState(false);
@@ -1173,23 +1184,32 @@ export default function BuyPage() {
               </span>
             )}
           </div>
-          {/* 트랜스퍼 지그는 1년/평생만 표시 */}
-          {(mod === "3_transfer_jig_maker" || mod === "e_transfer_jig_maker") ? (
-            <div className="flex flex-row w-full justify-center items-center gap-2">
-              <button
-                className="bg-black/30 border border-white/10 text-white rounded-lg w-1/2 h-14 text-base font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-black/50 hover:border-white/20"
-                onClick={() => setShowTransferJigContactModal(true)}
-              >
-                <span className="text-lg leading-5">{t("buyPage.year1")}</span>
-                <span className="text-sm leading-5 text-[#fde68a]">₩2,200,000</span>
-              </button>
-              <button
-                className="bg-black/30 border border-white/10 text-white rounded-lg w-1/2 h-14 text-base font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-black/50 hover:border-white/20"
-                onClick={() => setShowTransferJigContactModal(true)}
-              >
-                <span className="text-lg leading-5">{t("buyPage.lifetime")}</span>
-                <span className="text-sm leading-5 text-[#fde68a]">₩5,500,000</span>
-              </button>
+          {/* 트랜스퍼 지그 / STL Classifier는 1년/평생만 표시 */}
+          {(mod === "3_transfer_jig_maker" || mod === "e_transfer_jig_maker" || mod === "stl_classifier") ? (
+            <div className="flex flex-col w-full items-center gap-2">
+              <div className="flex flex-row w-full justify-center items-center gap-2">
+                <button
+                  className="bg-black/30 border border-white/10 text-white rounded-lg w-1/3 h-14 text-base font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-black/50 hover:border-white/20"
+                  onClick={() => setShowTransferJigContactModal(true)}
+                >
+                  <span className="text-lg leading-5">{t("buyPage.free3day")}</span>
+                  <span className="text-sm leading-5 text-[#fde68a]">{t("buyPage.free")}</span>
+                </button>
+                <button
+                  className="bg-black/30 border border-white/10 text-white rounded-lg w-1/3 h-14 text-base font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-black/50 hover:border-white/20"
+                  onClick={() => setShowTransferJigContactModal(true)}
+                >
+                  <span className="text-lg leading-5">{t("buyPage.year1")}</span>
+                  <span className="text-sm leading-5 text-[#fde68a]">₩2,200,000</span>
+                </button>
+                <button
+                  className="bg-black/30 border border-white/10 text-white rounded-lg w-1/3 h-14 text-base font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-black/50 hover:border-white/20"
+                  onClick={() => setShowTransferJigContactModal(true)}
+                >
+                  <span className="text-lg leading-5">{t("buyPage.lifetime")}</span>
+                  <span className="text-sm leading-5 text-[#fde68a]">₩5,500,000</span>
+                </button>
+              </div>
             </div>
           ) : (mod === "exo_abutment_editor" || mod === "stl_to_html" || mod === "stl_to_image") ? (
             /* 무료 모듈 */
@@ -1293,18 +1313,25 @@ export default function BuyPage() {
               )}
             </div>
           </div>
-          {/* 트랜스퍼 지그는 1년/평생만 표시 */}
-          {(mod === "3_transfer_jig_maker" || mod === "e_transfer_jig_maker") ? (
+          {/* 트랜스퍼 지그 / STL Classifier: 3일무료 + 1년/평생 */}
+          {(mod === "3_transfer_jig_maker" || mod === "e_transfer_jig_maker" || mod === "stl_classifier") ? (
             <div className="flex flex-col gap-3 w-40 flex-shrink-0 h-full justify-center items-center">
               <button
-                className="bg-black/30 border border-white/10 text-white rounded-lg w-36 h-20 text-lg font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-black/50 hover:border-white/20"
+                className="bg-black/30 border border-white/10 text-white rounded-lg w-36 h-16 text-lg font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-black/50 hover:border-white/20"
+                onClick={() => setShowTransferJigContactModal(true)}
+              >
+                <span className="text-xl leading-5">{t("buyPage.free3day")}</span>
+                <span className="text-base leading-5 text-[#fde68a]">{t("buyPage.free")}</span>
+              </button>
+              <button
+                className="bg-black/30 border border-white/10 text-white rounded-lg w-36 h-16 text-lg font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-black/50 hover:border-white/20"
                 onClick={() => setShowTransferJigContactModal(true)}
               >
                 <span className="text-xl leading-5">{t("buyPage.year1")}</span>
                 <span className="text-base leading-5 text-[#fde68a]">₩2,200,000</span>
               </button>
               <button
-                className="bg-black/30 border border-white/10 text-white rounded-lg w-36 h-20 text-lg font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-black/50 hover:border-white/20"
+                className="bg-black/30 border border-white/10 text-white rounded-lg w-36 h-16 text-lg font-semibold flex flex-col items-center justify-center transition-all duration-300 hover:bg-black/50 hover:border-white/20"
                 onClick={() => setShowTransferJigContactModal(true)}
               >
                 <span className="text-xl leading-5">{t("buyPage.lifetime")}</span>
