@@ -1495,22 +1495,6 @@ export default function BuyPage() {
                   </div>
                 ) : activeTab === 'automation' ? (
                   <>
-                    {/* 뒤로가기 버튼 */}
-                    <div className="flex justify-center mb-8">
-                      <button
-                        onClick={() => setActiveTab(null)}
-                        className="bg-black/10 backdrop-blur-xl border border-white/10 rounded-2xl px-10 py-5
-                                   text-white text-lg font-semibold
-                                   hover:bg-black/15 hover:border-[#fde68a]/30 transition-all duration-500
-                                   inline-flex items-center gap-3"
-                        style={{ boxShadow: '0 0 30px rgba(255, 255, 255, 0.08)' }}
-                        onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 0 40px rgba(253, 230, 138, 0.25), 0 0 80px rgba(253, 230, 138, 0.15)'}
-                        onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 0 30px rgba(255, 255, 255, 0.08)'}
-                      >
-                        <span>←</span>
-                        <span>{t("common.back") || "뒤로가기"}</span>
-                      </button>
-                    </div>
                     {moduleCards}
                   </>
                 ) : activeTab === 'fastEditor' ? (
