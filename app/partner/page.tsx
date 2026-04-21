@@ -124,6 +124,8 @@ export default function PartnerPage() {
       const expiry = data.expiry === "9999-12-31" ? "Permanent" : data.expiry === "2000-01-01" ? "Revoked" : data.expiry;
       setMessage({ text: `${label} - ${expiry}`, type: "success" });
       addLog(label, targetEmail, expiry, true);
+      // 상태 자동 갱신
+      handleCheckStatus();
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : "Failed";
       setMessage({ text: msg, type: "error" });
