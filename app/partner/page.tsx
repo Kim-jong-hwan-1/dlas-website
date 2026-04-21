@@ -29,6 +29,7 @@ export default function PartnerPage() {
   const [loginLoading, setLoginLoading] = useState(false);
 
   const [targetEmail, setTargetEmail] = useState("");
+  const [moduleId, setModuleId] = useState("1");
   const [loading, setLoading] = useState("");
   const [statusInfo, setStatusInfo] = useState<Record<string, unknown> | null>(null);
   const [message, setMessage] = useState<{ text: string; type: "success" | "error" } | null>(null);
@@ -116,7 +117,7 @@ export default function PartnerPage() {
       const res = await fetch(`${API_BASE}/partner/update-license`, {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-        body: JSON.stringify({ target_email: targetEmail.trim(), action }),
+        body: JSON.stringify({ target_email: targetEmail.trim(), action, module_id: moduleId }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.detail || "Failed");
@@ -252,29 +253,10 @@ export default function PartnerPage() {
             </div>
           </div>
 
-          {/* 모듈 1 상태 */}
+          {/* 모듈 상태 */}
           {statusInfo && (
             <div className={cardClass} style={cardShadow} onMouseEnter={glowEnter} onMouseLeave={glowLeave}>
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg font-semibold" style={{ textShadow: "0 0 20px rgba(253, 230, 138, 0.5)" }}>
-                  Module 1 &mdash; BITE FINDER
-                </h2>
-                <span
-                  className={`px-3 py-1 rounded-full text-xs font-medium border ${
-                    statusInfo.module1_active
-                      ? "text-green-300 border-green-400/30 bg-green-400/10"
-                      : "text-red-300 border-red-400/30 bg-red-400/10"
-                  }`}
-                  style={{
-                    boxShadow: statusInfo.module1_active
-                      ? "0 0 15px rgba(74, 222, 128, 0.3)"
-                      : "0 0 15px rgba(248, 113, 113, 0.3)",
-                  }}
-                >
-                  {statusInfo.module1_active ? "ACTIVE" : "INACTIVE"}
-                </span>
-              </div>
-              <div className="grid grid-cols-2 gap-4 text-sm">
+              <div className="grid grid-cols-2 gap-4 text-sm mb-4">
                 <div className="bg-white/5 rounded-xl p-4 border border-white/5">
                   <p className="text-white/40 text-xs mb-1">User</p>
                   <p className="text-white/90">{String(statusInfo.email || "-")}</p>
@@ -283,25 +265,30 @@ export default function PartnerPage() {
                   <p className="text-white/40 text-xs mb-1">Name</p>
                   <p className="text-white/90">{String(statusInfo.name || "-")}</p>
                 </div>
+              </div>
+              <div className="grid grid-cols-2 gap-4 text-sm">
+                {/* Module 1 */}
                 <div className="bg-white/5 rounded-xl p-4 border border-white/5">
-                  <p className="text-white/40 text-xs mb-1">Company</p>
-                  <p className="text-white/90">{String(statusInfo.workplace_name || "-")}</p>
+                  <div className="flex items-center justify-between mb-2">
+                    <p className="text-white/50 text-xs font-medium">Module 1 — BITE FINDER</p>
+                    <span className={`px-2 py-0.5 rounded-full text-[10px] font-medium ${statusInfo.module1_active ? "text-green-300 bg-green-400/10" : "text-red-300 bg-red-400/10"}`}>
+                      {statusInfo.module1_active ? "ACTIVE" : "INACTIVE"}
+                    </span>
+                  </div>
+                  <p className={`text-sm ${statusInfo.module1_active ? "text-green-300" : "text-red-300"}`}>
+                    {statusInfo.module1_license ? (statusInfo.module1_license === "9999-12-31" ? "PERMANENT" : String(statusInfo.module1_license)) : "NONE"}
+                  </p>
                 </div>
+                {/* Module 4 */}
                 <div className="bg-white/5 rounded-xl p-4 border border-white/5">
-                  <p className="text-white/40 text-xs mb-1">License Expiry</p>
-                  <p
-                    className={statusInfo.module1_active ? "text-green-300" : "text-red-300"}
-                    style={{
-                      textShadow: statusInfo.module1_active
-                        ? "0 0 8px rgba(74, 222, 128, 0.4)"
-                        : "0 0 8px rgba(248, 113, 113, 0.4)",
-                    }}
-                  >
-                    {statusInfo.module1_license
-                      ? statusInfo.module1_license === "9999-12-31"
-                        ? "PERMANENT"
-                        : String(statusInfo.module1_license)
-                      : "NONE"}
+                  <div className="flex items-center justify-between mb-2">
+                    <p className="text-white/50 text-xs font-medium">Module 4 — FAST DENTURE</p>
+                    <span className={`px-2 py-0.5 rounded-full text-[10px] font-medium ${statusInfo.module4_active ? "text-green-300 bg-green-400/10" : "text-red-300 bg-red-400/10"}`}>
+                      {statusInfo.module4_active ? "ACTIVE" : "INACTIVE"}
+                    </span>
+                  </div>
+                  <p className={`text-sm ${statusInfo.module4_active ? "text-green-300" : "text-red-300"}`}>
+                    {statusInfo.module4_license ? (statusInfo.module4_license === "9999-12-31" ? "PERMANENT" : String(statusInfo.module4_license)) : "NONE"}
                   </p>
                 </div>
               </div>
@@ -313,7 +300,14 @@ export default function PartnerPage() {
             <h2 className="text-lg font-semibold mb-2" style={{ textShadow: "0 0 20px rgba(253, 230, 138, 0.5)" }}>
               License Control
             </h2>
-            <p className="text-white/30 text-xs mb-5">Module 1 &mdash; BITE FINDER</p>
+            <div className="flex items-center gap-3 mb-5">
+              <span className="text-white/40 text-sm">Module:</span>
+              <select value={moduleId} onChange={(e) => setModuleId(e.target.value)}
+                className="bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-[#fde68a]/30 transition-all duration-300">
+                <option value="1" className="bg-[#1a1a24]">#1 BITE FINDER</option>
+                <option value="4" className="bg-[#1a1a24]">#4 FAST DENTURE BOOLEANER</option>
+              </select>
+            </div>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               <button
                 onClick={() => handleAction("3day", "3-Day Free")}
