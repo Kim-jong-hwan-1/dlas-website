@@ -270,7 +270,7 @@ export default function PartnerPage() {
                 {/* Module 1 */}
                 <div className="bg-white/5 rounded-xl p-4 border border-white/5">
                   <div className="flex items-center justify-between mb-2">
-                    <p className="text-white/50 text-xs font-medium">Module 1 — BITE FINDER</p>
+                    <p className="text-white/50 text-xs font-medium">For 3shape</p>
                     <span className={`px-2 py-0.5 rounded-full text-[10px] font-medium ${statusInfo.module1_active ? "text-green-300 bg-green-400/10" : "text-red-300 bg-red-400/10"}`}>
                       {statusInfo.module1_active ? "ACTIVE" : "INACTIVE"}
                     </span>
@@ -282,7 +282,7 @@ export default function PartnerPage() {
                 {/* Module 4 */}
                 <div className="bg-white/5 rounded-xl p-4 border border-white/5">
                   <div className="flex items-center justify-between mb-2">
-                    <p className="text-white/50 text-xs font-medium">Module 4 — FAST DENTURE</p>
+                    <p className="text-white/50 text-xs font-medium">For ExoCad</p>
                     <span className={`px-2 py-0.5 rounded-full text-[10px] font-medium ${statusInfo.module4_active ? "text-green-300 bg-green-400/10" : "text-red-300 bg-red-400/10"}`}>
                       {statusInfo.module4_active ? "ACTIVE" : "INACTIVE"}
                     </span>
@@ -304,8 +304,8 @@ export default function PartnerPage() {
               <span className="text-white/40 text-sm">Module:</span>
               <select value={moduleId} onChange={(e) => setModuleId(e.target.value)}
                 className="bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-[#fde68a]/30 transition-all duration-300">
-                <option value="1" className="bg-[#1a1a24]">#1 BITE FINDER</option>
-                <option value="4" className="bg-[#1a1a24]">#4 FAST DENTURE BOOLEANER</option>
+                <option value="1" className="bg-[#1a1a24]">For 3shape</option>
+                <option value="4" className="bg-[#1a1a24]">For ExoCad</option>
               </select>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
