@@ -52,8 +52,8 @@ export default function HomePage() {
     }
   }, [router, lang]);
 
-  // 채용 모달
-  const [showRecruitModal, setShowRecruitModal] = useState(false);
+  // 채용 모달 (비활성화)
+  const [showRecruitModal] = useState(false);
   const [recruitPage, setRecruitPage] = useState(0);
   const recruitImages = [
     "/recruit/001.png",
@@ -65,19 +65,10 @@ export default function HomePage() {
     "/recruit/007.png",
   ];
 
-  // 인트로 끝난 후 채용 모달 표시 (하루동안 보지않기 체크, 모바일 제외)
+  // 채용 모달 비활성화
   const [introFinished, setIntroFinished] = useState(false);
   useEffect(() => {
-    if (!introFinished) return;
-    // 모바일에서는 채용 모달을 표시하지 않음
-    if (window.innerWidth <= 768) return;
-    const dismissed = localStorage.getItem("DLAS_RECRUIT_DISMISSED");
-    if (dismissed) {
-      const dismissedTime = parseInt(dismissed, 10);
-      if (Date.now() - dismissedTime < 24 * 60 * 60 * 1000) return;
-    }
-    const timer = setTimeout(() => setShowRecruitModal(true), 500);
-    return () => clearTimeout(timer);
+    // 채용 모달 비활성화됨
   }, [introFinished]);
 
   const dismissRecruitForDay = () => {
