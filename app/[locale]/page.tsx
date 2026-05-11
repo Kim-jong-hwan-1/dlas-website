@@ -73,7 +73,6 @@ export default function HomePage() {
 
   const dismissRecruitForDay = () => {
     localStorage.setItem("DLAS_RECRUIT_DISMISSED", String(Date.now()));
-    setShowRecruitModal(false);
   };
 
   // 번역된 텍스트 시퀀스
@@ -287,95 +286,7 @@ export default function HomePage() {
         </section>
       </PageLayout>
 
-      {/* 채용 모달 */}
-      {showRecruitModal && (
-        <div
-          className="fixed inset-0 z-[200] bg-black/60 backdrop-blur-sm flex items-center justify-center px-4"
-          onClick={() => setShowRecruitModal(false)}
-        >
-          <div
-            className="relative bg-black/20 backdrop-blur-xl border border-white/10 rounded-2xl p-4 sm:p-6 max-w-5xl w-full"
-            style={{ boxShadow: '0 0 40px rgba(253, 230, 138, 0.15), 0 0 80px rgba(253, 230, 138, 0.08)' }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex flex-col md:flex-row gap-4 sm:gap-6">
-              {/* 왼쪽: 이미지 캐러셀 */}
-              <div className="relative flex-1 min-w-0">
-                <div className="relative w-full aspect-[4/5] rounded-xl overflow-hidden">
-                  <Image
-                    src={recruitImages[recruitPage]}
-                    alt={`채용공고 ${recruitPage + 1}`}
-                    fill
-                    className="object-contain"
-                    priority
-                  />
-                </div>
-
-                {/* 페이지 인디케이터 */}
-                <div className="flex justify-center gap-2 mt-3">
-                  {recruitImages.map((_, i) => (
-                    <button
-                      key={i}
-                      onClick={() => setRecruitPage(i)}
-                      className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                        i === recruitPage ? 'bg-[#fde68a] w-6' : 'bg-white/30 hover:bg-white/50'
-                      }`}
-                    />
-                  ))}
-                </div>
-
-                {/* 이전/다음 버튼 */}
-                {recruitPage > 0 && (
-                  <button
-                    onClick={() => setRecruitPage((p) => p - 1)}
-                    className="absolute left-2 top-[45%] -translate-y-1/2 w-10 h-10 rounded-full bg-black/40 border border-white/10 text-white flex items-center justify-center hover:bg-black/60 transition-all"
-                  >
-                    ←
-                  </button>
-                )}
-                {recruitPage < recruitImages.length - 1 && (
-                  <button
-                    onClick={() => setRecruitPage((p) => p + 1)}
-                    className="absolute right-2 top-[45%] -translate-y-1/2 w-10 h-10 rounded-full bg-black/40 border border-white/10 text-white flex items-center justify-center hover:bg-black/60 transition-all"
-                  >
-                    →
-                  </button>
-                )}
-              </div>
-
-              {/* 오른쪽: 유튜브 영상 */}
-              <div className="flex-1 min-w-0 flex flex-col">
-                <div className="relative w-full aspect-[9/16] md:aspect-auto md:flex-1 rounded-xl overflow-hidden border border-white/10 bg-black/30">
-                  <iframe
-                    className="w-full h-full absolute inset-0"
-                    src="https://www.youtube.com/embed/2Ji6d2V1dKs?autoplay=1&mute=1"
-                    title="DLAS 채용 안내 영상"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* 하단 버튼 */}
-            <div className="flex justify-between items-center mt-4">
-              <button
-                onClick={dismissRecruitForDay}
-                className="text-white/40 text-sm hover:text-white/70 transition-colors"
-              >
-                하루동안 보지않기
-              </button>
-              <button
-                onClick={() => setShowRecruitModal(false)}
-                className="bg-black/30 border border-white/10 text-white px-5 py-2 rounded-lg text-sm
-                           hover:bg-black/50 hover:border-white/20 transition-all duration-300"
-              >
-                닫기
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* 채용 모달 - 비활성화됨 */}
     </>
   );
 }
