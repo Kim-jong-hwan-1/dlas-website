@@ -48,6 +48,11 @@ export default function AdminPage() {
   const [message, setMessage] = useState<{ text: string; type: "success" | "error" } | null>(null);
   const [logs, setLogs] = useState<LogEntry[]>([]);
 
+  // 크레딧
+  const [creditBalance, setCreditBalance] = useState<number | null>(null);
+  const [creditInput, setCreditInput] = useState("");
+  const [creditMap, setCreditMap] = useState<Record<string, number>>({});
+
   // 유저 리스트
   interface UserInfo { email: string; name: string; country: string; workplace_name: string; signup_date: string; module_licenses: Record<string, string>; is_verified: boolean; }
   const [users, setUsers] = useState<UserInfo[]>([]);
@@ -131,6 +136,19 @@ export default function AdminPage() {
       const user = Array.isArray(users) ? users.find((u: Record<string, unknown>) => u.email === targetEmail.trim()) : null;
 
       setStatusInfo({ ...data, ...(user || {}) });
+
+      // 크레딧 잔액도 함께 조회
+      try {
+        const balRes = await fetch(`${API_BASE}/admin/credits/balance?email=${encodeURIComponent(targetEmail.trim())}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        if (balRes.ok) {
+          const bal = await balRes.json();
+          setCreditBalance(bal.balance ?? 0);
+          setCreditInput(String(bal.balance ?? 0));
+        }
+      } catch { /* 잔액 조회 실패는 무시 */ }
+
       addLog("Status", targetEmail, "OK", true);
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : "Failed";
@@ -191,6 +209,64 @@ export default function AdminPage() {
       const msg = err instanceof Error ? err.message : "Failed";
       setMessage({ text: msg, type: "error" });
       addLog(label, targetEmail, msg, false);
+    } finally {
+      setLoading("");
+    }
+  };
+
+  // 크레딧 잔액 설정 (편집값을 절대 잔액으로 적용)
+  const setCredit = async () => {
+    if (!targetEmail.trim()) return setMessage({ text: "Enter target email", type: "error" });
+    const balance = parseInt(creditInput, 10);
+    if (isNaN(balance) || balance < 0) return setMessage({ text: "크레딧은 0 이상의 숫자여야 합니다.", type: "error" });
+    setLoading("credit-set");
+    setMessage(null);
+    try {
+      const res = await fetch(`${API_BASE}/admin/credits/set`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+        body: JSON.stringify({ user_email: targetEmail.trim(), balance }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.detail || "Failed");
+      setCreditBalance(data.balance);
+      setCreditInput(String(data.balance));
+      setCreditMap((prev) => ({ ...prev, [targetEmail.trim()]: data.balance }));
+      const msg = `Credit set: ${targetEmail} → ${data.balance}`;
+      setMessage({ text: msg, type: "success" });
+      addLog("Credit Set", targetEmail, msg, true);
+    } catch (err: unknown) {
+      const m = err instanceof Error ? err.message : "Failed";
+      setMessage({ text: m, type: "error" });
+      addLog("Credit Set", targetEmail, m, false);
+    } finally {
+      setLoading("");
+    }
+  };
+
+  // 크레딧 지급 (현재 잔액에 추가)
+  const grantCredit = async (amount: number) => {
+    if (!targetEmail.trim()) return setMessage({ text: "Enter target email", type: "error" });
+    setLoading(`credit-grant-${amount}`);
+    setMessage(null);
+    try {
+      const res = await fetch(`${API_BASE}/admin/credits/grant`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+        body: JSON.stringify({ user_email: targetEmail.trim(), amount, reason: "manual" }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.detail || "Failed");
+      setCreditBalance(data.balance);
+      setCreditInput(String(data.balance));
+      setCreditMap((prev) => ({ ...prev, [targetEmail.trim()]: data.balance }));
+      const msg = `Credit +${amount} → ${data.balance}`;
+      setMessage({ text: msg, type: "success" });
+      addLog("Credit Grant", targetEmail, msg, true);
+    } catch (err: unknown) {
+      const m = err instanceof Error ? err.message : "Failed";
+      setMessage({ text: m, type: "error" });
+      addLog("Credit Grant", targetEmail, m, false);
     } finally {
       setLoading("");
     }
@@ -292,6 +368,19 @@ export default function AdminPage() {
       if (!res.ok) throw new Error(data.detail || "Failed");
       setUsers(Array.isArray(data) ? data : []);
       setShowUsers(true);
+
+      // 크레딧 잔액 맵 로드 (테이블 표시용)
+      try {
+        const accRes = await fetch(`${API_BASE}/admin/credits/accounts?limit=100000`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        if (accRes.ok) {
+          const accData = await accRes.json();
+          const map: Record<string, number> = {};
+          (accData.accounts || []).forEach((a: { email: string; balance: number }) => { map[a.email] = a.balance; });
+          setCreditMap(map);
+        }
+      } catch { /* 잔액 맵 실패는 무시 */ }
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : "Failed";
       setMessage({ text: msg, type: "error" });
@@ -304,10 +393,10 @@ export default function AdminPage() {
   const downloadUserCSV = () => {
     if (users.length === 0) return;
     const BOM = "\uFEFF";
-    const header = "No,Email,Name,Country,Company,Signup Date,Verified,Module 1,Module 2,Module 3,Module 4,Module 5,Module 6,Module 7,Module 8,Module 9\n";
+    const header = "No,Email,Name,Country,Company,Signup Date,Verified,Credit,Module 1,Module 2,Module 3,Module 4,Module 5,Module 6,Module 7,Module 8,Module 9\n";
     const rows = users.map((u, i) => {
       const ml = u.module_licenses || {};
-      return `${i + 1},"${u.email}","${u.name || ""}","${u.country || ""}","${u.workplace_name || ""}","${u.signup_date || ""}","${u.is_verified ? "Y" : "N"}","${ml["1"] || ""}","${ml["2"] || ""}","${ml["3"] || ""}","${ml["4"] || ""}","${ml["5"] || ""}","${ml["6"] || ""}","${ml["7"] || ""}","${ml["8"] || ""}","${ml["9"] || ""}"`;
+      return `${i + 1},"${u.email}","${u.name || ""}","${u.country || ""}","${u.workplace_name || ""}","${u.signup_date || ""}","${u.is_verified ? "Y" : "N"}","${creditMap[u.email] ?? 0}","${ml["1"] || ""}","${ml["2"] || ""}","${ml["3"] || ""}","${ml["4"] || ""}","${ml["5"] || ""}","${ml["6"] || ""}","${ml["7"] || ""}","${ml["8"] || ""}","${ml["9"] || ""}"`;
     }).join("\n");
     const blob = new Blob([BOM + header + rows], { type: "text/csv;charset=utf-8;" });
     const a = document.createElement("a");
@@ -499,6 +588,48 @@ export default function AdminPage() {
             </div>
           </div>
 
+          {/* 크레딧 관리 */}
+          <div className={cardClass} style={cardShadow} onMouseEnter={glowEnter} onMouseLeave={glowLeave}>
+            <h2 className="text-lg font-semibold mb-2" style={{ textShadow: "0 0 20px rgba(253, 230, 138, 0.5)" }}>
+              Credit Control
+            </h2>
+            <p className="text-white/40 text-xs mb-5">
+              잔액을 입력하고 SET을 누르면 해당 유저의 크레딧이 그 값으로 적용됩니다. (Target User Email 기준)
+            </p>
+            <div className="flex flex-wrap items-center gap-3">
+              <div className="flex items-center gap-2">
+                <span className="text-white/40 text-sm">Balance:</span>
+                <input
+                  type="number"
+                  min={0}
+                  placeholder="0"
+                  value={creditInput}
+                  onChange={(e) => setCreditInput(e.target.value)}
+                  className="w-32 px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-white/20 focus:outline-none focus:border-[#fde68a]/30 transition-all duration-300"
+                />
+                <button onClick={setCredit} disabled={!!loading}
+                  className="px-6 py-3 bg-black/30 hover:bg-black/50 disabled:opacity-50 border border-white/10 hover:border-[#fde68a]/30 rounded-lg font-medium transition-all duration-500 whitespace-nowrap"
+                  style={{ textShadow: "0 0 10px rgba(255,255,255,0.5)" }}>
+                  {loading === "credit-set" ? "..." : "SET"}
+                </button>
+              </div>
+              {creditBalance !== null && (
+                <span className="text-white/50 text-sm">
+                  Current: <span className="text-[#fde68a] font-semibold">{creditBalance}</span>
+                </span>
+              )}
+              <div className="flex items-center gap-2 ml-auto">
+                <span className="text-white/30 text-xs">Quick grant:</span>
+                {[10, 50, 100].map((amt) => (
+                  <button key={amt} onClick={() => grantCredit(amt)} disabled={!!loading}
+                    className="px-3 py-2 bg-black/30 hover:bg-black/50 disabled:opacity-50 border border-white/10 hover:border-[#fde68a]/30 rounded-lg text-sm transition-all duration-500">
+                    {loading === `credit-grant-${amt}` ? "..." : `+${amt}`}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
           {/* 메시지 */}
           {message && (
             <div className={`p-4 rounded-xl backdrop-blur-sm border text-sm ${message.type === "success" ? "bg-green-500/5 border-green-400/20 text-green-300" : "bg-red-500/5 border-red-400/20 text-red-300"}`}>
@@ -541,6 +672,7 @@ export default function AdminPage() {
                       <th className="text-left py-2 px-2 font-medium">Company</th>
                       <th className="text-left py-2 px-2 font-medium">Country</th>
                       <th className="text-left py-2 px-2 font-medium">Signup</th>
+                      <th className="text-center py-2 px-2 font-medium">Credit</th>
                       <th className="text-center py-2 px-2 font-medium">Modules</th>
                     </tr>
                   </thead>
@@ -558,6 +690,7 @@ export default function AdminPage() {
                           <td className="py-2 px-2 text-white/40">{u.workplace_name || "-"}</td>
                           <td className="py-2 px-2 text-white/30">{u.country || "-"}</td>
                           <td className="py-2 px-2 text-white/30">{u.signup_date || "-"}</td>
+                          <td className="py-2 px-2 text-center text-[#fde68a]">{creditMap[u.email] ?? 0}</td>
                           <td className="py-2 px-2 text-center">
                             {activeModules.length > 0 ? (
                               <div className="flex flex-wrap justify-center gap-0.5">
