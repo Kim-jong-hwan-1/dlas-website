@@ -52,10 +52,22 @@ export default function HomePage() {
     }
   }, [router, lang]);
 
+  // 크레딧 사용 안내 공지 모달
   const [introFinished, setIntroFinished] = useState(false);
+  const [showNoticeModal, setShowNoticeModal] = useState(false);
+
   useEffect(() => {
-    // 공지 모달 비활성화됨
+    if (!introFinished) return;
+    const dismissed = localStorage.getItem("DLAS_CREDIT_NOTICE_DISMISSED");
+    if (!dismissed || Date.now() - Number(dismissed) > 24 * 60 * 60 * 1000) {
+      setShowNoticeModal(true);
+    }
   }, [introFinished]);
+
+  const dismissNoticeForDay = () => {
+    localStorage.setItem("DLAS_CREDIT_NOTICE_DISMISSED", String(Date.now()));
+    setShowNoticeModal(false);
+  };
 
   // 번역된 텍스트 시퀀스
   const textSequence = [
@@ -267,6 +279,52 @@ export default function HomePage() {
           </div>
         </section>
       </PageLayout>
+
+      {/* 크레딧 사용 안내 공지 모달 */}
+      {showNoticeModal && (
+        <div
+          className="fixed inset-0 z-[200] bg-black/60 backdrop-blur-sm flex items-center justify-center px-4 py-6"
+          onClick={() => setShowNoticeModal(false)}
+        >
+          <div
+            className="relative bg-black/20 backdrop-blur-xl border border-white/10 rounded-2xl p-3 sm:p-4 max-w-lg w-full max-h-full flex flex-col"
+            style={{ boxShadow: '0 0 40px rgba(253, 230, 138, 0.15), 0 0 80px rgba(253, 230, 138, 0.08)' }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setShowNoticeModal(false)}
+              aria-label="닫기"
+              className="absolute right-3 top-3 z-10 h-9 w-9 rounded-full bg-black/60 hover:bg-black/80 border border-white/10 text-white flex items-center justify-center transition"
+            >
+              <span className="text-xl leading-none">×</span>
+            </button>
+            <div className="relative w-full flex-1 min-h-0 rounded-xl overflow-hidden">
+              <Image
+                src="/notice/credit-notice.jpg"
+                alt="DLAS 자동화 모듈 크레딧 사용 안내"
+                width={891}
+                height={1260}
+                className="w-full h-full object-contain"
+                priority
+              />
+            </div>
+            <div className="flex justify-between items-center mt-3 gap-3">
+              <button
+                onClick={dismissNoticeForDay}
+                className="px-4 py-2 text-sm text-white/60 hover:text-white transition"
+              >
+                오늘 하루 보지 않기
+              </button>
+              <button
+                onClick={() => setShowNoticeModal(false)}
+                className="px-6 py-2 bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-lg font-medium transition"
+              >
+                닫기
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
