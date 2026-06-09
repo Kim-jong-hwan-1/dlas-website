@@ -287,7 +287,7 @@ export default function HomePage() {
           onClick={() => setShowNoticeModal(false)}
         >
           <div
-            className="relative bg-black/20 backdrop-blur-xl border border-white/10 rounded-2xl p-3 sm:p-4 max-w-3xl w-full max-h-full flex flex-col"
+            className="relative bg-black/20 backdrop-blur-xl border border-white/10 rounded-2xl p-3 sm:p-4 max-w-3xl w-full max-h-[90vh] flex flex-col"
             style={{ boxShadow: '0 0 40px rgba(253, 230, 138, 0.15), 0 0 80px rgba(253, 230, 138, 0.08)' }}
             onClick={(e) => e.stopPropagation()}
           >
@@ -298,17 +298,17 @@ export default function HomePage() {
             >
               <span className="text-xl leading-none">×</span>
             </button>
-            <div className="relative w-full flex-1 min-h-0 rounded-xl overflow-hidden">
+            <div className="flex-1 min-h-0 overflow-y-auto rounded-xl">
               <Image
                 src="/notice/credit-notice.jpg"
                 alt="DLAS 자동화 모듈 크레딧 사용 안내"
                 width={891}
                 height={1260}
-                className="w-full h-full object-contain"
+                className="w-full h-auto rounded-xl"
                 priority
               />
             </div>
-            <div className="flex justify-between items-center mt-3 gap-3">
+            <div className="flex justify-between items-center mt-3 gap-3 flex-shrink-0">
               <button
                 onClick={dismissNoticeForDay}
                 className="px-4 py-2 text-sm text-white/60 hover:text-white transition"
