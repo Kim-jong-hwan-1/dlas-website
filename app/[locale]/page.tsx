@@ -287,7 +287,7 @@ export default function HomePage() {
           onClick={() => setShowNoticeModal(false)}
         >
           <div
-            className="relative bg-black/20 backdrop-blur-xl border border-white/10 rounded-2xl p-3 sm:p-4 max-w-lg w-full max-h-full flex flex-col"
+            className="relative bg-black/20 backdrop-blur-xl border border-white/10 rounded-2xl p-3 sm:p-4 max-w-3xl w-full max-h-full flex flex-col"
             style={{ boxShadow: '0 0 40px rgba(253, 230, 138, 0.15), 0 0 80px rgba(253, 230, 138, 0.08)' }}
             onClick={(e) => e.stopPropagation()}
           >
