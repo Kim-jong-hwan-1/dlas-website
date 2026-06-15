@@ -71,6 +71,14 @@ export default function AdminPage() {
   const [showAdminLogs, setShowAdminLogs] = useState(false);
   const [adminLogLoading, setAdminLogLoading] = useState(false);
 
+  // 크레딧 거래 내역
+  interface CreditTxn { id: number; transaction_id: string; user_id: number; user_email: string; change: number; balance_after: number; type: string; job_type: string | null; reason: string | null; case_count: number | null; created_at: string | null; }
+  const [creditTxns, setCreditTxns] = useState<CreditTxn[]>([]);
+  const [showCreditTxns, setShowCreditTxns] = useState(false);
+  const [creditTxnLoading, setCreditTxnLoading] = useState(false);
+  const [creditTypeFilter, setCreditTypeFilter] = useState<"" | "grant" | "use">("");
+  const [creditEmailFilter, setCreditEmailFilter] = useState("");
+
   // 세션 복원
   useEffect(() => {
     const saved = localStorage.getItem("DLAS_ADMIN_SESSION");
@@ -354,6 +362,47 @@ export default function AdminPage() {
       setMessage({ text: msg, type: "error" });
     } finally {
       setAdminLogLoading(false);
+    }
+  };
+
+  // 크레딧 거래 내역 조회 (필터: type + email)
+  const fetchCreditTxns = async () => {
+    setCreditTxnLoading(true);
+    try {
+      const params = new URLSearchParams({ limit: "500" });
+      if (creditTypeFilter) params.set("type", creditTypeFilter);
+      if (creditEmailFilter.trim()) params.set("email", creditEmailFilter.trim());
+      const res = await fetch(`${API_BASE}/admin/credits/transactions?${params.toString()}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.detail || "Failed");
+      setCreditTxns(data.transactions || []);
+      setShowCreditTxns(true);
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "Failed";
+      setMessage({ text: msg, type: "error" });
+    } finally {
+      setCreditTxnLoading(false);
+    }
+  };
+
+  // 크레딧 거래 내역 CSV 다운로드 (서버 export 사용 — 필터 동일 적용)
+  const downloadCreditTxnCSV = async () => {
+    try {
+      const params = new URLSearchParams();
+      if (creditTypeFilter) params.set("type", creditTypeFilter);
+      if (creditEmailFilter.trim()) params.set("email", creditEmailFilter.trim());
+      const url = `${API_BASE}/admin/export-credit-transactions${params.toString() ? `?${params.toString()}` : ""}`;
+      const res = await fetch(url, { headers: { Authorization: `Bearer ${token}` } });
+      if (!res.ok) throw new Error("Failed");
+      const blob = await res.blob();
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = `credit-transactions-${new Date().toISOString().split("T")[0]}.csv`;
+      a.click();
+    } catch {
+      setMessage({ text: "CSV 다운로드 실패", type: "error" });
     }
   };
 
@@ -819,6 +868,103 @@ export default function AdminPage() {
               <p className="text-white/30 text-sm text-center py-4">No admin logs found</p>
             ) : (
               <p className="text-white/20 text-sm text-center py-4">Click LOAD to view admin activity logs</p>
+            )}
+          </div>
+
+          {/* 크레딧 거래 내역 */}
+          <div className={cardClass} style={cardShadow} onMouseEnter={glowEnter} onMouseLeave={glowLeave}>
+            <div className="flex items-center justify-between mb-4 flex-wrap gap-3">
+              <h2 className="text-lg font-semibold" style={{ textShadow: "0 0 20px rgba(253, 230, 138, 0.5)" }}>
+                Credit Transactions
+                {showCreditTxns && creditTxns.length > 0 && (
+                  <span className="text-white/40 text-sm ml-3 font-normal">
+                    Granted +{creditTxns.filter(t => t.type === "grant").reduce((s, t) => s + t.change, 0).toLocaleString()} / Used {creditTxns.filter(t => t.type === "use").reduce((s, t) => s + t.change, 0).toLocaleString()}
+                  </span>
+                )}
+              </h2>
+              <div className="flex gap-2 flex-wrap items-center">
+                <select
+                  value={creditTypeFilter}
+                  onChange={(e) => setCreditTypeFilter(e.target.value as "" | "grant" | "use")}
+                  className="bg-white/5 border border-white/10 rounded-lg px-3 py-1.5 text-white text-xs focus:outline-none focus:border-[#fde68a]/30 transition-all duration-300"
+                >
+                  <option value="" className="bg-[#1a1a24]">All Types</option>
+                  <option value="grant" className="bg-[#1a1a24]">Grant (지급)</option>
+                  <option value="use" className="bg-[#1a1a24]">Use (차감)</option>
+                </select>
+                <input
+                  type="email"
+                  placeholder="Filter by email (optional)"
+                  value={creditEmailFilter}
+                  onChange={(e) => setCreditEmailFilter(e.target.value)}
+                  className="px-3 py-1.5 bg-white/5 border border-white/10 rounded-lg text-white text-xs placeholder-white/20 focus:outline-none focus:border-[#fde68a]/30 transition-all duration-300 w-48"
+                />
+                {showCreditTxns && creditTxns.length > 0 && (
+                  <button onClick={downloadCreditTxnCSV}
+                    className="px-3 py-1.5 text-xs bg-black/30 hover:bg-black/50 border border-white/10 hover:border-[#fde68a]/30 rounded-lg transition-all duration-500 text-white/50 hover:text-white">
+                    EXCEL (CSV)
+                  </button>
+                )}
+                <button onClick={fetchCreditTxns} disabled={creditTxnLoading}
+                  className="px-3 py-1.5 text-xs bg-black/30 hover:bg-black/50 disabled:opacity-50 border border-white/10 hover:border-[#fde68a]/30 rounded-lg transition-all duration-500 text-white/50 hover:text-white">
+                  {creditTxnLoading ? "..." : showCreditTxns ? "REFRESH" : "LOAD"}
+                </button>
+              </div>
+            </div>
+
+            {showCreditTxns && creditTxns.length > 0 ? (
+              <div className="overflow-x-auto max-h-[500px] overflow-y-auto">
+                <table className="w-full text-xs">
+                  <thead className="sticky top-0 bg-[#12121a]">
+                    <tr className="text-white/40 border-b border-white/10">
+                      <th className="text-left py-2 px-2 font-medium">Time</th>
+                      <th className="text-left py-2 px-2 font-medium">User</th>
+                      <th className="text-center py-2 px-2 font-medium">Type</th>
+                      <th className="text-right py-2 px-2 font-medium">Change</th>
+                      <th className="text-right py-2 px-2 font-medium">Balance After</th>
+                      <th className="text-left py-2 px-2 font-medium">Reason / Job</th>
+                      <th className="text-center py-2 px-2 font-medium">Cases</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {creditTxns.map((t) => {
+                      const isGrant = t.type === "grant";
+                      return (
+                        <tr key={t.id} className="border-b border-white/5 hover:bg-white/[0.03] transition-colors cursor-pointer"
+                          onClick={() => { setTargetEmail(t.user_email); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
+                          <td className="py-2 px-2 text-white/30 whitespace-nowrap">
+                            {t.created_at ? new Date(t.created_at).toLocaleString("ko-KR", { hour12: false }) : "-"}
+                          </td>
+                          <td className="py-2 px-2 text-white/70">{t.user_email || "-"}</td>
+                          <td className="py-2 px-2 text-center">
+                            <span className={`px-2 py-0.5 rounded text-[10px] font-medium ${isGrant ? "bg-green-400/10 text-green-300 border border-green-400/20" : "bg-orange-400/10 text-orange-300 border border-orange-400/20"}`}>
+                              {isGrant ? "GRANT" : "USE"}
+                            </span>
+                          </td>
+                          <td className={`py-2 px-2 text-right font-semibold whitespace-nowrap ${isGrant ? "text-green-300" : "text-orange-300"}`}>
+                            {isGrant ? "+" : ""}{t.change.toLocaleString()}
+                          </td>
+                          <td className="py-2 px-2 text-right text-[#fde68a]">{t.balance_after.toLocaleString()}</td>
+                          <td className="py-2 px-2 text-white/50">
+                            {t.job_type ? <span className="text-white/70">{t.job_type}</span> : null}
+                            {t.job_type && t.reason ? <span className="text-white/20"> · </span> : null}
+                            {t.reason ? <span>{t.reason}</span> : null}
+                            {!t.job_type && !t.reason ? <span className="text-white/20">-</span> : null}
+                          </td>
+                          <td className="py-2 px-2 text-center text-white/40">{t.case_count ?? "-"}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+                <p className="text-white/20 text-xs mt-3 text-center">
+                  {creditTxns.length} records · For granter admin, cross-reference Admin Activity Logs above
+                </p>
+              </div>
+            ) : showCreditTxns ? (
+              <p className="text-white/30 text-sm text-center py-4">No credit transactions found</p>
+            ) : (
+              <p className="text-white/20 text-sm text-center py-4">Click LOAD to view credit transactions (사용 내역 + 지급 내역)</p>
             )}
           </div>
 
